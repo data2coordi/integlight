@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Integlight</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/all.min.css" />
+    <link rel="stylesheet" href="./css/post.css" />
+  </head>
+  <body>
+    <header>
+      <img src="img/logo.png" alt="データエンジニア" class="data_engineer" />
+      <nav>
+        <ul class="gnav-navi-01">
+          <li><a href="http://toshidayurika.com:7100/wp-content/themes/integlight/Integlight.html#">Home</a></li>
+          <li><a href="#">Service menu</a></li>
+          <li><a href="http://toshidayurika.com:7100/wp-content/themes/integlight/single.html#">Plofile</a></li>
+          <li><a href="http://toshidayurika.com:7100/wp-content/themes/integlight/post.html#">Tech blog</a></li>
+          <li><a href="#">Privacy policy</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="hamburger-menu">
+        <input type="checkbox" id="menu-btn-check" />
+        <label for="menu-btn-check" class="menu-btn"><span></span></label>
+        <div class="menu-content">
+          <ul>
+            <li><a href="http://toshidayurika.com:7100/wp-content/themes/integlight/Integlight.html#">Home</a></li>
+            <li><a href="#">Service menu</a></li>
+            <li><a href="http://toshidayurika.com:7100/wp-content/themes/integlight/single.html#">Plofile</a></li>
+            <li><a href="http://toshidayurika.com:7100/wp-content/themes/integlight/post.html#">Tech blog</a></li>
+            <li><a href="#">Privacy policy</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <div class="flex">
+      <main>
+        <a href="#" class="pagetop"></a>
+        <h1>データ基盤（連携基盤＋分析基盤）の進化</h1>
+        <img src="img/unsplash_f6wB7D_xISY.jpg" alt="データ基盤" class="img" />
+        <nav>
+          <ol class="breadcrumbs">
+            <li>
+              <a href="#"><i class="fa-solid fa-house"></i>Home</a>
+              <a><i class="fa-solid fa-chevron-right"></i></a>
+            </li>
+            <li>
+              <a href="#"><i class="fa-solid fa-folder"></i>Blog</a>
+              <a><i class="fa-solid fa-chevron-right"></i></a>
+            </li>
+            <li><a href="#">データ基盤の構成要素</a></li>
+          </ol>
+        </nav>
+        <hr class="contents" />
+        <div class="table">
+          <p><strong>目次</strong></p>
+          <ol>
+            <li class="list"><a href="#">1.超概要</a></li>
+            <ol>
+              <li class="list"><a href="#">1-1.目標設定</a></li>
+              <li class="list"><a href="#">1-2.ボトルネックの特定</a></li>
+              <li class="list"><a href="#">1-3.サイジング</a></li>
+              <li class="list">
+                <a href="#">1-4.どうしてもやむを得ない場合</a>
+              </li>
+            </ol>
+            <li class="list"><a href="#">2.概要</a></li>
+            <ol>
+              <li class="list"><a href="#">2-1.目標設定</a></li>
+              <li class="list"><a href="#">2-2.ボトルネックの特定</a></li>
+              <li class="list"><a href="#">2-3.サイジング</a></li>
+            </ol>
+          </ol>
+        </div>
+        <hr class="contents" />
+        <h2 class="hover">超概要</h2>
+        <hr class="always" />
+
+        <p class="matter">
+          1.目標設定
+          最も重たいかつ重要な処理について目標の処理時間を設定する。<br />
+          2.ボトルネックの特定重要な処理がIOボトルネックかCPUボトルネックか評価する。<br />
+          3.
+          サイジングボトルネックについて目標時間をクリアできるようにハードウェアをサイジングする。拡張性も考慮する。<br />
+          4.
+          どうしても止む得ない場合はチューニングを考慮したサイジングを検討する。チューニングはシステムテストや本番運用後にどうしても必要な場合に実施するべきで、サイジング時点ではシンプルな構成を前提とするべきである。<br />
+        </p>
+        <h2 class="hover">概要</h2>
+        <hr class="always" />
+        <p class="matter">
+          1.目標設定
+          競合他社よりも少しでも早く優位に営業活動を促進したい等のニーズから処理時間に制限が設けられる。また、重要度によっては障害発生時のリトライも考慮して目標時間を設定する。将来の利用増加も考慮したデータ量も確認する。<br />
+          2.ボトルネックの特定
+          最も難しいフェーズ。入力、加工、出力のどこがボトルネックか？それはIO、CPUのどちらがボトルネックか調査する。入力、出力は外部のシステムで、処理性能を調査することが困難な場合も多い。
+          入力、出力はほとんどのケースではIOボトルネック。”入力元DB/出力先DBのシーケンシャルIO性能=処理時間”となることが多い。DBでソートが発生する場合はソートの処理時間も追加される。
+          データ連携基盤（ETL）でソートする場合はデータ連携基盤のIOボトルネックとなる可能性が高い。データ連携基盤でノーマライズ処理や複雑なビジネスロックを行う場合はCPUボトルネックとなるケースも有り得るが稀である。<br />
+          3. サイジング
+          まずは、ハードウェア製品デフォルト構成をベースとする。クラウドの場合は仮想サーバーの標準構成をベースとする。上記で特定したボトルネックに合わせて増設する。CPUならコア数増加かグレードアップ、IOならディスク本数増加かディスクのグレードアップを検討する。
+          CPUは並列処理ができる場合のみコア数追加が有効である。IOは本数増加でIO性能も向上するが、必要以上にスペースを確保することになりコスト増となるのでグレードアップでは不足している場合に、ディスク本数増加で対応する。
+        </p>
+        <h2 class="hover">コメントを残す</h2>
+        <hr class="always" />
+
+        <form
+          action="confirm.php"
+          method="post"
+          name="form"
+          onsubmit="return validate()"
+        >
+          <p>
+            コメント内容をご入力の上、「確認画面へ」ボタンをクリックしてください。
+          </p>
+          <div>
+            <label>お名前<span>※</span></label
+            ><br />
+            <input
+              type="text"
+              name="name"
+              placeholder="例）山田太郎"
+              value=""
+            />
+          </div>
+          <div>
+            <label>ふりがな<span>※</span></label
+            ><br />
+            <input
+              type="text"
+              name="furigana"
+              placeholder="例）やまだたろう"
+              value=""
+            />
+          </div>
+          <div>
+            <label>メールアドレス<span>※</span></label
+            ><br />
+            <input
+              type="text"
+              name="email"
+              placeholder="例）guest@example.com"
+              value=""
+            />
+          </div>
+          <div>
+            <label>サイト</label><br />
+            <input
+              type="text"
+              name="website"
+              placeholder="例）https://www.example.com"
+              value=""
+            />
+          </div>
+          <div>
+            <label>コメント種別<span>※</span></label
+            ><br />
+            <select name="item">
+              <option value="">お問い合わせ項目を選択してください</option>
+              <option value="ご意見・ご感想">ご意見・ご感想</option>
+              <option value="不具合について">不具合について</option>
+              <option value="返信希望">返信希望</option>
+            </select>
+          </div>
+          <div>
+            <label>コメント内容<span>※</span></label
+            ><br />
+            <textarea
+              name="content"
+              rows="5"
+              placeholder="コメント内容を入力"
+            ></textarea>
+          </div>
+          <button type="submit">確認画面へ</button>
+        </form>
+      </main>
+      <aside>
+        <div class="search">
+          <input type="search" id="site-search" name="q" />
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        <h3 class="hover02">カテゴリー</h3>
+        <hr />
+        <div class="category">
+          <label for="blog-check1"
+            ><i class="fa-solid fa-folder"></i>概要</label
+          >
+          <input type="checkbox" id="blog-check1" />
+          <ul id="blog-content1">
+            <li><a href="#">Tech Blogのコンセプト</a></li>
+            <li><a href="#">データ基盤（連携基盤＋分析基盤）の進化</a></li>
+          </ul>
+
+          <label for="blog-check2"
+            ><i class="fa-solid fa-folder"></i>データ基盤</label
+          >
+          <input type="checkbox" id="blog-check2" />
+          <ul id="blog-content2">
+            <li><a href="#">Tech Blogのコンセプト</a></li>
+            <li><a href="#">データ基盤（連携基盤＋分析基盤）の進化</a></li>
+          </ul>
+
+          <label for="blog-check3"
+            ><i class="fa-solid fa-folder"></i>データ連携基盤</label
+          >
+          <input type="checkbox" id="blog-check3" />
+          <ul id="blog-content3">
+            <li><a href="#">Tech Blogのコンセプト</a></li>
+            <li><a href="#">データ基盤（連携基盤＋分析基盤）の進化</a></li>
+          </ul>
+
+          <label for="blog-check4"
+            ><i class="fa-solid fa-folder"></i>パフォーマンス</label
+          >
+          <input type="checkbox" id="blog-check4" />
+          <ul id="blog-content4">
+            <li><a href="#">Tech Blogのコンセプト</a></li>
+            <li><a href="#">データ基盤（連携基盤＋分析基盤）の進化</a></li>
+          </ul>
+
+          <label for="blog-check5"
+            ><i class="fa-solid fa-folder"></i>データエンジニアの道具箱</label
+          >
+          <input type="checkbox" id="blog-check5" />
+          <ul id="blog-content5">
+            <li><a href="#">Tech Blogのコンセプト</a></li>
+            <li><a href="#">データ基盤（連携基盤＋分析基盤）の進化</a></li>
+          </ul>
+        </div>
+        <h3 class="hover02">人気の記事</h3>
+        <hr />
+        <p class="post"><a href="#">Tech Blogのコンセプト</a></p>
+        <p class="post">
+          <a href="#">データ基盤（連携基盤＋分析基盤）の進化</a>
+        </p>
+        <p class="post">
+          <a href="#">データ連携基盤の基本アーキテクチャー（クラスタ構成）</a>
+        </p>
+        <p class="post"><a href="#">データストア（データベース）の選び方</a></p>
+        <p class="post"><a href="#">データアクセスパスのパターン化</a></p>
+        <h3 class="hover02">タグ</h3>
+        <hr />
+        <div class="tag01">
+          <p class="tag"><small>データ基盤</small></p>
+          <p class="tag"><small>サイジング</small></p>
+          <p class="tag"><small>システム</small></p>
+          <p class="tag"><small>クラウド</small></p>
+          <p class="tag"><small>CPU</small></p>
+          <p class="tag"><small>ボトルネック</small></p>
+        </div>
+        <h3 class="hover02">プロフィール</h3>
+        <hr />
+        <div class="plofile">
+          <img src="img/oke.jpg" alt="" class="person" />
+          <p class="text"><strong>Plofile</strong></p>
+          <article>
+            ビックデータを専門とする。専門性の高い情報をアップしていく。
+            最近はまっているのはカレーに何のトッピングをするか。
+            <a href="#">続きを読む…</a>
+          </article>
+        </div>
+      </aside>
+    </div>
+    <footer>
+      <p>
+        <small>
+          Copyright© All rights reserved by データ基盤技術コンサルティング.2024
+        </small>
+      </p>
+    </footer>
+  </body>
+</html>

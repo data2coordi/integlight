@@ -1,0 +1,14 @@
+.photo {
+  border-radius: 50%;
+  width: 30%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media screen and (max-width: 767px) {
+  .photo {
+    width: 60%;
+  }
+}
