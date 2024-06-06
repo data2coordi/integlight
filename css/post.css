@@ -274,12 +274,21 @@ p.post {
   text-align: center;
 }
 
+.photo {
+  border-radius: 50%;
+  width: 30%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 @media screen and (max-width: 767px) {
   input,
   textarea {
     width: 100%;
   }
-  
+
   h1 {
     margin-top: 30px;
     margin-bottom: 15px;
@@ -294,7 +303,11 @@ p.post {
   }
 
   .hover:focus:after,
-  .hover02:focus:after{
+  .hover02:focus:after {
     transform: scale(1, 1); /* 線のx軸の長さを1 */
+  }
+
+  .photo {
+    width: 60%;
   }
 }
