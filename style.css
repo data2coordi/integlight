@@ -97,6 +97,9 @@ main {
 h1 {
   font-size: 2em;
   margin: 0.67em 0;
+  width: 1120px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Grouping content
@@ -418,10 +421,16 @@ h4,
 h5,
 h6 {
   clear: both;
+  width: 1120px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 p {
   margin-bottom: 1.5em;
+  width: 1120px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 dfn,
@@ -541,6 +550,10 @@ a {
 
 a:visited {
   color: #800080;
+  width: 1120px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 a:hover,
@@ -966,12 +979,6 @@ textarea {
   margin-bottom: 1.5em;
 }
 
-
-
-
-
-
-
 /* +css
 --------------------------------------------- */
 html {
@@ -992,7 +999,7 @@ body {
   padding: 0;
 }
 
-header {
+.site-header {
   width: 100%;
   background-color: #000;
   padding: 0.2%;
@@ -1007,20 +1014,24 @@ header {
   padding: 5px 20px 5px 20px;
 }
 
-#site-navigation {
-  display: flex;
-  flex-direction: row;
-  gap: 40px;
-  margin-right: 50px;
-  color: #fff;
+.site-title {
+  display: none;
 }
 
-li {
+.main-navigation ul {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  margin-right: 50px;
+  justify-content: flex-end;
+}
+
+.main-navigation li {
   list-style: none;
   margin-top: 30px;
 }
 
-.gnav-navi-01 > li > a {
+.main-navigation ul > li > a {
   text-decoration: none;
   color: #fff;
   font-family: Arial, Helvetica, sans-serif;
@@ -1095,20 +1106,22 @@ p.head {
   margin-right: auto;
 }
 
-.concept_img {
+.wp-block-cover,
+.wp-block-cover-image {
   position: relative;
+  width: 1120px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-p.success {
+.wp-block-group.text_01 {
   position: absolute;
-  color: #000; /*文字は白に*/
-  top: 40%;
-  left: 52%;
+  color: #000;
+  top: 35%;
+  left: 40%;
   width: 450px;
   line-height: 30px;
-  background: #ffffff79;
   margin-right: 50px;
-  padding: 10px;
 }
 
 .card-01 {
