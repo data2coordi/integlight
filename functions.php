@@ -176,3 +176,128 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
+// 以下は初期構成からの追加分	////////////////////////////////
+
+
+// ## パンくずリスト
+//////////////////////////////////////////////////////////
+function integlight_breadcrumb()
+{
+	$home = '<li><a href="' . home_url('url') . '" >HOME</a></li>';
+
+	echo '<ul class="create_bread">';
+	if (is_front_page()) {
+		// トップページの場合は表示させない
+	}
+	// カテゴリページ
+	else if (is_category()) {
+		$cat = get_queried_object();
+		$cat_id = $cat->parent;
+		$cat_list = array();
+		while ($cat_id != 0) {
+			$cat = get_category($cat_id);
+			$cat_link = get_category_link($cat_id);
+			array_unshift($cat_list, '<li><a href="' . $cat_link . '">' . $cat->name . '</a></li>');
+			$cat_id = $cat->parent;
+		}
+		echo $home;
+		foreach ($cat_list as $value) {
+			echo $value;
+		}
+		the_archive_title('<li>', '</li>');
+	}
+	// アーカイブ・タグページ
+	else if (is_archive()) {
+		echo $home;
+		the_archive_title('<li>', '</li>');
+	}
+	// 投稿ページ
+	else if (is_single()) {
+		$cat = get_the_category();
+		if (isset($cat[0]->cat_ID)) $cat_id = $cat[0]->cat_ID;
+		$cat_list = array();
+		while ($cat_id != 0) {
+			$cat = get_category($cat_id);
+			$cat_link = get_category_link($cat_id);
+			array_unshift($cat_list, '<li><a href="' . $cat_link . '">' . $cat->name . '</a></li>');
+			$cat_id = $cat->parent;
+		}
+		foreach ($cat_list as $value) {
+			echo $value;
+		}
+		the_title('<li>', '</li>');
+	}
+	// 固定ページ
+	else if (is_page()) {
+		echo $home;
+		the_title('<li>', '</li>');
+	}
+	// 404ページの場合
+	else if (is_404()) {
+		echo $home;
+		echo '<li>ページが見つかりません</li>';
+	}
+	echo "</ul>";
+}
+// アーカイブのタイトルを削除
+add_filter('get_the_archive_title', function ($title) {
+	if (is_category()) {
+		$title = single_cat_title('', false);
+	} elseif (is_tag()) {
+		$title = single_tag_title('', false);
+	} elseif (is_month()) {
+		$title = single_month_title('', false);
+	}
+	return $title;
+});
+
+//////////////////////////////////////////////////////////
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+//## スタイルシート、JSファイルの追加
+/**
+ * Enqueue scripts and styles.
+ */
+function integlight_scripts_plus()
+{
+
+	//wp_enqueue_style('integlight-style', get_stylesheet_uri(), array(), _S_VERSION);
+	//wp_style_add_data('integlight-style', 'rtl', 'replace');
+	//wp_enqueue_script('integlight-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true);
+}
+add_action('wp_enqueue_scripts', 'integlight_scripts_plus');
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////////
+//## editor用のスタイルの追加
+/**
+ * Enqueue scripts and styles.
+ */
+// 性能劣化のデメリットがあるためOFFにしておくことも検討
+function integlight_add_editor_styles()
+{
+	add_theme_support('editor-styles');
+	add_editor_style(get_theme_file_uri('/style.css'));
+	add_editor_style(get_theme_file_uri('/integlight-style.css'));
+}
+add_action('admin_init', 'integlight_add_editor_styles');
+//////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////
+/*
+	デフォルトから追加するテーマサポート
+*/
+function integlight_setup_plus()
+{
+
+	// resolve of  theme check _s
+	add_theme_support("wp-block-styles");
+	add_theme_support("responsive-embeds");
+	add_theme_support("align-wide");
+	// resolve of  theme check _e
+
+}
+add_action('after_setup_theme', 'integlight_setup_plus');
+///////////////////////////////////////////////
