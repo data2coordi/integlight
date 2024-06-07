@@ -7,12 +7,15 @@
  * @package Integlight
  */
 
+var_dump('single.php');
 get_header();
+
 ?>
 
 	<main id="primary" class="site-main">
 
 		<?php
+integlight_breadcrumb(); 
 		while ( have_posts() ) :
 			the_post();
 

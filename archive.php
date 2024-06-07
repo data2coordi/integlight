@@ -7,6 +7,7 @@
  * @package Integlight
  */
 
+var_dump('archive.php');
 get_header();
 ?>
 
@@ -22,6 +23,8 @@ get_header();
 			</header><!-- .page-header -->
 
 			<?php
+
+			integlight_breadcrumb();
 			/* Start the Loop */
 			while ( have_posts() ) :
 				the_post();
