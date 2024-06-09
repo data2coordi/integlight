@@ -344,3 +344,47 @@ function integlight_custom_menu_page()
 add_action('admin_menu', 'integlight_custom_menu_page');
 
 //////////////////////////////////////////////////////////////////////////////////
+
+
+
+// 目次_s ////////////////////////////////////////////////////////////////////////////////
+// 目次を生成するクラスを定義
+class InteglightTableOfContents
+{
+
+	// コンストラクタ
+	public function __construct()
+	{
+		add_filter('the_content', array($this, 'add_toc_to_content'));
+	}
+
+	// 投稿コンテンツに目次を追加するメソッド
+	public function add_toc_to_content($content)
+	{
+		// H1, H2, H3タグを抽出
+		preg_match_all('/<(h[1-3]).*?>(.*?)<\/\1>/', $content, $matches, PREG_SET_ORDER);
+
+		if (!empty($matches)) {
+			// 目次を生成
+			$toc = '<div class="post-toc"><h2>INDEX</h2><ul>';
+			foreach ($matches as $match) {
+				$heading_tag = $match[1];
+				$heading_text = $match[2];
+				$id = sanitize_title_with_dashes($heading_text);
+				$toc .= '<li class="toc-' . strtolower($heading_tag) . '"><a href="#' . $id . '">' . strip_tags($heading_text) . '</a></li>';
+				// 投稿コンテンツ内のH1, H2, H3タグにIDを追加
+				$content = str_replace($match[0], '<' . $heading_tag . ' id="' . $id . '">' . $heading_text . '</' . $heading_tag . '>', $content);
+			}
+			$toc .= '</ul></div>';
+
+			// 目次をコンテンツの最初に追加
+			$content = $toc . $content;
+		}
+
+		return $content;
+	}
+}
+
+// インスタンスを作成して目次生成を初期化
+new InteglightTableOfContents();
+// 目次_e ////////////////////////////////////////////////////////////////////////////////

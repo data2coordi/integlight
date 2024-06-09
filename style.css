@@ -682,6 +682,8 @@ textarea {
   top: 100%;
   left: -999em;
   z-index: 99999;
+  display: flex;
+  flex-direction: column;
 }
 
 .main-navigation ul ul ul {
@@ -706,6 +708,7 @@ textarea {
 
 .main-navigation li {
   position: relative;
+  background: #000;
 }
 
 .main-navigation a {
