@@ -188,73 +188,58 @@ if (defined('JETPACK__VERSION')) {
 //////////////////////////////////////////////////////////
 function integlight_breadcrumb()
 {
-	$home = '<li><a href="' . home_url('url') . '" >HOME</a></li>';
+	// HOMEリンク
+	$home = '<li><a href="' . home_url() . '" >HOME</a></li>';
 
 	echo '<ul class="create_bread">';
-	if (is_front_page()) {
-		// トップページの場合は表示させない
-	}
-	// カテゴリページ
-	else if (is_category()) {
-		$cat = get_queried_object();
-		$cat_id = $cat->parent;
-		$cat_list = array();
-		while ($cat_id != 0) {
-			$cat = get_category($cat_id);
-			$cat_link = get_category_link($cat_id);
-			array_unshift($cat_list, '<li><a href="' . $cat_link . '">' . $cat->name . '</a></li>');
-			$cat_id = $cat->parent;
+	if (!is_front_page()) {
+		// カテゴリページまたはタグページ
+		if (is_category() || is_tag()) {
+			$queried_object = get_queried_object();
+			$cat_list = array();
+			// 親カテゴリを取得
+			while ($queried_object->parent != 0) {
+				$queried_object = get_category($queried_object->parent);
+				$cat_link = get_category_link($queried_object->term_id);
+				array_unshift($cat_list, '<li><a href="' . esc_url($cat_link) . '">' . esc_html($queried_object->name) . '</a></li>');
+			}
+			// リンクを出力
+			foreach ($cat_list as $value) {
+				echo $value;
+			}
+			// カテゴリまたはタグ名を表示
+			echo '<li>' . single_term_title('', false) . '</li>';
 		}
-		echo $home;
-		foreach ($cat_list as $value) {
-			echo $value;
+		// それ以外のアーカイブページ
+		elseif (is_archive()) {
+			echo $home;
+			echo '<li>' . get_the_archive_title() . '</li>';
 		}
-		the_archive_title('<li>', '</li>');
-	}
-	// アーカイブ・タグページ
-	else if (is_archive()) {
-		echo $home;
-		the_archive_title('<li>', '</li>');
-	}
-	// 投稿ページ
-	else if (is_single()) {
-		$cat = get_the_category();
-		if (isset($cat[0]->cat_ID)) $cat_id = $cat[0]->cat_ID;
-		$cat_list = array();
-		while ($cat_id != 0) {
-			$cat = get_category($cat_id);
-			$cat_link = get_category_link($cat_id);
-			array_unshift($cat_list, '<li><a href="' . $cat_link . '">' . $cat->name . '</a></li>');
-			$cat_id = $cat->parent;
+		// 投稿ページ
+		elseif (is_single()) {
+			// カテゴリリンクを表示
+			$categories = get_the_category();
+			if (!empty($categories)) {
+				foreach ($categories as $category) {
+					echo '<li><a href="' . esc_url(get_category_link($category->term_id)) . '">' . esc_html($category->name) . '</a></li>';
+				}
+			}
+			// 記事のタイトルを表示
+			echo '<li>' . get_the_title() . '</li>';
 		}
-		foreach ($cat_list as $value) {
-			echo $value;
+		// 固定ページ
+		elseif (is_page()) {
+			echo $home;
+			echo '<li>' . get_the_title() . '</li>';
 		}
-		the_title('<li>', '</li>');
-	}
-	// 固定ページ
-	else if (is_page()) {
-		echo $home;
-		the_title('<li>', '</li>');
-	}
-	// 404ページの場合
-	else if (is_404()) {
-		echo $home;
-		echo '<li>ページが見つかりません</li>';
+		// 404ページ
+		elseif (is_404()) {
+			echo $home;
+			echo '<li>ページが見つかりません</li>';
+		}
 	}
 	echo "</ul>";
 }
-// アーカイブのタイトルを削除
-add_filter('get_the_archive_title', function ($title) {
-	if (is_category()) {
-		$title = single_cat_title('', false);
-	} elseif (is_tag()) {
-		$title = single_tag_title('', false);
-	} elseif (is_month()) {
-		$title = single_month_title('', false);
-	}
-	return $title;
-});
 
 //////////////////////////////////////////////////////////
 
