@@ -11,7 +11,8 @@ Version: 2.0.1
 .slide {
     position: absolute;
     width: 100%;
-    display: none;
+opacity: 0;
+    transition: opacity 2.5s;
 }
 
 .slide img {
@@ -21,9 +22,8 @@ Version: 2.0.1
 
 .slide.active {
     display: block;
-    opacity: 1;
         /* 初期状態では非表示 */
-        transition: opacity 0.8s;
+opacity: 1;
         /* フェード効果を追加 */
         /* 表示時に不透明度を変更 */
 }
