@@ -10,7 +10,7 @@
 
 if (!defined('_S_VERSION')) {
 	// Replace the version number of the theme on each release.
-	define('_S_VERSION', '1.0.0');
+	define('_S_VERSION', '1.0.1');
 }
 
 /**
@@ -253,9 +253,14 @@ function integlight_breadcrumb()
 function integlight_scripts_plus()
 {
 
-	//wp_enqueue_style('integlight-style', get_stylesheet_uri(), array(), _S_VERSION);
-	//wp_style_add_data('integlight-style', 'rtl', 'replace');
+	wp_enqueue_style('integlight-style-plus', get_template_directory_uri() . '/integlight-style.css', array(), _S_VERSION);
 	//wp_enqueue_script('integlight-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true);
+
+	wp_enqueue_script('jquery');
+	wp_enqueue_script('slider-script', get_template_directory_uri() . '/js/integlight-scripts.js', array('jquery'), _S_VERSION, true);
+
+
+
 }
 add_action('wp_enqueue_scripts', 'integlight_scripts_plus');
 /////////////////////////////////////////////////////////////////////////////////////////////////////////

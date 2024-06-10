@@ -1,0 +1,29 @@
+/*
+Version: 2.0.1
+ * slider _s ////////////////////////////////////////////////
+ */
+.slider {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    display: none;
+}
+
+.slide img {
+    width: 100%;
+    height: auto;
+}
+
+.slide.active {
+    display: block;
+}
+
+
+/**
+ * slider _e ////////////////////////////////////////////////
+ */
