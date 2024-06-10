@@ -3,10 +3,7 @@ jQuery(document).ready(function ($) {
     var slides = $('.slide');
     var slideCount = slides.length;
 
-
-    console.log("init");
     function showNextSlide() {
-        console.log("next slide");
         slides.eq(currentIndex).removeClass('active');
         currentIndex = (currentIndex + 1) % slideCount;
         slides.eq(currentIndex).addClass('active');
@@ -16,5 +13,7 @@ jQuery(document).ready(function ($) {
     slides.eq(currentIndex).addClass('active');
 
     // 5秒ごとにスライドを切り替える
-    setInterval(showNextSlide, 3000);
+    setInterval(function () {
+        showNextSlide();
+    }, 3000);
 });
