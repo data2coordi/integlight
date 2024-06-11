@@ -18,10 +18,9 @@ get_header();
 
 <!-- lide bar _s //////////////////////////////// -->
 <?php if (!is_home() && is_front_page()) : ?>
-
 	<div class="slider">
-		<div class="slide"><img src="<?php echo get_template_directory_uri(); ?>/img/concept_img.jpg" alt="Slide 1"></div>
-		<div class="slide"><img src="<?php echo get_template_directory_uri(); ?>/img/headder_img.jpg" alt="Slide 2"></div>
+		<div class="slide"><img src="<?php echo esc_url(get_theme_mod('slider_image_1')); ?>" alt="Slide 1"></div>
+		<div class="slide"><img src="<?php echo esc_url(get_theme_mod('slider_image_2')); ?>" alt="Slide 2"></div>
 	</div>
 <?php endif; ?>
 <!-- slide bar _e //////////////////////////////// -->

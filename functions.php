@@ -256,9 +256,20 @@ function integlight_scripts_plus()
 	wp_enqueue_style('integlight-style-plus', get_template_directory_uri() . '/integlight-style.css', array(), _S_VERSION);
 	//wp_enqueue_script('integlight-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true);
 
+	/////// slider _s
 	wp_enqueue_script('jquery');
-	wp_enqueue_script('slider-script', get_template_directory_uri() . '/js/integlight-scripts.js', array('jquery'), _S_VERSION, true);
-
+	wp_enqueue_script('integlight_slider-script', get_template_directory_uri() . '/js/integlight-scripts.js', array('jquery'), _S_VERSION, true);
+	// カスタマイザーの設定値をJavaScriptに渡す
+	wp_localize_script('integlight_slider-script', 'sliderSettings', array(
+		'fadeDuration' => get_theme_mod('slider_fade_duration', '0.8'),
+		'changeDuration' => get_theme_mod('slider_change_duration', '1')
+	));
+	/*
+	wp_localize_script('integlight_slider-script', 'sliderSettings', array(
+		'changeDuration' => get_theme_mod('slider_change_duration', '1')
+	));
+	*/
+	/////// slider _e
 
 
 }

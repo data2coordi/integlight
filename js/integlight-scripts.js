@@ -2,6 +2,12 @@ jQuery(document).ready(function ($) {
     var currentIndex = 0;
     var slides = $('.slide');
     var slideCount = slides.length;
+    var fadeDuration = sliderSettings.fadeDuration;
+    var changeDuration = sliderSettings.changeDuration;
+
+    // フェード時間をCSSに適用
+    slides.css('transition', 'opacity ' + fadeDuration + 's');
+
 
     function showNextSlide() {
         slides.eq(currentIndex).removeClass('active');
@@ -15,5 +21,5 @@ jQuery(document).ready(function ($) {
     // 5秒ごとにスライドを切り替える
     setInterval(function () {
         showNextSlide();
-    }, 3000);
+    }, changeDuration * 1000);
 });

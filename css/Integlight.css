@@ -180,7 +180,7 @@ p.success {
   clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
 }
 
-h2.value {
+.value {
   position: absolute;
   margin: 1.5rem 1rem 1rem;
   order: 2;
@@ -413,7 +413,7 @@ a.contact {
     height: 151.7px;
   }
 
-  h2.value {
+  .value {
     position: absolute;
     width: 330px;
     top: 260px;

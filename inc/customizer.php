@@ -59,3 +59,85 @@ function integlight_customize_preview_js() {
 	wp_enqueue_script( 'integlight-customizer', get_template_directory_uri() . '/js/customizer.js', array( 'customize-preview' ), _S_VERSION, true );
 }
 add_action( 'customize_preview_init', 'integlight_customize_preview_js' );
+
+
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+
+
+
+// slide customiser _s ////////////////////////////////////////////////////////////////////////////////
+
+function integlight_customize_register_plus($wp_customize)
+{
+	// セクションを追加
+	$wp_customize->add_section('slider_section', array(
+		'title'    => __('Slider Settings', 'integlight'),
+		'priority' => 30,
+	));
+
+	// スライダー画像1を追加
+	$wp_customize->add_setting('slider_image_1', array(
+		'default' => '',
+		'sanitize_callback' => 'esc_url_raw',
+	));
+
+	$wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'slider_image_1', array(
+		'label'    => __('Slider Image 1', 'integlight'),
+		'section'  => 'slider_section',
+		'settings' => 'slider_image_1',
+	)));
+
+	// スライダー画像2を追加
+	$wp_customize->add_setting('slider_image_2', array(
+		'default' => '',
+		'sanitize_callback' => 'esc_url_raw',
+	));
+
+	$wp_customize->add_control(new WP_Customize_Image_control($wp_customize, 'slider_image_2', array(
+		'label'    => __('Slider Image 2', 'integlight'),
+		'section'  => 'slider_section',
+		'settings' => 'slider_image_2',
+	)));
+
+	// スライド切り替え時間
+	$wp_customize->add_setting('slider_change_duration', array(
+		'default' => '1',
+		'sanitize_callback' => 'absint', // 数値をサニタイズ
+	));
+
+	$wp_customize->add_control('slider_change_duration', array(
+		'label'    => __('Slider Change Duration (seconds)', 'integlight'),
+		'section'  => 'slider_section',
+		'type'     => 'number',
+		'input_attrs' => array(
+			'min' => 1,
+			'step' => 1,
+		),
+	));
+
+
+
+	// フェード時間の設定
+	$wp_customize->add_setting('slider_fade_duration', array(
+		'default' => '0.8',
+		'sanitize_callback' => 'absint', // 数値をサニタイズ
+	));
+
+	$wp_customize->add_control('slider_fade_duration', array(
+		'label'    => __('Slider Fade Duration (seconds)', 'integlight'),
+		'section'  => 'slider_section',
+		'type'     => 'number',
+		'input_attrs' => array(
+			'min' => 0.1,
+			'step' => 0.1,
+		),
+	));
+}
+add_action('customize_register', 'integlight_customize_register_plus');
+
+// slide customiser _e ////////////////////////////////////////////////////////////////////////////////
