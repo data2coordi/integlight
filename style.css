@@ -97,7 +97,7 @@ main {
 h1 {
   font-size: 2em;
   margin: 0.67em 0;
-  width: 1120px;
+  width: 900px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -421,14 +421,14 @@ h4,
 h5,
 h6 {
   clear: both;
-  width: 1120px;
+  width: 900px;
   margin-left: auto;
   margin-right: auto;
 }
 
 p {
   margin-bottom: 1.5em;
-  width: 1120px;
+  width: 900px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -550,7 +550,7 @@ a {
 
 a:visited {
   color: #800080;
-  width: 1120px;
+  width: 900px;
   display: block;
   margin-left: auto;
   margin-right: auto;

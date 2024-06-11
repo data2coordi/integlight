@@ -11,8 +11,8 @@ Version: 2.0.1
 .slide {
     position: absolute;
     width: 100%;
-opacity: 0;
-    transition: opacity 2.5s;
+    opacity: 0;
+    transition: opacity 3s;
 }
 
 .slide img {
@@ -165,7 +165,7 @@ html {
   .wp-block-cover,
   .wp-block-cover-image {
     position: relative;
-    width: 1120px;
+    width: 900px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -183,7 +183,7 @@ html {
   .card-01 {
     position: relative;
     width: 100%;
-    max-width: 1120px;
+    max-width: 900px;
     box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.35);
     margin-left: auto;
     margin-right: auto;
@@ -193,7 +193,7 @@ html {
   .card-02 {
     position: relative;
     width: 100%;
-    max-width: 1120px;
+    max-width: 900px;
     box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.35);
     margin-left: auto;
     margin-right: auto;
@@ -239,7 +239,7 @@ html {
   }
   
   .card_order {
-    width: 1120px;
+    width: 900px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -294,6 +294,13 @@ html {
   }
   a.contact {
     color: #fff;
+  }
+
+  .post-toc {
+    width: fit-content;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   @media screen and (min-width: 768px) {
