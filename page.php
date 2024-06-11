@@ -17,12 +17,23 @@ get_header();
 ?>
 
 <!-- lide bar _s //////////////////////////////// -->
-<?php if (!is_home() && is_front_page()) : ?>
-	<div class="slider">
-		<div class="slide"><img src="<?php echo esc_url(get_theme_mod('slider_image_1')); ?>" alt="Slide 1"></div>
-		<div class="slide"><img src="<?php echo esc_url(get_theme_mod('slider_image_2')); ?>" alt="Slide 2"></div>
-	</div>
-<?php endif; ?>
+<?php if (!is_home() && is_front_page()) :
+	$slider_image_1 = get_theme_mod('slider_image_1');
+	$slider_image_2 = get_theme_mod('slider_image_2');
+	if (!empty($slider_image_1) || !empty($slider_image_2)) :
+
+?>
+		<div class="slider">
+			<?php if (!empty($slider_image_1)) : ?>
+				<div class="slide"><img src="<?php echo esc_url($slider_image_1); ?>" alt="Slide 1"></div>
+			<?php endif; ?>
+			<?php if (!empty($slider_image_2)) : ?>
+				<div class="slide"><img src="<?php echo esc_url($slider_image_2); ?>" alt="Slide 2"></div>
+			<?php endif; ?>
+		</div>
+<?php endif;
+endif;
+?>
 <!-- slide bar _e //////////////////////////////// -->
 
 
