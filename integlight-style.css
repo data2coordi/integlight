@@ -301,13 +301,43 @@ html {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    border: #222 2px dotted;
+    border-left: none;
+    border-right: none;
+    padding-right: 30px;
+    margin-bottom: 50px;
   }
-  
+
+  .post-toc > h2 {
+    text-align: center;
+    width: fit-content;
+  }
+
+  .post-toc > ul > li > a {
+    font-size: 14px;
+    line-height: 2.2;
+    color: #222;
+  }
+
+  .attachment-post-thumbnail {
+    width: 100%;
+  }
+
+  /*---------切り替え-----*/
+  .wp-block-cover {
+    width: 900px;
+  }
+
+  .wp-block-cover {
+    width: 100%;
+  }
+
   @media screen and (min-width: 768px) {
     .hamburger-menu {
       display: none;
     }
   }
+
   
   @media screen and (max-width: 767px) {
     nav > .gnav-navi-01 {
