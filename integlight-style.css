@@ -3,320 +3,375 @@
  */
 .slider {
   position: relative;
-    width: 100%;
-    max-width: 600px;
+  width: 100%;
+  /* max-width: 600px; */
 }
 
 .slide {
   position: absolute;
-    width: 100%;
-    opacity: 0;
-    transition: opacity 1s;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 1s;
 }
 
 .slide img {
   width: 100%;
-    height: auto;
+  height: auto;
 }
 
 .slide.active {
   display: block;
-    /* 初期状態では非表示 */
-    opacity: 1;
-    /* フェード効果を追加 */
-    /* 表示時に不透明度を変更 */
+  /* 初期状態では非表示 */
+  opacity: 1;
+  /* フェード効果を追加 */
+  /* 表示時に不透明度を変更 */
 }
 
- /* slider _e //////////////////////////////////////////////// */
+/* slider text _s */
+.text-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-weight: 800;
+  font-size: 50px;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+}
 
- /* +css
+.text-overlay h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.text-overlay p {
+  font-size: 16px;
+}
+
+/* slider text _e */
+/* slider _e //////////////////////////////////////////////// */
+
+/* +css
 --------------------------------------------- */
 html {
   font-size: 100%;
-    /*ユーザー設定の文字サイズを正しく反映*/
-  }
-  
-  * {
-    box-sizing: border-box;
-    /*余白や線を幅や高さに含める*/
-    margin: 0;
-    padding: 0;
-  }
-  
-  img {
-    max-width: 100%;
-    /*画像が親要素からはみ出すのを防ぐ*/
-    height: auto;
-  }
-  
-  body {
-    margin: 0;
-    padding: 0;
-  }
-  
-  .site-header {
-    width: 100%;
-    background-color: #000;
-    padding: 0.2%;
-    display: flex;
-    justify-content: space-between;
-    /*両端に配置*/
-  }
-  
-  .custom-logo {
-    width: 295.21px;
-    height: auto;
-    background: #000;
-    padding: 5px 20px 5px 20px;
-  }
-  
-  .site-title {
-    display: none;
-  }
-  
-  .main-navigation ul {
-    display: flex;
-    flex-direction: row;
-    gap: 50px;
-    margin-right: 50px;
-    justify-content: flex-end;
-  }
-  
-  .main-navigation li {
-    list-style: none;
-    margin-top: 30px;
-  }
-  
-  .main-navigation ul>li>a {
-    text-decoration: none;
-    color: #fff;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-  }
-  
-  html {
-    scroll-behavior: smooth;
-  }
-  
-  .pagetop {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    width: 48px;
-    height: 48px;
-    text-decoration: none;
-    background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
-    display: block;
-    text-align: center;
-    border-radius: 24px;
-    z-index: 1000;
-  }
-  
-  .pagetop::before {
-    content: "\f062";
-    font-family: "Font Awesome 6 Free";
-    font-size: 30px;
-    font-weight: 900;
-    color: #fff;
-    line-height: 48px;
-  }
-  
-  .hero {
-    width: 100%;
-  }
-  
-  .hero_img {
-    position: relative;
-  }
-  
-  p.headder {
-    position: absolute;
-    /*絶対配置*/
-    color: #fff;
-    /*文字は白に*/
-    top: 40%;
-    left: 50%;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 70px;
-    font-weight: bold;
-    line-height: 80px;
-  }
-  
-  p.head {
-    width: 300px;
-    margin-top: 80px;
-    font-family: "Mina", sans-serif;
-    font-weight: 700;
-    font-style: normal;
-    font-size: 30px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 20px;
-    text-align: center;
-    background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
-  .concept {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  .wp-block-cover,
-  .wp-block-cover-image {
-    position: relative;
-    width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  .wp-block-group.text_01 {
-    position: absolute;
-    color: #000;
-    top: 35%;
-    left: 40%;
-    width: 450px;
-    line-height: 30px;
-    margin-right: 50px;
-  }
-  
-  .card-01 {
-    position: relative;
-    width: 100%;
-    max-width: 900px;
-    box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.35);
-    margin-left: auto;
-    margin-right: auto;
-    height: 455px;
-  }
-  
-  .card-02 {
-    position: relative;
-    width: 100%;
-    max-width: 900px;
-    box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.35);
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 30px;
-    height: 455px;
-  }
-  
-  .c-card__contents {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .c-card__text {
-    position: absolute;
-    padding: 0;
-    margin: 0 1rem;
-    order: 3;
-    top: 280px;
-    left: 550px;
-    line-height: 30px;
-  }
-  
-  .c-card__thumbnail {
-    position: relative;
-    order: 1;
-  }
-  
-  .thumbnail {
-    clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
-  }
-  
-  h2.value {
-    position: absolute;
-    margin: 1.5rem 1rem 1rem;
-    order: 2;
-    top: 210px;
-    left: 550px;
-  }
-  
-  .qualification {
-    font-weight: bold;
-    font-size: 20px;
-  }
-  
-  .card_order {
-    width: 900px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 30px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  .qualification_card {
-    width: 530px;
-    height: 530px;
-    background: linear-gradient(90deg, #83a4d4, #b6fbff);
-    padding: 30px;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-  
-  .vector_01,
-  .vector_02,
-  .vector_03,
-  .vector_04 {
-    width: 40px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 80px;
-    margin-bottom: 150px;
-  }
-  
-  .shift {
-    margin-top: 50px;
-  }
-  
-  footer {
-    font-family: Arial, Helvetica, sans-serif;
-    margin-top: 100px;
-    text-align: center;
-    background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
-    padding: 10px;
-    color: #fff;
-  }
-  
-  button {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 50px;
-    font-size: 18px;
-    background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
-    color: #fff;
-    padding: 10px;
-    border: none;
-  }
-  
-  a.contact {
-    color: #fff;
-  }
+  /*ユーザー設定の文字サイズを正しく反映*/
+}
 
-.post-toc {
-  width: fit-content;
+* {
+  box-sizing: border-box;
+  /*余白や線を幅や高さに含める*/
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  /*画像が親要素からはみ出すのを防ぐ*/
+  height: auto;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.site-header {
+  width: 100%;
+  background-color: #000;
+  padding: 0.2%;
+  display: flex;
+  justify-content: space-between;
+  /*両端に配置*/
+}
+
+.custom-logo {
+  width: 295.21px;
+  height: auto;
+  background: #000;
+  padding: 5px 20px 5px 20px;
+}
+
+.site-title {
+  display: none;
+}
+
+.main-navigation ul {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  margin-right: 50px;
+  justify-content: flex-end;
+}
+
+.main-navigation li {
+  list-style: none;
+  margin-top: 30px;
+}
+
+.main-navigation ul > li > a {
+  text-decoration: none;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.pagetop {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  text-decoration: none;
+  background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
+  display: block;
+  text-align: center;
+  border-radius: 24px;
+  z-index: 1000;
+}
+
+.pagetop::before {
+  content: "\f062";
+  font-family: "Font Awesome 6 Free";
+  font-size: 30px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 48px;
+}
+
+.hero {
+  width: 100%;
+}
+
+.hero_img {
+  position: relative;
+}
+
+p.headder {
+  position: absolute;
+  /*絶対配置*/
+  color: #fff;
+  /*文字は白に*/
+  top: 40%;
+  left: 50%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 70px;
+  font-weight: bold;
+  line-height: 80px;
+}
+
+p.head {
+  width: 300px;
+  margin-top: 80px;
+  font-family: "Mina", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  text-align: center;
+  background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.concept {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+.wp-block-cover,
+.wp-block-cover-image {
+  position: relative;
+  width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wp-block-group.text_01 {
+  position: absolute;
+  color: #000;
+  top: 35%;
+  left: 40%;
+  width: 450px;
+  line-height: 30px;
+  margin-right: 50px;
+}
+
+.card-01 {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.35);
+  margin-left: auto;
+  margin-right: auto;
+  height: 455px;
+}
+
+.card-02 {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.35);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  height: 455px;
+}
+
+.c-card__contents {
+  display: flex;
+  flex-direction: column;
+}
+
+.c-card__text {
+  position: absolute;
+  padding: 0;
+  margin: 0 1rem;
+  order: 3;
+  top: 280px;
+  left: 550px;
+  line-height: 30px;
+}
+
+.c-card__thumbnail {
+  position: relative;
+  order: 1;
+}
+
+.thumbnail {
+  clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
+}
+
+h2.value {
+  position: absolute;
+  margin: 1.5rem 1rem 1rem;
+  order: 2;
+  top: 210px;
+  left: 550px;
+}
+
+.qualification {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.card_order {
+  width: 900px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.qualification_card {
+  width: 530px;
+  height: 530px;
+  background: linear-gradient(90deg, #83a4d4, #b6fbff);
+  padding: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.vector_01,
+.vector_02,
+.vector_03,
+.vector_04 {
+  width: 40px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 80px;
+  margin-bottom: 150px;
+}
+
+.shift {
+  margin-top: 50px;
+}
+
+footer {
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 100px;
+  text-align: center;
+  background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
+  padding: 10px;
+  color: #fff;
+}
+
+button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  font-size: 18px;
+  background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
+  color: #fff;
+  padding: 10px;
+  border: none;
+}
+
+a.contact {
+  color: #fff;
+}
+
+
+
+/*-----目次chat GPT-------*/
+.post-toc {
+  background-color: #f9f9f9;
+  padding: 20px;
+  margin-bottom: 20px;
   border: #222 2px dotted;
+  display: block;
   border-left: none;
   border-right: none;
   padding-right: 30px;
   margin-bottom: 50px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+.post-toc h2 {
+  margin-top: 0;
 }
 
-.post-toc>h2 {
+.post-toc > h2 {
   text-align: center;
   width: fit-content;
 }
 
-.post-toc>ul>li>a {
+.post-toc ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+.post-toc ul li {
+  margin: 5px 0;
+}
+.post-toc ul li a {
+  text-decoration: none;
+  color: #222;
+}
+.post-toc ul li a:hover {
+  text-decoration: underline;
+}
+.post-toc ul li.toc-h1 a {
+  font-weight: bold;
+  margin-left: 0;
+}
+.post-toc ul li.toc-h2 a {
+  margin-left: 20px;
+}
+.post-toc ul li.toc-h3 a {
+  margin-left: 40px;
+}
+.post-toc ul li a {
   font-size: 14px;
   line-height: 2.2;
   color: #222;
@@ -324,6 +379,28 @@ html {
 
 .attachment-post-thumbnail {
   width: 100%;
+}
+
+.wp-container-core-columns-is-layout-1.wp-container-core-columns-is-layout-1 {
+  background: #efefef;
+  width: 900px;
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  padding-bottom: 3px;
+}
+.wp-container-core-columns-is-layout-1.wp-container-core-columns-is-layout-1 p{
+  width: 410px;
+  margin-top: 10px;
+  line-height: 2;
+}
+.wp-block-image img{
+  width: 420px;
+}
+.wp-container-core-columns-is-layout-1.wp-container-core-columns-is-layout-1 h3 {
+  margin-top: 0;
 }
 
 /*---------切り替え-----*/
@@ -339,7 +416,7 @@ html {
   width: 900px;
 }
 
-.p-block-columns>h3 {
+.p-block-columns > h3 {
   width: 425px;
 }
 @media screen and (min-width: 768px) {
@@ -349,7 +426,7 @@ html {
 }
 
 @media screen and (max-width: 767px) {
-  nav>.gnav-navi-01 {
+  nav > .gnav-navi-01 {
     display: none;
   }
 
@@ -385,20 +462,17 @@ html {
     top: 8px;
   }
 
-  #menu-btn-check:checked~.menu-btn span {
-    background-color: rgba(255,
-        255,
-        255,
-        0);
+  #menu-btn-check:checked ~ .menu-btn span {
+    background-color: rgba(255, 255, 255, 0);
     /*メニューオープン時は真ん中の線を透明にする*/
   }
 
-  #menu-btn-check:checked~.menu-btn span::before {
+  #menu-btn-check:checked ~ .menu-btn span::before {
     bottom: 0;
     transform: rotate(45deg);
   }
 
-  #menu-btn-check:checked~.menu-btn span::after {
+  #menu-btn-check:checked ~ .menu-btn span::after {
     top: 0;
     transform: rotate(-45deg);
   }
@@ -463,7 +537,7 @@ html {
     /*アニメーション設定*/
   }
 
-  #menu-btn-check:checked~.menu-content {
+  #menu-btn-check:checked ~ .menu-content {
     left: 0;
     /*メニューを画面内へ*/
   }

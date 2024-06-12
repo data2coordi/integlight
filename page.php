@@ -25,7 +25,13 @@ get_header();
 ?>
 		<div class="slider">
 			<?php if (!empty($slider_image_1)) : ?>
-				<div class="slide"><img src="<?php echo esc_url($slider_image_1); ?>" alt="Slide 1"></div>
+				<div class="slide">
+					<img src="<?php echo esc_url($slider_image_1); ?>" alt="Slide 1">
+					<div class="text-overlay">
+						<p><?php echo nl2br(wp_kses_post(get_theme_mod('slider_text_1', ''))); ?></p>
+						<p><?php echo nl2br(get_theme_mod('slider_text_1', '')); ?></p>
+					</div>
+				</div>
 			<?php endif; ?>
 			<?php if (!empty($slider_image_2)) : ?>
 				<div class="slide"><img src="<?php echo esc_url($slider_image_2); ?>" alt="Slide 2"></div>

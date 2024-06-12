@@ -132,6 +132,7 @@ pre {
  */
 a {
   background-color: transparent;
+
 }
 
 /**
@@ -546,11 +547,11 @@ table {
 /* Links
 --------------------------------------------- */
 a {
-  color: #4169e1;
+  color: #222;;
 }
 
 a:visited {
-  color: #800080;
+  color: #999;
   width: 900px;
   display: block;
   margin-left: auto;

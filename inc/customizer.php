@@ -92,6 +92,21 @@ function integlight_customize_register_plus($wp_customize)
 		'settings' => 'slider_image_1',
 	)));
 
+	// スライダーテキスト1を追加
+	$wp_customize->add_setting('slider_text_1', array(
+		'default' => 'Slide 1 text',
+		'sanitize_callback' => 'sanitize_text_field',
+	));
+
+	$wp_customize->add_control('slider_text_1', array(
+		'label'    => __('Slider Text 1', 'integlight'),
+		'section'  => 'slider_section',
+		'type'     => 'textarea',
+	));
+
+
+
+
 	// スライダー画像2を追加
 	$wp_customize->add_setting('slider_image_2', array(
 		'default' => '',
