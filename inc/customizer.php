@@ -92,32 +92,42 @@ function integlight_customize_register_plus($wp_customize)
 		'settings' => 'slider_image_1',
 	)));
 
+	// スライダー画像2を追加
+	$wp_customize->add_setting('slider_image_2', array(
+		'default' => '',
+		'sanitize_callback' => 'esc_url_raw',
+	));
+	$wp_customize->add_control(new WP_Customize_Image_control($wp_customize, 'slider_image_2', array(
+		'label'    => __('Slider Image 2', 'integlight'),
+		'section'  => 'slider_section',
+		'settings' => 'slider_image_2',
+	)));
+
+	// スライダー画像3を追加
+	$wp_customize->add_setting('slider_image_3', array(
+		'default' => '',
+		'sanitize_callback' => 'esc_url_raw',
+	));
+	$wp_customize->add_control(new WP_Customize_Image_control($wp_customize, 'slider_image_3', array(
+		'label'    => __('Slider Image 3', 'integlight'),
+		'section'  => 'slider_section',
+		'settings' => 'slider_image_3',
+	)));
+
+
 	// スライダーテキスト1を追加
 	$wp_customize->add_setting('slider_text_1', array(
-		'default' => 'Slide 1 text',
+		'default' => 'Slide  text',
 		'sanitize_callback' => 'sanitize_text_field',
 	));
-
 	$wp_customize->add_control('slider_text_1', array(
-		'label'    => __('Slider Text 1', 'integlight'),
+		'label'    => __('Slider Text', 'integlight'),
 		'section'  => 'slider_section',
 		'type'     => 'textarea',
 	));
 
 
 
-
-	// スライダー画像2を追加
-	$wp_customize->add_setting('slider_image_2', array(
-		'default' => '',
-		'sanitize_callback' => 'esc_url_raw',
-	));
-
-	$wp_customize->add_control(new WP_Customize_Image_control($wp_customize, 'slider_image_2', array(
-		'label'    => __('Slider Image 2', 'integlight'),
-		'section'  => 'slider_section',
-		'settings' => 'slider_image_2',
-	)));
 
 	// スライド切り替え時間
 	$wp_customize->add_setting('slider_change_duration', array(

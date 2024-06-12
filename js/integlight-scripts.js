@@ -1,7 +1,8 @@
 jQuery(document).ready(function ($) {
     var currentIndex = 0;
     var slides = $('.slide');
-    var slideCount = slides.length;
+    var slideCount = 3;
+    ///var slideCount = slides.length;
     var fadeDuration = sliderSettings.fadeDuration;
     var changeDuration = sliderSettings.changeDuration;
 

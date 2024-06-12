@@ -1,19 +1,23 @@
 /*
  * slider _s ////////////////////////////////////////////////
  */
- .slider_out {
+.slider_out {
   position: relative;
   width: 100%;
-  overflow: hidden;
+  /* y overflow: hidden; */
 }
 
 .slide {
-  display: none;
+  /* y display: none; */
+  position: absolute; /* y check*/
   width: 100%;
+  opacity: 0;
+  transition: opacity 1s;
 }
 
 .slide.active {
   display: block;
+  opacity: 1;
 }
 
 .slide img {
