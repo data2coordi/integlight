@@ -23,7 +23,7 @@ get_header();
 		$slider_image_1 = get_theme_mod('slider_image_1');
 		$slider_image_2 = get_theme_mod('slider_image_2');
 		$slider_image_3 = get_theme_mod('slider_image_3');
-		if (!empty($slider_image_1) || !empty($slider_image_2)) :
+		if (!empty($slider_image_1) || !empty($slider_image_2) || !empty($slider_image_3)) :
 	?>
 			<div class="slider_out">
 				<div class="slider">
@@ -42,7 +42,7 @@ get_header();
 						<div class="slide">
 							<img src="<?php echo esc_url($slider_image_2); ?>" alt="Slide 2">
 							<div class="text-overlay">
-								<p><?php echo nl2br(wp_kses_post(get_theme_mod('slider_text_2', ''))); ?></p>
+								<p><?php echo nl2br(wp_kses_post(get_theme_mod('slider_text_1', ''))); ?></p>
 							</div>
 						</div>
 					<?php endif; ?>
@@ -52,13 +52,10 @@ get_header();
 						<div class="slide">
 							<img src="<?php echo esc_url($slider_image_3); ?>" alt="Slide 3">
 							<div class="text-overlay">
-								<p><?php echo nl2br(wp_kses_post(get_theme_mod('slider_text_3', ''))); ?></p>
+								<p><?php echo nl2br(wp_kses_post(get_theme_mod('slider_text_1', ''))); ?></p>
 							</div>
 						</div>
 					<?php endif; ?>
-
-
-
 
 				</div>
 			</div>

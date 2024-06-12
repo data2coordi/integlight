@@ -1,23 +1,27 @@
 /*
  * slider _s ////////////////////////////////////////////////
  */
-.slider_out {
+ .slider_out {
   position: relative;
   width: 100%;
-  /* y overflow: hidden; */
+  overflow: hidden;
 }
 
 .slide {
-  /* y display: none; */
-  position: absolute; /* y check*/
-  width: 100%;
+/*  visibility: hidden;*/
+  height: 0;
   opacity: 0;
-  transition: opacity 1s;
+  transition: opacity 1s, visibility 0s 1s, height 0s 1s;
+  /* トランジションの遅延を追加 */
+  width: 100%;
 }
 
 .slide.active {
-  display: block;
+  visibility: visible;
+    height: auto;
   opacity: 1;
+  transition: opacity 1s, visibility 0s 0s, height 0s 0s;
+    /* トランジションの遅延をリセット */
 }
 
 .slide img {
