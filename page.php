@@ -16,6 +16,7 @@ echo ("page.php");
 get_header();
 ?>
 
+	<main id="primary" class="site-main">
 <!-- lide bar _s //////////////////////////////// -->
 <?php if (!is_home() && is_front_page()) :
 	$slider_image_1 = get_theme_mod('slider_image_1');
@@ -43,7 +44,6 @@ endif;
 	?>
 	<!-- slide bar _e //////////////////////////////// -->
 
-	<main id="primary" class="site-main">
 
 		<?php
 		while (have_posts()) :

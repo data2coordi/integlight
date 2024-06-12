@@ -1,17 +1,19 @@
 /*
  * slider _s ////////////////////////////////////////////////
  */
-.slider {
+ .slider_out {
   position: relative;
   width: 100%;
-  /* max-width: 600px; */
+  overflow: hidden;
 }
 
 .slide {
-  position: absolute;
+  display: none;
   width: 100%;
-  opacity: 0;
-  transition: opacity 1s;
+}
+
+.slide.active {
+  display: block;
 }
 
 .slide img {
@@ -19,83 +21,37 @@
   height: auto;
 }
 
-.slide.active {
-  position: absolute;
-  display: block;
-  /* 初期状態では非表示 */
-  opacity: 1;
-  /* フェード効果を追加 */
-  /* 表示時に不透明度を変更 */
-}
-
-/* slider text _s */
 .text-overlay {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  font-weight: bold;
-  font-size: 20px;
-  transform: translate(-50%, -50%);
-  text-align: center;
+  bottom: 10px;
+  left: 10px;
   color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
 }
 
-.text-overlay h2 {
-  font-size: 24px;
+.entry-header,
+.entry-content {
+  margin-top: 20px;
+}
+
+.entry-title {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.post-toc {
+  margin-bottom: 20px;
+}
+
+.post-toc ul {
+  list-style: none;
+  padding: 0;
+}
+
+.post-toc li {
   margin-bottom: 10px;
 }
-
-.text-overlay p {
-  font-size: 16px;
-}
-
-.slider_out {
-            position: relative;
-        }
-
-        .slider {
-            width: 100%;
-            overflow: hidden;
-        }
-
-        .slide {
-            display: none; /* スライダーの動作に応じて表示/非表示を制御 */
-        }
-
-        .slide img {
-            width: 100%;
-        }
-
-        .text-overlay {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            color: white;
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 10px;
-        }
-
-        .entry-header, .entry-content {
-            margin-top: 20px; /* スライダーの下に十分な余白を追加 */
-        }
-
-        .entry-title {
-            font-size: 2em;
-            margin-bottom: 20px;
-        }
-
-        .post-toc {
-            margin-bottom: 20px;
-        }
-
-        .post-toc ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .post-toc li {
-            margin-bottom: 10px;
-        }
 
 /* h1 {
   position: relative;
@@ -243,7 +199,6 @@ p.head {
 .wp-block-cover-image {
   position: relative;
   width: 900px;
-  top: 400px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -375,8 +330,6 @@ a.contact {
   color: #fff;
 }
 
-
-
 /*-----目次chat GPT-------*/
 .post-toc {
   background-color: #f9f9f9;
@@ -445,15 +398,16 @@ a.contact {
   padding: 20px;
   padding-bottom: 3px;
 }
-.wp-container-core-columns-is-layout-1.wp-container-core-columns-is-layout-1 p{
+.wp-container-core-columns-is-layout-1.wp-container-core-columns-is-layout-1 p {
   width: 410px;
   margin-top: 10px;
   line-height: 2;
 }
-.wp-block-image img{
+.wp-block-image img {
   width: 420px;
 }
-.wp-container-core-columns-is-layout-1.wp-container-core-columns-is-layout-1 h3 {
+.wp-container-core-columns-is-layout-1.wp-container-core-columns-is-layout-1
+  h3 {
   margin-top: 0;
 }
 
