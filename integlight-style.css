@@ -20,6 +20,7 @@
 }
 
 .slide.active {
+  position: absolute;
   display: block;
   /* 初期状態では非表示 */
   opacity: 1;
@@ -32,8 +33,8 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  font-weight: 800;
-  font-size: 50px;
+  font-weight: bold;
+  font-size: 20px;
   transform: translate(-50%, -50%);
   text-align: center;
   color: white;
@@ -47,6 +48,58 @@
 .text-overlay p {
   font-size: 16px;
 }
+
+.slider_out {
+            position: relative;
+        }
+
+        .slider {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none; /* スライダーの動作に応じて表示/非表示を制御 */
+        }
+
+        .slide img {
+            width: 100%;
+        }
+
+        .text-overlay {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+        }
+
+        .entry-header, .entry-content {
+            margin-top: 20px; /* スライダーの下に十分な余白を追加 */
+        }
+
+        .entry-title {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .post-toc {
+            margin-bottom: 20px;
+        }
+
+        .post-toc ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .post-toc li {
+            margin-bottom: 10px;
+        }
+
+/* h1 {
+  position: relative;
+} */
 
 /* slider text _e */
 /* slider _e //////////////////////////////////////////////// */
@@ -190,6 +243,7 @@ p.head {
 .wp-block-cover-image {
   position: relative;
   width: 900px;
+  top: 400px;
   margin-left: auto;
   margin-right: auto;
 }

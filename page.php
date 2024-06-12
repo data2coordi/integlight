@@ -23,44 +23,44 @@ get_header();
 	if (!empty($slider_image_1) || !empty($slider_image_2)) :
 
 ?>
-		<div class="slider">
-			<?php if (!empty($slider_image_1)) : ?>
-				<div class="slide">
-					<img src="<?php echo esc_url($slider_image_1); ?>" alt="Slide 1">
-					<div class="text-overlay">
-						<p><?php echo nl2br(wp_kses_post(get_theme_mod('slider_text_1', ''))); ?></p>
-						<p><?php echo nl2br(get_theme_mod('slider_text_1', '')); ?></p>
+		<div class="slider_out">
+			<div class="slider">
+				<?php if (!empty($slider_image_1)) : ?>
+					<div class="slide">
+						<img src="<?php echo esc_url($slider_image_1); ?>" alt="Slide 1">
+						<div class="text-overlay">
+							<p><?php echo nl2br(wp_kses_post(get_theme_mod('slider_text_1', ''))); ?></p>
+						</div>
 					</div>
-				</div>
-			<?php endif; ?>
-			<?php if (!empty($slider_image_2)) : ?>
-				<div class="slide"><img src="<?php echo esc_url($slider_image_2); ?>" alt="Slide 2"></div>
-			<?php endif; ?>
+				<?php endif; ?>
+				<?php if (!empty($slider_image_2)) : ?>
+					<div class="slide"><img src="<?php echo esc_url($slider_image_2); ?>" alt="Slide 2"></div>
+				<?php endif; ?>
+			</div>
 		</div>
-<?php endif;
+	<?php endif;
 endif;
-?>
-<!-- slide bar _e //////////////////////////////// -->
+	?>
+	<!-- slide bar _e //////////////////////////////// -->
 
+	<main id="primary" class="site-main">
 
-<main id="primary" class="site-main">
+		<?php
+		while (have_posts()) :
+			the_post();
+
+			get_template_part('template-parts/content', 'page');
+
+			// If comments are open or we have at least one comment, load up the comment template.
+			if (comments_open() || get_comments_number()) :
+				comments_template();
+			endif;
+
+		endwhile; // End of the loop.
+		?>
+
+	</main><!-- #main -->
 
 	<?php
-	while (have_posts()) :
-		the_post();
-
-		get_template_part('template-parts/content', 'page');
-
-		// If comments are open or we have at least one comment, load up the comment template.
-		if (comments_open() || get_comments_number()) :
-			comments_template();
-		endif;
-
-	endwhile; // End of the loop.
-	?>
-
-</main><!-- #main -->
-
-<?php
-get_sidebar();
-get_footer();
+	get_sidebar();
+	get_footer();
