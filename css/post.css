@@ -1,6 +1,6 @@
 a,
 a:visited {
-  color: #000;
+  color: #222;
   text-decoration: none;
 }
 
@@ -31,6 +31,9 @@ main {
 .entry-content > p {
   width: 768px;
 }
+p.logged-in-as{
+  width: 768px;
+}
 
 aside {
   width: 288px;
@@ -50,6 +53,7 @@ h1 {
   font-size: small;
   gap: 10px;
   list-style: none;
+  margin: 0;
 }
 
 i {
@@ -61,7 +65,7 @@ i {
 }
 
 .contents {
-  border: 3px dotted #000;
+  border: 3px dotted #222;
   width: 310px;
   margin-left: auto;
   margin-right: auto;
@@ -98,20 +102,20 @@ h3 {
 
 input {
   padding: 8px;
-  border: 1px solid #000;
+  border: 1px solid #222;
   border-radius: 0;
   width: 768px;
 }
 
 select {
   padding: 8px;
-  border: 1px solid #000;
+  border: 1px solid #222;
   border-radius: 0;
 }
 
 textarea {
   padding: 8px;
-  border: 1px solid #000;
+  border: 1px solid #222;
   border-radius: 0;
   width: 768px;
 }
@@ -132,7 +136,7 @@ button {
 
 .fa-magnifying-glass:before,
 .fa-search:before {
-  border: 1px solid #000;
+  border: 1px solid #222;
   border-left: none;
   font-size: large;
   padding: 6.5px;
@@ -150,7 +154,7 @@ p.post {
   display: block;
   margin-top: 5px;
   padding-bottom: 5px;
-  border-bottom: 2px dotted #000;
+  border-bottom: 2px dotted #222;
 }
 
 .tag {
@@ -177,7 +181,7 @@ p.post {
 }
 .widget_categories {
   background: #c4c4c4;
-  color: #000;
+  color: #222;
   display: block;
   margin-bottom: 1px;
   padding: 10px;
@@ -216,7 +220,7 @@ p.post {
 }
 
 .hover {
-  color: #000;
+  color: #222;
   padding-bottom: 5px;
   position: relative; /*::afterにabsoluteをかけるので設定*/
 }
@@ -224,7 +228,7 @@ p.post {
   content: ""; /* コンテンツを追加 */
   width: 300px; /* 線の幅 */
   height: 1px; /* 線の高さ */
-  background-color: #000; /* 線の色 */
+  background-color: #222; /* 線の色 */
   position: absolute; /* position: relative;からの線の絶対位置 */
   bottom: 0; /* 線の位置 */
   left: 0; /* 線の位置 */
@@ -238,7 +242,7 @@ p.post {
 }
 
 .hover02 {
-  color: #000;
+  color: #222;
 
   padding-bottom: 5px;
   position: relative; /*::afterにabsoluteをかけるので設定*/
@@ -247,7 +251,7 @@ p.post {
   content: ""; /* コンテンツを追加 */
   width: 150px; /* 線の幅 */
   height: 1px; /* 線の高さ */
-  background-color: #000; /* 線の色 */
+  background-color: #222; /* 線の色 */
   position: absolute; /* position: relative;からの線の絶対位置 */
   bottom: 0; /* 線の位置 */
   left: 0; /* 線の位置 */
