@@ -1,27 +1,27 @@
 /*
  * slider _s ////////////////////////////////////////////////
  */
- .slider_out {
+.slider_out {
   position: relative;
   width: 100%;
   overflow: hidden;
 }
 
 .slide {
-/*  visibility: hidden;*/
+  /*  visibility: hidden;*/
   height: 0;
   opacity: 0;
-  transition: opacity 1s, visibility 0s 1s, height 0s 1s;
+  /* transition: opacity 1s, visibility 0s 1s, height 0s 1s; */
   /* トランジションの遅延を追加 */
   width: 100%;
 }
 
 .slide.active {
-  visibility: visible;
-    height: auto;
+  /* visibility: visible; */
+  height: auto;
   opacity: 1;
-  transition: opacity 1s, visibility 0s 0s, height 0s 0s;
-    /* トランジションの遅延をリセット */
+  /* transition: opacity 1s, visibility 0s 0s, height 0s 0s; */
+  /* トランジションの遅延をリセット */
 }
 
 .slide img {
@@ -31,10 +31,11 @@
 
 .text-overlay {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
+  bottom: 150px;
+  left: 30px;
   color: white;
-  background-color: rgba(0, 0, 0, 0.5);
+  font-size: 60px;
+  font-weight: 800;
   padding: 10px;
 }
 
@@ -43,30 +44,23 @@
   margin-top: 20px;
 }
 
-.entry-title {
-  font-size: 2em;
-  margin-bottom: 20px;
-}
-
-.post-toc {
-  margin-bottom: 20px;
-}
-
-.post-toc ul {
-  list-style: none;
-  padding: 0;
-}
-
-.post-toc li {
-  margin-bottom: 10px;
-}
-
 /* h1 {
   position: relative;
 } */
 
 /* slider text _e */
 /* slider _e //////////////////////////////////////////////// */
+
+/* h1
+--------------------------------------------- */
+.entry-title {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+/* 目次
+--------------------------------------------- */
+
 
 /* +css
 --------------------------------------------- */
@@ -119,11 +113,21 @@ body {
   gap: 50px;
   margin-right: 50px;
   justify-content: flex-end;
+  /* margin-top: 30px; */
 }
 
-.main-navigation li {
+.sub-menu > li {
   list-style: none;
-  margin-top: 30px;
+  padding: 20px;
+  margin: -20px;
+}
+
+.sub-menu li:first-child {
+  margin-top: 0;
+}
+
+.sub-menu > li:hover {
+  opacity: 0.7;
 }
 
 .main-navigation ul > li > a {
@@ -339,6 +343,9 @@ a.contact {
 }
 
 /*-----目次chat GPT-------*/
+.post-toc li {
+  margin-bottom: 10px;
+}
 .post-toc {
   background-color: #f9f9f9;
   padding: 20px;
@@ -419,7 +426,7 @@ a.contact {
   margin-top: 0;
 }
 
-/*---------切り替え-----*/
+/*---------コンテンツ幅切り替え-----*/
 .wp-block-cover {
   width: 900px;
 }
@@ -435,6 +442,29 @@ a.contact {
 .p-block-columns > h3 {
   width: 425px;
 }
+
+/*---------お問い合わせ-----*/
+.wp-block-buttons {
+  width: 40%;
+  height: 20px;
+}
+.wp-block-buttons>.wp-block-button.has-custom-font-size .wp-block-button__link {
+  font-size: 22px;
+  color: #fff;
+}
+
+.wp-container-core-buttons-is-layout-1.wp-container-core-buttons-is-layout-1 {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+a.post-edit-link {
+  background: none;
+}
+
+
+
 @media screen and (min-width: 768px) {
   .hamburger-menu {
     display: none;
