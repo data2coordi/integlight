@@ -9,7 +9,7 @@ form {
   flex-direction: column;
 }
 
-.flex {
+.site {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -26,6 +26,10 @@ form {
 main {
   width: 768px;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.entry-content > p {
+  width: 768px;
 }
 
 aside {
@@ -45,6 +49,7 @@ h1 {
   flex-direction: row;
   font-size: small;
   gap: 10px;
+  list-style: none;
 }
 
 i {
@@ -87,9 +92,9 @@ h3 {
   line-height: 2;
 }
 
-span {
+/* span {
   color: #f50404;
-}
+} */
 
 input {
   padding: 8px;
@@ -170,7 +175,7 @@ p.post {
 #blog-check5 {
   display: none;
 }
-.category label {
+.widget_categories {
   background: #c4c4c4;
   color: #000;
   display: block;
@@ -179,7 +184,7 @@ p.post {
   margin-top: 5px;
 }
 
-#blog-content1 ul,
+.wp-block-categories-list ul,
 #blog-content2 ul,
 #blog-content3 ul,
 #blog-content4 ul,
@@ -188,7 +193,7 @@ p.post {
   list-style: none;
 }
 
-#blog-content1 li,
+.cat-item li,
 #blog-content2 li,
 #blog-content3 li,
 #blog-content4 li,

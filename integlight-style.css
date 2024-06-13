@@ -320,9 +320,11 @@ h2.value {
 footer {
   font-family: Arial, Helvetica, sans-serif;
   margin-top: 100px;
+  width: 100%;
   text-align: center;
   background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
   padding: 10px;
+  padding-top: 0;
   color: #fff;
 }
 
