@@ -304,7 +304,6 @@ h3:focus:after {
 }
 
 figure > img {
-  border-radius: 50%;
   width: 30%;
   height: auto;
   display: block;

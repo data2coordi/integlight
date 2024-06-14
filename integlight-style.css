@@ -22,7 +22,6 @@
 
 /* フェードエフェクト _e*/
 
-
 /* スライドエフェクト _s*/
 .slider.slide-effect .slide {
   transform: translateX(50%);
@@ -67,7 +66,6 @@
 
 /* 目次
 --------------------------------------------- */
-
 
 /* +css
 --------------------------------------------- */
@@ -331,6 +329,7 @@ footer {
   text-align: center;
   background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
   padding: 10px;
+  padding-top: 0;
   color: #fff;
 }
 
@@ -416,26 +415,36 @@ a.contact {
 
 .wp-container-core-columns-is-layout-1.wp-container-core-columns-is-layout-1 {
   background: #efefef;
-  width: 900px;
+  width: 768px;
   display: flex;
   flex-direction: row;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 20px;
   padding: 20px;
   padding-bottom: 3px;
 }
 .wp-container-core-columns-is-layout-1.wp-container-core-columns-is-layout-1 p {
-  width: 410px;
+  width: 360px;
   margin-top: 10px;
   line-height: 2;
 }
 .wp-block-image img {
-  width: 300px;
+  width: 360px;
   margin-bottom: 50px;
 }
 .wp-container-core-columns-is-layout-1.wp-container-core-columns-is-layout-1
   h3 {
   margin-top: 0;
+}
+
+/*--------ユーザーコメント-----*/
+article > footer {
+  background: none;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+  margin-top: 10px;
 }
 
 /*---------コンテンツ幅切り替え-----*/
@@ -460,7 +469,9 @@ a.contact {
   width: 40%;
   height: 20px;
 }
-.wp-block-buttons>.wp-block-button.has-custom-font-size .wp-block-button__link {
+.wp-block-buttons
+  > .wp-block-button.has-custom-font-size
+  .wp-block-button__link {
   font-size: 22px;
   color: #fff;
   width: 250px;
@@ -471,12 +482,9 @@ a.contact {
   margin-right: auto;
 }
 
-
 a.post-edit-link {
   background: none;
 }
-
-
 
 @media screen and (min-width: 768px) {
   .hamburger-menu {
