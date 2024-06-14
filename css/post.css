@@ -31,7 +31,7 @@ main {
 .entry-content > p {
   width: 768px;
 }
-p.logged-in-as{
+p.logged-in-as {
   width: 768px;
 }
 
@@ -188,11 +188,7 @@ p.post {
   margin-top: 5px;
 }
 
-.wp-block-categories ul,
-#blog-content2 ul,
-#blog-content3 ul,
-#blog-content4 ul,
-#blog-content5 ul {
+.wp-block-categories ul {
   opacity: 0;
   list-style: none;
 }
@@ -220,13 +216,13 @@ h3 {
   color: #222;
   padding-bottom: 5px;
   border-bottom: 1px solid #222;
-    width: 100%;
+  width: 100%;
   position: relative; /*::afterにabsoluteをかけるので設定*/
 }
 h2::after,
 h3::after {
   content: ""; /* コンテンツを追加 */
-  width: 70%; /* 線の幅 */
+  width: 50%; /* 線の幅 */
   height: 3px; /* 線の高さ */
   background-color: #0052d4; /* 線の色 */
   position: absolute; /* position: relative;からの線の絶対位置 */
@@ -237,7 +233,7 @@ h3::after {
   transform-origin: left top; /* 要素の座標の原点を設定*/
 }
 h3::after {
-  height: 2px;
+  height: 1.5px;
 }
 h2:hover::after,
 h3:hover::after,
@@ -246,32 +242,46 @@ h3:focus:after {
   transform: scale(1, 1); /* 線のx軸の長さを1 */
 }
 
+/*
 .hover02 {
   color: #222;
 
   padding-bottom: 5px;
-  position: relative; /*::afterにabsoluteをかけるので設定*/
+  position: relative; 
 }
 .hover02::after {
-  content: ""; /* コンテンツを追加 */
-  width: 150px; /* 線の幅 */
-  height: 1px; /* 線の高さ */
-  background-color: #222; /* 線の色 */
-  position: absolute; /* position: relative;からの線の絶対位置 */
-  bottom: 0; /* 線の位置 */
-  left: 0; /* 線の位置 */
-  transform: scale(0, 1); /* 線のx軸の長さを0 */
-  transition: 0.5s; /* 要素の変形する時間*/
-  transform-origin: left top; /* 要素の座標の原点を設定*/
+  content: ""; 
+  width: 150px; 
+  height: 1px; 
+  background-color: #222; 
+  position: absolute; 
+  bottom: 0; 
+  left: 0; 
+  transform: scale(0, 1); 
+  transition: 0.5s; 
+  transform-origin: left top; 
 }
 .hover02:hover::after,
 .hover02:focus:after {
-  transform: scale(1, 1); /* 線のx軸の長さを1 */
+  transform: scale(1, 1); 
 }
+*/
 
 .entry-footer {
   background: none;
   text-align: right;
+  padding: 0;
+}
+
+.wp-block-latest-posts__post-title {
+  display: block;
+  padding-top: 5px;
+  padding-bottom: 8px;
+  border-bottom: #222 dotted 2px;
+}
+
+.wp-block-latest-posts__list {
+  margin: 0;
 }
 
 .person {
@@ -293,13 +303,28 @@ h3:focus:after {
   text-align: center;
 }
 
-.photo {
+figure > img {
   border-radius: 50%;
   width: 30%;
   height: auto;
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+input[type="search"] {
+  height: 40px;
+  border: 1px solid #222;
+  border-radius: 0;
+  width: 100%;
+}
+
+[type="submit"] {
+  margin: 0;
+  height: 40px;
+  border: 1px solid #222;
+  border-left: none;
+  border-radius: 0;
 }
 
 @media screen and (max-width: 767px) {

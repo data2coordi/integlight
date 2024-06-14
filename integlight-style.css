@@ -331,7 +331,7 @@ footer {
   text-align: center;
   background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
   padding: 10px;
-  padding-top: 0;
+  padding-top: -10px;
   color: #fff;
 }
 
@@ -364,6 +364,7 @@ a.contact {
   border-left: none;
   border-right: none;
   padding-right: 30px;
+  padding-left: 1px;
   margin-bottom: 50px;
   width: fit-content;
   margin-left: auto;
@@ -371,6 +372,7 @@ a.contact {
 }
 .post-toc h2 {
   margin-top: 0;
+  border-bottom: none;
 }
 
 .post-toc > h2 {
@@ -381,6 +383,7 @@ a.contact {
 .post-toc ul {
   list-style-type: none;
   padding-left: 0;
+  margin-left: 15px;
 }
 .post-toc ul li {
   margin: 5px 0;
@@ -428,7 +431,8 @@ a.contact {
   line-height: 2;
 }
 .wp-block-image img {
-  width: 420px;
+  width: 300px;
+  margin-bottom: 50px;
 }
 .wp-container-core-columns-is-layout-1.wp-container-core-columns-is-layout-1
   h3 {
