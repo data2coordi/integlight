@@ -157,14 +157,14 @@ p.post {
   border-bottom: 2px dotted #222;
 }
 
-.tag {
+.tag-cloud-link {
   width: fit-content;
   display: block;
   background: #c4c4c4;
-  padding: 3px;
+  padding: 5px;
 }
 
-.tag01 {
+.wp-block-tag-cloud {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -188,7 +188,7 @@ p.post {
   margin-top: 5px;
 }
 
-.wp-block-categories-list ul,
+.wp-block-categories ul,
 #blog-content2 ul,
 #blog-content3 ul,
 #blog-content4 ul,
@@ -197,11 +197,7 @@ p.post {
   list-style: none;
 }
 
-.cat-item li,
-#blog-content2 li,
-#blog-content3 li,
-#blog-content4 li,
-#blog-content5 li {
+.cat-item li {
   background: #f5f4f4;
   height: 0;
   margin-top: 0;
@@ -219,16 +215,20 @@ p.post {
   opacity: 1;
 }
 
-.hover {
+h2,
+h3 {
   color: #222;
   padding-bottom: 5px;
+  border-bottom: 1px solid #222;
+    width: 100%;
   position: relative; /*::afterにabsoluteをかけるので設定*/
 }
-.hover::after {
+h2::after,
+h3::after {
   content: ""; /* コンテンツを追加 */
-  width: 300px; /* 線の幅 */
-  height: 1px; /* 線の高さ */
-  background-color: #222; /* 線の色 */
+  width: 70%; /* 線の幅 */
+  height: 3px; /* 線の高さ */
+  background-color: #0052d4; /* 線の色 */
   position: absolute; /* position: relative;からの線の絶対位置 */
   bottom: 0; /* 線の位置 */
   left: 0; /* 線の位置 */
@@ -236,8 +236,13 @@ p.post {
   transition: 0.5s; /* 要素の変形する時間*/
   transform-origin: left top; /* 要素の座標の原点を設定*/
 }
-.hover:hover::after,
-.hover:focus:after {
+h3::after {
+  height: 2px;
+}
+h2:hover::after,
+h3:hover::after,
+h2:focus:after,
+h3:focus:after {
   transform: scale(1, 1); /* 線のx軸の長さを1 */
 }
 
@@ -262,6 +267,11 @@ p.post {
 .hover02:hover::after,
 .hover02:focus:after {
   transform: scale(1, 1); /* 線のx軸の長さを1 */
+}
+
+.entry-footer {
+  background: none;
+  text-align: right;
 }
 
 .person {

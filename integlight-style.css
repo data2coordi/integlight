@@ -1,29 +1,40 @@
 /*
  * slider _s ////////////////////////////////////////////////
  */
-.slider_out {
+.slider {
   position: relative;
   width: 100%;
   overflow: hidden;
 }
 
-.slide {
-  /*  visibility: hidden;*/
+.slider .slide {
   height: 0;
   opacity: 0;
-  /* transition: opacity 1s, visibility 0s 1s, height 0s 1s; */
-  /* トランジションの遅延を追加 */
   width: 100%;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
 }
 
-.slide.active {
-  /* visibility: visible; */
+/* フェードエフェクト _s*/
+.slider.fade .slide.active {
   height: auto;
   opacity: 1;
-  /* transition: opacity 1s, visibility 0s 0s, height 0s 0s; */
-  /* トランジションの遅延をリセット */
 }
 
+/* フェードエフェクト _e*/
+
+
+/* スライドエフェクト _s*/
+.slider.slide-effect .slide {
+  transform: translateX(50%);
+}
+
+.slider.slide-effect .slide.active {
+  height: auto;
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* スライドエフェクト _e*/
 .slide img {
   width: 100%;
   height: auto;
@@ -43,10 +54,6 @@
 .entry-content {
   margin-top: 20px;
 }
-
-/* h1 {
-  position: relative;
-} */
 
 /* slider text _e */
 /* slider _e //////////////////////////////////////////////// */
@@ -197,7 +204,7 @@ p.head {
   margin-bottom: 20px;
   text-align: center;
   background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
-  -webkit-background-clip: text;
+  /* -webkit-background-clip: text; */
   -webkit-text-fill-color: transparent;
 }
 
@@ -453,6 +460,7 @@ a.contact {
 .wp-block-buttons>.wp-block-button.has-custom-font-size .wp-block-button__link {
   font-size: 22px;
   color: #fff;
+  width: 250px;
 }
 
 .wp-container-core-buttons-is-layout-1.wp-container-core-buttons-is-layout-1 {

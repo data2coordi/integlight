@@ -25,7 +25,6 @@ get_header();
 		$slider_image_3 = get_theme_mod('slider_image_3');
 		if (!empty($slider_image_1) || !empty($slider_image_2) || !empty($slider_image_3)) :
 	?>
-			<div class="slider_out">
 				<div class="slider">
 					<!-- slide 1 -->
 					<?php if (!empty($slider_image_1)) : ?>
@@ -58,7 +57,6 @@ get_header();
 					<?php endif; ?>
 
 				</div>
-			</div>
 	<?php
 		endif;
 	endif;
