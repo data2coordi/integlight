@@ -1,48 +1,20 @@
-/*
- * slider _s ////////////////////////////////////////////////
- */
 .slider {
-  position: relative;
-  width: 100%;
-overflow: hidden;
+    position: relative;
+      width: 100%;
+      overflow: hidden;
 }
 
-.slider .slide {
-  height: 0;
-  width: 100%;
+.slides {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
 }
 
-/* フェードエフェクト _s ////////////////////////////*/
-.slider.fade .slide {
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-}
-.slider.fade .slide.active {
-  height: auto;
-  opacity: 1;
+.slide {
+  min-width: 100%;
+  box-sizing: border-box;
 }
 
-/* フェードエフェクト _e ////////////////////////////*/
 
-/* スライドエフェクト _s ////////////////////////////*/
-.slider.slide-effect .slide {
-    transition: transform 0.5s ease-out;
-  }
-  
-/* 左に隠すためのクラス */
-.slider.slide-effect .slide.previous {
-    transform: translateX(-100%);
-}
-
-.slider.slide-effect .slide.active {
-  transform: translateX(0);
-  height: auto;
-}
-
-.slider.slide-effect .slide.next {
-    transform: translateX(100%);
-}
-/* スライドエフェクト _e////////////////////////////*/
 
 .slide img {
   width: 100%;

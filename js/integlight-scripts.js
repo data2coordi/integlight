@@ -1,101 +1,44 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 jQuery(document).ready(function ($) {
-    var currentIndex = 0;
-    var $slides = $('.slider .slide');
     var $slider = $('.slider');
-    var slideCount = $slides.length;
-    var changeDuration = sliderSettings.changeDuration;
-    var fadeDuration = sliderSettings.fadeDuration;
+    var $slides = $slider.find('.slides');
+    var $slide = $slides.find('.slide');
+    var slideCount = $slide.length;
+    var currentIndex = 0;
+    var changeDuration = 3; // スライドの切り替え時間（秒）
+    var slideWidth = $slide.width();
 
-    // $sliderにフェードクラスを追加
-    //$slider.addClass('fade');
-    // フェード時間をCSSに適用
-    //$slides.css('transition', 'opacity ' + fadeDuration + 's');
+    // クローン要素を追加
+    $slides.append($slide.first().clone());
+    $slides.prepend($slide.last().clone());
 
-    $slider.addClass('slide-effect');
-
-    function showSlide(index) {
-        $slides.removeClass('active previous next');
-
-        if (slideCount > 1) {
-
-            // 前のスライドのインデックスを計算
-            var prevIndex = (index - 1 + slideCount) % slideCount;
-            var nextIndex = (index + 1) % slideCount;
-            //console.log('start***************');
-            //console.log('prev:' + prevIndex);
-            //console.log('current:' + index);
-            //console.log('next:' + nextIndex);
-            //console.log('end***************');
-
-            // 次のスライドのインデックスを計算
-            $slides.eq(nextIndex).addClass('next');
-            $slides.eq(prevIndex).addClass('previous');
-            $slides.eq(index).addClass('active');
-
+    function showSlide(index, animate = true) {
+        if (animate) {
+            $slides.css('transition', 'transform 0.5s ease-in-out');
         } else {
-            $slides.eq(index).addClass('active');
+            $slides.css('transition', 'none');
+        }
+        $slides.css('transform', 'translateX(' + (-index * slideWidth) + 'px)');
+    }
+
+    function nextSlide() {
+        currentIndex++;
+        showSlide(currentIndex);
+        if (currentIndex === slideCount) {
+            currentIndex = 0;
+            setTimeout(function () {
+                showSlide(currentIndex, false);
+            }, 500); // アニメーション終了後にクローン位置から本来の位置に瞬時に移動
         }
     }
 
-    function nextSlide() {
-        currentIndex = (currentIndex + 1) % slideCount;
-        showSlide(currentIndex);
-    }
+    setInterval(nextSlide, changeDuration * 1000); // changeDuration 秒ごとに次のスライドを表示
 
-    setInterval(nextSlide, changeDuration * 1000); // 3秒ごとに次のスライドを表示
-
-    //showSlide(currentIndex);
+    // 初期状態の調整
+    currentIndex = 1;
+    showSlide(currentIndex, false);
 });
 
 
-/*
-jQuery(document).ready(function ($) {
-    var currentIndex = 0;
-    var slides = document.querySelectorAll('.slider .slide');
-    var slider = document.querySelector('.slider');
-    var slideCount = slides.length;
-    var changeDuration = sliderSettings.changeDuration;
-
-    //slider.classList.add('slide-effect');
-    slider.classList.add('fade');
-
-    var fadeDuration = sliderSettings.fadeDuration;
-    var slidesj = $('.slide');
-    // フェード時間をCSSに適用
-    slidesj.css('transition', 'opacity ' + fadeDuration + 's');
-
-    function showSlide(index) {
-        slides.forEach((slide, i) => {
-            slide.classList.remove('active');
-            if (i === index) {
-                slide.classList.add('active');
-            }
-        });
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex + 1) % slides.length;
-        showSlide(currentIndex);
-    }
-
-    setInterval(nextSlide, changeDuration * 1000); // 3秒ごとに次のスライドを表示
 
 
 
@@ -103,28 +46,3 @@ jQuery(document).ready(function ($) {
 
 
 
-
-
-
-
-    showSlide(currentIndex);
-
-    function showNextSlide() {
-        slides.eq(currentIndex).removeClass('active');
-        currentIndex = (currentIndex + 1) % slideCount;
-        slides.eq(currentIndex).addClass('active');
-    }
-
-    // 初期表示
-    slides.eq(currentIndex).addClass('active');
-
-    // 5秒ごとにスライドを切り替える
-    setInterval(function () {
-        showNextSlide();
-    }, changeDuration * 1000);
-
-
-
-});
-
-    */

@@ -25,8 +25,10 @@ get_header();
 		$slider_image_3 = get_theme_mod('slider_image_3');
 		if (!empty($slider_image_1) || !empty($slider_image_2) || !empty($slider_image_3)) :
 	?>
-				<div class="slider">
-					<!-- slide 1 -->
+			<div class="slider">
+				<!-- slide 1 -->
+				<div class="slides">
+
 					<?php if (!empty($slider_image_1)) : ?>
 						<div class="slide">
 							<img src="<?php echo esc_url($slider_image_1); ?>" alt="Slide 1">
@@ -57,6 +59,7 @@ get_header();
 					<?php endif; ?>
 
 				</div>
+			</div>
 	<?php
 		endif;
 	endif;
