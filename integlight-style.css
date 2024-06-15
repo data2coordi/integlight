@@ -4,7 +4,7 @@
 .slider {
   position: relative;
   width: 100%;
-  overflow: hidden;
+overflow: hidden;
 }
 
 .slider .slide {
@@ -26,25 +26,24 @@
 
 /* スライドエフェクト _s ////////////////////////////*/
 .slider.slide-effect .slide {
-  transform: translateX(-100%);
-    transition: transform 1s ease-in-out;
+    transition: transform 0.5s ease-out;
   }
   
-  /* 左に隠すためのクラス */
-  .slider.slide-effect .slide.previous {
+/* 左に隠すためのクラス */
+.slider.slide-effect .slide.previous {
     transform: translateX(-100%);
 }
 
 .slider.slide-effect .slide.active {
-  height: auto;
   transform: translateX(0);
+  height: auto;
 }
 
 .slider.slide-effect .slide.next {
-  transform: translateX(100%);
+    transform: translateX(100%);
 }
+/* スライドエフェクト _e////////////////////////////*/
 
-/* スライドエフェクト _e ////////////////////////////*/
 .slide img {
   width: 100%;
   height: auto;
@@ -60,10 +59,6 @@
   padding: 10px;
 }
 
-.entry-header,
-.entry-content {
-  margin-top: 20px;
-}
 
 /* slider text _e */
 /* slider _e //////////////////////////////////////////////// */
@@ -73,6 +68,11 @@
 .entry-title {
   font-size: 2em;
   margin-bottom: 20px;
+}
+
+.entry-header,
+.entry-content {
+  margin-top: 20px;
 }
 
 /* 目次

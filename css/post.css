@@ -186,6 +186,7 @@ p.post {
   margin-bottom: 1px;
   padding: 10px;
   margin-top: 5px;
+  line-height: 2;
 }
 
 .wp-block-categories ul {
@@ -194,12 +195,17 @@ p.post {
 }
 
 .cat-item li {
+  border-bottom: #fff solid 3px;
   background: #f5f4f4;
   height: 0;
   margin-top: 0;
   padding-left: 10px;
   overflow: hidden;
   transition: all 0.5s;
+}
+
+.cat-item .current-cat::marker {
+  display: none;
 }
 
 #blog-check1:checked ~ #blog-content1 li,

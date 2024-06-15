@@ -1,5 +1,20 @@
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 jQuery(document).ready(function ($) {
     var currentIndex = 0;
     var $slides = $('.slider .slide');
@@ -15,48 +30,42 @@ jQuery(document).ready(function ($) {
 
     $slider.addClass('slide-effect');
 
-    /*
-        function showSlide(index) {
-                for (var i = 0; i < $slides.length; i++) {
-                    if (i === index) {
-                        $slides.eq(i).addClass('active');
-                    } else {
-                        $slides.eq(i).removeClass('active');
-                    }
-                }
-        }
-                */
-    /*
-    L: 3
-    c  0 1 2 
-    i  0 1 2
-    */
     function showSlide(index) {
         $slides.removeClass('active previous next');
-        $slides.each(function (i) {
-            if (i === index) {
-                $(this).addClass('active');
-            } else if (i === (index - 1 + $slides.length) % $slides.length) {
-                $(this).addClass('previous');
-            } else if (i === (index + 1) % $slides.length) {
-                $(this).addClass('next');
-            }
-        });
+
+        if (slideCount > 1) {
+
+            // 前のスライドのインデックスを計算
+            var prevIndex = (index - 1 + slideCount) % slideCount;
+            var nextIndex = (index + 1) % slideCount;
+            //console.log('start***************');
+            //console.log('prev:' + prevIndex);
+            //console.log('current:' + index);
+            //console.log('next:' + nextIndex);
+            //console.log('end***************');
+
+            // 次のスライドのインデックスを計算
+            $slides.eq(nextIndex).addClass('next');
+            $slides.eq(prevIndex).addClass('previous');
+            $slides.eq(index).addClass('active');
+
+        } else {
+            $slides.eq(index).addClass('active');
+        }
     }
 
     function nextSlide() {
-        currentIndex = (currentIndex + 1) % $slides.length;
+        currentIndex = (currentIndex + 1) % slideCount;
         showSlide(currentIndex);
     }
 
     setInterval(nextSlide, changeDuration * 1000); // 3秒ごとに次のスライドを表示
 
-    showSlide(currentIndex);
+    //showSlide(currentIndex);
 });
 
 
 /*
-
 jQuery(document).ready(function ($) {
     var currentIndex = 0;
     var slides = document.querySelectorAll('.slider .slide');
