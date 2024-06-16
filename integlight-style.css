@@ -1,7 +1,7 @@
 .slider {
-    position: relative;
-      width: 100%;
-      overflow: hidden;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
 }
 
 /* スライドエフェクト _s ////////////////////////////*/
@@ -11,8 +11,7 @@
 }
 
 .slider.slide-effect .slide {
-  min-width: 100%;
-  box-sizing: border-box;
+  /* box-sizing: border-box;*/
 }
 /* スライドエフェクト _e ////////////////////////////*/
 
@@ -28,14 +27,12 @@
   transition: opacity 0.5s ease-in-out;
 }
 
-
 .slider.fade .slide.active {
   height: auto;
   opacity: 1;
 }
 
 /* フェードエフェクト _e ////////////////////////////*/
-
 
 .slide img {
   width: 100%;
@@ -51,7 +48,6 @@
   font-weight: 800;
   padding: 10px;
 }
-
 
 /* slider text _e */
 /* slider _e //////////////////////////////////////////////// */
