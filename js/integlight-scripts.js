@@ -59,18 +59,21 @@ function slider_fade($) {
     var slideCount = $slide.length;
     var fadeDuration = sliderSettings.fadeDuration;
     var changeDuration = sliderSettings.changeDuration;
-    var currentIndex = 0;
+    var currentIndex = 1;
     // $sliderにフェードクラスを追加
     $slider.addClass('fade');
     // フェード時間をCSSに適用
-    $slide.css('transition', 'opacity ' + fadeDuration  + 's');
+    //$slide.css('transition', 'opacity ' + fadeDuration + 's ease-in-out 0s');
+    //    $slide.css('transition', 'opacity ' + fadeDuration + 's, height 1s ease-in-out');
+    //   $slide.css('transition', 'opacity 1s ease-in-out, height 1s ease-in-out');
+
 
     function showSlide() {
         currentIndex++;
         if (currentIndex === slideCount) {
             currentIndex = 0;
         }
-        $slide.removeClass('active');
+        $slide.not($slide.eq(currentIndex)).removeClass('active');
         $slide.eq(currentIndex).addClass('active');
     }
 

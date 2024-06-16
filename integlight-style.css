@@ -2,14 +2,34 @@
   width: 100%;
 }
 
-#primary.site-mai > img {
+#primary.site-main>img {
   width: 100%;
 }
 
 .slider {
-  position: relative;
-  width: 100%;
   overflow: hidden;
+    /*
+                                          ---
+                                          height:100vhの理由：
+                                          obsoluteを考慮し、slider領域を確保する。
+                                          height:100vhと指定するとviewport:表示領域の高さがsliderの高さになる
+                                          ---
+                                      
+                                          ---
+                                          前提
+                                          width:上位でも指定なし or width:100% 指定で、ブラウザの幅が適用されているため、100%にしておけば、ブラウザの幅になる。
+                                          height：上位でも指定なし or height:100% 指定で、0となる。
+                                          ※ただし、bodyで100%指定されていると高さがブラウザ全体になる
+                                          ---
+                                        
+                                          ---
+                                          height:100vhがないとどうなるか？
+                                          heightはデフォルトautoで子要素の高さに自動調整される。
+                                          しかし、子要素のslideクラスでabsoluteが指定されているので、height:0と同じことになり、
+                                          次の同レベルの要素がくっついてしまう。
+                                          */
+              width: 100vw;
+              height: 100vh;
 }
 
 /* スライドエフェクト _s ////////////////////////////*/
@@ -24,26 +44,22 @@
 /* スライドエフェクト _e ////////////////////////////*/
 
 /* フェードエフェクト _s ////////////////////////////*/
-.slider.fade .slides {
-  transition: transform 1s ease-out;
-}
-
 .slider.fade .slide {
-  height: 0;
-  min-width: 100%;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
+  /*レイアウト：画像を重ねるためにabsoluteを指定する。基準は親のslider*/
+    position: absolute;
+    opacity: 0;
+    transition: opacity 3s ease-in-out;
 }
 
 .slider.fade .slide.active {
-  height: auto;
   opacity: 1;
+  transition: opacity 3s ease-in-out;
 }
 
 /* フェードエフェクト _e ////////////////////////////*/
 
 .slide img {
-  width: 100%;
+  width: 100vw;
   height: auto;
 }
 
