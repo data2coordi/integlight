@@ -1,3 +1,11 @@
+#primary.site-main {
+  width: 100%;
+}
+
+#primary.site-mai > img {
+  width: 100%;
+}
+
 .slider {
   position: relative;
   width: 100%;
@@ -11,7 +19,7 @@
 }
 
 .slider.slide-effect .slide {
-  /* box-sizing: border-box;*/
+  box-sizing: border-box;
 }
 /* スライドエフェクト _e ////////////////////////////*/
 

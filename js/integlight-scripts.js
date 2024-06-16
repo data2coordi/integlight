@@ -63,7 +63,7 @@ function slider_fade($) {
     // $sliderにフェードクラスを追加
     $slider.addClass('fade');
     // フェード時間をCSSに適用
-    $slides.css('transition', 'opacity ' + fadeDuration + 's');
+    $slide.css('transition', 'opacity ' + fadeDuration  + 's');
 
     function showSlide() {
         currentIndex++;
