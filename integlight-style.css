@@ -4,16 +4,37 @@
       overflow: hidden;
 }
 
-.slides {
+/* スライドエフェクト _s ////////////////////////////*/
+.slider.slide-effect .slides {
   display: flex;
-  transition: transform 0.5s ease-in-out;
+  /*transition: transform 1s ease-out;*/
 }
 
-.slide {
+.slider.slide-effect .slide {
   min-width: 100%;
   box-sizing: border-box;
 }
+/* スライドエフェクト _e ////////////////////////////*/
 
+/* フェードエフェクト _s ////////////////////////////*/
+.slider.fade .slides {
+  transition: transform 1s ease-out;
+}
+
+.slider.fade .slide {
+  height: 0;
+  min-width: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+
+.slider.fade .slide.active {
+  height: auto;
+  opacity: 1;
+}
+
+/* フェードエフェクト _e ////////////////////////////*/
 
 
 .slide img {

@@ -266,7 +266,8 @@ function integlight_scripts_plus()
 	// カスタマイザーの設定値をJavaScriptに渡す
 	wp_localize_script('integlight_slider-script', 'sliderSettings', array(
 		'fadeDuration' => get_theme_mod('slider_fade_duration', '0.8'),
-		'changeDuration' => get_theme_mod('slider_change_duration', '1')
+		'changeDuration' => get_theme_mod('slider_change_duration', '1'),
+		'effect' => get_theme_mod('effect', 'fade')
 	));
 	/*
 	wp_localize_script('integlight_slider-script', 'sliderSettings', array(

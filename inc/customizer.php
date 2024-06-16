@@ -80,6 +80,29 @@ function integlight_customize_register_plus($wp_customize)
 		'priority' => 30,
 	));
 
+
+
+	// 効果設定を追加
+	$wp_customize->add_setting('effect', array(
+		'default' => 'slide',
+		'sanitize_callback' => 'sanitize_text_field',
+	));
+
+	// セレクトボックスのコントロールを追加
+	$wp_customize->add_control('effect', array(
+		'label'    => __('Effect', 'integlight'),
+		'section'  => 'slider_section',
+		'type'     => 'select',
+		'choices'  => array(
+			'fade'  => __('Fade', 'integlight'),
+			'slide' => __('Slide', 'integlight'),
+		),
+	));
+
+
+
+
+
 	// スライダー画像1を追加
 	$wp_customize->add_setting('slider_image_1', array(
 		'default' => '',
