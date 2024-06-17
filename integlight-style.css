@@ -32,6 +32,7 @@
               height: 100vh;
 }
 
+
 /* スライドエフェクト _s ////////////////////////////*/
 .slider.slide-effect .slides {
   display: flex;
@@ -39,6 +40,7 @@
 }
 
 .slider.slide-effect .slide {
+  min-width: 100%;
   box-sizing: border-box;
 }
 /* スライドエフェクト _e ////////////////////////////*/
@@ -57,7 +59,6 @@
 }
 
 /* フェードエフェクト _e ////////////////////////////*/
-
 .slide img {
   width: 100vw;
   height: auto;
