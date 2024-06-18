@@ -195,6 +195,12 @@ function integlight_breadcrumb()
 	if (!is_front_page()) {
 		// カテゴリページまたはタグページ
 		if (is_category() || is_tag()) {
+
+			echo ('<i class="fa-solid fa-house"></i>');
+			echo $home;
+			echo '<i class="fa-solid fa-angle-right"></i>';
+
+
 			$queried_object = get_queried_object();
 			$cat_list = array();
 			// 親カテゴリを取得
@@ -203,25 +209,39 @@ function integlight_breadcrumb()
 				$cat_link = get_category_link($queried_object->term_id);
 				array_unshift($cat_list, '<li><a href="' . esc_url($cat_link) . '">' . esc_html($queried_object->name) . '</a></li>');
 			}
+
 			// リンクを出力
 			foreach ($cat_list as $value) {
+
 				echo $value;
+				echo '<i class="fa-solid fa-angle-right"></i>';
 			}
 			// カテゴリまたはタグ名を表示
 			echo '<li>' . single_term_title('', false) . '</li>';
 		}
 		// それ以外のアーカイブページ
 		elseif (is_archive()) {
+			echo ('<i class="fa-solid fa-house"></i>');
 			echo $home;
+
+			//Awesome
+			echo '<i class="fa-solid fa-angle-right"></i>';
 			echo '<li>' . get_the_archive_title() . '</li>';
 		}
 		// 投稿ページ
 		elseif (is_single()) {
+
+			echo ('<i class="fa-solid fa-house"></i>');
+			echo $home;
+			echo '<i class="fa-solid fa-angle-right"></i>';
 			// カテゴリリンクを表示
 			$categories = get_the_category();
 			if (!empty($categories)) {
 				foreach ($categories as $category) {
+
 					echo '<li><a href="' . esc_url(get_category_link($category->term_id)) . '">' . esc_html($category->name) . '</a></li>';
+					//Awesome
+					echo '<i class="fa-solid fa-angle-right"></i>';
 				}
 			}
 			// 記事のタイトルを表示
@@ -229,12 +249,20 @@ function integlight_breadcrumb()
 		}
 		// 固定ページ
 		elseif (is_page()) {
+			//Awesome
+			echo ('<i class="fa-solid fa-house"></i>');
 			echo $home;
+			//Awesome
+			echo '<i class="fa-solid fa-angle-right"></i>';
 			echo '<li>' . get_the_title() . '</li>';
 		}
 		// 404ページ
 		elseif (is_404()) {
+			//Awesome
+			echo ('<i class="fa-solid fa-house"></i>');
 			echo $home;
+			//Awesome
+			echo '<i class="fa-solid fa-angle-right"></i>';
 			echo '<li>ページが見つかりません</li>';
 		}
 	}
@@ -258,7 +286,7 @@ function integlight_scripts_plus()
 	wp_enqueue_style('integlight-post', get_template_directory_uri() . '/css/post.css', array(), _S_VERSION);
 
 	//web fonts: font awsome
-	wp_enqueue_style('integlight-post', get_template_directory_uri() . '/css/all.min.css', array(), _S_VERSION);
+	wp_enqueue_style('integlight-owsome', get_template_directory_uri() . '/css/all.min.css', array(), _S_VERSION);
 
 	/////// slider _s
 	wp_enqueue_script('jquery');

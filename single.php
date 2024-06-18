@@ -18,17 +18,7 @@ get_header();
 
 	<?php
 
-	// 目次作成_s /////////////////////
-	//$content = get_post_field('post_content', get_the_ID());
-	//$contentsTable = new InteglightTableOfContents();
-	//$content = $contentsTable.add_toc_to_content($content); 
-	//var_dump($content);
-	// 目次作成_e ///////////////////
 
-
-	// パンくず_s //////////////////
-	integlight_breadcrumb();
-	// パンくず_e //////////////////
 
 	while (have_posts()) :
 		the_post();
@@ -37,8 +27,8 @@ get_header();
 
 		the_post_navigation(
 			array(
-				'prev_text' => '<span class="nav-subtitle">' . esc_html__('Previous:', 'integlight') . '</span> <span class="nav-title">%title</span>',
-				'next_text' => '<span class="nav-subtitle">' . esc_html__('Next:', 'integlight') . '</span> <span class="nav-title">%title</span>',
+				'prev_text' => '<span class="nav-subtitle">' . esc_html__('', 'integlight') . '<i class="fa-regular fa-circle-left"></i><span class="nav-title">%title</span>',
+				'next_text' => '<span class="nav-subtitle">' . esc_html__('', 'integlight') . '<span class="nav-title">%title</span><i class="fa-regular fa-circle-right"></i>',
 			)
 		);
 

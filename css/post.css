@@ -172,7 +172,7 @@ p.post {
   margin-top: 10px;
 }
 
-#blog-check1,
+/* #blog-check1,
 #blog-check2,
 #blog-check3,
 #blog-check4,
@@ -215,7 +215,7 @@ p.post {
 #blog-check5:checked ~ #blog-content5 li {
   height: 54px;
   opacity: 1;
-}
+} */
 
 h2,
 h3 {

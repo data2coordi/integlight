@@ -7,7 +7,7 @@
  *
  * @package Integlight
  */
-echo "content-page.php _s";
+echo "<br> content-page.php _s";
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>

@@ -2,16 +2,16 @@
   width: 100%;
 }
 
-#primary.site-main>img {
+#primary.site-main > img {
   width: 100%;
 }
 
 .slider {
   overflow: hidden;
-    /*
+  /*
                                           ---
                                           height:100vhの理由：
-                                          obsoluteを考慮し、slider領域を確保する。
+                                          absoluteを考慮し、slider領域を確保する。
                                           height:100vhと指定するとviewport:表示領域の高さがsliderの高さになる
                                           ---
                                       
@@ -28,8 +28,8 @@
                                           しかし、子要素のslideクラスでabsoluteが指定されているので、height:0と同じことになり、
                                           次の同レベルの要素がくっついてしまう。
                                           */
-              width: 100vw;
-              height: 100vh;
+  width: 100vw;
+  height: 100vh;
 }
 
 
@@ -48,20 +48,22 @@
 /* フェードエフェクト _s ////////////////////////////*/
 .slider.fade .slide {
   /*レイアウト：画像を重ねるためにabsoluteを指定する。基準は親のslider*/
-    position: absolute;
-    opacity: 0;
-    transition: opacity 3s ease-in-out;
+  position: absolute;
+  height: auto;
+  opacity: 0;
+  transition: opacity 3s ease-in-out;
 }
 
 .slider.fade .slide.active {
   opacity: 1;
   transition: opacity 3s ease-in-out;
+  height: auto;
 }
 
 /* フェードエフェクト _e ////////////////////////////*/
 .slide img {
-  width: 100vw;
-  height: auto;
+  
+  
 }
 
 .text-overlay {
@@ -73,6 +75,17 @@
   font-weight: 800;
   padding: 10px;
 }
+
+/* @media screen and (max-width: 767px) {
+  .slider {
+    height: auto;
+  }
+  .slide img {
+    width: 100%;
+    height: auto;
+  }
+} */
+
 
 /* slider text _e */
 /* slider _e //////////////////////////////////////////////// */
