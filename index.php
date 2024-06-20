@@ -10,7 +10,7 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
- * @package Integlight
+ * @package Pixsquare
  */
 
 get_header();
