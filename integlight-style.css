@@ -1,10 +1,10 @@
-#primary.site-main {
+/* #primary.site-main {
   width: 100%;
 }
 
 #primary.site-main > img {
   width: 100%;
-}
+} */
 
 .slider {
   overflow: hidden;
@@ -49,7 +49,6 @@
 .slider.fade .slide {
   /*レイアウト：画像を重ねるためにabsoluteを指定する。基準は親のslider*/
   position: absolute;
-  height: auto;
   opacity: 0;
   transition: opacity 3s ease-in-out;
 }
@@ -62,7 +61,8 @@
 
 /* フェードエフェクト _e ////////////////////////////*/
 .slide img {
-  
+  width: 100vw;
+  height: 100vh;
   
 }
 
@@ -447,7 +447,7 @@ a.contact {
   color: #222;
 }
 
-.attachment-post-thumbnail {
+/* .attachment-post-thumbnail {
   width: 100%;
 }
 
@@ -500,7 +500,7 @@ article > footer {
 
 .p-block-columns > h3 {
   width: 425px;
-}
+} */
 
 /*---------お問い合わせ-----*/
 .wp-block-buttons {
