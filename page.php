@@ -17,6 +17,14 @@ get_header();
 ?>
 
 <main id="primary" class="site-main">
+
+	<?php
+	// パンくず_s //////////////////
+	integlight_breadcrumb();
+	// パンくず_e //////////////////
+	?>
+
+
 	<!-- slide bar _s //////////////////////////////// -->
 	<?php
 	if (!is_home() && is_front_page()) :

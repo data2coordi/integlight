@@ -15,6 +15,11 @@ get_header();
 
 <main id="primary" class="site-main">
 
+	<?php
+	// パンくず_s //////////////////
+	integlight_breadcrumb();
+	// パンくず_e //////////////////
+	?>
 
 	<?php
 

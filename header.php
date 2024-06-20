@@ -61,8 +61,3 @@
 			</nav><!-- #site-navigation -->
 
 		</header><!-- #masthead -->
-		<?php
-		// パンくず_s //////////////////
-		integlight_breadcrumb();
-		// パンくず_e //////////////////
-		?>
