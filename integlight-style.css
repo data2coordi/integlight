@@ -32,7 +32,6 @@
   height: 100vh;
 }
 
-
 /* スライドエフェクト _s ////////////////////////////*/
 .slider.slide-effect .slides {
   display: flex;
@@ -63,7 +62,6 @@
 .slide img {
   width: 100vw;
   height: 100vh;
-  
 }
 
 .text-overlay {
@@ -85,7 +83,6 @@
     height: auto;
   }
 } */
-
 
 /* slider text _e */
 /* slider _e //////////////////////////////////////////////// */
@@ -258,9 +255,37 @@ p.head {
   margin-right: auto;
 }
 
+/* ウィジェット カテゴリー */
+.wp-block-categories {
+  list-style: none;
+  line-height: 2.8;
+}
+
+.cat-item {
+  border-bottom: 1px solid #888;
+  margin-left: -13px;
+}
+
+/* 検索バー */
+.wp-block-search__button.has-icon {
+  width: 42px;
+}
+
+/* テキスト */
+.bl_card_txt {
+  width: 768px;
+  line-height: 1.8;
+}
+
+p {
+  line-height: 1.8;
+  width: fit-content;
+  margin-left: 0;
+}
+
 .wp-block-group.text_01 {
   position: absolute;
-  color: #000;
+  color: #222;
   top: 35%;
   left: 40%;
   width: 450px;
@@ -400,7 +425,7 @@ a.contact {
   border-left: none;
   border-right: none;
   padding-right: 30px;
-  padding-left: 1px;
+  padding-left: 30px;
   margin-bottom: 50px;
   width: fit-content;
   margin-left: auto;
@@ -436,7 +461,7 @@ a.contact {
   margin-left: 0;
 }
 .post-toc ul li.toc-h2 a {
-  margin-left: 20px;
+  margin-left: 0;
 }
 .post-toc ul li.toc-h3 a {
   margin-left: 40px;
@@ -500,7 +525,8 @@ article > footer {
 
 .p-block-columns > h3 {
   width: 425px;
-} */
+}
+*/
 
 /*---------お問い合わせ-----*/
 .wp-block-buttons {

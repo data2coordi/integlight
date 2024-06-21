@@ -13,6 +13,7 @@
  * @package Integlight
  */
 
+ dump("index.php")
 get_header();
 ?>
 
