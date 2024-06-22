@@ -283,6 +283,20 @@ p {
   margin-left: 0;
 }
 
+.category-label {
+  position: relative;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 3px;
+}
+
+.main-navigation ul ul ul a {
+  margin-left: 240px;
+}
+
 .wp-block-group.text_01 {
   position: absolute;
   color: #222;
