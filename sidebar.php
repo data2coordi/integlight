@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The sidebar containing the main widget area
  *
@@ -6,12 +7,28 @@
  *
  * @package Integlight
  */
+?>
 
-if ( ! is_active_sidebar( 'sidebar-1' ) ) {
-	return;
+<?php
+if (is_active_sidebar('sidebar-1')) {
+	if (get_theme_mod('integlight_sidebar1_position') !== 'none') {
+?>
+		<aside id="secondary" class="widget-area <?php echo get_theme_mod('integlight_sidebar1_position'); ?>">
+			<?php dynamic_sidebar('sidebar-1'); ?>
+		</aside><!-- #secondary -->
+<?php
+	}
 }
 ?>
 
-<aside id="secondary" class="widget-area">
-	<?php dynamic_sidebar( 'sidebar-1' ); ?>
-</aside><!-- #secondary -->
+<?php
+if (is_active_sidebar('sidebar-2')) {
+	if (get_theme_mod('integlight_sidebar2_position') !== 'none') {
+?>
+		<aside id="third" class="widget-area <?php echo get_theme_mod('integlight_sidebar2_position'); ?>">
+			<?php dynamic_sidebar('sidebar-2'); ?>
+		</aside><!-- #secondary -->
+<?php
+	}
+}
+?>
