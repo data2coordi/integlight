@@ -16,6 +16,13 @@ echo ("page.php");
 get_header();
 ?>
 
+<?php
+// slide 
+if (!is_home() && is_front_page()) :
+	get_template_part('template-parts/content', 'slide');
+endif
+?>
+
 <main id="primary" class="site-main">
 
 	<?php
@@ -24,12 +31,6 @@ get_header();
 	// パンくず_e //////////////////
 	?>
 
-	<?php
-	// slide 
-	if (!is_home() && is_front_page()) :
-		get_template_part('template-parts/content', 'slide');
-	endif
-	?>
 
 
 

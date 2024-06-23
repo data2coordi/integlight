@@ -148,7 +148,6 @@ function integlight_widgets_init()
 			'after_title'   => '</h2>',
 		)
 	);
-
 }
 add_action('widgets_init', 'integlight_widgets_init');
 
@@ -409,6 +408,14 @@ class InteglightTableOfContents
 	// 投稿コンテンツに目次を追加するメソッド
 	public function add_toc_to_content($content)
 	{
+		$hide_toc = get_post_meta(get_the_ID(), 'hide_toc', true);
+
+		if ($hide_toc == '1') {
+			return $content;
+		}
+
+
+
 		// H1, H2, H3タグを抽出
 		preg_match_all('/<(h[1-3]).*?>(.*?)<\/\1>/', $content, $matches, PREG_SET_ORDER);
 
@@ -436,3 +443,51 @@ class InteglightTableOfContents
 // インスタンスを作成して目次生成を初期化
 new InteglightTableOfContents();
 // 目次_e ////////////////////////////////////////////////////////////////////////////////
+
+// 目次表示設定_s ////////////////////////////////////////////////////////////////////////////////
+function integlight_add_toc_visibility_meta_box()
+{
+	$screens = ['post', 'page'];
+	add_meta_box(
+		'toc_visibility_meta_box', // ID
+		__('TOC Visibility', 'integlight'), // タイトル
+		'integlight_render_toc_visibility_meta_box', // コールバック関数
+		$screens, // 投稿タイプ
+		'side', // コンテキスト
+		'default' // 優先度
+	);
+}
+add_action('add_meta_boxes', 'integlight_add_toc_visibility_meta_box');
+
+function integlight_render_toc_visibility_meta_box($post)
+{
+	$value = get_post_meta($post->ID, 'hide_toc', true);
+	wp_nonce_field('toc_visibility_nonce_action', 'toc_visibility_nonce');
+?>
+	<label for="hide_toc">
+		<input type="checkbox" name="hide_toc" id="hide_toc" value="1" <?php checked($value, '1'); ?> />
+		<?php _e('Hide TOC', 'integlight'); ?>
+	</label>
+<?php
+}
+
+function integlight_save_toc_visibility_meta_box_data($post_id)
+{
+	if (!isset($_POST['toc_visibility_nonce'])) {
+		return;
+	}
+	if (!wp_verify_nonce($_POST['toc_visibility_nonce'], 'toc_visibility_nonce_action')) {
+		return;
+	}
+	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+		return;
+	}
+	if (!current_user_can('edit_post', $post_id)) {
+		return;
+	}
+
+	$hide_toc = isset($_POST['hide_toc']) ? '1' : '0';
+	update_post_meta($post_id, 'hide_toc', $hide_toc);
+}
+add_action('save_post', 'integlight_save_toc_visibility_meta_box_data');
+// 目次表示設定_e ////////////////////////////////////////////////////////////////////////////////
