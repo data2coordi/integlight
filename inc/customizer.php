@@ -255,3 +255,68 @@ function integlight_sanitize_sidebar_position($input)
 	return 'right';
 }
 // side bar position _e ////////////////////////////////////////////////////////////////////////////////
+
+
+
+// ## 配色カスタマイズ _s /////////////////////////////////////////////
+add_action('customize_register', 'integlight_theme_customize');
+
+function integlight_theme_customize($wp_customize)
+{
+
+	$wp_customize->add_section('base_pattern_section', array(
+		'title'    => __('Base color pattern', 'integlight'),
+		'priority' => 30,
+		'description' => __('The base color pattern you select will be reflected throughout the site.', 'integlight'),
+	));
+
+
+	//type theme_modにするとwp_optionsにテーマ設定として値が格納される。
+	$wp_customize->add_setting('base_color_setting', array(
+		'type'  => 'theme_mod',
+		'sanitize_callback' => 'integlight_sanitize_choices',
+	));
+
+	$wp_customize->add_control('base_color_setting', array(
+		'section' => 'base_pattern_section',
+		'settings' => 'base_color_setting',
+		'label' => 'Base color setting',
+		'description' => 'Select favarite base color',
+		'type' => 'radio',
+		'choices' => array(
+			'pattern1' => 'None',
+			'pattern2' => 'Blue',
+			'pattern3' => 'Green',
+			'pattern4' => 'Orange',
+			'pattern5' => 'Red',
+			'pattern6' => 'Pink',
+		),
+	));
+}
+
+
+/* テーマカスタマイザー用のサニタイズ関数
+---------------------------------------------------------- */
+//ラジオボタン
+function integlight_sanitize_choices($input, $setting)
+{
+	global $wp_customize;
+	$control = $wp_customize->get_control($setting->id);
+	if (array_key_exists($input, $control->choices)) {
+		return $input;
+	} else {
+		return $setting->default;
+	}
+}
+
+function integlight_your_theme_enqueue_custom_css()
+{
+	$base_pattern = get_theme_mod('base_color_setting', 'pattern1');
+
+	// パターンに応じてCSSファイルを読み込む
+	wp_enqueue_style('custom-pattern', get_template_directory_uri() . '/css/' . $base_pattern . '.css', array(), '1.0.0');
+}
+
+add_action('wp_enqueue_scripts', 'integlight_your_theme_enqueue_custom_css');
+
+// ## 配色カスタマイズ _e /////////////////////////////////////////////

@@ -1,0 +1,240 @@
+@charset "utf-8";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+}
+
+.createp3 body {
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+}
+
+/* .createp3 label.drawer-open {
+  display: inline-block;
+  top: 20px;
+} */
+
+/*div.drawer-open{
+  margin: 0;
+} */
+
+.createp3 .site-header {
+  background-color: #344135ff;
+  margin: 0 calc(50% - 50vw);
+  width: 100vw;
+  height: 250px;
+  padding-top: 50px;
+  margin-top: -20px;
+  align-items: start;
+  color: #fff;
+}
+
+.createp3 .site-branding {
+  width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.createp3 p {
+  color: #fff;
+  font-size: 1.4rem;
+  line-height: 2.2;
+}
+
+.createp3 .bl_card_body p {
+  color: #0e212bf7;
+}
+
+.createp3 ul#gNavi li a {
+  display: flex;
+  padding: 10px;
+  color: #fff;
+}
+
+.createp3 ul#gNavi li a:hover {
+  color: #fff;
+}
+
+
+.createp3 a:visited {
+  color: #525d96;
+}
+
+.createp3 .bl_card_body {
+  background-color: #f1f5ef;
+  margin-top: -45px;
+  padding-top: 45px;
+}
+
+.createp3 a {
+  color: #0e212bf7;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
+}
+
+.createp3 .type-page p {
+  color: #0e212bf7;
+}
+
+.createp3 h1 {
+  color: #0e212bf7;
+}
+
+.createp3 h1::first-letter {
+  color: #d2604ef7;
+}
+
+.createp3 h2 {
+  margin: 0;
+  margin-top: 15px;
+  color: #0e212bf7;
+}
+
+.createp3 h3 {
+  margin: 0;
+  margin-top: 12px;
+  color: #0e212bf7;
+}
+
+.createp3 h2::first-letter {
+  color: #d2604ef7;
+}
+
+.createp3 #gNavi {
+  background-color: #344135f7;
+  width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.createp3 #colophon {
+  background-color: #0e212bf7;
+  color: #fff;
+  padding-bottom: 20px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.createp3 .infotable {
+  border-collapse: collapse;
+  margin-top: 20px;
+  /* 必要に応じて調整 */
+}
+
+.createp3 .infotable th {
+  color: #fff;
+  background-color: #0e212bff;
+}
+
+.createp3 .infotable td {
+  border: 1px solid #0e212bff;
+  background-color: #fff;
+  padding: 8px;
+  text-align: left;
+}
+
+.createp3 .infotable tr:nth-child(even) {
+  background-color: #fff;
+  /* 偶数行のバックグラウンドカラーを白に設定 */
+}
+
+.createp3 .site-title>a {
+  color: #fff;
+}
+
+.createp3 .create_footer+a {
+  color: #fff;
+}
+
+.createp3 a.create_footer {
+  color: #fff;
+}
+
+.createp3 .pagetop {
+  background: #d37769f7;
+  border: solid 2px #d2604ef7;
+}
+
+.site-main-costum-works .wp-block-image img:hover {
+  opacity: 1;
+  border: 5px solid #0e212bff;
+}
+
+
+@media screen and (max-width: 767px) {
+
+  .createp3 #gNavi {
+    background-color: #fff;
+    height: 600px;
+  }
+
+  .createp3 ul#gNavi {
+    background-color: rgba(60, 128, 165, 0.7);
+    width: 200px;
+
+  }
+
+  .createp3 .drawer-open span {
+    background: #fff;
+    margin-top: 20px;
+  }
+
+  .createp3 .drawer-open span:before {
+    background: #fff;
+    margin-top: 20px;
+  }
+
+  .createp3 .drawer-open span:after {
+    background: #fff;
+  }
+
+  .createp3 .site-branding {
+    width: 420px;
+    margin-left: 15px;
+  }
+
+  /* div.drawer {
+    left: -20px;
+  } */
+
+  .createp3 #masthead {
+    margin-top: -20px;
+  }
+
+  .createp3 #page .site {
+    display: flex;
+  }
+
+  .createp3 .site-header {
+    background-color: #344135f7;
+    width: 500px;
+    height: 150px;
+    margin: 0;
+    color: #fff;
+  }
+
+  .createp3 .bl_card_body {
+    height: 250px;
+  }
+
+  .createp3 .pagetop {
+    background: #d37769f7;
+    border: solid 2px #d2604ef7;
+  }
+
+  .site-main-costum-works .wp-block-image img:focus {
+    opacity: 1;
+    border: 5px solid #0e212bff;
+
+  }
+
+}

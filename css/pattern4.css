@@ -1,0 +1,258 @@
+@charset "utf-8";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+  background-color: #e3e7f2f7;
+}
+
+a:hover {
+  opacity: 0.5;
+}
+
+.createp4 body {
+  margin: 0;
+  padding: 0;
+
+}
+
+.createp4 #secondary.widget-area {
+  background-color: #e3e7f2f7;
+}
+
+.createp4 .site-header {
+  background-color: #0730b8ff;
+  margin: 0 calc(50% - 50vw);
+  width: 100vw;
+  height: 250px;
+  padding-top: 50px;
+  margin-top: -20px;
+  align-items: start;
+  color: #fff;
+}
+
+.createp4 .site-branding {
+  width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+.createp4 p {
+  color: #000;
+  font-size: 1.4rem;
+  line-height: 2.2;
+}
+
+.createp4 .bl_card_body p {
+  color: #000;
+}
+
+.createp4 ul#gNavi li a {
+  display: flex;
+  padding: 10px;
+  color: #fff;
+}
+
+.createp4 ul#gNavi li a:hover {
+  color: #fff;
+}
+
+.createp4 a:visited a:focus {
+  color: #999;
+}
+
+pre.wp-block-preformatted {
+  background: #fff;
+}
+
+.createp4 .bl_card_body {
+  background-color: #fff;
+  margin-top: -45px;
+  padding-top: 45px;
+
+}
+
+.createp4 a {
+  color: #000;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
+}
+
+.createp4 .type-page p {
+  color: #000;
+}
+
+.createp4 h1 {
+  color: #000;
+}
+
+.createp4 h1::first-letter {
+  color: #73124ff7;
+}
+
+.createp4 h2 {
+  margin: 0;
+  margin-top: 15px;
+  color: #000;
+}
+
+.createp4 h3 {
+  margin: 0;
+  margin-top: 12px;
+  color: #000;
+}
+
+.createp4 h2::first-letter {
+  color: #73124ff7;
+}
+
+.createp4 #gNavi {
+  background-color: #000;
+  width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.createp4 .site-description {
+  color: #fff;
+}
+
+
+.createp4 #colophon {
+  background-color: #000;
+  color: #fff;
+  padding-bottom: 20px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.createp4 .infotable {
+  border-collapse: collapse;
+  margin-top: 20px;
+  /* 必要に応じて調整 */
+}
+
+.createp4 .infotable th {
+  color: #fff;
+  background-color: #000;
+}
+
+.createp4 .infotable td {
+  border: 1px solid #000;
+  background-color: #fff;
+  padding: 8px;
+  text-align: left;
+}
+
+.createp4 .infotable tr:nth-child(even) {
+  background-color: #fff;
+  /* 偶数行のバックグラウンドカラーを白に設定 */
+}
+
+.createp4 .site-title>a {
+  color: #fff;
+}
+
+.createp4 .create_footer+a {
+  color: #fff;
+}
+
+.createp4 a.create_footer {
+  color: #fff;
+}
+
+.createp4 .pagetop {
+  background: #9b3074f7;
+  border: solid 2px #73124ff7;
+}
+
+.site-main-costum-works .wp-block-image img:hover{
+	opacity: 1;
+	border: 5px solid #000;
+}
+
+@media screen and (max-width: 767px) {
+
+  .createp4 #gNavi {
+    background-color: #fff;
+    height: 600px;
+  }
+
+  .createp4 ul#gNavi {
+    background-color: #1137ba9f;
+    width: 200px;
+
+  }
+
+  .createp4 .drawer-open span {
+    background: #fff;
+    margin-top: 20px;
+  }
+
+  .createp4 .drawer-open span:before {
+    background: #fff;
+    margin-top: 20px;
+  }
+
+  .createp4 .drawer-open span:after {
+    background: #fff;
+
+  }
+
+  .createp4 .site-branding {
+    width: 420px;
+    margin-left: 15px;
+    color: #fff;
+  }
+
+  /* div.drawer {
+    left: -20px;
+  } */
+
+  .createp4 #masthead {
+    margin-top: -20px;
+  }
+
+  .createp4 .entry-header h1 {
+    background-color: #e3e7f2f7;
+  }
+
+  .createp4 #page .site {
+    display: flex;
+  }
+
+  .createp4 .site-header {
+    background-color: #0730b8f7;
+    width: 450px;
+    height: 150px;
+    margin: 0;
+    color: #fff;
+  }
+
+  .createp4 main {
+    background-color: #e3e7f2f7;
+  }
+
+  .createp4 .bl_card_body {
+    height: 250px;
+  }
+
+  .createp4 .pagetop {
+    background: #9b3074f7;
+    border: solid 2px #73124ff7;
+  }
+
+  .site-main-costum-works .wp-block-image img:focus {
+    opacity: 1;
+    border: 5px solid #000;
+  }
+}
