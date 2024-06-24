@@ -205,8 +205,8 @@ class InteglightTableOfContents
 	public function __construct()
 	{
 		add_filter('the_content', array($this, 'add_toc_to_content'));
-		add_action('add_meta_boxes', 'InteglightTableOfContents::add_toc_visibility_meta_box');
-		add_action('save_post', 'InteglightTableOfContents::save_toc_visibility_meta_box_data');
+		add_action('add_meta_boxes', array($this, 'add_toc_visibility_meta_box'));
+		add_action('save_post', array($this, 'save_toc_visibility_meta_box_data'));
 	}
 
 	// 投稿コンテンツに目次を追加するメソッド
@@ -250,14 +250,14 @@ class InteglightTableOfContents
 		add_meta_box(
 			'toc_visibility_meta_box', // ID
 			__('TOC Visibility', 'integlight'), // タイトル
-			'InteglightTableOfContents::render_toc_visibility_meta_box', // コールバック関数
+			array($this, 'render_toc_visibility_meta_box'), // コールバック関数
 			$screens, // 投稿タイプ
 			'side', // コンテキスト
 			'default' // 優先度
 		);
 	}
 
-	public static function render_toc_visibility_meta_box($post)
+	public  function render_toc_visibility_meta_box($post)
 	{
 		$value = get_post_meta($post->ID, 'hide_toc', true);
 		wp_nonce_field('toc_visibility_nonce_action', 'toc_visibility_nonce');
@@ -270,7 +270,7 @@ class InteglightTableOfContents
 
 	}
 
-	public static function save_toc_visibility_meta_box_data($post_id)
+	public  function save_toc_visibility_meta_box_data($post_id)
 	{
 		if (!isset($_POST['toc_visibility_nonce'])) {
 			return;
