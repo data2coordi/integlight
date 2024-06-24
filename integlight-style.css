@@ -298,8 +298,14 @@ p {
   border-radius: 3px;
 }
 
+.main-navigation ul ul a {
+  position: relative;
+  z-index: 100;
+}
+
 .main-navigation ul ul ul a {
   margin-left: 240px;
+  
 }
 
 .wp-block-group.text_01 {

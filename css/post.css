@@ -356,7 +356,7 @@ input[type="search"] {
 .bl_card_imgWrapper img {
   margin-left: 0;
   width: 768px;
-  height: 126px;
+  height: 170px;
   object-fit: cover;
 }
 
@@ -381,13 +381,57 @@ input[type="search"] {
 .category-label {
   position: relative;
   left: 0;
-  top: -124px;
+  top: -167px;
   background: #222;
   color: #fff;
   font-size: 12px;
   border-radius: 0;
 }
 
+/* 次へ */
+.nav-links {
+  width: 300px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 80px;
+}
+
+.page-numbers {
+  padding: 5px;
+  padding-left: 9px;
+  padding-right: 9px;
+  border: 2px solid #555;
+}
+
+.next.page-numbers,
+.prev.page-numbers {
+  border: none;
+}
+
+.page-numbers:hover,
+.next.page-numbers:hover,
+.prev.page-numbers:hover {
+  background: #f5f4f4;
+}
+
+.fa-arrow-alt-circle-right:before,
+.fa-circle-right:before,
+.fa-arrow-alt-circle-left:before,
+.fa-circle-left:before {
+  margin-left: 5px;
+  margin-top: 5px;
+  font-size: 25px;
+  vertical-align: -15%;
+}
+
+/* 次の記事 */
+.nav-title {
+  display: block;
+  width: 768px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 @media screen and (max-width: 767px) {
   input,
