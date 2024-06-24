@@ -18,121 +18,122 @@
 
 // slide customiser _s ////////////////////////////////////////////////////////////////////////////////
 
-function integlight_customize_register_slide($wp_customize)
+
+class InteglightSilde
 {
-	// セクションを追加
-	$wp_customize->add_section('slider_section', array(
-		'title'    => __('Slider Settings', 'integlight'),
-		'priority' => 30,
-	));
 
+	public function __construct()
+	{
+		add_action('customize_register', array($this, 'setting'));
+	}
 
+	private function effect($customize)
+	{
+		// 効果設定を追加
+		$customize->add_setting('effect', array(
+			'default' => 'slide',
+			'sanitize_callback' => 'sanitize_text_field',
+		));
 
-	// 効果設定を追加
-	$wp_customize->add_setting('effect', array(
-		'default' => 'slide',
-		'sanitize_callback' => 'sanitize_text_field',
-	));
+		// セレクトボックスのコントロールを追加
+		$customize->add_control('effect', array(
+			'label'    => __('Effect', 'integlight'),
+			'section'  => 'slider_section',
+			'type'     => 'select',
+			'choices'  => array(
+				'fade'  => __('Fade', 'integlight'),
+				'slide' => __('Slide', 'integlight'),
+			),
+		));
+	}
 
-	// セレクトボックスのコントロールを追加
-	$wp_customize->add_control('effect', array(
-		'label'    => __('Effect', 'integlight'),
-		'section'  => 'slider_section',
-		'type'     => 'select',
-		'choices'  => array(
-			'fade'  => __('Fade', 'integlight'),
-			'slide' => __('Slide', 'integlight'),
-		),
-	));
+	private function image($customize, $settingName, $label)
+	{
+		// スライダー画像1を追加
+		$customize->add_setting($settingName, array(
+			'default' => '',
+			'sanitize_callback' => 'esc_url_raw',
+		));
 
+		$customize->add_control(new WP_Customize_Image_Control($customize, $settingName, array(
+			'label'    => __($label, 'integlight'),
+			'section'  => 'slider_section',
+			'settings' => $settingName,
+		)));
+	}
 
+	private function text($customize, $settingName, $label)
+	{
+		// スライダーテキスト1を追加
+		$customize->add_setting('slider_text_1', array(
+			'default' => 'Slide  text',
+			'sanitize_callback' => 'sanitize_text_field',
+		));
+		$customize->add_control('slider_text_1', array(
+			'label'    => __('Slider Text', 'integlight'),
+			'section'  => 'slider_section',
+			'type'     => 'textarea',
+		));
+	}
 
+	private function changingTime($customize)
+	{
 
+		// スライド切り替え時間
+		$customize->add_setting('slider_change_duration', array(
+			'default' => '1',
+			'sanitize_callback' => 'absint', // 数値をサニタイズ
+		));
 
-	// スライダー画像1を追加
-	$wp_customize->add_setting('slider_image_1', array(
-		'default' => '',
-		'sanitize_callback' => 'esc_url_raw',
-	));
+		$customize->add_control('slider_change_duration', array(
+			'label'    => __('Slider Change Duration (seconds)', 'integlight'),
+			'section'  => 'slider_section',
+			'type'     => 'number',
+			'input_attrs' => array(
+				'min' => 1,
+				'step' => 1,
+			),
+		));
+	}
 
-	$wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'slider_image_1', array(
-		'label'    => __('Slider Image 1', 'integlight'),
-		'section'  => 'slider_section',
-		'settings' => 'slider_image_1',
-	)));
+	private function fadeDurationTime($customize){
+		// フェード時間の設定
+		$customize->add_setting('slider_fade_duration', array(
+			'default' => '0.8',
+			'sanitize_callback' => 'absint', // 数値をサニタイズ
+		));
 
-	// スライダー画像2を追加
-	$wp_customize->add_setting('slider_image_2', array(
-		'default' => '',
-		'sanitize_callback' => 'esc_url_raw',
-	));
-	$wp_customize->add_control(new WP_Customize_Image_control($wp_customize, 'slider_image_2', array(
-		'label'    => __('Slider Image 2', 'integlight'),
-		'section'  => 'slider_section',
-		'settings' => 'slider_image_2',
-	)));
+		$customize->add_control('slider_fade_duration', array(
+			'label'    => __('Slider Fade Duration (seconds)', 'integlight'),
+			'section'  => 'slider_section',
+			'type'     => 'number',
+			'input_attrs' => array(
+				'min' => 0.1,
+				'step' => 0.1,
+			),
+		));
+	}
 
-	// スライダー画像3を追加
-	$wp_customize->add_setting('slider_image_3', array(
-		'default' => '',
-		'sanitize_callback' => 'esc_url_raw',
-	));
-	$wp_customize->add_control(new WP_Customize_Image_control($wp_customize, 'slider_image_3', array(
-		'label'    => __('Slider Image 3', 'integlight'),
-		'section'  => 'slider_section',
-		'settings' => 'slider_image_3',
-	)));
+	public function setting($wp_customize)
+	{
 
+		// セクションを追加
+		$wp_customize->add_section('slider_section', array(
+			'title'    => __('Slider Settings', 'integlight'),
+			'priority' => 30,
+		));
 
-	// スライダーテキスト1を追加
-	$wp_customize->add_setting('slider_text_1', array(
-		'default' => 'Slide  text',
-		'sanitize_callback' => 'sanitize_text_field',
-	));
-	$wp_customize->add_control('slider_text_1', array(
-		'label'    => __('Slider Text', 'integlight'),
-		'section'  => 'slider_section',
-		'type'     => 'textarea',
-	));
+		$this->effect($wp_customize);
+		$this->image($wp_customize, 'slider_image_1', 'Slider Image 1');
+		$this->image($wp_customize, 'slider_image_2', 'Slider Image 2');
+		$this->image($wp_customize, 'slider_image_2', 'Slider Image 3');
+		$this->text($wp_customize, 'slider_text_1', 'Slider Text');
+		$this->changingTime($wp_customize);
+		$this->fadeDurationTime($wp_customize);
 
-
-
-
-	// スライド切り替え時間
-	$wp_customize->add_setting('slider_change_duration', array(
-		'default' => '1',
-		'sanitize_callback' => 'absint', // 数値をサニタイズ
-	));
-
-	$wp_customize->add_control('slider_change_duration', array(
-		'label'    => __('Slider Change Duration (seconds)', 'integlight'),
-		'section'  => 'slider_section',
-		'type'     => 'number',
-		'input_attrs' => array(
-			'min' => 1,
-			'step' => 1,
-		),
-	));
-
-
-
-	// フェード時間の設定
-	$wp_customize->add_setting('slider_fade_duration', array(
-		'default' => '0.8',
-		'sanitize_callback' => 'absint', // 数値をサニタイズ
-	));
-
-	$wp_customize->add_control('slider_fade_duration', array(
-		'label'    => __('Slider Fade Duration (seconds)', 'integlight'),
-		'section'  => 'slider_section',
-		'type'     => 'number',
-		'input_attrs' => array(
-			'min' => 0.1,
-			'step' => 0.1,
-		),
-	));
+	}
 }
-add_action('customize_register', 'integlight_customize_register_slide');
+new InteglightSilde();
 
 // slide customiser _e ////////////////////////////////////////////////////////////////////////////////
 

@@ -168,7 +168,7 @@ class InteglightCopyRight
 
 	public function setting()
 	{
-		add_submenu_page('themes.php', 'フッダー設定', 'フッダー', 'manage_options', 'custom_menu_page', array($this, 'setting_menuPage'),  5);
+		add_submenu_page('themes.php', 'フッダー設定', 'フッダー', 'manage_options', 'custom_menu_page', array($this, 'setting_menuPage'),  6);
 		add_action('admin_init', array($this, 'setting_db'));
 	}
 
