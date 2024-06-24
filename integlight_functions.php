@@ -163,22 +163,22 @@ class InteglightCopyRight
 
 	public function __construct()
 	{
-		add_filter('admin_menu', array($this, 'custom_menu_page'));
+		add_filter('admin_menu', array($this, 'setting'));
 	}
 
-	public function custom_menu_page()
+	public function setting()
 	{
-		add_submenu_page('themes.php', 'フッダー設定', 'フッダー', 'manage_options', 'custom_menu_page', array($this, 'add_custom_menu_page'),  5);
-		add_action('admin_init', array($this, 'register_custom_setting'));
+		add_submenu_page('themes.php', 'フッダー設定', 'フッダー', 'manage_options', 'custom_menu_page', array($this, 'setting_menuPage'),  5);
+		add_action('admin_init', array($this, 'setting_db'));
 	}
 
-	public function register_custom_setting()
+	public function setting_db()
 	{
 		register_setting('custom-menu-group', 'copy_right');
 	}
 
 
-	public function add_custom_menu_page()
+	public function setting_menuPage()
 	{
 ?>
 		<div class="wrap">
