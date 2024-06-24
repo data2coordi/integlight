@@ -96,8 +96,7 @@ function integlight_breadcrumb()
 
 
 
-///////////////////////////////////////////////////////////////////////////////
-//## スタイルシート、JSファイルの追加
+//## スタイルシート、JSファイルの追加 _s //////////////////////////////////////////////////////
 /**
  * Enqueue scripts and styles.
  */
@@ -130,13 +129,10 @@ function integlight_scripts_plus()
 
 }
 add_action('wp_enqueue_scripts', 'integlight_scripts_plus');
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
+//## スタイルシート、JSファイルの追加 _e //////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////////////
-//## editor用のスタイルの追加
-/**
- * Enqueue scripts and styles.
- */
+
+//## editor用のスタイルの追加 _s //////////////////////////////////////////////////////////////////////////////////
 // 性能劣化のデメリットがあるためOFFにしておくことも検討
 function integlight_add_editor_styles()
 {
@@ -145,12 +141,9 @@ function integlight_add_editor_styles()
 	add_editor_style(get_theme_file_uri('/integlight-style.css'));
 }
 add_action('admin_init', 'integlight_add_editor_styles');
-//////////////////////////////////////////////////////////////////////////////////
+//editor用のスタイルの追加 _e ////////////////////////////////////////////////////////////////////////////////
 
-///////////////////////////////////////////////
-/*
-	デフォルトから追加するテーマサポート
-*/
+// デフォルトから追加するテーマサポート _s ///////////////////////////////////////////////
 function integlight_setup_plus()
 {
 
@@ -162,11 +155,10 @@ function integlight_setup_plus()
 
 }
 add_action('after_setup_theme', 'integlight_setup_plus');
-///////////////////////////////////////////////
+// デフォルトから追加するテーマサポート _e /////////////////////////////////////////////
 
 
-// ## コピーライト対応
-//////////////////////////////////////////////////////////////////////////////////
+// ## コピーライト対応 _s//////////////////////////////////////////////////////////////////////////////////
 function integlight_add_custom_menu_page()
 {
 ?>
@@ -183,7 +175,7 @@ function integlight_add_custom_menu_page()
 			<?php submit_button(); ?>
 		</form>
 	</div>
-<?php
+	<?php
 }
 
 function integlight_register_custom_setting()
@@ -199,8 +191,8 @@ function integlight_custom_menu_page()
 }
 
 add_action('admin_menu', 'integlight_custom_menu_page');
+// ## コピーライト対応 _e//////////////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -213,6 +205,8 @@ class InteglightTableOfContents
 	public function __construct()
 	{
 		add_filter('the_content', array($this, 'add_toc_to_content'));
+		add_action('add_meta_boxes', 'InteglightTableOfContents::add_toc_visibility_meta_box');
+		add_action('save_post', 'InteglightTableOfContents::save_toc_visibility_meta_box_data');
 	}
 
 	// 投稿コンテンツに目次を追加するメソッド
@@ -249,64 +243,54 @@ class InteglightTableOfContents
 		return $content;
 	}
 
-	public static function staticMethod()
+
+	public function add_toc_visibility_meta_box()
 	{
-		// 静的メソッドの内容
-		echo 'test@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@';
+		$screens = ['post', 'page'];
+		add_meta_box(
+			'toc_visibility_meta_box', // ID
+			__('TOC Visibility', 'integlight'), // タイトル
+			'InteglightTableOfContents::render_toc_visibility_meta_box', // コールバック関数
+			$screens, // 投稿タイプ
+			'side', // コンテキスト
+			'default' // 優先度
+		);
+	}
+
+	public static function render_toc_visibility_meta_box($post)
+	{
+		$value = get_post_meta($post->ID, 'hide_toc', true);
+		wp_nonce_field('toc_visibility_nonce_action', 'toc_visibility_nonce');
+	?>
+		<label for="hide_toc">
+			<input type="checkbox" name="hide_toc" id="hide_toc" value="1" <?php checked($value, '1'); ?> />
+			<?php _e('Hide TOC', 'integlight'); ?>
+		</label>
+<?php
+
+	}
+
+	public static function save_toc_visibility_meta_box_data($post_id)
+	{
+		if (!isset($_POST['toc_visibility_nonce'])) {
+			return;
+		}
+		if (!wp_verify_nonce($_POST['toc_visibility_nonce'], 'toc_visibility_nonce_action')) {
+			return;
+		}
+		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+			return;
+		}
+		if (!current_user_can('edit_post', $post_id)) {
+			return;
+		}
+
+		$hide_toc = isset($_POST['hide_toc']) ? '1' : '0';
+		update_post_meta($post_id, 'hide_toc', $hide_toc);
 	}
 }
 
 // インスタンスを作成して目次生成を初期化
 new InteglightTableOfContents();
+
 // 目次_e ////////////////////////////////////////////////////////////////////////////////
-
-
-//add_action('add_meta_boxes', 'InteglightTableOfContents::staticMethod');
-
-// 目次表示設定_s ////////////////////////////////////////////////////////////////////////////////
-function integlight_add_toc_visibility_meta_box()
-{
-	$screens = ['post', 'page'];
-	add_meta_box(
-		'toc_visibility_meta_box', // ID
-		__('TOC Visibility', 'integlight'), // タイトル
-		'integlight_render_toc_visibility_meta_box', // コールバック関数
-		$screens, // 投稿タイプ
-		'side', // コンテキスト
-		'default' // 優先度
-	);
-}
-add_action('add_meta_boxes', 'integlight_add_toc_visibility_meta_box');
-
-function integlight_render_toc_visibility_meta_box($post)
-{
-	$value = get_post_meta($post->ID, 'hide_toc', true);
-	wp_nonce_field('toc_visibility_nonce_action', 'toc_visibility_nonce');
-?>
-	<label for="hide_toc">
-		<input type="checkbox" name="hide_toc" id="hide_toc" value="1" <?php checked($value, '1'); ?> />
-		<?php _e('Hide TOC', 'integlight'); ?>
-	</label>
-<?php
-}
-
-function integlight_save_toc_visibility_meta_box_data($post_id)
-{
-	if (!isset($_POST['toc_visibility_nonce'])) {
-		return;
-	}
-	if (!wp_verify_nonce($_POST['toc_visibility_nonce'], 'toc_visibility_nonce_action')) {
-		return;
-	}
-	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-		return;
-	}
-	if (!current_user_can('edit_post', $post_id)) {
-		return;
-	}
-
-	$hide_toc = isset($_POST['hide_toc']) ? '1' : '0';
-	update_post_meta($post_id, 'hide_toc', $hide_toc);
-}
-add_action('save_post', 'integlight_save_toc_visibility_meta_box_data');
-// 目次表示設定_e ////////////////////////////////////////////////////////////////////////////////
