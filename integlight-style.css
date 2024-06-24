@@ -62,6 +62,7 @@
 .slide img {
   width: 100vw;
   height: auto;
+  margin-top: -60px;
 }
 
 .text-overlay {
@@ -188,7 +189,7 @@ html {
   width: 48px;
   height: 48px;
   text-decoration: none;
-  background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
+  background: #555;
   display: block;
   text-align: center;
   border-radius: 24px;
@@ -236,7 +237,7 @@ p.head {
   margin-right: auto;
   margin-bottom: 20px;
   text-align: center;
-  background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
+  background: #555;
   /* -webkit-background-clip: text; */
   -webkit-text-fill-color: transparent;
 }
@@ -269,6 +270,10 @@ p.head {
 /* 検索バー */
 .wp-block-search__button.has-icon {
   width: 42px;
+}
+
+.wp-block-search .wp-block-search__label {
+  display: none;
 }
 
 /* テキスト */
@@ -404,7 +409,7 @@ footer {
   margin: 0;
   width: 100%;
   text-align: center;
-  background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
+  background: #555;
   padding: 10px;
   padding-top: 0;
   color: #fff;
@@ -416,7 +421,7 @@ button {
   margin-right: auto;
   margin-top: 50px;
   font-size: 18px;
-  background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
+  background: #555;
   color: #fff;
   padding: 10px;
   border: none;

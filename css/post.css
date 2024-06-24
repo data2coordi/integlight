@@ -144,7 +144,6 @@ textarea {
 label {
   display: block;
   margin-top: 15px;
-  margin-bottom: -20px;
 }
 
 button {
@@ -251,7 +250,7 @@ h3::after {
   content: ""; /* コンテンツを追加 */
   width: 50%; /* 線の幅 */
   height: 3px; /* 線の高さ */
-  background-color: #0052d4; /* 線の色 */
+  background: #555; /* 線の色 */
   position: absolute; /* position: relative;からの線の絶対位置 */
   bottom: 0; /* 線の位置 */
   left: 0; /* 線の位置 */

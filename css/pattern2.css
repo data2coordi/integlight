@@ -1,137 +1,21 @@
-@charset "utf-8";
-
-html {
-  font-size: 10px;
+footer {
+  background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
 }
 
-.createp2 {
-  background-color: rgb(253, 252, 219);
-}
-
-.createp2 p {
-  color: #3d2e1ef7;
-  font-size: 1.4rem;
-  margin: 0;
-  margin-left: auto;
-  margin-right: auto;
-  line-height: 2.2;
-}
-
-.createp2 .entry-header h1 {
-  background-color: rgb(253, 252, 219);
-}
-
-.createp2 main {
-  background-color: rgb(253, 252, 219);
-}
-
-.createp2 ul#gNavi li a {
-  color: #3d2e1ef7;
-}
-
-.createp2 a:visited {
-  color: #8d765df7;
-}
-
-.createp2 a {
-  color: #3d2e1ef7;
-  font-family: "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
-}
-
-.createp2 h1 {
-  color: #3d2e1ef7;
-}
-
-.createp2 h1::first-letter {
-  color: #61cd85;
-}
-
-.createp2 h2 {
-  margin: 0;
-  margin-top: 15px;
-  color: #3d2e1ef7;
-}
-
-.createp2 h3 {
-  margin: 0;
-  margin-top: 12px;
-  color: #3d2e1ef7;
-}
-
-.createp2 h2::first-letter {
-  color: #ff9050;
-}
-
-.createp2 #gNavi {
-  background-color: rgb(253, 252, 219);
-}
-
-.createp2 #colophon {
-  background-color: #7db1fa;
-  color: #fff;
-  padding-bottom: 20px;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  text-align: center;
-}
-
-.createp2 .infotable {
-  border-collapse: collapse;
-  margin-top: 20px;
-  /* 必要に応じて調整 */
-}
-
-.createp2 .infotable th,
-.infotable td {
-  border: 1px solid #61cd85;
-  padding: 8px;
-  text-align: left;
-}
-
-.createp2 .infotable th {
-  background-color: #7ccb97;
-}
-
-.createp2 .infotable tr:nth-child(even) {
-  background-color: #ffffff;
-  /* 偶数行のバックグラウンドカラーを白に設定 */
-}
-
-.site-main-costum-works .wp-block-image img:hover {
-  opacity: 1;
-  border: 5px solid #7ccb97;
-}
-
-.createp2 .bl_card_body{
-  margin-top: -45px;
-  padding-top: 45px;
+button {
+  background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
 }
 
 
-.createp3 #secondary.widget-area {
-  background-color: rgb(253, 252, 219);
+.pagetop {
+  background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
 }
 
-.createp3 .pagetop {
-  background: #83cb9b;
-  border: solid 2px #61cd85;
+p.head {
+  background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
 }
 
-@media screen and (max-width: 767px) {
-
-  .createp2 #gNavi {
-    background-color: #7db1fa9f;
-  }
-
-  .createp3 .pagetop {
-    background: #83cb9b;
-    border: solid 2px #61cd85;
-  }
-
-  .site-main-costum-works .wp-block-image img:focus {
-    opacity: 1;
-    border: 5px solid #7ccb97;
-  }
+h2::after,
+h3::after {
+  background-color: #0052d4;
 }
