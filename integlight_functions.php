@@ -157,40 +157,51 @@ function integlight_setup_plus()
 add_action('after_setup_theme', 'integlight_setup_plus');
 // デフォルトから追加するテーマサポート _e /////////////////////////////////////////////
 
-
 // ## コピーライト対応 _s//////////////////////////////////////////////////////////////////////////////////
-function integlight_add_custom_menu_page()
+class InteglightCopyRight
 {
+
+	public function __construct()
+	{
+		add_filter('admin_menu', array($this, 'custom_menu_page'));
+	}
+
+	public function custom_menu_page()
+	{
+		add_submenu_page('themes.php', 'フッダー設定', 'フッダー', 'manage_options', 'custom_menu_page', array($this, 'add_custom_menu_page'),  5);
+		add_action('admin_init', array($this, 'register_custom_setting'));
+	}
+
+	public function register_custom_setting()
+	{
+		register_setting('custom-menu-group', 'copy_right');
+	}
+
+
+	public function add_custom_menu_page()
+	{
 ?>
-	<div class="wrap">
-		<h2>Copy Rightの設定</h2>
-		<form method="post" action="options.php" enctype="multipart/form-data" encoding="multipart/form-data">
-			<?php
-			settings_fields('custom-menu-group');
-			do_settings_sections('custom-menu-group'); ?>
-			<div class="metabox-holder">
-				<p>Copy Rightを入力してください。</p>
-				<p><input type="text" id="copy_right" name="copy_right" value="<?php echo get_option('copy_right'); ?>"></p>
-			</div>
-			<?php submit_button(); ?>
-		</form>
-	</div>
+		<div class="wrap">
+			<h2>Copy Rightの設定</h2>
+			<form method="post" action="options.php" enctype="multipart/form-data" encoding="multipart/form-data">
+				<?php
+				settings_fields('custom-menu-group');
+				do_settings_sections('custom-menu-group'); ?>
+				<div class="metabox-holder">
+					<p>Copy Rightを入力してください。</p>
+					<p><input type="text" id="copy_right" name="copy_right" value="<?php echo get_option('copy_right'); ?>"></p>
+				</div>
+				<?php submit_button(); ?>
+			</form>
+		</div>
 	<?php
+	}
 }
 
-function integlight_register_custom_setting()
-{
-	register_setting('custom-menu-group', 'copy_right');
-}
+new InteglightCopyRight();
 
 
-function integlight_custom_menu_page()
-{
-	add_submenu_page('themes.php', 'フッダー設定', 'フッダー', 'manage_options', 'custom_menu_page', 'integlight_add_custom_menu_page',  5);
-	add_action('admin_init', 'integlight_register_custom_setting');
-}
 
-add_action('admin_menu', 'integlight_custom_menu_page');
 // ## コピーライト対応 _e//////////////////////////////////////////////////////////////////////////////////
 
 
