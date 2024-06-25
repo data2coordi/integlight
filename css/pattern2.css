@@ -1,28 +1,33 @@
-footer {
+.integlight_pt footer {
   background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
 }
 
-button {
+.integlight_pt button {
   background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
 }
 
 
-.pagetop {
+.integlight_pt .pagetop {
   background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
 }
 
-p.head {
+.integlight_pt p.head {
   background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
 }
 
-h2::after,
-h3::after {
+.integlight_pt h2::after,
+.integlight_pt h3::after {
   background-color: #0052d4;
 }
 
-button,
-input[type="button"],
-input[type="reset"],
-input[type="submit"] {
+.integlight_pt .entry-footer {
+  background: none;
+  color: #222;
+}
+
+.integlight_pt button,
+.integlight_pt input[type="button"],
+.integlight_pt input[type="reset"],
+.integlight_pt input[type="submit"] {
   background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
 }
