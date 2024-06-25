@@ -360,6 +360,10 @@ input[type="search"] {
   object-fit: cover;
 }
 
+.bl_card_imgWrapper {
+  height: 170px;
+}
+
 .bl_card_container {
   display: flex;
   flex-direction: row;
@@ -371,7 +375,15 @@ input[type="search"] {
 
 .bl_card_txt {
   width: fit-content;
-  font-size: 15px;
+  font-size: 12px;
+}
+
+.entry-date {
+  font-size: 12px;
+}
+
+figure {
+  margin: 0;
 }
 
 .bl_card_ttl {

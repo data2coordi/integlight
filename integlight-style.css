@@ -129,6 +129,15 @@ body {
   padding: 0;
 }
 
+a {
+  text-decoration: underline;
+}
+
+a:hover, a:focus {
+  text-decoration: underline;
+  color: #777;
+}
+
 .site-header {
   width: 100%;
   background-color: #000;

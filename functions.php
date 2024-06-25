@@ -210,4 +210,4 @@ if (defined('JETPACK__VERSION')) {
 
 // 以下は初期構成からの追加分	////////////////////////////////
 // 新しいファイルを読み込む
-require get_template_directory() . '/integlight_functions.php';
+require get_template_directory() . '/integlight-functions.php';

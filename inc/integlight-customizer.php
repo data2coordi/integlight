@@ -26,7 +26,27 @@ class InteglightSlide
 	public function __construct()
 	{
 		add_action('customize_register', array($this, 'setting'));
+
+		add_action('wp_enqueue_scripts', array($this, 'init_in_wp_enqueue_scripts'));
 	}
+
+
+
+	public function init_in_wp_enqueue_scripts()
+	{
+		wp_enqueue_script('jquery');
+		wp_enqueue_script('integlight_slider-script', get_template_directory_uri() . '/js/integlight-scripts.js', array('jquery'), _S_VERSION, true);
+		// カスタマイザーの設定値をJavaScriptに渡す
+		wp_localize_script('integlight_slider-script', 'sliderSettings', array(
+			'fadeDuration' => get_theme_mod('slider_fade_duration', '0.8'),
+			'changeDuration' => get_theme_mod('slider_change_duration', '1'),
+			'effect' => get_theme_mod('effect', 'fade')
+		));
+	}
+
+
+
+
 
 	private function effect($customize)
 	{
@@ -97,7 +117,8 @@ class InteglightSlide
 		));
 	}
 
-	private function fadeDurationTime($customize){
+	private function fadeDurationTime($customize)
+	{
 		// フェード時間の設定
 		$customize->add_setting('slider_fade_duration', array(
 			'default' => '0.8',
@@ -131,7 +152,6 @@ class InteglightSlide
 		$this->text($wp_customize, 'slider_text_1', 'Slider Text');
 		$this->changingTime($wp_customize);
 		$this->fadeDurationTime($wp_customize);
-
 	}
 }
 new InteglightSlide();
