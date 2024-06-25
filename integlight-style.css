@@ -1,4 +1,5 @@
-/* #primary.site-main {
+/* #primary.
+ {
   width: 100%;
 }
 
@@ -419,6 +420,8 @@ footer {
   padding: 10px;
   padding-top: 0;
   color: #fff;
+  position: fixed;
+  bottom: 0;
 }
 
 button {
@@ -435,6 +438,15 @@ button {
 
 a.contact {
   color: #fff;
+}
+
+/* メインを下げる */
+.integlight_front_page .site-main {
+  margin-top: 780px;
+}
+
+.integlight_front_page .widget-area.right {
+  display: none;
 }
 
 /*-----目次chat GPT-------*/
