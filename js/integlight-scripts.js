@@ -1,101 +1,89 @@
-function slider_slide($) {
 
-    var changeDuration = integlight_sliderSettings.changeDuration;
-    var $slider = $('.slider');
-    var $slides = $slider.find('.slides');
-    var $slide = $slides.find('.slide');
-    var slideCount = $slide.length;
-    var currentIndex = 0;
+// Slider _s ////////////////////////////////////////////////////////////////
+class Slider {
+    constructor($, settings) {
+        this.$ = $;
+        this.settings = settings;
+        this.$slider = this.$('.slider');
+        this.$slides = this.$slider.find('.slides');
+        this.$slide = this.$slides.find('.slide');
+        this.slideCount = this.$slide.length;
+        this.currentIndex = 0;
+    }
+}
 
-    var changeDurationTime = changeDuration / 2;
+class SlideSlider extends Slider {
+    constructor($, settings) {
+        super($, settings);
+        this.changeDuration = settings.changeDuration;
+        this.changeDurationTime = this.changeDuration / 2;
+        this.slideWidth = this.$slide.width();
+        this.$slider.addClass('slide-effect');
 
+        // クローン要素を追加
+        this.$slides.append(this.$slide.first().clone());
+        this.$slides.prepend(this.$slide.last().clone());
 
-    var slideWidth = $slide.width();
+        // 初期状態の調整
+        this.currentIndex = 1;
+        this.showSlide(this.currentIndex, false);
 
-    $slider.addClass('slide-effect');
+        setInterval(() => this.nextSlide(), this.changeDuration * 1000);
+    }
 
-
-    // クローン要素を追加
-    $slides.append($slide.first().clone());
-    $slides.prepend($slide.last().clone());
-
-    function showSlide(index, animate = true) {
+    showSlide(index, animate = true) {
         if (animate) {
-            $slides.css('transition', 'transform ' + changeDurationTime / 2 + 's ease-in-out');
+            this.$slides.css('transition', 'transform ' + this.changeDurationTime / 2 + 's ease-in-out');
         } else {
-            $slides.css('transition', 'none');
+            this.$slides.css('transition', 'none');
         }
-        $slides.css('transform', 'translateX(' + (-index * slideWidth) + 'px)');
-
+        this.$slides.css('transform', 'translateX(' + (-index * this.slideWidth) + 'px)');
     }
 
-    function nextSlide() {
-        currentIndex++;
-        showSlide(currentIndex);
-        if (currentIndex === slideCount) {
-            currentIndex = 0;
-            setTimeout(function () {
-                showSlide(currentIndex, false);
-            }, changeDurationTime * 1000 / 2); // アニメーション終了後にクローン位置から本来の位置に瞬時に移動
+    nextSlide() {
+        this.currentIndex++;
+        this.showSlide(this.currentIndex);
+        if (this.currentIndex === this.slideCount) {
+            this.currentIndex = 0;
+            setTimeout(() => {
+                this.showSlide(this.currentIndex, false);
+            }, this.changeDurationTime * 1000 / 2);
         }
     }
-
-    setInterval(nextSlide, changeDuration * 1000); // changeDuration 秒ごとに次のスライドを表示
-
-    // 初期状態の調整
-    currentIndex = 1;
-    showSlide(currentIndex, false);
-
 }
 
+class FadeSlider extends Slider {
+    constructor($, settings) {
+        super($, settings);
+        this.fadeDuration = settings.fadeDuration;
+        this.changeDuration = settings.changeDuration;
+        this.currentIndex = 1;
 
+        this.$slider.addClass('fade');
 
-
-function slider_fade($) {
-
-    var fadeDuration = integlight_sliderSettings.fadeDuration;
-    var changeDuration = integlight_sliderSettings.changeDuration;
-    var $slider = $('.slider');
-    var $slides = $slider.find('.slides');
-    var $slide = $slides.find('.slide');
-    var slideCount = $slide.length;
-    var currentIndex = 1;
-    // $sliderにフェードクラスを追加
-    $slider.addClass('fade');
-    // フェード時間をCSSに適用
-    //$slide.css('transition', 'opacity ' + fadeDuration + 's ease-in-out 0s');
-    //    $slide.css('transition', 'opacity ' + fadeDuration + 's, height 1s ease-in-out');
-    //   $slide.css('transition', 'opacity 1s ease-in-out, height 1s ease-in-out');
-
-
-    function showSlide() {
-        currentIndex++;
-        if (currentIndex === slideCount) {
-            currentIndex = 0;
-        }
-        $slide.not($slide.eq(currentIndex)).removeClass('active');
-        $slide.eq(currentIndex).addClass('active');
+        setInterval(() => this.showSlide(), this.changeDuration * 1000);
+        this.showSlide();
     }
 
-    setInterval(showSlide, changeDuration * 1000); // changeDuration 秒ごとに次のスライドを表示
-    showSlide();
+    showSlide() {
+        this.currentIndex++;
+        if (this.currentIndex === this.slideCount) {
+            this.currentIndex = 0;
+        }
+        this.$slide.not(this.$slide.eq(this.currentIndex)).removeClass('active');
+        this.$slide.eq(this.currentIndex).addClass('active');
+    }
 }
-
 
 jQuery(document).ready(function ($) {
-    if (integlight_sliderSettings.effect === 'fade') {
-        slider_fade($);
-    } else if (integlight_sliderSettings.effect === 'slide') {
-        slider_slide($);
+    const settings = integlight_sliderSettings;
+    if (settings.effect === 'fade') {
+        new FadeSlider($, settings);
+    } else if (settings.effect === 'slide') {
+        new SlideSlider($, settings);
     }
-    return;
 });
 
 
-
-
-
-
-
-
+// Slider _s ////////////////////////////////////////////////////////////////
 
