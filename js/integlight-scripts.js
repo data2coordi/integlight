@@ -1,11 +1,11 @@
 function slider_slide($) {
 
+    var changeDuration = integlight_sliderSettings.changeDuration;
     var $slider = $('.slider');
     var $slides = $slider.find('.slides');
     var $slide = $slides.find('.slide');
     var slideCount = $slide.length;
     var currentIndex = 0;
-    var changeDuration = sliderSettings.changeDuration;
 
     var changeDurationTime = changeDuration / 2;
 
@@ -53,12 +53,12 @@ function slider_slide($) {
 
 function slider_fade($) {
 
+    var fadeDuration = integlight_sliderSettings.fadeDuration;
+    var changeDuration = integlight_sliderSettings.changeDuration;
     var $slider = $('.slider');
     var $slides = $slider.find('.slides');
     var $slide = $slides.find('.slide');
     var slideCount = $slide.length;
-    var fadeDuration = sliderSettings.fadeDuration;
-    var changeDuration = sliderSettings.changeDuration;
     var currentIndex = 1;
     // $sliderにフェードクラスを追加
     $slider.addClass('fade');
@@ -83,9 +83,9 @@ function slider_fade($) {
 
 
 jQuery(document).ready(function ($) {
-    if (sliderSettings.effect === 'fade') {
+    if (integlight_sliderSettings.effect === 'fade') {
         slider_fade($);
-    } else if (sliderSettings.effect === 'slide') {
+    } else if (integlight_sliderSettings.effect === 'slide') {
         slider_slide($);
     }
     return;

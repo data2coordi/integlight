@@ -8,6 +8,52 @@
  * @package Integlight
  */
 
+
+//## スタイルシート、JSファイルの追加 _s //////////////////////////////////////////////////////
+/**
+ * Enqueue scripts and styles.
+ */
+function integlight_scripts_plus()
+{
+
+	wp_enqueue_style('integlight-style-plus', get_template_directory_uri() . '/integlight-style.css', array(), _S_VERSION);
+	//wp_enqueue_script('integlight-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true);
+	wp_enqueue_style('integlight-post', get_template_directory_uri() . '/css/post.css', array(), _S_VERSION);
+
+	//web fonts: font awsome
+	wp_enqueue_style('integlight-owsome', get_template_directory_uri() . '/css/all.min.css', array(), _S_VERSION);
+}
+add_action('wp_enqueue_scripts', 'integlight_scripts_plus');
+//## スタイルシート、JSファイルの追加 _e //////////////////////////////////////////////////////
+
+
+//## editor用のスタイルの追加 _s //////////////////////////////////////////////////////////////////////////////////
+// 性能劣化のデメリットがあるためOFFにしておくことも検討
+function integlight_add_editor_styles()
+{
+	add_theme_support('editor-styles');
+	add_editor_style(get_theme_file_uri('/style.css'));
+	add_editor_style(get_theme_file_uri('/integlight-style.css'));
+}
+add_action('admin_init', 'integlight_add_editor_styles');
+//editor用のスタイルの追加 _e ////////////////////////////////////////////////////////////////////////////////
+
+// デフォルトから追加するテーマサポート _s ///////////////////////////////////////////////
+function integlight_setup_plus()
+{
+
+	// resolve of  theme check _s
+	add_theme_support("wp-block-styles");
+	add_theme_support("responsive-embeds");
+	add_theme_support("align-wide");
+	// resolve of  theme check _e
+
+}
+add_action('after_setup_theme', 'integlight_setup_plus');
+// デフォルトから追加するテーマサポート _e /////////////////////////////////////////////
+
+
+
 // ## パンくずリスト _s //////////////////////////////////////////////////////////
 function integlight_breadcrumb()
 {
@@ -96,51 +142,19 @@ function integlight_breadcrumb()
 
 
 
-//## スタイルシート、JSファイルの追加 _s //////////////////////////////////////////////////////
-/**
- * Enqueue scripts and styles.
- */
-function integlight_scripts_plus()
-{
-
-	wp_enqueue_style('integlight-style-plus', get_template_directory_uri() . '/integlight-style.css', array(), _S_VERSION);
-	//wp_enqueue_script('integlight-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true);
-	wp_enqueue_style('integlight-post', get_template_directory_uri() . '/css/post.css', array(), _S_VERSION);
-
-	//web fonts: font awsome
-	wp_enqueue_style('integlight-owsome', get_template_directory_uri() . '/css/all.min.css', array(), _S_VERSION);
 
 
 
-}
-add_action('wp_enqueue_scripts', 'integlight_scripts_plus');
-//## スタイルシート、JSファイルの追加 _e //////////////////////////////////////////////////////
 
 
-//## editor用のスタイルの追加 _s //////////////////////////////////////////////////////////////////////////////////
-// 性能劣化のデメリットがあるためOFFにしておくことも検討
-function integlight_add_editor_styles()
-{
-	add_theme_support('editor-styles');
-	add_editor_style(get_theme_file_uri('/style.css'));
-	add_editor_style(get_theme_file_uri('/integlight-style.css'));
-}
-add_action('admin_init', 'integlight_add_editor_styles');
-//editor用のスタイルの追加 _e ////////////////////////////////////////////////////////////////////////////////
 
-// デフォルトから追加するテーマサポート _s ///////////////////////////////////////////////
-function integlight_setup_plus()
-{
 
-	// resolve of  theme check _s
-	add_theme_support("wp-block-styles");
-	add_theme_support("responsive-embeds");
-	add_theme_support("align-wide");
-	// resolve of  theme check _e
 
-}
-add_action('after_setup_theme', 'integlight_setup_plus');
-// デフォルトから追加するテーマサポート _e /////////////////////////////////////////////
+
+
+
+
+
 
 // ## コピーライト対応 _s//////////////////////////////////////////////////////////////////////////////////
 class InteglightCopyRight
