@@ -15,39 +15,35 @@ class Slider {
 class SlideSlider extends Slider {
     constructor($, settings) {
         super($, settings);
-        this.changeDuration = settings.changeDuration;
-        this.changeDurationTime = this.changeDuration / 2;
-        this.slideWidth = this.$slide.width();
-        this.$slider.addClass('slide-effect');
+        // 初期状態の調整
+        this.currentIndex = 1;
+        this.displayDuration = settings.changeDuration;
 
+        this.$slider.addClass('slide-effect');
+        this.slideWidth = this.$slide.width();
         // クローン要素を追加
         this.$slides.append(this.$slide.first().clone());
         this.$slides.prepend(this.$slide.last().clone());
 
-        // 初期状態の調整
-        this.currentIndex = 1;
-        this.showSlide(this.currentIndex, false);
 
-        setInterval(() => this.nextSlide(), this.changeDuration * 1000);
+        setInterval(() => this.showSlide(), this.displayDuration * 1000);
+        this.showSlide();
     }
 
-    showSlide(index, animate = true) {
-        if (animate) {
-            this.$slides.css('transition', 'transform ' + this.changeDurationTime / 2 + 's ease-in-out');
-        } else {
-            this.$slides.css('transition', 'none');
-        }
+    helperSlide(index, changingDuration) {
+        this.$slides.css('transition', 'transform ' + changingDuration + 's ease-in-out');
         this.$slides.css('transform', 'translateX(' + (-index * this.slideWidth) + 'px)');
     }
 
-    nextSlide() {
+    showSlide() {
+        var changingDuration = this.displayDuration / 2;
         this.currentIndex++;
-        this.showSlide(this.currentIndex);
+        this.helperSlide(this.currentIndex, changingDuration);
         if (this.currentIndex === this.slideCount) {
             this.currentIndex = 0;
             setTimeout(() => {
-                this.showSlide(this.currentIndex, false);
-            }, this.changeDurationTime * 1000 / 2);
+                this.helperSlide(this.currentIndex, changingDuration);
+            }, this.changingDuration * 1000);
         }
     }
 }
@@ -55,13 +51,12 @@ class SlideSlider extends Slider {
 class FadeSlider extends Slider {
     constructor($, settings) {
         super($, settings);
-        this.fadeDuration = settings.fadeDuration;
-        this.changeDuration = settings.changeDuration;
         this.currentIndex = 1;
+        this.displayDuration = settings.changeDuration;
 
         this.$slider.addClass('fade');
 
-        setInterval(() => this.showSlide(), this.changeDuration * 1000);
+        setInterval(() => this.showSlide(), this.displayDuration * 1000);
         this.showSlide();
     }
 
