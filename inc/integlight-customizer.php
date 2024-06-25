@@ -34,6 +34,8 @@ class InteglightSlide
 
 	public function init_in_wp_enqueue_scripts()
 	{
+
+		wp_enqueue_style('integlight-slide', get_template_directory_uri() . '/css/integlight-slide-style.css', array(), _S_VERSION);
 		wp_enqueue_script('jquery');
 		wp_enqueue_script('integlight_slider-script', get_template_directory_uri() . '/js/integlight-scripts.js', array('jquery'), _S_VERSION, true);
 		// カスタマイザーの設定値をJavaScriptに渡す
