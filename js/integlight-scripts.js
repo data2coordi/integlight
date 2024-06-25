@@ -61,12 +61,14 @@ class FadeSlider extends Slider {
     }
 
     showSlide() {
+        var changingDuration = this.displayDuration / 2;
         this.currentIndex++;
         if (this.currentIndex === this.slideCount) {
             this.currentIndex = 0;
         }
         this.$slide.not(this.$slide.eq(this.currentIndex)).removeClass('active');
         this.$slide.eq(this.currentIndex).addClass('active');
+        this.$slide.css('transition', 'opacity ' + changingDuration + 's ease-in-out');
     }
 }
 

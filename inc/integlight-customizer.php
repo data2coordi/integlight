@@ -153,7 +153,8 @@ class InteglightSlide
 		$this->image($wp_customize, 'slider_image_2', 'Slider Image 3');
 		$this->text($wp_customize, 'slider_text_1', 'Slider Text');
 		$this->changingTime($wp_customize);
-		$this->fadeDurationTime($wp_customize);
+		//利用しないように変更
+		//$this->fadeDurationTime($wp_customize);
 	}
 }
 new InteglightSlide();
