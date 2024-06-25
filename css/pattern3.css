@@ -1,55 +1,23 @@
-footer {
-  background: linear-gradient(90deg, #05c263 20%, #7fd7ab 40%, #9ecd94 70%);
-}
-
-button {
-  background: linear-gradient(90deg, #05c263 20%, #7fd7ab 40%, #9ecd94 70%);
-}
-
-
-.pagetop {
-  background: linear-gradient(90deg, #05c263 20%, #7fd7ab 40%, #9ecd94 70%);
-}
-
-p.head {
-  background: linear-gradient(90deg, #05c263 20%, #7fd7ab 40%, #9ecd94 70%);
-}
-
-h2::after,
-h3::after {
-  background-color: #05c263;
-}
-
-button,
-input[type="button"],
-input[type="reset"],
-input[type="submit"] {
-  background: linear-gradient(90deg, #05c263 20%, #7fd7ab 40%, #9ecd94 70%);
-}
-
-
-
-
 .integlight_pt footer {
-  background-color: #555;
+  background: linear-gradient(90deg, #05c263 20%, #7fd7ab 40%, #9ecd94 70%);
 }
 
 .integlight_pt button {
-  background-color: #555;
+  background: linear-gradient(90deg, #05c263 20%, #7fd7ab 40%, #9ecd94 70%);
 }
 
 
 .integlight_pt .pagetop {
-  background-color: #555;
+  background: linear-gradient(90deg, #05c263 20%, #7fd7ab 40%, #9ecd94 70%);
 }
 
 .integlight_pt p.head {
-  background-color: #555;
+  background: linear-gradient(90deg, #05c263 20%, #7fd7ab 40%, #9ecd94 70%);
 }
 
 .integlight_pt h2::after,
 .integlight_pt h3::after {
-  background-color: #555;
+  background-color: #05c263;
 }
 
 .integlight_pt .entry-footer {
@@ -61,5 +29,5 @@ input[type="submit"] {
 .integlight_pt input[type="button"],
 .integlight_pt input[type="reset"],
 .integlight_pt input[type="submit"] {
-  background-color: #555;
+  background: linear-gradient(90deg, #05c263 20%, #7fd7ab 40%, #9ecd94 70%);
 }
