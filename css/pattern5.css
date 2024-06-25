@@ -1,54 +1,23 @@
-footer {
-  background-color: #f90101;
-}
-
-button {
-  background-color: #f90101;
-}
-
-
-.pagetop {
-  background-color: #f90101;
-}
-
-p.head {
-  background-color: #f90101;
-}
-
-h2::after,
-h3::after {
-  background-color: #f90101;
-}
-
-button,
-input[type="button"],
-input[type="reset"],
-input[type="submit"] {
-  background-color: #f90101;
-}
-
-
-
 .integlight_pt footer {
-  background-color: #555;
+  background-color: #f90101;
 }
 
 .integlight_pt button {
-  background-color: #555;
+  background-color: #f90101;
 }
 
 
 .integlight_pt .pagetop {
-  background-color: #555;
+  background-color: #f90101;
 }
 
 .integlight_pt p.head {
-  background-color: #555;
+  background-color: #f90101;
 }
 
 .integlight_pt h2::after,
 .integlight_pt h3::after {
-  background-color: #555;
+  background-color: #f90101;
 }
 
 .integlight_pt .entry-footer {
@@ -60,5 +29,5 @@ input[type="submit"] {
 .integlight_pt input[type="button"],
 .integlight_pt input[type="reset"],
 .integlight_pt input[type="submit"] {
-  background-color: #555;
+  background-color: #f90101;
 }
