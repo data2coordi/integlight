@@ -19,3 +19,10 @@ h2::after,
 h3::after {
   background-color: #f90101;
 }
+
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  background-color: #f90101;
+}

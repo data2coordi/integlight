@@ -19,9 +19,10 @@
 // slide customiser _s ////////////////////////////////////////////////////////////////////////////////
 
 
-class InteglightSilde
+class InteglightSlide
 {
 
+	private $themePrefix = 'integlight_slide_';
 	public function __construct()
 	{
 		add_action('customize_register', array($this, 'setting'));
@@ -133,7 +134,7 @@ class InteglightSilde
 
 	}
 }
-new InteglightSilde();
+new InteglightSlide();
 
 // slide customiser _e ////////////////////////////////////////////////////////////////////////////////
 

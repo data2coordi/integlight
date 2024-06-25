@@ -428,9 +428,31 @@ input[type="search"] {
 /* 次の記事 */
 .nav-title {
   display: block;
-  width: 768px;
+  width: 350px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.nav-subtitle {
+  display: flex;
+  flex-direction: row;
+}
+
+.post-navigation .nav-links {
+  width: 768px;
+}
+
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  border: none;
+  border-radius: 0;
+  background: #e6e6e6;
+  width: 200px;
+  color: #fff;
+  line-height: 1;
+  padding: 0.6em 1em 0.4em;
 }
 
 @media screen and (max-width: 767px) {

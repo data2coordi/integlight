@@ -1,29 +1,33 @@
-
-.createp1 .site-title {
-  color: #555;
+.integlight_pt footer {
+  background-color: #555;
 }
 
-a {
-  color: #555;
-  text-align: left;
-  font-family: Arial, Helvetica, sans-serif;
-  text-decoration: none;
-}
-
-.site-main-costum-works .wp-block-image img:hover {
-  opacity: 1;
-  border: 5px solid #000;
-}
-
-.createp2 .bl_card_body{
-  margin-top: -45px;
-  padding-top: 45px;
+.integlight_pt button {
+  background-color: #555;
 }
 
 
-@media screen and (max-width: 767px) {
-  .site-main-costum-works .wp-block-image img:focus {
-    opacity: 1;
-    border: 5px solid #000;
-  }
+.integlight_pt .pagetop {
+  background-color: #555;
+}
+
+.integlight_pt p.head {
+  background-color: #555;
+}
+
+.integlight_pt h2::after,
+.integlight_pt h3::after {
+  background-color: #555;
+}
+
+.integlight_pt .entry-footer {
+  background: none;
+  color: #222;
+}
+
+.integlight_pt button,
+.integlight_pt input[type="button"],
+.integlight_pt input[type="reset"],
+.integlight_pt input[type="submit"] {
+  background-color: #555;
 }

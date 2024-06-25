@@ -19,3 +19,10 @@ h2::after,
 h3::after {
   background-color: #0052d4;
 }
+
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
+}

@@ -21,8 +21,13 @@
 
 	<?php wp_head(); ?>
 </head>
+<?php
+if (!is_home() && is_front_page()) {
+	$frontPage = 'integlight_front_page';
+}
+?>
 
-<body <?php body_class('integlight_pt'); ?>>
+<body <?php body_class(array('integlight_pt', $frontPage)); ?>>
 	<?php wp_body_open(); ?>
 	<div id="page" class="site">
 		<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e('Skip to content', 'integlight'); ?></a>
