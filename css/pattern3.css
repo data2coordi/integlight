@@ -1,18 +1,18 @@
 .integlight_pt footer {
-  background: linear-gradient(90deg, #05c263 20%, #7fd7ab 40%, #9ecd94 70%);
+  background: linear-gradient(90deg, #05c263 20%, #7fd7ab 40%, #c4fbb7 70%);
 }
 
 .integlight_pt button {
-  background: linear-gradient(90deg, #05c263 20%, #7fd7ab 40%, #9ecd94 70%);
+  background: linear-gradient(90deg, #05c263 20%, #7fd7ab 40%, #c4fbb7 70%);
 }
 
 
 .integlight_pt .pagetop {
-  background: linear-gradient(90deg, #05c263 20%, #7fd7ab 40%, #9ecd94 70%);
+  background: linear-gradient(90deg, #05c263 20%, #7fd7ab 40%, #c4fbb7 70%);
 }
 
 .integlight_pt p.head {
-  background: linear-gradient(90deg, #05c263 20%, #7fd7ab 40%, #9ecd94 70%);
+  background: linear-gradient(90deg, #05c263 20%, #7fd7ab 40%, #c4fbb7 70%);
 }
 
 .integlight_pt h2::after,
@@ -29,5 +29,5 @@
 .integlight_pt input[type="button"],
 .integlight_pt input[type="reset"],
 .integlight_pt input[type="submit"] {
-  background: linear-gradient(90deg, #05c263 20%, #7fd7ab 40%, #9ecd94 70%);
+  background: linear-gradient(90deg, #05c263 20%, #7fd7ab 40%, #c4fbb7 70%);
 }
