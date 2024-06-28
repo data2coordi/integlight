@@ -361,7 +361,9 @@ input[type="search"] {
 }
 
 .bl_card_imgWrapper {
+  width: 278px;
   height: 170px;
+  overflow:hidden;
 }
 
 .bl_card_container {
@@ -393,11 +395,25 @@ figure {
 .category-label {
   position: relative;
   left: 0;
-  top: -167px;
+  top: -170px;
   background: #222;
   color: #fff;
   font-size: 12px;
   border-radius: 0;
+}
+
+/* カードのテキスト下線を取る */
+.bl_card_column a:hover {
+  text-decoration: none;
+}
+
+/* カードの写真ホバー時アップ */
+.bl_card_imgWrapper img {
+  transition: 1s all;
+}
+.bl_card_imgWrapper img:hover {
+  transform: scale(1.1, 1.1);
+  transition: 1s all
 }
 
 /* 次へ */
