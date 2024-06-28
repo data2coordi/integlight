@@ -12,7 +12,6 @@
  *
  * @package Integlight
  */
-echo ("page.php");
 get_header();
 ?>
 
