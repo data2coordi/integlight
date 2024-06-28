@@ -37,6 +37,7 @@ img {
 body {
   margin: 0;
   padding: 0;
+  b
 }
 
 a {
@@ -46,6 +47,11 @@ a {
 a:hover, a:focus {
   text-decoration: underline;
   color: #777;
+}
+
+/* グローバルナビ位置 */
+.main-navigation {
+  margin-top: 30px;
 }
 
 .site-header {
@@ -74,7 +80,6 @@ a:hover, a:focus {
   gap: 50px;
   margin-right: 50px;
   justify-content: flex-end;
-  /* margin-top: 30px; */
 }
 
 .sub-menu > li {
@@ -218,15 +223,18 @@ p {
   border-radius: 3px;
 }
 
-.main-navigation ul ul a {
+/* メインナビ階層 */
+.sub-menu.main-navigation ul ul {
   position: relative;
-  z-index: 100;
+  margin-top: -5px;
+  z-index: 99999;
 }
 
-.main-navigation ul ul ul a {
+.main-navigation ul ul ul {
   margin-left: 240px;
-  
+  z-index: 88889;
 }
+
 
 .wp-block-group.text_01 {
   position: absolute;
