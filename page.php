@@ -24,14 +24,6 @@ endif
 
 <main id="primary" class="site-main">
 
-	<?php
-	// パンくず_s //////////////////
-	integlight_breadcrumb();
-	// パンくず_e //////////////////
-	?>
-
-
-
 
 	<?php
 	while (have_posts()) :

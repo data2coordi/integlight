@@ -218,10 +218,6 @@ new InteglightTableOfContents();
 
 
 
-function integlight_breadcrumb()
-{
-}
-
 // ## パンくずリスト _s //////////////////////////////////////////////////////////
 class InteglightBreadcrumb
 {
