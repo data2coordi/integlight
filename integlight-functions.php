@@ -54,95 +54,6 @@ add_action('after_setup_theme', 'integlight_setup_plus');
 
 
 
-// ## パンくずリスト _s //////////////////////////////////////////////////////////
-function integlight_breadcrumb()
-{
-	// HOMEリンク
-	$home = '<li><a href="' . home_url() . '" >HOME</a></li>';
-
-	echo '<ul class="create_bread">';
-	if (!is_front_page()) {
-		// カテゴリページまたはタグページ
-		if (is_category() || is_tag()) {
-
-			echo ('<i class="fa-solid fa-house"></i>');
-			echo $home;
-			echo '<i class="fa-solid fa-angle-right"></i>';
-
-
-			$queried_object = get_queried_object();
-			$cat_list = array();
-			// 親カテゴリを取得
-			while ($queried_object->parent != 0) {
-				$queried_object = get_category($queried_object->parent);
-				$cat_link = get_category_link($queried_object->term_id);
-				array_unshift($cat_list, '<li><a href="' . esc_url($cat_link) . '">' . esc_html($queried_object->name) . '</a></li>');
-			}
-
-			// リンクを出力
-			foreach ($cat_list as $value) {
-
-				echo $value;
-				echo '<i class="fa-solid fa-angle-right"></i>';
-			}
-			// カテゴリまたはタグ名を表示
-			echo '<li>' . single_term_title('', false) . '</li>';
-		}
-		// それ以外のアーカイブページ
-		elseif (is_archive()) {
-			echo ('<i class="fa-solid fa-house"></i>');
-			echo $home;
-
-			//Awesome
-			echo '<i class="fa-solid fa-angle-right"></i>';
-			echo '<li>' . get_the_archive_title() . '</li>';
-		}
-		// 投稿ページ
-		elseif (is_single()) {
-
-			echo ('<i class="fa-solid fa-house"></i>');
-			echo $home;
-			echo '<i class="fa-solid fa-angle-right"></i>';
-			// カテゴリリンクを表示
-			$categories = get_the_category();
-			if (!empty($categories)) {
-				foreach ($categories as $category) {
-
-					echo '<li><a href="' . esc_url(get_category_link($category->term_id)) . '">' . esc_html($category->name) . '</a></li>';
-					//Awesome
-					echo '<i class="fa-solid fa-angle-right"></i>';
-				}
-			}
-			// 記事のタイトルを表示
-			echo '<li>' . get_the_title() . '</li>';
-		}
-		// 固定ページ
-		elseif (is_page()) {
-			//Awesome
-			echo ('<i class="fa-solid fa-house"></i>');
-			echo $home;
-			//Awesome
-			echo '<i class="fa-solid fa-angle-right"></i>';
-			echo '<li>' . get_the_title() . '</li>';
-		}
-		// 404ページ
-		elseif (is_404()) {
-			//Awesome
-			echo ('<i class="fa-solid fa-house"></i>');
-			echo $home;
-			//Awesome
-			echo '<i class="fa-solid fa-angle-right"></i>';
-			echo '<li>ページが見つかりません</li>';
-		}
-	}
-	echo "</ul>";
-}
-
-// ## パンくずリスト _e //////////////////////////////////////////////////////////
-
-
-
-
 
 
 
@@ -304,3 +215,110 @@ class InteglightTableOfContents
 new InteglightTableOfContents();
 
 // 目次_e ////////////////////////////////////////////////////////////////////////////////
+
+
+
+function integlight_breadcrumb()
+{
+}
+
+// ## パンくずリスト _s //////////////////////////////////////////////////////////
+class InteglightBreadcrumb
+{
+	private $pTitle;
+
+	public function __construct()
+	{
+		add_filter('the_title', [$this, 'add_breadcrumb_to_title'], 10, 2);
+		add_filter('get_the_archive_title', [$this, 'add_breadcrumb_to_archive_title']);
+	}
+
+	public function add_breadcrumb_to_title($title, $id)
+	{
+		$this->pTitle = $title;
+		if ((is_page() || is_single()) && in_the_loop() && is_main_query()) {
+			$breadcrumb = $this->generate_breadcrumb();
+			$title = $breadcrumb . $this->pTitle;
+		}
+		return $title;
+	}
+
+	public function add_breadcrumb_to_archive_title($title)
+	{
+		if (is_archive() && is_main_query()) {
+			$breadcrumb = $this->generate_breadcrumb();
+			$title = $breadcrumb . $title;
+		}
+		return $title;
+	}
+
+	private function generate_breadcrumb()
+	{
+		$home = '<li><a href="' . home_url() . '">HOME</a></li>';
+		$output = '<ul class="create_bread">';
+
+		if (!is_front_page()) {
+			$output .= '<i class="fa-solid fa-house"></i>';
+			$output .= $home;
+			$output .= '<i class="fa-solid fa-angle-right"></i>';
+
+			if (is_category() || is_tag()) {
+				$output .= $this->get_category_tag_breadcrumb();
+			} elseif (is_archive()) {
+				$output .= '<li>' . single_term_title('', false) . '</li>';
+			} elseif (is_single()) {
+				$output .= $this->get_single_breadcrumb();
+			} elseif (is_page()) {
+				$output .= '<li>' . $this->pTitle . '</li>';
+			} elseif (is_404()) {
+				$output .= '<li>ページが見つかりません</li>';
+			}
+		}
+
+		$output .= '</ul>';
+		return $output;
+	}
+
+
+	private function get_category_tag_breadcrumb()
+	{
+		$output = '';
+		$queried_object = get_queried_object();
+		$cat_list = array();
+
+		while ($queried_object->parent != 0) {
+			$queried_object = get_category($queried_object->parent);
+			$cat_link = get_category_link($queried_object->term_id);
+			array_unshift($cat_list, '<li><a href="' . esc_url($cat_link) . '">' . esc_html($queried_object->name) . '</a></li>');
+		}
+
+		foreach ($cat_list as $value) {
+			$output .= $value;
+			$output .= '<i class="fa-solid fa-angle-right"></i>';
+		}
+
+		$output .= '<li>' . single_term_title('', false) . '</li>';
+		return $output;
+	}
+
+	private function get_single_breadcrumb()
+	{
+		$output = '';
+		$categories = get_the_category();
+
+		if (!empty($categories)) {
+			foreach ($categories as $category) {
+				$output .= '<li><a href="' . esc_url(get_category_link($category->term_id)) . '">' . esc_html($category->name) . '</a></li>';
+				$output .= '<i class="fa-solid fa-angle-right"></i>';
+			}
+		}
+
+		$output .= '<li>' . get_the_title() . '</li>';
+		return $output;
+	}
+}
+
+// インスタンスを作成して初期化
+new InteglightBreadcrumb();
+
+// ## パンくずリスト _e //////////////////////////////////////////////////////////

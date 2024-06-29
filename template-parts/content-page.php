@@ -7,7 +7,6 @@
  *
  * @package Integlight
  */
-echo "<br> content-page.php _s";
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -53,6 +52,3 @@ echo "<br> content-page.php _s";
 		</footer><!-- .entry-footer -->
 	<?php endif; ?>
 </article><!-- #post-<?php the_ID(); ?> -->
-
-
-"content-page.php _e"

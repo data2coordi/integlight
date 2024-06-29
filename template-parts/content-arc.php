@@ -7,7 +7,6 @@
  *
  * @package Integlight
  */
-echo ('---content-arc.php _s---');
 ?>
 
 <div class="bl_card_container">

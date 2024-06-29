@@ -8,7 +8,6 @@
  * @package Integlight
  */
 
-var_dump('single.php');
 get_header();
 
 ?>

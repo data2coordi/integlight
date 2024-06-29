@@ -7,7 +7,6 @@
  *
  * @package Integlight
  */
-var_dump('content.php _s');
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -62,5 +61,3 @@ var_dump('content.php _s');
 		<?php integlight_entry_footer(); ?>
 	</footer><!-- .entry-footer -->
 </article><!-- #post-<?php the_ID(); ?> -->
-
-<?php var_dump('content.php _e'); ?>

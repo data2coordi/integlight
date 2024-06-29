@@ -8,7 +8,6 @@
  * @package Integlight
  */
 
-var_dump('archive.php');
 get_header();
 ?>
 
