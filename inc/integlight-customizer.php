@@ -168,51 +168,23 @@ class integlightCustomizeRegisterSidebar
 
 	public function __construct()
 	{
-		add_action('customize_register', 'integlight_customize_register_sidebar');
+		add_action('customize_register', array($this, 'customize_register_sidebar'));
 	}
 
-	public function integlight_customize_register_sidebar($wp_customize)
+	private function helper_setting($wp_customize, $no)
 	{
 
-		// サイドバー位置セクションの追加
-		$wp_customize->add_section('integlight_sidebar_section', array(
-			'title' => __('Sidebar Settings', 'integlight'),
-			'priority' => 30,
-		));
-
 		// サイドバー位置設定の追加
-		$wp_customize->add_setting('integlight_sidebar1_position', array(
+		$wp_customize->add_setting('integlight_sidebar' . $no . '_position', array(
 			'default' => 'right',
-			'sanitize_callback' => 'integlight_sanitize_sidebar_position',
+			'sanitize_callback' => array($this, 'sanitize_sidebar_position'),
 		));
 
 		// サイドバー位置オプションの追加
-		$wp_customize->add_control('integlight_sidebar1_position_control', array(
-			'label' => __('Sidebar1 Position', 'integlight'),
+		$wp_customize->add_control('integlight_sidebar' . $no . '_position_control', array(
+			'label' => __('Sidebar' . $no . ' Position', 'integlight'),
 			'section' => 'integlight_sidebar_section',
-			'settings' => 'integlight_sidebar1_position',
-			'type' => 'radio',
-			'choices' => array(
-				'right' => __('Right', 'integlight'),
-				'bottom' => __('Bottom', 'integlight'),
-				'none' => __('None',
-					'integlight'
-				),
-			),
-		));
-
-
-		// サイドバー位置設定の追加
-		$wp_customize->add_setting('integlight_sidebar2_position', array(
-			'default' => 'right',
-			'sanitize_callback' => 'integlight_sanitize_sidebar_position',
-		));
-
-		// サイドバー位置オプションの追加
-		$wp_customize->add_control('integlight_sidebar2_position_control', array(
-			'label' => __('Sidebar2 Position', 'integlight'),
-			'section' => 'integlight_sidebar_section',
-			'settings' => 'integlight_sidebar2_position',
+			'settings' => 'integlight_sidebar' . $no . '_position',
 			'type' => 'radio',
 			'choices' => array(
 				'right' => __('Right', 'integlight'),
@@ -222,15 +194,27 @@ class integlightCustomizeRegisterSidebar
 		));
 	}
 
+	public function customize_register_sidebar($wp_customize)
+	{
+
+
+
+		// サイドバー位置セクションの追加
+		$wp_customize->add_section('integlight_sidebar_section', array(
+			'title' => __('Sidebar Settings', 'integlight'),
+			'priority' => 30,
+		));
+
+		$this->helper_setting($wp_customize, '1');
+		$this->helper_setting($wp_customize, '2');
+
+	}
+
 
 	// サイドバー位置の入力を検証する
-	private function integlight_sanitize_sidebar_position($input)
+	public function sanitize_sidebar_position($input)
 	{
-		$valid = array('right', 'bottom', 'none');
-		if (in_array($input, $valid, true)) {
-			return $input;
-		}
-		return 'right';
+		return true;	
 	}
 }
 
