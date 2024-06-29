@@ -29,7 +29,10 @@
 	<!-- 右側のカラム：本文 -->
 	<div class="bl_card_column">
 		<article class="bl_card">
-			<?php the_title('<h3 class="bl_card_ttl">', '</h3>'); ?>
+
+			<a href="<?php the_permalink(); ?>">
+				<?php the_title('<h3 class="bl_card_ttl">', '</h3>'); ?>
+			</a>
 			<div class="bl_card_body">
 				<span class="entry-date"><i class="fa-solid fa-calendar-days"></i><?php echo get_the_date(); ?></span>
 				<p class="bl_card_txt"><?php echo get_the_excerpt(); ?></p>

@@ -229,50 +229,51 @@ class InteglightBreadcrumb
 		add_filter('get_the_archive_title', [$this, 'add_breadcrumb_to_archive_title']);
 	}
 
-	public function add_breadcrumb_to_title($title, $id)
+	public function add_breadcrumb_to_title($title)
 	{
-		$this->pTitle = $title;
-		if ((is_page() || is_single()) && in_the_loop() && is_main_query()) {
-			$breadcrumb = $this->generate_breadcrumb();
-			$title = $breadcrumb . $this->pTitle;
+
+		if (!is_front_page() && (is_page() || is_single()) && in_the_loop() && is_main_query()) {
+			return $this->generate_breadcrumb($title) ;
 		}
 		return $title;
 	}
 
 	public function add_breadcrumb_to_archive_title($title)
 	{
-		if (is_archive() && is_main_query()) {
-			$breadcrumb = $this->generate_breadcrumb();
-			$title = $breadcrumb . $title;
+		if (!is_front_page() && is_archive() && is_main_query()) {
+			return $this->generate_breadcrumb($title) ;
 		}
 		return $title;
 	}
 
-	private function generate_breadcrumb()
+
+	private function helper_addUl($breadcrumbData)
 	{
-		$home = '<li><a href="' . home_url() . '">HOME</a></li>';
-		$output = '<ul class="create_bread">';
+		$ul = '<ul class="create_bread">';
+		$ul .= '<i class="fa-solid fa-house"></i>';
+		$ul .= '<li><a href="' . home_url() . '">HOME</a></li>';
+		$ul .= '<i class="fa-solid fa-angle-right"></i>';
 
-		if (!is_front_page()) {
-			$output .= '<i class="fa-solid fa-house"></i>';
-			$output .= $home;
-			$output .= '<i class="fa-solid fa-angle-right"></i>';
+		return $ul . $breadcrumbData .  '</ul>';
+	}
 
-			if (is_category() || is_tag()) {
-				$output .= $this->get_category_tag_breadcrumb();
-			} elseif (is_archive()) {
-				$output .= '<li>' . single_term_title('', false) . '</li>';
-			} elseif (is_single()) {
-				$output .= $this->get_single_breadcrumb();
-			} elseif (is_page()) {
-				$output .= '<li>' . $this->pTitle . '</li>';
-			} elseif (is_404()) {
-				$output .= '<li>ページが見つかりません</li>';
-			}
+	private function generate_breadcrumb($title)
+	{
+		$this->pTitle = $title;
+		$output = '';
+		if (is_category() || is_tag()) {
+			$output .= $this->get_category_tag_breadcrumb();
+		} elseif (is_archive()) {
+			$output .= '<li>' . single_term_title('', false) . '</li>';
+		} elseif (is_single()) {
+			$output .= $this->get_single_breadcrumb();
+		} elseif (is_page()) {
+			$output .= '<li>' . $this->pTitle . '</li>';
+		} elseif (is_404()) {
+			$output .= '<li>ページが見つかりません</li>';
 		}
 
-		$output .= '</ul>';
-		return $output;
+		return $this->helper_addUl($output) . $title;
 	}
 
 
@@ -309,8 +310,7 @@ class InteglightBreadcrumb
 			}
 		}
 
-		$output .= '<li>' . get_the_title() . '</li>';
-		return $output;
+		return $output . '<li>' . $this->pTitle . '</li>';
 	}
 }
 
