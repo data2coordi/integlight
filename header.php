@@ -66,4 +66,5 @@ if (!is_home() && is_front_page()) {
 			</nav><!-- #site-navigation -->
 
 		</header><!-- #masthead -->
-<?php do_action('after_header'); ?>
+
+		<?php do_action('after_header'); ?>

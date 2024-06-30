@@ -35,10 +35,17 @@ p.logged-in-as {
   width: 768px;
 }
 
-aside {
+.widget-area.right {
   width: 288px;
   margin-top: 120px;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.widget-area.bottom {
+
+  width: 768px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 h1 {
@@ -46,6 +53,7 @@ h1 {
   margin-right: 15px;
   margin-bottom: 30px;
 }
+
 
 .create_bread {
   display: flex;
@@ -423,6 +431,7 @@ figure {
   margin-left: auto;
   margin-right: auto;
   margin-top: 80px;
+  margin-bottom: 200px;
 }
 
 .page-numbers {
