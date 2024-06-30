@@ -221,31 +221,19 @@ new InteglightTableOfContents();
 // ## パンくずリスト _s //////////////////////////////////////////////////////////
 class InteglightBreadcrumb
 {
-	private $pTitle;
 
 	public function __construct()
 	{
-		add_filter('the_title', [$this, 'add_breadcrumb_to_title'], 10, 2);
-		add_filter('get_the_archive_title', [$this, 'add_breadcrumb_to_archive_title']);
+		add_action('after_header', [$this, 'add_breadcrumb'], 10, 2);
 	}
 
-	public function add_breadcrumb_to_title($title)
+	public function add_breadcrumb()
 	{
 
-		if (!is_front_page() && (is_page() || is_single()) && in_the_loop() && is_main_query()) {
-			return $this->generate_breadcrumb($title) ;
+		if (!is_front_page()) {
+			echo  $this->generate_breadcrumb();
 		}
-		return $title;
 	}
-
-	public function add_breadcrumb_to_archive_title($title)
-	{
-		if (!is_front_page() && is_archive() && is_main_query()) {
-			return $this->generate_breadcrumb($title) ;
-		}
-		return $title;
-	}
-
 
 	private function helper_addUl($breadcrumbData)
 	{
@@ -257,9 +245,8 @@ class InteglightBreadcrumb
 		return $ul . $breadcrumbData .  '</ul>';
 	}
 
-	private function generate_breadcrumb($title)
+	private function generate_breadcrumb()
 	{
-		$this->pTitle = $title;
 		$output = '';
 		if (is_category() || is_tag()) {
 			$output .= $this->get_category_tag_breadcrumb();
@@ -268,12 +255,12 @@ class InteglightBreadcrumb
 		} elseif (is_single()) {
 			$output .= $this->get_single_breadcrumb();
 		} elseif (is_page()) {
-			$output .= '<li>' . $this->pTitle . '</li>';
+			$output .= '<li>' . get_the_title() . '</li>';
 		} elseif (is_404()) {
 			$output .= '<li>ページが見つかりません</li>';
 		}
 
-		return $this->helper_addUl($output) . $title;
+		return $this->helper_addUl($output);
 	}
 
 
@@ -310,7 +297,7 @@ class InteglightBreadcrumb
 			}
 		}
 
-		return $output . '<li>' . $this->pTitle . '</li>';
+		return $output . '<li>' . get_the_title()  . '</li>';
 	}
 }
 
