@@ -12,10 +12,11 @@
 
 <!-- slide bar _s //////////////////////////////// -->
 <?php
-$slider_image_1 = get_theme_mod('slider_image_1');
-$slider_image_2 = get_theme_mod('slider_image_2');
-$slider_image_3 = get_theme_mod('slider_image_3');
-if (!empty($slider_image_1) || !empty($slider_image_2) || !empty($slider_image_3)) :
+$slider_image_1 = get_theme_mod('integlight_slider_image_1');
+$slider_image_2 = get_theme_mod('integlight_slider_image_2');
+$slider_image_3 = get_theme_mod('integlight_slider_image_3');
+$slider_effect = get_theme_mod('integlight_effect');
+if (($slider_effect != 'none') && (!empty($slider_image_1) || !empty($slider_image_2) || !empty($slider_image_3))) :
 ?>
 	<div class="slider">
 		<div class="slides">
@@ -43,7 +44,7 @@ if (!empty($slider_image_1) || !empty($slider_image_2) || !empty($slider_image_3
 
 		</div>
 		<div class="text-overlay">
-			<p><?php echo nl2br(wp_kses_post(get_theme_mod('slider_text_1', ''))); ?></p>
+			<p><?php echo nl2br(wp_kses_post(get_theme_mod('integlight_slider_text_1', ''))); ?></p>
 		</div>
 	</div>
 <?php

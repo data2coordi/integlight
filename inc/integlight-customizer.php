@@ -33,9 +33,10 @@ class InteglightSlide
 		wp_enqueue_script('integlight_slider-script', get_template_directory_uri() . '/js/integlight-scripts.js', array('jquery'), _S_VERSION, true);
 		// カスタマイザーの設定値をJavaScriptに渡す
 		wp_localize_script('integlight_slider-script', 'integlight_sliderSettings', array(
-			'fadeDuration' => get_theme_mod('slider_fade_duration', '0.8'),
-			'changeDuration' => get_theme_mod('slider_change_duration', '1'),
-			'effect' => get_theme_mod('effect', 'fade')
+			//利用しないように変更
+			//'fadeDuration' => get_theme_mod('integlight_slider_fade_duration', '3'),
+			'changeDuration' => get_theme_mod('integlight_slider_change_duration', '3'),
+			'effect' => get_theme_mod('integlight_effect', 'fade')
 		));
 	}
 
@@ -46,19 +47,20 @@ class InteglightSlide
 	private function effect($customize)
 	{
 		// 効果設定を追加
-		$customize->add_setting('effect', array(
+		$customize->add_setting('integlight_effect', array(
 			'default' => 'slide',
 			'sanitize_callback' => 'sanitize_text_field',
 		));
 
 		// セレクトボックスのコントロールを追加
-		$customize->add_control('effect', array(
+		$customize->add_control('integlight_effect', array(
 			'label'    => __('Effect', 'integlight'),
 			'section'  => 'slider_section',
 			'type'     => 'select',
 			'choices'  => array(
 				'fade'  => __('Fade', 'integlight'),
 				'slide' => __('Slide', 'integlight'),
+				'none' => __('None', 'integlight'),
 			),
 		));
 	}
@@ -81,12 +83,12 @@ class InteglightSlide
 	private function text($customize, $settingName, $label)
 	{
 		// スライダーテキスト1を追加
-		$customize->add_setting('slider_text_1', array(
-			'default' => 'Slide  text',
+		$customize->add_setting($settingName, array(
+			'default' => $label,
 			'sanitize_callback' => 'sanitize_text_field',
 		));
-		$customize->add_control('slider_text_1', array(
-			'label'    => __('Slider Text', 'integlight'),
+		$customize->add_control($settingName, array(
+			'label'    => __($label, 'integlight'),
 			'section'  => 'slider_section',
 			'type'     => 'textarea',
 		));
@@ -96,12 +98,12 @@ class InteglightSlide
 	{
 
 		// スライド切り替え時間
-		$customize->add_setting('slider_change_duration', array(
+		$customize->add_setting('integlight_slider_change_duration', array(
 			'default' => '1',
 			'sanitize_callback' => 'absint', // 数値をサニタイズ
 		));
 
-		$customize->add_control('slider_change_duration', array(
+		$customize->add_control('integlight_slider_change_duration', array(
 			'label'    => __('Slider Change Duration (seconds)', 'integlight'),
 			'section'  => 'slider_section',
 			'type'     => 'number',
@@ -112,15 +114,16 @@ class InteglightSlide
 		));
 	}
 
+	//利用しないように変更
 	private function fadeDurationTime($customize)
 	{
 		// フェード時間の設定
-		$customize->add_setting('slider_fade_duration', array(
+		$customize->add_setting('integlight_slider_fade_duration', array(
 			'default' => '0.8',
 			'sanitize_callback' => 'absint', // 数値をサニタイズ
 		));
 
-		$customize->add_control('slider_fade_duration', array(
+		$customize->add_control('integlight_slider_fade_duration', array(
 			'label'    => __('Slider Fade Duration (seconds)', 'integlight'),
 			'section'  => 'slider_section',
 			'type'     => 'number',
@@ -141,10 +144,10 @@ class InteglightSlide
 		));
 
 		$this->effect($wp_customize);
-		$this->image($wp_customize, 'slider_image_1', 'Slider Image 1');
-		$this->image($wp_customize, 'slider_image_2', 'Slider Image 2');
-		$this->image($wp_customize, 'slider_image_2', 'Slider Image 3');
-		$this->text($wp_customize, 'slider_text_1', 'Slider Text');
+		$this->image($wp_customize, 'integlight_slider_image_1', 'Slider Image 1');
+		$this->image($wp_customize, 'integlight_slider_image_2', 'Slider Image 2');
+		$this->image($wp_customize, 'integlight_slider_image_3', 'Slider Image 3');
+		$this->text($wp_customize, 'integlight_slider_text_1', 'Slider Text');
 		$this->changingTime($wp_customize);
 		//利用しないように変更
 		//$this->fadeDurationTime($wp_customize);
