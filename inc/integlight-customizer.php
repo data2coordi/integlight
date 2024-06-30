@@ -15,12 +15,20 @@
 class InteglightSlide
 {
 
-	private $themePrefix = 'integlight_slide_';
+
+	private $pInteglight_slider_settings;
+
 	public function __construct()
 	{
 		add_action('customize_register', array($this, 'setting'));
 
 		add_action('wp_enqueue_scripts', array($this, 'init_in_wp_enqueue_scripts'));
+		$GLOBALS['Integlight_slider_settings'] = new stdClass();
+		$GLOBALS['Integlight_slider_settings']->optionValueName_fade = 'fade';
+		$GLOBALS['Integlight_slider_settings']->optionValueName_slide = 'slide';
+		$GLOBALS['Integlight_slider_settings']->optionValueName_none = 'none';
+		global $Integlight_slider_settings;
+		$this->pInteglight_slider_settings = $Integlight_slider_settings;
 	}
 
 
@@ -33,34 +41,31 @@ class InteglightSlide
 		wp_enqueue_script('integlight_slider-script', get_template_directory_uri() . '/js/integlight-scripts.js', array('jquery'), _S_VERSION, true);
 		// カスタマイザーの設定値をJavaScriptに渡す
 		wp_localize_script('integlight_slider-script', 'integlight_sliderSettings', array(
-			//利用しないように変更
-			//'fadeDuration' => get_theme_mod('integlight_slider_fade_duration', '3'),
 			'changeDuration' => get_theme_mod('integlight_slider_change_duration', '3'),
-			'effect' => get_theme_mod('integlight_effect', 'fade')
+			'effect' => get_theme_mod('integlight_slider_effect', $this->pInteglight_slider_settings->optionValueName_none),
+			'fade' => $this->pInteglight_slider_settings->optionValueName_fade,
+			'slide' => $this->pInteglight_slider_settings->optionValueName_slide
 		));
 	}
-
-
-
 
 
 	private function effect($customize)
 	{
 		// 効果設定を追加
-		$customize->add_setting('integlight_effect', array(
+		$customize->add_setting('integlight_slider_effect', array(
 			'default' => 'slide',
 			'sanitize_callback' => 'sanitize_text_field',
 		));
 
 		// セレクトボックスのコントロールを追加
-		$customize->add_control('integlight_effect', array(
+		$customize->add_control('integlight_slider_effect', array(
 			'label'    => __('Effect', 'integlight'),
 			'section'  => 'slider_section',
 			'type'     => 'select',
 			'choices'  => array(
-				'fade'  => __('Fade', 'integlight'),
-				'slide' => __('Slide', 'integlight'),
-				'none' => __('None', 'integlight'),
+				$this->pInteglight_slider_settings->optionValueName_fade  => __('Fade', 'integlight'),
+				$this->pInteglight_slider_settings->optionValueName_slide => __('Slide', 'integlight'),
+				$this->pInteglight_slider_settings->optionValueName_none => __('None', 'integlight'),
 			),
 		));
 	}
@@ -137,6 +142,8 @@ class InteglightSlide
 	public function setting($wp_customize)
 	{
 
+
+
 		// セクションを追加
 		$wp_customize->add_section('slider_section', array(
 			'title'    => __('Slider Settings', 'integlight'),
@@ -153,7 +160,8 @@ class InteglightSlide
 		//$this->fadeDurationTime($wp_customize);
 	}
 }
-new InteglightSlide();
+
+$InteglightSlide = new InteglightSlide();
 
 // slide customiser _e ////////////////////////////////////////////////////////////////////////////////
 

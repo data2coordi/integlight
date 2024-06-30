@@ -47,14 +47,14 @@
 /* スライドエフェクト _e ////////////////////////////*/
 
 /* フェードエフェクト _s ////////////////////////////*/
-.slider.fade .slide {
+.slider.fade-effect .slide {
   /*レイアウト：画像を重ねるためにabsoluteを指定する。基準は親のslider*/
   position: absolute;
   opacity: 0;
   transition: opacity 3s ease-in-out;
 }
 
-.slider.fade .slide.active {
+.slider.fade-effect .slide.active {
   opacity: 1;
   transition: opacity 3s ease-in-out;
   height: auto;

@@ -15,8 +15,13 @@
 $slider_image_1 = get_theme_mod('integlight_slider_image_1');
 $slider_image_2 = get_theme_mod('integlight_slider_image_2');
 $slider_image_3 = get_theme_mod('integlight_slider_image_3');
-$slider_effect = get_theme_mod('integlight_effect');
-if (($slider_effect != 'none') && (!empty($slider_image_1) || !empty($slider_image_2) || !empty($slider_image_3))) :
+$slider_effect = get_theme_mod('integlight_slider_effect');
+
+global $Integlight_slider_settings;
+
+if (($slider_effect != $Integlight_slider_settings->optionValueName_none)
+	&& (!empty($slider_image_1) || !empty($slider_image_2) || !empty($slider_image_3))
+) :
 ?>
 	<div class="slider">
 		<div class="slides">

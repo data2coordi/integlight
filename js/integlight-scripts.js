@@ -57,7 +57,7 @@ class FadeSlider extends Slider {
         super($, settings);
         this.currentIndex = 1;
 
-        this.$slider.addClass('fade');
+        this.$slider.addClass('fade-effect');
 
         setInterval(() => this.showSlide(), this.displayDuration * 1000);
         this.showSlide();
@@ -76,9 +76,9 @@ class FadeSlider extends Slider {
 
 jQuery(document).ready(function ($) {
     const settings = integlight_sliderSettings;
-    if (settings.effect === 'fade') {
+    if (settings.effect === settings.fade) {
         new FadeSlider($, settings);
-    } else if (settings.effect === 'slide') {
+    } else if (settings.effect === settings.slide) {
         new SlideSlider($, settings);
     }
 });
