@@ -15,7 +15,7 @@ form {
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: center;
-  gap: 0px 60px;
+  gap: 60px;
 }
 
 .attachment-post-thumbnail {

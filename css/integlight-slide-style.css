@@ -36,6 +36,7 @@
 /* スライドエフェクト _s ////////////////////////////*/
 .slider.slide-effect .slides {
   display: flex;
+  position: absolute; /*スライドもフェードと同様に*/
   /*transition: transform 1s ease-out;*/
 }
 
