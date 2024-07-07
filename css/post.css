@@ -15,7 +15,7 @@ form {
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: center;
-  gap: 60px;
+  gap: 0px 60px;
 }
 
 .attachment-post-thumbnail {
@@ -26,6 +26,7 @@ form {
 main {
   width: 768px;
   font-family: Arial, Helvetica, sans-serif;
+  margin-bottom: 100px;
 }
 
 .entry-content > p {
@@ -35,7 +36,8 @@ p.logged-in-as {
   width: 768px;
 }
 
-.widget-area.right {
+/* サイドバー */
+aside {
   width: 288px;
   margin-top: 120px;
   font-family: Arial, Helvetica, sans-serif;
