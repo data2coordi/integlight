@@ -17,13 +17,13 @@ get_header();
 
 <?php
 // slide 
-if (!is_home() && is_front_page()) {
+if (is_front_page()) {
 	get_template_part('template-parts/content', 'slide');
 }
 ?>
 
 <main id="primary" class="site-main">
-
+	<?php do_action('after_main_open'); ?>
 
 	<?php
 	while (have_posts()) :
@@ -43,7 +43,7 @@ if (!is_home() && is_front_page()) {
 
 <?php
 
-if (!is_home() && is_front_page()) {
+if (is_front_page()) {
 } else {
 	get_sidebar();
 }

@@ -13,7 +13,7 @@ get_header();
 ?>
 
 <main id="primary" class="site-main">
-
+	<?php do_action('after_main_open'); ?>
 
 	<?php
 

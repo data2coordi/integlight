@@ -224,7 +224,9 @@ class InteglightBreadcrumb
 
 	public function __construct()
 	{
-		add_action('after_header', [$this, 'add_breadcrumb'], 10, 2);
+		//add_action('after_header', [$this, 'add_breadcrumb'], 10, 2);
+		add_action('after_main_open', [$this, 'add_breadcrumb'], 10, 2);
+
 	}
 
 	public function add_breadcrumb()
