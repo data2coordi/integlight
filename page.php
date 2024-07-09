@@ -17,9 +17,9 @@ get_header();
 
 <?php
 // slide 
-if (!is_home() && is_front_page()) :
+if (!is_home() && is_front_page()) {
 	get_template_part('template-parts/content', 'slide');
-endif
+}
 ?>
 
 <main id="primary" class="site-main">
@@ -42,5 +42,10 @@ endif
 </main><!-- #main -->
 
 <?php
-get_sidebar();
+
+if (!is_home() && is_front_page()) {
+} else {
+	get_sidebar();
+}
 get_footer();
+?>
