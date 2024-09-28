@@ -1,3 +1,8 @@
+/**********************************************************************************************/
+/* Theme Name: Integlight */
+/* 投稿ページ向けのcss */
+/***********************************************************************************************/
+
 a,
 a:visited {
   color: #222;
@@ -28,9 +33,10 @@ main {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.entry-content > p {
+.entry-content>p {
   width: 768px;
 }
+
 p.logged-in-as {
   width: 768px;
 }
@@ -251,29 +257,44 @@ h3 {
   padding-bottom: 5px;
   border-bottom: 1px solid #222;
   width: 100%;
-  position: relative; /*::afterにabsoluteをかけるので設定*/
+  position: relative;
+  /*::afterにabsoluteをかけるので設定*/
 }
+
 h2::after,
 h3::after {
-  content: ""; /* コンテンツを追加 */
-  width: 50%; /* 線の幅 */
-  height: 3px; /* 線の高さ */
-  background: #555; /* 線の色 */
-  position: absolute; /* position: relative;からの線の絶対位置 */
-  bottom: 0; /* 線の位置 */
-  left: 0; /* 線の位置 */
-  transform: scale(0, 1); /* 線のx軸の長さを0 */
-  transition: 0.5s; /* 要素の変形する時間*/
-  transform-origin: left top; /* 要素の座標の原点を設定*/
+  content: "";
+  /* コンテンツを追加 */
+  width: 50%;
+  /* 線の幅 */
+  height: 3px;
+  /* 線の高さ */
+  background: #555;
+  /* 線の色 */
+  position: absolute;
+  /* position: relative;からの線の絶対位置 */
+  bottom: 0;
+  /* 線の位置 */
+  left: 0;
+  /* 線の位置 */
+  transform: scale(0, 1);
+  /* 線のx軸の長さを0 */
+  transition: 0.5s;
+  /* 要素の変形する時間*/
+  transform-origin: left top;
+  /* 要素の座標の原点を設定*/
 }
+
 h3::after {
   height: 1.5px;
 }
+
 h2:hover::after,
 h3:hover::after,
 h2:focus:after,
 h3:focus:after {
-  transform: scale(1, 1); /* 線のx軸の長さを1 */
+  transform: scale(1, 1);
+  /* 線のx軸の長さを1 */
 }
 
 /*
@@ -333,11 +354,12 @@ h3:focus:after {
   padding: 20px;
   margin-top: 10px;
 }
+
 .text {
   text-align: center;
 }
 
-figure > img {
+figure>img {
   width: 30%;
   height: auto;
   display: block;
@@ -371,7 +393,7 @@ input[type="search"] {
 .bl_card_imgWrapper {
   width: 278px;
   height: 170px;
-  overflow:hidden;
+  overflow: hidden;
 }
 
 .bl_card_container {
@@ -386,7 +408,7 @@ input[type="search"] {
 .bl_card_txt {
   width: fit-content;
   font-size: 12px;
-  }
+}
 
 .entry-date {
   font-size: 12px;
@@ -419,6 +441,7 @@ figure {
 .bl_card_imgWrapper img {
   transition: 1s all;
 }
+
 .bl_card_imgWrapper img:hover {
   transform: scale(1.1, 1.1);
   transition: 1s all
@@ -493,6 +516,7 @@ input[type="submit"] {
 }
 
 @media screen and (max-width: 767px) {
+
   input,
   textarea {
     width: 100%;
@@ -513,7 +537,8 @@ input[type="submit"] {
 
   .hover:focus:after,
   .hover02:focus:after {
-    transform: scale(1, 1); /* 線のx軸の長さを1 */
+    transform: scale(1, 1);
+    /* 線のx軸の長さを1 */
   }
 
   .photo {
