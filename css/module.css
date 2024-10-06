@@ -9,12 +9,6 @@
 /************************************************************/
 /*2.1 段落*/
 
-p {
-    margin-bottom: 1.5em;
-    line-height: 1.8;
-    width: fit-content;
-    margin-left: 0;
-}
 
 
 /*2.2 見出し*/
@@ -25,105 +19,9 @@ p {
  */
 
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    clear: both;
-    width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 50px;
-}
-
-h1 {
-    font-size: 2em;
-    margin: 0.67em 0;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-
-h2 {
-    margin-top: 50px;
-}
-
-h3 {
-    margin-top: 50px;
-}
-
-
-h2,
-h3 {
-    color: #222;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #222;
-    width: 100%;
-    position: relative;
-    /*::afterにabsoluteをかけるので設定*/
-}
-
-h2::after,
-h3::after {
-    content: "";
-    /* コンテンツを追加 */
-    width: 50%;
-    /* 線の幅 */
-    height: 3px;
-    /* 線の高さ */
-    background: #555;
-    /* 線の色 */
-    position: absolute;
-    /* position: relative;からの線の絶対位置 */
-    bottom: 0;
-    /* 線の位置 */
-    left: 0;
-    /* 線の位置 */
-    transform: scale(0, 1);
-    /* 線のx軸の長さを0 */
-    transition: 0.5s;
-    /* 要素の変形する時間*/
-    transform-origin: left top;
-    /* 要素の座標の原点を設定*/
-}
-
-h3::after {
-    height: 1.5px;
-}
-
-h2:hover::after,
-h3:hover::after,
-h2:focus:after,
-h3:focus:after {
-    transform: scale(1, 1);
-    /* 線のx軸の長さを1 */
-}
-
-
-
 
 
 /*2.3 リスト*/
-
-ul,
-ol {
-    margin: 0 0 0 1em;
-}
-
-ul {
-    list-style: disc;
-}
-
-ol {
-    list-style: decimal;
-}
-
-li>ul,
-li>ol {
-    margin-bottom: 0;
-    margin-left: 1.5em;
-}
 
 
 /*2.4 詳細*/
