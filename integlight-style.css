@@ -414,52 +414,6 @@ a.post-edit-link {
 }
 
 @media screen and (max-width: 767px) {
-  nav>.gnav-navi-01 {
-    display: none;
-  }
-
-  h2.value {
-    position: absolute;
-    width: 330px;
-    top: 260px;
-    left: 0;
-    font-size: 22px;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-
-  main {
-    width: 85%;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-
-  p.headder {
-    top: 50px;
-    left: 150px;
-    font-size: 22px;
-    line-height: 28px;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-
-  p.success {
-    position: relative;
-    width: 330px;
-    margin: 0 auto;
-    margin-top: 5px;
-    padding: 5px;
-    top: -150px;
-    font-size: 13px;
-    left: 5px;
-    line-height: 22px;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-
-  p.head {
-    font-family: "Mina", sans-serif;
-    font-weight: 700;
-    font-style: normal;
-    margin-top: 30px;
-    font-size: 22px;
-  }
 
   .menu-btn {
     position: fixed;

@@ -970,16 +970,6 @@ input[type="search"] {
   display: block;
 }
 
-@media screen and (min-width: 37.5em) {
-  .menu-toggle {
-    display: none;
-  }
-
-  .main-navigation ul {
-    display: flex;
-  }
-}
-
 .site-main .comment-navigation,
 .site-main .posts-navigation,
 .site-main .post-navigation {
@@ -1242,6 +1232,91 @@ input[type="search"] {
 
 
 
+/*************************************************************************/
+/* media query s******************************************/
+/*************************************************************************/
+
+
+@media screen and (min-width: 37.5em) {
+  .menu-toggle {
+    display: none;
+  }
+
+  .main-navigation ul {
+    display: flex;
+  }
+
+}
+
+
+
+@media screen and (max-width: 767px) {
+
+
+  main {
+    width: 85%;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  h1 {
+    margin-top: 30px;
+    margin-bottom: 15px;
+  }
+
+  h2.value {
+    position: absolute;
+    width: 330px;
+    top: 260px;
+    left: 0;
+    font-size: 22px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+  }
+
+  p.headder {
+    top: 50px;
+    left: 150px;
+    font-size: 22px;
+    line-height: 28px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  p.success {
+    position: relative;
+    width: 330px;
+    margin: 0 auto;
+    margin-top: 5px;
+    padding: 5px;
+    top: -150px;
+    font-size: 13px;
+    left: 5px;
+    line-height: 22px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  p.head {
+    font-family: "Mina", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    margin-top: 30px;
+    font-size: 22px;
+  }
+
+  nav>.gnav-navi-01 {
+    display: none;
+  }
+
+
+
+}
+
+/*************************************************************************/
+/* media query e******************************************/
+/*************************************************************************/
 
 /*************************************************************************/
 /* デフォルトのstyle.cssの更新方法 s******************************************/
