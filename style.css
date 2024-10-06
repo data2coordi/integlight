@@ -755,6 +755,10 @@ a:active {
   outline: 0;
 }
 
+a.post-edit-link {
+  background: none;
+}
+
 a.contact {
   color: #fff;
 }

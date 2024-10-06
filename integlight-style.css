@@ -403,9 +403,6 @@
   margin-right: auto;
 }
 
-a.post-edit-link {
-  background: none;
-}
 
 @media screen and (min-width: 768px) {
   .hamburger-menu {
