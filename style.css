@@ -920,50 +920,12 @@ input[type="search"] {
 
 /* Posts and pages
 --------------------------------------------- */
-.sticky {
-  display: block;
-}
 
-.post,
-.page {
-  margin: 0 0 1.5em;
-}
-
-.updated:not(.published) {
-  display: none;
-}
-
-.page-content,
-.entry-content,
-.entry-summary {
-  margin: 1.5em 0 0;
-}
-
-.page-links {
-  clear: both;
-  margin: 0 0 1.5em;
-}
 
 /* Comments
 --------------------------------------------- */
-.comment-content a {
-  word-wrap: break-word;
-}
-
-.bypostauthor {
-  display: block;
-}
-
 /* Widgets
 --------------------------------------------- */
-.widget {
-  margin: 0 0 0.5em;
-}
-
-.widget select {
-  max-width: 100%;
-}
-
 /* Media
 --------------------------------------------- */
 /*

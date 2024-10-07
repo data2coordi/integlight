@@ -3,224 +3,17 @@
 /* 投稿ページ向けのcss */
 /***********************************************************************************************/
 
-
-
-
-
-
-
-
-
-
-
-
-
-.site {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 60px;
-}
-
-.attachment-post-thumbnail {
-  width: 768px;
-  height: auto;
-}
-
-
+/*削除予定 s*/
+/***********************************************************************************************/
 .entry-content>p {
   width: 768px;
 }
 
+/***********************************************************************************************/
+/*削除予定 e*/
 
 
-.widget-area.right {
-  width: 288px;
-  margin-top: 120px;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-/* .widget-area.bottom {
-  display: block;
-  width: 768px;
-  margin-left: auto;
-  margin-right: auto;
-} */
-
-
-
-.create_bread {
-  display: flex;
-  flex-direction: row;
-  font-size: small;
-  gap: 10px;
-  list-style: none;
-  margin: 0;
-}
-
-
-.fa-chevron-right:before {
-  margin-left: 10px;
-}
-
-.fa-solid,
-.fas {
-  font-weight: 900;
-  margin-top: 4px;
-  margin-right: 0;
-}
-
-.fa-calendar-alt:before,
-.fa-calendar-days:before {
-  margin-left: 3px;
-  margin-right: 5px;
-}
-
-.fa-arrow-alt-circle-left:before,
-.fa-circle-left:before,
-.fa-arrow-alt-circle-right:before,
-.fa-circle-right:before {
-  font-size: large;
-  color: #8c8c8c;
-}
-
-.contents {
-  border: 3px dotted #222;
-  width: 310px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 20px;
-  border-bottom: none;
-}
-
-.list {
-  margin-top: 8px;
-}
-
-
-.matter {
-  line-height: 2;
-}
-
-/* span {
-  color: #f50404;
-} */
-
-
-#site-search {
-  width: 251px;
-}
-
-.fa-magnifying-glass:before,
-.fa-search:before {
-  border: 1px solid #222;
-  border-left: none;
-  font-size: large;
-  padding: 6.5px;
-  margin-top: 10px;
-}
-
-.search {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-top: 8px;
-}
-
-
-.tag-cloud-link {
-  width: fit-content;
-  display: block;
-  background: #c4c4c4;
-  padding: 5px;
-}
-
-.wp-block-tag-cloud {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 5px;
-  margin-top: 10px;
-}
-
-/* #blog-check1,
-#blog-check2,
-#blog-check3,
-#blog-check4,
-#blog-check5 {
-  display: none;
-}
-.widget_categories {
-  background: #c4c4c4;
-  color: #222;
-  display: block;
-  margin-bottom: 1px;
-  padding: 10px;
-  margin-top: 5px;
-  line-height: 2;
-}
-
-.wp-block-categories ul {
-  opacity: 0;
-  list-style: none;
-}
-
-.cat-item li {
-  border-bottom: #fff solid 3px;
-  background: #f5f4f4;
-  height: 0;
-  margin-top: 0;
-  padding-left: 10px;
-  overflow: hidden;
-  transition: all 0.5s;
-}
-
-.cat-item .current-cat::marker {
-  display: none;
-}
-
-#blog-check1:checked ~ #blog-content1 li,
-#blog-check2:checked ~ #blog-content2 li,
-#blog-check3:checked ~ #blog-content3 li,
-#blog-check4:checked ~ #blog-content4 li,
-#blog-check5:checked ~ #blog-content5 li {
-  height: 54px;
-  opacity: 1;
-} */
-
-/*
-.hover02 {
-  color: #222;
-
-  padding-bottom: 5px;
-  position: relative; 
-}
-.hover02::after {
-  content: ""; 
-  width: 150px; 
-  height: 1px; 
-  background-color: #222; 
-  position: absolute; 
-  bottom: 0; 
-  left: 0; 
-  transform: scale(0, 1); 
-  transition: 0.5s; 
-  transform-origin: left top; 
-}
-.hover02:hover::after,
-.hover02:focus:after {
-  transform: scale(1, 1); 
-}
-*/
-
-.entry-footer {
-  background: none;
-  text-align: right;
-  padding: 0;
-}
-
+/* 新着記事 s*/
 .wp-block-latest-posts__post-title {
   display: block;
   padding-top: 5px;
@@ -232,25 +25,9 @@
   margin: 0;
 }
 
-.person {
-  border-radius: 50%;
-  width: 50%;
-  height: auto;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
+/* 新着記事 e*/
 
-.plofile {
-  background: #f5f4f4;
-  line-height: 1.8;
-  padding: 20px;
-  margin-top: 10px;
-}
 
-.text {
-  text-align: center;
-}
 
 
 /* カード */
