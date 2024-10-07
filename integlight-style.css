@@ -16,9 +16,6 @@
 /* +css
 --------------------------------------------- */
 /* グローバルナビ位置 */
-.main-navigation {
-  margin-top: 30px;
-}
 
 .site-header {
   width: 100%;
@@ -40,34 +37,6 @@
   display: none;
 }
 
-.main-navigation ul {
-  display: flex;
-  flex-direction: row;
-  gap: 50px;
-  margin-right: 50px;
-  justify-content: flex-end;
-}
-
-.sub-menu>li {
-  list-style: none;
-  padding: 20px;
-  margin: -20px;
-}
-
-.sub-menu li:first-child {
-  margin-top: 0;
-}
-
-.sub-menu>li:hover {
-  opacity: 0.7;
-}
-
-.main-navigation ul>li>a {
-  text-decoration: none;
-  color: #fff;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
-}
 
 .pagetop {
   position: fixed;
@@ -152,17 +121,6 @@
   border-radius: 3px;
 }
 
-/* メインナビ階層 */
-.sub-menu.main-navigation ul ul {
-  position: relative;
-  margin-top: -5px;
-  z-index: 99999;
-}
-
-.main-navigation ul ul ul {
-  margin-left: 240px;
-  z-index: 88888;
-}
 
 
 .wp-block-group.text_01 {
