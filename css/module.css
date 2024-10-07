@@ -2,6 +2,19 @@
 /* 0. ベース***************************************************@@@/
 /************************************************************/
 
+
+.custom-logo {
+    width: 295.21px;
+    height: auto;
+    background: #000;
+    padding: 5px 20px 5px 20px;
+}
+
+
+.thumbnail {
+    clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
+}
+
 /* 0.1 リンク */
 
 /************************************************************/
@@ -17,6 +30,16 @@
  * Correct the font size and margin on `h1` elements within `section` and
  * `article` contexts in Chrome, Firefox, and Safari.
  */
+
+.site-title {
+    display: none;
+}
+
+
+.entry-title {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
 
 
 
@@ -80,6 +103,24 @@
 .widget select {
     max-width: 100%;
 }
+
+
+/* ウィジェット カテゴリー s */
+.wp-block-categories {
+    list-style: none;
+    line-height: 2.8;
+}
+
+.cat-item {
+    border-bottom: 1px solid #888;
+    margin-left: -13px;
+}
+
+/* ウィジェット カテゴリー e */
+
+
+
+
 
 /************************************************************/
 /* メニューナビゲーション @@@***************************************************/
@@ -333,7 +374,28 @@
 /* カード @@@***************************************************/
 /************************************************************/
 
-/* カード */
+
+/* 投稿一覧ページのカード s */
+/* 要修正　通常カードの下にもっていくと正常に表示されない*/
+.bl_card_txt {
+    width: 768px;
+    line-height: 1.8;
+}
+
+.category-label {
+    position: relative;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+/* 投稿一覧ページのカード e */
+
+
+/* 通常カード */
 .bl_card_imgWrapper img {
     margin-left: 0;
     width: 768px;
