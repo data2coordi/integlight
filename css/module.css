@@ -48,11 +48,13 @@
  * `article` contexts in Chrome, Firefox, and Safari.
  */
 
+/* ヘッダー部分のタイトル */
 .site-title {
     display: none;
 }
 
 
+/* 本文のタイトル */
 .entry-title {
     font-size: 2em;
     margin-bottom: 20px;
@@ -60,12 +62,7 @@
 
 
 
-
 /*2.3 リスト @@@*/
-
-.list {
-    margin-top: 8px;
-}
 
 
 
@@ -83,8 +80,7 @@
 /*3.3 カバー @@@*/
 
 /* カバーイメージ */
-.wp-block-cover,
-.wp-block-cover-image {
+.wp-block-cover {
     position: relative;
     width: 100%;
     margin-left: auto;
@@ -117,9 +113,6 @@
     margin: 0 0 0.5em;
 }
 
-.widget select {
-    max-width: 100%;
-}
 
 
 /* ウィジェット カテゴリー s */
