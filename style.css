@@ -81,16 +81,11 @@ html {
 /**
  * Remove the margin in all browsers.
  */
-body {
-  margin: 0;
-}
 
 /**
  * Render the `main` element consistently in IE.
  */
 main {
-  display: block;
-  width: 768px;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -98,7 +93,6 @@ main {
 footer {
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
-  width: 100%;
   text-align: center;
   background: #555;
   padding: 10px;
@@ -579,7 +573,6 @@ h4,
 h5,
 h6 {
   clear: both;
-  width: 900px;
   margin-left: auto;
   margin-right: auto;
   margin-top: 50px;
@@ -733,7 +726,6 @@ a {
 
 a:visited {
   color: #999;
-  width: 900px;
   display: block;
   margin-left: auto;
   margin-right: auto;
