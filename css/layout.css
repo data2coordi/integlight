@@ -14,8 +14,6 @@
     padding: 0.2%;
     display: flex;
     justify-content: space-between;
-    /*両端に配置*/
-    background-color: #000;
 }
 
 /************* content s *******************::*/
@@ -49,11 +47,7 @@
 
 .entry-content {}
 
-.entry-footer {
-    background: none;
-    text-align: right;
-    padding: 0;
-}
+.entry-footer {}
 
 
 
