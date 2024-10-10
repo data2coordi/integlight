@@ -136,7 +136,6 @@ and Safari. */
 /* メニューナビゲーション @@@***************************************************/
 /************************************************************/
 
-
 .main-navigation {
     display: block;
     margin: auto;
@@ -146,75 +145,62 @@ and Safari. */
 .main-navigation ul {
     display: flex;
     gap: 50px;
-    flex-direction: row;
     justify-content: flex-end;
     list-style: none;
-    margin: 0;
-    margin-right: 50px;
+    margin: 0 50px 0 0;
     padding-left: 0;
 }
-
-
-.main-navigation ul ul {
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
-    float: left;
-    position: absolute;
-    top: 100%;
-    left: -999em;
-    z-index: 99999;
-}
-
-.main-navigation ul ul ul {
-    left: -999em;
-    top: 0;
-    margin-left: 240px;
-    z-index: 88888;
-}
-
 
 .main-navigation li {
     position: relative;
     background: #000;
 }
 
-
-.main-navigation ul li:hover>ul,
-.main-navigation ul li.focus>ul {
-    left: auto;
-}
-
-.main-navigation ul ul li:hover>ul,
-.main-navigation ul ul li.focus>ul {
-    display: block;
-    left: auto;
-}
-
-
 .main-navigation a {
     display: block;
-    text-decoration: none;
-}
-
-.main-navigation ul ul a {
-    width: 200px;
-}
-
-
-.main-navigation ul>li>a {
     text-decoration: none;
     color: #fff;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
 }
 
+/* サブメニューのスタイル */
+.main-navigation ul ul {
+    display: none;
+    flex-direction: column;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 100%;
+    z-index: 99;
+}
 
+.main-navigation ul ul ul {
+    margin-left: 240px;
+    top: 0;
+    z-index: 88888;
+}
 
+/* ホバーまたはフォーカス時のサブメニューの表示 */
+.main-navigation ul li:hover>ul,
+.main-navigation ul li:focus-within>ul {
+    left: auto;
+    display: flex;
+}
+
+.main-navigation ul ul li:hover>ul,
+.main-navigation ul ul li:focus-within>ul {
+    display: flex;
+}
+
+/* サブメニュー内のリンクスタイル */
+.main-navigation ul ul a {
+    width: 200px;
+}
+
+/* サブメニュー内のアイテムのスタイル */
 .sub-menu>li {
-    list-style: none;
     padding: 20px;
-    margin: -20px;
+    margin: -20px 0;
 }
 
 .sub-menu li:first-child {
@@ -224,6 +210,7 @@ and Safari. */
 .sub-menu>li:hover {
     opacity: 0.7;
 }
+
 
 /************************************************************/
 /* ページコントロール @@@***************************************************/
@@ -451,26 +438,16 @@ and Safari. */
 /************************************************************/
 /* 検索ボックス @@@***************************************************/
 /************************************************************/
-#site-search {
-    width: 251px;
-}
-
-
-.search {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-top: 8px;
-}
 
 /* 検索バー */
+.wp-block-search .wp-block-search__label {
+    display: none;
+}
+
 .wp-block-search__button.has-icon {
     width: 42px;
 }
 
-.wp-block-search .wp-block-search__label {
-    display: none;
-}
 
 
 
@@ -561,17 +538,8 @@ and Safari. */
 }
 
 
-.page-links {
-    clear: both;
-    /*margin: 0 0 1.5em;*/
-}
 
 
-
-.attachment-post-thumbnail {
-    width: 768px;
-    height: auto;
-}
 
 
 
