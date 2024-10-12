@@ -192,6 +192,7 @@ class integlightCustomizeRegisterSidebar
 			'type' => 'radio',
 			'choices' => array(
 				'right' => __('Right', 'integlight'),
+				'left' => __('Left', 'integlight'),
 				'bottom' => __('Bottom', 'integlight'),
 				'none' => __('None', 'integlight'),
 			),
@@ -211,14 +212,13 @@ class integlightCustomizeRegisterSidebar
 
 		$this->helper_setting($wp_customize, '1');
 		$this->helper_setting($wp_customize, '2');
-
 	}
 
 
 	// サイドバー位置の入力を検証する
 	public function sanitize_sidebar_position($input)
 	{
-		return true;	
+		return $input;
 	}
 }
 

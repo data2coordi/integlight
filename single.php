@@ -12,8 +12,8 @@ get_header();
 
 ?>
 
-<div class="site-content">
-	<main id="primary" class="site-main">
+<div class="ly_site_content">
+	<main id="primary" class="site-main ly_site_content_main">
 
 		<?php do_action('after_header'); ?>
 

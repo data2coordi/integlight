@@ -2,23 +2,17 @@
 /* 0. header***************************************************@@@/
 /************************************************************/
 
-
-
 .site-header {
     background-color: #000;
 }
 
-.custom-logo {
+.site-header .custom-logo {
     width: 295.21px;
     height: auto;
     background: #000;
     padding: 5px 20px 5px 20px;
 }
 
-
-.thumbnail {
-    clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
-}
 
 /************************************************************/
 /* 0. footer***************************************************@@@/
@@ -29,11 +23,17 @@
     text-align: center;
     background: #555;
     color: #fff;
-    position: fixed;
 
 
 }
 
+/************************************************************/
+/* 0. thumbnail***************************************************@@@/
+/************************************************************/
+
+.thumbnail {
+    clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
+}
 
 
 /************************************************************/
@@ -45,7 +45,7 @@
 
 /*2.2 見出し*/
 
-* Correct the font size and margin on `h1` elements within `section` and * `article` contexts in Chrome,
+/* Correct the font size and margin on `h1` elements within `section` and * `article` contexts in Chrome,
 Firefox,
 and Safari. */
 
@@ -80,12 +80,7 @@ and Safari. */
 /*3.3 カバー */
 
 /* カバーイメージ */
-.wp-block-cover {
-    position: relative;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-}
+.wp-block-cover {}
 
 /* カバー画像e */
 
