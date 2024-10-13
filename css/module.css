@@ -265,9 +265,6 @@ and Safari. */
 /************************************************************/
 /* 目次 @@@***************************************************/
 /************************************************************/
-.post-toc li {
-    margin-bottom: 10px;
-}
 
 .post-toc {
     background-color: #f9f9f9;
@@ -285,15 +282,14 @@ and Safari. */
     margin-right: auto;
 }
 
+
 .post-toc h2 {
     margin-top: 0;
     border-bottom: none;
-}
-
-.post-toc>h2 {
     text-align: center;
     width: fit-content;
 }
+
 
 .post-toc ul {
     list-style-type: none;
@@ -301,12 +297,18 @@ and Safari. */
     margin-left: 15px;
 }
 
+
+
 .post-toc ul li {
+    margin-bottom: 10px;
     margin: 5px 0;
 }
 
 .post-toc ul li a {
     text-decoration: none;
+    color: #222;
+    font-size: 14px;
+    line-height: 2.2;
     color: #222;
 }
 
@@ -327,11 +329,6 @@ and Safari. */
     margin-left: 40px;
 }
 
-.post-toc ul li a {
-    font-size: 14px;
-    line-height: 2.2;
-    color: #222;
-}
 
 
 
