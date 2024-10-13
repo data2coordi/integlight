@@ -166,7 +166,6 @@ and Safari. */
     z-index: 99;
     gap: 5px;
     /* フレックスアイテム間の間隔を10pxに設定 */
-
 }
 
 .main-navigation ul ul ul {
@@ -205,7 +204,7 @@ and Safari. */
 /************************************************************/
 
 /* 次へ */
-.nav-links {
+.pagination .nav-links {
     width: 300px;
     display: block;
     margin-left: auto;
@@ -214,50 +213,54 @@ and Safari. */
     margin-bottom: 200px;
 }
 
-.page-numbers {
+.pagination .page-numbers {
     padding: 5px;
     padding-left: 9px;
     padding-right: 9px;
     border: 2px solid #555;
 }
 
-.next.page-numbers,
-.prev.page-numbers {
+.pagination .next.page-numbers,
+.pagination .prev.page-numbers {
     border: none;
 }
 
-.page-numbers:hover,
-.next.page-numbers:hover,
-.prev.page-numbers:hover {
+.pagination .page-numbers:hover,
+.pagination .next.page-numbers:hover,
+.pagination .prev.page-numbers:hover {
     background: #f5f4f4;
 }
 
-.fa-arrow-alt-circle-right:before,
-.fa-circle-right:before,
-.fa-arrow-alt-circle-left:before,
-.fa-circle-left:before {
+.pagination .fa-arrow-alt-circle-right:before,
+.pagination .fa-circle-right:before,
+.pagination .fa-arrow-alt-circle-left:before,
+.pagination .fa-circle-left:before {
     margin-left: 5px;
     margin-top: 5px;
     font-size: 25px;
     vertical-align: -15%;
 }
 
-/* 次の記事 */
-.nav-title {
+/************************************************************/
+/* ページコントロール 次の記事@@@***************************************************/
+/************************************************************/
+
+.post-navigation .nav-links {
+    width: 768px;
+}
+
+.post-navigation .nav-title {
     display: block;
     width: 350px;
     margin-left: auto;
     margin-right: auto;
 }
 
-.nav-subtitle {
+.post-navigation .nav-subtitle {
     display: flex;
     flex-direction: row;
 }
 
-.post-navigation .nav-links {
-    width: 768px;
-}
 
 /************************************************************/
 /* 目次 @@@***************************************************/
