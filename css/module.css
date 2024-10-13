@@ -444,38 +444,30 @@ and Safari. */
 /* 新着記事 e*/
 
 /************************************************************/
-/*** お問い合わせ s ***/
+/*** ボタン s ***/
 /************************************************************/
-.wp-block-buttons {
-    width: 40%;
-    height: 20px;
-}
 
-.wp-block-buttons>.wp-block-button.has-custom-font-size .wp-block-button__link {
-    font-size: 22px;
-    color: #fff;
-    width: 250px;
-}
-
-.wp-container-core-buttons-is-layout-1.wp-container-core-buttons-is-layout-1 {
+/*** ボタン s ***/
+.wp-block-buttons .wp-container-core-buttons-is-layout-1 {
     margin-left: auto;
     margin-right: auto;
 }
 
-/*---------お問い合わせ e-----*/
+.wp-block-buttons>.wp-block-button.has-custom-font-size .wp-block-button__link {
+    font-size: 1.3rem;
+    width: 250px;
+    color: #fff;
+}
+
+/*** ボタン e ***/
+
+
 
 /************************************************************/
 /* タグ @@@ ***************************************************/
 /************************************************************/
 
 /* tag s */
-.tag-cloud-link {
-    width: fit-content;
-    display: block;
-    background: #c4c4c4;
-    padding: 5px;
-}
-
 .wp-block-tag-cloud {
     display: flex;
     flex-direction: row;
@@ -483,6 +475,12 @@ and Safari. */
     gap: 5px;
     margin-top: 10px;
 }
+
+.wp-block-tag-cloud .tag-cloud-link {
+    background: #c4c4c4;
+    padding: 5px;
+}
+
 
 /* tag e */
 
@@ -505,6 +503,9 @@ and Safari. */
 
 
 
+/************************************************************/
+/* ヘルパースタイル@@@ ***************************************************/
+/************************************************************/
 
 
 /* fa s*/
