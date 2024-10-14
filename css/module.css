@@ -478,7 +478,6 @@ h3::after {
 /************************************************************/
 
 /*** ボタン s ***/
-.wp-block-buttons .wp-container-core-buttons-is-layout-1 {}
 
 .wp-block-buttons>.wp-block-button.has-custom-font-size .wp-block-button__link {
     font-size: 1.3rem;

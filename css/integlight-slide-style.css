@@ -1,13 +1,6 @@
-/* #primary.
- {
-  width: 100%;
-}
-
-#primary.site-main > img {
-  width: 100%;
-} */
-
+/* 共通部分 _s ////////////////////////////*/
 .slider {
+  position: relative;
   overflow: hidden;
   /*
                                           ---
@@ -33,7 +26,25 @@
   height: 100vh;
 }
 
-/* スライドエフェクト _s ////////////////////////////*/
+.slider .text-overlay {
+  position: absolute;
+  bottom: 150px;
+  left: 30px;
+  color: white;
+  font-size: 60px;
+  font-weight: 800;
+}
+
+.slider .slide img {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  /* 縦横比を維持しながら、収まらない部分をカット */
+}
+
+/* 共通部分 _e ////////////////////////////*/
+
+/* スライド式エフェクト _s ////////////////////////////*/
 .slider.slide-effect .slides {
   display: flex;
   /*transition: transform 1s ease-out;*/
@@ -44,9 +55,9 @@
   box-sizing: border-box;
 }
 
-/* スライドエフェクト _e ////////////////////////////*/
+/* スライド式エフェクト _e ////////////////////////////*/
 
-/* フェードエフェクト _s ////////////////////////////*/
+/* フェード式エフェクト _s ////////////////////////////*/
 .slider.fade-effect .slide {
   /*レイアウト：画像を重ねるためにabsoluteを指定する。基準は親のslider*/
   position: absolute;
@@ -60,22 +71,8 @@
   height: auto;
 }
 
-/* フェードエフェクト _e ////////////////////////////*/
-.slide img {
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  /* 縦横比を維持しながら、収まらない部分をカット */
-}
+/* フェード式エフェクト _e ////////////////////////////*/
 
-.slider .text-overlay {
-  position: absolute;
-  bottom: 150px;
-  left: 30px;
-  color: white;
-  font-size: 60px;
-  font-weight: 800;
-}
 
 /* @media screen and (max-width: 767px) {
   .slider {
