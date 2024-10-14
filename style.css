@@ -80,7 +80,7 @@ html {
 	 ========================================================================== */
 
 /**
- * Remove the margin in all browsers.
+ * Remove the 
  */
 
 /**
@@ -166,7 +166,7 @@ sub,
 sup {
   font-size: 75%;
   line-height: 0;
-  position: relative;
+
   vertical-align: baseline;
 }
 
@@ -195,13 +195,13 @@ img {
 
 /**
  * 1. Change the font styles in all browsers.
- * 2. Remove the margin in Firefox and Safari.
+ * 2. Remove the 
  */
 button {
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 50px;
+
+
+
   font-size: 18px;
   background: #555;
   color: #fff;
@@ -217,7 +217,7 @@ textarea {
   font-family: inherit;
   font-size: 100%;
   line-height: 1.15;
-  margin: 0;
+
 }
 
 /**
@@ -389,7 +389,7 @@ template {
 *::before,
 *::after {
   box-sizing: inherit;
-  margin: 0;
+
 
 }
 
@@ -427,19 +427,15 @@ i {
   font-style: italic;
 }
 
-blockquote {
-  margin: 0 1.5em;
-}
+blockquote {}
 
-address {
-  margin: 0 0 1.5em;
-}
+address {}
 
 pre {
   background: #eee;
   font-family: "Courier 10 Pitch", courier, monospace;
   line-height: 1.6;
-  margin-bottom: 1.6em;
+
   max-width: 100%;
   overflow: auto;
 
@@ -478,9 +474,9 @@ body {
 article>footer {
   background: none;
   text-align: left;
-  margin: 0;
 
-  margin-top: 10px;
+
+
 }
 
 
@@ -488,7 +484,7 @@ hr {
   background-color: #ccc;
   border: 0;
   height: 1px;
-  margin-bottom: 1.5em;
+
 }
 
 
@@ -496,9 +492,7 @@ dt {
   font-weight: 700;
 }
 
-dd {
-  margin: 0 1.5em 1.5em;
-}
+dd {}
 
 /* Make sure embeds and iframes fit their containers. */
 embed,
@@ -515,9 +509,7 @@ img {
 
 
 
-figure {
-  margin: 1em 0;
-}
+figure {}
 
 
 
@@ -525,28 +517,26 @@ figure>img {
   width: 30%;
   height: auto;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+
+
 }
 
 
 
 div.table {
   width: 280px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 10px;
+
+
+
 }
 
 
-i {
-  margin-right: 3px;
-}
+i {}
 
 
 
 table {
-  margin: 0 0 1.5em;
+
   width: 100%;
 }
 
@@ -558,23 +548,23 @@ h4,
 h5,
 h6 {
   clear: both;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 50px;
+
+
+
 }
 
 
 h1 {
   font-size: 2em;
   font-family: Arial, Helvetica, sans-serif;
-  margin: 0.67em 0;
+
 }
 
 
 
 h2.value {
-  position: absolute;
-  margin: 1.5rem 1rem 1rem;
+
+
   order: 2;
   top: 210px;
   left: 550px;
@@ -587,9 +577,9 @@ h3 {
 
   border-bottom: 1px solid #222;
   width: 100%;
-  position: relative;
+
   /*::afterにabsoluteをかけるので設定*/
-  margin-top: 50px;
+
 }
 
 
@@ -604,8 +594,8 @@ h3::after {
   /* 線の高さ */
   background: #555;
   /* 線の色 */
-  position: absolute;
-  /* position: relative;からの線の絶対位置 */
+
+  /* 
   bottom: 0;
   /* 線の位置 */
   left: 0;
@@ -632,9 +622,7 @@ h3::after {
 
 
 ul,
-ol {
-  margin: 0 0 0 1em;
-}
+ol {}
 
 ul {
   list-style: disc;
@@ -645,17 +633,14 @@ ol {
 }
 
 li>ul,
-li>ol {
-  margin-bottom: 0;
-  margin-left: 1.5em;
-}
+li>ol {}
 
 
 p {
-  margin-bottom: 1.5em;
+
   line-height: 1.8;
   width: fit-content;
-  margin-left: 0;
+
 }
 
 p.logged-in-as {
@@ -664,21 +649,21 @@ p.logged-in-as {
 
 p.post {
   display: block;
-  margin-top: 5px;
+
 
   border-bottom: 2px dotted #222;
 }
 
 p.head {
   width: 300px;
-  margin-top: 80px;
+
   font-family: "Mina", sans-serif;
   font-weight: 700;
   font-style: normal;
   font-size: 30px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 20px;
+
+
+
   text-align: center;
   background: #555;
   /* -webkit-background-clip: text; */
@@ -686,7 +671,7 @@ p.head {
 }
 
 p.headder {
-  position: absolute;
+
   /*絶対配置*/
   color: #fff;
   /*文字は白に*/
@@ -712,8 +697,8 @@ a {
 a:visited {
   color: #999;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+
+
 }
 
 a:hover,
@@ -846,7 +831,7 @@ textarea {
 
 label {
   display: block;
-  margin-top: 15px;
+
 }
 
 
@@ -872,7 +857,7 @@ input[type="search"] {
 }
 
 [type="submit"] {
-  margin: 0;
+
   height: 40px;
   border: 1px solid #222;
   border-left: none;
@@ -910,8 +895,8 @@ input[type="search"] {
 .entry-content .wp-smiley,
 .comment-content .wp-smiley {
   border: none;
-  margin-bottom: 0;
-  margin-top: 0;
+  
+  
   
 }
   */
@@ -927,18 +912,18 @@ input[type="search"] {
 --------------------------------------------- */
 /*
 .wp-caption {
-  margin-bottom: 1.5em;
+  
   max-width: 100%;
 }
 
 .wp-caption img[class*="wp-image-"] {
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+  
+  
 }
 
 .wp-caption .wp-caption-text {
-  margin: 0.8075em 0;
+  
 }
 
 .wp-caption-text {
@@ -950,7 +935,7 @@ input[type="search"] {
 --------------------------------------------- */
 /*
 .gallery {
-  margin-bottom: 1.5em;
+  
   display: grid;
   grid-gap: 1.5em;
 }
@@ -1035,23 +1020,23 @@ input[type="search"] {
 .alignleft {
   float: left;
 
-  margin-right: 1.5em;
-  margin-bottom: 1.5em;
+  
+  
 }
 
 .alignright {
   float: right;
 
-  margin-left: 1.5em;
-  margin-bottom: 1.5em;
+  
+  
 }
 
 .aligncenter {
   clear: both;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 1.5em;
+  
+  
+  
 }
   */
 
@@ -1083,13 +1068,10 @@ input[type="search"] {
     font-family: Arial, Helvetica, sans-serif;
   }
 
-  h1 {
-    margin-top: 30px;
-    margin-bottom: 15px;
-  }
+  h1 {}
 
   h2.value {
-    position: absolute;
+
     width: 330px;
     top: 260px;
     left: 0;
@@ -1111,10 +1093,10 @@ input[type="search"] {
   }
 
   p.success {
-    position: relative;
+
     width: 330px;
-    margin: 0 auto;
-    margin-top: 5px;
+
+
 
     top: -150px;
     font-size: 13px;
@@ -1127,7 +1109,7 @@ input[type="search"] {
     font-family: "Mina", sans-serif;
     font-weight: 700;
     font-style: normal;
-    margin-top: 30px;
+
     font-size: 22px;
   }
 
@@ -1143,29 +1125,6 @@ input[type="search"] {
 /* media query e******************************************/
 /*************************************************************************/
 
-/*************************************************************************/
-/* padding s******************************************/
-/*************************************************************************/
-/* 文字系要素とフォーム系要素に10pxのpaddingを設定 */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-span,
-a,
-input,
-textarea,
-button,
-label {
-  padding: 10px;
-}
-
-/*************************************************************************/
-/* padding e******************************************/
-/*************************************************************************/
 /*************************************************************************/
 /* デフォルトのstyle.cssの更新方法 s******************************************/
 /*************************************************************************/

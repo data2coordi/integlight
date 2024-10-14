@@ -44,7 +44,7 @@
 
 /*2.2 見出し*/
 
-/* Correct the font size and margin on `h1` elements within `section` and * `article` contexts in Chrome,
+/* Correct the font size and 
 Firefox,
 and Safari. */
 
@@ -57,7 +57,7 @@ and Safari. */
 /* 本文のタイトル */
 .entry-title {
     font-size: 2em;
-    margin-bottom: 20px;
+
 }
 
 
@@ -103,9 +103,7 @@ and Safari. */
 /************************************************************/
 /* Widgets @@@ ***************************************************/
 /************************************************************/
-.widget {
-    margin: 0 0 0.5em;
-}
+.widget {}
 
 
 
@@ -117,7 +115,7 @@ and Safari. */
 
 .cat-item {
     border-bottom: 1px solid #888;
-    margin-left: -13px;
+
 }
 
 /* ウィジェット カテゴリー e */
@@ -131,7 +129,7 @@ and Safari. */
 /************************************************************/
 
 .main-navigation {
-    margin: auto;
+
     width: 100%;
 }
 
@@ -140,7 +138,7 @@ and Safari. */
     gap: 50px;
     justify-content: flex-end;
     list-style: none;
-    margin-right: 50px;
+
 }
 
 .main-navigation li {
@@ -169,7 +167,7 @@ and Safari. */
 
 .main-navigation ul ul ul {
     top: 0;
-    margin-left: 240px;
+
 }
 
 /* ホバーまたはフォーカス時のサブメニューの表示 */
@@ -205,10 +203,10 @@ and Safari. */
 .pagination .nav-links {
     width: 300px;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 80px;
-    margin-bottom: 200px;
+
+
+
+
 }
 
 .pagination .page-numbers {
@@ -230,8 +228,8 @@ and Safari. */
 .pagination .fa-circle-right:before,
 .pagination .fa-arrow-alt-circle-left:before,
 .pagination .fa-circle-left:before {
-    margin-left: 5px;
-    margin-top: 5px;
+
+
     font-size: 25px;
     vertical-align: -15%;
 }
@@ -247,8 +245,8 @@ and Safari. */
 .post-navigation .nav-title {
     display: block;
     width: 350px;
-    margin-left: auto;
-    margin-right: auto;
+
+
 }
 
 .post-navigation .nav-subtitle {
@@ -263,20 +261,20 @@ and Safari. */
 
 .post-toc {
     background-color: #f9f9f9;
-    margin-bottom: 20px;
+
     border: #222 2px dotted;
     display: block;
     border-left: none;
     border-right: none;
-    margin-bottom: 50px;
+
     width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
+
+
 }
 
 
 .post-toc h2 {
-    margin-top: 0;
+
     border-bottom: none;
     text-align: center;
     width: fit-content;
@@ -285,13 +283,10 @@ and Safari. */
 
 .post-toc ul {
     list-style-type: none;
-    margin-left: 15px;
+
 }
 
-.post-toc ul li {
-    margin-bottom: 10px;
-    margin: 5px 0;
-}
+.post-toc ul li {}
 
 .post-toc ul li a {
     text-decoration: none;
@@ -307,16 +302,12 @@ and Safari. */
 
 .post-toc ul li.toc-h1 a {
     font-weight: bold;
-    margin-left: 0;
+
 }
 
-.post-toc ul li.toc-h2 a {
-    margin-left: 0;
-}
+.post-toc ul li.toc-h2 a {}
 
-.post-toc ul li.toc-h3 a {
-    margin-left: 40px;
-}
+.post-toc ul li.toc-h3 a {}
 
 
 
@@ -337,7 +328,7 @@ and Safari. */
     flex-direction: row;
     gap: 20px;
     background: #f5f4f4;
-    margin-bottom: 30px;
+
 }
 
 .bl_card_container .bl_card_column a:hover {
@@ -370,9 +361,7 @@ and Safari. */
 
 /* テキスト側 s */
 
-.bl_card_container .bl_card_ttl {
-    margin: 0;
-}
+.bl_card_container .bl_card_ttl {}
 
 
 .bl_card_container .entry-date {
@@ -411,7 +400,7 @@ and Safari. */
     font-size: small;
     gap: 10px;
     list-style: none;
-    margin: 0;
+
 }
 
 /* パンくずe */
@@ -427,9 +416,7 @@ and Safari. */
     border-bottom: #222 dotted 2px;
 }
 
-.wp-block-latest-posts__list {
-    margin: 0;
-}
+.wp-block-latest-posts__list {}
 
 /* 新着記事 e*/
 
@@ -438,10 +425,7 @@ and Safari. */
 /************************************************************/
 
 /*** ボタン s ***/
-.wp-block-buttons .wp-container-core-buttons-is-layout-1 {
-    margin-left: auto;
-    margin-right: auto;
-}
+.wp-block-buttons .wp-container-core-buttons-is-layout-1 {}
 
 .wp-block-buttons>.wp-block-button.has-custom-font-size .wp-block-button__link {
     font-size: 1.3rem;
@@ -463,7 +447,7 @@ and Safari. */
     flex-direction: row;
     flex-wrap: wrap;
     gap: 5px;
-    margin-top: 10px;
+
 }
 
 .wp-block-tag-cloud .tag-cloud-link {
@@ -500,22 +484,17 @@ and Safari. */
 
 /* fa s  all.mini.cssのfont awsomeのCSSのカスタマイズ*/
 
-.fa-chevron-right:before {
-    margin-left: 10px;
-}
+.fa-chevron-right:before {}
 
 .fa-solid,
 .fas {
     font-weight: 900;
-    margin-top: 4px;
-    margin-right: 0;
+
+
 }
 
 .fa-calendar-alt:before,
-.fa-calendar-days:before {
-    margin-left: 3px;
-    margin-right: 5px;
-}
+.fa-calendar-days:before {}
 
 .fa-arrow-alt-circle-left:before,
 .fa-circle-left:before,
@@ -531,7 +510,7 @@ and Safari. */
     border-left: none;
     font-size: large;
 
-    margin-top: 10px;
+
 }
 
 /* fa e*/
