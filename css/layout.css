@@ -88,8 +88,8 @@
 /* TOP page @@@ ***************************************************/
 /************************************************************/
 /* メインを下げる */
-.integlight_front_page .site-main {
-    margin-top: 780px;
+.integlight_front_page .ly_site_content {
+    /*  margin-top: 100vh;*/
 }
 
 .integlight_front_page .widget-area.right {
