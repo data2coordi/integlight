@@ -167,7 +167,7 @@ and Safari. */
 
 .main-navigation ul ul ul {
     top: 0;
-
+    left: 200px;
 }
 
 /* ホバーまたはフォーカス時のサブメニューの表示 */

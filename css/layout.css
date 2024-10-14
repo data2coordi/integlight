@@ -3,7 +3,6 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 60px;
 }
 
 /************************************************************/
@@ -21,7 +20,7 @@
     display: flex;
     flex-wrap: wrap;
     /* フッターの高さ分の余白を確保 */
-
+    margin-top: 50px;
 }
 
 .ly_site_content_widgetArea_left {
@@ -29,12 +28,14 @@
     order: 1;
     /* サイドバーを次に表示 */
     margin-right: 40px;
+    margin-top: 50px;
 }
 
 .ly_site_content_main {
     flex: 1;
     order: 2;
     /* メインコンテンツを最初に表示 */
+    margin-top: 50px;
 }
 
 .ly_site_content_widgetArea_right {
@@ -42,12 +43,14 @@
     order: 3;
     /* サイドバーを次に表示 */
     margin-left: 40px;
+    margin-top: 50px;
 }
 
 .ly_site_content_widgetArea_bottom {
     flex: 1 1 100%;
     order: 4;
     /* ボトムウィジェットを最後に表示 */
+    margin-top: 50px;
 }
 
 
@@ -55,6 +58,7 @@
 
 .site-footer {
     width: 100%;
+    margin-top: 50px;
 }
 
 /* footer下の余白対策*/

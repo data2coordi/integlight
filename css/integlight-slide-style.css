@@ -63,8 +63,9 @@
 /* フェードエフェクト _e ////////////////////////////*/
 .slide img {
   width: 100vw;
-  height: auto;
-  margin-top: -60px;
+  height: 100vh;
+  object-fit: cover;
+  /* 縦横比を維持しながら、収まらない部分をカット */
 }
 
 .slider .text-overlay {
