@@ -261,13 +261,11 @@ and Safari. */
 
 .post-toc {
     background-color: #eee;
-    display: block;
-    border-left: none;
-    border-right: none;
-
-    width: 40%;
+    min-width: 40%;
+    /* 幅の最小値を40%に設定 */
+    max-width: fit-content;
+    /* コンテンツに応じて幅を広げる */
     margin: 0 auto;
-
 
 }
 
