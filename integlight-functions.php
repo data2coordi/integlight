@@ -152,7 +152,7 @@ class InteglightTableOfContents
 
 		if (!empty($matches)) {
 			// 目次を生成
-			$toc = '<div class="post-toc"><h2>INDEX</h2><ul>';
+			$toc = '<div class="post-toc"><B>Index</B><ul>';
 			foreach ($matches as $match) {
 				$heading_tag = $match[1];
 				$heading_text = $match[2];

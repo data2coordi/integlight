@@ -260,14 +260,13 @@ and Safari. */
 /************************************************************/
 
 .post-toc {
-    background-color: #f9f9f9;
-
-    border: #222 2px dotted;
+    background-color: #eee;
     display: block;
     border-left: none;
     border-right: none;
 
-    width: fit-content;
+    width: 40%;
+    margin: 0 auto;
 
 
 }
@@ -326,7 +325,7 @@ and Safari. */
 .bl_card_container {
     display: flex;
     flex-direction: row;
-    gap: 20px;
+    gap: 10px;
     background: #f5f4f4;
 
 }
@@ -335,17 +334,23 @@ and Safari. */
     text-decoration: none;
 }
 
+.bl_card_container .bl_card_column:nth-child(1) {
+    width: 30%;
+}
+
+.bl_card_container .bl_card_column:nth-child(2) {
+    width: 70%;
+}
+
+
 
 /* 画像側 s */
 .bl_card_container .bl_card_imgWrapper {
-    width: 278px;
-    height: 170px;
     overflow: hidden;
 }
 
 .bl_card_container .bl_card_imgWrapper img {
     width: 100%;
-    height: 100%;
     object-fit: cover;
 }
 

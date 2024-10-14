@@ -39,14 +39,14 @@
 
 .ly_site_content_widgetArea_right {
     flex: 0 0 230px;
-    order: 2;
+    order: 3;
     /* サイドバーを次に表示 */
     margin-left: 40px;
 }
 
 .ly_site_content_widgetArea_bottom {
     flex: 1 1 100%;
-    order: 3;
+    order: 4;
     /* ボトムウィジェットを最後に表示 */
 }
 
