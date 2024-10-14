@@ -10,7 +10,6 @@
     width: 295.21px;
     height: auto;
     background: #000;
-    padding: 5px 20px 5px 20px;
 }
 
 
@@ -187,7 +186,6 @@ and Safari. */
 /* サブメニュー内のリンクスタイル */
 .main-navigation ul ul a {
     width: 240px;
-    padding: 20px;
 }
 
 /* サブメニュー内のアイテムのスタイル */
@@ -214,9 +212,6 @@ and Safari. */
 }
 
 .pagination .page-numbers {
-    padding: 5px;
-    padding-left: 9px;
-    padding-right: 9px;
     border: 2px solid #555;
 }
 
@@ -268,14 +263,11 @@ and Safari. */
 
 .post-toc {
     background-color: #f9f9f9;
-    padding: 20px;
     margin-bottom: 20px;
     border: #222 2px dotted;
     display: block;
     border-left: none;
     border-right: none;
-    padding-right: 30px;
-    padding-left: 30px;
     margin-bottom: 50px;
     width: fit-content;
     margin-left: auto;
@@ -293,7 +285,6 @@ and Safari. */
 
 .post-toc ul {
     list-style-type: none;
-    padding-left: 0;
     margin-left: 15px;
 }
 
@@ -346,7 +337,6 @@ and Safari. */
     flex-direction: row;
     gap: 20px;
     background: #f5f4f4;
-    padding: 15px;
     margin-bottom: 30px;
 }
 
@@ -432,8 +422,8 @@ and Safari. */
 /*************************************/
 .wp-block-latest-posts__post-title {
     display: block;
-    padding-top: 5px;
-    padding-bottom: 8px;
+
+
     border-bottom: #222 dotted 2px;
 }
 
@@ -478,7 +468,7 @@ and Safari. */
 
 .wp-block-tag-cloud .tag-cloud-link {
     background: #c4c4c4;
-    padding: 5px;
+
 }
 
 
@@ -540,7 +530,7 @@ and Safari. */
     border: 1px solid #222;
     border-left: none;
     font-size: large;
-    padding: 6.5px;
+
     margin-top: 10px;
 }
 
