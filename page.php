@@ -16,9 +16,9 @@ get_header();
 ?>
 
 <?php
-// slide 
 if (!is_home() && is_front_page()) :
-	get_template_part('template-parts/content', 'slide');
+	// スライダーまたはトップ画像の表示を決定する関数を呼び出す
+	integlight_display_slider_or_image();
 endif
 ?>
 
@@ -43,6 +43,11 @@ endif
 
 	</main><!-- #main -->
 
-	<?php get_sidebar(); ?>
+	<?php
+	if (!is_front_page()) :
+		// スライダーまたはトップ画像の表示を決定する関数を呼び出す
+		get_sidebar();
+	endif
+	?>
 </div> <!-- site-content-->
 <?php get_footer(); ?>

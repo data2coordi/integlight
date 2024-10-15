@@ -16,33 +16,42 @@
 
 /************* content s *******************::*/
 .ly_site_content {
-    max-width: 1200px;
     display: flex;
     flex-wrap: wrap;
     /* フッターの高さ分の余白を確保 */
     margin-top: 50px;
 }
 
+
+
+
 .ly_site_content_widgetArea_left {
     flex: 0 0 230px;
     order: 1;
     /* サイドバーを次に表示 */
-    margin-right: 40px;
+    margin-right: 50px;
+    margin-left: 50px;
     margin-top: 50px;
 }
 
 .ly_site_content_main {
+    max-width: 1200px;
     flex: 1;
     order: 2;
     /* メインコンテンツを最初に表示 */
     margin-top: 50px;
 }
 
+.integlight_front_page .ly_site_content_main {
+    max-width: 100vw;
+}
+
 .ly_site_content_widgetArea_right {
     flex: 0 0 230px;
     order: 3;
     /* サイドバーを次に表示 */
-    margin-left: 40px;
+    margin-left: 50px;
+    margin-right: 50px;
     margin-top: 50px;
 }
 

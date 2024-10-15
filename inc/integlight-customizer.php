@@ -7,8 +7,53 @@
  */
 
 
+// top header select  _s ////////////////////////////////////////////////////////////////////////////////
+
+function integlight_customize_register_topHeader($wp_customize)
+{
+	// 新しいセクションを追加（カスタマイザメニューのトップに表示されるように優先度を低く設定）
+	$wp_customize->add_section('integlight_custom_section', array(
+		'title'    => __('Top Header:[Select - Slider or Image]', 'integlight'),
+		'priority' => 28, // 優先度を1にしてトップに表示
+	));
+
+	// 選択ボックスを追加
+	$wp_customize->add_setting('display_choice', array(
+		'default' => 'header',
+		'sanitize_callback' => 'sanitize_text_field',
+	));
+
+	$wp_customize->add_control('display_choice', array(
+		'label'    => __('Display Slider or Image', 'integlight'),
+		'section'  => 'integlight_custom_section', // 先ほど追加したセクションに追加
+		'settings' => 'display_choice',
+		'type'     => 'select',
+		'choices'  => array(
+			'slider' => __('Slider', 'integlight'),
+			'image' => __('Image', 'integlight'),
+		),
+	));
+}
+add_action('customize_register', 'integlight_customize_register_topHeader');
 
 
+
+function integlight_display_slider_or_image()
+{
+	$choice = get_theme_mod('display_choice', 'slider');
+
+	if ('slider' === $choice) {
+		// スライダーを表示
+		get_template_part('template-parts/content', 'slide');
+	} else {
+		// ヘッダー画像を表示
+		if (get_header_image()) {
+			echo '<img src="' . esc_url(get_header_image()) . '" class="topImage" ' .  ' alt="' . get_bloginfo('name') . '">';
+		}
+	}
+}
+
+// top header select  _e ////////////////////////////////////////////////////////////////////////////////
 // slide customiser _s ////////////////////////////////////////////////////////////////////////////////
 
 
@@ -146,8 +191,8 @@ class InteglightSlide
 
 		// セクションを追加
 		$wp_customize->add_section('slider_section', array(
-			'title'    => __('Slider Settings', 'integlight'),
-			'priority' => 30,
+			'title'    => __('Top Header:[Slider Settings]', 'integlight'),
+			'priority' => 29,
 		));
 
 		$this->effect($wp_customize);
@@ -164,6 +209,7 @@ class InteglightSlide
 $InteglightSlide = new InteglightSlide();
 
 // slide customiser _e ////////////////////////////////////////////////////////////////////////////////
+
 
 
 // side bar position _s ////////////////////////////////////////////////////////////////////////////////
