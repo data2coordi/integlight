@@ -1,5 +1,9 @@
 <?php get_header(); ?>
 
+<?php
+integlight_display_slider_or_image();
+
+?>
 <?php if (have_posts()) : ?>
     <div class="post-grid">
         <?php while (have_posts()) : the_post(); ?>

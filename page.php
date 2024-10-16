@@ -45,7 +45,6 @@ endif
 
 	<?php
 	if (!is_front_page()) :
-		// スライダーまたはトップ画像の表示を決定する関数を呼び出す
 		get_sidebar();
 	endif
 	?>
