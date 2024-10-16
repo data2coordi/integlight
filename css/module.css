@@ -13,6 +13,73 @@
     background: #000;
 }
 
+/************************************************************/
+/* メニューナビゲーション @@@***************************************************/
+/************************************************************/
+
+.main-navigation {}
+
+.main-navigation ul {
+    display: flex;
+    gap: 50px;
+    justify-content: flex-end;
+    list-style: none;
+
+}
+
+.main-navigation li {
+    position: relative;
+    background: #000;
+}
+
+.main-navigation a {
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+/* サブメニューのスタイル */
+.main-navigation ul ul {
+    display: none;
+    flex-direction: column;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 100%;
+    z-index: 99;
+    gap: 5px;
+    /* フレックスアイテム間の間隔を10pxに設定 */
+}
+
+.main-navigation ul ul ul {
+    top: 0;
+    left: 200px;
+}
+
+/* ホバーまたはフォーカス時のサブメニューの表示 */
+.main-navigation ul li:hover>ul,
+.main-navigation ul li:focus-within>ul {
+    display: flex;
+}
+
+.main-navigation ul ul li:hover>ul,
+.main-navigation ul ul li:focus-within>ul {
+    display: flex;
+}
+
+/* サブメニュー内のリンクスタイル */
+.main-navigation ul ul a {
+    width: 240px;
+}
+
+/* サブメニュー内のアイテムのスタイル */
+
+/*.main-navigation .sub-menu li:first-child {} */
+
+.main-navigation .sub-menu>li:hover {
+    opacity: 0.7;
+}
+
 
 
 
@@ -48,9 +115,7 @@
 /*2.2 見出し*/
 
 /* ヘッダー部分のタイトル */
-.site-title {
-    display: none;
-}
+.site-title {}
 
 
 /* 本文のタイトル */
@@ -64,7 +129,7 @@
 /* ライン　アニメーション　s */
 h2,
 h3 {
-    color: #222;
+    /*color: #222;*/
     padding-bottom: 5px;
     border-bottom: 1px solid #222;
     width: 100%;
@@ -176,76 +241,6 @@ h3::after {
 
 
 
-
-/************************************************************/
-/* メニューナビゲーション @@@***************************************************/
-/************************************************************/
-
-.main-navigation {
-
-    width: 100%;
-}
-
-.main-navigation ul {
-    display: flex;
-    gap: 50px;
-    justify-content: flex-end;
-    list-style: none;
-
-}
-
-.main-navigation li {
-    position: relative;
-    background: #000;
-}
-
-.main-navigation a {
-    display: block;
-    text-decoration: none;
-    color: #fff;
-    font-weight: bold;
-}
-
-/* サブメニューのスタイル */
-.main-navigation ul ul {
-    display: none;
-    flex-direction: column;
-    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
-    position: absolute;
-    top: 100%;
-    z-index: 99;
-    gap: 5px;
-    /* フレックスアイテム間の間隔を10pxに設定 */
-}
-
-.main-navigation ul ul ul {
-    top: 0;
-    left: 200px;
-}
-
-/* ホバーまたはフォーカス時のサブメニューの表示 */
-.main-navigation ul li:hover>ul,
-.main-navigation ul li:focus-within>ul {
-    display: flex;
-}
-
-.main-navigation ul ul li:hover>ul,
-.main-navigation ul ul li:focus-within>ul {
-    display: flex;
-}
-
-/* サブメニュー内のリンクスタイル */
-.main-navigation ul ul a {
-    width: 240px;
-}
-
-/* サブメニュー内のアイテムのスタイル */
-
-/*.main-navigation .sub-menu li:first-child {} */
-
-.main-navigation .sub-menu>li:hover {
-    opacity: 0.7;
-}
 
 
 /************************************************************/

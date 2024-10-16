@@ -9,7 +9,7 @@
 /* site level @@@ ***************************************************/
 /************************************************************/
 .ly_site_header {
-    width: 100%;
+    width: 100vw;
     display: flex;
     justify-content: space-between;
 }
@@ -32,7 +32,7 @@
 }
 
 .ly_site_content_main {
-    max-width: 1200px;
+    max-width: 900px;
     flex: 1;
     order: 2;
     /* メインコンテンツを最初に表示 */
@@ -67,7 +67,7 @@
 /************* content e *******************::*/
 
 .site-footer {
-    width: 100%;
+    width: 100vw;
     margin-top: 50px;
 }
 
