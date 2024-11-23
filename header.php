@@ -54,12 +54,16 @@ if (!is_home() && is_front_page()) {
 			</div><!-- .site-branding -->
 
 			<nav id="site-navigation" class="main-navigation">
-				<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e('Primary Menu', 'integlight'); ?></button>
+
+				<input type="checkbox" id="menuToggle-checkbox" class="menuToggle-checkbox" />
+				<label for="menuToggle-checkbox" class="menuToggle-label">☰</label>
 				<?php
 				wp_nav_menu(
 					array(
 						'theme_location' => 'menu-1',
 						'menu_id'        => 'primary-menu',
+						'menu_class'     => 'menu',
+						'container_class'		=> 'menuToggle-containerForMenu',
 					)
 				);
 				?>

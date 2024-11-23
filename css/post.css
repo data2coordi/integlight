@@ -2,25 +2,3 @@
 /* Theme Name: Integlight */
 /* 投稿ページ向けのcss */
 /***********************************************************************************************/
-
-
-
-
-
-@media screen and (max-width: 767px) {
-
-
-  .hover::after {
-    width: 150px;
-  }
-
-  .hover:focus:after,
-  .hover02:focus:after {
-    transform: scale(1, 1);
-    /* 線のx軸の長さを1 */
-  }
-
-  .photo {
-    width: 60%;
-  }
-}
