@@ -31,6 +31,9 @@
     /* サイドバーを次に表示 */
 }
 
+
+
+
 .ly_site_content_main {
     max-width: 900px;
     flex: 1;
@@ -137,3 +140,45 @@ label {
 /*************************************************************************/
 /* padding e******************************************/
 /*************************************************************************/
+
+
+
+
+@media screen and (max-width: 768px) {
+
+    .site {
+        flex-direction: column;
+    }
+
+    .ly_site_content_main {
+        max-width: 100%;
+    }
+
+    .ly_site_content_widgetArea_left {
+        flex: 0 0 100%;
+        order: 1;
+        /* サイドバーを次に表示 */
+    }
+
+    .ly_site_content_widgetArea_left {
+        flex: 0 0 100%;
+        order: 1;
+        /* サイドバーを次に表示 */
+    }
+
+    .ly_site_content_widgetArea_right {
+        flex: 0 0 100%;
+        order: 3;
+        /* サイドバーを次に表示 */
+    }
+
+
+
+
+}
+
+@media screen and (max-width: 768px) {
+    img {
+        width: 100vw;
+    }
+}
