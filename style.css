@@ -643,9 +643,11 @@ p {
 
 }
 
+/*
 p.logged-in-as {
   width: 768px;
 }
+  */
 
 p.post {
   display: block;
@@ -844,7 +846,7 @@ input {
 
   border: 1px solid #222;
   border-radius: 0;
-  width: 768px;
+  /*width: 768px; */
 }
 
 

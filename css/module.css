@@ -346,13 +346,12 @@ h3::after {
 /************************************************************/
 
 .post-navigation .nav-links {
-    width: 768px;
+    /* width: 768px; */
 }
 
 .post-navigation .nav-title {
     display: block;
-    width: 350px;
-
+    /*width: 350px;*/
 
 }
 
