@@ -167,84 +167,6 @@
 /************************************************************/
 /* 1. テキスト***************************************************@@@/
 /************************************************************/
-/*******************************/
-/*1.1 基本的なフォントサイズの設定 */
-/*******************************/
-html {
-    font-size: 16px;
-    /* ルート要素に基本のフォントサイズを設定 */
-}
-
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    /* フォントファミリの設定 */
-    font-size: 1rem;
-    /* bodyのフォントサイズは16px相当 */
-    line-height: 1.5;
-    /* 行間の調整 */
-}
-
-/* 見出しのフォントサイズ */
-h1 {
-    font-size: 2.5rem;
-    /* 40px (2.5 × 16px) */
-}
-
-h2 {
-    font-size: 2rem;
-    /* 32px (2 × 16px) */
-}
-
-h3 {
-    font-size: 1.75rem;
-    /* 28px (1.75 × 16px) */
-}
-
-h4 {
-    font-size: 1.5rem;
-    /* 24px (1.5 × 16px) */
-}
-
-h5 {
-    font-size: 1.25rem;
-    /* 20px (1.25 × 16px) */
-}
-
-h6 {
-    font-size: 1rem;
-    /* 16px (1 × 16px) */
-}
-
-/* パラグラフやテキストに適用する基本的なサイズ */
-p {
-    font-size: 1rem;
-    /* 16px */
-}
-
-a {
-    font-size: 1rem;
-    /* 16px (リンクも標準のフォントサイズを使用) */
-}
-
-/* 小さな文字のためのクラス */
-.small-text {
-    font-size: 0.875rem;
-    /* 14px (小さな文字を表示) */
-}
-
-/* 大きな文字のためのクラス */
-.large-text {
-    font-size: 1.25rem;
-    /* 20px (大きな文字を表示) */
-}
-
-button,
-input,
-optgroup,
-select,
-textarea {
-    font-size: 100%;
-}
 
 
 
@@ -267,55 +189,6 @@ textarea {
 
 
 
-/* ライン　アニメーション　s */
-h2,
-h3 {
-    /*color: #222;*/
-    padding-bottom: 5px;
-    border-bottom: 1px solid #222;
-    width: 100%;
-    position: relative;
-    /*::afterにabsoluteをかけるので設定*/
-    margin-top: 50px;
-}
-
-h2::after,
-h3::after {
-    content: "";
-    /* コンテンツを追加 */
-    width: 50%;
-    /* 線の幅 */
-    height: 3px;
-    /* 線の高さ */
-    background: #555;
-    /* 線の色 */
-    position: absolute;
-    /* position: relative;からの線の絶対位置 */
-    bottom: 0;
-    /* 線の位置 */
-    left: 0;
-    /* 線の位置 */
-    transform: scale(0, 1);
-    /* 線のx軸の長さを0 */
-    transition: 0.5s;
-    /* 要素の変形する時間*/
-    transform-origin: left top;
-    /* 要素の座標の原点を設定*/
-}
-
-h2:hover::after,
-h3:hover::after,
-h2:focus:after,
-h3:focus:after {
-    transform: scale(1, 1);
-    /* 線のx軸の長さを1 */
-}
-
-h3::after {
-    height: 1.5px;
-}
-
-/* ライン　アニメーション　e */
 
 
 
@@ -364,7 +237,7 @@ h3::after {
 /************************************************************/
 .widget {}
 
-
+/***************************************/
 
 /* ウィジェット カテゴリー s */
 .wp-block-categories {
@@ -611,10 +484,12 @@ h3::after {
 
 /*** ボタン s ***/
 
+
 .wp-block-buttons>.wp-block-button.has-custom-font-size .wp-block-button__link {
-    width: 250px;
+    min-width: 150px;
     color: #fff;
 }
+
 
 /*** ボタン e ***/
 

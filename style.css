@@ -70,11 +70,23 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
  * 1. Correct the line height in all browsers.
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
+
 html {
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
 }
+
+
+
 
 /* Sections
 	 ========================================================================== */
@@ -97,7 +109,6 @@ html {
  * 2. Show the overflow in Edge and IE.
  */
 hr {
-  box-sizing: content-box;
   height: 0;
   overflow: visible;
 }
@@ -113,6 +124,8 @@ pre {
 
 /* Text-level semantics
 	 ========================================================================== */
+
+
 
 /**
  * Remove the gray background on active links in IE 10.
@@ -166,7 +179,7 @@ sub,
 sup {
   font-size: 75%;
   line-height: 0;
-
+  position: relative;
   vertical-align: baseline;
 }
 
@@ -184,9 +197,6 @@ sup {
 /**
  * Remove the border on images inside links in IE 10.
  */
-img {
-  border-style: none;
-}
 
 
 
@@ -197,16 +207,6 @@ img {
  * 1. Change the font styles in all browsers.
  * 2. Remove the 
  */
-button {
-  display: block;
-
-
-
-  background: #555;
-  color: #fff;
-
-  border: none;
-}
 
 button,
 input,
@@ -279,7 +279,6 @@ fieldset {}
  *		`fieldset` elements in all browsers.
  */
 legend {
-  box-sizing: border-box;
   color: inherit;
   display: table;
   max-width: 100%;
@@ -306,10 +305,7 @@ textarea {
  * 2. Remove the 
  */
 [type="checkbox"],
-[type="radio"] {
-  box-sizing: border-box;
-
-}
+[type="radio"] {}
 
 /**
  * Correct the cursor style of increment and decrement buttons in Chrome.
@@ -383,20 +379,7 @@ template {
 
 /* Inherit box-sizing to more easily change it's value on a component level.
 @link http://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
 
-
-}
-
-
-
-
-html {
-  box-sizing: border-box;
-}
 
 /*--------------------------------------------------------------
 # Base
@@ -468,15 +451,6 @@ body {
 }
 
 
-article>footer {
-  background: none;
-  text-align: left;
-
-
-
-}
-
-
 hr {
   background-color: #ccc;
   border: 0;
@@ -501,28 +475,8 @@ object {
 img {
   height: auto;
   max-width: 100%;
+  border-style: none;
 }
-
-
-
-
-figure {}
-
-
-
-
-
-div.table {
-  width: 280px;
-
-
-
-}
-
-
-i {}
-
-
 
 table {
 
@@ -537,138 +491,21 @@ h4,
 h5,
 h6 {
   clear: both;
-
-
-
-}
-
-
-h1 {
-  font-family: Arial, Helvetica, sans-serif;
-
 }
 
 
 
-h2.value {
-
-
-  order: 2;
-  top: 210px;
-  left: 550px;
-}
-
-
-h2,
-h3 {
-  color: #222;
-
-  border-bottom: 1px solid #222;
-  width: 100%;
-
-  /*::afterにabsoluteをかけるので設定*/
-
-}
 
 
 
-h2::after,
-h3::after {
-  content: "";
-  /* コンテンツを追加 */
-  width: 50%;
-  /* 線の幅 */
-  height: 3px;
-  /* 線の高さ */
-  background: #555;
-  /* 線の色 */
-
-  /* 
-  bottom: 0;
-  /* 線の位置 */
-  left: 0;
-  /* 線の位置 */
-  transform: scale(0, 1);
-  /* 線のx軸の長さを0 */
-  transition: 0.5s;
-  /* 要素の変形する時間*/
-  transform-origin: left top;
-  /* 要素の座標の原点を設定*/
-}
-
-h2:hover::after,
-h3:hover::after,
-h2:focus:after,
-h3:focus:after {
-  transform: scale(1, 1);
-  /* 線のx軸の長さを1 */
-}
-
-h3::after {
-  height: 1.5px;
-}
 
 
-ul,
-ol {}
-
-ul {
-  list-style: disc;
-}
-
-ol {
-  list-style: decimal;
-}
-
-li>ul,
-li>ol {}
-
-
-p {
-
-  line-height: 1.8;
-  width: fit-content;
-
-}
-
-/*
-p.logged-in-as {
-  width: 768px;
-}
-  */
-
-p.post {
+/* button*/
+button {
   display: block;
-
-
-  border-bottom: 2px dotted #222;
-}
-
-p.head {
-  width: 300px;
-
-  font-family: "Mina", sans-serif;
-  font-weight: 700;
-  font-style: normal;
-
-
-
-  text-align: center;
   background: #555;
-  /* -webkit-background-clip: text; */
-  -webkit-text-fill-color: transparent;
-}
-
-p.headder {
-
-  /*絶対配置*/
   color: #fff;
-  /*文字は白に*/
-  top: 40%;
-  left: 50%;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
-  line-height: 80px;
+  border: none;
 }
 
 
@@ -723,10 +560,6 @@ a.contact {
 /* Forms
 --------------------------------------------- */
 
-form {
-  display: flex;
-  flex-direction: column;
-}
 
 button,
 input[type="button"],
@@ -736,7 +569,6 @@ input[type="submit"] {
   border-color: #ccc #ccc #bbb;
   border-radius: 0;
   background: #e6e6e6;
-  width: 200px;
   color: #fff;
   line-height: 1;
 
@@ -816,43 +648,6 @@ textarea {
   border-radius: 0;
   width: 100%;
 }
-
-label {
-  display: block;
-
-}
-
-
-
-button {
-  width: 180px;
-}
-
-input {
-
-  border: 1px solid #222;
-  border-radius: 0;
-  /*width: 768px; */
-}
-
-
-
-input[type="search"] {
-  height: 40px;
-  border: 1px solid #222;
-  border-radius: 0;
-  width: 100%;
-}
-
-[type="submit"] {
-
-  height: 40px;
-  border: 1px solid #222;
-  border-left: none;
-  border-radius: 0;
-}
-
-
 
 
 
@@ -1034,7 +829,7 @@ input[type="search"] {
 /* media query s******************************************/
 /*************************************************************************/
 
-
+/***************************************/
 /*************************************************************************/
 /* media query e******************************************/
 /*************************************************************************/
@@ -1066,4 +861,152 @@ input[type="search"] {
 */
 /*************************************************************************/
 /* デフォルトのstyle.cssの更新方法 e******************************************/
+/*************************************************************************/
+
+
+
+
+/*************************************************************************/
+/* integlight独自設定 s******************************************/
+/*************************************************************************/
+
+/*******************************/
+/* 基本的なフォントサイズの設定 s */
+/*******************************/
+html {
+  font-size: 16px;
+  /* ルート要素に基本のフォントサイズを設定 */
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  /* フォントファミリの設定 */
+  font-size: 1rem;
+  /* bodyのフォントサイズは16px相当 */
+  line-height: 1.5;
+  /* 行間の調整 */
+}
+
+/* 見出しのフォントサイズ */
+h1 {
+  font-size: 2.5rem;
+  /* 40px (2.5 × 16px) */
+}
+
+h2 {
+  font-size: 2rem;
+  /* 32px (2 × 16px) */
+}
+
+h3 {
+  font-size: 1.75rem;
+  /* 28px (1.75 × 16px) */
+}
+
+h4 {
+  font-size: 1.5rem;
+  /* 24px (1.5 × 16px) */
+}
+
+h5 {
+  font-size: 1.25rem;
+  /* 20px (1.25 × 16px) */
+}
+
+h6 {
+  font-size: 1rem;
+  /* 16px (1 × 16px) */
+}
+
+/* パラグラフやテキストに適用する基本的なサイズ */
+p {
+  font-size: 1rem;
+  /* 16px */
+}
+
+a {
+  font-size: 1rem;
+  /* 16px (リンクも標準のフォントサイズを使用) */
+}
+
+/* 小さな文字のためのクラス */
+.small-text {
+  font-size: 0.875rem;
+  /* 14px (小さな文字を表示) */
+}
+
+/* 大きな文字のためのクラス */
+.large-text {
+  font-size: 1.25rem;
+  /* 20px (大きな文字を表示) */
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-size: 100%;
+}
+
+
+/*******************************/
+/* 基本的なフォントサイズの設定 e */
+/*******************************/
+
+/***************************************/
+/* ライン　アニメーション　s */
+/***************************************/
+h2,
+h3 {
+  /*color: #222;*/
+  padding-bottom: 5px;
+  border-bottom: 1px solid #222;
+  width: 100%;
+  position: relative;
+  /*::afterにabsoluteをかけるので設定*/
+  margin-top: 50px;
+}
+
+h2::after,
+h3::after {
+  content: "";
+  /* コンテンツを追加 */
+  width: 50%;
+  /* 線の幅 */
+  height: 3px;
+  /* 線の高さ */
+  background: #555;
+  /* 線の色 */
+  position: absolute;
+  /* position: relative;からの線の絶対位置 */
+  bottom: 0;
+  /* 線の位置 */
+  left: 0;
+  /* 線の位置 */
+  transform: scale(0, 1);
+  /* 線のx軸の長さを0 */
+  transition: 0.5s;
+  /* 要素の変形する時間*/
+  transform-origin: left top;
+  /* 要素の座標の原点を設定*/
+}
+
+h2:hover::after,
+h3:hover::after,
+h2:focus:after,
+h3:focus:after {
+  transform: scale(1, 1);
+  /* 線のx軸の長さを1 */
+}
+
+h3::after {
+  height: 1.5px;
+}
+
+/***************************************/
+/* ライン　アニメーション　e */
+/***************************************/
+/*************************************************************************/
+/* integlight独自設定 e******************************************/
 /*************************************************************************/

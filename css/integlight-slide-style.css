@@ -52,7 +52,6 @@
 
 .slider.slide-effect .slide {
   min-width: 100%;
-  box-sizing: border-box;
 }
 
 /* スライド式エフェクト _e ////////////////////////////*/
