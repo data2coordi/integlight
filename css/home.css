@@ -65,8 +65,6 @@
     /* タイトルの位置を調整 */
     left: 15px;
     z-index: 2;
-    /* タイトルをオーバーレイの上に表示 */
-    font-size: 2rem;
     /* タイトルを大きくする */
     color: white;
     /* 白色の文字 */
@@ -83,8 +81,6 @@
     left: 15px;
     z-index: 2;
     /* 抜粋をオーバーレイの上に表示 */
-    font-size: 0.8rem;
-    /* 小さめの文字サイズ */
     color: white;
     /* 白色の文字 */
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
@@ -104,7 +100,6 @@
     /* 白色の文字 */
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
     /* 影を追加して視認性を向上 */
-    font-size: 0.9rem;
 }
 
 .home .post-date,

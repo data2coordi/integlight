@@ -93,7 +93,7 @@
     background: none;
     border: none;
     color: #fff;
-    font-size: 24px;
+    font-size: 1.5rem;
     cursor: pointer;
     position: absolute;
     top: 30px;
@@ -167,6 +167,90 @@
 /************************************************************/
 /* 1. テキスト***************************************************@@@/
 /************************************************************/
+/*******************************/
+/*1.1 基本的なフォントサイズの設定 */
+/*******************************/
+html {
+    font-size: 16px;
+    /* ルート要素に基本のフォントサイズを設定 */
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    /* フォントファミリの設定 */
+    font-size: 1rem;
+    /* bodyのフォントサイズは16px相当 */
+    line-height: 1.5;
+    /* 行間の調整 */
+}
+
+/* 見出しのフォントサイズ */
+h1 {
+    font-size: 2.5rem;
+    /* 40px (2.5 × 16px) */
+}
+
+h2 {
+    font-size: 2rem;
+    /* 32px (2 × 16px) */
+}
+
+h3 {
+    font-size: 1.75rem;
+    /* 28px (1.75 × 16px) */
+}
+
+h4 {
+    font-size: 1.5rem;
+    /* 24px (1.5 × 16px) */
+}
+
+h5 {
+    font-size: 1.25rem;
+    /* 20px (1.25 × 16px) */
+}
+
+h6 {
+    font-size: 1rem;
+    /* 16px (1 × 16px) */
+}
+
+/* パラグラフやテキストに適用する基本的なサイズ */
+p {
+    font-size: 1rem;
+    /* 16px */
+}
+
+a {
+    font-size: 1rem;
+    /* 16px (リンクも標準のフォントサイズを使用) */
+}
+
+/* 小さな文字のためのクラス */
+.small-text {
+    font-size: 0.875rem;
+    /* 14px (小さな文字を表示) */
+}
+
+/* 大きな文字のためのクラス */
+.large-text {
+    font-size: 1.25rem;
+    /* 20px (大きな文字を表示) */
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    font-size: 100%;
+}
+
+
+
+/*******************************/
+/*2 Text系タグのfont-size以外の設定 */
+/*******************************/
 /*2.1 段落*/
 
 
@@ -178,9 +262,7 @@
 
 
 /* 本文のタイトル */
-.entry-title {
-    font-size: 2em;
-}
+.entry-title {}
 
 
 
@@ -337,7 +419,6 @@ h3::after {
 .pagination .fa-circle-left:before {
 
 
-    font-size: 25px;
     vertical-align: -15%;
 }
 
@@ -394,7 +475,6 @@ h3::after {
 .post-toc ul li a {
     text-decoration: none;
     color: #222;
-    font-size: 14px;
     line-height: 2.2;
     color: #222;
 }
@@ -473,13 +553,10 @@ h3::after {
 .bl_card_container .bl_card_ttl {}
 
 
-.bl_card_container .entry-date {
-    font-size: 12px;
-}
+.bl_card_container .entry-date {}
 
 .bl_card_container .bl_card_txt {
     width: fit-content;
-    font-size: 12px;
 }
 
 /* テキスト側 e */
@@ -506,7 +583,6 @@ h3::after {
 .create_bread {
     display: flex;
     flex-direction: row;
-    font-size: small;
     gap: 10px;
     list-style: none;
 
@@ -536,7 +612,6 @@ h3::after {
 /*** ボタン s ***/
 
 .wp-block-buttons>.wp-block-button.has-custom-font-size .wp-block-button__link {
-    font-size: 1.3rem;
     width: 250px;
     color: #fff;
 }
@@ -608,7 +683,6 @@ h3::after {
 .fa-circle-left:before,
 .fa-arrow-alt-circle-right:before,
 .fa-circle-right:before {
-    font-size: large;
     color: #8c8c8c;
 }
 
@@ -616,7 +690,6 @@ h3::after {
 .fa-search:before {
     border: 1px solid #222;
     border-left: none;
-    font-size: large;
 
 
 }

@@ -202,7 +202,6 @@ button {
 
 
 
-  font-size: 18px;
   background: #555;
   color: #fff;
 
@@ -215,7 +214,6 @@ optgroup,
 select,
 textarea {
   font-family: inherit;
-  font-size: 100%;
   line-height: 1.15;
 
 }
@@ -415,7 +413,6 @@ textarea {
   color: #404040;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  font-size: 1rem;
   line-height: 1.5;
 }
 
@@ -513,14 +510,6 @@ figure {}
 
 
 
-figure>img {
-  width: 30%;
-  height: auto;
-  display: block;
-
-
-}
-
 
 
 div.table {
@@ -555,7 +544,6 @@ h6 {
 
 
 h1 {
-  font-size: 2em;
   font-family: Arial, Helvetica, sans-serif;
 
 }
@@ -662,7 +650,6 @@ p.head {
   font-family: "Mina", sans-serif;
   font-weight: 700;
   font-style: normal;
-  font-size: 30px;
 
 
 
@@ -680,7 +667,6 @@ p.headder {
   top: 40%;
   left: 50%;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 70px;
   font-weight: bold;
   line-height: 80px;
 }
