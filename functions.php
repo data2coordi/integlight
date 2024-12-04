@@ -101,6 +101,8 @@ function integlight_setup()
 			'flex-height' => true,
 		)
 	);
+	/*全幅のサポート*/
+	add_theme_support('align-wide');
 }
 add_action('after_setup_theme', 'integlight_setup');
 

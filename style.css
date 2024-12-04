@@ -189,9 +189,17 @@ sup {
 }
 
 
-blockquote {}
+blockquote {
 
-address {}
+  content: " ";
+  /*ダミー*/
+}
+
+address {
+
+  content: " ";
+  /*ダミー*/
+}
 
 
 mark,
@@ -408,7 +416,12 @@ textarea:focus {
 
 /* ラジオボタン、チェックボックス */
 [type="checkbox"],
-[type="radio"] {}
+[type="radio"] {
+
+  content: " ";
+  /*ダミー*/
+
+}
 
 /* 数値入力フィールドのスピンボタン調整 */
 [type="number"]::-webkit-inner-spin-button,
@@ -419,6 +432,10 @@ textarea:focus {
 /* 検索入力フィールドのスタイル */
 [type="search"] {
   -webkit-appearance: textfield;
+  -webkit-appearance: button;
+  /* Webkit系ブラウザ（Chrome、Safari）用 */
+  appearance: button;
+  /* 標準プロパティ */
   outline-offset: -2px;
 }
 
@@ -427,7 +444,11 @@ textarea:focus {
 }
 
 /* フィールドセットと伝説タグ */
-fieldset {}
+fieldset {
+
+  content: " ";
+  /*ダミー*/
+}
 
 legend {
   color: inherit;

@@ -17,7 +17,6 @@
 /* メニューナビゲーション @@@***************************************************/
 /************************************************************/
 
-.main-navigation {}
 
 .main-navigation ul {
     display: flex;
@@ -179,12 +178,9 @@
 
 /*2.2 見出し*/
 
-/* ヘッダー部分のタイトル */
-.site-title {}
 
 
 /* 本文のタイトル */
-.entry-title {}
 
 
 
@@ -211,7 +207,6 @@
 /*3.3 カバー */
 
 /* カバーイメージ */
-.wp-block-cover {}
 
 /* カバー画像e */
 
@@ -235,7 +230,11 @@
 /************************************************************/
 /* Widgets @@@ ***************************************************/
 /************************************************************/
-.widget {}
+.widget {
+
+    content: " ";
+    /*ダミー*/
+}
 
 /***************************************/
 
@@ -300,7 +299,8 @@
 /************************************************************/
 
 .post-navigation .nav-links {
-    /* width: 768px; */
+    content: " ";
+    /*ダミー*/
 }
 
 .post-navigation .nav-title {
@@ -343,7 +343,11 @@
 
 }
 
-.post-toc ul li {}
+.post-toc ul li {
+
+    content: " ";
+    /*ダミー*/
+}
 
 .post-toc ul li a {
     text-decoration: none;
@@ -361,9 +365,18 @@
 
 }
 
-.post-toc ul li.toc-h2 a {}
+.post-toc ul li.toc-h2 a {
 
-.post-toc ul li.toc-h3 a {}
+    content: " ";
+    /*ダミー*/
+}
+
+.post-toc ul li.toc-h3 a {
+
+    content: " ";
+    /*ダミー*/
+
+}
 
 
 
@@ -423,10 +436,18 @@
 
 /* テキスト側 s */
 
-.bl_card_container .bl_card_ttl {}
+.bl_card_container .bl_card_ttl {
+
+    content: " ";
+    /*ダミー*/
+}
 
 
-.bl_card_container .entry-date {}
+.bl_card_container .entry-date {
+
+    content: " ";
+    /*ダミー*/
+}
 
 .bl_card_container .bl_card_txt {
     width: fit-content;
@@ -474,7 +495,11 @@
     border-bottom: #222 dotted 2px;
 }
 
-.wp-block-latest-posts__list {}
+.wp-block-latest-posts__list {
+
+    content: " ";
+    /*ダミー*/
+}
 
 /* 新着記事 e*/
 
@@ -542,7 +567,11 @@
 
 /* fa s  all.mini.cssのfont awsomeのCSSのカスタマイズ*/
 
-.fa-chevron-right:before {}
+.fa-chevron-right:before {
+
+    content: " ";
+    /*ダミー*/
+}
 
 .fa-solid,
 .fas {
@@ -552,7 +581,11 @@
 }
 
 .fa-calendar-alt:before,
-.fa-calendar-days:before {}
+.fa-calendar-days:before {
+
+    content: " ";
+    /*ダミー*/
+}
 
 .fa-arrow-alt-circle-left:before,
 .fa-circle-left:before,
