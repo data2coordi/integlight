@@ -24,6 +24,7 @@ function integlight_scripts_plus()
 	wp_enqueue_style('integlight-front', get_template_directory_uri() . '/css/front.css', array(), _S_VERSION);
 	wp_enqueue_style('integlight-home', get_template_directory_uri() . '/css/home.css', array(), _S_VERSION);
 	wp_enqueue_style('integlight-module', get_template_directory_uri() . '/css/module.css', array(), _S_VERSION);
+	wp_enqueue_style('integlight-helper', get_template_directory_uri() . '/css/helper.css', array(), _S_VERSION);
 
 	//web fonts: font awsome
 	wp_enqueue_style('integlight-owsome', get_template_directory_uri() . '/css/all.min.css', array(), _S_VERSION);
@@ -138,6 +139,9 @@ class InteglightTableOfContents
 	// 投稿コンテンツに目次を追加するメソッド
 	public function add_toc_to_content($content)
 	{
+
+
+
 		$hide_toc = get_post_meta(get_the_ID(), 'hide_toc', true);
 
 		if ($hide_toc == '1') {
@@ -147,18 +151,28 @@ class InteglightTableOfContents
 
 
 		// H1, H2, H3タグを抽出
-		preg_match_all('/<(h[1-3]).*?>(.*?)<\/\1>/', $content, $matches, PREG_SET_ORDER);
+		preg_match_all('/<(h[1-3])([^>]*)>(.*?)<\/\1>/', $content, $matches, PREG_SET_ORDER);
 
 		if (!empty($matches)) {
 			// 目次を生成
 			$toc = '<div class="post-toc"><B>Index</B><ul>';
 			foreach ($matches as $match) {
-				$heading_tag = $match[1];
-				$heading_text = $match[2];
+				$heading_tag = $match[1]; // h1, h2, h3
+				$heading_attributes = $match[2]; // クラスやIDなどの属性
+				$heading_text = $match[3]; // 見出しのテキスト
+
+				// 見出しにIDを追加
 				$id = sanitize_title_with_dashes($heading_text);
+
+				// 目次を作成
 				$toc .= '<li class="toc-' . strtolower($heading_tag) . '"><a href="#' . $id . '">' . strip_tags($heading_text) . '</a></li>';
-				// 投稿コンテンツ内のH1, H2, H3タグにIDを追加
-				$content = str_replace($match[0], '<' . $heading_tag . ' id="' . $id . '">' . $heading_text . '</' . $heading_tag . '>', $content);
+
+				// HタグにIDを追加してクラスを維持
+				$content = str_replace(
+					$match[0],
+					'<' . $heading_tag . $heading_attributes . ' id="' . $id . '">' . $heading_text . '</' . $heading_tag . '>',
+					$content
+				);
 			}
 			$toc .= '</ul></div>';
 
