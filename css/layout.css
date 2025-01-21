@@ -1,3 +1,17 @@
+/************************************************************/
+/* root **************************************************/
+/************************************************************/
+
+:root {
+    --ly-widthPadding: calc(100vw * 0.05);
+    --ly-topMerge: calc(100vw * 0.05);
+    --ly-betweenPadding: calc(100vw * 0.05);
+    --ly-elementTopMargin: calc(100vw * 0.03);
+    --ly-elementPadding: calc(100vw * 0.01);
+}
+
+
+
 .site {
     display: flex;
     flex-direction: row;
@@ -12,6 +26,9 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    padding-left: var(--ly-widthPadding);
+    padding-right: var(--ly-widthPadding);
+
 }
 
 /************* content s *******************::*/
@@ -19,10 +36,15 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 50px;
+    gap: var(--ly-betweenPadding);
+    /*
     margin-top: 50px;
     margin-left: 10px;
     margin-right: 10px;
+    */
+    margin-top: var(--ly-topMerge);
+    padding-left: var(--ly-widthPadding);
+    padding-right: var(--ly-widthPadding);
 }
 
 
@@ -73,7 +95,9 @@
 
 .site-footer {
     width: 100%;
-    margin-top: 50px;
+    margin-top: var(--ly-topMerge);
+    padding-left: var(--ly-widthPadding);
+    padding-right: var(--ly-widthPadding);
 }
 
 /* footer下の余白対策*/
@@ -111,7 +135,8 @@
 h1,
 h2,
 h3 {
-    margin-top: 10px;
+    /* margin-top: 10px;*/
+    margin-top: var(--ly-elementTopMargin);
 }
 
 /*************************************************************************/
@@ -131,7 +156,10 @@ input,
 textarea,
 button,
 label {
+    /*
     padding: 10px;
+    */
+    padding: var(--ly-elementPadding);
 }
 
 /*************************************************************************/
