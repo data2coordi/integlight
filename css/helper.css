@@ -40,9 +40,12 @@
 }
 
 
+/*全幅表示*/
 .alignfull {
     width: 100vw;
+    /* 全幅にする */
     margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
-    max-width: 100vw;
+    /* 中心を合わせるために調整 */
+    margin-right: 0;
+    /* 初期化（右側不要のため） */
 }

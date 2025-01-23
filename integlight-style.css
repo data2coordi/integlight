@@ -6,6 +6,11 @@
 /*************************************************************************/
 /*************************************************************************/
 
+:root {
+    --font-base: clamp(14px, 1.6vw, 16px);
+}
+
+
 
 /*******************************/
 /* 特殊設定 s */
@@ -41,7 +46,7 @@ h6 {
 /* 基本的なフォントサイズの設定 s */
 /*******************************/
 html {
-    font-size: 16px;
+    font-size: var(--font-base);
     /* ルート要素に基本のフォントサイズを設定 */
 }
 
@@ -50,62 +55,53 @@ body {
     /* フォントファミリの設定 */
     font-size: 1rem;
     /* bodyのフォントサイズは16px相当 */
-    line-height: 1.5;
+    line-height: 1.8;
     /* 行間の調整 */
 }
 
 /* 見出しのフォントサイズ */
 h1 {
-    font-size: 2.5rem;
-    /* 40px (2.5 × 16px) */
+    font-size: 2rem;
 }
 
 h2 {
-    font-size: 2rem;
-    /* 32px (2 × 16px) */
+    font-size: 1.75rem;
 }
 
 h3 {
-    font-size: 1.75rem;
-    /* 28px (1.75 × 16px) */
+    font-size: 1.5rem;
 }
 
 h4 {
-    font-size: 1.5rem;
-    /* 24px (1.5 × 16px) */
+    font-size: 1.25rem;
 }
 
 h5 {
-    font-size: 1.25rem;
-    /* 20px (1.25 × 16px) */
+    font-size: 1.2rem;
 }
 
 h6 {
-    font-size: 1rem;
-    /* 16px (1 × 16px) */
+    font-size: 1.1rem;
 }
 
 /* パラグラフやテキストに適用する基本的なサイズ */
-p {
+p,
+ul {
     font-size: 1rem;
-    /* 16px */
 }
 
 a {
     font-size: 1rem;
-    /* 16px (リンクも標準のフォントサイズを使用) */
 }
 
 /* 小さな文字のためのクラス */
 .small-text {
     font-size: 0.875rem;
-    /* 14px (小さな文字を表示) */
 }
 
 /* 大きな文字のためのクラス */
 .large-text {
     font-size: 1.25rem;
-    /* 20px (大きな文字を表示) */
 }
 
 button,
@@ -127,12 +123,10 @@ textarea {
 h2,
 h3 {
     /*color: #222;*/
-    padding-bottom: 5px;
     border-bottom: 1px solid #222;
     width: 100%;
     position: relative;
     /*::afterにabsoluteをかけるので設定*/
-    margin-top: 50px;
 }
 
 h2::after,

@@ -10,6 +10,12 @@
 ?>
 
 <?php
+if (is_page()) {
+	return;
+}
+
+
+
 if (is_active_sidebar('sidebar-1')) {
 	if (get_theme_mod('integlight_sidebar1_position') !== 'none') {
 ?>
