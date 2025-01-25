@@ -297,22 +297,42 @@
 /************************************************************/
 /* ページコントロール 次の記事@@@***************************************************/
 /************************************************************/
+.navigation.post-navigation {}
 
-.post-navigation .nav-links {
-    content: " ";
-    /*ダミー*/
-}
-
-.post-navigation .nav-title {
-    display: block;
-    /*width: 350px;*/
-
-}
-
-.post-navigation .nav-subtitle {
+.navigation.post-navigation .nav-links {
     display: flex;
-    flex-direction: row;
+    justify-content: space-between;
+    /* 子要素間のスペースを等しく */
+    width: 100%;
+    /* 幅を広げる */
 }
+
+@media screen and (max-width: 768px) {
+
+    .navigation.post-navigation .nav-links {
+        flex-direction: column;
+    }
+}
+
+.nav-previous,
+.nav-next {
+    /* アイコンとテキストの縦方向中央揃え */
+}
+
+.nav-subtitle {
+    display: flex;
+    align-items: center;
+    /* アイコンとテキストの縦方向中央揃え */
+    gap: 0.5em;
+    /* アイコンとタイトルの間のスペース */
+}
+
+.nav-title {}
+
+.nav-previous i,
+.nav-next i {}
+
+
 
 
 /************************************************************/
@@ -477,12 +497,69 @@
 .create_bread {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    /* 垂直方向で中央揃え */
     gap: 10px;
+    /* 項目間の間隔 */
     list-style: none;
+    /* マーカーを非表示 */
+    font-size: 0.7rem;
+    /* 文字サイズを小さく */
+    padding: 0;
+    /* 不要な余白を削除 */
+    margin: 0;
+    /* 不要な余白を削除 */
+}
 
+.create_bread a {
+    font-size: inherit;
+    /* 親要素のフォントサイズに合わせる */
+    text-decoration: none;
+    /* リンクの下線を消す */
+    color: inherit;
+    /* リンクの色を親要素と一致させる */
+}
+
+.create_bread a:hover {
+    text-decoration: underline;
+    /* ホバー時に下線を表示 */
+    /*color: blue;  ホバー時に色を変える（任意） */
 }
 
 /* パンくずe */
+
+/*************************************/
+/* entry-header + 投稿情報 s*/
+/*************************************/
+.entry-header,
+.entry-footer {
+    margin-bottom: 0.7rem;
+}
+
+/* 投稿日時用 */
+.posted-on,
+.byline,
+.cat-links,
+.edit-link {
+    font-size: 0.7rem;
+    /* 小さめの文字サイズ */
+    color: #666;
+}
+
+.posted-on a,
+.byline a,
+.cat-links a,
+.edit-link a {
+    font-size: inherit;
+    /* 親要素のフォントサイズに合わせる */
+    text-decoration: none;
+    /* リンクの下線を消す */
+    color: inherit;
+    /* リンクの色を親要素と一致させる */
+}
+
+
+
 
 
 /*************************************/
