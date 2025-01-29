@@ -8,6 +8,14 @@
 
 :root {
     --font-base: clamp(14px, 1.6vw, 16px);
+
+    --ly-widthPadding: calc(100vw * 0.05);
+    --ly-topMerge: calc(100vw * 0.05);
+    --ly-betweenPadding: calc(100vw * 0.05);
+    --ly-elementTopMargin: calc(100vw * 0.03);
+    --ly-elementTopMarginSmall: calc(100vw * 0.01);
+    --ly-elementPadding: calc(100vw * 0.01);
+
 }
 
 
