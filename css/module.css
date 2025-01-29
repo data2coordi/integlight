@@ -18,6 +18,7 @@
 /************************************************************/
 
 
+/* メニュー(lv1)のスタイル */
 .main-navigation ul {
     display: flex;
     gap: 50px;
@@ -38,7 +39,7 @@
     font-weight: bold;
 }
 
-/* サブメニューのスタイル */
+/* サブメニュー(lv2)のスタイル */
 .main-navigation ul ul {
     display: none;
     flex-direction: column;
@@ -50,10 +51,8 @@
     /* フレックスアイテム間の間隔を10pxに設定 */
 }
 
-.main-navigation ul ul ul {
-    top: 0;
-    left: 200px;
-}
+/* サブサブメニュー(lv3)のスタイル */
+.main-navigation ul ul ul {}
 
 /* ホバーまたはフォーカス時のサブメニューの表示 */
 .main-navigation ul li:hover>ul,
@@ -64,6 +63,13 @@
 .main-navigation ul ul li:hover>ul,
 .main-navigation ul ul li:focus-within>ul {
     display: flex;
+}
+
+
+.main-navigation .sub-menu {
+    /*left: -50px;
+    */
+    top: -10px
 }
 
 /* サブメニュー内のリンクスタイル */
@@ -157,11 +163,17 @@
 /************************************************************/
 /* 0. thumbnail***************************************************@@@/
 /************************************************************/
-
+/*
 .thumbnail {
     clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
 }
+    */
 
+.post-thumbnail {
+    display: flex;
+    justify-content: center;
+    /* 水平方向の中央揃え */
+}
 
 /************************************************************/
 /* 1. テキスト***************************************************@@@/
@@ -242,6 +254,7 @@
 .wp-block-categories {
     list-style: none;
     line-height: 2.8;
+    padding-left: 0px;
 }
 
 .cat-item {
@@ -540,8 +553,9 @@
 .posted-on,
 .byline,
 .cat-links,
-.edit-link {
-    font-size: 0.7rem;
+.edit-link,
+.tags-links {
+    font-size: 0.9rem;
     /* 小さめの文字サイズ */
     color: #666;
 }
@@ -549,12 +563,13 @@
 .posted-on a,
 .byline a,
 .cat-links a,
-.edit-link a {
-    font-size: inherit;
+.edit-link a,
+.tags-links a {
+    font-size: 0.7rem;
     /* 親要素のフォントサイズに合わせる */
     text-decoration: none;
     /* リンクの下線を消す */
-    color: inherit;
+    color: blue;
     /* リンクの色を親要素と一致させる */
 }
 
