@@ -66,11 +66,20 @@
 }
 
 
+/*サブメニューの位置*/
 .main-navigation .sub-menu {
     /*left: -50px;
     */
     top: -10px
 }
+
+/*サブサブメニューの位置*/
+.main-navigation .sub-menu .sub-menu {
+    left: 100px;
+}
+
+
+
 
 /* サブメニュー内のリンクスタイル */
 .main-navigation ul ul a {
@@ -434,7 +443,7 @@
     flex-direction: row;
     gap: 10px;
     background: #f5f4f4;
-
+    padding: var(--ly-elementPadding);
 }
 
 .bl_card_container .bl_card_column a:hover {
@@ -450,10 +459,10 @@
 }
 
 
-
 /* 画像側 s */
 .bl_card_container .bl_card_imgWrapper {
     overflow: hidden;
+    font-size: 0.8rem;
 }
 
 .bl_card_container .bl_card_imgWrapper img {
@@ -473,21 +482,23 @@
 
 /* テキスト側 s */
 
-.bl_card_container .bl_card_ttl {
-
-    content: " ";
-    /*ダミー*/
+.bl_card {
+    margin-top: 0;
 }
 
+.bl_card_container .bl_card_ttl {
+    margin-top: 0;
+
+}
 
 .bl_card_container .entry-date {
+    font-size: 0.8rem;
 
-    content: " ";
-    /*ダミー*/
 }
 
 .bl_card_container .bl_card_txt {
     width: fit-content;
+    font-size: 0.8rem;
 }
 
 /* テキスト側 e */

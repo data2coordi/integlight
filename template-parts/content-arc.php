@@ -31,7 +31,7 @@
 		<article class="bl_card">
 
 			<a href="<?php the_permalink(); ?>">
-				<?php the_title('<h4 class="bl_card_ttl">', '</h4>'); ?>
+				<?php the_title('<h5 class="bl_card_ttl">', '</h5>'); ?>
 			</a>
 			<div class="bl_card_body">
 				<span class="entry-date"><i class="fa-solid fa-calendar-days"></i><?php echo get_the_date(); ?></span>
