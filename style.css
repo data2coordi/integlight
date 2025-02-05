@@ -41,6 +41,18 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 <body>       : 表示されるコンテンツを記述
 */
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+
+
 body {
   background: #fff;
 }

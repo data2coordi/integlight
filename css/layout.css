@@ -27,6 +27,7 @@
 /************* content s *******************::*/
 .ly_site_content {
     max-width: 100vw;
+    /*全幅子要素等の拡張対策*/
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
