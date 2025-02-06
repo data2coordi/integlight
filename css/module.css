@@ -18,8 +18,7 @@
 /************************************************************/
 /* メインナビゲーションのスタイル */
 .main-navigation {
-    background-color: #666;
-    padding: 10px;
+    padding: var(--ly-elementPadding);
 }
 
 .main-navigation .sub-menu a {
@@ -40,7 +39,7 @@
 .main-navigation a {
     color: white;
     text-decoration: none;
-    padding: 10px 15px;
+    padding: var(--ly-elementPadding);
     display: block;
 }
 
@@ -95,7 +94,7 @@
 /* サブメニュー内のリンクスタイル */
 .main-navigation .sub-menu a {
     color: white;
-    padding: 10px;
+    padding: var(--ly-elementPadding);
     display: block;
 }
 
@@ -137,13 +136,14 @@
 /* メニューのトグル表示（モバイル向け） */
 @media screen and (max-width: 768px) {
     .menuToggle-label {
-        font-size: 24px;
+        font-size: 3em;
+        line-height: 1.5;
         cursor: pointer;
         display: block;
-        padding: 10px;
-        background: #333;
+        padding: var(--ly-elementPadding);
         color: white;
         text-align: center;
+
     }
 
     /* メニューをデフォルトで非表示 */
