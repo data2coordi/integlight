@@ -458,34 +458,12 @@
 /* カード @@@***************************************************/
 /************************************************************/
 
-.bl_card_container {
-    display: grid;
-    gap: 0.5rem;
 
-    border-radius: 12px;
-
-}
-
-.bl_card_img {
-    display: flex;
-}
-
-.bl_card_head {
-    display: flex;
-    flex-direction: column;
-}
-
-.bl_card_body {
-    display: flex;
-    flex-direction: column;
-}
-
-/* PCレイアウト */
 /* PCレイアウト */
 @media (min-width: 769px) {
     .bl_card_container {
         grid-template-columns: 1fr 2fr;
-        grid-template-rows: auto 2fr;
+        grid-template-rows: auto auto;
     }
 
     .bl_card_img {
@@ -508,26 +486,19 @@
 }
 
 
-
-
-
-
-
-/* 投稿一覧ページのカード s */
-/* 要修正　通常カードの下にもっていくと正常に表示されない*/
-
-
+/* カード全体のデザインs*/
 .bl_card_container {
-    background: #444;
-    color: #fff;
+    display: grid;
+    gap: 1rem;
     padding: var(--ly-elementPadding);
     margin-top: var(--ly-elementTopMargin);
+    background: #f2f2f2;
+    color: #444;
 
 }
 
 .bl_card_container a {
-
-    color: #fff;
+    color: #444;
     text-decoration: none;
 }
 
@@ -535,49 +506,87 @@
     text-decoration: none;
 }
 
+/* カード全体e*/
+
 
 
 /* 画像側 s */
-.bl_card_container .bl_card_imgWrapper {
-    overflow: hidden;
-    font-size: 0.8rem;
-}
 
-.bl_card_container .bl_card_imgWrapper img {
+.bl_card_img {
+    display: flex;
     width: 100%;
     object-fit: cover;
+    position: relative;
+    display: inline-block;
 }
 
 
-.bl_card_container .bl_card_imgWrapper img:hover {
+.bl_card_img img:hover {
     transform: scale(1.1, 1.1);
     transition: 1s all
+}
+
+
+/* category-labelを画像の左上に重ねる */
+.bl_card_img .category-label {
+    position: absolute;
+    background-color: #444;
+    /* 半透明の背景色 */
+    color: white;
+    /* 白い文字 */
+    padding: 0.1rem 0.3rem;
+    /* 文字周りのスペース */
+    font-size: 0.6em;
 }
 
 /* 画像側 e */
 
 
+/* ヘッダー側 s */
 
-/* テキスト側 s */
+.bl_card_head {
+    display: flex;
+    flex-direction: column;
+}
 
-.bl_card_container .bl_card_ttl {
+.bl_card_head .bl_card_ttl {
     margin-top: 0;
 
     text-decoration: none;
 }
 
 
-.bl_card_container .entry-date {
+.bl_card_head .entry-date {
     font-size: 0.8rem;
 
 }
 
-.bl_card_container .bl_card_txt {
+/* ヘッダー側 e */
+
+/* テキストbody側 s */
+.bl_card_body {
+    display: flex;
+    flex-direction: column;
+}
+
+.bl_card_body .bl_card_txt {
     width: fit-content;
     font-size: 0.8rem;
 }
 
-/* テキスト側 e */
+/* テキストbody側 e */
+
+
+
+
+
+
+
+
+
+
+
+
 
 /************************************************************/
 /* 検索ボックス @@@***************************************************/

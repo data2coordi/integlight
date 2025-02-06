@@ -11,20 +11,18 @@
 
 <div class="bl_card_container">
 	<!-- 左側のカラム：画像 -->
-	<div class="bl_card_img">
+	<figure class="bl_card_img">
 		<a href="<?php the_permalink(); ?>" class="bl_card_link">
-			<figure class="bl_card_imgWrapper">
-				<?php
-				$categories = get_the_category();
-				if (!empty($categories)) {
-					$last_category = end($categories);
-					echo '<span class="category-label">' . esc_html($last_category->name) . '</span>';
-				}
-				?>
-				<img src="<?php the_post_thumbnail_url(); ?>" alt="">
-			</figure>
+			<?php
+			$categories = get_the_category();
+			if (!empty($categories)) {
+				$last_category = end($categories);
+				echo '<span class="category-label">' . esc_html($last_category->name) . '</span>';
+			}
+			?>
+			<img src="<?php the_post_thumbnail_url(); ?>" alt="">
 		</a>
-	</div>
+	</figure>
 
 	<!-- 右側のカラム：本文 -->
 	<div class="bl_card_head">
