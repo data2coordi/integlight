@@ -15,7 +15,7 @@
     --ly-elementTopMargin: calc(100vw * 0.03);
     --ly-elementTopMarginSmall: calc(100vw * 0.01);
     --ly-elementPadding: calc(100vw * 0.01);
-
+    --ly-elementBottomMargin: calc(100vw * 0.03);
 }
 
 

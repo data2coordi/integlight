@@ -398,6 +398,7 @@
     /* 右: 自動調整 */
     margin-top: var(--ly-elementTopMargin);
     padding: var(--ly-elementPadding);
+    margin-bottom: var(--ly-elementBottomMargin);
 }
 
 
@@ -700,7 +701,9 @@
 /************************************************************/
 
 /*** ボタン s ***/
-
+.wp-block-buttons {
+    margin-top: var(--ly-elementTopMarginSmall);
+}
 
 .wp-block-buttons>.wp-block-button.has-custom-font-size .wp-block-button__link {
     min-width: 150px;
