@@ -22,6 +22,10 @@
     padding: 10px;
 }
 
+.main-navigation .sub-menu a {
+    font-size: 0.8em;
+}
+
 .main-navigation ul {
     list-style-type: none;
     margin: 0;
@@ -50,7 +54,7 @@
     list-style-type: none;
     padding: 0;
     margin: 0;
-    min-width: 200px;
+    min-width: 250px;
     z-index: 1000;
 }
 
@@ -67,21 +71,25 @@
 .main-navigation .sub-menu {
     background-color: #333;
     /* 濃いグレー */
-    border: 1px solid #666;
+    border: 1px solid #fff;
 }
 
 /* 第二階層のサブメニュー */
 .main-navigation .sub-menu .sub-menu {
-    background-color: #555;
+    background-color: green;
     /* もう少し明るいグレー */
-    border: 1px solid #777;
+    border: 1px solid #fff;
+    padding-left: 10px;
+    /* 15px右にインデント */
 }
 
-/* 第三階層のサブメニュー */
+/* 第二階層のサブメニュー */
 .main-navigation .sub-menu .sub-menu .sub-menu {
-    background-color: #777;
-    /* さらに明るいグレー */
-    border: 1px solid #888;
+    background-color: yellow;
+    /* もう少し明るいグレー */
+    border: 1px solid #fff;
+    padding-left: 20px;
+    /* 15px右にインデント */
 }
 
 /* サブメニュー内のリンクスタイル */
@@ -93,8 +101,10 @@
 
 /* ホバー時の効果 */
 .main-navigation .sub-menu a:hover {
-    background-color: #222;
-    /* 強調するための濃い色 */
+    /*
+    background-color: #fff;
+    */
+    color: yellow;
 }
 
 /************/
