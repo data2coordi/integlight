@@ -53,21 +53,19 @@
 
     /* 全幅にする */
     /* 中心を合わせるために調整 */
-    /* 初期化（右側不要のため） */
+    position: relative;
     width: 100vw;
     left: 50%;
     transform: translateX(-50%);
-    ;
 }
 
 /*幅広表示*/
 .alignwide {
+    position: relative;
     width: min(100vw, 1200px);
     left: 50%;
-    transform: translateX(-50%);
 }
 
-*/
 /*
     width: min(100vw, 1200px);********************************************************************/
 /*全幅、幅広、通常の設定 e*/
