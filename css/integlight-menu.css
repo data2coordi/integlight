@@ -128,37 +128,79 @@
 
 /* メニューのトグル表示（モバイル向け） */
 @media screen and (max-width: 768px) {
+
+    /* メニューを画面全体にオーバーレイする */
+    .menuToggle-containerForMenu {
+        position: fixed;
+        /* 画面全体を覆う */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.9);
+        /* 半透明の黒背景 */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transform: translateY(-100%);
+        /* 初期状態では画面外に */
+        transition: transform 0.3s ease-in-out;
+    }
+
+    /* メニューを表示する */
+    .menuToggle-checkbox:checked+.menuToggle-label+.menuToggle-containerForMenu {
+        transform: translateY(0);
+        /* 画面に表示 */
+    }
+
+    /* メニューリストのデザイン */
+    .main-navigation ul {
+        flex-direction: column;
+        text-align: center;
+        width: 100%;
+    }
+
+    .main-navigation li {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .main-navigation a {
+        font-size: 1.5em;
+        /* メニューを大きく */
+        padding: 15px;
+        display: block;
+        color: white;
+    }
+
+    /* ハンバーガーメニューのバツアニメーション */
     .menuToggle-label {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 30px;
+        height: 24px;
+        z-index: 1100;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        width: 30px;
-        /* メニューの幅 */
-        height: 24px;
-        /* 全体の高さ */
         cursor: pointer;
-        position: relative;
     }
 
-    /* 3本の線（before, after, span） */
+    /* 3本線 */
     .menuToggle-label::before,
     .menuToggle-label::after,
     .menuToggle-label span {
         content: "";
         display: block;
-        height: 2px;
-        /* 線の太さ */
+        height: 3px;
         background-color: white;
-        /* 線の色 */
         width: 100%;
         transition: all 0.3s ease;
-        /* なめらかなアニメーション */
         position: absolute;
     }
 
-    /*****************************/
-    /* ３本線から✖へのアニメーションs*/
-    /*****************************/
     .menuToggle-label::before {
         top: 0;
     }
@@ -172,7 +214,7 @@
         bottom: 0;
     }
 
-    /* メニュー開閉時のバツ(×)アニメーション */
+    /* メニュー展開時のバツ変形 */
     .menuToggle-checkbox:checked+.menuToggle-label::before {
         transform: rotate(45deg);
         top: 50%;
@@ -181,7 +223,6 @@
 
     .menuToggle-checkbox:checked+.menuToggle-label span {
         opacity: 0;
-        /* 真ん中の線を消す */
     }
 
     .menuToggle-checkbox:checked+.menuToggle-label::after {
@@ -190,35 +231,4 @@
         translate: 0 50%;
     }
 
-    /*****************************/
-    /* ３本線から✖へのアニメーションe*/
-    /*****************************/
-
-    /* メニューをデフォルトで非表示 */
-    .menuToggle-containerForMenu {
-        display: none;
-    }
-
-    /* チェックボックスがONになったらメニュー表示 */
-    .menuToggle-checkbox:checked+.menuToggle-label+.menuToggle-containerForMenu {
-        display: block;
-    }
-
-
-    .main-navigation ul {
-        flex-direction: column;
-    }
-
-    .main-navigation li {
-        width: 100%;
-    }
-
-    /* モバイルでサブメニューを開く */
-    .main-navigation .menu-item-has-children>a::after {
-        content: ' ▼';
-    }
-
-    .main-navigation .menu-item-has-children>input[type="checkbox"]:checked+.sub-menu {
-        display: block;
-    }
 }
