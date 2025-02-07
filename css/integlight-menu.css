@@ -16,6 +16,7 @@ ul.menu {
 ul.menu,
 ul.sub-menu {
     list-style: none;
+    z-index: 1000;
 }
 
 /* 各メニュー項目 */
@@ -85,7 +86,7 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
         width: 40px;
         height: 30px;
         cursor: pointer;
-        z-index: 1100;
+        z-index: 1000;
     }
 
     /* ハンバーガーの3本線（疑似要素で作成） */
