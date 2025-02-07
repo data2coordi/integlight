@@ -1,24 +1,21 @@
-/**
- * File navigation.js.
- *
- * Handles toggling the navigation menu for small screens and enables TAB key
- * navigation support for dropdown menus.
- */
-
 document.addEventListener("DOMContentLoaded", function () {
-	// メニューアイテム（親メニュー）を取得
-	const menuItems = document.querySelectorAll('.main-navigation .menu-item-has-children > a');
+	// サブメニューを持つすべてのリンクを取得
+	const parentLinks = document.querySelectorAll(".menu-item-has-children > a");
 
-	// 各メニューアイテムにクリックイベントを設定
-	menuItems.forEach(item => {
-		item.addEventListener('click', function (event) {
-			event.preventDefault();
-			const subMenu = this.nextElementSibling;
+	parentLinks.forEach(link => {
+		link.addEventListener("click", function (e) {
+			e.preventDefault(); // リンクの遷移を防止
+			const li = this.parentElement;
 
-			// サブメニューが表示されているかどうかをトグル
-			if (subMenu && subMenu.classList.contains('sub-menu')) {
-				subMenu.style.display = subMenu.style.display === 'block' ? 'none' : 'block';
-			}
+			// 同じ階層の他のメニュー項目から .active を削除（ネストした場合は直接の兄弟のみ対象）
+			Array.from(li.parentElement.children).forEach(sibling => {
+				if (sibling !== li) {
+					sibling.classList.remove("active");
+				}
+			});
+
+			// 自身の .active をトグル（開いていなければ開く、開いていれば閉じる）
+			li.classList.toggle("active");
 		});
 	});
 });

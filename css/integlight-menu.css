@@ -1,20 +1,18 @@
 /************************************************************/
-/* メニューナビゲーション @@@***************************************************/
+/* 共通スタイル */
 /************************************************************/
-/* メインナビゲーションのスタイル */
 .main-navigation {
-    padding: var(--ly-elementPadding);
+    background: #333;
+    padding: 10px;
+    position: relative;
+    z-index: 100;
+    /* 下層メニューが重なっても表示されるように */
 }
 
-.main-navigation .sub-menu a {
-    font-size: 0.8em;
-}
-
-.main-navigation ul {
-    list-style-type: none;
+.main-navigation ul.menu {
+    list-style: none;
     margin: 0;
     padding: 0;
-    display: flex;
 }
 
 .main-navigation li {
@@ -24,181 +22,99 @@
 .main-navigation a {
     color: white;
     text-decoration: none;
-    padding: var(--ly-elementPadding);
+    padding: 10px 15px;
     display: block;
 }
 
-/* サブメニューの基本設定 */
-.main-navigation .sub-menu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #999;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    min-width: 250px;
-    z-index: 1000;
-}
-
-/* メニューアイテムにホバーしたときにサブメニューを表示 */
-.main-navigation li:hover>.sub-menu {
-    display: block;
-}
-
-
-/************/
-/*color対応s */
-/************/
-/* 第一階層のサブメニュー */
-.main-navigation .sub-menu {
-    background-color: #333;
-    /* 濃いグレー */
-    border: 1px solid #fff;
-}
-
-/* 第二階層のサブメニュー */
-.main-navigation .sub-menu .sub-menu {
-    background-color: green;
-    /* もう少し明るいグレー */
-    border: 1px solid #fff;
-    padding-left: 10px;
-    /* 15px右にインデント */
-}
-
-/* 第二階層のサブメニュー */
-.main-navigation .sub-menu .sub-menu .sub-menu {
-    background-color: yellow;
-    /* もう少し明るいグレー */
-    border: 1px solid #fff;
-    padding-left: 20px;
-    /* 15px右にインデント */
-}
-
-/* サブメニュー内のリンクスタイル */
-.main-navigation .sub-menu a {
-    color: white;
-    padding: var(--ly-elementPadding);
-    display: block;
-}
-
-/* ホバー時の効果 */
-.main-navigation .sub-menu a:hover {
-    /*
-    background-color: #fff;
-    */
-    color: yellow;
-}
-
-/************/
-/*color対応e */
-/************/
-
-
-/* チェックボックスを非表示にする */
-.menuToggle-checkbox {
-    display: none;
-}
-
-
-
-
-
-
-
-
-
-
-
-/* PCではハンバーガーメニューを非表示 */
+/************************************************************/
+/* PC版（min-width: 769px） */
+/************************************************************/
 @media screen and (min-width: 769px) {
 
-    .menuToggle-label,
-    .menuToggle-checkbox {
+    /* ハンバーガーメニュー非表示 */
+    .menuToggle-checkbox,
+    .menuToggle-label {
         display: none;
     }
 
+    /* メニューコンテナは常に表示 */
     .menuToggle-containerForMenu {
-        display: block !important;
-        /* PCではメニューを常に表示 */
+        display: block;
+    }
+
+    /* メインメニューを横並びに */
+    ul.menu {
+        display: flex;
+    }
+
+    /* サブメニュー（第一階層）：初期状態は非表示、クリックで表示（JSで.activeを付与） */
+    ul.menu>li.menu-item-has-children>ul.sub-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 200px;
+        display: none;
+        background: #444;
+        /* アニメーション用（必要に応じて調整） */
+        transition: opacity 0.3s ease;
+    }
+
+    /* .active が付いたら表示 */
+    ul.menu>li.menu-item-has-children.active>ul.sub-menu {
+        display: block;
+        opacity: 1;
+    }
+
+    /* サブサブメニュー：親のサブメニュー内で、さらに絶対配置しインデント */
+    ul.menu li ul.sub-menu li.menu-item-has-children>ul.sub-menu {
+        position: absolute;
+        top: 0;
+        left: 100%;
+        width: 200px;
+        display: none;
+        background: #555;
+        transition: opacity 0.3s ease;
+    }
+
+    ul.menu li ul.sub-menu li.menu-item-has-children.active>ul.sub-menu {
+        display: block;
+        opacity: 1;
     }
 }
 
-
-/* メニューのトグル表示（モバイル向け） */
+/************************************************************/
+/* スマートフォン版（max-width: 768px） */
+/************************************************************/
 @media screen and (max-width: 768px) {
 
-    /* メニューを画面全体にオーバーレイする */
-    .menuToggle-containerForMenu {
-        position: fixed;
-        /* 画面全体を覆う */
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background-color: rgba(0, 0, 0, 0.9);
-        /* 半透明の黒背景 */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        transform: translateY(-100%);
-        /* 初期状態では画面外に */
-        transition: transform 0.3s ease-in-out;
-    }
-
-    /* メニューを表示する */
-    .menuToggle-checkbox:checked+.menuToggle-label+.menuToggle-containerForMenu {
-        transform: translateY(0);
-        /* 画面に表示 */
-    }
-
-    /* メニューリストのデザイン */
-    .main-navigation ul {
-        flex-direction: column;
-        text-align: center;
-        width: 100%;
-    }
-
-    .main-navigation li {
-        width: 100%;
-        margin: 10px 0;
-    }
-
-    .main-navigation a {
-        font-size: 1.5em;
-        /* メニューを大きく */
-        padding: 15px;
-        display: block;
-        color: white;
-    }
-
-    /* ハンバーガーメニューのバツアニメーション */
+    /* ハンバーガーメニュー表示 */
     .menuToggle-label {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        width: 30px;
-        height: 24px;
-        z-index: 1100;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        display: block;
+        position: relative;
+        width: 40px;
+        height: 30px;
         cursor: pointer;
+        z-index: 1100;
+        /* メニューオーバーレイより上に表示 */
     }
 
-    /* 3本線 */
+    .menuToggle-label,
+    .menuToggle-label::before,
+    .menuToggle-label::after,
+    .menuToggle-label span {
+        /* ハンバーガー用共通設定 */
+        background-color: white;
+        transition: transform 0.3s, opacity 0.3s;
+    }
+
     .menuToggle-label::before,
     .menuToggle-label::after,
     .menuToggle-label span {
         content: "";
-        display: block;
-        height: 3px;
-        background-color: white;
-        width: 100%;
-        transition: all 0.3s ease;
         position: absolute;
+        left: 0;
+        width: 40px;
+        height: 4px;
     }
 
     .menuToggle-label::before {
@@ -214,11 +130,9 @@
         bottom: 0;
     }
 
-    /* メニュー展開時のバツ変形 */
+    /* ハンバーガーがチェックされたときに✖に変化 */
     .menuToggle-checkbox:checked+.menuToggle-label::before {
-        transform: rotate(45deg);
-        top: 50%;
-        translate: 0 -50%;
+        transform: translateY(13px) rotate(45deg);
     }
 
     .menuToggle-checkbox:checked+.menuToggle-label span {
@@ -226,9 +140,55 @@
     }
 
     .menuToggle-checkbox:checked+.menuToggle-label::after {
-        transform: rotate(-45deg);
-        bottom: 50%;
-        translate: 0 50%;
+        transform: translateY(-13px) rotate(-45deg);
     }
 
+    /* メニュー全体のオーバーレイ */
+    .menuToggle-containerForMenu {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        overflow-y: auto;
+        z-index: 1000;
+        padding-top: 60px;
+        /* ハンバーガー領域分の余白 */
+    }
+
+    /* チェックされたら表示 */
+    .menuToggle-checkbox:checked~.menuToggle-containerForMenu {
+        display: block;
+    }
+
+    /* メインメニューを縦並びに */
+    ul.menu {
+        display: block;
+    }
+
+    ul.menu li {
+        border-bottom: 1px solid #444;
+    }
+
+    /* サブメニュー（スマホ版）：初期は非表示、.active で表示 */
+    ul.menu li.menu-item-has-children>ul.sub-menu {
+        display: none;
+        background: #444;
+    }
+
+    ul.menu li.menu-item-has-children.active>ul.sub-menu {
+        display: block;
+    }
+
+    /* サブサブメニュー：さらにインデント */
+    ul.menu li.menu-item-has-children>ul.sub-menu li.menu-item-has-children>ul.sub-menu {
+        background: #555;
+        display: none;
+    }
+
+    ul.menu li.menu-item-has-children>ul.sub-menu li.menu-item-has-children.active>ul.sub-menu {
+        display: block;
+    }
 }
