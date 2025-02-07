@@ -5,63 +5,101 @@
     background: #333;
     padding: 10px;
     position: relative;
-    z-index: 100;
 }
 
-/* メインメニュー（wp_nav_menu で出力される ul） */
 ul.menu {
     list-style: none;
     margin: 0;
     padding: 0;
-    display: block;
-    /* どちらも縦並び */
 }
 
-/* 各 li は相対配置 */
+/* 各メニュー項目 */
 .menu-item {
     position: relative;
 }
 
-/* メニューリンク（共通） */
+/* メニューリンク（最上位は左右15px） */
 .main-navigation a {
     color: white;
     text-decoration: none;
     display: block;
-    /* 最上位は 15px の左右パディング */
     padding: 10px 15px;
 }
 
-/* 下層メニューのインデント設定 */
-/* 1段目のサブメニュー：左パディングを 15px + 30px = 45px に */
+/* インデント（下層は、元の15pxに加えて30pxずつ増加） */
 ul.menu li ul.sub-menu a {
     padding-left: 45px;
+    /* 15px + 30px */
 }
 
-/* 2段目（サブサブメニュー）：45px + 30px = 75px */
 ul.menu li ul.sub-menu li ul.sub-menu a {
     padding-left: 75px;
+    /* 15px + 30px×2 */
 }
 
 /************************************************************/
-/* サブメニューのスライド設定（共通） */
+/* PC版： min-width: 769px */
 /************************************************************/
-.sub-menu {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
+@media screen and (min-width: 769px) {
+
+    /* 最上位メニューを横並びに */
+    ul.menu {
+        display: flex;
+    }
+
+    /* サブメニュー（第一階層）  
+     → 各 li（.menu-item-has-children）の子として絶対配置して表示する */
+    ul.menu>li.menu-item-has-children {
+        position: relative;
+    }
+
+    ul.menu>li.menu-item-has-children>ul.sub-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #444;
+        width: 200px;
+        /* 固定幅またはお好みで */
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        z-index: 1000;
+    }
+
+    /* .active クラスが付いたら展開 */
+    ul.menu>li.menu-item-has-children.active>ul.sub-menu {
+        max-height: 1000px;
+        /* 十分大きな値を指定 */
+    }
+
+    /* サブサブメニュー（第二階層）：親 li 内で右側に表示 */
+    ul.menu li ul.sub-menu li.menu-item-has-children {
+        position: relative;
+    }
+
+    ul.menu li ul.sub-menu li.menu-item-has-children>ul.sub-menu {
+        position: absolute;
+        top: 0;
+        left: 100%;
+        background: #555;
+        width: 200px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        z-index: 1000;
+    }
+
+    ul.menu li ul.sub-menu li.menu-item-has-children.active>ul.sub-menu {
+        max-height: 1000px;
+    }
 }
 
-/* .active クラスが付いた親のサブメニューを展開（十分大きな数値を指定） */
-.menu-item-has-children.active>.sub-menu {
-    max-height: 1000px;
-}
-
 /************************************************************/
-/* スマートフォン用 ハンバーガーメニュー */
+/* スマートフォン版： max-width: 768px */
 /************************************************************/
 @media screen and (max-width: 768px) {
 
-    /* ハンバーガーメニュー表示用（チェックボックスとラベル） */
+    /* ハンバーガーメニュー（チェックボックス＋ラベル） */
     .menuToggle-checkbox {
         display: block;
     }
@@ -73,10 +111,10 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
         height: 30px;
         cursor: pointer;
         z-index: 1100;
-        /* オーバーレイより上に */
+        /* オーバーレイより上 */
     }
 
-    /* ハンバーガーの3本線（※ここでは疑似要素で作成） */
+    /* ハンバーガーの3本線（疑似要素） */
     .menuToggle-label::before,
     .menuToggle-label::after,
     .menuToggle-label span {
@@ -102,7 +140,7 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
         bottom: 0;
     }
 
-    /* チェック時：☰ → ✖ の変化 */
+    /* チェック時に「✖」に変化 */
     .menuToggle-checkbox:checked+.menuToggle-label::before {
         transform: translateY(13px) rotate(45deg);
     }
@@ -115,7 +153,7 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
         transform: translateY(-13px) rotate(-45deg);
     }
 
-    /* メニュー全体をオーバーレイ表示 */
+    /* メニューオーバーレイ */
     .menuToggle-containerForMenu {
         display: none;
         position: fixed;
@@ -130,25 +168,36 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
         /* ハンバーガー部分の余白 */
     }
 
-    /* チェック時にオーバーレイを表示 */
     .menuToggle-checkbox:checked~.menuToggle-containerForMenu {
         display: block;
     }
-}
 
-/************************************************************/
-/* PC版：スマホと同じ動作（縦メニュー、クリックでスライド） */
-/************************************************************/
-@media screen and (min-width: 769px) {
-
-    /* ハンバーガー関係は非表示 */
-    .menuToggle-checkbox,
-    .menuToggle-label {
-        display: none;
+    /* メニューは縦並びに */
+    ul.menu {
+        display: block;
     }
 
-    /* メニューコンテナは常時表示 */
-    .menuToggle-containerForMenu {
+    ul.menu li {
+        border-bottom: 1px solid #444;
+    }
+
+    /* サブメニュー（インライン展開） */
+    ul.menu>li.menu-item-has-children>ul.sub-menu {
+        display: none;
+        background: #444;
+    }
+
+    ul.menu>li.menu-item-has-children.active>ul.sub-menu {
+        display: block;
+    }
+
+    /* サブサブメニュー（同様に） */
+    ul.menu li ul.sub-menu li.menu-item-has-children>ul.sub-menu {
+        display: none;
+        background: #555;
+    }
+
+    ul.menu li ul.sub-menu li.menu-item-has-children.active>ul.sub-menu {
         display: block;
     }
 }
