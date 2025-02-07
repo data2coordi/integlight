@@ -103,6 +103,14 @@
 
 
 
+
+
+
+
+
+
+
+
 /* PCではハンバーガーメニューを非表示 */
 @media screen and (min-width: 769px) {
 
@@ -121,15 +129,70 @@
 /* メニューのトグル表示（モバイル向け） */
 @media screen and (max-width: 768px) {
     .menuToggle-label {
-        font-size: 3em;
-        line-height: 1.5;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;
+        /* メニューの幅 */
+        height: 24px;
+        /* 全体の高さ */
         cursor: pointer;
-        display: block;
-        padding: var(--ly-elementPadding);
-        color: white;
-        text-align: center;
+        position: relative;
     }
 
+    /* 3本の線（before, after, span） */
+    .menuToggle-label::before,
+    .menuToggle-label::after,
+    .menuToggle-label span {
+        content: "";
+        display: block;
+        height: 2px;
+        /* 線の太さ */
+        background-color: white;
+        /* 線の色 */
+        width: 100%;
+        transition: all 0.3s ease;
+        /* なめらかなアニメーション */
+        position: absolute;
+    }
+
+    /*****************************/
+    /* ３本線から✖へのアニメーションs*/
+    /*****************************/
+    .menuToggle-label::before {
+        top: 0;
+    }
+
+    .menuToggle-label span {
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .menuToggle-label::after {
+        bottom: 0;
+    }
+
+    /* メニュー開閉時のバツ(×)アニメーション */
+    .menuToggle-checkbox:checked+.menuToggle-label::before {
+        transform: rotate(45deg);
+        top: 50%;
+        translate: 0 -50%;
+    }
+
+    .menuToggle-checkbox:checked+.menuToggle-label span {
+        opacity: 0;
+        /* 真ん中の線を消す */
+    }
+
+    .menuToggle-checkbox:checked+.menuToggle-label::after {
+        transform: rotate(-45deg);
+        bottom: 50%;
+        translate: 0 50%;
+    }
+
+    /*****************************/
+    /* ３本線から✖へのアニメーションe*/
+    /*****************************/
 
     /* メニューをデフォルトで非表示 */
     .menuToggle-containerForMenu {

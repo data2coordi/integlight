@@ -56,7 +56,7 @@ if (!is_home() && is_front_page()) {
 			<nav id="site-navigation" class="main-navigation">
 
 				<input type="checkbox" id="menuToggle-checkbox" class="menuToggle-checkbox" />
-				<label for="menuToggle-checkbox" class="menuToggle-label">☰</label>
+				<label for="menuToggle-checkbox" class="menuToggle-label"><span></span></label>
 				<?php
 				wp_nav_menu(
 					array(
