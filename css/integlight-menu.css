@@ -7,6 +7,11 @@
     font-family: sans-serif;
 }
 
+
+.main-navigation a:focus {
+    outline: none;
+}
+
 /* メインメニュー（ul.menu） */
 ul.menu {
     margin: 0;
@@ -24,12 +29,20 @@ ul.sub-menu {
     position: relative;
 }
 
+
+
+.sub-menu .menu-item {
+    border: 0.05em solid #666;
+}
+
+
 /* メニューリンク */
 .main-navigation a {
     color: white;
     text-decoration: none;
     display: block;
     padding: 10px 15px;
+    font-size: 0.9em;
 }
 
 /* 下層メニューのインデント（各階層毎に +30px） */
@@ -37,6 +50,10 @@ ul.menu li ul.sub-menu a {
     /* 最上位のリンクは左右15pxなので：15+30 = 45px */
     padding-left: 45px;
     font-size: 0.8em;
+}
+
+ul.menu li ul.sub-menu a:hover {
+    color: #999
 }
 
 ul.menu li ul.sub-menu li ul.sub-menu a {
@@ -47,6 +64,68 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
 .menuToggle-checkbox {
     display: none;
 }
+
+
+/*メニュー内でサブサブメニューを持つ項目に ▼ アイコンを追加 */
+.main-navigation li.menu-item-has-children>a::after {
+    font-family: "Font Awesome 5 Free";
+    /* Font Awesome 5 の場合 */
+    content: "\f054";
+    /* fa-chevron-right の Unicode */
+    font-weight: 900;
+    /* solid アイコン用 */
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 0.8em;
+    /* お好みで調整 */
+    vertical-align: middle;
+}
+
+/* 現在選択されているTOPメニュー項目に下線を付ける */
+/* もしくは border-bottom を利用する場合は下記も有効です */
+/* border-bottom: 2px solid #fff; */
+/*
+.main-navigation>.menuToggle-containerForMenu>.menu>li.current_page_item>a,
+.main-navigation>.menuToggle-containerForMenu>.menu>li.current-menu-ancestor>a {
+    text-decoration: underline;
+}
+*/
+
+/* 現在クリックされているメニュー項目に下線を付ける */
+/* border-bottom: 2px solid #fff; など、好みに応じたスタイルも利用可能 */
+/*
+.menu-item-has-children.active>a {
+    text-decoration: underline;
+}
+*/
+
+/* 親メニューのリンクを相対配置にして、擬似要素で下線を描画 */
+.main-navigation>.menuToggle-containerForMenu>.menu>li.current_page_item>a,
+.main-navigation>.menuToggle-containerForMenu>.menu>li.current-menu-ancestor>a {
+    position: relative;
+}
+
+/* 下線用の擬似要素 */
+
+.main-navigation>.menuToggle-containerForMenu>.menu>li.current_page_item>a::after,
+.main-navigation>.menuToggle-containerForMenu>.menu>li.current-menu-ancestor>a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    /* テキストより少し下に配置（調整可） */
+    width: 100%;
+    height: 2px;
+    /* 下線の太さ */
+    background: currentColor;
+    /* リンクと同じ色にする */
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1s ease-out;
+    transform: scaleX(1);
+}
+
+
 
 
 /************************************************************/
@@ -77,6 +156,11 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
 /************************************************************/
 @media screen and (max-width: 768px) {
 
+    .main-navigation>.menuToggle-containerForMenu>.menu>li.current_page_item>a::after,
+    .main-navigation>.menuToggle-containerForMenu>.menu>li.current-menu-ancestor>a::after {
+        width: 30%;
+    }
+
     /*****************************************/
     /* ハンバーガーメニュー チェック時：☰→✖ の変化s */
     /*****************************************/
@@ -86,7 +170,7 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
         width: 40px;
         height: 30px;
         cursor: pointer;
-        z-index: 1000;
+        z-index: 1100;
     }
 
     /* ハンバーガーの3本線（疑似要素で作成） */
@@ -139,7 +223,7 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.9);
+        background: #000;
         overflow-y: auto;
         z-index: 1000;
         padding-top: 60px;
@@ -164,7 +248,7 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
 /* サブメニュー（インライン展開） */
 ul.menu>li.menu-item-has-children>ul.sub-menu {
     display: none;
-    background: #444;
+    background: #000;
 }
 
 ul.menu>li.menu-item-has-children.active>ul.sub-menu {
@@ -174,7 +258,7 @@ ul.menu>li.menu-item-has-children.active>ul.sub-menu {
 /* サブサブメニューも同様 */
 ul.menu li ul.sub-menu li.menu-item-has-children>ul.sub-menu {
     display: none;
-    background: #555;
+    background: #000;
 }
 
 ul.menu li ul.sub-menu li.menu-item-has-children.active>ul.sub-menu {
