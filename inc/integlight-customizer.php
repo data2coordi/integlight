@@ -94,6 +94,8 @@ class Integlight_Slider_Customizer_Style
 		$color = get_theme_mod('integlight_slider_text_color', '#ffffff'); // デフォルトは白
 		$left  = get_theme_mod('integlight_slider_text_left', 30);      // デフォルト 30px
 		$top   = get_theme_mod('integlight_slider_text_top', 300);       // デフォルト 300px
+		$left_mobile  = get_theme_mod('integlight_slider_text_left_mobile', 20);      // デフォルト 30px
+		$top_mobile   = get_theme_mod('integlight_slider_text_top_mobile', 200);       // デフォルト 300px
 		// フォント選択の取得（デフォルトは 'yu_gothic'）
 
 		$font = get_theme_mod('integlight_slider_text_font', 'yu_gothic');
@@ -119,8 +121,16 @@ class Integlight_Slider_Customizer_Style
 				color: <?php echo esc_attr($color); ?>;
 			}
 
-			.slider .text-overlay1 {
+			.slider .text-overlay h1 {
 				font-family: <?php echo esc_attr($font_family); ?>;
+			}
+
+			@media only screen and (max-width: 767px) {
+				.slider .text-overlay {
+					position: absolute;
+					left: <?php echo absint($left_mobile); ?>px;
+					top: <?php echo absint($top_mobile); ?>px;
+				}
 			}
 		</style>
 <?php
@@ -339,10 +349,13 @@ class InteglightSlide
 		$this->text($wp_customize, 'integlight_slider_text_1', 'Slider Text Main');
 		$this->text($wp_customize, 'integlight_slider_text_2', 'Slider Text Sub');
 		$this->color($wp_customize, 'integlight_slider_text_color', 'Slider Text color');
+		$this->fonttype($wp_customize);
 		$this->label($wp_customize, 'integlight_slider_text_position_heading', 'Slider Text Position');
 		$this->number($wp_customize, 'integlight_slider_text_top', 'Slider Text Position Top (px)', 0, 1);
 		$this->number($wp_customize, 'integlight_slider_text_left', 'Slider Text Position Left (px)', 0, 1);
-		$this->fonttype($wp_customize);
+		$this->label($wp_customize, 'integlight_slider_text_position_heading_mobile', 'Slider Text Position Mobile');
+		$this->number($wp_customize, 'integlight_slider_text_top_mobile', 'Slider Text Position Top Mobile (px)', 0, 1);
+		$this->number($wp_customize, 'integlight_slider_text_left_mobile', 'Slider Text Position Left Mobile (px)', 0, 1);
 		//利用しないように変更
 		//$this->fadeDurationTime($wp_customize);
 

@@ -36,12 +36,12 @@
 
 
 
-.slider .text-overlay1 p {
+.slider .text-overlay1 h1 {
   font-size: 4rem;
   font-weight: 800;
 }
 
-.slider .text-overlay2 p {
+.slider .text-overlay2 h2 {
   font-size: 1.5rem;
   font-weight: 400;
 }
@@ -52,12 +52,12 @@
     width: 80vw;
   }
 
-  .slider .text-overlay1 p {
+  .slider .text-overlay1 h1 {
     font-size: 2.5rem;
     font-weight: 800;
   }
 
-  .slider .text-overlay2 p {
+  .slider .text-overlay2 h2 {
     font-size: 1rem;
     font-weight: 400;
   }
