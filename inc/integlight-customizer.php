@@ -91,9 +91,24 @@ class Integlight_Slider_Customizer_Style
 	public function output_custom_slider_styles()
 	{
 		// カスタマイザーから値を取得。未設定の場合はデフォルト値を使用
+		$color = get_theme_mod('integlight_slider_text_color', '#ffffff'); // デフォルトは白
 		$left  = get_theme_mod('integlight_slider_text_left', 30);      // デフォルト 30px
 		$top   = get_theme_mod('integlight_slider_text_top', 300);       // デフォルト 300px
-		$color = get_theme_mod('integlight_slider_text_color', '#ffffff'); // デフォルトは白
+		// フォント選択の取得（デフォルトは 'yu_gothic'）
+
+		$font = get_theme_mod('integlight_slider_text_font', 'yu_gothic');
+		switch ($font) {
+			case 'yu_mincho':
+				// 游明朝の場合の font-family
+				$font_family = 'Yu Mincho, 游明朝体, serif';
+				break;
+			case 'yu_gothic':
+			default:
+				// 游ゴシックの場合の font-family
+				$font_family = 'Yu Gothic, 游ゴシック体, sans-serif';
+				break;
+		}
+
 
 ?>
 		<style type="text/css">
@@ -102,6 +117,10 @@ class Integlight_Slider_Customizer_Style
 				left: <?php echo absint($left); ?>px;
 				top: <?php echo absint($top); ?>px;
 				color: <?php echo esc_attr($color); ?>;
+			}
+
+			.slider .text-overlay1 {
+				font-family: <?php echo esc_attr($font_family); ?>;
 			}
 		</style>
 <?php
@@ -257,6 +276,25 @@ class InteglightSlide
 
 	}
 
+	private function fonttype($customize)
+	{
+
+		// カスタマイザー設定追加の例（既存のカスタマイザー登録コードに追加）
+		$customize->add_setting('integlight_slider_text_font', array(
+			'default'           => 'yu_gothic',
+			'sanitize_callback' => 'sanitize_text_field',
+		));
+
+		$customize->add_control('integlight_slider_text_font', array(
+			'label'    => __('Slider Text Font', 'integlight'),
+			'section'  => 'slider_section',
+			'type'     => 'select',
+			'choices'  => array(
+				'yu_gothic' => __('游ゴシック', 'integlight'),
+				'yu_mincho' => __('游明朝', 'integlight'),
+			),
+		));
+	}
 	private function color($customize, $settingName, $label)
 	{
 
@@ -289,19 +327,22 @@ class InteglightSlide
 			'priority' => 29,
 		));
 
+		/*画像*/
 		$this->effect($wp_customize);
 		$this->image($wp_customize, 'integlight_slider_image_1', 'Slider Image 1');
 		$this->image($wp_customize, 'integlight_slider_image_2', 'Slider Image 2');
 		$this->image($wp_customize, 'integlight_slider_image_3', 'Slider Image 3');
-		$this->text($wp_customize, 'integlight_slider_text_1', 'Slider Main Text');
-		$this->text($wp_customize, 'integlight_slider_text_2', 'Slider Sub Text');
-
-
 		$this->number($wp_customize, 'integlight_slider_change_duration', 'Slider Change Duration (seconds)', 1, 1);
-		$this->label($wp_customize, 'slider_text_position_heading', 'Slider Main Text Position');
-		$this->number($wp_customize, 'integlight_slider_text_top', 'Slider Main Text Position Top (px)', 0, 1);
-		$this->number($wp_customize, 'integlight_slider_text_left', 'Slider Main Text Position Left (px)', 0, 1);
-		$this->color($wp_customize, 'integlight_slider_text_color', 'Slider Main Text color');
+
+		/*テキスト*/
+		$this->label($wp_customize, 'integlight_slider_text_heading', 'Slider Text ');
+		$this->text($wp_customize, 'integlight_slider_text_1', 'Slider Text Main');
+		$this->text($wp_customize, 'integlight_slider_text_2', 'Slider Text Sub');
+		$this->color($wp_customize, 'integlight_slider_text_color', 'Slider Text color');
+		$this->label($wp_customize, 'integlight_slider_text_position_heading', 'Slider Text Position');
+		$this->number($wp_customize, 'integlight_slider_text_top', 'Slider Text Position Top (px)', 0, 1);
+		$this->number($wp_customize, 'integlight_slider_text_left', 'Slider Text Position Left (px)', 0, 1);
+		$this->fonttype($wp_customize);
 		//利用しないように変更
 		//$this->fadeDurationTime($wp_customize);
 
