@@ -351,7 +351,7 @@ function integlight_register_text_flow_animation_block()
 	);
 
 	// ブロック自体の登録
-	register_block_type('your-theme/text-flow-animation', array(
+	register_block_type('integlight/text-flow-animation', array(
 		'editor_script' => 'text-flow-animation-block',
 		'style'         => 'text-flow-animation-style',
 	));
@@ -361,3 +361,56 @@ add_action('init', 'integlight_register_text_flow_animation_block');
 
 
 // ## アニメーションテキスト _e ////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ## 横に流れるアニメーション画像 _s ////////////////////////////////////////////////////
+function integlight_register_image_flow_animation_block()
+{
+	// エディタ用スクリプトの登録
+	wp_register_script(
+		'image-flow-animation-block',
+		get_template_directory_uri() . '/blocks/image-flow-animation/block.js', // block.js のパス
+		array('wp-blocks', 'wp-element', 'wp-block-editor'),
+		filemtime(get_template_directory() . '/blocks/image-flow-animation/block.js')
+	);
+
+	// フロントエンド・エディタ共通のスタイル登録
+	wp_register_style(
+		'image-flow-animation-style',
+		get_template_directory_uri() . '/blocks/image-flow-animation/style.css', // style.css のパス
+		array(),
+		filemtime(get_template_directory() . '/blocks/image-flow-animation/style.css')
+	);
+
+	// ブロックの登録
+	register_block_type('integlight/image-flow-animation', array(
+		'editor_script' => 'image-flow-animation-block',
+		'style'         => 'image-flow-animation-style',
+	));
+}
+add_action('init', 'integlight_register_image_flow_animation_block');
+
+// ## 横に流れるアニメーション画像 _e ////////////////////////////////////////////////////

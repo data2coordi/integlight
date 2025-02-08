@@ -1,0 +1,25 @@
+/* 画像を横断させるためのスタイル */
+.image-flow-animation {
+    display: inline-block;
+    /* 横幅いっぱいに流すため、必要に応じて width の指定や max-width を追加 */
+    animation: image-flow 10s linear infinite;
+}
+
+@keyframes image-flow {
+    0% {
+        transform: translateX(150%);
+    }
+
+    100% {
+        transform: translateX(-150%);
+    }
+}
+
+/* オプション: コンテナの幅やオーバーフローの設定 */
+.image-flow-animation-container {
+    overflow: hidden;
+    position: relative;
+    width: 100vw;
+    left: 50%;
+    transform: translateX(-50%);
+}
