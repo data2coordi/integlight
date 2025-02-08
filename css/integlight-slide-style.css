@@ -28,12 +28,21 @@
 
 .slider .text-overlay {
   position: absolute;
-  bottom: 150px;
+  top: 300px;
   left: 30px;
   color: white;
-  font-size: 60px;
+}
+
+.slider .text-overlay1 p {
+  font-size: 4rem;
   font-weight: 800;
 }
+
+.slider .text-overlay2 p {
+  font-size: 2rem;
+  font-weight: 400;
+}
+
 
 .slider .slide img {
   width: 100vw;

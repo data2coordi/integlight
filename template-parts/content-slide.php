@@ -49,7 +49,12 @@ if (($slider_effect != $Integlight_slider_settings->optionValueName_none)
 
 		</div>
 		<div class="text-overlay">
-			<p><?php echo nl2br(wp_kses_post(get_theme_mod('integlight_slider_text_1', ''))); ?></p>
+			<div class="text-overlay1">
+				<p><?php echo nl2br(wp_kses_post(get_theme_mod('integlight_slider_text_1', ''))); ?></p>
+			</div>
+			<div class="text-overlay2">
+				<p><?php echo nl2br(wp_kses_post(get_theme_mod('integlight_slider_text_2', ''))); ?></p>
+			</div>
 		</div>
 	</div>
 <?php

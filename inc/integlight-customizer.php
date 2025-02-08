@@ -199,7 +199,8 @@ class InteglightSlide
 		$this->image($wp_customize, 'integlight_slider_image_1', 'Slider Image 1');
 		$this->image($wp_customize, 'integlight_slider_image_2', 'Slider Image 2');
 		$this->image($wp_customize, 'integlight_slider_image_3', 'Slider Image 3');
-		$this->text($wp_customize, 'integlight_slider_text_1', 'Slider Text');
+		$this->text($wp_customize, 'integlight_slider_text_1', 'Slider Main Text');
+		$this->text($wp_customize, 'integlight_slider_text_2', 'Slider Sub Text');
 		$this->changingTime($wp_customize);
 		//利用しないように変更
 		//$this->fadeDurationTime($wp_customize);
