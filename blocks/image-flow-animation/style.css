@@ -1,25 +1,58 @@
-/* 画像を横断させるためのスタイル */
-.image-flow-animation {
-    display: inline-block;
-    /* 横幅いっぱいに流すため、必要に応じて width の指定や max-width を追加 */
-    animation: image-flow 10s linear infinite;
-}
+/* article 内のはみ出た部分は隠す */
+article {}
 
-@keyframes image-flow {
-    0% {
-        transform: translateX(150%);
-    }
-
-    100% {
-        transform: translateX(-150%);
-    }
-}
-
-/* オプション: コンテナの幅やオーバーフローの設定 */
-.image-flow-animation-container {
-    overflow: hidden;
-    position: relative;
+/* ループ全体のコンテナ */
+.loop_wrap {
+    display: flex;
     width: 100vw;
     left: 50%;
     transform: translateX(-50%);
+
+    /* 表示高さは調整してください */
+}
+
+/* ループする各グループ */
+.loop_wrap>div {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* 奇数グループに対してアニメーションを適用 */
+.loop_wrap>div:nth-child(odd) {
+    animation: loop 50s -25s linear infinite;
+}
+
+/* 偶数グループに対してアニメーションを適用 */
+.loop_wrap>div:nth-child(even) {
+    animation: loop2 50s linear infinite;
+}
+
+/* アニメーション定義 */
+/* ※ここでは例として、右端から左端まで移動させる設定です。 */
+@keyframes loop {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes loop2 {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-200%);
+    }
+}
+
+/* 画像の基本スタイル */
+.loop_wrap img {
+    display: inline-block;
+    height: 100%;
+    width: auto;
 }

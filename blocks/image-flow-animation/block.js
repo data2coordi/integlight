@@ -6,9 +6,8 @@
     var Button = wp.components.Button;
     var InspectorControls = wp.blockEditor.InspectorControls || wp.editor.InspectorControls;
 
-
     registerBlockType('integlight/image-flow-animation', {
-        title: '【Integlight】画像流れるアニメーション',
+        title: '画像流れるアニメーション',
         icon: 'format-image',
         category: 'widgets',
         attributes: {
@@ -34,17 +33,21 @@
             }
 
             return createElement(Fragment, {},
-                // 必要に応じて InspectorControls で追加設定を行えます
                 createElement(InspectorControls, {},
                     createElement('div', { style: { padding: '10px' } }, '画像が流れるブロックです。')
                 ),
                 imageUrl ?
-                    createElement('div', { className: 'image-flow-animation-container' },
-                        createElement('img', {
-                            src: imageUrl,
-                            alt: altText,
-                            className: 'image-flow-animation'
-                        })
+                    // 編集画面ではシンプルに1組のみ表示（プレビュー用）
+                    createElement('article', null,
+                        createElement('div', { className: 'loop_wrap' },
+                            createElement('div', null,
+                                createElement('img', {
+                                    src: imageUrl,
+                                    alt: altText,
+                                    className: 'image-flow-animation'
+                                })
+                            )
+                        )
                     )
                     :
                     createElement(MediaUpload, {
@@ -66,12 +69,36 @@
             var altText = attributes.altText;
 
             return imageUrl ?
-                createElement('div', { className: 'image-flow-animation-container' },
-                    createElement('img', {
-                        src: imageUrl,
-                        alt: altText,
-                        className: 'image-flow-animation'
-                    })
+                createElement('article', null,
+                    createElement('div', { className: 'loop_wrap' },
+                        // 1組目の画像セット（ここでは同じ画像を2枚出力していますが、
+                        // 必要に応じて複数枚用意してください）
+                        createElement('div', null,
+                            createElement('img', {
+                                src: imageUrl,
+                                alt: altText,
+                                className: 'image-flow-animation'
+                            }),
+                            createElement('img', {
+                                src: imageUrl,
+                                alt: altText,
+                                className: 'image-flow-animation'
+                            })
+                        ),
+                        // 2組目（クローン）の画像セット
+                        createElement('div', null,
+                            createElement('img', {
+                                src: imageUrl,
+                                alt: altText,
+                                className: 'image-flow-animation'
+                            }),
+                            createElement('img', {
+                                src: imageUrl,
+                                alt: altText,
+                                className: 'image-flow-animation'
+                            })
+                        )
+                    )
                 ) : null;
         }
     });
