@@ -122,12 +122,17 @@
 /* ウィジェット カテゴリー s */
 .wp-block-categories {
     list-style: none;
-    line-height: 2.8;
+    line-height: 2;
     padding-left: 0px;
 }
 
+.wp-block-categories a {
+    text-decoration: none;
+    font-size: 0.8rem;
+}
+
 .cat-item {
-    border-bottom: 1px solid #888;
+    border-bottom: 0.01em solid #f1f1f1;
 
 }
 
@@ -135,6 +140,29 @@
 
 
 
+/*************************************/
+/* 新着記事 @@@ s*/
+/*************************************/
+
+.wp-block-latest-posts__list {
+
+    list-style: none;
+    line-height: 2;
+    padding-left: 0px;
+}
+
+.wp-block-latest-posts__list a {
+
+    font-size: 0.8rem;
+    text-decoration: none;
+}
+
+.wp-block-latest-posts__post-title {
+    display: block;
+    border-bottom: 0.01em solid #f1f1f1;
+}
+
+/* 新着記事 e*/
 
 
 
@@ -513,23 +541,6 @@
 
 
 
-/*************************************/
-/* 新着記事 @@@ s*/
-/*************************************/
-.wp-block-latest-posts__post-title {
-    display: block;
-
-
-    border-bottom: #222 dotted 2px;
-}
-
-.wp-block-latest-posts__list {
-
-    content: " ";
-    /*ダミー*/
-}
-
-/* 新着記事 e*/
 
 /************************************************************/
 /*** ボタン s ***/

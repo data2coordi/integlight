@@ -207,7 +207,7 @@ class InteglightTableOfContents
 			<input type="checkbox" name="hide_toc" id="hide_toc" value="1" <?php checked($value, '1'); ?> />
 			<?php _e('Hide TOC', 'integlight'); ?>
 		</label>
-<?php
+	<?php
 
 	}
 
@@ -414,3 +414,146 @@ function integlight_register_image_flow_animation_block()
 add_action('init', 'integlight_register_image_flow_animation_block');
 
 // ## 横に流れるアニメーション画像 _e ////////////////////////////////////////////////////
+
+
+/********************************************************************/
+/* SEO用カスタムフィールド（Meta Title / Meta Description）を追加するs*/
+/********************************************************************/
+
+// ① 管理画面にメタボックスを追加する
+function add_custom_seo_meta_box()
+{
+	// 対象の投稿タイプを配列で指定（例：投稿と固定ページ）
+	$post_types = array('post', 'page');
+	foreach ($post_types as $post_type) {
+		add_meta_box(
+			'seo_meta_box',            // メタボックスのID
+			'Meta data setting(optional)',                 // メタボックスのタイトル（管理画面に表示される）
+			'display_seo_meta_box',    // コールバック関数（メタボックス内のHTML出力）
+			$post_type,                // 対象の投稿タイプ
+			'normal',                  // 表示位置（normal, side, advanced など）
+			'high'                     // 優先度
+		);
+	}
+}
+add_action('add_meta_boxes', 'add_custom_seo_meta_box');
+
+// ② メタボックスの内容（入力欄）の出力
+function display_seo_meta_box($post)
+{
+	// セキュリティ用のnonceフィールドを出力
+	wp_nonce_field('seo_meta_box_nonce_action', 'seo_meta_box_nonce');
+
+	// 既に保存されている値を取得（なければ空文字）
+	$custom_meta_title       = get_post_meta($post->ID, '_custom_meta_title', true);
+	$custom_meta_description = get_post_meta($post->ID, '_custom_meta_description', true);
+	?>
+	<p>
+		<label for="custom_meta_title"><strong>Meta Title</strong></label><br>
+		<input type="text" name="custom_meta_title" id="custom_meta_title" value="<?php echo esc_attr($custom_meta_title); ?>" style="width:100%;" placeholder="ex) Meta Title">
+	</p>
+	<p>
+		<label for="custom_meta_description"><strong>Meta Description</strong></label><br>
+		<textarea name="custom_meta_description" id="custom_meta_description" rows="4" style="width:100%;" placeholder="ex) Meta Description"><?php echo esc_textarea($custom_meta_description); ?></textarea>
+	</p>
+<?php
+}
+
+// ③ メタボックスに入力されたデータを保存する
+function save_seo_meta_box_data($post_id)
+{
+	// セキュリティチェック：nonceの存在と検証
+	if (! isset($_POST['seo_meta_box_nonce']) || ! wp_verify_nonce($_POST['seo_meta_box_nonce'], 'seo_meta_box_nonce_action')) {
+		return;
+	}
+
+	// 自動保存時は何もしない
+	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+		return;
+	}
+
+	// ユーザー権限の確認（投稿と固定ページで分岐）
+	if (isset($_POST['post_type']) && 'page' === $_POST['post_type']) {
+		if (! current_user_can('edit_page', $post_id)) {
+			return;
+		}
+	} else {
+		if (! current_user_can('edit_post', $post_id)) {
+			return;
+		}
+	}
+
+	// Meta Title の保存（入力があれば更新、空の場合は空文字でも更新される）
+	if (isset($_POST['custom_meta_title'])) {
+		update_post_meta($post_id, '_custom_meta_title', sanitize_text_field($_POST['custom_meta_title']));
+	}
+
+	// Meta Description の保存
+	if (isset($_POST['custom_meta_description'])) {
+		update_post_meta($post_id, '_custom_meta_description', sanitize_textarea_field($_POST['custom_meta_description']));
+	}
+}
+add_action('save_post', 'save_seo_meta_box_data');
+
+function my_custom_document_title($title_parts)
+{
+	if (is_singular()) {
+		global $post;
+		// カスタムフィールドから値を取得
+		$custom_title = get_post_meta($post->ID, '_custom_meta_title', true);
+		if ($custom_title) {
+			// ここでカスタムフィールドの値を優先して設定
+			$title_parts['title'] = $custom_title;
+		} else {
+			// 入力がなければ投稿タイトル＋サイトタイトルにするなど、自由に処理可能
+			$title_parts['title'] = get_the_title($post->ID);
+		}
+	}
+	return $title_parts;
+}
+add_filter('document_title_parts', 'my_custom_document_title');
+
+
+
+
+
+/**
+ * ヘッダーに meta description タグを出力する関数
+ */
+function my_custom_meta_description()
+{
+	if (is_singular()) {
+		global $post;
+
+		// カスタムフィールドから値を取得
+		$custom_description = get_post_meta($post->ID, '_custom_meta_description', true);
+
+		if ($custom_description) {
+			// ユーザーがカスタムフィールドに入力している場合、その値を利用
+			$meta_description = $custom_description;
+		} else {
+			// 入力がない場合は、抜粋があれば抜粋を利用、なければ本文から先頭155文字を抽出
+			if (has_excerpt($post->ID)) {
+				$meta_description = get_the_excerpt($post->ID);
+			} else {
+				$content = strip_tags($post->post_content);
+				$meta_description = mb_substr($content, 0, 155, 'UTF-8');
+			}
+		}
+	} else {
+		// 投稿や固定ページ以外の場合はサイト説明を利用
+		$meta_description = get_bloginfo('description');
+	}
+
+	// meta タグとして出力
+	echo '<meta name="description" content="' . esc_attr($meta_description) . '">' . "\n";
+}
+add_action('wp_head', 'my_custom_meta_description');
+
+
+
+
+
+/********************************************************************/
+/* SEO用カスタムフィールド（Meta Title / Meta Description）を追加するe*/
+/********************************************************************/

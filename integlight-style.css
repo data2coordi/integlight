@@ -30,6 +30,7 @@ html {
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.15;
     -webkit-text-size-adjust: 100%;
+    color: #333;
 }
 
 h1,
@@ -124,7 +125,7 @@ textarea {
 h2,
 h3 {
     /*color: #222;*/
-    border-bottom: 1px solid #222;
+    border-bottom: 0.01em solid #c8c8c8;
     width: 100%;
     position: relative;
     /*::afterにabsoluteをかけるので設定*/
