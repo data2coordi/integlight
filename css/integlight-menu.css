@@ -112,7 +112,7 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
     content: "";
     position: absolute;
     left: 0;
-    bottom: -5px;
+    bottom: -1px;
     /* テキストより少し下に配置（調整可） */
     width: 100%;
     height: 2px;
