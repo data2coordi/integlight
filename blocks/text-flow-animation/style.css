@@ -1,18 +1,15 @@
-/* テキストが横に流れるアニメーション */
 .text-flow-animation {
-    display: inline-block;
+    overflow: hidden;
     white-space: nowrap;
-    animation: text-flow 10s linear infinite;
-    font-size: 48px;
-    color: red;
+    animation: textFlow 10s linear infinite;
 }
 
-@keyframes text-flow {
-    0% {
+@keyframes textFlow {
+    from {
         transform: translateX(100%);
     }
 
-    100% {
+    to {
         transform: translateX(-100%);
     }
 }

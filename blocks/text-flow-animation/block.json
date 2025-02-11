@@ -1,0 +1,21 @@
+{
+  "apiVersion": 2,
+  "name": "integlight/text-flow-animation",
+  "title": "【Integlight】テキスト流れるアニメーション",
+  "category": "widgets",
+  "icon": "editor-alignleft",
+  "description": "流れるテキストを表示するブロック",
+  "supports": {
+    "html": false
+  },
+  "attributes": {
+    "content": {
+      "type": "string",
+      "source": "html",
+      "selector": "p"
+    }
+  },
+  "editorScript": "file:./build/index.js",
+  "editorStyle": "file:./editor.css",
+  "style": "file:./style.css"
+}
