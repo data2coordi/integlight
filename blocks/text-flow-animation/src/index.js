@@ -1,8 +1,8 @@
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, RichText, InspectorControls } from '@wordpress/block-editor';
 import { PanelBody, RangeControl, ColorPicker } from '@wordpress/components';
-import './style.css';
-import './editor.css';
+import '../style.css';
+import '../editor.css';
 
 registerBlockType('integlight/text-flow-animation', {
     edit: ({ attributes, setAttributes }) => {

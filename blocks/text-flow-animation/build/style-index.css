@@ -1,0 +1,1 @@
+.loop_wrap,.text-flow-animation{overflow:hidden;width:100%}.loop_wrap{display:flex;white-space:nowrap}.loop_wrap div{animation:loop 10s linear infinite;flex:0 0 auto}@keyframes loop{0%{transform:translateX(100%)}to{transform:translateX(-100%)}}
