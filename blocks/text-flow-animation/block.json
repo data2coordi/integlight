@@ -4,18 +4,21 @@
   "title": "【Integlight】テキスト流れるアニメーション",
   "category": "widgets",
   "icon": "editor-alignleft",
-  "description": "流れるテキストを表示するブロック",
-  "supports": {
-    "html": false
-  },
   "attributes": {
     "content": {
       "type": "string",
-      "source": "html",
-      "selector": "p"
+      "default": "SAMPLE TEXT SAMPLE TEXT SAMPLE TEXT"
+    },
+    "fontSize": {
+      "type": "number",
+      "default": 24
+    },
+    "color": {
+      "type": "string",
+      "default": "#000000"
     }
   },
   "editorScript": "file:./build/index.js",
-  "editorStyle": "file:./editor.css",
-  "style": "file:./style.css"
+  "editorStyle": "file:./build/editor.css",
+  "style": "file:./build/style.css"
 }

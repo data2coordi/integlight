@@ -1,0 +1,26 @@
+.text-flow-animation {
+    overflow: hidden;
+    width: 100%;
+}
+
+.loop_wrap {
+    display: flex;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.loop_wrap div {
+    flex: 0 0 auto;
+    animation: loop 10s linear infinite;
+}
+
+@keyframes loop {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}

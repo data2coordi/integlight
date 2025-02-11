@@ -67,6 +67,11 @@
   border-bottom: none;
 }
 
+.slider .text-overlay2 h2::after {
+  display: none;
+}
+
+
 .slider .slide img {
   width: 100vw;
   height: 100vh;
