@@ -1,3 +1,4 @@
 vendor/
 from_other/
 bk/
+node_modules/

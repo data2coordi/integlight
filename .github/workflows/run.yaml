@@ -13,7 +13,7 @@ jobs:
 
 
       - name: build
-        run: zip -r integlight.zip . --exclude '.*' --exclude 'vendor' --exclude 'tmp' --exclude 'bin' --exclude 'tests' --exclude 'composer*'
+        run: zip -r integlight.zip . --exclude '.*' --exclude 'vendor' --exclude 'tmp' --exclude 'bin' --exclude 'tests' --exclude 'composer*' --exclude 'node_modules'
 
       - name: リリースを作成する
         uses: actions/create-release@v1
