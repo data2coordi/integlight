@@ -1,5 +1,13 @@
-.text-flow-animation {
+.text-flow-animation-container {
+    width: 100%;
     overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+}
+
+.text-flow-animation {
+    display: inline-block;
+    position: absolute;
     white-space: nowrap;
     animation: textFlow 10s linear infinite;
 }
@@ -12,4 +20,10 @@
     to {
         transform: translateX(-100%);
     }
+}
+
+/* 編集画面ではアニメーションを停止 */
+.text-flow-animation.edit-mode {
+    animation: none !important;
+    position: relative;
 }
