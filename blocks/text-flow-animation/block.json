@@ -1,7 +1,7 @@
 {
   "apiVersion": 2,
   "name": "integlight/text-flow-animation",
-  "title": "【Integlight】テキスト流れるアニメーション",
+  "title": "【Integlight】text flow animation",
   "category": "widgets",
   "icon": "editor-alignleft",
   "supports": {
@@ -13,11 +13,11 @@
   "attributes": {
     "content": {
       "type": "string",
-      "default": "SAMPLE TEXT SAMPLE TEXT SAMPLE TEXT"
+      "default": "SAMPLE TEXT"
     },
     "fontSize": {
       "type": "number",
-      "default": 24
+      "default": 36
     },
     "color": {
       "type": "string",

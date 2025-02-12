@@ -51,6 +51,7 @@ registerBlockType('integlight/text-flow-animation', {
                 <div className="loop_wrap">
                     <div>{attributes.content}&nbsp;</div>
                     <div>{attributes.content}&nbsp;</div>
+                    <div>{attributes.content}&nbsp;</div>
                 </div>
             </div>
         );
