@@ -17,11 +17,15 @@
     },
     "fontSize": {
       "type": "number",
-      "default": 36
+      "default": 60
     },
     "color": {
       "type": "string",
       "default": "#000000"
+    },
+    "fontFamily": {
+      "type": "string",
+      "default": "Arial, sans-serif"
     }
   },
   "editorScript": "file:./build/index.js",

@@ -10,7 +10,8 @@
 .loop_wrap div {
     flex: 0 0 auto;
     overflow: hidden;
-    width: 50%;
+    width: 100%;
+    /*white-space: nowrap;*/
     animation: loop_animation_right_double 6s linear infinite;
 }
 
