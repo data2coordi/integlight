@@ -28,7 +28,8 @@
     "lint:js": "wp-scripts lint-js 'js/*.js'",
     "bundle": "dir-archiver --src . --dest ../_s.zip --exclude .DS_Store .stylelintrc.json .eslintrc .git .gitattributes .github .gitignore README.md composer.json composer.lock node_modules vendor package-lock.json package.json .travis.yml phpcs.xml.dist sass style.css.map yarn.lock",
     "build": "find blocks -name 'index.js' -path '*/src/*' -exec wp-scripts build {} --output-path={}/../../build/ \\;",
-    "start": "onchange 'blocks/**/src/index.js' -- npm run build"
+    "start": "onchange 'blocks/**/src/index.js' -- npm run build",
+    "build_gfa": "wp-scripts build --entry=blocks/gfontawesome/src/index.js --output-path=blocks/gfontawesome/build"
   },
   "name": "integlight",
   "description": "[![Build Status](https://travis-ci.org/Automattic/_s.svg?branch=master)](https://travis-ci.org/Automattic/_s)",
@@ -47,5 +48,10 @@
   "bugs": {
     "url": "https://github.com/data2coordi/integlight/issues"
   },
-  "homepage": "https://github.com/data2coordi/integlight#readme"
+  "homepage": "https://github.com/data2coordi/integlight#readme",
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@fortawesome/react-fontawesome": "^0.2.2"
+  }
 }

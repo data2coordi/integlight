@@ -218,7 +218,7 @@ class InteglightSlide
 		// スライダーテキスト1を追加
 		$customize->add_setting($settingName, array(
 			'default' => $label,
-			'sanitize_callback' => 'sanitize_text_field',
+			'sanitize_callback' => 'sanitize_textarea_field',
 		));
 		$customize->add_control($settingName, array(
 			'label'    => __($label, 'integlight'),
@@ -254,6 +254,7 @@ class InteglightSlide
 		$customize->add_setting('integlight_slider_fade_duration', array(
 			'default' => '0.8',
 			'sanitize_callback' => 'absint', // 数値をサニタイズ
+			sanitize_text_field
 		));
 
 		$customize->add_control('integlight_slider_fade_duration', array(

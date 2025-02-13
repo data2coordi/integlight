@@ -71,11 +71,36 @@ function register_theme_blocks()
 }
 add_action('init', 'register_theme_blocks');
 
+//Font Awesome 
+// Font Awesome の CSS を読み込む（フロントエンドとエディター共通）
+function integlight_enqueue_fontawesome()
+{
+	wp_enqueue_style(
+		'fontawesome',
+		'https://use.fontawesome.com/releases/v5.15.4/css/all.css',
+		array(),
+		'5.15.4'
+	);
+}
+add_action('wp_enqueue_scripts', 'integlight_enqueue_fontawesome');
+add_action('enqueue_block_editor_assets', 'integlight_enqueue_fontawesome');
+
+// エディター用にグローバルフォーマットのスクリプトを読み込む
+function integlight_enqueue_global_formats()
+{
+	wp_enqueue_script(
+		'integlight-global-formats',
+		get_template_directory_uri() . '/blocks/gfontawesome/build/main.js',
+		array('wp-rich-text', 'wp-blocks', 'wp-element', 'wp-hooks', 'wp-editor', 'wp-block-editor'),
+		filemtime(get_template_directory() . '/blocks/gfontawesome/build/main.js'),
+		true
+	);
+}
+add_action('enqueue_block_editor_assets', 'integlight_enqueue_global_formats');
 
 /********************************************************************/
 /*ブロックアイテムの読み込みe*/
 /********************************************************************/
-
 
 
 
