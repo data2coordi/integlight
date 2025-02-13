@@ -99,30 +99,23 @@ const {
 const {
   Fragment
 } = wp.element;
-const {
-  createElement
-} = wp.element;
 
-// Font Awesome アイコンのリスト
-const icons = ['fa-home', 'fa-user', 'fa-cog', 'fa-heart', 'fa-star'];
+// Font Awesome のアイコンリスト
+const icons = ['home', 'user', 'cog', 'heart', 'star'];
 const FontAwesomeButton = ({
-  isActive,
   value,
   onChange
 }) => {
   const insertIcon = icon => {
-    const iconTag = `<i class="fas ${icon}"></i>`;
-    const newValue = wp.richText.insert(value, iconTag);
-    onChange(newValue);
+    const shortcode = `[fa icon="${icon}"]`;
+    onChange(wp.richText.insert(value, shortcode)); // ショートコードをエディタに挿入
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(Fragment, {
     children: icons.map((icon, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(RichTextToolbarButton, {
-      icon: createElement('i', {
-        className: `fas ${icon}`
-      }),
+      icon: `fas fa-${icon}` // ツールバーのアイコン
+      ,
       title: `Insert ${icon}`,
-      onClick: () => insertIcon(icon),
-      isActive: isActive
+      onClick: () => insertIcon(icon)
     }, index))
   });
 };
@@ -130,8 +123,8 @@ const FontAwesomeButton = ({
 // フォーマットタイプを登録
 registerFormatType('gfontawesome/icon', {
   title: 'FontAwesome',
-  tagName: 'i',
-  className: 'fas',
+  tagName: 'span',
+  className: 'fa-shortcode',
   edit: FontAwesomeButton
 });
 })();

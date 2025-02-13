@@ -1,4 +1,10 @@
 <?php
+/* テスト領域 s*/
+/////////////////////////////////////////////
+
+/////////////////////////////////////////////
+/* テスト領域 e*/
+
 
 /**
  * Integlight functions and definitions
@@ -74,6 +80,14 @@ add_action('init', 'register_theme_blocks');
 //Font Awesome 
 function add_fontawesome_button_to_toolbar()
 {
+	wp_enqueue_style(
+		'fontawesome',
+		'https://use.fontawesome.com/releases/v5.15.4/css/all.css',
+		array(),
+		'5.15.4'
+	);
+
+
 	wp_enqueue_script(
 		'integlight-gfontawesome',
 		get_template_directory_uri() . '/blocks/gfontawesome/build/index.js', // ビルドされたファイルを読み込む
@@ -105,8 +119,29 @@ add_action('enqueue_block_editor_assets', 'add_right_align_button_to_toolbar');
 /*ブロックアイテムの読み込みe*/
 /********************************************************************/
 
+/********************************************************************/
+/*font awesome 用のショートコードs*/
+/********************************************************************/
 
+function integlight_render_fontawesome_shortcode($atts)
+{
+	$atts = shortcode_atts(
+		array('icon' => ''),
+		$atts,
+		'fa'
+	);
 
+	if (empty($atts['icon'])) {
+		return '';
+	}
+
+	return '<i class="fas fa-' . esc_attr($atts['icon']) . '"></i>';
+}
+add_shortcode('fa', 'integlight_render_fontawesome_shortcode');
+
+/********************************************************************/
+/*font awesome 用のショートコードe*/
+/********************************************************************/
 
 
 

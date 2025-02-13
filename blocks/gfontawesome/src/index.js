@@ -1,22 +1,20 @@
 const { registerFormatType } = wp.richText;
 const { RichTextToolbarButton } = wp.blockEditor;
 const { Fragment } = wp.element;
-const { createElement } = wp.element;
 
-// Font Awesome アイコンのリスト
+// Font Awesome のアイコンリスト
 const icons = [
-    'fa-home',
-    'fa-user',
-    'fa-cog',
-    'fa-heart',
-    'fa-star',
+    'home',
+    'user',
+    'cog',
+    'heart',
+    'star',
 ];
 
-const FontAwesomeButton = ({ isActive, value, onChange }) => {
+const FontAwesomeButton = ({ value, onChange }) => {
     const insertIcon = (icon) => {
-        const iconTag = `<i class="fas ${icon}"></i>`;
-        const newValue = wp.richText.insert(value, iconTag);
-        onChange(newValue);
+        const shortcode = `[fa icon="${icon}"]`;
+        onChange(wp.richText.insert(value, shortcode)); // ショートコードをエディタに挿入
     };
 
     return (
@@ -24,10 +22,9 @@ const FontAwesomeButton = ({ isActive, value, onChange }) => {
             {icons.map((icon, index) => (
                 <RichTextToolbarButton
                     key={index}
-                    icon={createElement('i', { className: `fas ${icon}` })}
+                    icon={`fas fa-${icon}`} // ツールバーのアイコン
                     title={`Insert ${icon}`}
                     onClick={() => insertIcon(icon)}
-                    isActive={isActive}
                 />
             ))}
         </Fragment>
@@ -37,7 +34,7 @@ const FontAwesomeButton = ({ isActive, value, onChange }) => {
 // フォーマットタイプを登録
 registerFormatType('gfontawesome/icon', {
     title: 'FontAwesome',
-    tagName: 'i',
-    className: 'fas',
+    tagName: 'span',
+    className: 'fa-shortcode',
     edit: FontAwesomeButton,
 });
