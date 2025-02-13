@@ -99,6 +99,22 @@ function integlight_enqueue_global_formats()
 add_action('enqueue_block_editor_assets', 'integlight_enqueue_global_formats');
 
 
+
+//サンプルツールバー
+function add_right_align_button_to_toolbar()
+{
+	wp_enqueue_script(
+		'custom-right-align-button',
+		get_template_directory_uri() . '/blocks/right-align-button/build/index.js', // ビルドされたファイルを読み込む
+		array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor'),
+		'1.0',
+		true
+	);
+}
+
+add_action('enqueue_block_editor_assets', 'add_right_align_button_to_toolbar');
+
+
 /********************************************************************/
 /*ブロックアイテムの読み込みe*/
 /********************************************************************/

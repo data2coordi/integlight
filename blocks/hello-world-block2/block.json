@@ -1,8 +1,0 @@
-{
-  "apiVersion": 2,
-  "name": "integlight/hello-world-block2",
-  "title": "Hello World Block2",
-  "category": "widgets",
-  "icon": "smiley",
-  "editorScript": "file:./build/index.js"
-}

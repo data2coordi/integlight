@@ -8,11 +8,11 @@ registerBlockType('integlight/hello-world-block', {
 
     edit: () => {
         const blockProps = useBlockProps();
-        return <p {...blockProps}>Hello, World!</p>;
+        return <p {...blockProps}>Hello, World1.1!</p>;
     },
 
     save: () => {
         const blockProps = useBlockProps.save();
-        return <p {...blockProps}>Hello, World!</p>;
+        return <p {...blockProps}>Hello, World1.1!</p>;
     }
 });
