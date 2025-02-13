@@ -72,35 +72,21 @@ function register_theme_blocks()
 add_action('init', 'register_theme_blocks');
 
 //Font Awesome 
-// Font Awesome の CSS を読み込む（フロントエンドとエディター共通）
-function integlight_enqueue_fontawesome()
-{
-	wp_enqueue_style(
-		'fontawesome',
-		'https://use.fontawesome.com/releases/v5.15.4/css/all.css',
-		array(),
-		'5.15.4'
-	);
-}
-add_action('wp_enqueue_scripts', 'integlight_enqueue_fontawesome');
-add_action('enqueue_block_editor_assets', 'integlight_enqueue_fontawesome');
-
-// エディター用にグローバルフォーマットのスクリプトを読み込む
-function integlight_enqueue_global_formats()
+function add_fontawesome_button_to_toolbar()
 {
 	wp_enqueue_script(
-		'integlight-global-formats',
-		get_template_directory_uri() . '/blocks/gfontawesome/build/index.js',
-		array('wp-rich-text', 'wp-blocks', 'wp-element', 'wp-hooks', 'wp-editor', 'wp-block-editor'),
-		filemtime(get_template_directory() . '/blocks/gfontawesome/build/index.js'),
+		'integlight-gfontawesome',
+		get_template_directory_uri() . '/blocks/gfontawesome/build/index.js', // ビルドされたファイルを読み込む
+		array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-rich-text'),
+		'1.0',
 		true
 	);
 }
-add_action('enqueue_block_editor_assets', 'integlight_enqueue_global_formats');
+
+add_action('enqueue_block_editor_assets', 'add_fontawesome_button_to_toolbar');
 
 
-
-//サンプルツールバー
+//右寄せサンプルツールバー
 function add_right_align_button_to_toolbar()
 {
 	wp_enqueue_script(

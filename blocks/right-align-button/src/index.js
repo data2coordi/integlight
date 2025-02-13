@@ -1,30 +1,25 @@
-const { registerPlugin } = wp.plugins;
-const { PluginToolbar } = wp.editPost;
-const { ToolbarButton } = wp.components;
-const { BlockControls, registerFormatType, RichText } = wp.blockEditor;
-const { Fragment } = wp.element;
+const { registerFormatType } = wp.richText;
+const { RichTextToolbarButton } = wp.blockEditor;
 
-// 右寄せのフォーマットを追加
-registerFormatType('my-theme/align-right', {
-    title: 'Align Right',
-    tagName: 'div',
+// 右寄せフォーマットを登録
+registerFormatType('integlight/right-align', {
+    title: 'Align Right Z',
+    tagName: 'span',
     className: 'alignright',
-    edit({ value, onChange }) {
+    edit({ isActive, value, onChange }) {
         return (
-            <BlockControls>
-                <PluginToolbar>
-                    <ToolbarButton
-                        icon="editor-alignright"
-                        label="Align Right"
-                        onClick={() => {
-                            // 右寄せを切り替える
-                            onChange(
-                                value === 'right' ? 'left' : 'right'
-                            );
-                        }}
-                    />
-                </PluginToolbar>
-            </BlockControls>
+            <RichTextToolbarButton
+                icon="editor-alignright"
+                title="Align Right Z"
+                isActive={isActive}
+                onClick={() => {
+                    onChange(
+                        wp.richText.toggleFormat(value, {
+                            type: 'integlight/right-align',
+                        })
+                    );
+                }}
+            />
         );
     },
 });

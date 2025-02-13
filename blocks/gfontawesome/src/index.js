@@ -1,57 +1,43 @@
-// blocks/gfontawesome/src/index.js
-
-const { registerFormatType, toggleFormat } = wp.richText;
+const { registerFormatType } = wp.richText;
 const { RichTextToolbarButton } = wp.blockEditor;
+const { Fragment } = wp.element;
 const { createElement } = wp.element;
-const { addFilter } = wp.hooks;
 
-/* --- インラインフォーマットの登録 --- */
-const FontAwesomeIconButton = (props) => {
-    const { isActive, value, onChange } = props;
+// Font Awesome アイコンのリスト
+const icons = [
+    'fa-home',
+    'fa-user',
+    'fa-cog',
+    'fa-heart',
+    'fa-star',
+];
 
-    const applyFormat = () => {
-        onChange(
-            toggleFormat(value, {
-                type: 'integlight/font-awesome-icon',
-                attributes: { class: 'fas fa-coffee' },
-            })
-        );
+const FontAwesomeButton = ({ isActive, value, onChange }) => {
+    const insertIcon = (icon) => {
+        const iconTag = `<i class="fas ${icon}"></i>`;
+        const newValue = wp.richText.insert(value, iconTag);
+        onChange(newValue);
     };
 
-    return createElement(RichTextToolbarButton, {
-        icon: 'admin-customizer', // Dashicon のアイコン。必要に応じて変更してください。
-        title: 'コーヒーアイコンを挿入',
-        onClick: applyFormat,
-        isActive: isActive,
-    });
+    return (
+        <Fragment>
+            {icons.map((icon, index) => (
+                <RichTextToolbarButton
+                    key={index}
+                    icon={createElement('i', { className: `fas ${icon}` })}
+                    title={`Insert ${icon}`}
+                    onClick={() => insertIcon(icon)}
+                    isActive={isActive}
+                />
+            ))}
+        </Fragment>
+    );
 };
 
-registerFormatType('integlight/font-awesome-icon', {
-    title: 'Font Awesome Icon',
+// フォーマットタイプを登録
+registerFormatType('gfontawesome/icon', {
+    title: 'FontAwesome',
     tagName: 'i',
-    className: null,  // attributes で class を指定するため不要
-    attributes: {
-        class: 'class',
-    },
-    edit: (props) => createElement(FontAwesomeIconButton, props),
+    className: 'fas',
+    edit: FontAwesomeButton,
 });
-
-/* --- editor.BlockEdit フィルターで allowedFormats を上書き --- */
-const withFontAwesomeAllowedFormats = (BlockEdit) => {
-    return (props) => {
-        if (props.name === 'core/paragraph' || props.name === 'core/heading') {
-            // 既存の allowedFormats がなければデフォルト値を設定
-            const defaultFormats = props.allowedFormats || ['core/bold', 'core/italic', 'core/link'];
-            // Font Awesome フォーマットを追加
-            const allowedFormats = [...defaultFormats, 'integlight/font-awesome-icon'];
-            return createElement(BlockEdit, { ...props, allowedFormats });
-        }
-        return createElement(BlockEdit, props);
-    };
-};
-
-addFilter(
-    'editor.BlockEdit',
-    'integlight/with-fontawesome-allowed-formats',
-    withFontAwesomeAllowedFormats
-);
