@@ -1,40 +1,93 @@
-const { registerFormatType } = wp.richText;
+const { Fragment, useState, useEffect } = wp.element;
+const { registerFormatType, insert } = wp.richText;
 const { RichTextToolbarButton } = wp.blockEditor;
-const { Fragment } = wp.element;
+const { Modal, Button, TextControl, Spinner } = wp.components;
 
-// Font Awesome のアイコンリスト
-const icons = [
-    'home',
-    'user',
-    'cog',
-    'heart',
-    'star',
-];
+const FontAwesomeSearchButton = ({ value, onChange }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [icons, setIcons] = useState([]);
+    const [loading, setLoading] = useState(false);
 
-const FontAwesomeButton = ({ value, onChange }) => {
+    useEffect(() => {
+        if (isModalOpen && icons.length === 0) {
+            setLoading(true);
+            fetch('/wp-content/themes/integlight/blocks/gfontawesome/fontawesome-icons.json')
+                .then(response => response.json())
+                .then(data => {
+                    setIcons(data.icons);
+                    setLoading(false);
+                })
+                .catch(error => {
+                    console.error('アイコン取得エラー:', error);
+                    setLoading(false);
+                });
+        }
+    }, [isModalOpen]);
+
+    const filteredIcons = icons.filter(icon =>
+        icon.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    // 選択されたアイコンをショートコード形式で挿入する（例: [fontawesome icon="fa-home"]）
     const insertIcon = (icon) => {
         const shortcode = `[fa icon="${icon}"]`;
-        onChange(wp.richText.insert(value, shortcode)); // ショートコードをエディタに挿入
+        const newValue = insert(value, shortcode);
+        onChange(newValue);
+        setIsModalOpen(false);
     };
 
     return (
         <Fragment>
-            {icons.map((icon, index) => (
-                <RichTextToolbarButton
-                    key={index}
-                    icon={`fas fa-${icon}`} // ツールバーのアイコン
-                    title={`Insert ${icon}`}
-                    onClick={() => insertIcon(icon)}
-                />
-            ))}
+            <RichTextToolbarButton
+                icon="search"
+                title="Font Awesome アイコンを検索"
+                onClick={() => setIsModalOpen(true)}
+            />
+            {isModalOpen && (
+                <Modal
+                    title="Font Awesome アイコンを検索"
+                    onRequestClose={() => setIsModalOpen(false)}
+                >
+                    <TextControl
+                        label="検索"
+                        value={searchTerm}
+                        onChange={(newValue) => setSearchTerm(newValue)}
+                        placeholder="例: home, user, cog..."
+                    />
+                    {loading ? (
+                        <Spinner />
+                    ) : (
+                        <div
+                            className="fa-icons-grid"
+                            style={{
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                                gap: '10px',
+                                marginTop: '10px',
+                            }}
+                        >
+                            {filteredIcons.map((icon, index) => (
+                                <Button
+                                    key={index}
+                                    onClick={() => insertIcon(icon)}
+                                    style={{ padding: '10px' }}
+                                >
+                                    <i className={`fas ${icon}`} style={{ fontSize: '24px' }}></i>
+                                </Button>
+                            ))}
+                        </div>
+                    )}
+                </Modal>
+            )}
         </Fragment>
     );
 };
 
-// フォーマットタイプを登録
-registerFormatType('gfontawesome/icon', {
-    title: 'FontAwesome',
+registerFormatType('fontawesome/icon', {
+    title: 'Font Awesome',
     tagName: 'span',
-    className: 'fa-shortcode',
-    edit: FontAwesomeButton,
+    // 独自のクラス名を付与することで衝突を回避
+    className: 'gfontawesome-shortcode',
+    edit: (props) => <FontAwesomeSearchButton {...props} />,
 });

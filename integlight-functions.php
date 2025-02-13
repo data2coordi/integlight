@@ -135,7 +135,7 @@ function integlight_render_fontawesome_shortcode($atts)
 		return '';
 	}
 
-	return '<i class="fas fa-' . esc_attr($atts['icon']) . '"></i>';
+	return '<i class="fas ' . esc_attr($atts['icon']) . '"></i>';
 }
 add_shortcode('fa', 'integlight_render_fontawesome_shortcode');
 
