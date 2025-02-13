@@ -1,6 +1,6 @@
 {
   "devDependencies": {
-    "@wordpress/scripts": "^19.2.4",
+    "@wordpress/scripts": "^30.11.0",
     "dir-archiver": "^1.1.1",
     "node-sass": "^7.0.1",
     "nodemon": "^3.1.9",
@@ -27,9 +27,8 @@
     "lint:scss": "wp-scripts lint-style 'sass/**/*.scss'",
     "lint:js": "wp-scripts lint-js 'js/*.js'",
     "bundle": "dir-archiver --src . --dest ../_s.zip --exclude .DS_Store .stylelintrc.json .eslintrc .git .gitattributes .github .gitignore README.md composer.json composer.lock node_modules vendor package-lock.json package.json .travis.yml phpcs.xml.dist sass style.css.map yarn.lock",
-    "build": "find blocks -name 'index.js' -path '*/src/*' -exec wp-scripts build {} --output-path={}/../../build/ \\;",
-    "start": "onchange 'blocks/**/src/index.js' -- npm run build",
-    "build_gfa": "wp-scripts build --entry=blocks/gfontawesome/src/index.js --output-path=blocks/gfontawesome/build"
+    "start": "wp-scripts start",
+    "build": "wp-scripts build"
   },
   "name": "integlight",
   "description": "[![Build Status](https://travis-ci.org/Automattic/_s.svg?branch=master)](https://travis-ci.org/Automattic/_s)",

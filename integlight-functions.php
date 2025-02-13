@@ -90,13 +90,14 @@ function integlight_enqueue_global_formats()
 {
 	wp_enqueue_script(
 		'integlight-global-formats',
-		get_template_directory_uri() . '/blocks/gfontawesome/build/main.js',
+		get_template_directory_uri() . '/blocks/gfontawesome/build/index.js',
 		array('wp-rich-text', 'wp-blocks', 'wp-element', 'wp-hooks', 'wp-editor', 'wp-block-editor'),
-		filemtime(get_template_directory() . '/blocks/gfontawesome/build/main.js'),
+		filemtime(get_template_directory() . '/blocks/gfontawesome/build/index.js'),
 		true
 	);
 }
 add_action('enqueue_block_editor_assets', 'integlight_enqueue_global_formats');
+
 
 /********************************************************************/
 /*ブロックアイテムの読み込みe*/
