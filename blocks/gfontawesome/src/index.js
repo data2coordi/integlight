@@ -6,16 +6,17 @@ const { Modal, Button, TextControl, Spinner } = wp.components;
 const FontAwesomeSearchButton = ({ value, onChange }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
-    const [icons, setIcons] = useState([]);
+    // JSON 全体（各カテゴリごとのオブジェクト）を保持する変数
+    const [iconsData, setIconsData] = useState(null);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        if (isModalOpen && icons.length === 0) {
+        if (isModalOpen && !iconsData) {
             setLoading(true);
             fetch('/wp-content/themes/integlight/blocks/gfontawesome/fontawesome-icons.json')
                 .then(response => response.json())
                 .then(data => {
-                    setIcons(data.icons);
+                    setIconsData(data);
                     setLoading(false);
                 })
                 .catch(error => {
@@ -23,15 +24,10 @@ const FontAwesomeSearchButton = ({ value, onChange }) => {
                     setLoading(false);
                 });
         }
-    }, [isModalOpen]);
+    }, [isModalOpen, iconsData]);
 
-    const filteredIcons = icons.filter(icon =>
-        icon.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-    // 選択されたアイコンをショートコード形式で挿入する（例: [fontawesome icon="fa-home"]）
     const insertIcon = (icon) => {
-        const shortcode = `[fa icon="${icon}"]`;
+        const shortcode = `[fontawesome icon="${icon}"]`;
         const newValue = insert(value, shortcode);
         onChange(newValue);
         setIsModalOpen(false);
@@ -41,41 +37,66 @@ const FontAwesomeSearchButton = ({ value, onChange }) => {
         <Fragment>
             <RichTextToolbarButton
                 icon="search"
-                title="Font Awesome アイコンを検索"
+                title="Font Awesome Icon Search"
                 onClick={() => setIsModalOpen(true)}
             />
             {isModalOpen && (
                 <Modal
-                    title="Font Awesome アイコンを検索"
+                    title="Font Awesome Icon Search"
                     onRequestClose={() => setIsModalOpen(false)}
+                    className="gfontawesome-modal"
                 >
                     <TextControl
-                        label="検索"
+                        label="Search"
                         value={searchTerm}
                         onChange={(newValue) => setSearchTerm(newValue)}
-                        placeholder="例: home, user, cog..."
+                        placeholder="ex): home, user, cog..."
                     />
                     {loading ? (
                         <Spinner />
                     ) : (
-                        <div
-                            className="fa-icons-grid"
-                            style={{
-                                display: 'flex',
-                                flexWrap: 'wrap',
-                                gap: '10px',
-                                marginTop: '10px',
-                            }}
-                        >
-                            {filteredIcons.map((icon, index) => (
-                                <Button
-                                    key={index}
-                                    onClick={() => insertIcon(icon)}
-                                    style={{ padding: '10px' }}
-                                >
-                                    <i className={`fas ${icon}`} style={{ fontSize: '24px' }}></i>
-                                </Button>
-                            ))}
+                        <div className="gfontawesome-categories">
+                            {iconsData ? (
+                                Object.entries(iconsData).map(([category, iconList]) => {
+                                    // 入力された検索語句でフィルタ
+                                    const filteredList = iconList.filter(icon =>
+                                        icon.toLowerCase().includes(searchTerm.toLowerCase())
+                                    );
+                                    return (
+                                        <div key={category} className="gfontawesome-category">
+                                            {/* カテゴリ名（アンダースコアをスペースに変換し、先頭大文字に変換） */}
+                                            <h3 style={{ marginTop: '20px', textTransform: 'capitalize' }}>
+                                                {category.replace(/_/g, ' ')}
+                                            </h3>
+                                            {filteredList.length > 0 ? (
+                                                <div
+                                                    className="fa-icons-grid"
+                                                    style={{
+                                                        display: 'flex',
+                                                        flexWrap: 'wrap',
+                                                        gap: '10px',
+                                                        marginBottom: '20px'
+                                                    }}
+                                                >
+                                                    {filteredList.map((icon) => (
+                                                        <Button
+                                                            key={icon}
+                                                            onClick={() => insertIcon(icon)}
+                                                            style={{ padding: '10px' }}
+                                                        >
+                                                            <i className={`fas ${icon}`} style={{ fontSize: '24px' }}></i>
+                                                        </Button>
+                                                    ))}
+                                                </div>
+                                            ) : (
+                                                <p style={{ marginLeft: '10px' }}>アイコンが見つかりません</p>
+                                            )}
+                                        </div>
+                                    );
+                                })
+                            ) : (
+                                <p>アイコンデータがありません</p>
+                            )}
                         </div>
                     )}
                 </Modal>
@@ -87,7 +108,6 @@ const FontAwesomeSearchButton = ({ value, onChange }) => {
 registerFormatType('fontawesome/icon', {
     title: 'Font Awesome',
     tagName: 'span',
-    // 独自のクラス名を付与することで衝突を回避
     className: 'gfontawesome-shortcode',
     edit: (props) => <FontAwesomeSearchButton {...props} />,
 });

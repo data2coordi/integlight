@@ -114,25 +114,23 @@ const FontAwesomeSearchButton = ({
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [icons, setIcons] = useState([]);
+  // JSON 全体（各カテゴリごとのオブジェクト）を保持する変数
+  const [iconsData, setIconsData] = useState(null);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    if (isModalOpen && icons.length === 0) {
+    if (isModalOpen && !iconsData) {
       setLoading(true);
       fetch('/wp-content/themes/integlight/blocks/gfontawesome/fontawesome-icons.json').then(response => response.json()).then(data => {
-        setIcons(data.icons);
+        setIconsData(data);
         setLoading(false);
       }).catch(error => {
         console.error('アイコン取得エラー:', error);
         setLoading(false);
       });
     }
-  }, [isModalOpen]);
-  const filteredIcons = icons.filter(icon => icon.toLowerCase().includes(searchTerm.toLowerCase()));
-
-  // 選択されたアイコンをショートコード形式で挿入する（例: [fontawesome icon="fa-home"]）
+  }, [isModalOpen, iconsData]);
   const insertIcon = icon => {
-    const shortcode = `[fa icon="${icon}"]`;
+    const shortcode = `[fontawesome icon="${icon}"]`;
     const newValue = insert(value, shortcode);
     onChange(newValue);
     setIsModalOpen(false);
@@ -140,36 +138,60 @@ const FontAwesomeSearchButton = ({
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(RichTextToolbarButton, {
       icon: "search",
-      title: "Font Awesome \u30A2\u30A4\u30B3\u30F3\u3092\u691C\u7D22",
+      title: "Font Awesome Icon Search",
       onClick: () => setIsModalOpen(true)
     }), isModalOpen && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(Modal, {
-      title: "Font Awesome \u30A2\u30A4\u30B3\u30F3\u3092\u691C\u7D22",
+      title: "Font Awesome Icon Search",
       onRequestClose: () => setIsModalOpen(false),
+      className: "gfontawesome-modal",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(TextControl, {
-        label: "\u691C\u7D22",
+        label: "Search",
         value: searchTerm,
         onChange: newValue => setSearchTerm(newValue),
-        placeholder: "\u4F8B: home, user, cog..."
+        placeholder: "ex): home, user, cog..."
       }), loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(Spinner, {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-        className: "fa-icons-grid",
-        style: {
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '10px',
-          marginTop: '10px'
-        },
-        children: filteredIcons.map((icon, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(Button, {
-          onClick: () => insertIcon(icon),
-          style: {
-            padding: '10px'
-          },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
-            className: `fas ${icon}`,
-            style: {
-              fontSize: '24px'
-            }
-          })
-        }, index))
+        className: "gfontawesome-categories",
+        children: iconsData ? Object.entries(iconsData).map(([category, iconList]) => {
+          // 入力された検索語句でフィルタ
+          const filteredList = iconList.filter(icon => icon.toLowerCase().includes(searchTerm.toLowerCase()));
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+            className: "gfontawesome-category",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", {
+              style: {
+                marginTop: '20px',
+                textTransform: 'capitalize'
+              },
+              children: category.replace(/_/g, ' ')
+            }), filteredList.length > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+              className: "fa-icons-grid",
+              style: {
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '10px',
+                marginBottom: '20px'
+              },
+              children: filteredList.map(icon => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(Button, {
+                onClick: () => insertIcon(icon),
+                style: {
+                  padding: '10px'
+                },
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+                  className: `fas ${icon}`,
+                  style: {
+                    fontSize: '24px'
+                  }
+                })
+              }, icon))
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", {
+              style: {
+                marginLeft: '10px'
+              },
+              children: "\u30A2\u30A4\u30B3\u30F3\u304C\u898B\u3064\u304B\u308A\u307E\u305B\u3093"
+            })]
+          }, category);
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", {
+          children: "\u30A2\u30A4\u30B3\u30F3\u30C7\u30FC\u30BF\u304C\u3042\u308A\u307E\u305B\u3093"
+        })
       })]
     })]
   });
@@ -177,7 +199,6 @@ const FontAwesomeSearchButton = ({
 registerFormatType('fontawesome/icon', {
   title: 'Font Awesome',
   tagName: 'span',
-  // 独自のクラス名を付与することで衝突を回避
   className: 'gfontawesome-shortcode',
   edit: props => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(FontAwesomeSearchButton, {
     ...props
