@@ -356,7 +356,7 @@
 /* カード全体のデザインs*/
 .bl_card_container {
     display: grid;
-    gap: 1rem;
+    gap: 1vw;
     padding: var(--ly-elementPadding);
     margin-top: var(--ly-elementTopMargin);
     background: #f2f2f2;
@@ -509,10 +509,11 @@
 /* パンくずe */
 
 /*************************************/
-/* entry-header + 投稿情報 s*/
+/* entry-header + 投稿情報 +entry-footer s*/
 /*************************************/
 .entry-header,
 .entry-footer {
+    /*文字情報のためremでサイズをフレキシブル対応*/
     margin-bottom: 0.7rem;
 }
 
