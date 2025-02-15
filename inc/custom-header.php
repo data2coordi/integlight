@@ -82,7 +82,8 @@ if (! function_exists('integlight_header_style')) :
 			else :
 			?>.site-title a,
 			.site-description {
-				color: #<?php echo esc_attr($header_text_color); ?>;
+				color: <?php echo '#' . esc_attr($header_text_color); ?>;
+
 			}
 
 			<?php endif; ?>

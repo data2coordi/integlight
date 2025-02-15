@@ -24,7 +24,6 @@ function integlight_scripts_plus()
 
 	wp_enqueue_style('integlight-base-style-plus', get_template_directory_uri() . '/css/base-style.css', array(), _S_VERSION);
 	wp_enqueue_style('integlight-style-plus', get_template_directory_uri() . '/css/integlight-style.css', array(), _S_VERSION);
-	//wp_enqueue_script('integlight-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true);
 	wp_enqueue_style('integlight-layout', get_template_directory_uri() . '/css/layout.css', array(), _S_VERSION);
 	wp_enqueue_style('integlight-integlight-menu', get_template_directory_uri() . '/css/integlight-menu.css', array(), _S_VERSION);
 	wp_enqueue_style('integlight-post', get_template_directory_uri() . '/css/post.css', array(), _S_VERSION);
@@ -40,16 +39,26 @@ function integlight_scripts_plus()
 add_action('wp_enqueue_scripts', 'integlight_scripts_plus');
 //## スタイルシート、JSファイルの追加 _e //////////////////////////////////////////////////////
 
-
 //## editor用のスタイルの追加 _s //////////////////////////////////////////////////////////////////////////////////
 // 性能劣化のデメリットがあるためOFFにしておくことも検討
-function integlight_add_editor_styles()
+function integlight_enqueue_editor_styles()
 {
-	add_theme_support('editor-styles');
-	add_editor_style(get_theme_file_uri('/style.css'));
-	add_editor_style(get_theme_file_uri('/integlight-style.css'));
+
+
+	wp_enqueue_style('integlight-base-style-plus', get_template_directory_uri() . '/css/base-style.css', array(), _S_VERSION);
+	wp_enqueue_style('integlight-style-plus', get_template_directory_uri() . '/css/integlight-style.css', array(), _S_VERSION);
+	wp_enqueue_style('integlight-layout', get_template_directory_uri() . '/css/layout.css', array(), _S_VERSION);
+	wp_enqueue_style('integlight-integlight-menu', get_template_directory_uri() . '/css/integlight-menu.css', array(), _S_VERSION);
+	wp_enqueue_style('integlight-post', get_template_directory_uri() . '/css/post.css', array(), _S_VERSION);
+	wp_enqueue_style('integlight-page', get_template_directory_uri() . '/css/page.css', array(), _S_VERSION);
+	wp_enqueue_style('integlight-front', get_template_directory_uri() . '/css/front.css', array(), _S_VERSION);
+	wp_enqueue_style('integlight-home', get_template_directory_uri() . '/css/home.css', array(), _S_VERSION);
+	wp_enqueue_style('integlight-module', get_template_directory_uri() . '/css/module.css', array(), _S_VERSION);
+	wp_enqueue_style('integlight-helper', get_template_directory_uri() . '/css/helper.css', array(), _S_VERSION);
 }
-add_action('admin_init', 'integlight_add_editor_styles');
+add_action('enqueue_block_editor_assets', 'integlight_enqueue_editor_styles');
+
+
 //editor用のスタイルの追加 _e ////////////////////////////////////////////////////////////////////////////////
 
 // デフォルトから追加するテーマサポート _s ///////////////////////////////////////////////
@@ -81,12 +90,6 @@ add_action('init', 'register_theme_blocks');
 //Font Awesome 
 function add_fontawesome_button_to_toolbar()
 {
-	wp_enqueue_style(
-		'fontawesome',
-		'https://use.fontawesome.com/releases/v5.15.4/css/all.css',
-		array(),
-		'5.15.4'
-	);
 
 	wp_enqueue_script(
 		'integlight-gfontawesome',
@@ -114,7 +117,6 @@ function add_right_align_button_to_toolbar()
 
 add_action('enqueue_block_editor_assets', 'add_right_align_button_to_toolbar');
 
-
 /********************************************************************/
 /*ブロックアイテムの読み込みe*/
 /********************************************************************/
@@ -137,7 +139,7 @@ function integlight_render_fontawesome_shortcode($atts)
 
 	return '<i class="fas ' . esc_attr($atts['icon']) . '"></i>';
 }
-add_shortcode('fa', 'integlight_render_fontawesome_shortcode');
+add_shortcode('fontawesome', 'integlight_render_fontawesome_shortcode');
 
 /********************************************************************/
 /*font awesome 用のショートコードe*/
