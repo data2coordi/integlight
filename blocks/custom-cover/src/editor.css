@@ -3,7 +3,7 @@
     border: 1px dashed #ccc;
     padding: 20px 0;
     max-width: none !important;
-    width: 100% !important;
+    /*width: 100% !important;*/
 }
 
 /* カスタムカバー内のすべての要素に対して max‑width と width を上書き */
