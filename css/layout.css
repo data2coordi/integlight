@@ -49,7 +49,8 @@
 
 
 .ly_site_content_main {
-    max-width: 800px;
+
+    max-width: var(--ly-widthPadding);
     flex: 1;
     order: 2;
     /* メインコンテンツを最初に表示 */

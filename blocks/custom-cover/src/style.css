@@ -26,6 +26,6 @@
 
 /* 内側コンテンツが記事幅の場合（例: 最大幅960pxに制限） */
 .wp-block-integlight-custom-cover .inner-container.inner-article {
-    max-width: 960px !important;
+    max-width: var(--ly-content-max-width) !important;
     width: 100% !important;
 }
