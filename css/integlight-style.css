@@ -16,7 +16,7 @@
     --ly-elementTopMarginSmall: calc(100vw * 0.005);
     --ly-elementPadding: calc(100vw * 0.01);
     --ly-elementBottomMargin: calc(100vw * 0.03);
-    --ly-content-max-width: 800px;
+    --ly-content-max-width: calc(800px);
 }
 
 

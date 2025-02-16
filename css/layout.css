@@ -50,7 +50,7 @@
 
 .ly_site_content_main {
 
-    max-width: var(--ly-widthPadding);
+    max-width: var(--ly-content-max-width);
     flex: 1;
     order: 2;
     /* メインコンテンツを最初に表示 */
