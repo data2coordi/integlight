@@ -1,0 +1,30 @@
+{
+    "apiVersion": 2,
+    "name": "integlight/custom-cover",
+    "title": "Custom Cover",
+    "category": "design",
+    "description": "A custom cover block with post width, wide width, and full width support.",
+    "supports": {
+        "align": [
+            "wide",
+            "full"
+        ],
+        "color": {
+            "background": true,
+            "text": true
+        },
+        "spacing": {
+            "padding": true,
+            "margin": true
+        }
+    },
+    "attributes": {
+        "postWidth": {
+            "type": "boolean",
+            "default": false
+        }
+    },
+    "editorScript": "file:./build/index.js",
+    "editorStyle": "file:./build/index.css",
+    "style": "file:./build/style-index.css"
+}

@@ -1,0 +1,16 @@
+.wp-block-integlight-custom-cover {
+    border: 1px dashed #999;
+    padding: 20px;
+}
+
+.wp-block-integlight-custom-cover.alignwide {
+    border-color: #0066cc;
+}
+
+.wp-block-integlight-custom-cover.alignfull {
+    border-color: #cc0000;
+}
+
+.wp-block-integlight-custom-cover.align-post {
+    border-color: #009933;
+}

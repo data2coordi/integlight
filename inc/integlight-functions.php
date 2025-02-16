@@ -24,6 +24,7 @@ function integlight_scripts_plus()
 
 	wp_enqueue_style('integlight-base-style-plus', get_template_directory_uri() . '/css/base-style.css', array(), _S_VERSION);
 	wp_enqueue_style('integlight-style-plus', get_template_directory_uri() . '/css/integlight-style.css', array(), _S_VERSION);
+	wp_enqueue_style('integlight-sp-style', get_template_directory_uri() . '/css/integlight-sp-style.css', array(), _S_VERSION);
 	wp_enqueue_style('integlight-layout', get_template_directory_uri() . '/css/layout.css', array(), _S_VERSION);
 	wp_enqueue_style('integlight-integlight-menu', get_template_directory_uri() . '/css/integlight-menu.css', array(), _S_VERSION);
 	wp_enqueue_style('integlight-post', get_template_directory_uri() . '/css/post.css', array(), _S_VERSION);
@@ -47,6 +48,9 @@ function integlight_enqueue_editor_styles()
 
 	wp_enqueue_style('integlight-base-style-plus', get_template_directory_uri() . '/css/base-style.css', array(), _S_VERSION);
 	wp_enqueue_style('integlight-style-plus', get_template_directory_uri() . '/css/integlight-style.css', array(), _S_VERSION);
+	/*
+	wp_enqueue_style('integlight-sp-style', get_template_directory_uri() . '/css/integlight-sp-style.css', array(), _S_VERSION);
+	*/
 	wp_enqueue_style('integlight-layout', get_template_directory_uri() . '/css/layout.css', array(), _S_VERSION);
 	wp_enqueue_style('integlight-integlight-menu', get_template_directory_uri() . '/css/integlight-menu.css', array(), _S_VERSION);
 	wp_enqueue_style('integlight-post', get_template_directory_uri() . '/css/post.css', array(), _S_VERSION);
@@ -82,7 +86,9 @@ function register_theme_blocks()
 {
 	$blocks = glob(get_template_directory() . '/blocks/*', GLOB_ONLYDIR);
 	foreach ($blocks as $block) {
-		register_block_type($block);
+		if (file_exists($block . '/block.json')) {
+			register_block_type($block);
+		}
 	}
 }
 add_action('init', 'register_theme_blocks');
