@@ -59,6 +59,8 @@ function integlight_enqueue_editor_styles()
 	wp_enqueue_style('integlight-home', get_template_directory_uri() . '/css/home.css', array(), _S_VERSION);
 	wp_enqueue_style('integlight-module', get_template_directory_uri() . '/css/module.css', array(), _S_VERSION);
 	wp_enqueue_style('integlight-helper', get_template_directory_uri() . '/css/helper.css', array(), _S_VERSION);
+	//web fonts: font awsome
+	wp_enqueue_style('integlight-awesome', get_template_directory_uri() . '/css/awesome-all.min.css', array(), _S_VERSION);
 }
 add_action('enqueue_block_editor_assets', 'integlight_enqueue_editor_styles');
 
@@ -130,7 +132,6 @@ add_action('enqueue_block_editor_assets', 'add_right_align_button_to_toolbar');
 /********************************************************************/
 /*font awesome 用のショートコードs*/
 /********************************************************************/
-
 function integlight_render_fontawesome_shortcode($atts)
 {
 	$atts = shortcode_atts(

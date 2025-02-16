@@ -1,24 +1,22 @@
 .wp-block-integlight-custom-cover {
-    position: relative;
-    display: block;
     width: 100%;
-    max-width: var(--wp--style--global--content-size, 800px);
+    position: relative;
+    background-color: #f0f0f0;
+    /* 背景色は適宜変更 */
+    padding: 20px 0;
+}
+
+.wp-block-integlight-custom-cover .inner-container {
     margin: 0 auto;
     padding: 20px;
-    background-color: var(--wp--preset--color--background, #f0f0f0);
-    text-align: center;
 }
 
-.wp-block-integlight-custom-cover.alignwide {
-    max-width: var(--wp--style--global--wide-size, 1200px);
-}
-
-.wp-block-integlight-custom-cover.alignfull {
+/* 内側コンテンツ：全幅の場合 */
+.wp-block-integlight-custom-cover .inner-container.inner-full {
     max-width: 100%;
-    width: 100%;
 }
 
-.wp-block-integlight-custom-cover.align-post {
+/* 内側コンテンツ：記事幅の場合（例: 最大幅960px） */
+.wp-block-integlight-custom-cover .inner-container.inner-article {
     max-width: 960px;
-    /* 記事幅のカスタム設定 */
 }

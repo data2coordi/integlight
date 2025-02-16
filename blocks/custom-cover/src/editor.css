@@ -1,16 +1,20 @@
 .wp-block-integlight-custom-cover {
     border: 1px dashed #999;
     padding: 20px;
+    background-color: #fafafa;
 }
 
-.wp-block-integlight-custom-cover.alignwide {
-    border-color: #0066cc;
+.wp-block-integlight-custom-cover .inner-container {
+    margin: 0 auto;
+    padding: 20px;
 }
 
-.wp-block-integlight-custom-cover.alignfull {
-    border-color: #cc0000;
+/* エディター上で記事幅が有効な場合、緑色の枠で表示 */
+.wp-block-integlight-custom-cover .inner-container.inner-article {
+    border: 2px solid #009933;
 }
 
-.wp-block-integlight-custom-cover.align-post {
-    border-color: #009933;
+/* エディター上で全幅の場合、青色の枠で表示（例） */
+.wp-block-integlight-custom-cover .inner-container.inner-full {
+    border: 2px solid #0066cc;
 }

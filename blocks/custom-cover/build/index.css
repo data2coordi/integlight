@@ -1,1 +1,25 @@
-.wp-block-integlight-custom-cover{border:1px dashed #999;padding:20px}.wp-block-integlight-custom-cover.alignwide{border-color:#06c}.wp-block-integlight-custom-cover.alignfull{border-color:#c00}.wp-block-integlight-custom-cover.align-post{border-color:#093}
+/*!****************************************************************************************************************************************************************************!*\
+  !*** css ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./src/editor.css ***!
+  \****************************************************************************************************************************************************************************/
+.wp-block-integlight-custom-cover {
+    border: 1px dashed #999;
+    padding: 20px;
+    background-color: #fafafa;
+}
+
+.wp-block-integlight-custom-cover .inner-container {
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* エディター上で記事幅が有効な場合、緑色の枠で表示 */
+.wp-block-integlight-custom-cover .inner-container.inner-article {
+    border: 2px solid #009933;
+}
+
+/* エディター上で全幅の場合、青色の枠で表示（例） */
+.wp-block-integlight-custom-cover .inner-container.inner-full {
+    border: 2px solid #0066cc;
+}
+
+/*# sourceMappingURL=index.css.map*/

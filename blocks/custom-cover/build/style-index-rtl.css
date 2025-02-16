@@ -1,1 +1,25 @@
-.wp-block-integlight-custom-cover{background-color:var(--wp--preset--color--background,#f0f0f0);display:block;margin:0 auto;max-width:var(--wp--style--global--content-size,800px);padding:20px;position:relative;text-align:center;width:100%}.wp-block-integlight-custom-cover.alignwide{max-width:var(--wp--style--global--wide-size,1200px)}.wp-block-integlight-custom-cover.alignfull{max-width:100%;width:100%}.wp-block-integlight-custom-cover.align-post{max-width:960px}
+/*!***************************************************************************************************************************************************************************!*\
+  !*** css ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./src/style.css ***!
+  \***************************************************************************************************************************************************************************/
+.wp-block-integlight-custom-cover {
+    width: 100%;
+    position: relative;
+    background-color: #f0f0f0;
+    /* 背景色は適宜変更 */
+    padding: 20px 0;
+}
+
+.wp-block-integlight-custom-cover .inner-container {
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 内側コンテンツ：全幅の場合 */
+.wp-block-integlight-custom-cover .inner-container.inner-full {
+    max-width: 100%;
+}
+
+/* 内側コンテンツ：記事幅の場合（例: 最大幅960px） */
+.wp-block-integlight-custom-cover .inner-container.inner-article {
+    max-width: 960px;
+}
