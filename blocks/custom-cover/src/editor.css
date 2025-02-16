@@ -15,7 +15,7 @@
 /* 内側コンテンツコンテナのスタイル（任意） */
 .wp-block-integlight-custom-cover .inner-container {
     border: 1px solid #eee;
-    padding: 20px;
+    padding: 0px;
     margin: 0 auto;
     /* 本来の幅設定はここで行うが、エディター上は全幅に解除 */
     /*    max-width: none !important;*/

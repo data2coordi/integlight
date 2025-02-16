@@ -106,7 +106,18 @@ registerBlockType('integlight/custom-cover', {
                                 )}
                             />
                         </MediaUploadCheck>
+                        {/* 画像がセットされている場合、削除ボタンを表示 */}
+                        {url && (
+                            <Button
+                                onClick={() => setAttributes({ url: '', id: undefined, alt: '' })}
+                                isSecondary
+                                style={{ marginTop: '10px' }}
+                            >
+                                {__('Remove Background Image', 'integlight')}
+                            </Button>
+                        )}
                     </PanelBody>
+
                     <PanelColorSettings
                         title={__('Color Settings', 'integlight')}
                         initialOpen={false}

@@ -125,6 +125,17 @@ __webpack_require__.r(__webpack_exports__);
                 children: !url ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Upload Background Image', 'integlight') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Change Background Image', 'integlight')
               })
             })
+          }), url && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+            onClick: () => setAttributes({
+              url: '',
+              id: undefined,
+              alt: ''
+            }),
+            isSecondary: true,
+            style: {
+              marginTop: '10px'
+            },
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Remove Background Image', 'integlight')
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.PanelColorSettings, {
           title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Color Settings', 'integlight'),
