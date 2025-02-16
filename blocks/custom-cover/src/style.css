@@ -1,33 +1,31 @@
+/* カスタムカバー全体：エディター上で全幅表示（グローバルな max-width を上書き） */
 .wp-block-integlight-custom-cover {
-    width: 100%;
-    position: relative;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    border: 1px dashed #ccc;
     padding: 20px 0;
+    max-width: none !important;
+    width: 100% !important;
 }
 
-.cover-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+/* カスタムカバーの直下の要素は全幅にする */
+.wp-block-integlight-custom-cover>* {
+    max-width: none !important;
+    width: 100% !important;
 }
 
-.inner-container {
-    position: relative;
-    margin: 0 auto;
+/* 内側コンテンツコンテナの基本スタイル */
+.wp-block-integlight-custom-cover .inner-container {
     padding: 20px;
-    z-index: 1;
+    margin: 0 auto;
 }
 
-/* 内側コンテンツ：全幅の場合 */
-.inner-container.inner-full {
-    max-width: 100%;
+/* 内側コンテンツが全幅の場合 */
+.wp-block-integlight-custom-cover .inner-container.inner-full {
+    max-width: none !important;
+    width: 100% !important;
 }
 
-/* 内側コンテンツ：記事幅の場合（例：最大幅960px） */
-.inner-container.inner-article {
-    max-width: 960px;
+/* 内側コンテンツが記事幅の場合（例: 最大幅960pxに制限） */
+.wp-block-integlight-custom-cover .inner-container.inner-article {
+    max-width: 960px !important;
+    width: 100% !important;
 }

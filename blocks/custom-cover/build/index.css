@@ -1,29 +1,41 @@
 /*!****************************************************************************************************************************************************************************!*\
   !*** css ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./src/editor.css ***!
   \****************************************************************************************************************************************************************************/
+/* カスタムカバー自体のスタイル：エディター上で全幅表示 */
 .wp-block-integlight-custom-cover {
     border: 1px dashed #ccc;
     padding: 20px 0;
+    max-width: none !important;
+    width: 100% !important;
 }
 
-.inner-container {
+/* カスタムカバー内のすべての要素に対して max‑width と width を上書き */
+.wp-block-integlight-custom-cover * {
+    max-width: none !important;
+    /*    width: 100% !important;*/
+}
+
+/* 内側コンテンツコンテナのスタイル（任意） */
+.wp-block-integlight-custom-cover .inner-container {
     border: 1px solid #eee;
     padding: 20px;
+    margin: 0 auto;
+    /* 本来の幅設定はここで行うが、エディター上は全幅に解除 */
+    /*    max-width: none !important;*/
 }
 
-/* エディター上で記事幅が有効な場合（緑色枠） */
-.inner-container.inner-article {
+/* オーバーレイ（必要に応じて） */
+.wp-block-integlight-custom-cover .cover-overlay {
+    pointer-events: none;
+}
+
+/* エディター上で、内側コンテンツの状態に応じたオプション（任意） */
+.wp-block-integlight-custom-cover .inner-container.inner-article {
     border: 2px solid #009933;
 }
 
-/* エディター上で全幅の場合（青色枠） */
-.inner-container.inner-full {
+.wp-block-integlight-custom-cover .inner-container.inner-full {
     border: 2px solid #0066cc;
-}
-
-/* オーバーレイはエディターでは目立たないように */
-.cover-overlay {
-    pointer-events: none;
 }
 
 /*# sourceMappingURL=index.css.map*/
