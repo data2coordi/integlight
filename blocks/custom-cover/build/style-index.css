@@ -4,23 +4,34 @@
 .wp-block-integlight-custom-cover {
     width: 100%;
     position: relative;
-    background-color: #f0f0f0;
-    /* 背景色は適宜変更 */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     padding: 20px 0;
 }
 
-.wp-block-integlight-custom-cover .inner-container {
+.cover-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.inner-container {
+    position: relative;
     margin: 0 auto;
     padding: 20px;
+    z-index: 1;
 }
 
 /* 内側コンテンツ：全幅の場合 */
-.wp-block-integlight-custom-cover .inner-container.inner-full {
+.inner-container.inner-full {
     max-width: 100%;
 }
 
-/* 内側コンテンツ：記事幅の場合（例: 最大幅960px） */
-.wp-block-integlight-custom-cover .inner-container.inner-article {
+/* 内側コンテンツ：記事幅の場合（例：最大幅960px） */
+.inner-container.inner-article {
     max-width: 960px;
 }
 

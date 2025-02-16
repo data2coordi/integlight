@@ -26,8 +26,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// CSS のインポート（ビルド後は build/ に出力されます）
-
 
 
 (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)('integlight/custom-cover', {
@@ -35,13 +33,43 @@ __webpack_require__.r(__webpack_exports__);
   icon: 'cover-image',
   category: 'design',
   supports: {
-    align: ['full'] // 外側コンテナは全幅固定
+    align: false // ブロック自体は常に全幅固定。整列オプションは表示しない。
   },
   attributes: {
-    // 内側の幅を記事幅（true）か全幅（false）かで制御
     innerWidthArticle: {
       type: 'boolean',
       default: false
+    },
+    url: {
+      type: 'string',
+      default: ''
+    },
+    id: {
+      type: 'number'
+    },
+    alt: {
+      type: 'string',
+      default: ''
+    },
+    focalPoint: {
+      type: 'object',
+      default: {
+        x: 0.5,
+        y: 0.5
+      }
+    },
+    dimRatio: {
+      type: 'number',
+      default: 50
+    },
+    overlayColor: {
+      type: 'string'
+    },
+    backgroundColor: {
+      type: 'string'
+    },
+    textColor: {
+      type: 'string'
     }
   },
   edit: ({
@@ -49,32 +77,90 @@ __webpack_require__.r(__webpack_exports__);
     setAttributes
   }) => {
     const {
-      innerWidthArticle
+      innerWidthArticle,
+      url,
+      id,
+      alt,
+      focalPoint,
+      dimRatio,
+      overlayColor,
+      backgroundColor,
+      textColor
     } = attributes;
-    // 外側コンテナは常に全幅
+
+    // 外側コンテナは常に全幅固定（alignfull クラスを付与）
     const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)({
-      className: 'wp-block-integlight-custom-cover alignfull'
+      className: 'wp-block-integlight-custom-cover alignfull',
+      style: {
+        backgroundColor: backgroundColor,
+        backgroundImage: url ? `url(${url})` : undefined,
+        backgroundPosition: `${focalPoint.x * 100}% ${focalPoint.y * 100}%`
+      }
     });
-    // 内側コンテンツのクラスを切り替え
     const innerClass = innerWidthArticle ? 'inner-article' : 'inner-full';
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
-          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Inner Content Width', 'integlight'),
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ToggleControl, {
-            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('記事幅にする', 'integlight'),
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Cover Settings', 'integlight'),
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ToggleControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Use Article Width for Inner Content', 'integlight'),
             checked: innerWidthArticle,
             onChange: () => setAttributes({
               innerWidthArticle: !innerWidthArticle
             })
-          })
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUploadCheck, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUpload, {
+              onSelect: media => setAttributes({
+                url: media.url,
+                id: media.id,
+                alt: media.alt
+              }),
+              allowedTypes: ['image'],
+              value: id,
+              render: ({
+                open
+              }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+                onClick: open,
+                isPrimary: true,
+                children: !url ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Upload Background Image', 'integlight') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Change Background Image', 'integlight')
+              })
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.PanelColorSettings, {
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Color Settings', 'integlight'),
+          initialOpen: false,
+          colorSettings: [{
+            value: backgroundColor,
+            onChange: newColor => setAttributes({
+              backgroundColor: newColor
+            }),
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Background Color', 'integlight')
+          }, {
+            value: textColor,
+            onChange: newColor => setAttributes({
+              textColor: newColor
+            }),
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Text Color', 'integlight')
+          }, {
+            value: overlayColor,
+            onChange: newColor => setAttributes({
+              overlayColor: newColor
+            }),
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Overlay Color', 'integlight')
+          }]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         ...blockProps,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        children: [url && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          className: "cover-overlay",
+          style: {
+            backgroundColor: overlayColor ? overlayColor : 'rgba(0,0,0,0)',
+            opacity: dimRatio / 100
+          }
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
           className: `inner-container ${innerClass}`,
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InnerBlocks, {})
-        })
+        })]
       })]
     });
   },
@@ -82,15 +168,31 @@ __webpack_require__.r(__webpack_exports__);
     attributes
   }) => {
     const {
-      innerWidthArticle
+      innerWidthArticle,
+      url,
+      focalPoint,
+      backgroundColor,
+      overlayColor,
+      dimRatio
     } = attributes;
     const innerClass = innerWidthArticle ? 'inner-article' : 'inner-full';
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "wp-block-integlight-custom-cover alignfull",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      style: {
+        backgroundColor: backgroundColor,
+        backgroundImage: url ? `url(${url})` : undefined,
+        backgroundPosition: `${focalPoint.x * 100}% ${focalPoint.y * 100}%`
+      },
+      children: [url && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        className: "cover-overlay",
+        style: {
+          backgroundColor: overlayColor ? overlayColor : 'rgba(0,0,0,0)',
+          opacity: dimRatio / 100
+        }
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
         className: `inner-container ${innerClass}`,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InnerBlocks.Content, {})
-      })
+      })]
     });
   }
 });

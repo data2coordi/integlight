@@ -1,20 +1,24 @@
 .wp-block-integlight-custom-cover {
-    border: 1px dashed #999;
-    padding: 20px;
-    background-color: #fafafa;
+    border: 1px dashed #ccc;
+    padding: 20px 0;
 }
 
-.wp-block-integlight-custom-cover .inner-container {
-    margin: 0 auto;
+.inner-container {
+    border: 1px solid #eee;
     padding: 20px;
 }
 
-/* エディター上で記事幅が有効な場合、緑色の枠で表示 */
-.wp-block-integlight-custom-cover .inner-container.inner-article {
+/* エディター上で記事幅が有効な場合（緑色枠） */
+.inner-container.inner-article {
     border: 2px solid #009933;
 }
 
-/* エディター上で全幅の場合、青色の枠で表示（例） */
-.wp-block-integlight-custom-cover .inner-container.inner-full {
+/* エディター上で全幅の場合（青色枠） */
+.inner-container.inner-full {
     border: 2px solid #0066cc;
+}
+
+/* オーバーレイはエディターでは目立たないように */
+.cover-overlay {
+    pointer-events: none;
 }
