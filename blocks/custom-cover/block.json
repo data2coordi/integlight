@@ -1,7 +1,7 @@
 {
     "apiVersion": 2,
     "name": "integlight/custom-cover",
-    "title": "Custom Cover",
+    "title": "【integlight】Custom Cover",
     "category": "design",
     "description": "A custom cover block with fixed full-width outer container and inner content width selectable as article width or full width.",
     "icon": "cover-image",
@@ -9,10 +9,6 @@
         "align": false,
         "color": {
             "background": true
-        },
-        "spacing": {
-            "padding": true,
-            "margin": true
         }
     },
     "attributes": {

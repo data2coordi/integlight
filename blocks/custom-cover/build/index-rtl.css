@@ -6,13 +6,11 @@
     border: 1px dashed #ccc;
     padding: 20px 0;
     max-width: none !important;
-    /*width: 100% !important;*/
 }
 
 /* カスタムカバー内のすべての要素に対して max‑width と width を上書き */
 .wp-block-integlight-custom-cover * {
     max-width: none !important;
-    /*    width: 100% !important;*/
 }
 
 /* 内側コンテンツコンテナのスタイル（任意） */
@@ -21,7 +19,6 @@
     padding: 0px;
     margin: 0 auto;
     /* 本来の幅設定はここで行うが、エディター上は全幅に解除 */
-    /*    max-width: none !important;*/
 }
 
 /* オーバーレイ（必要に応じて） */

@@ -6,13 +6,11 @@
     border: 1px dashed #ccc;
     padding: 20px 0;
     max-width: none !important;
-    /*width: 100% !important;*/
 }
 
 /* カスタムカバーの直下の要素は全幅にする */
 .wp-block-integlight-custom-cover>* {
     max-width: none !important;
-    /* width: 100% !important;*/
 }
 
 /* 内側コンテンツコンテナの基本スタイル */
@@ -24,13 +22,11 @@
 /* 内側コンテンツが全幅の場合 */
 .wp-block-integlight-custom-cover .inner-container.inner-full {
     max-width: none !important;
-    /* width: 100% !important;*/
 }
 
 /* 内側コンテンツが記事幅の場合（例: 最大幅960pxに制限） */
 .wp-block-integlight-custom-cover .inner-container.inner-article {
     max-width: var(--ly-content-max-width) !important;
-    /*  width: 100% !important;*/
 }
 
 /*# sourceMappingURL=style-index.css.map*/
