@@ -1,0 +1,45 @@
+{
+    "apiVersion": 2,
+    "name": "integlight/speech-bubble",
+    "title": "吹き出し",
+    "category": "widgets",
+    "icon": "format-chat",
+    "description": "画像とテキストを設定でき、背景色とテキスト色の変更が可能な吹き出しブロックです。",
+    "attributes": {
+        "content": {
+            "type": "string",
+            "source": "html",
+            "selector": ".speech-bubble__content p"
+        },
+        "imageUrl": {
+            "type": "string",
+            "default": ""
+        },
+        "imageAlt": {
+            "type": "string",
+            "default": ""
+        },
+        "backgroundColor": {
+            "type": "string",
+            "default": "#00aabb"
+        },
+        "textColor": {
+            "type": "string",
+            "default": "#ffffff"
+        },
+        "reverse": {
+            "type": "boolean",
+            "default": false
+        }
+    },
+    "supports": {
+        "html": false,
+        "color": {
+            "background": true,
+            "text": true
+        }
+    },
+    "editorScript": "file:./build/index.js",
+    "editorStyle": "file:./build/index.css",
+    "style": "file:./build/style-index.css"
+}
