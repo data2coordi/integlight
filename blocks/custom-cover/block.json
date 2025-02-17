@@ -8,7 +8,6 @@
     "supports": {
         "align": false,
         "color": {
-            "text": false,
             "background": true,
             "gradient": true
         }
@@ -28,6 +27,17 @@
         "alt": {
             "type": "string",
             "default": ""
+        },
+        "focalPoint": {
+            "type": "object",
+            "default": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        "dimRatio": {
+            "type": "number",
+            "default": 50
         }
     },
     "editorScript": "file:./build/index.js",

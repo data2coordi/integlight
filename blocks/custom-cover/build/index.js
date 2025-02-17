@@ -28,6 +28,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// ユーザーが選んだ透明度に応じて、オーバーレイの色を決定する関数
+// dimRatio が正なら黒で暗く、負なら白で明るくなる
+
+const getOverlayColor = dimRatio => {
+  if (dimRatio >= 0) {
+    return `rgba(0, 0, 0, ${dimRatio / 100})`;
+  } else {
+    return `rgba(255, 255, 255, ${Math.abs(dimRatio) / 100})`;
+  }
+};
 (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)('integlight/custom-cover', {
   edit: ({
     attributes,
@@ -37,12 +47,19 @@ __webpack_require__.r(__webpack_exports__);
       innerWidthArticle,
       url,
       id,
-      alt
+      alt,
+      focalPoint,
+      dimRatio
     } = attributes;
+
+    // ブロック本体には背景画像のみを設定（背景色／グラデーションは、supports によりクラスとして出力される）
     const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)({
       className: 'wp-block-integlight-custom-cover alignfull',
       style: {
-        backgroundImage: url ? `url(${url})` : undefined
+        backgroundImage: url ? `url(${url})` : undefined,
+        backgroundPosition: url ? `${focalPoint.x * 100}% ${focalPoint.y * 100}%` : undefined,
+        backgroundSize: 'cover',
+        position: 'relative'
       }
     });
     const innerClass = innerWidthArticle ? 'inner-article' : 'inner-full';
@@ -56,6 +73,14 @@ __webpack_require__.r(__webpack_exports__);
             onChange: () => setAttributes({
               innerWidthArticle: !innerWidthArticle
             })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Overlay Opacity (-100 for bright, 100 for dark)', 'integlight'),
+            value: dimRatio,
+            onChange: newDimRatio => setAttributes({
+              dimRatio: newDimRatio
+            }),
+            min: -100,
+            max: 100
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUploadCheck, {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUpload, {
               onSelect: media => setAttributes({
@@ -86,12 +111,28 @@ __webpack_require__.r(__webpack_exports__);
             children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Remove Background Image', 'integlight')
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         ...blockProps,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          className: "cover-overlay",
+          style: {
+            background: getOverlayColor(dimRatio),
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 1,
+            pointerEvents: 'none'
+          }
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
           className: `inner-container ${innerClass}`,
+          style: {
+            position: 'relative',
+            zIndex: 2
+          },
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InnerBlocks, {})
-        })
+        })]
       })]
     });
   },
@@ -100,21 +141,42 @@ __webpack_require__.r(__webpack_exports__);
   }) => {
     const {
       innerWidthArticle,
-      url
+      url,
+      focalPoint,
+      dimRatio
     } = attributes;
     const blockProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save({
       className: 'wp-block-integlight-custom-cover alignfull',
       style: {
-        backgroundImage: url ? `url(${url})` : undefined
+        backgroundImage: url ? `url(${url})` : undefined,
+        backgroundPosition: url ? `${focalPoint.x * 100}% ${focalPoint.y * 100}%` : undefined,
+        backgroundSize: 'cover',
+        position: 'relative'
       }
     });
     const innerClass = innerWidthArticle ? 'inner-article' : 'inner-full';
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       ...blockProps,
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        className: "cover-overlay",
+        style: {
+          background: getOverlayColor(dimRatio),
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 1,
+          pointerEvents: 'none'
+        }
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
         className: `inner-container ${innerClass}`,
+        style: {
+          position: 'relative',
+          zIndex: 2
+        },
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InnerBlocks.Content, {})
-      })
+      })]
     });
   }
 });
