@@ -28,54 +28,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// block.json の内容によりブロックは自動的に登録されるので、
+// 重複する属性や supports の定義は不要です。
+// 必要なエディタ用ロジックだけを定義します。
+
 (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)('integlight/custom-cover', {
-  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Custom Cover', 'integlight'),
-  icon: 'cover-image',
-  category: 'design',
-  supports: {
-    align: false // ブロック自体は常に全幅固定。整列オプションは表示しない。
-  },
-  attributes: {
-    innerWidthArticle: {
-      type: 'boolean',
-      default: false
-    },
-    url: {
-      type: 'string',
-      default: ''
-    },
-    id: {
-      type: 'number'
-    },
-    alt: {
-      type: 'string',
-      default: ''
-    },
-    focalPoint: {
-      type: 'object',
-      default: {
-        x: 0.5,
-        y: 0.5
-      }
-    },
-    dimRatio: {
-      type: 'number',
-      default: 50
-    },
-    overlayColor: {
-      type: 'string'
-    },
-    backgroundColor: {
-      type: 'string'
-    },
-    textColor: {
-      type: 'string'
-    }
-  },
   edit: ({
     attributes,
     setAttributes
   }) => {
+    // attributesはblock.jsonに定義された内容が自動的に反映される
     const {
       innerWidthArticle,
       url,
@@ -87,8 +49,6 @@ __webpack_require__.r(__webpack_exports__);
       backgroundColor,
       textColor
     } = attributes;
-
-    // 外側コンテナは常に全幅固定（alignfull クラスを付与）
     const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)({
       className: 'wp-block-integlight-custom-cover alignfull',
       style: {

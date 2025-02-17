@@ -13,48 +13,12 @@ import { __ } from '@wordpress/i18n';
 import './style.css';
 import './editor.css';
 
+// block.json の内容によりブロックは自動的に登録されるので、
+// 重複する属性や supports の定義は不要です。
+// 必要なエディタ用ロジックだけを定義します。
 registerBlockType('integlight/custom-cover', {
-    title: __('Custom Cover', 'integlight'),
-    icon: 'cover-image',
-    category: 'design',
-    supports: {
-        align: false // ブロック自体は常に全幅固定。整列オプションは表示しない。
-    },
-    attributes: {
-        innerWidthArticle: {
-            type: 'boolean',
-            default: false
-        },
-        url: {
-            type: 'string',
-            default: ''
-        },
-        id: {
-            type: 'number'
-        },
-        alt: {
-            type: 'string',
-            default: ''
-        },
-        focalPoint: {
-            type: 'object',
-            default: { x: 0.5, y: 0.5 }
-        },
-        dimRatio: {
-            type: 'number',
-            default: 50
-        },
-        overlayColor: {
-            type: 'string'
-        },
-        backgroundColor: {
-            type: 'string'
-        },
-        textColor: {
-            type: 'string'
-        }
-    },
     edit: ({ attributes, setAttributes }) => {
+        // attributesはblock.jsonに定義された内容が自動的に反映される
         const {
             innerWidthArticle,
             url,
@@ -67,7 +31,6 @@ registerBlockType('integlight/custom-cover', {
             textColor
         } = attributes;
 
-        // 外側コンテナは常に全幅固定（alignfull クラスを付与）
         const blockProps = useBlockProps({
             className: 'wp-block-integlight-custom-cover alignfull',
             style: {
@@ -106,7 +69,6 @@ registerBlockType('integlight/custom-cover', {
                                 )}
                             />
                         </MediaUploadCheck>
-                        {/* 画像がセットされている場合、削除ボタンを表示 */}
                         {url && (
                             <Button
                                 onClick={() => setAttributes({ url: '', id: undefined, alt: '' })}
@@ -117,7 +79,6 @@ registerBlockType('integlight/custom-cover', {
                             </Button>
                         )}
                     </PanelBody>
-
                     <PanelColorSettings
                         title={__('Color Settings', 'integlight')}
                         initialOpen={false}
@@ -141,7 +102,6 @@ registerBlockType('integlight/custom-cover', {
                     />
                 </InspectorControls>
                 <div {...blockProps}>
-                    {/* オーバーレイ（背景画像上に半透明レイヤー） */}
                     {url && (
                         <div className="cover-overlay" style={{
                             backgroundColor: overlayColor ? overlayColor : 'rgba(0,0,0,0)',
