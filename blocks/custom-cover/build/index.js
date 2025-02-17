@@ -28,39 +28,27 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// block.json の内容によりブロックは自動的に登録されるので、
-// 重複する属性や supports の定義は不要です。
-// 必要なエディタ用ロジックだけを定義します。
-
 (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)('integlight/custom-cover', {
   edit: ({
     attributes,
     setAttributes
   }) => {
-    // attributesはblock.jsonに定義された内容が自動的に反映される
     const {
       innerWidthArticle,
       url,
       id,
-      alt,
-      focalPoint,
-      dimRatio,
-      overlayColor,
-      backgroundColor,
-      textColor
+      alt
     } = attributes;
     const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)({
       className: 'wp-block-integlight-custom-cover alignfull',
       style: {
-        backgroundColor: backgroundColor,
-        backgroundImage: url ? `url(${url})` : undefined,
-        backgroundPosition: `${focalPoint.x * 100}% ${focalPoint.y * 100}%`
+        backgroundImage: url ? `url(${url})` : undefined
       }
     });
     const innerClass = innerWidthArticle ? 'inner-article' : 'inner-full';
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
           title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Cover Settings', 'integlight'),
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ToggleControl, {
             label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Use Article Width for Inner Content', 'integlight'),
@@ -97,41 +85,13 @@ __webpack_require__.r(__webpack_exports__);
             },
             children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Remove Background Image', 'integlight')
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.PanelColorSettings, {
-          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Color Settings', 'integlight'),
-          initialOpen: false,
-          colorSettings: [{
-            value: backgroundColor,
-            onChange: newColor => setAttributes({
-              backgroundColor: newColor
-            }),
-            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Background Color', 'integlight')
-          }, {
-            value: textColor,
-            onChange: newColor => setAttributes({
-              textColor: newColor
-            }),
-            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Text Color', 'integlight')
-          }, {
-            value: overlayColor,
-            onChange: newColor => setAttributes({
-              overlayColor: newColor
-            }),
-            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Overlay Color', 'integlight')
-          }]
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
         ...blockProps,
-        children: [url && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-          className: "cover-overlay",
-          style: {
-            backgroundColor: overlayColor ? overlayColor : 'rgba(0,0,0,0)',
-            opacity: dimRatio / 100
-          }
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
           className: `inner-container ${innerClass}`,
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InnerBlocks, {})
-        })]
+        })
       })]
     });
   },
@@ -140,30 +100,21 @@ __webpack_require__.r(__webpack_exports__);
   }) => {
     const {
       innerWidthArticle,
-      url,
-      focalPoint,
-      backgroundColor,
-      overlayColor,
-      dimRatio
+      url
     } = attributes;
-    const innerClass = innerWidthArticle ? 'inner-article' : 'inner-full';
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-      className: "wp-block-integlight-custom-cover alignfull",
+    const blockProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save({
+      className: 'wp-block-integlight-custom-cover alignfull',
       style: {
-        backgroundColor: backgroundColor,
-        backgroundImage: url ? `url(${url})` : undefined,
-        backgroundPosition: `${focalPoint.x * 100}% ${focalPoint.y * 100}%`
-      },
-      children: [url && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-        className: "cover-overlay",
-        style: {
-          backgroundColor: overlayColor ? overlayColor : 'rgba(0,0,0,0)',
-          opacity: dimRatio / 100
-        }
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        backgroundImage: url ? `url(${url})` : undefined
+      }
+    });
+    const innerClass = innerWidthArticle ? 'inner-article' : 'inner-full';
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      ...blockProps,
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
         className: `inner-container ${innerClass}`,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InnerBlocks.Content, {})
-      })]
+      })
     });
   }
 });

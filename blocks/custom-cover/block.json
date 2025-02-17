@@ -3,14 +3,12 @@
     "name": "integlight/custom-cover",
     "title": "Custom Cover",
     "category": "design",
-    "description": "A custom cover block with fixed full-width outer container and inner content width selectable as article width or full width, plus cover settings (background image, colors, overlay).",
+    "description": "A custom cover block with fixed full-width outer container and inner content width selectable as article width or full width.",
     "icon": "cover-image",
     "supports": {
         "align": false,
         "color": {
-            "background": true,
-            "text": true,
-            "gradient": true
+            "background": true
         },
         "spacing": {
             "padding": true,
@@ -20,7 +18,7 @@
     "attributes": {
         "innerWidthArticle": {
             "type": "boolean",
-            "default": false
+            "default": true
         },
         "url": {
             "type": "string",
@@ -32,26 +30,6 @@
         "alt": {
             "type": "string",
             "default": ""
-        },
-        "focalPoint": {
-            "type": "object",
-            "default": {
-                "x": 0.5,
-                "y": 0.5
-            }
-        },
-        "dimRatio": {
-            "type": "number",
-            "default": 50
-        },
-        "overlayColor": {
-            "type": "string"
-        },
-        "backgroundColor": {
-            "type": "string"
-        },
-        "textColor": {
-            "type": "string"
         }
     },
     "editorScript": "file:./build/index.js",
