@@ -73,7 +73,7 @@ registerBlockType('integlight/speech-bubble', {
                         />
                     </PanelBody>
                 </InspectorControls>
-                <div className={`${className} speech-bubble ${reverse ? 'speech-bubble--reverse' : ''}`}>
+                <div className={`${className} wp-block speech-bubble ${reverse ? 'speech-bubble--reverse' : ''}`}>
                     {imageUrl && (
                         <div className="speech-bubble__image">
                             <img src={imageUrl} alt={imageAlt} />

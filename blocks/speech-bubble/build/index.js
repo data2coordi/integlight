@@ -101,7 +101,7 @@ __webpack_require__.r(__webpack_exports__);
           })
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-        className: `${className} speech-bubble ${reverse ? 'speech-bubble--reverse' : ''}`,
+        className: `${className} wp-block speech-bubble ${reverse ? 'speech-bubble--reverse' : ''}`,
         children: [imageUrl && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
           className: "speech-bubble__image",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
