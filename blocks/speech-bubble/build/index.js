@@ -33,6 +33,7 @@ __webpack_require__.r(__webpack_exports__);
         content,
         imageUrl,
         imageAlt,
+        imageCaption,
         backgroundColor,
         textColor,
         reverse
@@ -102,12 +103,20 @@ __webpack_require__.r(__webpack_exports__);
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: `${className} wp-block speech-bubble ${reverse ? "speech-bubble--reverse" : "speech-bubble--normal"}`,
-        children: [imageUrl && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        children: [imageUrl && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("figure", {
           className: "speech-bubble__image",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
             src: imageUrl,
             alt: imageAlt
-          })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.RichText, {
+            tagName: "figcaption",
+            className: "speech-bubble__image-caption",
+            onChange: newCaption => setAttributes({
+              imageCaption: newCaption
+            }),
+            value: imageCaption,
+            placeholder: "\u3053\u3053\u306B\u30AD\u30E3\u30D7\u30B7\u30E7\u30F3\u3092\u5165\u529B"
+          })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
           ...contentBlockProps,
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.RichText, {
@@ -128,6 +137,7 @@ __webpack_require__.r(__webpack_exports__);
         content,
         imageUrl,
         imageAlt,
+        imageCaption,
         backgroundColor,
         textColor,
         reverse
@@ -144,12 +154,16 @@ __webpack_require__.r(__webpack_exports__);
     });
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
       className: `speech-bubble ${reverse ? "speech-bubble--reverse" : "speech-bubble--normal"}`,
-      children: [imageUrl && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      children: [imageUrl && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("figure", {
         className: "speech-bubble__image",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
           src: imageUrl,
           alt: imageAlt
-        })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.RichText.Content, {
+          tagName: "figcaption",
+          className: "speech-bubble__image-caption",
+          value: imageCaption
+        })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
         ...contentBlockProps,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.RichText.Content, {

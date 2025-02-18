@@ -15,7 +15,7 @@ import { PanelBody, Button, ToggleControl } from '@wordpress/components';
 registerBlockType('integlight/speech-bubble', {
     edit: (props) => {
         const {
-            attributes: { content, imageUrl, imageAlt, backgroundColor, textColor, reverse },
+            attributes: { content, imageUrl, imageAlt, imageCaption, backgroundColor, textColor, reverse },
             setAttributes,
             className
         } = props;
@@ -77,9 +77,16 @@ registerBlockType('integlight/speech-bubble', {
 
 
                     {imageUrl && (
-                        <div className="speech-bubble__image">
+                        <figure className="speech-bubble__image">
                             <img src={imageUrl} alt={imageAlt} />
-                        </div>
+                            <RichText
+                                tagName="figcaption"
+                                className="speech-bubble__image-caption"
+                                onChange={(newCaption) => setAttributes({ imageCaption: newCaption })}
+                                value={imageCaption}
+                                placeholder="ここにキャプションを入力"
+                            />
+                        </figure>
                     )}
                     <div {...contentBlockProps}>
                         <RichText
@@ -96,7 +103,8 @@ registerBlockType('integlight/speech-bubble', {
 
     save: (props) => {
         const {
-            attributes: { content, imageUrl, imageAlt, backgroundColor, textColor, reverse }
+            attributes: { content, imageUrl, imageAlt, imageCaption, backgroundColor, textColor, reverse }
+
         } = props;
 
         // 保存側でも useBlockProps.save を使って inline style を出力
@@ -114,9 +122,14 @@ registerBlockType('integlight/speech-bubble', {
 
 
                 {imageUrl && (
-                    <div className="speech-bubble__image">
+                    <figure className="speech-bubble__image">
                         <img src={imageUrl} alt={imageAlt} />
-                    </div>
+                        <RichText.Content
+                            tagName="figcaption"
+                            className="speech-bubble__image-caption"
+                            value={imageCaption}
+                        />
+                    </figure>
                 )}
                 <div {...contentBlockProps}>
                     <RichText.Content tagName="p" value={content} />
