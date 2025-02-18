@@ -52,8 +52,10 @@ __webpack_require__.r(__webpack_exports__);
     const contentBlockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useBlockProps)({
       className: 'speech-bubble__content',
       style: {
-        backgroundColor: backgroundColor,
-        color: textColor
+        color: textColor,
+        ...(backgroundColor && (backgroundColor.startsWith('#') || backgroundColor.startsWith('linear-gradient') || backgroundColor.startsWith('radial-gradient')) ? {
+          backgroundColor
+        } : {})
       }
     });
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
@@ -148,8 +150,10 @@ __webpack_require__.r(__webpack_exports__);
     const contentBlockProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useBlockProps.save({
       className: 'speech-bubble__content',
       style: {
-        backgroundColor: backgroundColor,
-        color: textColor
+        color: textColor,
+        ...(backgroundColor && (backgroundColor.startsWith('#') || backgroundColor.startsWith('linear-gradient') || backgroundColor.startsWith('radial-gradient')) ? {
+          backgroundColor
+        } : {})
       }
     });
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {

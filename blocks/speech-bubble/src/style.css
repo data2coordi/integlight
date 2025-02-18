@@ -17,6 +17,13 @@
     object-fit: cover;
 }
 
+.speech-bubble__image .speech-bubble__image-caption {
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+
+
 .speech-bubble__content {
     position: relative;
     color: #fff;

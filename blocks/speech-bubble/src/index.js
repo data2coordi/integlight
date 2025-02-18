@@ -31,8 +31,15 @@ registerBlockType('integlight/speech-bubble', {
         const contentBlockProps = useBlockProps({
             className: 'speech-bubble__content',
             style: {
-                backgroundColor: backgroundColor,
-                color: textColor
+                color: textColor,
+                ...(backgroundColor &&
+                    (backgroundColor.startsWith('#') ||
+                        backgroundColor.startsWith('linear-gradient') ||
+                        backgroundColor.startsWith('radial-gradient')
+                    )
+                    ? { backgroundColor }
+                    : {}
+                )
             }
         });
 
@@ -111,8 +118,15 @@ registerBlockType('integlight/speech-bubble', {
         const contentBlockProps = useBlockProps.save({
             className: 'speech-bubble__content',
             style: {
-                backgroundColor: backgroundColor,
-                color: textColor
+                color: textColor,
+                ...(backgroundColor &&
+                    (backgroundColor.startsWith('#') ||
+                        backgroundColor.startsWith('linear-gradient') ||
+                        backgroundColor.startsWith('radial-gradient')
+                    )
+                    ? { backgroundColor }
+                    : {}
+                )
             }
         });
 
