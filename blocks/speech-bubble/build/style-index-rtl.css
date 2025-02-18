@@ -10,10 +10,7 @@
     gap: 1vw;
 }
 
-.speech-bubble__image {
-    margin-left: 10px;
-    flex-shrink: 0;
-}
+.speech-bubble__image {}
 
 .speech-bubble__image img {
     display: block;
