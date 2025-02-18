@@ -25,18 +25,14 @@
     position: relative;
     color: #fff;
     padding: 10px 15px;
-    border-radius: 10px;
+    border-radius: 15px;
+    /* 角を丸くする */
+    clip-path: polygon(50px 0%, 100% 0%, 100% 100%, 50px 100%,
+            20px 70%, 0% 50%, 20px 30%);
 }
 
-.speech-bubble__content::before {
-    content: "";
-    position: absolute;
-    right: -15px;
-    top: 20px;
-    border-width: 10px 0 10px 15px;
-    border-style: solid;
-    border-color: transparent transparent transparent #00aabb;
-}
+
+
 
 /* 反転レイアウト */
 .speech-bubble--reverse {
@@ -46,11 +42,4 @@
 .speech-bubble--reverse .speech-bubble__image {
     margin-left: 0;
     margin-right: 10px;
-}
-
-.speech-bubble--reverse .speech-bubble__content::before {
-    right: auto;
-    left: -15px;
-    border-width: 10px 15px 10px 0;
-    border-color: transparent currentColor transparent transparent;
 }
