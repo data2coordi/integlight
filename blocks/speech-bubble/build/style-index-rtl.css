@@ -52,5 +52,5 @@
     right: auto;
     left: -15px;
     border-width: 10px 15px 10px 0;
-    border-color: transparent #00aabb transparent transparent;
+    border-color: transparent currentColor transparent transparent;
 }

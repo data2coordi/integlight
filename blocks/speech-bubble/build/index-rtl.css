@@ -6,43 +6,17 @@
 
 .speech-bubble__image {}
 
-.speech-bubble__image img {
-    display: block;
-    border-radius: 50%;
-    -o-object-fit: cover;
-       object-fit: cover;
-}
+.speech-bubble__image img {}
 
 .speech-bubble__content {
-    position: relative;
-    color: #fff;
-    padding: 10px 15px;
-    border-radius: 10px;
 
+    margin: 0 !important;
 }
 
-.speech-bubble__content::before {
-    content: "";
-    position: absolute;
-    right: -15px;
-    top: 20px;
-    border-width: 10px 0 10px 15px;
-    border-style: solid;
-    border-color: transparent transparent transparent #00aabb;
-}
+.speech-bubble__content::before {}
 
-.speech-bubble--reverse {
-    flex-direction: row-reverse;
-}
+.speech-bubble--reverse {}
 
-.speech-bubble--reverse .speech-bubble__image {
-    margin-left: 0;
-    margin-right: 10px;
-}
+.speech-bubble--reverse .speech-bubble__image {}
 
-.speech-bubble--reverse .speech-bubble__content::before {
-    right: auto;
-    left: -15px;
-    border-width: 10px 15px 10px 0;
-    border-color: transparent #00aabb transparent transparent;
-}
+.speech-bubble--reverse .speech-bubble__content::before {}

@@ -52,7 +52,7 @@
     left: auto;
     right: -15px;
     border-width: 10px 0 10px 15px;
-    border-color: transparent transparent transparent #00aabb;
+    border-color: transparent transparent transparent currentColor;
 }
 
 /*# sourceMappingURL=style-index.css.map*/
