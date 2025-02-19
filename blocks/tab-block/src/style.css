@@ -1,0 +1,13 @@
+.integlight-tab-block {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.tabs button {
+    margin-right: 5px;
+    padding: 5px 10px;
+}
+
+.tabs .active {
+    font-weight: bold;
+}
