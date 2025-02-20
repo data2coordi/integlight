@@ -1,49 +1,103 @@
-import { useState } from '@wordpress/element';
 import { registerBlockType } from '@wordpress/blocks';
-import { InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, TextControl } from '@wordpress/components';
+import {
+    InnerBlocks,
+    RichText,
+    InspectorControls
+} from '@wordpress/block-editor';
+import { PanelBody } from '@wordpress/components';
+import { Fragment } from '@wordpress/element';
+
 import './editor.css';
 import './style.css';
 
-registerBlockType('integlight/tab-block', {
-    edit: ({ attributes, setAttributes }) => {
-        const [activeTab, setActiveTab] = useState(attributes.activeTab || 0);
-
+/**
+ * 子ブロック「タブ」の登録
+ */
+registerBlockType('integlight/tab', {
+    title: 'タブ',
+    parent: ['integlight/tab-block'],
+    icon: 'screenoptions',
+    category: 'layout',
+    attributes: {
+        tabTitle: {
+            type: 'string',
+            source: 'html',
+            selector: '.tab-title h4',
+            default: '' // デフォルト値を空にする
+        }
+    },
+    edit: (props) => {
+        const { attributes: { tabTitle }, setAttributes, className } = props;
         return (
-            <div className="integlight-tab-block">
-                <InspectorControls>
-                    <PanelBody title="Settings">
-                        <TextControl
-                            label="Active Tab"
-                            value={activeTab}
-                            onChange={(value) => {
-                                setActiveTab(Number(value));
-                                setAttributes({ activeTab: Number(value) });
-                            }}
-                        />
-                    </PanelBody>
-                </InspectorControls>
-                <div className="tabs">
-                    <button className={activeTab === 0 ? 'active' : ''} onClick={() => setActiveTab(0)}>Tab 1</button>
-                    <button className={activeTab === 1 ? 'active' : ''} onClick={() => setActiveTab(1)}>Tab 2</button>
+            <div className={`${className} tab`}>
+                <div className="tab-title">
+                    <RichText
+                        tagName="h4"
+                        placeholder="タブのタイトル..."
+                        value={tabTitle}
+                        onChange={(value) => setAttributes({ tabTitle: value })}
+                    />
                 </div>
-                <div className="content">
-                    {activeTab === 0 && <p>Content for Tab 1</p>}
-                    {activeTab === 1 && <p>Content for Tab 2</p>}
+                <div className="tab-content">
+                    <InnerBlocks />
                 </div>
             </div>
         );
     },
-    save: ({ attributes }) => {
+    save: (props) => {
+        const { attributes: { tabTitle } } = props;
         return (
-            <div className="integlight-tab-block">
-                <div className="tabs">
-                    <button className={attributes.activeTab === 0 ? 'active' : ''}>Tab 1</button>
-                    <button className={attributes.activeTab === 1 ? 'active' : ''}>Tab 2</button>
+            <div className="wp-block-integlight-tab tab">
+                <div className="tab-title">
+                    <h4>{tabTitle || ''}</h4> {/* 必ず h4 を出力するが、デフォルト値を設定しない */}
                 </div>
-                <div className="content">
-                    {attributes.activeTab === 0 && <p>Content for Tab 1</p>}
-                    {attributes.activeTab === 1 && <p>Content for Tab 2</p>}
+                <div className="tab-content">
+                    <InnerBlocks.Content />
+                </div>
+            </div>
+        );
+    }
+});
+
+/**
+ * 親ブロック「タブブロック」の登録
+ */
+registerBlockType('integlight/tab-block', {
+    title: 'タブブロック',
+    icon: 'index-card',
+    category: 'layout',
+    supports: {
+        html: false
+    },
+    edit: (props) => {
+        return (
+            <Fragment>
+                <InspectorControls>
+                    <PanelBody title="タブ設定" initialOpen={true}>
+                        {/* ここにインスペクター用の設定項目を追加可能 */}
+                    </PanelBody>
+                </InspectorControls>
+                <div className="tabs-block">
+                    <div className="tabs-navigation-editor">
+                        <p>※タブの切替はフロントエンドで反映されます。</p>
+                    </div>
+                    <div className="tabs-content-editor">
+                        <InnerBlocks
+                            allowedBlocks={['integlight/tab']}
+                            template={[['integlight/tab', {}]]}
+                            templateLock={false}
+                            renderAppender={InnerBlocks.ButtonBlockAppender}
+                        />
+                    </div>
+                </div>
+            </Fragment>
+        );
+    },
+    save: () => {
+        return (
+            <div className="tabs">
+                <div className="tabs-content">
+                    <InnerBlocks.Content />
                 </div>
             </div>
         );

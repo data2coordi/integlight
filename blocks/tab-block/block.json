@@ -1,18 +1,15 @@
 {
     "apiVersion": 2,
     "name": "integlight/tab-block",
-    "title": "【Integlight】Tab Block",
-    "category": "widgets",
-    "icon": "tabs",
+    "title": "タブブロック",
+    "category": "layout",
+    "icon": "index-card",
+    "description": "複数のタブを切り替えるブロック",
     "supports": {
         "html": false
     },
-    "attributes": {
-        "activeTab": {
-            "type": "number",
-            "default": 0
-        }
-    },
     "editorScript": "file:./build/index.js",
+    "script": "file:./src/frontend.js",
+    "editorStyle": "file:./build/index.css",
     "style": "file:./build/style-index.css"
 }
