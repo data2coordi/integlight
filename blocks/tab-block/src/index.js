@@ -2,7 +2,8 @@ import { registerBlockType } from '@wordpress/blocks';
 import {
     InnerBlocks,
     RichText,
-    InspectorControls
+    InspectorControls,
+    useBlockProps
 } from '@wordpress/block-editor';
 import { PanelBody } from '@wordpress/components';
 import { Fragment } from '@wordpress/element';
@@ -49,7 +50,7 @@ registerBlockType('integlight/tab', {
         return (
             <div className="wp-block-integlight-tab tab">
                 <div className="tab-title">
-                    <h4>{tabTitle || ''}</h4> {/* 必ず h4 を出力するが、デフォルト値を設定しない */}
+                    <RichText.Content tagName="h4" value={tabTitle} />
                 </div>
                 <div className="tab-content">
                     <InnerBlocks.Content />
@@ -58,6 +59,11 @@ registerBlockType('integlight/tab', {
         );
     }
 });
+
+
+
+
+
 
 /**
  * 親ブロック「タブブロック」の登録
@@ -70,6 +76,13 @@ registerBlockType('integlight/tab-block', {
         html: false
     },
     edit: (props) => {
+
+
+        const contentBlockProps = useBlockProps({
+            className: 'tabs-block'
+        });
+
+
         return (
             <Fragment>
                 <InspectorControls>
@@ -77,7 +90,7 @@ registerBlockType('integlight/tab-block', {
                         {/* ここにインスペクター用の設定項目を追加可能 */}
                     </PanelBody>
                 </InspectorControls>
-                <div className="tabs-block">
+                <div {...contentBlockProps}>
                     <div className="tabs-navigation-editor">
                         <p>※タブの切替はフロントエンドで反映されます。</p>
                     </div>
