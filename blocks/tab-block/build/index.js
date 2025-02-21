@@ -97,12 +97,6 @@ __webpack_require__.r(__webpack_exports__);
  * 親ブロック「タブブロック」の登録
  */
 (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)('integlight/tab-block', {
-  title: 'タブブロック',
-  icon: 'index-card',
-  category: 'layout',
-  supports: {
-    html: false
-  },
   edit: props => {
     const contentBlockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)({
       className: 'tabs-block'

@@ -69,12 +69,6 @@ registerBlockType('integlight/tab', {
  * 親ブロック「タブブロック」の登録
  */
 registerBlockType('integlight/tab-block', {
-    title: 'タブブロック',
-    icon: 'index-card',
-    category: 'layout',
-    supports: {
-        html: false
-    },
     edit: (props) => {
 
 
