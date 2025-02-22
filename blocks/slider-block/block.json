@@ -1,0 +1,15 @@
+{
+    "apiVersion": 2,
+    "name": "integlight/slider-block",
+    "title": "【Integlight】slider block",
+    "category": "layout",
+    "icon": "index-card",
+    "description": "複数のコンテンツをスライドするブロック",
+    "supports": {
+        "html": false
+    },
+    "editorScript": "file:./build/index.js",
+    "script": "file:./src/frontend.js",
+    "editorStyle": "file:./build/index.css",
+    "style": "file:./build/style-index.css"
+}
