@@ -5,11 +5,13 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
-    const tabContainers = document.querySelectorAll('.tabs');
+    const blockSliderContainers = document.querySelectorAll('.blockSliders');
 
-    tabContainers.forEach(container => {
-        const tabs = container.querySelectorAll('.tab');
-        if (tabs.length === 0) return;
+    blockSliderContainers.forEach(container => {
+        const blockSliders = container.querySelectorAll('.wp-block-group'); // `core/group` に適用
+        if (blockSliders.length === 0) return;
+
+        console.log('Found block sliders:', blockSliders);
 
         // スライドボタンを作成
         const prevButton = document.createElement('button');
@@ -25,39 +27,40 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let currentIndex = 0;
 
-        function setActiveTab(index) {
-            tabs.forEach((t, i) => {
-                t.style.display = i === index ? 'block' : 'none';
+        function setActiveBlockSlider(index) {
+            blockSliders.forEach((t, i) => {
+                t.style.opacity = i === index ? '1' : '0';
+                t.style.transition = 'opacity 0.5s ease-in-out';
             });
             currentIndex = index;
         }
 
-        function nextTab() {
-            const nextIndex = (currentIndex + 1) % tabs.length;
-            setActiveTab(nextIndex);
+        function nextBlockSlider() {
+            const nextIndex = (currentIndex + 1) % blockSliders.length;
+            setActiveBlockSlider(nextIndex);
         }
 
-        function prevTab() {
-            const prevIndex = (currentIndex - 1 + tabs.length) % tabs.length;
-            setActiveTab(prevIndex);
+        function prevBlockSlider() {
+            const prevIndex = (currentIndex - 1 + blockSliders.length) % blockSliders.length;
+            setActiveBlockSlider(prevIndex);
         }
 
         function resetAutoSlide() {
             clearInterval(autoSlide);
-            autoSlide = setInterval(nextTab, 5000); // 5秒ごとにスライド
+            autoSlide = setInterval(nextBlockSlider, 5000); // 5秒ごとにスライド
         }
 
         nextButton.addEventListener('click', () => {
-            nextTab();
+            nextBlockSlider();
             resetAutoSlide();
         });
 
         prevButton.addEventListener('click', () => {
-            prevTab();
+            prevBlockSlider();
             resetAutoSlide();
         });
 
-        setActiveTab(0);
-        let autoSlide = setInterval(nextTab, 5000);
+        setActiveBlockSlider(0);
+        let autoSlide = setInterval(nextBlockSlider, 5000);
     });
 });

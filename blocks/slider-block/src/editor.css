@@ -1,11 +1,17 @@
-.tabs-block {
-    border: 1px dashed #ccc;
+.blockSliders-block {
+    border: 2px dashed #ccc;
     padding: 10px;
-    background: #f9f9f9;
 }
 
-.tabs-navigation-editor {
-    font-size: 12px;
-    color: #666;
+.blockSliders-navigation-editor {
+    text-align: center;
     margin-bottom: 10px;
+    font-size: 14px;
+    color: #666;
+}
+
+.blockSliders-content-editor {
+    padding: 10px;
+    background-color: #f9f9f9;
+    min-height: 100px;
 }

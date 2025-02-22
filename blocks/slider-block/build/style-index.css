@@ -1,1 +1,55 @@
-.tabs{border:1px solid #ddd;padding:10px}.tabs-navigation{background:#f1f1f1;display:flex;list-style:none;margin:0 0 10px;padding:0}.tabs-navigation li{border-bottom:2px solid transparent;cursor:pointer;padding:10px 15px}.tabs-navigation li.active{border-bottom:2px solid #007cba;font-weight:700}.tab{display:none}.tab.active,.tab:first-child{display:block}
+/*!***************************************************************************************************************************************************************************!*\
+  !*** css ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./src/style.css ***!
+  \***************************************************************************************************************************************************************************/
+.blockSliders {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.blockSliders-content {
+    position: relative;
+    width: 100%;
+}
+
+.blockSliders .wp-block-group {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.blockSliders .wp-block-group:first-child {
+    position: relative;
+    opacity: 1;
+}
+
+.slide-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 18px;
+    z-index: 10;
+    border-radius: 5px;
+}
+
+.slide-button:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.slide-button.prev {
+    left: 10px;
+}
+
+.slide-button.next {
+    right: 10px;
+}
+
+/*# sourceMappingURL=style-index.css.map*/
