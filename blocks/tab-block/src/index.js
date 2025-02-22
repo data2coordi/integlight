@@ -29,8 +29,9 @@ registerBlockType('integlight/tab', {
     },
     edit: (props) => {
         const { attributes: { tabTitle }, setAttributes, className } = props;
+        const blockProps = useBlockProps({ className: 'tab' });
         return (
-            <div className={`${className} tab`}>
+            <div {...blockProps}>
                 <div className="tab-title">
                     <RichText
                         tagName="h4"
@@ -47,15 +48,17 @@ registerBlockType('integlight/tab', {
     },
     save: (props) => {
         const { attributes: { tabTitle } } = props;
+        const blockProps = useBlockProps.save({ className: 'wp-block-integlight-tab tab' });
+
         return (
-            <div className="wp-block-integlight-tab tab">
+            <div {...blockProps}>
                 <div className="tab-title">
                     <RichText.Content tagName="h4" value={tabTitle} />
                 </div>
                 <div className="tab-content">
                     <InnerBlocks.Content />
                 </div>
-            </div>
+            </div >
         );
     }
 });
@@ -101,8 +104,11 @@ registerBlockType('integlight/tab-block', {
         );
     },
     save: () => {
+        const blockProps = useBlockProps.save({ className: 'tabs' }); // 修正
+
         return (
-            <div className="tabs">
+            <div {...blockProps}>
+
                 <div className="tabs-content">
                     <InnerBlocks.Content />
                 </div>

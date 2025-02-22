@@ -1,7 +1,7 @@
 {
     "apiVersion": 2,
     "name": "integlight/tab-block",
-    "title": "タブブロック",
+    "title": "【Integlight】タブブロック",
     "category": "layout",
     "icon": "index-card",
     "description": "複数のタブを切り替えるブロック",
