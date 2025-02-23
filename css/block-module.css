@@ -1,4 +1,6 @@
 /***********ブロックエディタのセクション********/
+
+/*-------------タブブロック----------*/
 .tabs-navigation {
     border-radius: 50px; /* 角丸の半径 */
     background: #eee;
@@ -13,4 +15,13 @@
 
 .tabs {
     border: none;
+}
+
+
+
+/*-------------全幅ブロック----------*/
+.wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-colum {
+    padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 20px;
 }
