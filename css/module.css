@@ -561,6 +561,10 @@
     color: #fff;
 }
 
+.wp-block-buttons>.wp-block-button.has-custom-width .wp-block-button__link {
+    border-width: 1px;
+}
+
 
 /*** ボタン e ***/
 
