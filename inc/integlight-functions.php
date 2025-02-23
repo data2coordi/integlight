@@ -32,6 +32,7 @@ function integlight_scripts_plus()
 	wp_enqueue_style('integlight-front', get_template_directory_uri() . '/css/front.css', array(), _S_VERSION);
 	wp_enqueue_style('integlight-home', get_template_directory_uri() . '/css/home.css', array(), _S_VERSION);
 	wp_enqueue_style('integlight-module', get_template_directory_uri() . '/css/module.css', array(), _S_VERSION);
+	wp_enqueue_style('integlight-block-module', get_template_directory_uri() . '/css/block-module.css', array(), _S_VERSION);
 	wp_enqueue_style('integlight-helper', get_template_directory_uri() . '/css/helper.css', array(), _S_VERSION);
 
 	//web fonts: font awsome
@@ -58,6 +59,7 @@ function integlight_enqueue_editor_styles()
 	wp_enqueue_style('integlight-front', get_template_directory_uri() . '/css/front.css', array(), _S_VERSION);
 	wp_enqueue_style('integlight-home', get_template_directory_uri() . '/css/home.css', array(), _S_VERSION);
 	wp_enqueue_style('integlight-module', get_template_directory_uri() . '/css/module.css', array(), _S_VERSION);
+	wp_enqueue_style('integlight-block-module', get_template_directory_uri() . '/css/block-module.css', array(), _S_VERSION);
 	wp_enqueue_style('integlight-helper', get_template_directory_uri() . '/css/helper.css', array(), _S_VERSION);
 	//web fonts: font awsome
 	wp_enqueue_style('integlight-awesome', get_template_directory_uri() . '/css/awesome-all.min.css', array(), _S_VERSION);

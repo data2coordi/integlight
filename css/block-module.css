@@ -1,0 +1,16 @@
+/***********ブロックエディタのセクション********/
+.tabs-navigation {
+    border-radius: 50px; /* 角丸の半径 */
+    background: #eee;
+}
+
+.tabs-navigation li.active {
+    background: #000;
+    border-radius: 50px; /* 角丸の半径 */
+    color: #fff;
+    border: none;
+}
+
+.tabs {
+    border: none;
+}

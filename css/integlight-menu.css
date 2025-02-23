@@ -115,7 +115,7 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
     bottom: -1px;
     /* テキストより少し下に配置（調整可） */
     width: 100%;
-    height: 2px;
+    height: 1px;
     /* 下線の太さ */
     background: currentColor;
     /* リンクと同じ色にする */
