@@ -4,6 +4,7 @@
 .tabs-navigation {
     border-radius: 50px; /* 角丸の半径 */
     background: #eee;
+    margin-top: var(--ly-elementTopMarginSmall);
 }
 
 .tabs-navigation li.active {
