@@ -12,7 +12,7 @@
     width: 100%;
 }
 
-.blockSliders .wp-block-group {
+.wp-block-integlight-slider-block :not(.blockSliders-content-editor) .wp-block-group {
     position: absolute;
     width: 100%;
     top: 0;
