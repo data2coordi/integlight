@@ -150,6 +150,10 @@ button {
     margin-bottom: var(--ly-elementBottomMargin);
 }
 
+.wp-block-image img {
+    margin-top: var(--ly-elementTopMarginSmall);  
+}
+
 body .is-layout-flex {
     margin-top: var(--ly-elementTopMargin);
 }
