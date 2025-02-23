@@ -163,6 +163,7 @@
 .wp-block-latest-posts__post-title {
     display: block;
     border-bottom: 0.01em solid #f1f1f1;
+    padding: 5px 0px;
 }
 
 /* 新着記事 e*/
