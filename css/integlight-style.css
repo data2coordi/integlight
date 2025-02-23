@@ -116,6 +116,13 @@ textarea {
     padding: 10px;
 }
 
+/*-------------全幅ブロック----------*/
+.wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-colum {
+    padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 20px;
+}
+
 
 /*******************************/
 /* 基本的なフォントサイズの設定 e */
