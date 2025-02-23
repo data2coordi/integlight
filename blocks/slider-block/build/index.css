@@ -19,4 +19,10 @@
     min-height: 100px;
 }
 
+
+:is(.blockSliders-block .blockSlider, .blockSliders-block .blockSlider~*) {
+    border: 2px solid black;
+
+}
+
 /*# sourceMappingURL=index.css.map*/
