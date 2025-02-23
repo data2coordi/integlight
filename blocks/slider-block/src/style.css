@@ -1,10 +1,10 @@
-.wp-block-integlight-slider-block .blockSliders {
+.wp-block-integlight-slider-block {
     position: relative;
     width: 100%;
     overflow: hidden;
 }
 
-.blockSliders-content {
+.wp-block-integlight-slider-block .blockSliders-content {
     position: relative;
     width: 100%;
 }
