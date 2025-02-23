@@ -142,6 +142,14 @@ button {
     margin-top: var(--ly-elementTopMarginSmall);
 }
 
+p,
+ul,
+input,
+textarea,
+button {
+    margin-bottom: var(--ly-elementBottomMargin);
+}
+
 body .is-layout-flex {
     margin-top: var(--ly-elementTopMargin);
 }
