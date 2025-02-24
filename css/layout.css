@@ -227,4 +227,9 @@ label {
         max-width: 100%;
         height: auto;
     }
+
+    body .is-layout-flex {
+        padding-left: var(--ly-widthPadding);
+        padding-right: var(--ly-widthPadding);
+    }
 }
