@@ -49,7 +49,7 @@
 }
 
 .wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link:hover {
-  color: #fff; /* ホバー時は白テキスト */
+  color: #fff !important; /* ホバー時は白テキスト */
 }
 
 .wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link::before {
