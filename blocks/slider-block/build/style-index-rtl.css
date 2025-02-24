@@ -12,7 +12,7 @@
     width: 100%;
 }
 
-.wp-block-integlight-slider-block.blockSliders .wp-block-group {
+.wp-block-integlight-slider-block.blockSliders .blockSliders-content>* {
     position: absolute;
     width: 100%;
     top: 0;
@@ -21,9 +21,10 @@
     transition: opacity 0.5s ease-in-out;
 }
 
-.wp-block-integlight-slider-block.blockSliders .wp-block-group:first-child {
+.wp-block-integlight-slider-block.blockSliders .blockSliders-content>*:first-child {
     position: relative;
     opacity: 1;
+    background-color: red;
 }
 
 .wp-block-integlight-slider-block .slide-button {

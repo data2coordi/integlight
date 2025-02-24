@@ -48,17 +48,14 @@ __webpack_require__.r(__webpack_exports__);
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
           className: "blockSliders-content-editor",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InnerBlocks, {
-            allowedBlocks: ['core/group'] // グループブロックのみ許可
-            ,
-            template: [['core/group', {
-              className: 'blockSlider'
-            }]] // 1カラムのグループを自動追加
-            ,
-            templateLock: false // グループの削除・追加を自由に
-            ,
-            renderAppender: _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InnerBlocks.ButtonBlockAppender
-          })
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InnerBlocks
+
+          /*
+          allowedBlocks={['core/group']} // グループブロックのみ許可
+          template={[['core/group', { className: 'blockSlider' }]]} // 1カラムのグループを自動追加
+           templateLock={false} // グループの削除・追加を自由に
+          renderAppender={InnerBlocks.ButtonBlockAppender}
+          */, {})
         })]
       })]
     });

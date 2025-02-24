@@ -249,6 +249,7 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
 ul.menu>li.menu-item-has-children>ul.sub-menu {
     display: none;
     background: #000;
+    left: -150%;
 }
 
 ul.menu>li.menu-item-has-children.active>ul.sub-menu {

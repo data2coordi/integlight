@@ -5,10 +5,12 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
-    const blockSliderContainers = document.querySelectorAll('.blockSliders');
+    const blockSliderContainers = document.querySelectorAll(
+        '.wp-block-integlight-slider-block.blockSliders'
+    );
 
     blockSliderContainers.forEach(container => {
-        const blockSliders = container.querySelectorAll('.wp-block-group'); // `core/group` に適用
+        const blockSliders = container.querySelectorAll(':scope > *');
         if (blockSliders.length === 0) return;
 
         console.log('Found block sliders:', blockSliders);

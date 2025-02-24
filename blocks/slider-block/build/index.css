@@ -19,9 +19,8 @@
     min-height: 100px;
 }
 
-:is(.wp-block-integlight-slider-block.editorBlockSliders .blockSlider,
-    .wp-block-integlight-slider-block.editorBlockSliders .blockSlider~*) {
-    border: 2px solid black;
+.wp-block-integlight-slider-block.editorBlockSliders .block-editor-inner-blocks>.block-editor-block-list__layout>* {
+    border: 0.5px solid green;
 
 }
 
