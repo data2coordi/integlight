@@ -18,5 +18,10 @@
     border: none;
 }
 
+/******タブの縦幅********/
+ul.tabs-navigation {
+    line-height: 1;
+}
+
 
 
