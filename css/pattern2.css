@@ -1,23 +1,23 @@
 .integlight_pt footer {
-  background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
+  background: #0c62eb;
 }
 
 .integlight_pt button {
-  background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
+  background: #0c62eb;
 }
 
 
 .integlight_pt .pagetop {
-  background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
+  background: #0c62eb;
 }
 
 .integlight_pt p.head {
-  background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
+  background: #0c62eb;
 }
 
 .integlight_pt h2::after,
 .integlight_pt h3::after {
-  background-color: #0052d4;
+  background: #0c62eb;
 }
 
 .integlight_pt .entry-footer {
@@ -29,7 +29,7 @@
 .integlight_pt input[type="button"],
 .integlight_pt input[type="reset"],
 .integlight_pt input[type="submit"] {
-  background: linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
+  background: #0c62eb;
 }
 
 /************ボタンアニメーション**********/
@@ -59,7 +59,7 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background:linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%);
+  background: #0c62eb;
   transition: left 0.3s ease-in-out;
   z-index: -1;
 }
@@ -69,6 +69,6 @@
 }
 
 /* ボタングラデーション */
-/* background:linear-gradient(90deg, #0052d4 20%, #607aec 40%, #6fb1fc 70%); */
+/* background:linear-gradient(90deg, #0c62eb 20%, #607aec 40%, #6fb1fc 70%); */
 
 
