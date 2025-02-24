@@ -13,7 +13,7 @@ import './style.css';
 registerBlockType('integlight/slider-block', {
     edit: (props) => {
         const blockProps = useBlockProps({
-            className: 'blockSliders-block'
+            className: 'editorBlockSliders'
         });
 
         return (
@@ -29,9 +29,9 @@ registerBlockType('integlight/slider-block', {
                     </div>
                     <div className="blockSliders-content-editor">
                         <InnerBlocks
-                            allowedBlocks={['core/group']}
-                            template={[['core/group', { className: 'blockSlider' }]]}
-                            templateLock={false}
+                            allowedBlocks={['core/group']} // グループブロックのみ許可
+                            template={[['core/group', { className: 'blockSlider' }]]} // 1カラムのグループを自動追加
+                            templateLock={false} // グループの削除・追加を自由に
                             renderAppender={InnerBlocks.ButtonBlockAppender}
                         />
                     </div>

@@ -31,3 +31,39 @@
 .integlight_pt input[type="submit"] {
   background-color: #05c263;
 }
+
+/************ボタンアニメーション**********/
+.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 10px 20px;
+  border: 1px solid #555;
+  background-color: #fff; /* 非ホバー時は白背景 */
+  color: #555; /* 非ホバー時は濃いテキスト色 */
+  border-radius: inherit;
+  cursor: pointer;
+  text-align: center;
+  transition: color 0.3s ease-in-out;
+}
+
+.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link:hover {
+  color: #fff; /* ホバー時は白テキスト */
+}
+
+.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: #05c263;
+  transition: left 0.3s ease-in-out;
+  z-index: -1;
+}
+
+.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link:hover::before {
+  left: 0;
+}
