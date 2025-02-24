@@ -6,11 +6,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const blockSliderContainers = document.querySelectorAll(
-        '.wp-block-integlight-slider-block.blockSliders'
+        '.wp-block-integlight-slider-block.blockSliders > .blockSliders-content'
     );
 
     blockSliderContainers.forEach(container => {
-        const blockSliders = container.querySelectorAll(':scope > *');
+        const blockSliders = Array.from(container.children);
         if (blockSliders.length === 0) return;
 
         console.log('Found block sliders:', blockSliders);
@@ -24,10 +24,13 @@ document.addEventListener('DOMContentLoaded', function () {
         nextButton.className = 'slide-button next';
         nextButton.textContent = '>';
 
-        container.appendChild(prevButton);
-        container.appendChild(nextButton);
+        // `.wp-block-integlight-slider-block` にボタンを追加
+        const sliderBlock = container.closest('.wp-block-integlight-slider-block');
+        sliderBlock.appendChild(prevButton);
+        sliderBlock.appendChild(nextButton);
 
         let currentIndex = 0;
+        let autoSlide; // スコープを適切に設定
 
         function setActiveBlockSlider(index) {
             blockSliders.forEach((t, i) => {
@@ -63,6 +66,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         setActiveBlockSlider(0);
-        let autoSlide = setInterval(nextBlockSlider, 5000);
+        resetAutoSlide();
     });
 });
