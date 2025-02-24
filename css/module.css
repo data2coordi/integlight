@@ -219,6 +219,7 @@
     /* 子要素間のスペースを等しく */
     width: 100%;
     /* 幅を広げる */
+    margin-top: 0.7rem;
 }
 
 @media screen and (max-width: 768px) {
@@ -515,6 +516,7 @@
 .entry-header,
 .entry-footer {
     /*文字情報のためremでサイズをフレキシブル対応*/
+    margin-top: 0.7rem;
     margin-bottom: 0.7rem;
 }
 
