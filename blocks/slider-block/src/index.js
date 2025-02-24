@@ -31,6 +31,7 @@ registerBlockType('integlight/slider-block', {
                         <InnerBlocks
                             allowedBlocks={['core/group']} // グループブロックのみ許可
                             template={[['core/group', { className: 'blockSlider' }]]} // 1カラムのグループを自動追加
+
                             templateLock={false} // グループの削除・追加を自由に
                             renderAppender={InnerBlocks.ButtonBlockAppender}
                         />
