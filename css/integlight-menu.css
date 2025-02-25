@@ -248,7 +248,7 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
 /* サブメニュー（インライン展開） */
 ul.menu>li.menu-item-has-children>ul.sub-menu {
     display: none;
-    background: #555;
+    background: #000;
     left: -150%;
 }
 
