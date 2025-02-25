@@ -4,15 +4,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Integlight 2.0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/integlight\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Last-Translator:  <h95mori@color1.us-west1-a.c.color-a-294507.internal>\n"
+"Language-Team: Japanese\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2025-02-25T08:40:24+00:00\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2025-02-25 09:01+0000\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: integlight\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #. Theme Name of the theme
 #: style.css
@@ -40,7 +42,9 @@ msgid "Oops! That page can&rsquo;t be found."
 msgstr ""
 
 #: 404.php:21
-msgid "It looks like nothing was found at this location. Maybe try one of the links below or a search?"
+msgid ""
+"It looks like nothing was found at this location. Maybe try one of the links "
+"below or a search?"
 msgstr ""
 
 #: 404.php:30
@@ -63,7 +67,6 @@ msgctxt "comments title"
 msgid "%1$s thought on &ldquo;%2$s&rdquo;"
 msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
 msgstr[0] ""
-msgstr[1] ""
 
 #: comments.php:68
 msgid "Comments are closed."
@@ -91,8 +94,7 @@ msgstr ""
 msgid "Sidebar1"
 msgstr ""
 
-#: functions.php:133
-#: functions.php:146
+#: functions.php:133 functions.php:146
 msgid "Add widgets here."
 msgstr ""
 
@@ -136,8 +138,7 @@ msgstr ""
 msgid "Slide"
 msgstr ""
 
-#: inc/integlight-customizer.php:196
-#: inc/integlight-customizer.php:400
+#: inc/integlight-customizer.php:196 inc/integlight-customizer.php:400
 msgid "None"
 msgstr ""
 
@@ -186,7 +187,8 @@ msgid "Base color pattern"
 msgstr ""
 
 #: inc/integlight-customizer.php:449
-msgid "The base color pattern you select will be reflected throughout the site."
+msgid ""
+"The base color pattern you select will be reflected throughout the site."
 msgstr ""
 
 #: inc/integlight-functions.php:306
@@ -251,19 +253,23 @@ msgstr ""
 
 #. translators: 1: link to WP admin new post page.
 #: template-parts/content-none.php:24
-msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgid ""
+"Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
 msgstr ""
 
 #: template-parts/content-none.php:37
-msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
+msgid ""
+"Sorry, but nothing matched your search terms. Please try again with some "
+"different keywords."
 msgstr ""
 
 #: template-parts/content-none.php:44
-msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
+msgid ""
+"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
+"searching can help."
 msgstr ""
 
-#: template-parts/content-page.php:25
-#: template-parts/content.php:53
+#: template-parts/content-page.php:25 template-parts/content.php:53
 msgid "Pages:"
 msgstr ""
 
@@ -277,44 +283,33 @@ msgstr ""
 msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
 msgstr ""
 
-#: blocks/custom-cover/build/index.js:69
-#: blocks/custom-cover/src/index.js:45
-#: tmp/del予定.js:82
-#: blocks/custom-cover/build/index.js:45
+#: blocks/custom-cover/build/index.js:69 blocks/custom-cover/src/index.js:45
+#: tmp/del予定.js:82 blocks/custom-cover/build/index.js:45
 msgid "Cover Settings"
 msgstr ""
 
-#: blocks/custom-cover/build/index.js:71
-#: blocks/custom-cover/src/index.js:47
-#: tmp/del予定.js:85
-#: blocks/custom-cover/build/index.js:47
+#: blocks/custom-cover/build/index.js:71 blocks/custom-cover/src/index.js:47
+#: tmp/del予定.js:85 blocks/custom-cover/build/index.js:47
 msgid "Use Article Width for Inner Content"
 msgstr ""
 
-#: blocks/custom-cover/build/index.js:77
-#: blocks/custom-cover/src/index.js:52
+#: blocks/custom-cover/build/index.js:77 blocks/custom-cover/src/index.js:52
 #: blocks/custom-cover/build/index.js:52
 msgid "Overlay Opacity (-100 for bright, 100 for dark)"
 msgstr ""
 
-#: blocks/custom-cover/build/index.js:98
-#: blocks/custom-cover/src/index.js:72
-#: tmp/del予定.js:109
-#: blocks/custom-cover/build/index.js:72
+#: blocks/custom-cover/build/index.js:98 blocks/custom-cover/src/index.js:72
+#: tmp/del予定.js:109 blocks/custom-cover/build/index.js:72
 msgid "Upload Background Image"
 msgstr ""
 
-#: blocks/custom-cover/build/index.js:98
-#: blocks/custom-cover/src/index.js:73
-#: tmp/del予定.js:109
-#: blocks/custom-cover/build/index.js:73
+#: blocks/custom-cover/build/index.js:98 blocks/custom-cover/src/index.js:73
+#: tmp/del予定.js:109 blocks/custom-cover/build/index.js:73
 msgid "Change Background Image"
 msgstr ""
 
-#: blocks/custom-cover/build/index.js:111
-#: blocks/custom-cover/src/index.js:84
-#: tmp/del予定.js:122
-#: blocks/custom-cover/build/index.js:84
+#: blocks/custom-cover/build/index.js:111 blocks/custom-cover/src/index.js:84
+#: tmp/del予定.js:122 blocks/custom-cover/build/index.js:84
 msgid "Remove Background Image"
 msgstr ""
 
@@ -341,7 +336,9 @@ msgstr ""
 
 #: blocks/custom-cover/block.json
 msgctxt "block description"
-msgid "A custom cover block with fixed full-width outer container and inner content width selectable as article width or full width."
+msgid ""
+"A custom cover block with fixed full-width outer container and inner content "
+"width selectable as article width or full width."
 msgstr ""
 
 #: blocks/hello-world-block/block.json
@@ -366,7 +363,9 @@ msgstr ""
 
 #: blocks/speech-bubble/block.json
 msgctxt "block description"
-msgid "画像とテキストを設定でき、背景色とテキスト色の変更が可能な吹き出しブロックです。"
+msgid ""
+"画像とテキストを設定でき、背景色とテキスト色の変更が可能な吹き出しブロックで"
+"す。"
 msgstr ""
 
 #: blocks/tab-block/block.json

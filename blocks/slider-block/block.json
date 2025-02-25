@@ -3,11 +3,12 @@
     "name": "integlight/slider-block",
     "title": "【Integlight】slider block",
     "category": "layout",
-    "icon": "index-card",
-    "description": "複数のコンテンツをスライドするブロック",
+    "icon": "slides",
+    "description": "A block that slides multiple contents.",
     "supports": {
         "html": false
     },
+    "textdomain": "integlight",
     "editorScript": "file:./build/index.js",
     "script": "file:./src/frontend.js",
     "editorStyle": "file:./build/index.css",
