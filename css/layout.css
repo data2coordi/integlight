@@ -147,7 +147,7 @@ ul,
 input,
 textarea,
 button {
-    margin-bottom: var(--ly-elementBottomMargin);
+    /* margin-bottom: var(--ly-elementBottomMargin); */
 }
 
 .wp-block-image img {
