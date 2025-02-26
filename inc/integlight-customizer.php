@@ -301,8 +301,8 @@ class InteglightSlide
 			'section'  => 'slider_section',
 			'type'     => 'select',
 			'choices'  => array(
-				'yu_gothic' => __('游ゴシック', 'integlight'),
-				'yu_mincho' => __('游明朝', 'integlight'),
+				'yu_gothic' => __('yu gothic', 'integlight'),
+				'yu_mincho' => __('yu mincho', 'integlight'),
 			),
 		));
 	}
@@ -319,7 +319,7 @@ class InteglightSlide
 			$customize,
 			$settingName,
 			array(
-				'label'    => __($label),
+				'label'    => __($label, 'integlight'),
 				'section'  => 'slider_section',
 				'settings' => 'integlight_slider_text_color',
 			)

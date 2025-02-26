@@ -21,7 +21,7 @@ registerBlockType('integlight/slider-block', {
             <Fragment>
                 {/*
                 <InspectorControls>
-                    <PanelBody title="スライダー設定" initialOpen={true}>
+                    <PanelBody title=__("slider setting") initialOpen={true}>
                         { }
                     </PanelBody>
                 </InspectorControls>

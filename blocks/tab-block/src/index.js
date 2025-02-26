@@ -15,7 +15,7 @@ import './style.css';
  * 子ブロック「タブ」の登録
  */
 registerBlockType('integlight/tab', {
-    title: 'タブ',
+    title: __("Tab", "integlight"),
     parent: ['integlight/tab-block'],
     icon: 'screenoptions',
     category: 'layout',
@@ -35,7 +35,7 @@ registerBlockType('integlight/tab', {
                 <div className="tab-title">
                     <RichText
                         tagName="h4"
-                        placeholder="タブのタイトル..."
+                        placeholder={__("Tab title...", "integlight")}
                         value={tabTitle}
                         onChange={(value) => setAttributes({ tabTitle: value })}
                     />
@@ -83,13 +83,13 @@ registerBlockType('integlight/tab-block', {
         return (
             <Fragment>
                 <InspectorControls>
-                    <PanelBody title="タブ設定" initialOpen={true}>
+                    <PanelBody title={__("Tab setting", "integlight")} initialOpen={true}>
                         {/* ここにインスペクター用の設定項目を追加可能 */}
                     </PanelBody>
                 </InspectorControls>
                 <div {...contentBlockProps}>
                     <div className="tabs-navigation-editor">
-                        <p>※タブの切替はフロントエンドで反映されます。</p>
+                        <p>{__("Tab switching is reflected when the website is displayed.", "integlight")}</p>
                     </div>
                     <div className="tabs-content-editor">
                         <InnerBlocks

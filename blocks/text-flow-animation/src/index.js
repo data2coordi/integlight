@@ -11,21 +11,21 @@ registerBlockType('integlight/text-flow-animation', {
         return (
             <>
                 <InspectorControls>
-                    <PanelBody title="テキスト設定">
+                    <PanelBody title={__("Text setting", "integlight")}>
                         <RangeControl
-                            label="フォントサイズ"
+                            label={__("Font size", "integlight")}
                             value={attributes.fontSize}
                             onChange={(value) => setAttributes({ fontSize: value })}
                             min={10}
                             max={100}
                         />
                         <ColorPicker
-                            label="カラー"
+                            label={__("Color", "integlight")}
                             color={attributes.color}
                             onChangeComplete={(value) => setAttributes({ color: value.hex })}
                         />
                         <SelectControl
-                            label="フォントファミリー"
+                            label={__("Font family", "integlight")}
                             value={attributes.fontFamily}
                             options={[
                                 { label: 'Impact', value: "Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif" },
@@ -46,7 +46,7 @@ registerBlockType('integlight/text-flow-animation', {
                         tagName="p"
                         value={attributes.content}
                         onChange={(content) => setAttributes({ content })}
-                        placeholder="テキストを入力..."
+                        placeholder={__("Enter text...", "integlight")}
                         style={{
                             fontSize: `${attributes.fontSize}px`,
                             color: attributes.color,

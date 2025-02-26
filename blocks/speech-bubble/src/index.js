@@ -23,7 +23,7 @@ registerBlockType('integlight/speech-bubble', {
         const onSelectImage = (media) => {
             setAttributes({
                 imageUrl: media.url,
-                imageAlt: media.alt || '顔画像'
+                imageAlt: media.alt || __('faceimage', 'integlight')
             });
         };
 
@@ -46,7 +46,7 @@ registerBlockType('integlight/speech-bubble', {
         return (
             <>
                 <InspectorControls>
-                    <PanelBody title="画像設定" initialOpen={true}>
+                    <PanelBody title={__("Image setting", "integlight")} initialOpen={true}>
                         {imageUrl ? (
                             <div>
                                 <img src={imageUrl} alt={imageAlt} style={{ width: '100%' }} />
@@ -55,7 +55,8 @@ registerBlockType('integlight/speech-bubble', {
                                     isLink
                                     isDestructive
                                 >
-                                    画像を削除
+
+                                    {__("Delete image", "integlight")}
                                 </Button>
                             </div>
                         ) : (
@@ -65,16 +66,16 @@ registerBlockType('integlight/speech-bubble', {
                                     allowedTypes={['image']}
                                     render={({ open }) => (
                                         <Button onClick={open} isPrimary>
-                                            画像を選択
+                                            {__("Select image", "integlight")}
                                         </Button>
                                     )}
                                 />
                             </MediaUploadCheck>
                         )}
                     </PanelBody>
-                    <PanelBody title="レイアウト設定" initialOpen={false}>
+                    <PanelBody title={__("layout setting", "integlight")} initialOpen={false}>
                         <ToggleControl
-                            label="画像と吹き出しの位置を反転する"
+                            label={__("Reverse the positions of the image and speech bubble.", "integlight")}
                             checked={reverse}
                             onChange={(newVal) => setAttributes({ reverse: newVal })}
                         />
@@ -91,7 +92,7 @@ registerBlockType('integlight/speech-bubble', {
                                 className="speech-bubble__image-caption"
                                 onChange={(newCaption) => setAttributes({ imageCaption: newCaption })}
                                 value={imageCaption}
-                                placeholder="ここにキャプションを入力"
+                                placeholder={__("Enter caption here.", "integlight")}
                             />
                         </figure>
                     )}
@@ -100,7 +101,7 @@ registerBlockType('integlight/speech-bubble', {
                             tagName="p"
                             onChange={(newContent) => setAttributes({ content: newContent })}
                             value={content}
-                            placeholder="ここにメッセージを入力"
+                            placeholder={__("Enter message here.", "integlight")}
                         />
                     </div>
                 </div>
