@@ -1,9 +1,9 @@
-.tabs {
+.integlight-tabs {
     border: 1px solid #ddd;
     padding: 10px;
 }
 
-.tabs-navigation {
+.integlight-tabs .tabs-navigation {
     list-style: none;
     display: flex;
     background: #f1f1f1;
@@ -11,26 +11,26 @@
     margin: 0 0 10px;
 }
 
-.tabs-navigation li {
+.integlight-tabs .tabs-navigation li {
     padding: 10px 15px;
     cursor: pointer;
     border-bottom: 2px solid transparent;
 }
 
-.tabs-navigation li.active {
+.integlight-tabs .tabs-navigation li.active {
     border-bottom: 2px solid #007cba;
     font-weight: bold;
 }
 
-.tab {
+.integlight-tabs .tab {
     display: none;
 }
 
-.tab:first-child {
+.integlight-tabs .tab:first-child {
     display: block;
 }
 
 
-.tab.active {
+.integlight-tabs .tab.active {
     display: block;
 }

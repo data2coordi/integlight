@@ -12,6 +12,10 @@ import {
 } from '@wordpress/block-editor';
 import { PanelBody, Button, ToggleControl } from '@wordpress/components';
 
+import { __ } from '@wordpress/i18n';
+
+
+
 registerBlockType('integlight/speech-bubble', {
     edit: (props) => {
         const {
@@ -81,7 +85,7 @@ registerBlockType('integlight/speech-bubble', {
                         />
                     </PanelBody>
                 </InspectorControls>
-                <div className={`${className} wp-block speech-bubble ${reverse ? "speech-bubble--reverse" : "speech-bubble--normal"}`}>
+                <div className={`${className} wp-block integlight-speech-bubble ${reverse ? "integlight-speech-bubble--reverse" : "integlight-speech-bubble--normal"}`}>
 
 
                     {imageUrl && (
@@ -133,7 +137,7 @@ registerBlockType('integlight/speech-bubble', {
 
         return (
 
-            <div className={`speech-bubble ${reverse ? "speech-bubble--reverse" : "speech-bubble--normal"}`}>
+            <div className={`integlight-speech-bubble ${reverse ? "integlight-speech-bubble--reverse" : "integlight-speech-bubble--normal"}`}>
 
 
                 {imageUrl && (

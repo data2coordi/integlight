@@ -116,6 +116,7 @@ add_action('enqueue_block_editor_assets', 'add_fontawesome_button_to_toolbar');
 
 
 //右寄せサンプルツールバー
+/*
 function add_right_align_button_to_toolbar()
 {
 	wp_enqueue_script(
@@ -128,22 +129,19 @@ function add_right_align_button_to_toolbar()
 }
 
 add_action('enqueue_block_editor_assets', 'add_right_align_button_to_toolbar');
-
-
-//tab-blockのフロントエンド
-/*
-function integlight_enqueue_block_assets()
-{
-	wp_enqueue_script(
-		'integlight-tab-block-frontend',
-		get_template_directory_uri() . '/blocks/tab-block/src/frontend.js',
-		array('jquery'),
-		filemtime(get_template_directory() . '/blocks/tab-block/src/frontend.js'),
-		true
-	);
-}
-add_action('wp_enqueue_scripts', 'integlight_enqueue_block_assets');
 */
+
+//ブロックの国際化対応
+/*
+function integlight_register_block()
+{
+	register_block_type(__DIR__ . '/blocks/speech-bubble');
+
+	wp_set_script_translations('file:./build/index.js', 'integlight');
+}
+add_action('init', 'integlight_register_block');
+*/
+
 
 
 

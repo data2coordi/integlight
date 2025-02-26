@@ -1,5 +1,5 @@
 /* 通常レイアウト */
-.speech-bubble {
+.integlight-speech-bubble {
     display: flex;
     align-items: flex-start;
     margin-top: 50px;
@@ -7,9 +7,9 @@
     gap: 1vw;
 }
 
-.speech-bubble__image {}
+.integlight-speech-bubble .speech-bubble__image {}
 
-.speech-bubble__image img {
+.integlight-speech-bubble .speech-bubble__image img {
     display: block;
     width: clamp(50px, 5vw, 100px);
     height: clamp(50px, 5vw, 100px);
@@ -17,14 +17,14 @@
     object-fit: cover;
 }
 
-.speech-bubble__image .speech-bubble__image-caption {
+.integlight-speech-bubble .speech-bubble__image .speech-bubble__image-caption {
     font-size: 0.8rem;
     text-align: center;
 }
 
 
 
-.speech-bubble__content {
+.integlight-speech-bubble .speech-bubble__content {
     position: relative;
     color: #fff;
     padding: 10px 15px;
@@ -32,7 +32,7 @@
 }
 
 
-.speech-bubble--normal .speech-bubble__content::before {
+.integlight-speech-bubble--normal .speech-bubble__content::before {
     content: "";
     position: absolute;
     top: calc(50% - 10px);
@@ -69,11 +69,11 @@
 
 
 /* 反転レイアウト */
-.speech-bubble--reverse {
+.integlight-speech-bubble--reverse {
     flex-direction: row-reverse;
 }
 
-.speech-bubble--reverse .speech-bubble__image {
+.integlight-speech-bubble--reverse .speech-bubble__image {
     margin-right: 0;
     margin-left: 10px;
 }
@@ -81,7 +81,7 @@
 
 
 /* 反転レイアウトの場合の吹き出しの口 */
-.speech-bubble--reverse .speech-bubble__content::after {
+.integlight-speech-bubble--reverse .speech-bubble__content::after {
     content: "";
     position: absolute;
     top: calc(50% - 10px);

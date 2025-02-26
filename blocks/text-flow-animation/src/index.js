@@ -4,9 +4,11 @@ import { PanelBody, RangeControl, ColorPicker, SelectControl } from '@wordpress/
 import './style.css';
 import './editor.css';
 
+import { __ } from '@wordpress/i18n';
+
 registerBlockType('integlight/text-flow-animation', {
     edit: ({ attributes, setAttributes }) => {
-        const blockProps = useBlockProps({ className: "text-flow-editor" });
+        const blockProps = useBlockProps({ className: "integlight-text-flow-editor" });
 
         return (
             <>
@@ -59,7 +61,7 @@ registerBlockType('integlight/text-flow-animation', {
     },
 
     save: ({ attributes }) => {
-        const blockProps = useBlockProps.save({ className: "text-flow-animation" });
+        const blockProps = useBlockProps.save({ className: "integlight-text-flow-animation" });
 
         return (
             <div {...blockProps} style={{ fontSize: `${attributes.fontSize}px`, color: attributes.color, fontFamily: attributes.fontFamily }}>

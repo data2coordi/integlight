@@ -11,6 +11,7 @@ import { Fragment } from '@wordpress/element';
 import './editor.css';
 import './style.css';
 
+import { __ } from '@wordpress/i18n';
 /**
  * 子ブロック「タブ」の登録
  */
@@ -76,7 +77,7 @@ registerBlockType('integlight/tab-block', {
 
 
         const contentBlockProps = useBlockProps({
-            className: 'tabs-block'
+            className: 'integlight-tabs-block'
         });
 
 
@@ -91,7 +92,7 @@ registerBlockType('integlight/tab-block', {
                     <div className="tabs-navigation-editor">
                         <p>{__("Tab switching is reflected when the website is displayed.", "integlight")}</p>
                     </div>
-                    <div className="tabs-content-editor">
+                    <div>
                         <InnerBlocks
                             allowedBlocks={['integlight/tab']}
                             template={[['integlight/tab', {}]]}
@@ -104,12 +105,12 @@ registerBlockType('integlight/tab-block', {
         );
     },
     save: () => {
-        const blockProps = useBlockProps.save({ className: 'tabs' }); // 修正
+        const blockProps = useBlockProps.save({ className: 'integlight-tabs' }); // 修正
 
         return (
             <div {...blockProps}>
 
-                <div className="tabs-content">
+                <div >
                     <InnerBlocks.Content />
                 </div>
             </div>

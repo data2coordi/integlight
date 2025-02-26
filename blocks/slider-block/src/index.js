@@ -28,7 +28,7 @@ registerBlockType('integlight/slider-block', {
                 */}
                 <div {...blockProps}>
                     <div className="blockSliders-navigation-editor">
-                        <p>{__("*Please create multiple pieces of content. They will be displayed in a slide format when viewed as a website.", "integlight")}</p>
+                        <p>{__("Please create multiple pieces of content. They will be displayed in a slide format when viewed as a website.", "integlight")}</p>
                     </div>
                     <div className="blockSliders-content-editor">
                         <InnerBlocks

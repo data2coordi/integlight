@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
-    const tabContainers = document.querySelectorAll('.tabs');
+    const tabContainers = document.querySelectorAll('.integlight-tabs ');
 
     tabContainers.forEach(container => {
         const tabs = container.querySelectorAll('.tab');

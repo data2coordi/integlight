@@ -1,13 +1,13 @@
-.text-flow-animation {
+.integlight-text-flow-animation {
     overflow: hidden;
     width: 100%;
 }
 
-.loop_wrap {
+.integlight-text-flow-animation .loop_wrap {
     display: flex;
 }
 
-.loop_wrap div {
+.integlight-text-flow-animation .loop_wrap div {
     flex: 0 0 auto;
     overflow: hidden;
     width: 100%;
