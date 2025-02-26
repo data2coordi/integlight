@@ -50,7 +50,7 @@ function integlight_display_slider_or_image()
 	} else {
 		// ヘッダー画像を表示
 		if (get_header_image()) {
-			echo '<img src="' . esc_url(get_header_image()) . '" class="topImage" ' .  ' alt="' . get_bloginfo('name') . '">';
+			echo '<img src="' . esc_url(get_header_image()) . '" class="topImage" ' .  ' alt="' . esc_attr(get_bloginfo('name')) . '">';
 		}
 	}
 }
@@ -254,7 +254,6 @@ class InteglightSlide
 		$customize->add_setting('integlight_slider_fade_duration', array(
 			'default' => '0.8',
 			'sanitize_callback' => 'absint', // 数値をサニタイズ
-			sanitize_text_field
 		));
 
 		$customize->add_control('integlight_slider_fade_duration', array(
@@ -340,23 +339,23 @@ class InteglightSlide
 
 		/*画像*/
 		$this->effect($wp_customize);
-		$this->image($wp_customize, 'integlight_slider_image_1', 'Slider Image 1');
-		$this->image($wp_customize, 'integlight_slider_image_2', 'Slider Image 2');
-		$this->image($wp_customize, 'integlight_slider_image_3', 'Slider Image 3');
-		$this->number($wp_customize, 'integlight_slider_change_duration', 'Slider Change Duration (seconds)', 1, 1);
+		$this->image($wp_customize, 'integlight_slider_image_1', __('Slider Image 1', 'integlight'));
+		$this->image($wp_customize, 'integlight_slider_image_2', __('Slider Image 2', 'integlight'));
+		$this->image($wp_customize, 'integlight_slider_image_3', __('Slider Image 3', 'integlight'));
+		$this->number($wp_customize, 'integlight_slider_change_duration', __('Slider Change Duration (seconds)', 'integlight'), 1, 1);
 
 		/*テキスト*/
-		$this->label($wp_customize, 'integlight_slider_text_heading', 'Slider Text ');
-		$this->text($wp_customize, 'integlight_slider_text_1', 'Slider Text Main');
-		$this->text($wp_customize, 'integlight_slider_text_2', 'Slider Text Sub');
-		$this->color($wp_customize, 'integlight_slider_text_color', 'Slider Text color');
+		$this->label($wp_customize, 'integlight_slider_text_heading', __('Slider Text', 'integlight'));
+		$this->text($wp_customize, 'integlight_slider_text_1', __('Slider Text Main', 'integlight'));
+		$this->text($wp_customize, 'integlight_slider_text_2', __('Slider Text Sub', 'integlight'));
+		$this->color($wp_customize, 'integlight_slider_text_color', __('Slider Text color', 'integlight'));
 		$this->fonttype($wp_customize);
-		$this->label($wp_customize, 'integlight_slider_text_position_heading', 'Slider Text Position');
-		$this->number($wp_customize, 'integlight_slider_text_top', 'Slider Text Position Top (px)', 0, 1);
-		$this->number($wp_customize, 'integlight_slider_text_left', 'Slider Text Position Left (px)', 0, 1);
-		$this->label($wp_customize, 'integlight_slider_text_position_heading_mobile', 'Slider Text Position Mobile');
-		$this->number($wp_customize, 'integlight_slider_text_top_mobile', 'Slider Text Position Top Mobile (px)', 0, 1);
-		$this->number($wp_customize, 'integlight_slider_text_left_mobile', 'Slider Text Position Left Mobile (px)', 0, 1);
+		$this->label($wp_customize, 'integlight_slider_text_position_heading', __('Slider Text Position', 'integlight'));
+		$this->number($wp_customize, 'integlight_slider_text_top', __('Slider Text Position Top (px)', 'integlight'), 0, 1);
+		$this->number($wp_customize, 'integlight_slider_text_left', __('Slider Text Position Left (px)', 'integlight'), 0, 1);
+		$this->label($wp_customize, 'integlight_slider_text_position_heading_mobile', __('Slider Text Position Mobile', 'integlight'));
+		$this->number($wp_customize, 'integlight_slider_text_top_mobile', __('Slider Text Position Top Mobile (px)', 'integlight'), 0, 1);
+		$this->number($wp_customize, 'integlight_slider_text_left_mobile', __('Slider Text Position Left Mobile (px)', 'integlight'), 0, 1);
 		//利用しないように変更
 		//$this->fadeDurationTime($wp_customize);
 

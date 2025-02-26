@@ -9,16 +9,15 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-02-25T12:38:39+00:00\n"
+"POT-Creation-Date: 2025-02-26T07:46:00+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: integlight\n"
 
-
 #. Theme Name of the theme
 #: style.css
 msgid "Integlight"
-msgstr "Integlight"
+msgstr "インテグライト"
 
 #. Theme URI of the theme
 #. Author URI of the theme
@@ -38,20 +37,20 @@ msgstr "Underscores.me"
 
 #: 404.php:17
 msgid "Oops! That page can&rsquo;t be found."
-msgstr "おっと！そのページは見つかりませんでした"
+msgstr "おっと！ページが見つかりません。"
 
 #: 404.php:21
 msgid "It looks like nothing was found at this location. Maybe try one of the links below or a search?"
-msgstr "この場所には何も見つかりませんでした下のリンクを試すか、検索してみてください"
+msgstr "この場所には何も見つかりませんでした。以下のリンクを試すか、検索してください。"
 
 #: 404.php:30
 msgid "Most Used Categories"
-msgstr "最も使用されているカテゴリー"
+msgstr "よく使用されるカテゴリ"
 
 #. translators: %1$s: smiley
 #: 404.php:48
 msgid "Try looking in the monthly archives. %1$s"
-msgstr "月別アーカイブを確認してみてください%1$s"
+msgstr "月別アーカイブを調べてみてください。 %1$s"
 
 #. translators: 1: title.
 #: comments.php:35
@@ -62,11 +61,13 @@ msgstr "「%1$s」への1件のコメント"
 #: comments.php:41
 msgctxt "comments title"
 msgid "%1$s thought on &ldquo;%2$s&rdquo;"
-msgstr ""
+msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgstr[0] "%1$s件の「%2$s」へのコメント"
+msgstr[1] "%1$s件の「%2$s」へのコメント"
 
 #: comments.php:68
 msgid "Comments are closed."
-msgstr "コメントは受け付けていません"
+msgstr "コメントはクローズされました。"
 
 #: footer.php:20
 msgid "https://wordpress.org/"
@@ -75,12 +76,12 @@ msgstr "https://wordpress.org/"
 #. translators: %s: CMS name, i.e. WordPress.
 #: footer.php:23
 msgid "Proudly powered by %s"
-msgstr "%s によって誇りを持って運営されています"
+msgstr "WordPress（%s）で作成"
 
 #. translators: 1: Theme name, 2: Theme author.
 #: footer.php:29
 msgid "Theme: %1$s by %2$s."
-msgstr "テーマ: %1$s（%2$s 制作）"
+msgstr "テーマ: %1$s (作成者: %2$s)"
 
 #: functions.php:54
 msgid "Primary"
@@ -93,7 +94,7 @@ msgstr "サイドバー1"
 #: functions.php:133
 #: functions.php:146
 msgid "Add widgets here."
-msgstr "ここにウィジェットを追加してください"
+msgstr "ここにウィジェットを追加"
 
 #: functions.php:144
 msgid "Sidebar2"
@@ -109,7 +110,7 @@ msgstr "トップヘッダー：[画像設定]"
 
 #: inc/integlight-customizer.php:18
 msgid "Top Header:[Select - Slider or Image]"
-msgstr "トップヘッダー：[選択 - スライダーまたは画像]"
+msgstr "トップヘッダー：[スライダーまたは画像を選択]"
 
 #: inc/integlight-customizer.php:29
 msgid "Display Slider or Image"
@@ -136,57 +137,109 @@ msgid "Slide"
 msgstr "スライド"
 
 #: inc/integlight-customizer.php:196
-#: inc/integlight-customizer.php:400
+#: inc/integlight-customizer.php:399
 msgid "None"
 msgstr "なし"
 
-#: inc/integlight-customizer.php:261
+#: inc/integlight-customizer.php:260
 msgid "Slider Fade Duration (seconds)"
-msgstr "スライダーのフェード時間（秒）"
+msgstr "スライダーフェード時間（秒）"
 
-#: inc/integlight-customizer.php:300
+#: inc/integlight-customizer.php:299
 msgid "Slider Text Font"
-msgstr "スライダーテキストのフォント"
+msgstr "スライダーテキストフォント"
 
-#: inc/integlight-customizer.php:304
+#: inc/integlight-customizer.php:303
 msgid "yu gothic"
 msgstr "游ゴシック"
 
-#: inc/integlight-customizer.php:305
+#: inc/integlight-customizer.php:304
 msgid "yu mincho"
 msgstr "游明朝"
 
-#: inc/integlight-customizer.php:337
+#: inc/integlight-customizer.php:336
 msgid "Top Header:[Slider Settings]"
 msgstr "トップヘッダー：[スライダー設定]"
 
-#: inc/integlight-customizer.php:392
+#: inc/integlight-customizer.php:342
+msgid "Slider Image 1"
+msgstr "スライダー画像1"
+
+#: inc/integlight-customizer.php:343
+msgid "Slider Image 2"
+msgstr "スライダー画像2"
+
+#: inc/integlight-customizer.php:344
+msgid "Slider Image 3"
+msgstr "スライダー画像3"
+
+#: inc/integlight-customizer.php:348
+msgid "Slider Text"
+msgstr "スライダーテキスト"
+
+#: inc/integlight-customizer.php:349
+msgid "Slider Text Main"
+msgstr "スライダーテキスト（メイン）"
+
+#: inc/integlight-customizer.php:350
+msgid "Slider Text Sub"
+msgstr "スライダーテキスト（サブ）"
+
+#: inc/integlight-customizer.php:351
+msgid "Slider Text color"
+msgstr "スライダーテキストカラー"
+
+#: inc/integlight-customizer.php:353
+msgid "Slider Text Position"
+msgstr "スライダーテキスト位置"
+
+#: inc/integlight-customizer.php:354
+msgid "Slider Text Position Top (px)"
+msgstr "スライダーテキスト位置（上）（px）"
+
+#: inc/integlight-customizer.php:355
+msgid "Slider Text Position Left (px)"
+msgstr "スライダーテキスト位置（左）（px）"
+
+#: inc/integlight-customizer.php:356
+msgid "Slider Text Position Mobile"
+msgstr "スライダーテキスト位置（モバイル）"
+
+#: inc/integlight-customizer.php:357
+msgid "Slider Text Position Top Mobile (px)"
+msgstr "スライダーテキスト位置（モバイル、上）（px）"
+
+#: inc/integlight-customizer.php:358
+msgid "Slider Text Position Left Mobile (px)"
+msgstr "スライダーテキスト位置（モバイル、左）（px）"
+
+#: inc/integlight-customizer.php:391
 msgid "Sidebar"
 msgstr "サイドバー"
 
-#: inc/integlight-customizer.php:397
+#: inc/integlight-customizer.php:396
 msgid "Right"
 msgstr "右"
 
-#: inc/integlight-customizer.php:398
+#: inc/integlight-customizer.php:397
 msgid "Left"
 msgstr "左"
 
-#: inc/integlight-customizer.php:399
+#: inc/integlight-customizer.php:398
 msgid "Bottom"
 msgstr "下"
 
-#: inc/integlight-customizer.php:412
+#: inc/integlight-customizer.php:411
 msgid "Sidebar Settings"
 msgstr "サイドバー設定"
 
-#: inc/integlight-customizer.php:447
+#: inc/integlight-customizer.php:446
 msgid "Base color pattern"
-msgstr "基本カラー設定"
+msgstr "基本カラーパターン"
 
-#: inc/integlight-customizer.php:449
+#: inc/integlight-customizer.php:448
 msgid "The base color pattern you select will be reflected throughout the site."
-msgstr "選択した基本カラー設定はサイト全体に適用されます"
+msgstr "選択した基本カラーパターンは、サイト全体に反映されます。"
 
 #: inc/integlight-functions.php:203
 msgid "Footer Settings"
@@ -198,11 +251,11 @@ msgstr "フッター"
 
 #: inc/integlight-functions.php:316
 msgid "TOC Visibility"
-msgstr "目次の表示設定"
+msgstr "目次表示"
 
 #: inc/integlight-functions.php:331
 msgid "Hide TOC"
-msgstr "目次を非表示"
+msgstr "目次を隠す"
 
 #. translators: %s: post date.
 #: inc/template-tags.php:32
@@ -214,60 +267,60 @@ msgstr "%s"
 #: inc/template-tags.php:50
 msgctxt "post author"
 msgid "by %s"
-msgstr "%s 作成"
+msgstr "投稿者: %s"
 
 #. translators: used between list items, there is a space after the comma
 #: inc/template-tags.php:68
 msgid ", "
-msgstr "、"
+msgstr ", "
 
 #. translators: 1: list of categories.
 #: inc/template-tags.php:71
 msgid "Posted in %1$s"
-msgstr "%1$s に投稿"
+msgstr "カテゴリー: %1$s"
 
 #. translators: used between list items, there is a space after the comma
 #: inc/template-tags.php:75
 msgctxt "list item separator"
 msgid ", "
-msgstr "、"
+msgstr ", "
 
 #. translators: 1: list of tags.
 #: inc/template-tags.php:78
 msgid "Tagged %1$s"
-msgstr "%1$s タグ付き"
+msgstr "タグ: %1$s"
 
 #. translators: %s: post title
 #: inc/template-tags.php:88
 msgid "Leave a Comment<span class=\"screen-reader-text\"> on %s</span>"
-msgstr "Leave a Comment<span class=\"screen-reader-text\"> on %s</span>"
+msgstr "コメントを残す<span class=\"screen-reader-text\"> （%s）</span>"
 
 #. translators: %s: Name of current post. Only visible to screen readers
 #: inc/template-tags.php:105
 msgid "Edit <span class=\"screen-reader-text\">%s</span>"
-msgstr "Edit <span class=\"screen-reader-text\">%s</span>"
+msgstr "編集 <span class=\"screen-reader-text\">%s</span>"
 
 #. translators: %s: search query.
 #: search.php:21
 msgid "Search Results for: %s"
-msgstr "検索結果: %s"
+msgstr "「%s」の検索結果"
 
 #: template-parts/content-none.php:14
 msgid "Nothing Found"
-msgstr "何も見つかりませんでした"
+msgstr "何も見つかりません"
 
 #. translators: 1: link to WP admin new post page.
 #: template-parts/content-none.php:24
 msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
-msgstr "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr "初めての投稿を公開しませんか？<a href=\"%1$s\">こちらから</a>。"
 
 #: template-parts/content-none.php:37
 msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
-msgstr "申し訳ありませんが、ご指定の検索条件に一致するものはありませんでした別のキーワードで試してください"
+msgstr "検索条件に一致するものは何もありませんでした。別のキーワードで再度お試しください。"
 
 #: template-parts/content-none.php:44
 msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
-msgstr "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
+msgstr "お探しのものが見つかりませんでした。検索してみてはいかがでしょうか。"
 
 #: template-parts/content-page.php:25
 #: template-parts/content.php:53
@@ -277,12 +330,12 @@ msgstr "ページ:"
 #. translators: %s: Name of current post. Only visible to screen readers
 #: template-parts/content-page.php:39
 msgid "aaaaaaaaaEdit <span class=\"screen-reader-text\">%s</span>"
-msgstr "aaaaaaaaaEdit <span class=\"screen-reader-text\">%s</span>"
+msgstr "編集 <span class=\"screen-reader-text\">%s</span>"
 
 #. translators: %s: Name of current post. Only visible to screen readers
 #: template-parts/content.php:40
 msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
-msgstr "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
+msgstr "続きを読む<span class=\"screen-reader-text\">「%s」</span>"
 
 #: blocks/custom-cover/build/index.js:1
 #: blocks/custom-cover/src/index.js:45
@@ -294,30 +347,31 @@ msgstr "カバー設定"
 #: blocks/custom-cover/src/index.js:47
 #: tmp/del予定.js:85
 msgid "Use Article Width for Inner Content"
-msgstr "内部コンテンツに記事幅を適用"
+msgstr "内側のコンテンツに記事幅を使用"
 
 #: blocks/custom-cover/build/index.js:1
 #: blocks/custom-cover/src/index.js:52
 msgid "Overlay Opacity (-100 for bright, 100 for dark)"
-msgstr "オーバーレイの透明度（-100 で明るく、100 で暗く）"
+msgstr "オーバーレイ不透明度（-100で明るく、100で暗く）"
 
 #: blocks/custom-cover/build/index.js:1
 #: blocks/custom-cover/src/index.js:73
-#: tmp/del予定.js:109
 msgid "Change Background Image"
 msgstr "背景画像を変更"
 
 #: blocks/custom-cover/build/index.js:1
 #: blocks/custom-cover/src/index.js:72
-#: tmp/del予定.js:109
 msgid "Upload Background Image"
 msgstr "背景画像をアップロード"
 
 #: blocks/custom-cover/build/index.js:1
 #: blocks/custom-cover/src/index.js:84
-#: tmp/del予定.js:122
 msgid "Remove Background Image"
 msgstr "背景画像を削除"
+
+#: blocks/slider-block/src/index.js:31
+msgid "*Please create multiple pieces of content. They will be displayed in a slide format when viewed as a website."
+msgstr "*複数のコンテンツを作成してください。ウェブサイトとして表示される場合、スライド形式で表示されます。"
 
 #: blocks/speech-bubble/build/index.js:1
 #: blocks/speech-bubble/src/index.js:49
@@ -347,17 +401,17 @@ msgstr "レイアウト設定"
 #: blocks/speech-bubble/build/index.js:1
 #: blocks/speech-bubble/src/index.js:78
 msgid "Reverse the positions of the image and speech bubble."
-msgstr "画像と吹き出しの位置を入れ替える"
+msgstr "画像と吹き出しの位置を反転する。"
 
 #: blocks/speech-bubble/build/index.js:1
 #: blocks/speech-bubble/src/index.js:95
 msgid "Enter caption here."
-msgstr "キャプションを入力してください"
+msgstr "キャプションを入力"
 
 #: blocks/speech-bubble/build/index.js:1
 #: blocks/speech-bubble/src/index.js:104
 msgid "Enter message here."
-msgstr "メッセージを入力してください"
+msgstr "メッセージを入力"
 
 #: blocks/tab-block/build/index.js:1
 #: blocks/tab-block/src/index.js:18
@@ -377,7 +431,7 @@ msgstr "タブ設定"
 #: blocks/tab-block/build/index.js:1
 #: blocks/tab-block/src/index.js:92
 msgid "Tab switching is reflected when the website is displayed."
-msgstr "ウェブサイト表示時にタブの切り替えが反映されます"
+msgstr "タブの切り替えは、ウェブサイトの表示時に反映されます。"
 
 #: blocks/text-flow-animation/build/index.js:1
 #: blocks/text-flow-animation/src/index.js:14
@@ -392,7 +446,7 @@ msgstr "フォントサイズ"
 #: blocks/text-flow-animation/build/index.js:1
 #: blocks/text-flow-animation/src/index.js:23
 msgid "Color"
-msgstr "カラー"
+msgstr "色"
 
 #: blocks/text-flow-animation/build/index.js:1
 #: blocks/text-flow-animation/src/index.js:28
@@ -404,21 +458,8 @@ msgstr "フォントファミリー"
 msgid "Enter text..."
 msgstr "テキストを入力..."
 
-#: tmp/del予定.js:128
-msgid "Color Settings"
-msgstr "カラー設定"
 
-#: tmp/del予定.js:134
-msgid "Background Color"
-msgstr "背景色"
 
-#: tmp/del予定.js:139
-msgid "Text Color"
-msgstr "テキストの色"
-
-#: tmp/del予定.js:144
-msgid "Overlay Color"
-msgstr "オーバーレイの色"
 
 #: blocks/custom-cover/block.json
 msgctxt "block title"
@@ -428,7 +469,7 @@ msgstr "【integlight】カスタムカバー"
 #: blocks/custom-cover/block.json
 msgctxt "block description"
 msgid "A custom cover block with fixed full-width outer container and inner content width selectable as article width or full width."
-msgstr "固定のフル幅外部コンテナを持ち、内部コンテンツの幅を記事幅またはフル幅として選択できるカスタムカバーブロック"
+msgstr "固定された全幅の外側コンテナーと、記事幅または全幅として選択可能な内側コンテンツ幅を持つカスタムカバーブロック。"
 
 #: blocks/slider-block/block.json
 msgctxt "block title"
@@ -438,7 +479,7 @@ msgstr "[Integlight]スライダーブロック"
 #: blocks/slider-block/block.json
 msgctxt "block description"
 msgid "A block that slides multiple contents."
-msgstr "複数のコンテンツをスライドさせるブロック"
+msgstr "複数のコンテンツをスライドさせるブロック。"
 
 #: blocks/speech-bubble/block.json
 msgctxt "block title"
@@ -448,7 +489,7 @@ msgstr "[integlight]吹き出し"
 #: blocks/speech-bubble/block.json
 msgctxt "block description"
 msgid "A speech bubble block where you can set images and text, and customize the background and text colors."
-msgstr "画像とテキストを設定し、背景色やテキスト色をカスタマイズできる吹き出しブロック"
+msgstr "画像とテキストを設定でき、背景色と文字色をカスタマイズできる吹き出しブロック。"
 
 #: blocks/tab-block/block.json
 msgctxt "block title"
@@ -458,14 +499,13 @@ msgstr "[Integlight]タブ切り替え機能"
 #: blocks/tab-block/block.json
 msgctxt "block description"
 msgid "A feature that allows switching between multiple contents using tabs."
-msgstr "タブを使用して複数のコンテンツを切り替える機能"
+msgstr "タブを使用して複数のコンテンツを切り替えることができる機能。"
 
 #: blocks/text-flow-animation/block.json
 msgctxt "block title"
 msgid "【Integlight】text flow animation"
 msgstr "【Integlight】テキストフローアニメーション"
 
-#: tmp/hello-world-block/block.json
-msgctxt "block title"
-msgid "Hello World Block"
-msgstr "Hello World ブロック"
+#: カスタマイザー
+msgid "Slider Change Duration (seconds)"
+msgstr "スライダーの変更時間間隔（秒）"

@@ -59,7 +59,8 @@
     /* オーバーレイを画像の上に表示 */
 }
 
-.home .grid-item h2 {
+.home .grid-item h2,
+.home .grid-item h3 {
     position: absolute;
     top: 40px;
     /* タイトルの位置を調整 */
@@ -72,6 +73,8 @@
     /* 影を追加して視認性を向上 */
     margin: 0;
     /* マージンをリセット */
+    width: 85%;
+    padding: 0 5%;
 }
 
 .home .post-excerpt {
@@ -87,6 +90,7 @@
     /* 影を追加して視認性を向上 */
     margin: 5px 0;
     /* 上下のマージン */
+    padding: 0 5%;
 }
 
 .home .grid-item .post-meta {
@@ -95,7 +99,7 @@
     flex-direction: column;
     align-items: flex-start;
     /* 左寄せ */
-    padding: 15px;
+    padding: 10%;
     color: white;
     /* 白色の文字 */
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
@@ -106,7 +110,7 @@
 .home .post-category,
 .home .post-tags {
     margin: 0;
-    padding: 5px 0;
+    padding: 0;
 }
 
 .home .grid-item a {
