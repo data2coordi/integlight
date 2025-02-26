@@ -4,7 +4,7 @@
     /* 4列レイアウト */
     gap: 20px;
     padding: 20px;
-    width: 75vw;
+    width: 1200px;
 }
 
 .home .grid-item {
@@ -17,7 +17,7 @@
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    height: 400px;
+    height: 350px;
     /* タイルの高さ */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -112,6 +112,10 @@
 .home .grid-item a {
     text-decoration: none;
     color: inherit;
+}
+
+.home .post-tags {
+    display: none;
 }
 
 
