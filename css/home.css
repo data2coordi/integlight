@@ -75,6 +75,8 @@
     /* マージンをリセット */
     width: 85%;
     padding: 0 5%;
+    line-height: 1.5;
+    /* 行間を狭くする */
 }
 
 .home .post-excerpt {
@@ -91,6 +93,7 @@
     margin: 5px 0;
     /* 上下のマージン */
     padding: 0 5%;
+    width: 350px;
 }
 
 .home .grid-item .post-meta {

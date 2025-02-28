@@ -132,20 +132,38 @@ add_action('enqueue_block_editor_assets', 'add_right_align_button_to_toolbar');
 */
 
 //ブロックの国際化対応
-/*
-function integlight_register_block()
-{
-	register_block_type(__DIR__ . '/blocks/speech-bubble');
 
-	wp_set_script_translations('file:./build/index.js', 'integlight');
+function my_theme_enqueue_block_assets()
+{
+	wp_set_script_translations(
+		'integlight-speech-bubble-editor-script', // ハンドル名を適切に設定
+		'integlight',
+		get_template_directory() . '/languages'
+	);
 }
-add_action('init', 'integlight_register_block');
+add_action('enqueue_block_editor_assets', 'my_theme_enqueue_block_assets');
+
+/*
+function integlight_enqueue_block_assets()
+{
+	wp_enqueue_script(
+		'integlight-block-script',
+		get_template_directory_uri() . '/blocks/speech-bubble/build/index.js',
+		array('wp-i18n', 'wp-blocks', 'wp-element', 'wp-editor'),
+		get_template_directory() . '/blocks/speech-bubble/build/index.js'
+	);
+	wp_set_script_translations('integlight-block-script', 'integlight', get_template_directory() . '/languages');
+}
+add_action('enqueue_block_assets', 'integlight_enqueue_block_assets');
 */
 
-
-
-
-
+/* 登録されているブロックのハンドルネーム出力*/
+add_action('wp_print_scripts', function () {
+	global $wp_scripts;
+	foreach ($wp_scripts->registered as $handle => $script) {
+		error_log('Registered script: ' . $handle);
+	}
+});
 
 /********************************************************************/
 /*ブロックアイテムの読み込みe*/
