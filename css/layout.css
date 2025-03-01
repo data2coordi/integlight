@@ -142,12 +142,13 @@ button {
     margin-top: var(--ly-elementTopMarginSmall);
 }
 
-p,
-ul,
-input,
-textarea,
-button {
-    /* margin-bottom: var(--ly-elementBottomMargin); */
+.entry-content p,
+.entry-content ul,
+.entry-content input,
+.entry-content textarea,
+.entry-content button {
+    margin-bottom: var(--ly-elementBottomMargin);
+    /* テキストの下にスペースを追加 */
 }
 
 .wp-block-image img {
