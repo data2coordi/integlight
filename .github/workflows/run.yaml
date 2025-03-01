@@ -13,7 +13,7 @@ jobs:
 
 
       - name: build
-        run: zip -r integlight.zip . -x ".*" "vendor/" "tmp/" 'bin/' 'tests/' 'composer*'
+        run: zip -r integlight.zip . -x ".*" "vendor/" "tmp/" "tmp/*" 'bin/' 'tests/' 'composer*'
 
       - name: リリースを作成する
         uses: actions/create-release@v1
