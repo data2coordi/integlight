@@ -250,6 +250,7 @@ label {
     }
 
     .ly_site_content {
-        padding: 0;
+        padding: 0 1em;
+        /* スマホで左右にpadding */
     }
 }
