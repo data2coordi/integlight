@@ -182,8 +182,19 @@ label {
     */
 }
 
-.wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-column {
-    padding: 0px 10px;
+.wp-block-integlight-slider-block .wp-block-columns {
+    padding: 0px 20px;
+    /* コンテンツ内スライダーのパディング */
+}
+
+.wp-block-integlight-slider-block.blockSliders .blockSliders-content {
+    border-radius: 20px;
+    /* コンテンツ内スライダーの角を丸く */
+}
+
+.wp-block-integlight-custom-cover .wp-block-columns {
+    padding: 0px 15px;
+    /* タブブロックのパディング */
 }
 
 .wp-block-media-text>.wp-block-media-text__content {

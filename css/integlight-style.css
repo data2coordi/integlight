@@ -117,12 +117,12 @@ textarea {
 }
 
 .wp-block-media-text {
-    gap: 20px;
+    gap: 1.2em;
     /* メディアとテキストのギャップ */
 }
 
 .wp-block-preformatted {
-    padding: 20px;
+    padding: 1em;
     /* 囲みテキストにpadding */
 }
 
