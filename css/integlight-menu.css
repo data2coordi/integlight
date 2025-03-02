@@ -138,12 +138,6 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
         display: flex;
     }
 
-    .main-navigation {
-        top: 20px;
-        left: 10px;
-        /* ハンバーガーメニュー位置調整 */
-    }
-
     /* サブメニュー（第一階層）は親 li を基準に絶対配置 */
     ul.menu>li.menu-item-has-children {
         position: relative;
@@ -167,6 +161,12 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
         width: 30%;
     }
 
+    .main-navigation {
+        top: 20px;
+        left: 10px;
+        /* ハンバーガーメニュー位置調整 */
+    }
+
     /*****************************************/
     /* ハンバーガーメニュー チェック時：☰→✖ の変化s */
     /*****************************************/
@@ -174,7 +174,8 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
         display: block;
         position: relative;
         width: 40px;
-        height: 30px;
+        height: 28.5px;
+        /* ×の位置調整 */
         cursor: pointer;
         z-index: 1100;
     }
