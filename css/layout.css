@@ -187,7 +187,7 @@ label {
     /* コンテンツ内スライダーのパディング */
 }
 
-.wp-block-integlight-slider-block.blockSliders .blockSliders-content {
+.wp-block-integlight-slider-block.blockSliders .wp-block-columns {
     border-radius: 20px;
     /* コンテンツ内スライダーの角を丸く */
 }
