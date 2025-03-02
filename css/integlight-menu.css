@@ -138,6 +138,12 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
         display: flex;
     }
 
+    .main-navigation {
+        top: 20px;
+        left: 10px;
+        /* ハンバーガーメニュー位置調整 */
+    }
+
     /* サブメニュー（第一階層）は親 li を基準に絶対配置 */
     ul.menu>li.menu-item-has-children {
         position: relative;
@@ -179,13 +185,9 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
     .menuToggle-label span {
         content: "";
         position: absolute;
-        /* left: 0; */
         width: 40px;
         height: 2px;
         /* 細くする */
-        top: 20px;
-        left: 10px;
-        /* 位置調整 */
         background: white;
         transition: transform 0.3s, opacity 0.3s;
     }
