@@ -120,12 +120,14 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
     background: currentColor;
     /* リンクと同じ色にする */
     transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 1s ease-out;
-    transform: scaleX(1);
+    transform-origin: center;
+    transition: transform 0.3s ease-in-out;
 }
 
-
+.main-navigation>.menuToggle-containerForMenu>.menu>li.current_page_item>a:hover::after,
+.main-navigation>.menuToggle-containerForMenu>.menu>li.current-menu-ancestor>a:hover::after {
+    transform: scaleX(1);
+}
 
 
 /************************************************************/
