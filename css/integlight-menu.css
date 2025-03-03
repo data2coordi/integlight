@@ -178,6 +178,7 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
         /* ×の位置調整 */
         cursor: pointer;
         z-index: 1100;
+        bottom: 10px;
     }
 
     /* ハンバーガーの3本線（疑似要素で作成） */

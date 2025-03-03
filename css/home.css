@@ -1,146 +1,160 @@
 .home .post-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    /* 4列レイアウト */
-    gap: 20px;
-    padding: 20px;
-    width: 1200px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  /* 4列レイアウト */
+  gap: 20px;
+  padding: 20px;
+  width: 1200px;
 }
 
 .home .grid-item {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    /* コンテンツを上部と下部に配置 */
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    height: 350px;
-    /* タイルの高さ */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* コンテンツを上部と下部に配置 */
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  height: 350px;
+  /* タイルの高さ */
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .home .grid-item:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .home .post-thumbnail {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* カバー画像として全体に表示 */
-    z-index: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* カバー画像として全体に表示 */
+  z-index: 0;
 }
 
 .home .post-thumbnail img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    /* カバー画像として表示 */
-    object-position: center;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* カバー画像として表示 */
+  object-position: center;
 }
 
 /* オーバーレイを追加 */
 .home .grid-item::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    /* 半透明の黒いオーバーレイ */
-    z-index: 1;
-    /* オーバーレイを画像の上に表示 */
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  /* 半透明の黒いオーバーレイ */
+  z-index: 1;
+  /* オーバーレイを画像の上に表示 */
 }
 
 .home .grid-item h2,
 .home .grid-item h3 {
-    position: absolute;
-    top: 40px;
-    /* タイトルの位置を調整 */
-    left: 15px;
-    z-index: 2;
-    /* タイトルを大きくする */
-    color: white;
-    /* 白色の文字 */
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-    /* 影を追加して視認性を向上 */
-    margin: 0;
-    /* マージンをリセット */
-    width: 85%;
-    padding: 0 5%;
-    line-height: 1.5;
-    /* 行間を狭くする */
+  position: absolute;
+  top: 40px;
+  /* タイトルの位置を調整 */
+  left: 15px;
+  z-index: 2;
+  /* タイトルを大きくする */
+  color: white;
+  /* 白色の文字 */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  /* 影を追加して視認性を向上 */
+  margin: 0;
+  /* マージンをリセット */
+  width: 85%;
+  padding: 0 5%;
+  line-height: 1.5;
+  /* 行間を狭くする */
 }
 
 .home .post-excerpt {
-    position: absolute;
-    top: 120px;
-    /* タイトルの下にさらに広めのスペースを確保 */
-    left: 15px;
-    z-index: 2;
-    /* 抜粋をオーバーレイの上に表示 */
-    color: white;
-    /* 白色の文字 */
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-    /* 影を追加して視認性を向上 */
-    margin: 5px 0;
-    /* 上下のマージン */
-    padding: 0 5%;
-    width: 350px;
+  position: absolute;
+  top: 120px;
+  /* タイトルの下にさらに広めのスペースを確保 */
+  left: 15px;
+  z-index: 2;
+  /* 抜粋をオーバーレイの上に表示 */
+  color: white;
+  /* 白色の文字 */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  /* 影を追加して視認性を向上 */
+  margin: 5px 0;
+  /* 上下のマージン */
+  padding: 0 5%;
+  width: 350px;
 }
 
 .home .grid-item .post-meta {
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    /* 左寄せ */
-    padding: 10%;
-    color: white;
-    /* 白色の文字 */
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-    /* 影を追加して視認性を向上 */
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* 左寄せ */
+  padding: 10%;
+  color: white;
+  /* 白色の文字 */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  /* 影を追加して視認性を向上 */
 }
 
 .home .post-date,
 .home .post-category,
 .home .post-tags {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .home .grid-item a {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
 .home h2 {
-    line-height: 1.5;
+  line-height: 1.5;
 }
 
 .home .post-tags {
-    display: none;
+  display: none;
 }
 
-
-
 @media screen and (max-width: 768px) {
+  .home .post-grid {
+    grid-template-columns: repeat(1, 1fr);
+    /* 1列レイアウト */
+    gap: 10px;
+    /* ギャップを狭く */
+    /* padding: 10px; */
+    /* パディングを縮小 */
+  }
 
-    .home .post-grid {
-        grid-template-columns: repeat(1, 1fr);
-        /* 1列レイアウト */
-        gap: 10px;
-        /* ギャップを狭く */
-        padding: 10px;
-        /* パディングを縮小 */
+  .home .grid-item {
+    width: 90vw;
+  }
 
-    }
+  .home .post-grid {
+    width: 90vw;
+  }
 
+  .home .post-excerpt {
+    width: 95%;
+  }
+
+  .home .grid-item h2,
+  .home .grid-item h3 {
+    width: 90%;
+  }
 }
