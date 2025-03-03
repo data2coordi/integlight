@@ -99,6 +99,8 @@ msgstr "テーマ: %1$s (作成者: %2$s)"
 msgid "Primary"
 msgstr "メイン"
 
+
+
 #: functions.php:131
 msgid "Sidebar1"
 msgstr "サイドバー1"
@@ -228,6 +230,12 @@ msgstr "スライダーテキスト位置（モバイル、左）（px）"
 #: inc/integlight-customizer.php:391
 msgid "Sidebar"
 msgstr "サイドバー"
+
+
+#: inc/integlight-customizer.php:391
+msgid "Position"
+msgstr "位置"
+
 
 #: inc/integlight-customizer.php:396
 msgid "Right"

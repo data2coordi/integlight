@@ -388,7 +388,7 @@ class integlightCustomizeRegisterSidebar
 
 		// サイドバー位置オプションの追加
 		$wp_customize->add_control('integlight_sidebar' . $no . '_position_control', array(
-			'label' => __('Sidebar' . $no . ' Position', 'integlight'),
+			'label' => __('Sidebar', 'integlight') . $no . ' ' . __('Position', 'integlight'),
 			'section' => 'integlight_sidebar_section',
 			'settings' => 'integlight_sidebar' . $no . '_position',
 			'type' => 'radio',
