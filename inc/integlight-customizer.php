@@ -6,9 +6,24 @@
  * @package Integlight
  */
 
-
 // top header slider or Image select  _s ////////////////////////////////////////////////////////////////////////////////
-function integlight_customize_register_topHeader($wp_customize)
+function integlight_display_slider_or_image()
+{
+	$choice = get_theme_mod('display_choice', 'slider');
+
+	if ('slider' === $choice) {
+		// スライダーを表示
+		get_template_part('template-parts/content', 'slide');
+	} else {
+		// ヘッダー画像を表示
+		if (get_header_image()) {
+			echo '<img src="' . esc_url(get_header_image()) . '" class="topImage" ' .  ' alt="' . esc_attr(get_bloginfo('name')) . '">';
+		}
+	}
+}
+
+
+function integlight_customize_register_HeaderTypeSelecter($wp_customize)
 {
 	// 新しいセクションを追加（カスタマイザメニューのトップに表示されるように優先度を低く設定）
 	$wp_customize->add_section('integlight_custom_section', array(
@@ -33,24 +48,9 @@ function integlight_customize_register_topHeader($wp_customize)
 		),
 	));
 }
-add_action('customize_register', 'integlight_customize_register_topHeader');
+add_action('customize_register', 'integlight_customize_register_HeaderTypeSelecter');
 
 
-
-function integlight_display_slider_or_image()
-{
-	$choice = get_theme_mod('display_choice', 'slider');
-
-	if ('slider' === $choice) {
-		// スライダーを表示
-		get_template_part('template-parts/content', 'slide');
-	} else {
-		// ヘッダー画像を表示
-		if (get_header_image()) {
-			echo '<img src="' . esc_url(get_header_image()) . '" class="topImage" ' .  ' alt="' . esc_attr(get_bloginfo('name')) . '">';
-		}
-	}
-}
 
 // top header select  _e ////////////////////////////////////////////////////////////////////////////////
 
