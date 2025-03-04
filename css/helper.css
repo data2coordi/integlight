@@ -78,24 +78,38 @@
     border-left: 4px solid #494949; /* 左側にグレーのラインをつける */
     background-color: #f9f9f9; /* 背景を薄いグレーに */
     padding: 10px; /* 余白 */
-    font-style: italic; /* 斜体で目立たせる */
+}
+
+.comment-body {
+    margin-top: 20px;
+}
+
+#comment,
+#submit {
+    margin-top: 0;
+}
+
+.form-submit {
+    margin-top: 10px;
 }
 
 
 /* 画像・要素の左右・中央寄せ */
-.alignleft {
+.wp-block-image .alignleft {
     float: left; /* 左寄せ */
     margin-right: 1.5em; /* 右に適度な余白 */
+    margin-top: 0;
     margin-bottom: 1em; /* 下に余白を確保 */
 }
 
-.alignright {
+.wp-block-image .alignright {
     float: right; /* 右寄せ */
     margin-left: 1.5em; /* 左に余白 */
+    margin-top: 0;
     margin-bottom: 1em; /* 下に余白 */
 }
 
-.aligncenter {
+.wp-block-image .aligncenter {
     display: block; /* インライン要素ではなくブロック要素として扱う */
     margin: 0 auto; /* 左右中央寄せ */
 }
@@ -137,7 +151,7 @@
 
 /* 固定された投稿 */
 .sticky {
-    background-color: #eeeeee; /* 薄い黄色の背景 */
+    background-color: #eeeeee; /* 薄いグレーの背景 */
     padding: 10px;
     border-left: 4px solid #505050; /* 左に目立つボーダー */
 }
