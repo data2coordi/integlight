@@ -77,7 +77,7 @@
 .bypostauthor {
     border-left: 4px solid #494949; /* 左側にグレーのラインをつける */
     background-color: #f9f9f9; /* 背景を薄いグレーに */
-    padding: 10px; /* 余白 */
+    padding: 15px; /* 余白 */
 }
 
 .comment-body {
@@ -125,13 +125,13 @@
 }
 
 .wp-caption-text {
-    font-size: 14px; /* フォントサイズを適切に */
+    font-size: 0.7rem; /* フォントサイズを適切に */
     color: #666; /* 文字色を少し薄く */
     margin-top: 5px; /* 画像との間に余白を追加 */
 }
 
 .gallery-caption {
-    font-size: 14px;
+    font-size: 0.7rem;
     color: #777;
     text-align: center;
     margin-top: 5px;
