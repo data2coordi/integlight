@@ -124,11 +124,6 @@ textarea {
 }
 
 
-/* カスタマイザーのフォントサイズ */
-.description .customize-section-description .open p {
-    font-size: 0.9rem;
-}
-
 /*-------------全幅ブロック----------*/
 /* .wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-colum {
     padding-left: 10px;
