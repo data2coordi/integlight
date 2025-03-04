@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 
 <?php
-integlight_display_slider_or_image();
+integlight_display_headerContents();
 
 ?>
 <?php if (have_posts()) : ?>

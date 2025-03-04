@@ -18,7 +18,7 @@ get_header();
 <?php
 if (!is_home() && is_front_page()) :
 	// スライダーまたはトップ画像の表示を決定する関数を呼び出す
-	integlight_display_slider_or_image();
+	integlight_display_headerContents();
 endif
 ?>
 
