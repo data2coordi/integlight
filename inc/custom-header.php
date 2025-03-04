@@ -33,18 +33,8 @@ function integlight_custom_header_setup()
 			)
 		)
 	);
-	add_action('customize_register', 'integlight_customize_header_priority');
 }
 add_action('after_setup_theme', 'integlight_custom_header_setup');
-
-// ヘッダー画像セクションのプライオリティをアップする関数
-function integlight_customize_header_priority($wp_customize)
-{
-	if ($wp_customize->get_section('header_image')) {
-		$wp_customize->get_section('header_image')->title = __('Top Header:[Image settings]', 'integlight');
-		$wp_customize->get_section('header_image')->priority = 30; // 上に配置される
-	}
-}
 
 
 if (! function_exists('integlight_header_style')) :

@@ -7,10 +7,7 @@
  */
 
 
-// top header select  _s ////////////////////////////////////////////////////////////////////////////////
-
-
-
+// top header slider or Image select  _s ////////////////////////////////////////////////////////////////////////////////
 function integlight_customize_register_topHeader($wp_customize)
 {
 	// 新しいセクションを追加（カスタマイザメニューのトップに表示されるように優先度を低く設定）
@@ -59,6 +56,23 @@ function integlight_display_slider_or_image()
 
 
 
+// ヘッダー画像セクションのプライオリティをアップする関数 _s 
+function integlight_customize_header_priority($wp_customize)
+{
+	if ($wp_customize->get_section('header_image')) {
+		$wp_customize->get_section('header_image')->title = __('Top Header:[Image settings]', 'integlight');
+		$wp_customize->get_section('header_image')->priority = 30; // 上に配置される
+		$wp_customize->get_section('header_image')->active_callback = function () {
+			return get_theme_mod('display_choice', 'slider') === 'image';
+		};
+	}
+}
+add_action('customize_register', 'integlight_customize_header_priority');
+
+// ヘッダー画像セクションのプライオリティをアップする関数 _e
+
+
+
 // slide customiser _s ////////////////////////////////////////////////////////////////////////////////
 
 if (class_exists('WP_Customize_Control') && ! class_exists('Simple_Customize_Heading_Control')) {
@@ -73,6 +87,8 @@ if (class_exists('WP_Customize_Control') && ! class_exists('Simple_Customize_Hea
 		}
 	}
 }
+
+/* スライダーに表示するテキストs */
 class Integlight_Slider_Customizer_Style
 {
 
@@ -136,7 +152,7 @@ class Integlight_Slider_Customizer_Style
 <?php
 	}
 }
-
+/* スライダーに表示するテキストe */
 
 
 
@@ -335,6 +351,9 @@ class InteglightSlide
 		$wp_customize->add_section('slider_section', array(
 			'title'    => __('Top Header:[Slider Settings]', 'integlight'),
 			'priority' => 29,
+			'active_callback' => function () {
+				return get_theme_mod('display_choice', 'slider') === 'slider';
+			},
 		));
 
 		/*画像*/

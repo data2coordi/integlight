@@ -71,3 +71,76 @@
     width: min(100vw, 1200px);********************************************************************/
 /*全幅、幅広、通常の設定 e*/
 /*********************************************************************/
+
+
+/* 投稿者のコメント */
+.bypostauthor {
+    border-left: 4px solid #494949; /* 左側にグレーのラインをつける */
+    background-color: #f9f9f9; /* 背景を薄いグレーに */
+    padding: 10px; /* 余白 */
+    font-style: italic; /* 斜体で目立たせる */
+}
+
+
+/* 画像・要素の左右・中央寄せ */
+.alignleft {
+    float: left; /* 左寄せ */
+    margin-right: 1.5em; /* 右に適度な余白 */
+    margin-bottom: 1em; /* 下に余白を確保 */
+}
+
+.alignright {
+    float: right; /* 右寄せ */
+    margin-left: 1.5em; /* 左に余白 */
+    margin-bottom: 1em; /* 下に余白 */
+}
+
+.aligncenter {
+    display: block; /* インライン要素ではなくブロック要素として扱う */
+    margin: 0 auto; /* 左右中央寄せ */
+}
+
+
+/* キャプションのテキスト */
+.wp-caption {
+    max-width: 100%; /* 画像の最大幅を超えないようにする */
+    text-align: center; /* キャプションを中央寄せ */
+    background-color: #f8f8f8; /* 背景色を薄いグレーに */
+    padding: 5px; /* 余白を確保 */
+    border: 1px solid #ddd; /* 境界線を薄いグレーに */
+}
+
+.wp-caption-text {
+    font-size: 14px; /* フォントサイズを適切に */
+    color: #666; /* 文字色を少し薄く */
+    margin-top: 5px; /* 画像との間に余白を追加 */
+}
+
+.gallery-caption {
+    font-size: 14px;
+    color: #777;
+    text-align: center;
+    margin-top: 5px;
+}
+
+
+/* スクリーンリーダー向けのテキスト */
+.screen-reader-text {
+    position: absolute;
+    left: -9999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+
+/* 固定された投稿 */
+.sticky {
+    background-color: #eeeeee; /* 薄い黄色の背景 */
+    padding: 10px;
+    border-left: 4px solid #505050; /* 左に目立つボーダー */
+}
+
+
+
