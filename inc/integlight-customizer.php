@@ -22,7 +22,7 @@ function integlight_customizer_headerImage_updPriority($wp_customize)
 		};
 	}
 }
-add_action('customize_register', 'integlight_customize_headerImager_updPriority');
+add_action('customize_register', 'integlight_customizer_headerImage_updPriority');
 
 // ヘッダー画像セクションのプライオリティをアップする関数 _e
 
@@ -107,7 +107,7 @@ class integlight_customizer_slider_applyHeaderTextStyle
 	public function __construct()
 	{
 		// wp_head に出力するためのフックを登録
-		add_action('wp_head', array($this, 'integlight_customizer_slider_applyHeaderTextStyle'));
+		add_action('wp_head', array($this, 'integlight_slider_applyTextStyles'));
 	}
 
 	/**

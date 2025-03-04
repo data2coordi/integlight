@@ -317,6 +317,8 @@ button {
   text-transform: none;
 }
 
+
+/*-----------3/4修正---------*/
 button,
 input[type="button"],
 input[type="reset"],
@@ -325,7 +327,7 @@ input[type="submit"] {
   border-color: #ccc #ccc #bbb;
   border-radius: 0;
   background: #e6e6e6;
-  color: #fff;
+  color: #d12222;
   line-height: 1;
 }
 
