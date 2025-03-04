@@ -125,7 +125,7 @@ textarea {
 
 
 /* カスタマイザーのフォントサイズ */
-.description .customize-section-description .open {
+.description .customize-section-description .open p {
     font-size: 0.9rem;
 }
 
