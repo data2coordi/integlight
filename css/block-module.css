@@ -41,22 +41,3 @@ ul.tabs-navigation {
 }
 
 
-/******メディアとテキスト********/
-.wp-block-media-text>.wp-block-media-text__content {
-    padding: 0;
-}
-
-/******2カラムブロック********/
-.ly_site_content_main .wp-block-columns {
-    gap: 1em;
-    padding: 0 15px 10px 25px;
-}
-
-
-@media screen and (max-width: 768px) {
-    /******2カラムブロック********/
-    .ly_site_content_main .wp-block-columns {
-        padding: 15px;
-    }
-
-}

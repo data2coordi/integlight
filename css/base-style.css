@@ -119,9 +119,6 @@ a.contact {
   color: #fff;
 }
 
-.ly_site_footer a {
-  color: #777;
-}
 
 /* 
 ====================
@@ -311,14 +308,13 @@ textarea {
 button {
   display: block;
   background: #555;
-  color: #fff;
+  /* color: #fff; */
   border: none;
   overflow: visible;
   text-transform: none;
 }
 
 
-/*-----------3/4修正---------*/
 button,
 input[type="button"],
 input[type="reset"],
@@ -327,7 +323,6 @@ input[type="submit"] {
   border-color: #ccc #ccc #bbb;
   border-radius: 0;
   background: #e6e6e6;
-  color: #d12222;
   line-height: 1;
 }
 
