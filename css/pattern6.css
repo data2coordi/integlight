@@ -30,6 +30,7 @@
 .integlight_pt input[type="reset"],
 .integlight_pt input[type="submit"] {
   background: #f936f0;
+  color: #fff;
 }
 
 /* background: linear-gradient(90deg, #ec8be7 20%, #edb1ea 40%, #d579ee 70%); */

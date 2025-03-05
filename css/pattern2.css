@@ -30,6 +30,7 @@
 .integlight_pt input[type="reset"],
 .integlight_pt input[type="submit"] {
   background: #0c62eb;
+  color: #fff;
 }
 
 /************ボタンアニメーション**********/
