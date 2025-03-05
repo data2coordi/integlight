@@ -99,6 +99,25 @@
 /*3.4 メディアとテキスト */
 /*3.5 テーブル */
 
+/* 画像・要素の左右・中央寄せ */
+.wp-block-image .alignleft {
+    float: left; /* 左寄せ */
+    margin-right: 1.5em; /* 右に適度な余白 */
+    margin-top: 0;
+    margin-bottom: 1em; /* 下に余白を確保 */
+}
+
+.wp-block-image .alignright {
+    float: right; /* 右寄せ */
+    margin-left: 1.5em; /* 左に余白 */
+    margin-top: 0;
+    margin-bottom: 1em; /* 下に余白 */
+}
+
+.wp-block-image .aligncenter {
+    display: block; /* インライン要素ではなくブロック要素として扱う */
+    margin: 0 auto; /* 左右中央寄せ */
+}
 
 /************************************************************/
 /* Comments @@@***************************************************/
@@ -107,8 +126,26 @@
     word-wrap: break-word;
 }
 
-.bypostauthor {
+.comments-area .bypostauthor {
     display: block;
+    border-left: 4px solid #494949; /* 左側にグレーのラインをつける */
+    background-color: #f9f9f9; /* 背景を薄いグレーに */
+    padding: 15px; /* 余白 */
+}
+
+
+.comments-area .comment-body {
+    margin-top: 20px;
+}
+
+.comments-area #comment,
+.comments-area #submit {
+    margin-top: 0;
+    color: #fff;
+}
+
+.comments-area .form-submit {
+    margin-top: 10px;
 }
 
 /************************************************************/
@@ -135,7 +172,7 @@
 }
 
 .cat-item {
-    border-bottom: 0.01em solid #f1f1f1;
+    border-bottom: 0.01em solid #e9e8e8;
     padding: 5px 0px;
 }
 
@@ -166,7 +203,7 @@
 
 .wp-block-latest-posts__post-title {
     display: block;
-    border-bottom: 0.01em solid #f1f1f1;
+    border-bottom: 0.01em solid #e9e8e8;
     padding: 5px 0px;
 }
 
@@ -598,6 +635,36 @@
 /* tag e */
 
 
+/************************************************************/
+/* キャプションのテキスト@@@ ***************************************************/
+/************************************************************/
+/* caption s */
+.wp-caption {
+    max-width: 100%; /* 画像の最大幅を超えないようにする */
+    text-align: center; /* キャプションを中央寄せ */
+    background-color: #f8f8f8; /* 背景色を薄いグレーに */
+    padding: 5px; /* 余白を確保 */
+    border: 1px solid #ddd; /* 境界線を薄いグレーに */
+}
+
+.wp-caption-text {
+    font-size: 0.7rem; /* フォントサイズを適切に */
+    color: #666; /* 文字色を少し薄く */
+    margin-top: 5px; /* 画像との間に余白を追加 */
+}
+
+.gallery-caption {
+    font-size: 0.7rem;
+    color: #777;
+    text-align: center;
+    margin-top: 5px;
+}
+
+
+/* caption e */
+
+
+
 
 /************************************************************/
 /* その他 @@@ ***************************************************/
@@ -659,3 +726,6 @@
 }
 
 /* fa e*/
+
+
+

@@ -365,12 +365,16 @@ class integlight_customizer_slider
 			},
 		));
 
-		/*画像*/
+		/*効果*/
+		$this->labelSetting($wp_customize, 'integlight_slider_Animation_heading', __('Slider Animation', 'integlight'));
 		$this->effectSetting($wp_customize);
+		$this->numberSetting($wp_customize, 'integlight_slider_change_duration', __('Slider Change Duration (seconds)', 'integlight'), 1, 1);
+
+		/*画像*/
+		$this->labelSetting($wp_customize, 'integlight_slider_image_heading', __('Slider Image', 'integlight'));
 		$this->imageSetting($wp_customize, 'integlight_slider_image_1', __('Slider Image 1', 'integlight'));
 		$this->imageSetting($wp_customize, 'integlight_slider_image_2', __('Slider Image 2', 'integlight'));
 		$this->imageSetting($wp_customize, 'integlight_slider_image_3', __('Slider Image 3', 'integlight'));
-		$this->numberSetting($wp_customize, 'integlight_slider_change_duration', __('Slider Change Duration (seconds)', 'integlight'), 1, 1);
 
 		/*テキスト*/
 		$this->labelSetting($wp_customize, 'integlight_slider_text_heading', __('Slider Text', 'integlight'));

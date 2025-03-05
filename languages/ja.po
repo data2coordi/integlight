@@ -528,7 +528,13 @@ msgid "【Integlight】text flow animation"
 msgstr "【Integlight】テキストフローアニメーション"
 
 
-#: カスタマイザー
+#: カスタマイザー　スライダー
 msgid "Slider Change Duration (seconds)"
 msgstr "スライダーの変更時間間隔（秒）"
+
+msgid "Slider Animation"
+msgstr "スライダー アニメーション"
+
+msgid "Slider Image"
+msgstr "スライダー画像"
 
