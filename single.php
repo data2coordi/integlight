@@ -28,8 +28,8 @@ get_header();
 
 			the_post_navigation(
 				array(
-					'prev_text' => '<span class="nav-subtitle">' . esc_html__('', 'integlight') . '<i class="fa-regular fa-circle-left"></i><span class="nav-title">%title</span>',
-					'next_text' => '<span class="nav-subtitle">' . esc_html__('', 'integlight') . '<span class="nav-title">%title</span><i class="fa-regular fa-circle-right"></i>',
+					'prev_text' => '<span class="nav-subtitle">' . esc_html__('', 'integlight') . '<i class="fa-regular fa-square-caret-left"></i><span class="nav-title">%title</span>',
+					'next_text' => '<span class="nav-subtitle">' . esc_html__('', 'integlight') . '<span class="nav-title">%title</span><i class="fa-regular fa-square-caret-right"></i>',
 				)
 			);
 

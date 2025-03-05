@@ -1,7 +1,7 @@
 {
     "apiVersion": 2,
     "name": "integlight/slider-block",
-    "title": "[Integlight]slider block",
+    "title": "[integlight]slider block",
     "category": "layout",
     "icon": "slides",
     "description": "A block that slides multiple contents.",

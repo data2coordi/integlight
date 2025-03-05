@@ -18,11 +18,11 @@ document.addEventListener('DOMContentLoaded', function () {
         // スライドボタンを作成
         const prevButton = document.createElement('button');
         prevButton.className = 'slide-button prev';
-        prevButton.textContent = '<';
+        prevButton.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
 
         const nextButton = document.createElement('button');
         nextButton.className = 'slide-button next';
-        nextButton.textContent = '>';
+        nextButton.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
 
         // `.wp-block-integlight-slider-block` にボタンを追加
         const sliderBlock = container.closest('.wp-block-integlight-slider-block');

@@ -46,8 +46,8 @@ get_header();
 				array(
 					'mid_size'      => 2, // 現在ページの左右に表示するページ番号の数
 					'prev_next'     => true, // 「前へ」「次へ」のリンクを表示する場合はtrue
-					'prev_text'     => '<i class="fa-regular fa-circle-left"></i>prev', // 「前へ」リンクのテキスト
-					'next_text'     => 'next<i class="fa-regular fa-circle-right"></i>', // 「次へ」リンクのテキスト
+					'prev_text'     => '<i class="fa-regular fa-square-caret-left"></i>  prev', // 「前へ」リンクのテキスト
+					'next_text'     => 'next  <i class="fa-regular fa-square-caret-right"></i>', // 「次へ」リンクのテキスト
 					'type'          => 'plain', // 戻り値の指定 (plain/list)
 				)
 			);

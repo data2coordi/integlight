@@ -1,9 +1,10 @@
 {
   "apiVersion": 2,
   "name": "integlight/text-flow-animation",
-  "title": "【Integlight】text flow animation",
-  "category": "widgets",
+  "title": "[integlight]text flow animation",
+  "category": "design",
   "icon": "editor-alignleft",
+  "textdomain": "integlight",
   "supports": {
     "align": [
       "wide",

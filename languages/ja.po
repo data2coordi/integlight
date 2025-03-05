@@ -484,8 +484,8 @@ msgstr "テキストを入力..."
 
 #: blocks/custom-cover/block.json
 msgctxt "block title"
-msgid "【integlight】Custom Cover"
-msgstr "【integlight】カスタムカバー"
+msgid "[integlight]Custom Cover"
+msgstr "【integlight】全幅カバー"
 
 #: blocks/custom-cover/block.json
 msgctxt "block description"
@@ -494,8 +494,8 @@ msgstr "固定された全幅の外側コンテナーと、記事幅または全
 
 #: blocks/slider-block/block.json
 msgctxt "block title"
-msgid "[Integlight]slider block"
-msgstr "[Integlight]スライダーブロック"
+msgid "[integlight]slider block"
+msgstr "【integlight】スライダーブロック"
 
 #: blocks/slider-block/block.json
 msgctxt "block description"
@@ -505,7 +505,7 @@ msgstr "複数のコンテンツをスライドさせるブロック。"
 #: blocks/speech-bubble/block.json
 msgctxt "block title"
 msgid "[integlight]speech bubble"
-msgstr "[integlight]吹き出し"
+msgstr "【integlight】吹き出し"
 
 #: blocks/speech-bubble/block.json
 msgctxt "block description"
@@ -515,7 +515,7 @@ msgstr "画像とテキストを設定でき、背景色と文字色をカスタ
 #: blocks/tab-block/block.json
 msgctxt "block title"
 msgid "[Integlight]Tab switching feature."
-msgstr "[Integlight]タブ切り替え機能"
+msgstr "【integlight】タブ切り替え機能"
 
 #: blocks/tab-block/block.json
 msgctxt "block description"
@@ -524,8 +524,8 @@ msgstr "タブを使用して複数のコンテンツを切り替えることが
 
 #: blocks/text-flow-animation/block.json
 msgctxt "block title"
-msgid "【Integlight】text flow animation"
-msgstr "【Integlight】テキストフローアニメーション"
+msgid "[integlight]text flow animation"
+msgstr "【integlight】テキストフローアニメーション"
 
 
 #: カスタマイザー　スライダー
