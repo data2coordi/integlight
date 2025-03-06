@@ -225,9 +225,10 @@
 
 }
 
-.pagination .page-numbers {
+/* 次への数字の囲みをコメントアウト */
+/* .pagination .page-numbers {
     border: 2px solid #555;
-}
+} */
 
 .pagination .next.page-numbers,
 .pagination .prev.page-numbers {
@@ -414,6 +415,12 @@
 
 .bl_card_container a:hover {
     text-decoration: none;
+}
+
+.bl_card_container img {
+    height: 167px;
+    width: 100%; /* または固定値 */
+    object-fit: cover;
 }
 
 /* カード全体e*/
