@@ -2,42 +2,59 @@
 
 /*-------------タブブロック----------*/
 .tabs-navigation {
-    border-radius: 50px; /* 角丸の半径 */
-    background: #eee;
-    margin-top: var(--ly-elementTopMarginSmall);
+  border-radius: 50px; /* 角丸の半径 */
+  background: #eee;
+  margin-top: var(--ly-elementTopMarginSmall);
 }
 
 .tabs-navigation li.active {
-    background: #000;
-    border-radius: 50px; /* 角丸の半径 */
-    color: #fff;
-    border: none;
+  background: #000;
+  border-radius: 50px; /* 角丸の半径 */
+  color: #fff;
+  border: none;
 }
 
 .tabs {
-    border: none;
+  border: none;
 }
 
 /******タブブロック********/
 ul.tabs-navigation {
-    line-height: 1;
+  line-height: 1;
 }
 
 .wp-block-integlight-custom-cover .wp-block-column {
-    padding: 0px 15px;
-    /* タブブロックのパディング */
+  padding: 0px 15px;
+  /* タブブロックのパディング */
 }
 
+.integlight-tabs-block
+  .block-editor-default-block-appender
+  .block-editor-inserter {
+  margin-top: 25px;
+  /* デフォルトの追加ボタンの位置を下げている */
+}
+
+.wp-block-integlight-tab-block.integlight-tabs {
+  border: none;
+  /* タブのボーダーを消している */
+}
 
 /******コンテンツ内スライダー********/
 .wp-block-integlight-slider-block .wp-block-columns {
-    padding: 0px 20px;
-    /* コンテンツ内スライダーのパディング */
+  padding: 0px 20px;
+  /* コンテンツ内スライダーのパディング */
 }
 
 .wp-block-integlight-slider-block.blockSliders .wp-block-columns {
-    border-radius: 20px;
-    /* コンテンツ内スライダーの角を丸く */
+  border-radius: 20px;
+  /* コンテンツ内スライダーの角を丸く */
 }
 
-
+/* .integlight-tabs-block .block-editor-button-block-appender {
+  width: 800px;
+  
+  position: relative;
+  margin-top: 100px;
+  z-index: -1;
+} */

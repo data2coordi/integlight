@@ -254,12 +254,12 @@ msgid "Sidebar Settings"
 msgstr "サイドバー設定"
 
 #: inc/integlight-customizer.php:446
-msgid "Base color pattern"
-msgstr "基本カラーパターン"
+msgid "Accent color setting"
+msgstr "アクセントカラー設定"
 
 #: inc/integlight-customizer.php:448
-msgid "The base color pattern you select will be reflected throughout the site."
-msgstr "選択した基本カラーパターンは、サイト全体に反映されます。"
+msgid "Select favorite accent color"
+msgstr "サイト全体のアクセントカラーとして使用される色を変更できます"
 
 #: inc/integlight-functions.php:203
 msgid "Footer Settings"

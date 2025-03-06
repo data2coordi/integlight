@@ -477,11 +477,6 @@ class integlight_customizer_themeColor
 
 	public function customize_register($wp_customize)
 	{
-		$wp_customize->add_section('base_pattern_section', array(
-			'title'       => __('Base color pattern', 'integlight'),
-			'priority'    => 30,
-			'description' => __('The base color pattern you select will be reflected throughout the site.', 'integlight'),
-		));
 
 		// Setting
 		$wp_customize->add_setting('base_color_setting', array(
@@ -491,10 +486,10 @@ class integlight_customizer_themeColor
 
 		// Control
 		$wp_customize->add_control('base_color_setting', array(
-			'section'     => 'base_pattern_section',
+			'section'     => 'colors', //既存の色セクションに追加
 			'settings'    => 'base_color_setting',
-			'label'       => 'Base color setting',
-			'description' => 'Select favorite base color',
+			'label'       => __('Accent color setting', 'integlight'),
+			'description' => __('Select favorite accent color', 'integlight'),
 			'type'        => 'radio',
 			'choices'     => array(
 				'pattern1' => 'None',
