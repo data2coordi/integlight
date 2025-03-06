@@ -15,9 +15,12 @@
   background: #0c62eb;
 }
 
-.integlight_pt h2::after,
-.integlight_pt h3::after {
+.integlight_pt h2::after {
   background: #0c62eb;
+}
+
+.integlight_pt h3::after {
+  background: #699ae9;
 }
 
 .integlight_pt .entry-footer {
