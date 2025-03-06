@@ -2,7 +2,7 @@
     "apiVersion": 2,
     "name": "integlight/tab-block",
     "title": "[Integlight]Tab switching feature.",
-    "category": "layout",
+    "category": "design",
     "icon": "index-card",
     "description": "A feature that allows switching between multiple contents using tabs.",
     "textdomain": "integlight",

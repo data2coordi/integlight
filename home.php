@@ -27,10 +27,14 @@ integlight_display_headerContents();
                     endif; ?>
 
                     <!-- タイトルをタイルの左上に大きく表示 -->
-                    <h2><?php the_title(); ?></h2>
+
+                    <h2><?php
+                        $title = get_the_title();
+                        echo (mb_strlen($title) > 19) ? mb_substr($title, 0, 19) . ' ...' : $title;
+                        ?></h2>
 
                     <!-- 本文の先頭200文字を表示 -->
-                    <p class="post-excerpt"><?php echo wp_trim_words(get_the_content(), 100, '...'); ?></p>
+                    <p class="post-excerpt"><?php echo wp_trim_words(get_the_content(), 78, ' ...'); ?></p>
 
                     <!-- 下部に日付、カテゴリ、タグを表示 -->
                     <div class="post-meta">

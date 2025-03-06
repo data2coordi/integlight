@@ -2,7 +2,7 @@
     "apiVersion": 2,
     "name": "integlight/speech-bubble",
     "title": "[integlight]speech bubble",
-    "category": "widgets",
+    "category": "design",
     "icon": "format-chat",
     "description": "A speech bubble block where you can set images and text, and customize the background and text colors.",
     "textdomain": "integlight",
