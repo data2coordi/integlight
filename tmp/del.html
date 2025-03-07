@@ -1,89 +1,20 @@
+<!--
 http://toshidayurika.com:7100/wp-content/themes/integlight/tmp/del.html
+-->
 
-<style>
-    /* さまざまな perspective の値のためのショートハンドクラス */
-    .pers250 {
-        perspective: 250px;
-    }
+<!DOCTYPE html>
+<html>
 
+<head>
+    <title>Critical Path: Measure Async</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link href="../css/base-style.css" rel="stylesheet" />
+</head>
 
-    /* コンテナーの div、立方体の div、面の一般的な設定 */
-    .container {
-        width: 200px;
-        height: 200px;
-        margin: 75px 0 0 75px;
-        border: none;
-    }
-
-    .cube {
-        width: 100%;
-        height: 100%;
-        perspective-origin: 150% 150%;
-        transform-style: preserve-3d;
-    }
-
-    .face {
-        display: block;
-        position: absolute;
-        width: 100px;
-        height: 100px;
-        border: none;
-        line-height: 100px;
-        font-family: sans-serif;
-        font-size: 60px;
-        color: white;
-        text-align: center;
-        backface-visibility: visible;
-    }
-
-    /* 方向に基づいてそれぞれの面を設定 */
-    .front {
-        background: rgb(0 0 0 / 30%);
-        transform: translateZ(50px);
-    }
-
-    .back {
-        background: rgb(0 255 0 / 100%);
-        color: black;
-        transform: rotateY(180deg) translateZ(50px);
-    }
-
-    .right {
-        background: rgb(196 0 0 / 70%);
-        transform: rotateY(90deg) translateZ(50px);
-    }
-
-    .left {
-        background: rgb(0 0 196 / 70%);
-        transform: rotateY(-90deg) translateZ(50px);
-    }
-
-    .top {
-        background: rgb(196 196 0 / 70%);
-        transform: rotateX(90deg) translateZ(50px);
-    }
-
-    .bottom {
-        background: rgb(196 0 196 / 70%);
-        transform: rotateX(-90deg) translateZ(50px);
-    }
-</style>
-
-<body>
-
-
-
-
-    <div class="container">
-        <div class="face front">1</div>
-        <div class="face back">2</div>
-        <div class="face right">3</div>
-        <div class="face left">4</div>
-        <div class="face top">5</div>
-        <div class="face bottom">6</div>
-
-    </div>
-
-
-
+<body onload="measureCRP()">
+    <p>Hello <span>web performance</span> students!</p>
+    <div><img src="../../../uploads/001.png" /></div>
+    <script async src="../blocks/tab-block/src/frontend.js"></script>
 </body>
+
+</html>

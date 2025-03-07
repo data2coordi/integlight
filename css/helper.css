@@ -74,12 +74,5 @@
 
 
 
-/* 固定された投稿 */
-.home .grid-item .status-sticky {
-    background-color: #eeeeee; /* 薄いグレーの背景 */
-    padding: 10px;
-    border-left: 4px solid #505050; /* 左に目立つボーダー */
-}
-
  
 
