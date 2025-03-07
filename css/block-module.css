@@ -40,6 +40,11 @@ ul.tabs-navigation {
   /* タブのボーダーを消している */
 }
 
+.integlight-tabs .tabs-navigation li.active {
+  border-bottom: none;
+  /* タブの青い下線を消している */
+}
+
 /******コンテンツ内スライダー********/
 .wp-block-integlight-slider-block .wp-block-columns {
   padding: 0px 20px;
