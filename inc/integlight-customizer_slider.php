@@ -76,7 +76,7 @@ add_action('customize_register', 'integlight_customizer_HeaderTypeSelecter');
 
 // 見出しセクション作成クラス _s ////////////////////////////////////////////////////////////////////////////////
 
-if (class_exists('WP_Customize_Control') && ! class_exists('integlight_customizer_creSection')) {
+if (class_exists('WP_Customize_Control') && ! class_exists('integlight_customizer_creBigSection')) {
 	class integlight_customizer_creBigSection extends WP_Customize_Control
 	{
 		public $type = 'heading';
