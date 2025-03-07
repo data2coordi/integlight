@@ -249,6 +249,11 @@ label {
         height: auto;
     }
 
+    .wp-block-image {
+        text-align: center;
+        /* スマホの時画像を中央寄せ */
+    }
+
     body .is-layout-flex {
         padding-left: var(--ly-widthPadding);
         padding-right: var(--ly-widthPadding);
