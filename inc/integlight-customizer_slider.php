@@ -189,6 +189,8 @@ class integlight_customizer_slider_setting
 {
 
 	private $pInteglight_slider_settings;
+	private $pSliderSectionId = 'slider_section';
+	private $pWp_customize;
 
 	public function __construct($slider_settings)
 	{
@@ -198,9 +200,10 @@ class integlight_customizer_slider_setting
 
 	public function setting($wp_customize)
 	{
+		$this->pWp_customize = $wp_customize;
 		// セクションを追加
-		$wp_customize->add_section('slider_section', array(
-			'title'    => __('Top Header:[Slider Settings]', 'integlight'),
+		$wp_customize->add_section($this->pSliderSectionId, array(
+			'title'    => integlight_g('Top Header:[Slider Settings]'),
 			'priority' => 29,
 			'active_callback' => function () {
 				return get_theme_mod('display_choice', 'slider') === 'slider';
@@ -208,40 +211,40 @@ class integlight_customizer_slider_setting
 		));
 
 		/* 効果 */
-		$this->labelSetting($wp_customize, 'integlight_slider_Animation_heading', __('Slider Animation', 'integlight'));
-		$this->effectSetting($wp_customize);
-		$this->numberSetting($wp_customize, 'integlight_slider_change_duration', __('Slider Change Duration (seconds)', 'integlight'), 1, 1);
+		$this->labelSetting('integlight_slider_Animation_heading', 'Slider Animation');
+		$this->effectSetting('integlight_slider_effect', 'Effect');
+		$this->numberSetting('integlight_slider_change_duration', 'Slider Change Duration (seconds)', 1, 1);
 
 		/* 画像 */
-		$this->labelSetting($wp_customize, 'integlight_slider_image_heading', __('Slider Image', 'integlight'));
-		$this->imageSetting($wp_customize, 'integlight_slider_image_1', 'Slider Image 1');
-		$this->imageSetting($wp_customize, 'integlight_slider_image_2', __('Slider Image 2', 'integlight'));
-		$this->imageSetting($wp_customize, 'integlight_slider_image_3', __('Slider Image 3', 'integlight'));
+		$this->labelSetting('integlight_slider_image_heading', 'Slider Image');
+		$this->imageSetting('integlight_slider_image_1', 'Slider Image 1');
+		$this->imageSetting('integlight_slider_image_2', 'Slider Image 2');
+		$this->imageSetting('integlight_slider_image_3', 'Slider Image 3');
 
 		/* テキスト */
-		$this->labelSetting($wp_customize, 'integlight_slider_text_heading', __('Slider Text', 'integlight'));
-		$this->textSetting($wp_customize, 'integlight_slider_text_1', __('Slider Text Main', 'integlight'));
-		$this->textSetting($wp_customize, 'integlight_slider_text_2', __('Slider Text Sub', 'integlight'));
-		$this->colorSetting($wp_customize, 'integlight_slider_text_color', __('Slider Text color', 'integlight'));
-		$this->fonttypeSetting($wp_customize);
-		$this->labelSetting($wp_customize, 'integlight_slider_text_position_heading', __('Slider Text Position', 'integlight'));
-		$this->numberSetting($wp_customize, 'integlight_slider_text_top', __('Slider Text Position Top (px)', 'integlight'), 0, 1);
-		$this->numberSetting($wp_customize, 'integlight_slider_text_left', __('Slider Text Position Left (px)', 'integlight'), 0, 1);
-		$this->labelSetting($wp_customize, 'integlight_slider_text_position_heading_mobile', __('Slider Text Position Mobile', 'integlight'));
-		$this->numberSetting($wp_customize, 'integlight_slider_text_top_mobile', __('Slider Text Position Top Mobile (px)', 'integlight'), 0, 1);
-		$this->numberSetting($wp_customize, 'integlight_slider_text_left_mobile', __('Slider Text Position Left Mobile (px)', 'integlight'), 0, 1);
+		$this->labelSetting('integlight_slider_text_heading', 'Slider Text');
+		$this->textSetting('integlight_slider_text_1', 'Slider Text Main');
+		$this->textSetting('integlight_slider_text_2', 'Slider Text Sub');
+		$this->colorSetting('integlight_slider_text_color', 'Slider Text color');
+		$this->fonttypeSetting('integlight_slider_text_font', 'Slider Text Font');
+		$this->labelSetting('integlight_slider_text_position_heading', 'Slider Text Position');
+		$this->numberSetting('integlight_slider_text_top', 'Slider Text Position Top (px)', 0, 1);
+		$this->numberSetting('integlight_slider_text_left', 'Slider Text Position Left (px)', 0, 1);
+		$this->labelSetting('integlight_slider_text_position_heading_mobile', 'Slider Text Position Mobile');
+		$this->numberSetting('integlight_slider_text_top_mobile', 'Slider Text Position Top Mobile (px)', 0, 1);
+		$this->numberSetting('integlight_slider_text_left_mobile', 'Slider Text Position Left Mobile (px)', 0, 1);
 	}
 
-	private function effectSetting($customize)
+	private function effectSetting($settingName, $label)
 	{
-		$customize->add_setting('integlight_slider_effect', array(
+		$this->pWp_customize->add_setting($settingName, array(
 			'default' => 'slide',
 			'sanitize_callback' => 'sanitize_text_field',
 		));
 
-		$customize->add_control('integlight_slider_effect', array(
-			'label'    => __('Effect', 'integlight'),
-			'section'  => 'slider_section',
+		$this->pWp_customize->add_control($settingName, array(
+			'label'    => integlight_g($label),
+			'section'  => $this->pSliderSectionId,
 			'type'     => 'select',
 			'choices'  => array(
 				$this->pInteglight_slider_settings->optionValueName_fade  => __('Fade', 'integlight'),
@@ -251,43 +254,43 @@ class integlight_customizer_slider_setting
 		));
 	}
 
-	private function imageSetting($customize, $settingName, $label)
+	private function imageSetting($settingName, $label)
 	{
-		$customize->add_setting($settingName, array(
+		$this->pWp_customize->add_setting($settingName, array(
 			'default' => '',
 			'sanitize_callback' => 'esc_url_raw',
 		));
 
-		$customize->add_control(new WP_Customize_Image_Control($customize, $settingName, array(
-			'label'    => __($label, 'integlight'),
-			'section'  => 'slider_section',
+		$this->pWp_customize->add_control(new WP_Customize_Image_Control($this->pWp_customize, $settingName, array(
+			'label'    => integlight_g($label),
+			'section'  => $this->pSliderSectionId,
 			'settings' => $settingName,
 		)));
 	}
 
-	private function textSetting($customize, $settingName, $label)
+	private function textSetting($settingName, $label)
 	{
-		$customize->add_setting($settingName, array(
+		$this->pWp_customize->add_setting($settingName, array(
 			'default' => $label,
 			'sanitize_callback' => 'sanitize_textarea_field',
 		));
-		$customize->add_control($settingName, array(
-			'label'    => __($label, 'integlight'),
-			'section'  => 'slider_section',
+		$this->pWp_customize->add_control($settingName, array(
+			'label'    => integlight_g($label),
+			'section'  => $this->pSliderSectionId,
 			'type'     => 'textarea',
 		));
 	}
 
-	private function numberSetting($customize, $settingName, $label, $min, $step)
+	private function numberSetting($settingName, $label, $min, $step)
 	{
-		$customize->add_setting($settingName, array(
+		$this->pWp_customize->add_setting($settingName, array(
 			'default' => '1',
 			'sanitize_callback' => 'absint',
 		));
 
-		$customize->add_control($settingName, array(
-			'label'    => __($label, 'integlight'),
-			'section'  => 'slider_section',
+		$this->pWp_customize->add_control($settingName, array(
+			'label'    => integlight_g($label),
+			'section'  => $this->pSliderSectionId,
 			'type'     => 'number',
 			'input_attrs' => array(
 				'min' => $min,
@@ -296,52 +299,52 @@ class integlight_customizer_slider_setting
 		));
 	}
 
-	private function labelSetting($customize, $settingName, $label)
+	private function labelSetting($settingName, $label)
 	{
-		$customize->add_setting($settingName, array(
+		$this->pWp_customize->add_setting($settingName, array(
 			'sanitize_callback' => 'sanitize_text_field',
 		));
-		$customize->add_control(new integlight_customizer_creBigSection(
-			$customize,
+		$this->pWp_customize->add_control(new integlight_customizer_creBigSection(
+			$this->pWp_customize,
 			$settingName,
 			array(
-				'label'   => __($label, 'integlight'),
-				'section' => 'slider_section',
+				'label'    => integlight_g($label),
+				'section'  => $this->pSliderSectionId
 			)
 		));
 	}
 
-	private function fonttypeSetting($customize)
+	private function fonttypeSetting($settingName, $label)
 	{
-		$customize->add_setting('integlight_slider_text_font', array(
+		$this->pWp_customize->add_setting($settingName, array(
 			'default'           => 'yu_gothic',
 			'sanitize_callback' => 'sanitize_text_field',
 		));
 
-		$customize->add_control('integlight_slider_text_font', array(
-			'label'    => __('Slider Text Font', 'integlight'),
-			'section'  => 'slider_section',
+		$this->pWp_customize->add_control($settingName, array(
+			'label'    => integlight_g($label),
+			'section'  => $this->pSliderSectionId,
 			'type'     => 'select',
 			'choices'  => array(
-				'yu_gothic' => __('yu gothic', 'integlight'),
-				'yu_mincho' => __('yu mincho', 'integlight'),
+				'yu_gothic' => integlight_g('yu gothic'),
+				'yu_mincho' => integlight_g('yu mincho'),
 			),
 		));
 	}
 
-	private function colorSetting($customize, $settingName, $label)
+	private function colorSetting($settingName, $label)
 	{
-		$customize->add_setting($settingName, array(
+		$this->pWp_customize->add_setting($settingName, array(
 			'default'           => '#000000',
 			'sanitize_callback' => 'sanitize_hex_color',
 		));
 
-		$customize->add_control(new WP_Customize_Color_Control(
-			$customize,
+		$this->pWp_customize->add_control(new WP_Customize_Color_Control(
+			$this->pWp_customize,
 			$settingName,
 			array(
-				'label'    => __($label, 'integlight'),
-				'section'  => 'slider_section',
+				'label'    => integlight_g($label),
+				'section'  => $this->pSliderSectionId,
 				'settings' => $settingName,
 			)
 		));

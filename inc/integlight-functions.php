@@ -501,6 +501,13 @@ add_action('wp_head', 'my_custom_meta_description');
 /* SEO用カスタムフィールド（Meta Title / Meta Description）を追加するe*/
 /********************************************************************/
 
+function integlight_g($target)
+{
+	var_dump('test2');
+	return __($target, 'integlight');
+}
+
+
 
 
 
