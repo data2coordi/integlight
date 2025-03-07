@@ -185,40 +185,60 @@ class integlight_customizer_slider_outerAssets
 }
 
 
-class integlight_customizer_slider
+class integlight_customizer_slider_setting
 {
-
 
 	private $pInteglight_slider_settings;
 
-	public function __construct()
+	public function __construct($slider_settings)
 	{
+		$this->pInteglight_slider_settings = $slider_settings;
 		add_action('customize_register', array($this, 'setting'));
-
-
-		//グローバルで使う定数を定義
-		$GLOBALS['Integlight_slider_settings'] = new stdClass();
-		$GLOBALS['Integlight_slider_settings']->optionValueName_fade = 'fade';
-		$GLOBALS['Integlight_slider_settings']->optionValueName_slide = 'slide';
-		$GLOBALS['Integlight_slider_settings']->optionValueName_none = 'none';
-
-		global $Integlight_slider_settings;
-		$this->pInteglight_slider_settings = $Integlight_slider_settings;
-		// クラスのインスタンスを生成して処理を開始
-		new integlight_customizer_slider_applyHeaderTextStyle();
-		new integlight_customizer_slider_outerAssets($this->pInteglight_slider_settings);
 	}
 
+	public function setting($wp_customize)
+	{
+		// セクションを追加
+		$wp_customize->add_section('slider_section', array(
+			'title'    => __('Top Header:[Slider Settings]', 'integlight'),
+			'priority' => 29,
+			'active_callback' => function () {
+				return get_theme_mod('display_choice', 'slider') === 'slider';
+			},
+		));
+
+		/* 効果 */
+		$this->labelSetting($wp_customize, 'integlight_slider_Animation_heading', __('Slider Animation', 'integlight'));
+		$this->effectSetting($wp_customize);
+		$this->numberSetting($wp_customize, 'integlight_slider_change_duration', __('Slider Change Duration (seconds)', 'integlight'), 1, 1);
+
+		/* 画像 */
+		$this->labelSetting($wp_customize, 'integlight_slider_image_heading', __('Slider Image', 'integlight'));
+		$this->imageSetting($wp_customize, 'integlight_slider_image_1', 'Slider Image 1');
+		$this->imageSetting($wp_customize, 'integlight_slider_image_2', __('Slider Image 2', 'integlight'));
+		$this->imageSetting($wp_customize, 'integlight_slider_image_3', __('Slider Image 3', 'integlight'));
+
+		/* テキスト */
+		$this->labelSetting($wp_customize, 'integlight_slider_text_heading', __('Slider Text', 'integlight'));
+		$this->textSetting($wp_customize, 'integlight_slider_text_1', __('Slider Text Main', 'integlight'));
+		$this->textSetting($wp_customize, 'integlight_slider_text_2', __('Slider Text Sub', 'integlight'));
+		$this->colorSetting($wp_customize, 'integlight_slider_text_color', __('Slider Text color', 'integlight'));
+		$this->fonttypeSetting($wp_customize);
+		$this->labelSetting($wp_customize, 'integlight_slider_text_position_heading', __('Slider Text Position', 'integlight'));
+		$this->numberSetting($wp_customize, 'integlight_slider_text_top', __('Slider Text Position Top (px)', 'integlight'), 0, 1);
+		$this->numberSetting($wp_customize, 'integlight_slider_text_left', __('Slider Text Position Left (px)', 'integlight'), 0, 1);
+		$this->labelSetting($wp_customize, 'integlight_slider_text_position_heading_mobile', __('Slider Text Position Mobile', 'integlight'));
+		$this->numberSetting($wp_customize, 'integlight_slider_text_top_mobile', __('Slider Text Position Top Mobile (px)', 'integlight'), 0, 1);
+		$this->numberSetting($wp_customize, 'integlight_slider_text_left_mobile', __('Slider Text Position Left Mobile (px)', 'integlight'), 0, 1);
+	}
 
 	private function effectSetting($customize)
 	{
-		// 効果設定を追加
 		$customize->add_setting('integlight_slider_effect', array(
 			'default' => 'slide',
 			'sanitize_callback' => 'sanitize_text_field',
 		));
 
-		// セレクトボックスのコントロールを追加
 		$customize->add_control('integlight_slider_effect', array(
 			'label'    => __('Effect', 'integlight'),
 			'section'  => 'slider_section',
@@ -233,7 +253,6 @@ class integlight_customizer_slider
 
 	private function imageSetting($customize, $settingName, $label)
 	{
-		// スライダー画像1を追加
 		$customize->add_setting($settingName, array(
 			'default' => '',
 			'sanitize_callback' => 'esc_url_raw',
@@ -248,7 +267,6 @@ class integlight_customizer_slider
 
 	private function textSetting($customize, $settingName, $label)
 	{
-		// スライダーテキスト1を追加
 		$customize->add_setting($settingName, array(
 			'default' => $label,
 			'sanitize_callback' => 'sanitize_textarea_field',
@@ -262,11 +280,9 @@ class integlight_customizer_slider
 
 	private function numberSetting($customize, $settingName, $label, $min, $step)
 	{
-
-		// スライド切り替え時間
 		$customize->add_setting($settingName, array(
 			'default' => '1',
-			'sanitize_callback' => 'absint', // 数値をサニタイズ
+			'sanitize_callback' => 'absint',
 		));
 
 		$customize->add_control($settingName, array(
@@ -280,12 +296,8 @@ class integlight_customizer_slider
 		));
 	}
 
-
-
 	private function labelSetting($customize, $settingName, $label)
 	{
-
-		// --- 親ラベル（見出し）を追加s ---
 		$customize->add_setting($settingName, array(
 			'sanitize_callback' => 'sanitize_text_field',
 		));
@@ -297,14 +309,10 @@ class integlight_customizer_slider
 				'section' => 'slider_section',
 			)
 		));
-		// --- 親ラベル（見出し）を追加e ---
-
 	}
 
 	private function fonttypeSetting($customize)
 	{
-
-		// カスタマイザー設定追加の例（既存のカスタマイザー登録コードに追加）
 		$customize->add_setting('integlight_slider_text_font', array(
 			'default'           => 'yu_gothic',
 			'sanitize_callback' => 'sanitize_text_field',
@@ -320,13 +328,12 @@ class integlight_customizer_slider
 			),
 		));
 	}
+
 	private function colorSetting($customize, $settingName, $label)
 	{
-
-		// 色選択の設定を追加
 		$customize->add_setting($settingName, array(
-			'default'           => '#000000', // デフォルトは黒
-			'sanitize_callback' => 'sanitize_hex_color', // HEX形式の文字列をサニタイズ
+			'default'           => '#000000',
+			'sanitize_callback' => 'sanitize_hex_color',
 		));
 
 		$customize->add_control(new WP_Customize_Color_Control(
@@ -335,49 +342,35 @@ class integlight_customizer_slider
 			array(
 				'label'    => __($label, 'integlight'),
 				'section'  => 'slider_section',
-				'settings' => 'integlight_slider_text_color',
+				'settings' => $settingName,
 			)
 		));
 	}
+}
 
 
-	public function setting($wp_customize)
+class integlight_customizer_slider
+{
+
+
+	private $pInteglight_slider_settings;
+
+	public function __construct()
 	{
 
 
+		//グローバルで使う定数を定義
+		$GLOBALS['Integlight_slider_settings'] = new stdClass();
+		$GLOBALS['Integlight_slider_settings']->optionValueName_fade = 'fade';
+		$GLOBALS['Integlight_slider_settings']->optionValueName_slide = 'slide';
+		$GLOBALS['Integlight_slider_settings']->optionValueName_none = 'none';
 
-		// セクションを追加
-		$wp_customize->add_section('slider_section', array(
-			'title'    => __('Top Header:[Slider Settings]', 'integlight'),
-			'priority' => 29,
-			'active_callback' => function () {
-				return get_theme_mod('display_choice', 'slider') === 'slider';
-			},
-		));
-
-		/*効果*/
-		$this->labelSetting($wp_customize, 'integlight_slider_Animation_heading', __('Slider Animation', 'integlight'));
-		$this->effectSetting($wp_customize);
-		$this->numberSetting($wp_customize, 'integlight_slider_change_duration', __('Slider Change Duration (seconds)', 'integlight'), 1, 1);
-
-		/*画像*/
-		$this->labelSetting($wp_customize, 'integlight_slider_image_heading', __('Slider Image', 'integlight'));
-		$this->imageSetting($wp_customize, 'integlight_slider_image_1', __('Slider Image 1', 'integlight'));
-		$this->imageSetting($wp_customize, 'integlight_slider_image_2', __('Slider Image 2', 'integlight'));
-		$this->imageSetting($wp_customize, 'integlight_slider_image_3', __('Slider Image 3', 'integlight'));
-
-		/*テキスト*/
-		$this->labelSetting($wp_customize, 'integlight_slider_text_heading', __('Slider Text', 'integlight'));
-		$this->textSetting($wp_customize, 'integlight_slider_text_1', __('Slider Text Main', 'integlight'));
-		$this->textSetting($wp_customize, 'integlight_slider_text_2', __('Slider Text Sub', 'integlight'));
-		$this->colorSetting($wp_customize, 'integlight_slider_text_color', __('Slider Text color', 'integlight'));
-		$this->fonttypeSetting($wp_customize);
-		$this->labelSetting($wp_customize, 'integlight_slider_text_position_heading', __('Slider Text Position', 'integlight'));
-		$this->numberSetting($wp_customize, 'integlight_slider_text_top', __('Slider Text Position Top (px)', 'integlight'), 0, 1);
-		$this->numberSetting($wp_customize, 'integlight_slider_text_left', __('Slider Text Position Left (px)', 'integlight'), 0, 1);
-		$this->labelSetting($wp_customize, 'integlight_slider_text_position_heading_mobile', __('Slider Text Position Mobile', 'integlight'));
-		$this->numberSetting($wp_customize, 'integlight_slider_text_top_mobile', __('Slider Text Position Top Mobile (px)', 'integlight'), 0, 1);
-		$this->numberSetting($wp_customize, 'integlight_slider_text_left_mobile', __('Slider Text Position Left Mobile (px)', 'integlight'), 0, 1);
+		global $Integlight_slider_settings;
+		$this->pInteglight_slider_settings = $Integlight_slider_settings;
+		// クラスのインスタンスを生成して処理を開始
+		new integlight_customizer_slider_applyHeaderTextStyle();
+		new integlight_customizer_slider_outerAssets($this->pInteglight_slider_settings);
+		new integlight_customizer_slider_setting($this->pInteglight_slider_settings);
 	}
 }
 
