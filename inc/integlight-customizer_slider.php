@@ -157,6 +157,33 @@ class integlight_customizer_slider_applyHeaderTextStyle
 /* スライダーに表示するテキストe */
 
 
+class integlight_customizer_slider_outerAssets
+{
+
+	private $pInteglight_slider_settings;
+
+	public function __construct($slider_settings)
+	{
+		$this->pInteglight_slider_settings = $slider_settings;
+		add_action('wp_enqueue_scripts', array($this, 'init_in_wp_enqueue_scripts'));
+	}
+
+	public function init_in_wp_enqueue_scripts()
+	{
+		wp_enqueue_style('integlight-slide', get_template_directory_uri() . '/css/integlight-slide-style.css', array(), _S_VERSION);
+		wp_enqueue_script('jquery');
+		wp_enqueue_script('integlight_slider-script', get_template_directory_uri() . '/js/integlight-scripts.js', array('jquery'), _S_VERSION, true);
+
+		// カスタマイザーの設定値をJavaScriptに渡す
+		wp_localize_script('integlight_slider-script', 'integlight_sliderSettings', array(
+			'changeDuration' => get_theme_mod('integlight_slider_change_duration', '3'),
+			'effect' => get_theme_mod('integlight_slider_effect', $this->pInteglight_slider_settings->optionValueName_none),
+			'fade' => $this->pInteglight_slider_settings->optionValueName_fade,
+			'slide' => $this->pInteglight_slider_settings->optionValueName_slide
+		));
+	}
+}
+
 
 class integlight_customizer_slider
 {
@@ -168,7 +195,6 @@ class integlight_customizer_slider
 	{
 		add_action('customize_register', array($this, 'setting'));
 
-		add_action('wp_enqueue_scripts', array($this, 'init_in_wp_enqueue_scripts'));
 
 		//グローバルで使う定数を定義
 		$GLOBALS['Integlight_slider_settings'] = new stdClass();
@@ -180,21 +206,7 @@ class integlight_customizer_slider
 		$this->pInteglight_slider_settings = $Integlight_slider_settings;
 		// クラスのインスタンスを生成して処理を開始
 		new integlight_customizer_slider_applyHeaderTextStyle();
-	}
-
-	public function init_in_wp_enqueue_scripts()
-	{
-
-		wp_enqueue_style('integlight-slide', get_template_directory_uri() . '/css/integlight-slide-style.css', array(), _S_VERSION);
-		wp_enqueue_script('jquery');
-		wp_enqueue_script('integlight_slider-script', get_template_directory_uri() . '/js/integlight-scripts.js', array('jquery'), _S_VERSION, true);
-		// カスタマイザーの設定値をJavaScriptに渡す
-		wp_localize_script('integlight_slider-script', 'integlight_sliderSettings', array(
-			'changeDuration' => get_theme_mod('integlight_slider_change_duration', '3'),
-			'effect' => get_theme_mod('integlight_slider_effect', $this->pInteglight_slider_settings->optionValueName_none),
-			'fade' => $this->pInteglight_slider_settings->optionValueName_fade,
-			'slide' => $this->pInteglight_slider_settings->optionValueName_slide
-		));
+		new integlight_customizer_slider_outerAssets($this->pInteglight_slider_settings);
 	}
 
 
