@@ -169,10 +169,13 @@ class integlight_customizer_slider
 		add_action('customize_register', array($this, 'setting'));
 
 		add_action('wp_enqueue_scripts', array($this, 'init_in_wp_enqueue_scripts'));
+
+		//グローバルで使う定数を定義
 		$GLOBALS['Integlight_slider_settings'] = new stdClass();
 		$GLOBALS['Integlight_slider_settings']->optionValueName_fade = 'fade';
 		$GLOBALS['Integlight_slider_settings']->optionValueName_slide = 'slide';
 		$GLOBALS['Integlight_slider_settings']->optionValueName_none = 'none';
+
 		global $Integlight_slider_settings;
 		$this->pInteglight_slider_settings = $Integlight_slider_settings;
 		// クラスのインスタンスを生成して処理を開始

@@ -123,6 +123,11 @@ textarea {
     /* 囲みテキストにpadding */
 }
 
+.wp-block-buttons.is-layout-flex {
+    padding: 0;
+    /* ボタンのパディングを無しに */
+}
+
 
 /*-------------全幅ブロック----------*/
 /* .wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-colum {
