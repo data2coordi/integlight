@@ -92,16 +92,16 @@ class integlight_customizer_themeColor
 		$wp_customize->add_control('base_color_setting', array(
 			'section'     => 'colors', //既存の色セクションに追加
 			'settings'    => 'base_color_setting',
-			'label'       => __('Accent color setting', 'integlight'),
-			'description' => __('Select favorite accent color', 'integlight'),
+			'label'       => integlight_g('Accent color setting'),
+			'description' => integlight_g('Select favorite accent color'),
 			'type'        => 'radio',
 			'choices'     => array(
-				'pattern1' => 'None',
-				'pattern2' => 'Blue',
-				'pattern3' => 'Green',
-				'pattern4' => 'Orange',
-				'pattern5' => 'Red',
-				'pattern6' => 'Pink',
+				'pattern1' => integlight_g('None'),
+				'pattern2' => integlight_g('Blue'),
+				'pattern3' => integlight_g('Green'),
+				'pattern4' => integlight_g('Orange'),
+				'pattern5' => integlight_g('Red'),
+				'pattern6' => integlight_g('Pink'),
 			),
 		));
 	}

@@ -267,6 +267,40 @@ msgstr "アクセントカラー設定"
 msgid "Select favorite accent color"
 msgstr "サイト全体のアクセントカラーとして使用される色を変更できます"
 
+#: inc/integlight-customizer.php:448
+msgid "Blue"
+msgstr "青"
+
+#: inc/integlight-customizer.php:448
+msgid "Green"
+msgstr "緑"
+
+#: inc/integlight-customizer.php:448
+msgid "Orange"
+msgstr "オレンジ"
+
+#: inc/integlight-customizer.php:448
+msgid "Red"
+msgstr "赤"
+
+#: inc/integlight-customizer.php:448
+msgid "Pink"
+msgstr "ピンク"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #: inc/integlight-functions.php:203
 msgid "Footer Settings"
 msgstr "フッター設定"
@@ -543,4 +577,25 @@ msgstr "スライダー アニメーション"
 
 msgid "Slider Image"
 msgstr "スライダー画像"
+
+
+msgid "Meta data setting(optional)"
+msgstr "メタ情報設定"
+
+
+msgid "Meta Title"
+msgstr "メタ タイトル"
+
+msgid "Meta Description"
+msgstr "メタ ディスクリプション"
+
+
+msgid "ex) Improve Your English Speaking | 5 Easy & Effective Tips"
+msgstr "例) 英語スピーキングを向上させよう | 簡単＆効果的な5つのコツ"
+
+
+
+msgid "ex) Struggling with English speaking? Learn 5 simple and practical tips to boost your fluency and confidence in conversations. Perfect for beginners and intermediate learners!"
+msgstr "例) 英語のスピーキングに苦労していませんか？ 会話の流暢さと自信を高めるための、シンプルで実践的な5つのコツを学びましょう。初心者や中級者に最適！"
+
 

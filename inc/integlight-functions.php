@@ -371,7 +371,7 @@ function add_custom_seo_meta_box()
 	foreach ($post_types as $post_type) {
 		add_meta_box(
 			'seo_meta_box',            // メタボックスのID
-			'Meta data setting(optional)',                 // メタボックスのタイトル（管理画面に表示される）
+			integlight_g('Meta data setting(optional)'),                 // メタボックスのタイトル（管理画面に表示される）
 			'display_seo_meta_box',    // コールバック関数（メタボックス内のHTML出力）
 			$post_type,                // 対象の投稿タイプ
 			'normal',                  // 表示位置（normal, side, advanced など）
@@ -392,12 +392,12 @@ function display_seo_meta_box($post)
 	$custom_meta_description = get_post_meta($post->ID, '_custom_meta_description', true);
 	?>
 	<p>
-		<label for="custom_meta_title"><strong>Meta Title</strong></label><br>
-		<input type="text" name="custom_meta_title" id="custom_meta_title" value="<?php echo esc_attr($custom_meta_title); ?>" style="width:100%;" placeholder="ex) Meta Title">
+		<label for="custom_meta_title"><strong><?php echo integlight_g("Meta Title") ?></strong></label><br>
+		<input type="text" name="custom_meta_title" id="custom_meta_title" value="<?php echo esc_attr($custom_meta_title); ?>" style="width:100%;" placeholder="<?php echo integlight_g('ex) Improve Your English Speaking | 5 Easy & Effective Tips') ?>">
 	</p>
 	<p>
-		<label for="custom_meta_description"><strong>Meta Description</strong></label><br>
-		<textarea name="custom_meta_description" id="custom_meta_description" rows="4" style="width:100%;" placeholder="ex) Meta Description"><?php echo esc_textarea($custom_meta_description); ?></textarea>
+		<label for="custom_meta_description"><strong><?php echo integlight_g("Meta Description") ?></strong></label><br>
+		<textarea name="custom_meta_description" id="custom_meta_description" rows="4" style="width:100%;" placeholder="<?php echo integlight_g("ex) Struggling with English speaking? Learn 5 simple and practical tips to boost your fluency and confidence in conversations. Perfect for beginners and intermediate learners!") ?>"><?php echo esc_textarea($custom_meta_description); ?></textarea>
 	</p>
 <?php
 }
