@@ -235,6 +235,8 @@ class integlight_customizer_slider_setting
 		$this->numberSetting('integlight_slider_text_left_mobile', 'Slider Text Position Left Mobile (px)', 0, 1);
 	}
 
+
+
 	private function effectSetting($settingName, $label)
 	{
 		$this->pWp_customize->add_setting($settingName, array(
@@ -274,10 +276,10 @@ class integlight_customizer_slider_setting
 			'default' => $label,
 			'sanitize_callback' => 'sanitize_textarea_field',
 		));
-		$this->pWp_customize->add_control($settingName, array(
-			'label'    => integlight_g($label),
-			'section'  => $this->pSliderSectionId,
-			'type'     => 'textarea',
+		$this->pWp_customize->add_control($settingName,  array(
+			'label'   => integlight_g($label),
+			'section' => $this->pSliderSectionId,
+			'settings' => $settingName,
 		));
 	}
 
