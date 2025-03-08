@@ -1,20 +1,5 @@
 <?php
 
-// ヘッダー画像セクションのプライオリティをアップする関数 _s 
-function integlight_customizer_headerImage_updPriority($wp_customize)
-{
-	if ($wp_customize->get_section('header_image')) {
-		$wp_customize->get_section('header_image')->title = __('Top Header:[Image settings]', 'integlight');
-		$wp_customize->get_section('header_image')->priority = 30; // 上に配置される
-		$wp_customize->get_section('header_image')->active_callback = function () {
-			return get_theme_mod('display_choice', 'slider') === 'image';
-		};
-	}
-}
-add_action('customize_register', 'integlight_customizer_headerImage_updPriority');
-
-// ヘッダー画像セクションのプライオリティをアップする関数 _e
-
 
 
 // top header slider or Image select  _s ////////////////////////////////////////////////////////////////////////////////
@@ -37,47 +22,10 @@ function integlight_display_headerContents()
 }
 
 
-function integlight_customizer_HeaderTypeSelecter($wp_customize)
-{
-	// 新しいセクションを追加（カスタマイザメニューのトップに表示されるように優先度を低く設定）
-	$wp_customize->add_section('integlight_header_section', array(
-		'title'    => __('Top Header:[Select - Slider or Image]', 'integlight'),
-		'priority' => 28, // 優先度を1にしてトップに表示
-	));
-
-	// 選択ボックスを追加
-	$wp_customize->add_setting('display_choice', array(
-		'default' => 'header',
-		'sanitize_callback' => 'sanitize_text_field',
-	));
-
-	$wp_customize->add_control('display_choice', array(
-		'label'    => __('Display Slider or Image', 'integlight'),
-		'section'  => 'integlight_header_section', // 先ほど追加したセクションに追加
-		'settings' => 'display_choice',
-		'type'     => 'select',
-		'choices'  => array(
-			'slider' => __('Slider', 'integlight'),
-			'image' => __('Image', 'integlight'),
-		),
-	));
-}
-add_action('customize_register', 'integlight_customizer_HeaderTypeSelecter');
-
-
-
-// top header select  _e ////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
 // 見出しセクション作成クラス _s ////////////////////////////////////////////////////////////////////////////////
 
-if (class_exists('WP_Customize_Control') && ! class_exists('integlight_customizer_creBigSection')) {
-	class integlight_customizer_creBigSection extends WP_Customize_Control
+if (class_exists('WP_Customize_Control') && ! class_exists('integlight_customizer_creBigTitle')) {
+	class integlight_customizer_creBigTitle extends WP_Customize_Control
 	{
 		public $type = 'heading';
 		public function render_content()
@@ -89,6 +37,72 @@ if (class_exists('WP_Customize_Control') && ! class_exists('integlight_customize
 	}
 }
 // 見出しセクション作成クラス _e ////////////////////////////////////////////////////////////////////////////////
+
+
+class integlight_customizer_HeaderTypeSelecter
+{
+
+	private $pSectionId;
+	public function __construct($sliderSectionId)
+	{
+		$this->pSectionId = $sliderSectionId->getSliderOrImageSectionId();
+		add_action('customize_register', array($this, 'integlight_customizer_HeaderTypeSelecter'));
+	}
+
+
+	public function integlight_customizer_HeaderTypeSelecter($wp_customize)
+	{
+
+		// 選択ボックスを追加
+		$wp_customize->add_setting('display_choice', array(
+			'default' => 'header',
+			'sanitize_callback' => 'sanitize_text_field',
+		));
+
+		$wp_customize->add_control('display_choice', array(
+			'label'    => __('Display Slider or Image', 'integlight'),
+			'section'  => $this->pSectionId,
+			'settings' => 'display_choice',
+			'type'     => 'select',
+			'choices'  => array(
+				'slider' => __('Slider', 'integlight'),
+				'image' => __('Image', 'integlight'),
+			),
+		));
+	}
+}
+
+
+// top header select  _e ////////////////////////////////////////////////////////////////////////////////
+
+
+// ヘッダー画像セクションの位置を変更する関数 _s 
+class integlight_customizer_headerImage_updSection
+{
+
+	private $pPanelId;
+
+	public function __construct($sliderSectionId)
+	{
+		$this->pPanelId = $sliderSectionId->getSliderPanelId();
+
+		add_action('customize_register', array($this, 'integlight_customizer_headerImage_updSection'));
+	}
+	public function integlight_customizer_headerImage_updSection($wp_customize)
+	{
+		if ($wp_customize->get_section('header_image')) {
+			//$wp_customize->get_section('header_image')->title = __('Top Header:[Select - Slider or Image]', 'integlight');
+			$wp_customize->get_section('header_image')->priority = 30; // 上に配置される
+			$wp_customize->get_section('header_image')->panel = $this->pPanelId; // 上に配置される
+			$wp_customize->get_section('header_image')->active_callback = function () {
+				return get_theme_mod('display_choice', 'slider') === 'image';
+			};
+		}
+	}
+}
+// ヘッダー画像セクションの位置を変更する関数 _e
+
+
 
 /* スライダーに表示するテキストにカスタマイザーでユーザーがセットしたスタイルを適用するs */
 class integlight_customizer_slider_applyHeaderTextStyle
@@ -187,8 +201,9 @@ class integlight_customizer_slider_outerAssets
 class integlight_customizer_slider_creSection
 {
 
-	const SLIDER_BIG_SECTION_ID = 'slider_big_section';
+	const SLIDER_PANEL_ID = 'slider_panel';
 	const SLIDER_SECTION_ID = 'slider_section';
+	const SLIDER_OR_IMAGE_SECTION_ID = 'sliderOrImage_section';
 
 	public function __construct()
 	{
@@ -199,27 +214,44 @@ class integlight_customizer_slider_creSection
 	{
 
 		// 大セクションを追加
-		$wp_customize->add_panel(self::SLIDER_BIG_SECTION_ID, array(
-			'title'    => integlight_g('Top Header'),
+		$wp_customize->add_panel(self::SLIDER_PANEL_ID, array(
+			'title'    => integlight_g('Top Header Setting'),
 			'priority' => 29
 		));
 
-		// セクションを追加
-		$wp_customize->add_section(self::SLIDER_SECTION_ID, array(
-			'title'    => integlight_g('Top Header:[Slider Settings]'),
+		// 画像orスライダー選択セクションを追加
+		$wp_customize->add_section(self::SLIDER_OR_IMAGE_SECTION_ID, array(
+			'title'    => integlight_g('Select - Slider or Image'),
 			'priority' => 29,
-			'panel' => self::SLIDER_BIG_SECTION_ID,
+			'panel' => self::SLIDER_PANEL_ID,
+
+		));
+
+
+		// スライダー作成用セクションを追加
+		$wp_customize->add_section(self::SLIDER_SECTION_ID, array(
+			'title'    => integlight_g('Slider Settings'),
+			'priority' => 29,
+			'panel' => self::SLIDER_PANEL_ID,
 			'active_callback' => function () {
 				return get_theme_mod('display_choice', 'slider') === 'slider';
 			},
 		));
 	}
 
-	public function getSectionId()
+	public function getSliderPanelId()
 	{
+		return self::SLIDER_PANEL_ID;
+	}
 
-		// セクションを追加
+	public function getSliderSectionId()
+	{
 		return self::SLIDER_SECTION_ID;
+	}
+
+	public function getSliderOrImageSectionId()
+	{
+		return self::SLIDER_OR_IMAGE_SECTION_ID;
 	}
 }
 
@@ -232,7 +264,7 @@ class integlight_customizer_slider_setting
 
 	public function __construct($slider_settings, $sliderSectionId)
 	{
-		$this->pSectionId = $sliderSectionId->getSectionId();
+		$this->pSectionId = $sliderSectionId->getSliderSectionId();
 		$this->pInteglight_slider_settings = $slider_settings;
 		add_action('customize_register', array($this, 'setting'));
 	}
@@ -337,7 +369,7 @@ class integlight_customizer_slider_setting
 		$this->pWp_customize->add_setting($settingName, array(
 			'sanitize_callback' => 'sanitize_text_field',
 		));
-		$this->pWp_customize->add_control(new integlight_customizer_creBigSection(
+		$this->pWp_customize->add_control(new integlight_customizer_creBigTitle(
 			$this->pWp_customize,
 			$settingName,
 			array(
@@ -407,7 +439,10 @@ class integlight_customizer_slider
 		new integlight_customizer_slider_applyHeaderTextStyle();
 		new integlight_customizer_slider_outerAssets($this->pInteglight_slider_settings);
 		$creSliderSectionId = new integlight_customizer_slider_creSection();
+
+		new integlight_customizer_HeaderTypeSelecter($creSliderSectionId);
 		new integlight_customizer_slider_setting($this->pInteglight_slider_settings, $creSliderSectionId);
+		new integlight_customizer_headerImage_updSection($creSliderSectionId);
 	}
 }
 

@@ -118,13 +118,10 @@ msgstr "サイドバー2"
 msgid "Skip to content"
 msgstr "コンテンツへスキップ"
 
-#: inc/custom-header.php:44
-msgid "Top Header:[Image settings]"
-msgstr "トップヘッダー：[画像設定]"
 
 #: inc/integlight-customizer.php:18
-msgid "Top Header:[Select - Slider or Image]"
-msgstr "トップヘッダー：[スライダーまたは画像を選択]"
+msgid "Select - Slider or Image"
+msgstr "スライダーまたは画像を選択"
 
 #: inc/integlight-customizer.php:29
 msgid "Display Slider or Image"
@@ -172,8 +169,12 @@ msgid "yu mincho"
 msgstr "游明朝"
 
 #: inc/integlight-customizer.php:336
-msgid "Top Header:[Slider Settings]"
-msgstr "トップヘッダー：[スライダー設定]"
+msgid "Top Header Setting"
+msgstr "トップヘッダー設定"
+
+#: inc/integlight-customizer.php:336
+msgid "Slider Settings"
+msgstr "スライダー設定"
 
 #: inc/integlight-customizer.php:342
 msgid "Slider Image 1"
