@@ -193,13 +193,22 @@ class InteglightTableOfContents
 				$heading_attributes = $match[2]; // クラスやIDなどの属性
 				$heading_text = $match[3]; // 見出しのテキスト
 
-				// 見出しにIDを追加
-				$id = sanitize_title_with_dashes($heading_text);
+
 
 				// 目次を作成
-				$toc .= '<li class="toc-' . strtolower($heading_tag) . '"><a href="#' . $id . '">' . strip_tags($heading_text) . '</a></li>';
+				// インデント調整（追加部分）
+				$indent = '';
+				if ($heading_tag === 'h2') {
+					$indent = '&nbsp;&nbsp;'; // H2ならインデント1つ
+				} elseif ($heading_tag === 'h3') {
+					$indent = '&nbsp;&nbsp;&nbsp;&nbsp;'; // H3ならインデント2つ
+				}
+
+				// 目次を作成
+				$toc .= '<li class="toc-' . strtolower($heading_tag) . '">' . $indent . '<a href="#' . $id . '">' . strip_tags($heading_text) . '</a></li>';
 
 				// HタグにIDを追加してクラスを維持
+				$id = sanitize_title_with_dashes($heading_text);
 				$content = str_replace(
 					$match[0],
 					'<' . $heading_tag . $heading_attributes . ' id="' . $id . '">' . $heading_text . '</' . $heading_tag . '>',
