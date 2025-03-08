@@ -10,14 +10,22 @@ function integlight_display_headerContents()
 {
 	$choice = get_theme_mod('display_choice', 'slider');
 
-	if ('slider' === $choice) {
-		// スライダーを表示
-		get_template_part('template-parts/content', 'slide');
-	} else {
-		// ヘッダー画像を表示
-		if (get_header_image()) {
-			echo '<img src="' . esc_url(get_header_image()) . '" class="topImage" ' .  ' alt="' . esc_attr(get_bloginfo('name')) . '">';
-		}
+
+	switch ($choice) {
+		case 'slider':
+			// 値1と一致する場合の処理
+			get_template_part('template-parts/content', 'slide');
+
+			break;
+
+		case 'image':
+			if (get_header_image()) {
+				echo '<img src="' . esc_url(get_header_image()) . '" class="topImage" ' .  ' alt="' . esc_attr(get_bloginfo('name')) . '">';
+			}
+			break;
+
+		default:
+			// どのケースにも一致しない場合の処理
 	}
 }
 
@@ -67,6 +75,7 @@ class integlight_customizer_HeaderTypeSelecter
 			'choices'  => array(
 				'slider' => __('Slider', 'integlight'),
 				'image' => __('Image', 'integlight'),
+				'none' => __('None', 'integlight'),
 			),
 		));
 	}
