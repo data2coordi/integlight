@@ -173,6 +173,11 @@ msgid "Top Header Setting"
 msgstr "トップヘッダー設定"
 
 #: inc/integlight-customizer.php:336
+msgid "Please select whether to display a slider or an image in the top header. The settings button for the selected option will be displayed."
+msgstr "トップヘッダーにスライダーまたは画像のどちらを表示するか選択してください。選択された方の設定ボタンが表示されます。"
+
+
+#: inc/integlight-customizer.php:336
 msgid "Slider Settings"
 msgstr "スライダー設定"
 

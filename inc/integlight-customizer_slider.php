@@ -216,6 +216,7 @@ class integlight_customizer_slider_creSection
 		// 大セクションを追加
 		$wp_customize->add_panel(self::SLIDER_PANEL_ID, array(
 			'title'    => integlight_g('Top Header Setting'),
+			'description' => integlight_g('Please select whether to display a slider or an image in the top header. The settings button for the selected option will be displayed.'),
 			'priority' => 29
 		));
 
