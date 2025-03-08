@@ -184,16 +184,55 @@ class integlight_customizer_slider_outerAssets
 	}
 }
 
+class integlight_customizer_slider_creSection
+{
+
+	const SLIDER_BIG_SECTION_ID = 'slider_big_section';
+	const SLIDER_SECTION_ID = 'slider_section';
+
+	public function __construct()
+	{
+		add_action('customize_register', array($this, 'creSection'));
+	}
+
+	public function creSection($wp_customize)
+	{
+
+		// 大セクションを追加
+		$wp_customize->add_panel(self::SLIDER_BIG_SECTION_ID, array(
+			'title'    => integlight_g('Top Header'),
+			'priority' => 29
+		));
+
+		// セクションを追加
+		$wp_customize->add_section(self::SLIDER_SECTION_ID, array(
+			'title'    => integlight_g('Top Header:[Slider Settings]'),
+			'priority' => 29,
+			'panel' => self::SLIDER_BIG_SECTION_ID,
+			'active_callback' => function () {
+				return get_theme_mod('display_choice', 'slider') === 'slider';
+			},
+		));
+	}
+
+	public function getSectionId()
+	{
+
+		// セクションを追加
+		return self::SLIDER_SECTION_ID;
+	}
+}
 
 class integlight_customizer_slider_setting
 {
 
 	private $pInteglight_slider_settings;
-	private $pSliderSectionId = 'slider_section';
+	private $pSectionId;
 	private $pWp_customize;
 
-	public function __construct($slider_settings)
+	public function __construct($slider_settings, $sliderSectionId)
 	{
+		$this->pSectionId = $sliderSectionId->getSectionId();
 		$this->pInteglight_slider_settings = $slider_settings;
 		add_action('customize_register', array($this, 'setting'));
 	}
@@ -201,14 +240,6 @@ class integlight_customizer_slider_setting
 	public function setting($wp_customize)
 	{
 		$this->pWp_customize = $wp_customize;
-		// セクションを追加
-		$wp_customize->add_section($this->pSliderSectionId, array(
-			'title'    => integlight_g('Top Header:[Slider Settings]'),
-			'priority' => 29,
-			'active_callback' => function () {
-				return get_theme_mod('display_choice', 'slider') === 'slider';
-			},
-		));
 
 		/* 効果 */
 		$this->labelSetting('integlight_slider_Animation_heading', 'Slider Animation');
@@ -246,7 +277,7 @@ class integlight_customizer_slider_setting
 
 		$this->pWp_customize->add_control($settingName, array(
 			'label'    => integlight_g($label),
-			'section'  => $this->pSliderSectionId,
+			'section'  => $this->pSectionId,
 			'type'     => 'select',
 			'choices'  => array(
 				$this->pInteglight_slider_settings->optionValueName_fade  => __('Fade', 'integlight'),
@@ -265,7 +296,7 @@ class integlight_customizer_slider_setting
 
 		$this->pWp_customize->add_control(new WP_Customize_Image_Control($this->pWp_customize, $settingName, array(
 			'label'    => integlight_g($label),
-			'section'  => $this->pSliderSectionId,
+			'section'  => $this->pSectionId,
 			'settings' => $settingName,
 		)));
 	}
@@ -278,7 +309,7 @@ class integlight_customizer_slider_setting
 		));
 		$this->pWp_customize->add_control($settingName,  array(
 			'label'   => integlight_g($label),
-			'section' => $this->pSliderSectionId,
+			'section' => $this->pSectionId,
 			'settings' => $settingName,
 		));
 	}
@@ -292,7 +323,7 @@ class integlight_customizer_slider_setting
 
 		$this->pWp_customize->add_control($settingName, array(
 			'label'    => integlight_g($label),
-			'section'  => $this->pSliderSectionId,
+			'section'  => $this->pSectionId,
 			'type'     => 'number',
 			'input_attrs' => array(
 				'min' => $min,
@@ -311,7 +342,7 @@ class integlight_customizer_slider_setting
 			$settingName,
 			array(
 				'label'    => integlight_g($label),
-				'section'  => $this->pSliderSectionId
+				'section'  => $this->pSectionId
 			)
 		));
 	}
@@ -325,7 +356,7 @@ class integlight_customizer_slider_setting
 
 		$this->pWp_customize->add_control($settingName, array(
 			'label'    => integlight_g($label),
-			'section'  => $this->pSliderSectionId,
+			'section'  => $this->pSectionId,
 			'type'     => 'select',
 			'choices'  => array(
 				'yu_gothic' => integlight_g('yu gothic'),
@@ -346,7 +377,7 @@ class integlight_customizer_slider_setting
 			$settingName,
 			array(
 				'label'    => integlight_g($label),
-				'section'  => $this->pSliderSectionId,
+				'section'  => $this->pSectionId,
 				'settings' => $settingName,
 			)
 		));
@@ -375,7 +406,8 @@ class integlight_customizer_slider
 		// クラスのインスタンスを生成して処理を開始
 		new integlight_customizer_slider_applyHeaderTextStyle();
 		new integlight_customizer_slider_outerAssets($this->pInteglight_slider_settings);
-		new integlight_customizer_slider_setting($this->pInteglight_slider_settings);
+		$creSliderSectionId = new integlight_customizer_slider_creSection();
+		new integlight_customizer_slider_setting($this->pInteglight_slider_settings, $creSliderSectionId);
 	}
 }
 
