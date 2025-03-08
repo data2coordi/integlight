@@ -50,7 +50,7 @@ registerBlockType('integlight/text-flow-animation', {
                         onChange={(content) => setAttributes({ content })}
                         placeholder={__("Enter text...", "integlight")}
                         style={{
-                            fontSize: `${attributes.fontSize}px`,
+                            fontSize: `${(attributes.fontSize / 800) * 100}vw`,
                             color: attributes.color,
                             fontFamily: attributes.fontFamily
                         }}
@@ -64,7 +64,7 @@ registerBlockType('integlight/text-flow-animation', {
         const blockProps = useBlockProps.save({ className: "integlight-text-flow-animation" });
 
         return (
-            <div {...blockProps} style={{ fontSize: `${attributes.fontSize}px`, color: attributes.color, fontFamily: attributes.fontFamily }}>
+            <div {...blockProps} style={{ fontSize: `${(attributes.fontSize / 800) * 100}vw`, color: attributes.color, fontFamily: attributes.fontFamily }}>
                 <div className="loop_wrap">
                     <div>{attributes.content}&nbsp;</div>
                     <div>{attributes.content}&nbsp;</div>

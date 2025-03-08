@@ -118,6 +118,23 @@
   padding: 0;
 }
 
+/* categoryという字を消している */
+.home .post-category a:first-child {
+  display: none;
+}
+
+/* カテゴリーを表示している */
+.home .post-category p {
+  position: relative;
+  color: #fff;
+  top: -103px;
+  display: inline-block;
+  background-color: #323232;
+  padding: 5px 15px;
+  margin: 0;
+  z-index: 999;
+}
+
 .home .grid-item a {
   text-decoration: none;
   color: inherit;

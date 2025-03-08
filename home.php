@@ -9,6 +9,7 @@ integlight_display_headerContents();
         <?php while (have_posts()) : the_post(); ?>
             <div class="grid-item">
                 <a href="<?php the_permalink(); ?>">
+
                     <?php
                     // キャッチ画像があるか確認
                     if (has_post_thumbnail()) : ?>
@@ -26,6 +27,12 @@ integlight_display_headerContents();
                     <?php endif;
                     endif; ?>
 
+                    <!-- カテゴリ表示 -->
+                    <div class="post-category">
+                        <p>Category: <?php the_category(', '); ?></p>
+                    </div>
+
+
                     <!-- タイトルをタイルの左上に大きく表示 -->
 
                     <h2><?php
@@ -39,8 +46,6 @@ integlight_display_headerContents();
                     <!-- 下部に日付、カテゴリ、タグを表示 -->
                     <div class="post-meta">
                         <p class="post-date">Published on: <?php echo get_the_date(); ?></p>
-                        <p class="post-category">Category: <?php the_category(', '); ?></p>
-                        <p class="post-tags">Tags: <?php the_tags('', ', '); ?></p>
                     </div>
                 </a>
             </div>
