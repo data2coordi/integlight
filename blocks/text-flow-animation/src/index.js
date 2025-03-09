@@ -7,8 +7,9 @@ import './editor.css';
 import { __ } from '@wordpress/i18n';
 
 const calculateFontSize = (fontSize) => {
+    //コンテンツ幅800を基準にする。
     const baseSize = (fontSize / 800) * 100;
-    return `calc(${baseSize}vw)`;
+    return `${baseSize}vw`;
 };
 
 registerBlockType('integlight/text-flow-animation', {
