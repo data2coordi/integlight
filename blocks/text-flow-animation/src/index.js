@@ -31,12 +31,12 @@ registerBlockType('integlight/text-flow-animation', {
                             value={attributes.fontFamily}
                             options={[
                                 { label: 'Impact', value: "Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif" },
-                                { label: 'Arial', value: 'Arial, sans-serif' },
                                 { label: 'Georgia', value: 'Georgia, serif' },
                                 { label: 'Times New Roman', value: '"Times New Roman", serif' },
                                 { label: 'Courier New', value: '"Courier New", monospace' },
-                                { label: 'Verdana', value: 'Verdana, sans-serif' }
-
+                                { label: 'Verdana', value: 'Verdana, sans-serif' },
+                                { label: 'Futura', value: '"Trebuchet MS", sans-serif' },
+                                { label: 'Arial Black', value: '"Arial Black", sans-serif' }
                             ]}
                             onChange={(newFont) => setAttributes({ fontFamily: newFont })}
                         />

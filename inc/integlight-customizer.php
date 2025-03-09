@@ -129,3 +129,127 @@ new integlight_customizer_themeColor();
 
 
 // ## 配色カスタマイズ _e /////////////////////////////////////////////
+
+
+// ## Google_Analytics _s /////////////////////////////////////////////
+
+class integlight_customizer_ga
+{
+
+	// コンストラクタ：カスタマイザー設定の登録
+	public function __construct()
+	{
+		add_action('customize_register', array($this, 'regSettings'));
+		add_action('wp_head', array($this, 'outCode'));
+	}
+
+	// カスタマイザーに設定項目を登録
+	public function regSettings($wp_customize)
+	{
+		// Google Analytics 設定セクションを追加
+		$wp_customize->add_section('ga_section', array(
+			'title' => integlight_g('Google Analytics Setting'),
+			'priority' => 1000,
+		));
+
+		// Google Analytics トラッキングコードを入力する設定を追加
+		$wp_customize->add_setting('ga_trackingCode', array(
+			'default' => ''
+		));
+
+		// トラッキングコード入力フィールドを追加
+		$wp_customize->add_control('ga_trackingCode', array(
+			'label' => integlight_g('Google Analytics Tracking Code'),
+			'section' => 'ga_section',
+			'type' => 'textarea', // 複数行のテキストエリアを使用
+			'description' => integlight_g('Please paste the entire tracking code provided by Google Analytics.'),
+
+		));
+	}
+
+	// Google アナリティクスコードをサイトの <head> に出力
+	public function outCode()
+	{
+		$tracking_code = get_theme_mod('ga_trackingCode');
+		if ($tracking_code) {
+			echo $tracking_code; // HTMLをそのまま出力
+		}
+	}
+}
+
+// クラスをインスタンス化して処理を開始
+new integlight_customizer_ga();
+// ## Google_Analytics _e /////////////////////////////////////////////
+
+
+// ## Google_GTM _s /////////////////////////////////////////////
+class integlight_customizer_gtm
+{
+
+	// コンストラクタ：カスタマイザー設定の登録
+	public function __construct()
+	{
+		add_action('customize_register', array($this, 'regSettings'));
+		add_action('wp_head', array($this, 'outCode'));
+		add_action('wp_body_open', array($this, 'outNoscriptCode')); // body開始直後に追加
+	}
+
+	// カスタマイザーに設定項目を登録
+	public function regSettings($wp_customize)
+	{
+		// Google Tag Manager 設定セクションを追加
+		$wp_customize->add_section('gtm_section', array(
+			'title' => integlight_g('Google Tag Manager Setting'),
+			'priority' => 1000,
+		));
+
+		// Google Tag Manager トラッキングコードを入力する設定を追加
+		$wp_customize->add_setting('gtm_trackingCode', array(
+			'default' => ''
+		));
+
+		// GTM トラッキングコード入力フィールドを追加
+		$wp_customize->add_control('gtm_trackingCode', array(
+			'label' => integlight_g('Code to output in the <head> tag'),
+			'section' => 'gtm_section',
+			'type' => 'textarea', // 複数行のテキストエリアを使用
+			'description' => integlight_g('Please paste the code provided by Google Tag Manager.'),
+		));
+
+		// Google Tag Manager noscript バックアップコードを入力する設定を追加
+		$wp_customize->add_setting('gtm_noscriptCode', array(
+			'default' => ''
+		));
+
+
+		// noscript トラッキングコード入力フィールドを追加
+		$wp_customize->add_control('gtm_noscriptCode', array(
+			'label' => integlight_g('Code to output immediately after the opening <body> tag'),
+			'section' => 'gtm_section',
+			'type' => 'textarea',
+			'description' => integlight_g('Please paste the code provided by Google Tag Manager.'),
+		));
+	}
+
+	// Google Tag Manager コードをサイトの <head> に出力
+	public function outCode()
+	{
+		$tracking_code = get_theme_mod('gtm_trackingCode');
+		if ($tracking_code) {
+			echo $tracking_code; // HTMLをそのまま出力
+		}
+	}
+
+	// Google Tag Manager noscript バックアップコードを <body> タグ直後に出力
+	public function outNoscriptCode()
+	{
+		$noscript_code = get_theme_mod('gtm_noscriptCode');
+		if ($noscript_code) {
+			echo $noscript_code; // noscriptタグを出力
+		}
+	}
+}
+
+// クラスをインスタンス化して処理を開始
+new integlight_customizer_gtm();
+// ## Google_GTM _e /////////////////////////////////////////////

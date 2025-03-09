@@ -598,4 +598,30 @@ msgstr "例) 英語スピーキングを向上させよう | 簡単＆効果的�
 msgid "ex) Struggling with English speaking? Learn 5 simple and practical tips to boost your fluency and confidence in conversations. Perfect for beginners and intermediate learners!"
 msgstr "例) 英語のスピーキングに苦労していませんか？ 会話の流暢さと自信を高めるための、シンプルで実践的な5つのコツを学びましょう。初心者や中級者に最適！"
 
+#: google analytics 
+msgid "Google Analytics Setting"
+msgstr "Google Analytics 設定"
+
+msgid "Google Analytics Tracking Code"
+msgstr "Google Analytics トラッキングコード"
+
+msgid "Please paste the entire tracking code provided by Google Analytics."
+msgstr "Google Analytics から提供されたトラッキングコード全体を貼り付けてください"
+
+#: google GTM
+msgid "Google Tag Manager Setting"
+msgstr "Google Tag Manager 設定"
+
+
+       
+msgid "Code to output in the <head> tag"
+msgstr "headタグに出力するコード"
+
+msgid "Google Tag Manager から提供されたコードを貼り付けてください"
+msgstr "Please paste the code provided by Google Tag Manager."
+
+
+msgid "Code to output immediately after the opening <body> tag"
+msgstr "bodyタグ開始直後に出力するコード"
+
 
