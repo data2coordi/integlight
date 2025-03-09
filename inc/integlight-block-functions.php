@@ -125,7 +125,7 @@ function integlight_enqueue_block_assets()
 
 
 	wp_set_script_translations(
-		'integlight-text-flow-animation-block-editor-script',
+		'integlight-text-flow-animation-editor-script',
 		'integlight',
 		get_template_directory() . '/languages'
 	);
