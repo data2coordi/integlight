@@ -519,6 +519,10 @@ msgstr "フォントファミリー"
 msgid "Enter text..."
 msgstr "テキストを入力..."
 
+#: blocks/text-flow-animation/build/index.js:1
+#: blocks/text-flow-animation/src/index.js:49
+msgid "Please enter the scrolling text."
+msgstr "スクロールさせるテキストを入力していください。"
 
 
 
@@ -566,6 +570,10 @@ msgstr "タブを使用して複数のコンテンツを切り替えることが
 msgctxt "block title"
 msgid "[integlight]text flow animation"
 msgstr "【integlight】テキストフローアニメーション"
+
+
+
+
 
 
 #: カスタマイザー　スライダー

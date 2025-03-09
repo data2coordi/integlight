@@ -16,6 +16,7 @@
 
 
 
+
 @keyframes loop_animation_right_double {
     0% {
         transform: translateX(0%);
@@ -23,5 +24,13 @@
 
     100% {
         transform: translateX(-100%);
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+
+    .integlight-text-flow-animation .loop_wrap div {
+        font-size: 2em;
     }
 }

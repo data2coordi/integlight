@@ -26,7 +26,7 @@
     },
     "fontFamily": {
       "type": "string",
-      "default": "Arial, sans-serif"
+      "default": "Arial Black, sans-serif"
     }
   },
   "editorScript": "file:./build/index.js",

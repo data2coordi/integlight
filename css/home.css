@@ -45,9 +45,11 @@
   object-fit: cover;
   /* カバー画像として表示 */
   object-position: center;
+  
 }
 
 /* オーバーレイを追加 */
+
 .home .grid-item::before {
   content: "";
   position: absolute;
@@ -59,7 +61,10 @@
   /* 半透明の黒いオーバーレイ */
   z-index: 1;
   /* オーバーレイを画像の上に表示 */
+  pointer-events: none;
+  /* クリックやホバーを無効化（下の要素が反応する） */ 
 }
+
 
 .home .grid-item h2,
 .home .grid-item h3 {
@@ -79,11 +84,13 @@
   padding: 0 5%;
   line-height: 1.5;
   /* 行間を狭くする */
+  pointer-events: none;
+  /* クリックやホバーを無効化（下の要素が反応する） */
 }
 
 .home .post-excerpt {
   position: absolute;
-  top: 120px;
+  top: 130px;
   /* タイトルの下にさらに広めのスペースを確保 */
   left: 15px;
   z-index: 2;
@@ -96,6 +103,9 @@
   /* 上下のマージン */
   padding: 0 5%;
   width: 350px;
+  pointer-events: none;
+  /* クリックやホバーを無効化（下の要素が反応する） */
+  
 }
 
 .home .grid-item .post-meta {
@@ -109,6 +119,8 @@
   /* 白色の文字 */
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
   /* 影を追加して視認性を向上 */
+  pointer-events: none;
+  /* クリックやホバーを無効化（下の要素が反応する） */
 }
 
 .home .post-date,
@@ -161,6 +173,7 @@
   .home .grid-item {
     width: 90vw;
   }
+  
 
   .home .post-grid {
     width: 90vw;
@@ -173,5 +186,9 @@
   .home .grid-item h2,
   .home .grid-item h3 {
     width: 90%;
+  }
+
+  .home .post-category p {
+    top: -111px;
   }
 }

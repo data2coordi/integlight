@@ -6,6 +6,11 @@ import './editor.css';
 
 import { __ } from '@wordpress/i18n';
 
+const calculateFontSize = (fontSize) => {
+    const baseSize = (fontSize / 800) * 100;
+    return `calc(${baseSize}vw)`;
+};
+
 registerBlockType('integlight/text-flow-animation', {
     edit: ({ attributes, setAttributes }) => {
         const blockProps = useBlockProps({ className: "integlight-text-flow-editor" });
@@ -44,17 +49,20 @@ registerBlockType('integlight/text-flow-animation', {
                 </InspectorControls>
 
                 <div {...blockProps}>
+                    <span className="guide-text">{__("Please enter the scrolling text.", "integlight")}</span>
+
                     <RichText
                         tagName="p"
                         value={attributes.content}
                         onChange={(content) => setAttributes({ content })}
                         placeholder={__("Enter text...", "integlight")}
                         style={{
-                            fontSize: `${(attributes.fontSize / 800) * 100}vw`,
+                            fontSize: calculateFontSize(attributes.fontSize),
                             color: attributes.color,
                             fontFamily: attributes.fontFamily
                         }}
                     />
+
                 </div>
             </>
         );
@@ -64,7 +72,7 @@ registerBlockType('integlight/text-flow-animation', {
         const blockProps = useBlockProps.save({ className: "integlight-text-flow-animation" });
 
         return (
-            <div {...blockProps} style={{ fontSize: `${(attributes.fontSize / 800) * 100}vw`, color: attributes.color, fontFamily: attributes.fontFamily }}>
+            <div {...blockProps} style={{ fontSize: calculateFontSize(attributes.fontSize), color: attributes.color, fontFamily: attributes.fontFamily }}>
                 <div className="loop_wrap">
                     <div>{attributes.content}&nbsp;</div>
                     <div>{attributes.content}&nbsp;</div>
