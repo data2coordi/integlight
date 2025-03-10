@@ -61,7 +61,7 @@
   /* 半透明の黒いオーバーレイ */
   z-index: 1;
   /* オーバーレイを画像の上に表示 */
-  pointer-events: none;
+  /* pointer-events: none; */
   /* クリックやホバーを無効化（下の要素が反応する） */ 
 }
 
@@ -84,7 +84,7 @@
   padding: 0 5%;
   line-height: 1.5;
   /* 行間を狭くする */
-  pointer-events: none;
+  /* pointer-events: none; */
   /* クリックやホバーを無効化（下の要素が反応する） */
 }
 
@@ -103,7 +103,7 @@
   /* 上下のマージン */
   padding: 0 5%;
   width: 350px;
-  pointer-events: none;
+  /* pointer-events: none; */
   /* クリックやホバーを無効化（下の要素が反応する） */
   
 }
@@ -119,7 +119,7 @@
   /* 白色の文字 */
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
   /* 影を追加して視認性を向上 */
-  pointer-events: none;
+  /* pointer-events: none; */
   /* クリックやホバーを無効化（下の要素が反応する） */
 }
 
@@ -139,10 +139,10 @@
 .home .post-category p {
   position: relative;
   color: #fff;
-  top: -103px;
+  top: -104px;
   display: inline-block;
   background-color: #323232;
-  padding: 5px 15px;
+  padding: 4px 15px;
   margin: 0;
   z-index: 999;
 }
@@ -150,6 +150,7 @@
 .home .grid-item a {
   text-decoration: none;
   color: inherit;
+  font-size: 0.8rem;
 }
 
 .home h2 {

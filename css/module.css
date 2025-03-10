@@ -264,6 +264,16 @@
     margin-top: 1.5rem;
 }
 
+/************************************************************/
+/* メタ情報設定@@@***************************************************/
+/************************************************************/
+
+.edit-post-meta-boxes-area #poststuff h2.hndle {
+    font-size: 1.2rem;
+}
+
+
+
 @media screen and (max-width: 768px) {
 
     .navigation.post-navigation .nav-links {

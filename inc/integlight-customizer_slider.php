@@ -41,6 +41,9 @@ if (class_exists('WP_Customize_Control') && ! class_exists('integlight_customize
 			if (! empty($this->label)) {
 				echo '<h3 style="border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 10px;">' . esc_html($this->label) . '</h3>';
 			}
+			if (!empty($this->description)) {
+				echo '<span class="description customize-control-description">' . esc_html($this->description) . '</span>';
+			}
 		}
 	}
 }
@@ -288,11 +291,6 @@ class integlight_customizer_slider_setting
 		$this->effectSetting('integlight_slider_effect', 'Effect');
 		$this->numberSetting('integlight_slider_change_duration', 'Slider Change Duration (seconds)', 1, 1);
 
-		/* 画像 */
-		$this->labelSetting('integlight_slider_image_heading', 'Slider Image');
-		$this->imageSetting('integlight_slider_image_1', 'Slider Image 1');
-		$this->imageSetting('integlight_slider_image_2', 'Slider Image 2');
-		$this->imageSetting('integlight_slider_image_3', 'Slider Image 3');
 
 		/* テキスト */
 		$this->labelSetting('integlight_slider_text_heading', 'Slider Text');
@@ -303,9 +301,24 @@ class integlight_customizer_slider_setting
 		$this->labelSetting('integlight_slider_text_position_heading', 'Slider Text Position');
 		$this->numberSetting('integlight_slider_text_top', 'Slider Text Position Top (px)', 0, 1);
 		$this->numberSetting('integlight_slider_text_left', 'Slider Text Position Left (px)', 0, 1);
+		/* 画像 */
+		$this->labelSetting('integlight_slider_image_heading', 'Slider Image');
+		$this->imageSetting('integlight_slider_image_1', 'Slider Image 1');
+		$this->imageSetting('integlight_slider_image_2', 'Slider Image 2');
+		$this->imageSetting('integlight_slider_image_3', 'Slider Image 3');
+
+
+
+		/*モバイル */
+		/*テキスト*/
 		$this->labelSetting('integlight_slider_text_position_heading_mobile', 'Slider Text Position Mobile');
 		$this->numberSetting('integlight_slider_text_top_mobile', 'Slider Text Position Top Mobile (px)', 0, 1);
 		$this->numberSetting('integlight_slider_text_left_mobile', 'Slider Text Position Left Mobile (px)', 0, 1);
+		/*画像*/
+		$this->labelSetting('integlight_slider_image_mobile_heading', 'Slider Image mobile *option', 'Recommended: 750px (width) × 1334px (height).*If not set, the PC version will be applied.');
+		$this->imageSetting('integlight_slider_image_mobile_1', 'Slider Image mobile 1');
+		$this->imageSetting('integlight_slider_image_mobile_2', 'Slider Image mobile 2');
+		$this->imageSetting('integlight_slider_image_mobile_3', 'Slider Image mobile 3');
 	}
 
 
@@ -374,7 +387,7 @@ class integlight_customizer_slider_setting
 		));
 	}
 
-	private function labelSetting($settingName, $label)
+	private function labelSetting($settingName, $label, $description = '')
 	{
 		$this->pWp_customize->add_setting($settingName, array(
 			'sanitize_callback' => 'sanitize_text_field',
@@ -384,7 +397,9 @@ class integlight_customizer_slider_setting
 			$settingName,
 			array(
 				'label'    => integlight_g($label),
-				'section'  => $this->pSectionId
+				'section'  => $this->pSectionId,
+				'description' => integlight_g($description)
+
 			)
 		));
 	}

@@ -221,6 +221,21 @@ msgstr "スライダーテキスト位置（上）（px）"
 msgid "Slider Text Position Left (px)"
 msgstr "スライダーテキスト位置（左）（px）"
 
+
+msgid "Slider Image mobile *option"
+msgstr "スライダー画像（モバイル）※オプション"
+
+msgid "Recommended: 750px (width) × 1334px (height).*If not set, the PC version will be applied."
+msgstr "横750px × 縦1334px を推奨　※設定しない場合はPC用が適用されます。"
+
+msgid "Slider Image mobile 1"
+msgstr "スライダー画像1（モバイル）"
+msgid "Slider Image mobile 2"
+msgstr "スライダー画像2（モバイル）"
+msgid "Slider Image mobile 3"
+msgstr "スライダー画像3（モバイル）"
+
+
 #: inc/integlight-customizer.php:356
 msgid "Slider Text Position Mobile"
 msgstr "スライダーテキスト位置（モバイル）"
@@ -585,6 +600,11 @@ msgstr "スライダー アニメーション"
 
 msgid "Slider Image"
 msgstr "スライダー画像"
+
+
+
+
+
 
 
 msgid "Meta data setting(optional)"

@@ -12,9 +12,36 @@
 
 <!-- slide bar _s //////////////////////////////// -->
 <?php
-$slider_image_1 = get_theme_mod('integlight_slider_image_1');
-$slider_image_2 = get_theme_mod('integlight_slider_image_2');
-$slider_image_3 = get_theme_mod('integlight_slider_image_3');
+if (wp_is_mobile()) {
+	$slider_image_1 = get_theme_mod('integlight_slider_image_mobile_1');
+	if (empty($slider_image_1)) {
+		$slider_image_1 = get_theme_mod('integlight_slider_image_1'); // PCの画像
+	}
+
+	$slider_image_2 = get_theme_mod('integlight_slider_image_mobile_2');
+	if (empty($slider_image_2)) {
+		$slider_image_2 = get_theme_mod('integlight_slider_image_2'); // PCの画像
+	}
+
+	$slider_image_3 = get_theme_mod('integlight_slider_image_mobile_3');
+	if (empty($slider_image_3)) {
+		$slider_image_3 = get_theme_mod('integlight_slider_image_3'); // PCの画像
+	}
+} else {
+	$slider_image_1 = get_theme_mod('integlight_slider_image_1');
+	$slider_image_2 = get_theme_mod('integlight_slider_image_2');
+	$slider_image_3 = get_theme_mod('integlight_slider_image_3');
+}
+
+
+
+
+
+
+
+
+
+
 $slider_effect = get_theme_mod('integlight_slider_effect');
 
 global $Integlight_slider_settings;
