@@ -302,7 +302,7 @@ class integlight_customizer_slider_setting
 		$this->numberSetting('integlight_slider_text_top', 'Slider Text Position Top (px)', 0, 1);
 		$this->numberSetting('integlight_slider_text_left', 'Slider Text Position Left (px)', 0, 1);
 		/* 画像 */
-		$this->labelSetting('integlight_slider_image_heading', 'Slider Image');
+		$this->labelSetting('integlight_slider_image_heading', 'Slider Image', 'Recommended: 1920px (width) × 1080px (height).');
 		$this->imageSetting('integlight_slider_image_1', 'Slider Image 1');
 		$this->imageSetting('integlight_slider_image_2', 'Slider Image 2');
 		$this->imageSetting('integlight_slider_image_3', 'Slider Image 3');

@@ -181,17 +181,6 @@ msgstr "トップヘッダーにスライダーまたは画像のどちらを表
 msgid "Slider Settings"
 msgstr "スライダー設定"
 
-#: inc/integlight-customizer.php:342
-msgid "Slider Image 1"
-msgstr "スライダー画像1"
-
-#: inc/integlight-customizer.php:343
-msgid "Slider Image 2"
-msgstr "スライダー画像2"
-
-#: inc/integlight-customizer.php:344
-msgid "Slider Image 3"
-msgstr "スライダー画像3"
 
 #: inc/integlight-customizer.php:348
 msgid "Slider Text"
@@ -222,6 +211,36 @@ msgid "Slider Text Position Left (px)"
 msgstr "スライダーテキスト位置（左）（px）"
 
 
+
+msgid "Recommended: 1920px (width) × 1080px (height)."
+msgstr "横1920px ×縦1080pxを推奨"
+
+#: inc/integlight-customizer.php:342
+msgid "Slider Image 1"
+msgstr "スライダー画像1"
+
+#: inc/integlight-customizer.php:343
+msgid "Slider Image 2"
+msgstr "スライダー画像2"
+
+#: inc/integlight-customizer.php:344
+msgid "Slider Image 3"
+msgstr "スライダー画像3"
+
+
+
+#: inc/integlight-customizer.php:356
+msgid "Slider Text Position Mobile"
+msgstr "スライダーテキスト位置（モバイル）"
+
+#: inc/integlight-customizer.php:357
+msgid "Slider Text Position Top Mobile (px)"
+msgstr "スライダーテキスト位置（モバイル、上）（px）"
+
+#: inc/integlight-customizer.php:358
+msgid "Slider Text Position Left Mobile (px)"
+msgstr "スライダーテキスト位置（モバイル、左）（px）"
+
 msgid "Slider Image mobile *option"
 msgstr "スライダー画像（モバイル）※オプション"
 
@@ -236,17 +255,17 @@ msgid "Slider Image mobile 3"
 msgstr "スライダー画像3（モバイル）"
 
 
-#: inc/integlight-customizer.php:356
-msgid "Slider Text Position Mobile"
-msgstr "スライダーテキスト位置（モバイル）"
 
-#: inc/integlight-customizer.php:357
-msgid "Slider Text Position Top Mobile (px)"
-msgstr "スライダーテキスト位置（モバイル、上）（px）"
 
-#: inc/integlight-customizer.php:358
-msgid "Slider Text Position Left Mobile (px)"
-msgstr "スライダーテキスト位置（モバイル、左）（px）"
+
+
+
+
+
+
+
+
+
 
 #: inc/integlight-customizer.php:391
 msgid "Sidebar"
