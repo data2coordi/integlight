@@ -31,7 +31,9 @@ integlight_display_headerContents();
                     <div class="post-category">
                         <p>Category: <?php the_category(', '); ?></p>
                     </div>
+                </a>
 
+                <a href="<?php the_permalink(); ?>">
 
                     <!-- タイトルをタイルの左上に大きく表示 -->
 
