@@ -475,8 +475,8 @@ msgstr "画像設定"
 
 #: blocks/speech-bubble/build/index.js:1
 #: blocks/speech-bubble/src/index.js:59
-msgid "Delete image"
-msgstr "画像を削除"
+msgid "Change image"
+msgstr "画像を変更"
 
 #: blocks/speech-bubble/build/index.js:1
 #: blocks/speech-bubble/src/index.js:26

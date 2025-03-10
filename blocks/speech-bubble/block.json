@@ -14,7 +14,7 @@
         },
         "imageUrl": {
             "type": "string",
-            "default": ""
+            "default": "/wp-content/themes/integlight/blocks/speech-bubble/noname.webp"
         },
         "imageAlt": {
             "type": "string",

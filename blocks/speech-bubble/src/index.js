@@ -60,7 +60,7 @@ registerBlockType('integlight/speech-bubble', {
                                     isDestructive
                                 >
 
-                                    {__("Delete image", "integlight")}
+                                    {__("Change image", "integlight")}
                                 </Button>
                             </div>
                         ) : (
