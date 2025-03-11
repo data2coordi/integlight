@@ -63,3 +63,16 @@ ul.tabs-navigation {
   margin-top: 100px;
   z-index: -1;
 } */
+
+/******吹き出し画像********/
+figure.speech-bubble__image {
+  flex-basis: 9%;
+  min-width: 80px; /* これ以下にならない */
+}
+
+@media (max-width: 768px) {
+  figure.speech-bubble__image {
+    flex-basis: 10%;
+    min-width: 55px;
+  }
+}

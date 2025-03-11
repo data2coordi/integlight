@@ -83,15 +83,15 @@ class integlight_customizer_themeColor
 	{
 
 		// Setting
-		$wp_customize->add_setting('base_color_setting', array(
+		$wp_customize->add_setting('integlight_base_color_setting', array(
 			'type'              => 'theme_mod',
 			'sanitize_callback' => [$this, 'sanitize_choices'],
 		));
 
 		// Control
-		$wp_customize->add_control('base_color_setting', array(
+		$wp_customize->add_control('integlight_base_color_setting', array(
 			'section'     => 'colors', //既存の色セクションに追加
-			'settings'    => 'base_color_setting',
+			'settings'    => 'integlight_base_color_setting',
 			'label'       => integlight_g('Accent color setting'),
 			'description' => integlight_g('Select favorite accent color'),
 			'type'        => 'radio',
@@ -119,7 +119,7 @@ class integlight_customizer_themeColor
 
 	public function enqueue_custom_css()
 	{
-		$base_pattern = get_theme_mod('base_color_setting', 'pattern1');
+		$base_pattern = get_theme_mod('integlight_base_color_setting', 'pattern1');
 		wp_enqueue_style('custom-pattern', get_template_directory_uri() . '/css/' . $base_pattern . '.css', array(), '1.0.0');
 	}
 }
@@ -153,14 +153,14 @@ class integlight_customizer_ga
 		));
 
 		// Google Analytics トラッキングコードを入力する設定を追加
-		$wp_customize->add_setting('ga_trackingCode', array(
+		$wp_customize->add_setting('integlight_ga_trackingCode', array(
 			'default' => ''
 		));
 
 		// トラッキングコード入力フィールドを追加
-		$wp_customize->add_control('ga_trackingCode', array(
+		$wp_customize->add_control('integlight_ga_trackingCode', array(
 			'label' => integlight_g('Google Analytics Tracking Code'),
-			'section' => 'ga_section',
+			'section' => 'integlight_ga_section',
 			'type' => 'textarea', // 複数行のテキストエリアを使用
 			'description' => integlight_g('Please paste the entire tracking code provided by Google Analytics.'),
 
@@ -170,7 +170,7 @@ class integlight_customizer_ga
 	// Google アナリティクスコードをサイトの <head> に出力
 	public function outCode()
 	{
-		$tracking_code = get_theme_mod('ga_trackingCode');
+		$tracking_code = get_theme_mod('integlight_ga_trackingCode');
 		if ($tracking_code) {
 			echo $tracking_code; // HTMLをそのまま出力
 		}
@@ -204,28 +204,28 @@ class integlight_customizer_gtm
 		));
 
 		// Google Tag Manager トラッキングコードを入力する設定を追加
-		$wp_customize->add_setting('gtm_trackingCode', array(
+		$wp_customize->add_setting('integlight_gtm_trackingCode', array(
 			'default' => ''
 		));
 
 		// GTM トラッキングコード入力フィールドを追加
-		$wp_customize->add_control('gtm_trackingCode', array(
+		$wp_customize->add_control('integlight_gtm_trackingCode', array(
 			'label' => integlight_g('Code to output in the <head> tag'),
-			'section' => 'gtm_section',
+			'section' => 'integlight_gtm_section',
 			'type' => 'textarea', // 複数行のテキストエリアを使用
 			'description' => integlight_g('Please paste the code provided by Google Tag Manager.'),
 		));
 
 		// Google Tag Manager noscript バックアップコードを入力する設定を追加
-		$wp_customize->add_setting('gtm_noscriptCode', array(
+		$wp_customize->add_setting('integlight_gtm_noscriptCode', array(
 			'default' => ''
 		));
 
 
 		// noscript トラッキングコード入力フィールドを追加
-		$wp_customize->add_control('gtm_noscriptCode', array(
+		$wp_customize->add_control('integlight_gtm_noscriptCode', array(
 			'label' => integlight_g('Code to output immediately after the opening <body> tag'),
-			'section' => 'gtm_section',
+			'section' => 'integlight_gtm_section',
 			'type' => 'textarea',
 			'description' => integlight_g('Please paste the code provided by Google Tag Manager.'),
 		));
@@ -234,7 +234,7 @@ class integlight_customizer_gtm
 	// Google Tag Manager コードをサイトの <head> に出力
 	public function outCode()
 	{
-		$tracking_code = get_theme_mod('gtm_trackingCode');
+		$tracking_code = get_theme_mod('integlight_gtm_trackingCode');
 		if ($tracking_code) {
 			echo $tracking_code; // HTMLをそのまま出力
 		}
@@ -243,7 +243,7 @@ class integlight_customizer_gtm
 	// Google Tag Manager noscript バックアップコードを <body> タグ直後に出力
 	public function outNoscriptCode()
 	{
-		$noscript_code = get_theme_mod('gtm_noscriptCode');
+		$noscript_code = get_theme_mod('integlight_gtm_noscriptCode');
 		if ($noscript_code) {
 			echo $noscript_code; // noscriptタグを出力
 		}

@@ -664,8 +664,8 @@ msgstr "Google Tag Manager 設定"
 msgid "Code to output in the <head> tag"
 msgstr "headタグに出力するコード"
 
-msgid "Google Tag Manager から提供されたコードを貼り付けてください"
-msgstr "Please paste the code provided by Google Tag Manager."
+msgid "Please paste the code provided by Google Tag Manager."
+msgstr "Google Tag Manager から提供されたコードを貼り付けてください"
 
 
 msgid "Code to output immediately after the opening <body> tag"
