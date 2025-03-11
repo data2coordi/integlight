@@ -521,3 +521,4 @@ function integlight_g($target)
 
 
 require get_template_directory() . '/inc/integlight-block-functions.php';
+require get_template_directory() . '/inc/integlight-functions_init.php';
