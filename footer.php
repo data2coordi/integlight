@@ -12,22 +12,23 @@
 
 ?>
 
+<a href="#" id="page-top"><i class="fa-solid fa-angle-up"></i></a>
+
 <footer id="colophon" class="site-footer ly_site_footer">
-	<a href="#" id="page-top"><i class="fa-solid fa-angle-up"></i></a>
 	<div class="site-info">
 
 		<?php echo "<br>" . get_option('copy_right'); ?>
 		<br>
-		<a href="<?php echo esc_url(__('https://wordpress.org/', 'integlight')); ?>">
+		<a href="<?php echo esc_url('https://wordpress.org/'); ?>">
 			<?php
 			/* translators: %s: CMS name, i.e. WordPress. */
-			printf(esc_html__('Proudly powered by %s', 'integlight'), 'WordPress');
+			printf(esc_html('Proudly powered by %s', 'integlight'), 'WordPress');
 			?>
 		</a>
 		<span class="sep"> | </span>
 		<?php
 		/* translators: 1: Theme name, 2: Theme author. */
-		printf(esc_html__('Theme: %1$s by %2$s.', 'integlight'), 'Integlight', '<a href="https://color.toshidayurika.com/">Yurika Toshida at Aurora Lab</a>');
+		printf(esc_html('Theme: %1$s by %2$s.'), 'Integlight', '<a href="https://color.toshidayurika.com/">Yurika Toshida at Aurora Lab</a>');
 		?>
 	</div><!-- .site-info -->
 </footer><!-- #colophon -->

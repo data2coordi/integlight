@@ -22,14 +22,28 @@
 /************************************************************/
 /* 0. footer***************************************************@@@/
 /************************************************************/
-
-.site-footer {
-
-    text-align: center;
-    background: #000;
+html, body {
+    height: 100%; /* 高さを100%に設定 */
+    margin: 0;
+  }
+  
+  .site-footer {
+    /* position: relative;
+    bottom: 0;
+    width: 100%; */
+    background-color: #000;
     color: #fff;
+    text-align: center;
+    font-size: 0.8rem;
+    padding: 10px;
+  }
 
+.site-footer a {
+    font-size: 0.8rem;
+}
 
+.site-footer a:focus {
+   outline: none; 
 }
 
 /************************************************************/
@@ -271,7 +285,7 @@
 }
 
 .wp-block-preformatted {
-    padding: 1em;
+    padding: 2em;
     /* 囲みテキストにpadding */
 }
 
@@ -297,8 +311,9 @@
     border-radius: 50%;
     font-size: 20px;
     text-decoration: none;
-    opacity: 0;  /* 初めは非表示 */
-    transition: opacity 0.3s;
+    opacity: 0;  /* 初期は非表示 */
+    transition: opacity 0.3s ease;  /* スムーズな表示切替 */
+    z-index: 9999; /* 他の要素に隠れないように最前面 */
   }
   
   #page-top:hover {
@@ -306,10 +321,18 @@
     color: #fff;
   }
   
-  /* ページをスクロールしたときに表示（CSSだけで対応） */
-  body:has(:target) #page-top {
-    opacity: 1;
+  /* スクロール位置が100pxを越えたらボタンを表示 */
+  body {
+    margin-bottom: 60px; /* スクロール領域を作る */
   }
+  
+  /* スクロール位置が100pxを越えた場合にボタンを表示 */
+  @media (min-height: 800px) {
+    #page-top {
+      opacity: 1; /* スクロール後は表示 */
+    }
+  }
+  
  /*-------------ページトップの設定 e----------*/ 
 
 
