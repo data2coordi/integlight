@@ -65,6 +65,12 @@
     font-size: 1rem;
     font-weight: 400;
   }
+
+  .slider .slide img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
 }
 
 .slider .text-overlay2 h2 {
