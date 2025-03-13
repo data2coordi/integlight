@@ -264,6 +264,55 @@
     margin-top: 1.5rem;
 }
 
+
+.wp-block-media-text {
+    gap: 1.2em;
+    /* メディアとテキストのギャップ */
+}
+
+.wp-block-preformatted {
+    padding: 1em;
+    /* 囲みテキストにpadding */
+}
+
+.wp-block-buttons.is-layout-flex {
+    padding: 0;
+    /* ボタンのパディングを無しに */
+}
+
+/*******************************/
+/* ページトップの設定 s */
+/*******************************/
+#page-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background: #fff;
+    color: #333;
+    border: 1px solid #333;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 50%;
+    font-size: 20px;
+    text-decoration: none;
+    opacity: 0;  /* 初めは非表示 */
+    transition: opacity 0.3s;
+  }
+  
+  #page-top:hover {
+    background: #333;
+    color: #fff;
+  }
+  
+  /* ページをスクロールしたときに表示（CSSだけで対応） */
+  body:has(:target) #page-top {
+    opacity: 1;
+  }
+ /*-------------ページトップの設定 e----------*/ 
+
+
 /************************************************************/
 /* メタ情報設定@@@***************************************************/
 /************************************************************/

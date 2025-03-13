@@ -13,6 +13,7 @@
 ?>
 
 <footer id="colophon" class="site-footer ly_site_footer">
+	<a href="#" id="page-top"><i class="fa-solid fa-angle-up"></i></a>
 	<div class="site-info">
 
 		<?php echo "<br>" . get_option('copy_right'); ?>
