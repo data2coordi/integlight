@@ -14,6 +14,7 @@ class Integlight_initSampleSetup
 	{
 
 		add_action('after_setup_theme', [$this, 'integlight_initSampleSetup']);
+		//add_action('after_switch_theme', [$this, 'integlight_initSampleSetup']);
 	}
 
 
@@ -21,7 +22,6 @@ class Integlight_initSampleSetup
 	{
 		// カスタマイザーの設定名
 		set_theme_mod('integlight_display_choice', 'slider');
-
 
 		set_theme_mod('integlight_slider_effect', 'fade');
 		set_theme_mod('integlight_slider_change_duration', 3);
@@ -81,11 +81,12 @@ class Integlight_initSampleSetup
 
 	public function integlight_initSampleSetup()
 	{
-
+		//var_dump('test0');
 		if (get_option('integlight_initSetup_done')) {
+			//var_dump('test1');
 			return;
 		}
-
+		//var_dump('test2');
 		$this->initLogo();
 		$this->initSlider();
 
@@ -95,5 +96,3 @@ class Integlight_initSampleSetup
 }
 
 new Integlight_initSampleSetup();
-
-update_option('integlight_initSetup_done', false);
