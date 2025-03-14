@@ -147,7 +147,7 @@ class integlight_customizer_ga
 	public function regSettings($wp_customize)
 	{
 		// Google Analytics 設定セクションを追加
-		$wp_customize->add_section('ga_section', array(
+		$wp_customize->add_section('integlight_ga_section', array(
 			'title' => integlight_g('Google Analytics Setting'),
 			'priority' => 1000,
 		));
@@ -198,7 +198,7 @@ class integlight_customizer_gtm
 	public function regSettings($wp_customize)
 	{
 		// Google Tag Manager 設定セクションを追加
-		$wp_customize->add_section('gtm_section', array(
+		$wp_customize->add_section('integlight_gtm_section', array(
 			'title' => integlight_g('Google Tag Manager Setting'),
 			'priority' => 1000,
 		));
