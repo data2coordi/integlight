@@ -18,25 +18,13 @@
   border: none;
 }
 
-/******タブブロック********/
 ul.tabs-navigation {
   line-height: 1;
 }
 
-
-
-/********************????***********************/
-/***********************************************/
-/***********************************************/
-/**********@@@本当にタブだけにかかってる？@@@************/
-.wp-block-integlight-custom-cover .wp-block-column {
-  padding: 0px 15px;
-  /* タブブロックのパディング */
+.integlight-tabs .tabs-navigation {
+  margin-top: 30px;
 }
-/***********************************************/
-/***********************************************/
-/***********************************************/
-
 
 
 .integlight-tabs-block
@@ -75,6 +63,17 @@ ul.tabs-navigation {
   z-index: -1;
 } */
 
+/******メディアとテキスト********/
+.wp-block-media-text>.wp-block-media-text__content {
+  padding: 0;
+}
+
+/******2カラムブロック********/
+.ly_site_content_main .wp-block-columns {
+  gap: 1em;
+  padding: 0 15px 10px 25px;
+}
+
 /******吹き出し画像********/
 figure.speech-bubble__image {
   flex-basis: 9%;
@@ -86,4 +85,9 @@ figure.speech-bubble__image {
     flex-basis: 10%;
     min-width: 55px;
   }
+
+  /******2カラムブロック********/
+  .ly_site_content_main .wp-block-columns {
+    padding: 15px;
+}
 }

@@ -16,7 +16,7 @@
 global $Integlight_slider_settings;
 
 $display_choice = get_theme_mod('integlight_display_choice');
-if ($display_choice == $Integlight_slider_settings->headerTypeName_none) return;
+if ($display_choice != $Integlight_slider_settings->headerTypeName_slider) return;
 
 
 if (wp_is_mobile()) {

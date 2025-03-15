@@ -44,6 +44,7 @@
     flex: 0 0 300px;
     order: 1;
     /* サイドバーを次に表示 */
+    width: 300px;
 }
 
 
@@ -56,6 +57,9 @@
     order: 2;
     /* メインコンテンツを最初に表示 */
 }
+
+
+
 
 /* top ページ s*/
 .integlight_front_page .ly_site_content {
@@ -74,6 +78,7 @@
     flex: 0 0 300px;
     order: 3;
     /* サイドバーを次に表示 */
+    width: 300px;
 }
 
 .ly_site_content_widgetArea_bottom {
@@ -82,16 +87,6 @@
     /* ボトムウィジェットを最後に表示 */
 }
 
-/******メディアとテキスト********/
-.wp-block-media-text>.wp-block-media-text__content {
-    padding: 0;
-}
-
-/******2カラムブロック********/
-.ly_site_content_main .wp-block-columns {
-    gap: 1em;
-    padding: 0 15px 10px 25px;
-}
 
 
 
@@ -235,15 +230,6 @@ label {
         order: 4;
     }
 
-    /******2カラムブロック********/
-    .ly_site_content_main .wp-block-columns {
-        padding: 15px;
-    }
-
-
-}
-
-@media screen and (max-width: 768px) {
     img {
         max-width: 100%;
         height: auto;
@@ -263,4 +249,7 @@ label {
         padding: 0 1.5em;
         /* スマホで左右にpadding */
     }
+
+
 }
+

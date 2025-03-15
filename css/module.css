@@ -3,21 +3,15 @@
 /************************************************************/
 
 .site-header {
-    background-color: #000;
+  background-color: #000;
 }
-
 
 .site-header .custom-logo {
-    width: 295.21px;
-    height: auto;
-    background: #000;
-    padding-top: 0.5em;
+  width: 295.21px;
+  height: auto;
+  background: #000;
+  padding-top: 0.5em;
 }
-
-
-
-
-
 
 /************************************************************/
 /* 0. footer***************************************************@@@/
@@ -26,24 +20,33 @@
     height: 100%; 
     margin: 0;
   } */
+
+.site-footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  font-size: 0.8rem;
+  padding: 10px;
   
-  /* .site-footer {
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    background-color: #000;
-    color: #fff;
-    text-align: center;
-    font-size: 0.8rem;
-    padding: 10px;
-  } */
+}
 
 .site-footer a {
-    font-size: 0.8rem;
+  font-size: 0.8rem;
 }
 
 .site-footer a:focus {
-   outline: none; 
+  outline: none;
+}
+
+.site-info {
+    display: flex;
+    align-items: center; /* 縦方向の中央寄せ */
+    justify-content: center; /* 横方向の中央寄せ（必要なら） */
+    height: 80px; /* 高さを指定 */
+    text-align: center;
 }
 
 /************************************************************/
@@ -56,45 +59,25 @@
     */
 
 .post-thumbnail {
-    display: flex;
-    justify-content: center;
-    /* 水平方向の中央揃え */
+  display: flex;
+  justify-content: center;
+  /* 水平方向の中央揃え */
 }
 
 /************************************************************/
 /* 1. テキスト***************************************************@@@/
 /************************************************************/
 
-
-
 /*******************************/
 /*2 Text系タグのfont-size以外の設定 */
 /*******************************/
 /*2.1 段落*/
 
-
-
 /*2.2 見出し*/
-
-
 
 /* 本文のタイトル */
 
-
-
-
-
-
-
-
-
-
-
-
-
 /*2.4 詳細 */
-
-
 
 /*2.5 テーブル */
 /************************************************************/
@@ -108,86 +91,98 @@
 
 /* カバー画像e */
 
-
-
 /*3.4 メディアとテキスト */
 /*3.5 テーブル */
 
 /* 画像・要素の左右・中央寄せ */
 .wp-block-image .alignleft {
-    float: left; /* 左寄せ */
-    margin-right: 1.5em; /* 右に適度な余白 */
-    margin-top: 0;
-    margin-bottom: 1em; /* 下に余白を確保 */
+  float: left; /* 左寄せ */
+  margin-right: 1.5em; /* 右に適度な余白 */
+  margin-top: 0;
+  margin-bottom: 1em; /* 下に余白を確保 */
 }
 
 .wp-block-image .alignright {
-    float: right; /* 右寄せ */
-    margin-left: 1.5em; /* 左に余白 */
-    margin-top: 0;
-    margin-bottom: 1em; /* 下に余白 */
+  float: right; /* 右寄せ */
+  margin-left: 1.5em; /* 左に余白 */
+  margin-top: 0;
+  margin-bottom: 1em; /* 下に余白 */
 }
 
 .wp-block-image .aligncenter {
-    display: block; /* インライン要素ではなくブロック要素として扱う */
-    text-align: center;/* 中央寄せ */ 
+  display: block; /* インライン要素ではなくブロック要素として扱う */
+  text-align: center; /* 中央寄せ */
 }
 
 /************************************************************/
 /* Comments @@@***************************************************/
 /************************************************************/
 .comment-content a {
-    word-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .comments-area .bypostauthor {
-    display: block;
-    border-left: 4px solid #494949; /* 左側にグレーのラインをつける */
-    background-color: #f9f9f9; /* 背景を薄いグレーに */
-    padding: 15px; /* 余白 */
+  display: block;
+  border-left: 4px solid #494949; /* 左側にグレーのラインをつける */
+  background-color: #f9f9f9; /* 背景を薄いグレーに */
+  padding: 15px; /* 余白 */
 }
 
-
 .comments-area .comment-body {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .comments-area #comment,
 .comments-area #submit {
-    margin-top: 0;
-    color: #fff;
+  margin-top: 0;
+  color: #fff;
 }
 
 .comments-area .form-submit {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 /************************************************************/
 /* Widgets @@@ ***************************************************/
 /************************************************************/
 .widget {
-
-    content: " ";
-    /*ダミー*/
+  content: " ";
+  /*ダミー*/
 }
 
 /***************************************/
 
 /* ウィジェット カテゴリー s */
 .wp-block-categories {
-    list-style: none;
-    line-height: 2;
-    padding-left: 0px;
+  list-style: none;
+  line-height: 2;
+  padding-left: 0px;
 }
 
 .wp-block-categories a {
-    text-decoration: none;
-    font-size: 0.8rem;
+  text-decoration: none;
+  font-size: 0.8rem;
 }
 
 .cat-item {
-    border-bottom: 0.01em solid #e9e8e8;
-    padding: 5px 0px;
+  border-bottom: 0.01em solid #e9e8e8;
+  padding: 5px 0px;
+}
+
+.ly_site_content_widgetArea_right h2,
+.ly_site_content_widgetArea_right h3 {
+  padding-top: 1em;
+  /* hタグの上にpadding */
+}
+
+.ly_site_content_widgetArea_right .is-layout-flex {
+  padding: 0;
+  /* カテゴリーの検索バーのpaddingを消している */
+}
+
+.ly_site_content_widgetArea_right li {
+  font-size: 0.8rem;
+  /* カテゴリーの数字を小さくしている */
 }
 
 /* .widget .wp-block-search__button {
@@ -196,34 +191,28 @@
 
 /* ウィジェット カテゴリー e */
 
-
-
 /*************************************/
 /* 新着記事 @@@ s*/
 /*************************************/
 
 .wp-block-latest-posts__list {
-
-    list-style: none;
-    line-height: 2;
-    padding-left: 0px;
+  list-style: none;
+  line-height: 2;
+  padding-left: 0px;
 }
 
 .wp-block-latest-posts__list a {
-
-    font-size: 0.8rem;
-    text-decoration: none;
+  font-size: 0.8rem;
+  text-decoration: none;
 }
 
 .wp-block-latest-posts__post-title {
-    display: block;
-    border-bottom: 0.01em solid #e9e8e8;
-    padding: 5px 0px;
+  display: block;
+  border-bottom: 0.01em solid #e9e8e8;
+  padding: 5px 0px;
 }
 
 /* 新着記事 e*/
-
-
 
 /************************************************************/
 /* ページコントロール @@@***************************************************/
@@ -231,12 +220,8 @@
 
 /* 次へ */
 .pagination .nav-links {
-    width: 300px;
-    display: block;
-
-
-
-
+  width: 300px;
+  display: block;
 }
 
 /* 次への数字の囲みをコメントアウト */
@@ -246,346 +231,303 @@
 
 .pagination .next.page-numbers,
 .pagination .prev.page-numbers {
-    border: none;
+  border: none;
 }
 
 .pagination .page-numbers:hover,
 .pagination .next.page-numbers:hover,
 .pagination .prev.page-numbers:hover {
-    background: #f5f4f4;
+  background: #f5f4f4;
 }
 
 .pagination .fa-arrow-alt-circle-right:before,
 .pagination .fa-circle-right:before,
 .pagination .fa-arrow-alt-circle-left:before,
 .pagination .fa-circle-left:before {
-
-
-    vertical-align: -15%;
+  vertical-align: -15%;
 }
 
 /************************************************************/
 /* ページコントロール 次の記事@@@***************************************************/
 /************************************************************/
-.navigation.post-navigation {}
-
-.navigation.post-navigation .nav-links {
-    display: flex;
-    justify-content: space-between;
-    /* 子要素間のスペースを等しく */
-    width: 100%;
-    /* 幅を広げる */
-    margin-top: 1.5rem;
+.navigation.post-navigation {
 }
 
+.navigation.post-navigation .nav-links {
+  display: flex;
+  justify-content: space-between;
+  /* 子要素間のスペースを等しく */
+  width: 100%;
+  /* 幅を広げる */
+  margin-top: 1.5rem;
+}
 
 .wp-block-media-text {
-    gap: 1.2em;
-    /* メディアとテキストのギャップ */
+  gap: 1.2em;
+  /* メディアとテキストのギャップ */
 }
 
 .wp-block-preformatted {
-    padding: 2em;
-    /* 囲みテキストにpadding */
+  padding: 2em;
+  /* 囲みテキストにpadding */
 }
 
 .wp-block-buttons.is-layout-flex {
-    padding: 0;
-    /* ボタンのパディングを無しに */
+  padding: 0;
+  /* ボタンのパディングを無しに */
 }
 
 /*******************************/
 /* ページトップの設定 s */
 /*******************************/
 #page-top {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    background: #fff;
-    color: #333;
-    border: 1px solid #333;
-    text-align: center;
-    line-height: 50px;
-    border-radius: 50%;
-    font-size: 20px;
-    text-decoration: none;
-    opacity: 0;  /* 初期は非表示 */
-    transition: opacity 0.3s ease;  /* スムーズな表示切替 */
-    z-index: 9999; /* 他の要素に隠れないように最前面 */
-  }
-  
-  #page-top:hover {
-    background: #333;
-    color: #fff;
-  }
-  
-  /* スクロール位置が100pxを越えたらボタンを表示 */
-  body {
-    margin-bottom: 60px; /* スクロール領域を作る */
-  }
-  
-  /* スクロール位置が100pxを越えた場合にボタンを表示 */
-  @media (min-height: 800px) {
-    #page-top {
-      opacity: 1; /* スクロール後は表示 */
-    }
-  }
-  
- /*-------------ページトップの設定 e----------*/ 
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: #fff;
+  color: #333;
+  border: 1px solid #333;
+  text-align: center;
+  line-height: 50px;
+  border-radius: 50%;
+  font-size: 20px;
+  text-decoration: none;
+  opacity: 0; /* 初期は非表示 */
+  transition: opacity 0.3s ease; /* スムーズな表示切替 */
+  z-index: 9999; /* 他の要素に隠れないように最前面 */
+}
 
+#page-top:hover {
+  background: #333;
+  color: #fff;
+}
+
+/* スクロール位置が100pxを越えたらボタンを表示 */
+#page-top body {
+  margin-bottom: 60px; /* スクロール領域を作る */
+}
+
+/* スクロール位置が100pxを越えた場合にボタンを表示 */
+@media (min-height: 800px) {
+  #page-top {
+    opacity: 1; /* スクロール後は表示 */
+  }
+}
+
+/*-------------ページトップの設定 e----------*/
 
 /************************************************************/
 /* メタ情報設定@@@***************************************************/
 /************************************************************/
 
 .edit-post-meta-boxes-area #poststuff h2.hndle {
-    font-size: 1.2rem;
+  font-size: 1.2rem;
 }
 
-
-
 @media screen and (max-width: 768px) {
-
-    .navigation.post-navigation .nav-links {
-        flex-direction: column;
-    }
+  .navigation.post-navigation .nav-links {
+    flex-direction: column;
+  }
 }
 
 .nav-previous,
 .nav-next {
-    /* アイコンとテキストの縦方向中央揃え */
+  /* アイコンとテキストの縦方向中央揃え */
 }
 
 .nav-subtitle {
-    display: flex;
-    align-items: center;
-    /* アイコンとテキストの縦方向中央揃え */
-    gap: 0.5em;
-    /* アイコンとタイトルの間のスペース */
+  display: flex;
+  align-items: center;
+  /* アイコンとテキストの縦方向中央揃え */
+  gap: 0.5em;
+  /* アイコンとタイトルの間のスペース */
 }
 
-.nav-title {}
+.nav-title {
+}
 
 .nav-previous i,
-.nav-next i {}
-
-
-
+.nav-next i {
+}
 
 /************************************************************/
 /* 目次 @@@***************************************************/
 /************************************************************/
 
 .post-toc {
-    background-color: #eee;
-    min-width: 40%;
-    /* 幅の最小値を40%に設定 */
-    max-width: fit-content;
-    /* コンテンツに応じて幅を広げる */
-    margin-left: auto;
-    /* 左: 自動調整 */
-    margin-right: auto;
-    /* 右: 自動調整 */
-    margin-top: var(--ly-elementTopMargin);
-    padding: calc(var(--ly-elementPadding) * 2);/*2倍にしている*/
-    margin-bottom: var(--ly-elementBottomMargin);
+  background-color: #eee;
+  min-width: 40%;
+  /* 幅の最小値を40%に設定 */
+  max-width: fit-content;
+  /* コンテンツに応じて幅を広げる */
+  margin-left: auto;
+  /* 左: 自動調整 */
+  margin-right: auto;
+  /* 右: 自動調整 */
+  margin-top: var(--ly-elementTopMargin);
+  padding: calc(var(--ly-elementPadding) * 2); /*2倍にしている*/
+  margin-bottom: var(--ly-elementBottomMargin);
 }
-
 
 .post-toc h2 {
-
-    border-bottom: none;
-    text-align: center;
-    width: fit-content;
+  border-bottom: none;
+  text-align: center;
+  width: fit-content;
 }
 
-
 .post-toc ul {
-    list-style-type: none;
-
+  list-style-type: none;
 }
 
 .post-toc ul li {
-
-    content: " ";
-    /*ダミー*/
+  content: " ";
+  /*ダミー*/
 }
 
 .post-toc ul li a {
-    text-decoration: none;
-    color: #222;
-    line-height: 2.2;
-    color: #222;
+  text-decoration: none;
+  color: #222;
+  line-height: 2.2;
+  color: #222;
 }
 
 .post-toc ul li a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .post-toc ul li.toc-h1 a {
-    font-weight: bold;
-
+  font-weight: bold;
 }
 
 .post-toc ul li.toc-h2 a {
-
-    content: " ";
-    /*ダミー*/
+  content: " ";
+  /*ダミー*/
 }
 
 .post-toc ul li.toc-h3 a {
-
-    content: " ";
-    /*ダミー*/
-
+  content: " ";
+  /*ダミー*/
 }
-
-
-
-
-
 
 /************************************************************/
 /* カード @@@***************************************************/
 /************************************************************/
 
-
 /* PCレイアウト */
 @media (min-width: 769px) {
-    .bl_card_container {
-        grid-template-columns: 1fr 2fr;
-        grid-template-rows: auto auto;
-    }
+  .bl_card_container {
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: auto auto;
+  }
 
-    .bl_card_img {
-        grid-row: span 2;
-        /* 画像を2行分占める */
-    }
+  .bl_card_img {
+    grid-row: span 2;
+    /* 画像を2行分占める */
+  }
 }
 
 /* スマホレイアウト */
 @media (max-width: 768px) {
-    .bl_card_container {
-        grid-template-columns: 1fr 2fr;
-        grid-template-rows: auto auto;
-    }
+  .bl_card_container {
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: auto auto;
+  }
 
-    .bl_card_body {
-        grid-column: span 2;
-        /* 本文を2列分占める */
-    }
+  .bl_card_body {
+    grid-column: span 2;
+    /* 本文を2列分占める */
+  }
 }
-
 
 /* カード全体のデザインs*/
 .bl_card_container {
-    display: grid;
-    gap: 1vw;
-    padding: var(--ly-elementPadding);
-    margin-top: var(--ly-elementTopMargin);
-    background: #f2f2f2;
-    color: #444;
-
+  display: grid;
+  gap: 1vw;
+  padding: var(--ly-elementPadding);
+  margin-top: var(--ly-elementTopMargin);
+  background: #f2f2f2;
+  color: #444;
 }
 
 .bl_card_container a {
-    color: #444;
-    text-decoration: none;
+  color: #444;
+  text-decoration: none;
 }
 
 .bl_card_container a:hover {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .bl_card_container img {
-    height: 167px;
-    width: 100%; /* または固定値 */
-    object-fit: cover;
+  height: 167px;
+  width: 100%; /* または固定値 */
+  object-fit: cover;
 }
 
 /* カード全体e*/
 
-
-
 /* 画像側 s */
 
 .bl_card_img {
-    display: flex;
-    width: 100%;
-    object-fit: cover;
-    position: relative;
-    display: inline-block;
+  display: flex;
+  width: 100%;
+  object-fit: cover;
+  position: relative;
+  display: inline-block;
 }
-
 
 .bl_card_img img:hover {
-    transform: scale(1.1, 1.1);
-    transition: 1s all
+  transform: scale(1.1, 1.1);
+  transition: 1s all;
 }
-
 
 /* category-labelを画像の左上に重ねる */
 .bl_card_img .category-label {
-    position: absolute;
-    background-color: #444;
-    /* 半透明の背景色 */
-    color: white;
-    /* 白い文字 */
-    padding: 0.1rem 0.3rem;
-    /* 文字周りのスペース */
-    font-size: 0.6em;
+  position: absolute;
+  background-color: #444;
+  /* 半透明の背景色 */
+  color: white;
+  /* 白い文字 */
+  padding: 0.1rem 0.3rem;
+  /* 文字周りのスペース */
+  font-size: 0.6em;
 }
 
 /* 画像側 e */
 
-
 /* ヘッダー側 s */
 
 .bl_card_head {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .bl_card_head .bl_card_ttl {
-    margin-top: 0;
+  margin-top: 0;
 
-    text-decoration: none;
+  text-decoration: none;
 }
 
-
 .bl_card_head .entry-date {
-    font-size: 0.8rem;
-
+  font-size: 0.8rem;
 }
 
 /* ヘッダー側 e */
 
 /* テキストbody側 s */
 .bl_card_body {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .bl_card_body .bl_card_txt {
-    width: fit-content;
-    font-size: 0.8rem;
+  width: fit-content;
+  font-size: 0.8rem;
 }
 
 /* テキストbody側 e */
-
-
-
-
-
-
-
-
-
-
-
-
 
 /************************************************************/
 /* 検索ボックス @@@***************************************************/
@@ -593,49 +535,46 @@
 
 /* 検索バー */
 .wp-block-search .wp-block-search__label {
-    display: none;
+  display: none;
 }
 
 .wp-block-search__button.has-icon {
-    width: 42px;
+  width: 42px;
 }
-
-
-
 
 /*************************************/
 /* パンくずs @@@*/
 /*************************************/
 .create_bread {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    /* 垂直方向で中央揃え */
-    gap: 10px;
-    /* 項目間の間隔 */
-    list-style: none;
-    /* マーカーを非表示 */
-    font-size: 0.7rem;
-    /* 文字サイズを小さく */
-    padding: 0;
-    /* 不要な余白を削除 */
-    margin: 0;
-    /* 不要な余白を削除 */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* 垂直方向で中央揃え */
+  gap: 10px;
+  /* 項目間の間隔 */
+  list-style: none;
+  /* マーカーを非表示 */
+  font-size: 0.7rem;
+  /* 文字サイズを小さく */
+  padding: 0;
+  /* 不要な余白を削除 */
+  margin: 0;
+  /* 不要な余白を削除 */
 }
 
 .create_bread a {
-    font-size: inherit;
-    /* 親要素のフォントサイズに合わせる */
-    text-decoration: none;
-    /* リンクの下線を消す */
-    color: inherit;
-    /* リンクの色を親要素と一致させる */
+  font-size: inherit;
+  /* 親要素のフォントサイズに合わせる */
+  text-decoration: none;
+  /* リンクの下線を消す */
+  color: inherit;
+  /* リンクの色を親要素と一致させる */
 }
 
 .create_bread a:hover {
-    text-decoration: underline;
-    /* ホバー時に下線を表示 */
-    /*color: blue;  ホバー時に色を変える（任意） */
+  text-decoration: underline;
+  /* ホバー時に下線を表示 */
+  /*color: blue;  ホバー時に色を変える（任意） */
 }
 
 /* パンくずe */
@@ -645,9 +584,9 @@
 /*************************************/
 .entry-header,
 .entry-footer {
-    /*文字情報のためremでサイズをフレキシブル対応*/
-    margin-top: 0.7rem;
-    margin-bottom: 0.7rem;
+  /*文字情報のためremでサイズをフレキシブル対応*/
+  margin-top: 0.7rem;
+  margin-bottom: 0.7rem;
 }
 
 /* 投稿日時用 */
@@ -656,9 +595,9 @@
 .cat-links,
 .edit-link,
 .tags-links {
-    font-size: 0.9rem;
-    /* 小さめの文字サイズ */
-    color: #666;
+  font-size: 0.9rem;
+  /* 小さめの文字サイズ */
+  color: #666;
 }
 
 .posted-on a,
@@ -666,18 +605,13 @@
 .cat-links a,
 .edit-link a,
 .tags-links a {
-    font-size: 0.7rem;
-    /* 親要素のフォントサイズに合わせる */
-    text-decoration: none;
-    /* リンクの下線を消す */
-    color: blue;
-    /* リンクの色を親要素と一致させる */
+  font-size: 0.7rem;
+  /* 親要素のフォントサイズに合わせる */
+  text-decoration: none;
+  /* リンクの下線を消す */
+  color: blue;
+  /* リンクの色を親要素と一致させる */
 }
-
-
-
-
-
 
 /************************************************************/
 /*** ボタン s ***/
@@ -685,22 +619,21 @@
 
 /*** ボタン s ***/
 .wp-block-buttons {
-    margin-top: var(--ly-elementTopMarginSmall);
+  margin-top: var(--ly-elementTopMarginSmall);
 }
 
-.wp-block-buttons>.wp-block-button.has-custom-font-size .wp-block-button__link {
-    min-width: 150px;
-    color: #fff;
+.wp-block-buttons
+  > .wp-block-button.has-custom-font-size
+  .wp-block-button__link {
+  min-width: 150px;
+  color: #fff;
 }
 
-.wp-block-buttons>.wp-block-button.has-custom-width .wp-block-button__link {
-    border-width: 1px;
+.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link {
+  border-width: 1px;
 }
-
 
 /*** ボタン e ***/
-
-
 
 /************************************************************/
 /* タグ @@@ ***************************************************/
@@ -708,113 +641,86 @@
 
 /* tag s */
 .wp-block-tag-cloud {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 5px;
-
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 5px;
 }
 
 .wp-block-tag-cloud .tag-cloud-link {
-    background: #c4c4c4;
-
+  background: #c4c4c4;
 }
 
-
 /* tag e */
-
 
 /************************************************************/
 /* キャプションのテキスト@@@ ***************************************************/
 /************************************************************/
 /* caption s */
 .wp-caption {
-    max-width: 100%; /* 画像の最大幅を超えないようにする */
-    text-align: center; /* キャプションを中央寄せ */
-    background-color: #f8f8f8; /* 背景色を薄いグレーに */
-    padding: 5px; /* 余白を確保 */
-    border: 1px solid #ddd; /* 境界線を薄いグレーに */
+  max-width: 100%; /* 画像の最大幅を超えないようにする */
+  text-align: center; /* キャプションを中央寄せ */
+  background-color: #f8f8f8; /* 背景色を薄いグレーに */
+  padding: 5px; /* 余白を確保 */
+  border: 1px solid #ddd; /* 境界線を薄いグレーに */
 }
 
 .wp-caption-text {
-    font-size: 0.7rem; /* フォントサイズを適切に */
-    color: #666; /* 文字色を少し薄く */
-    margin-top: 5px; /* 画像との間に余白を追加 */
+  font-size: 0.7rem; /* フォントサイズを適切に */
+  color: #666; /* 文字色を少し薄く */
+  margin-top: 5px; /* 画像との間に余白を追加 */
 }
 
 .gallery-caption {
-    font-size: 0.7rem;
-    color: #777;
-    text-align: center;
-    margin-top: 5px;
+  font-size: 0.7rem;
+  color: #777;
+  text-align: center;
+  margin-top: 5px;
 }
 
-
 /* caption e */
-
-
-
 
 /************************************************************/
 /* その他 @@@ ***************************************************/
 /************************************************************/
 
-
-
 .updated:not(.published) {
-    display: none;
+  display: none;
 }
-
-
-
-
-
-
-
 
 /************************************************************/
 /* ヘルパースタイル@@@ ***************************************************/
 /************************************************************/
 
-
 /* fa s  all.mini.cssのfont awsomeのCSSのカスタマイズ*/
 
 .fa-chevron-right:before {
-
-    content: " ";
-    /*ダミー*/
+  content: " ";
+  /*ダミー*/
 }
 
 .fa-solid,
 .fas {
-    font-weight: 900;
-
-
+  font-weight: 900;
 }
 
 .fa-calendar-alt:before,
 .fa-calendar-days:before {
-
-    content: " ";
-    /*ダミー*/
+  content: " ";
+  /*ダミー*/
 }
 
 .fa-arrow-alt-circle-left:before,
 .fa-circle-left:before,
 .fa-arrow-alt-circle-right:before,
 .fa-circle-right:before {
-    color: #8c8c8c;
+  color: #8c8c8c;
 }
 
 .fa-magnifying-glass:before,
 .fa-search:before {
-    border: 1px solid #222;
-    border-left: none;
-
-
+  border: 1px solid #222;
+  border-left: none;
 }
 
 /* fa e*/
-
-
-

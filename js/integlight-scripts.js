@@ -74,23 +74,27 @@ class FadeSlider extends Slider {
     }
 }
 
-let SliderClass;
+
 const settings = integlight_sliderSettings;
 
-if (settings.effect === settings.fade) {
-    SliderClass = FadeSlider;
-} else if (settings.effect === settings.slide) {
-    SliderClass = SlideSlider;
-} else {
+if (settings.displayChoice === settings.headerTypeNameSlider) {
+    let SliderClass;
+    if (settings.effect === settings.fade) {
+        SliderClass = FadeSlider;
+    } else if (settings.effect === settings.slide) {
+        SliderClass = SlideSlider;
+    } else {
 
-}
+    }
 
-if (typeof SliderClass === "function") {
-    jQuery(document).ready(function ($) {
+    if (typeof SliderClass === "function") {
+        jQuery(document).ready(function ($) {
 
-        new SliderClass($, settings);
+            new SliderClass($, settings);
 
-    });
+        });
+    }
+
 }
 
 
