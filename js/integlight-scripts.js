@@ -74,14 +74,25 @@ class FadeSlider extends Slider {
     }
 }
 
-jQuery(document).ready(function ($) {
-    const settings = integlight_sliderSettings;
-    if (settings.effect === settings.fade) {
-        new FadeSlider($, settings);
-    } else if (settings.effect === settings.slide) {
-        new SlideSlider($, settings);
-    }
-});
+let SliderClass;
+const settings = integlight_sliderSettings;
+
+if (settings.effect === settings.fade) {
+    SliderClass = FadeSlider;
+} else if (settings.effect === settings.slide) {
+    SliderClass = SlideSlider;
+} else {
+
+}
+
+if (typeof SliderClass === "function") {
+    jQuery(document).ready(function ($) {
+
+        new SliderClass($, settings);
+
+    });
+}
+
 
 
 // Slider _s ////////////////////////////////////////////////////////////////

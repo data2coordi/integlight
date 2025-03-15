@@ -12,6 +12,13 @@
 
 <!-- slide bar _s //////////////////////////////// -->
 <?php
+
+global $Integlight_slider_settings;
+
+$display_choice = get_theme_mod('integlight_display_choice');
+if ($display_choice == $Integlight_slider_settings->headerTypeName_none) return;
+
+
 if (wp_is_mobile()) {
 	$slider_image_1 = get_theme_mod('integlight_slider_image_mobile_1');
 	if (empty($slider_image_1)) {
@@ -33,22 +40,8 @@ if (wp_is_mobile()) {
 	$slider_image_3 = get_theme_mod('integlight_slider_image_3');
 }
 
+if (!empty($slider_image_1) || !empty($slider_image_2) || !empty($slider_image_3)) {
 
-
-
-
-
-
-
-
-
-$slider_effect = get_theme_mod('integlight_slider_effect');
-
-global $Integlight_slider_settings;
-
-if (($slider_effect != $Integlight_slider_settings->optionValueName_none)
-	&& (!empty($slider_image_1) || !empty($slider_image_2) || !empty($slider_image_3))
-) :
 ?>
 	<div class="slider">
 		<div class="slides">
@@ -85,6 +78,6 @@ if (($slider_effect != $Integlight_slider_settings->optionValueName_none)
 		</div>
 	</div>
 <?php
-endif;
+};
 ?>
 <!-- slide bar _e //////////////////////////////// -->

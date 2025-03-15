@@ -203,9 +203,9 @@ class integlight_customizer_slider_outerAssets
 		// カスタマイザーの設定値をJavaScriptに渡す
 		wp_localize_script('integlight_slider-script', 'integlight_sliderSettings', array(
 			'changeDuration' => get_theme_mod('integlight_slider_change_duration', '3'),
-			'effect' => get_theme_mod('integlight_slider_effect', $this->pInteglight_slider_settings->optionValueName_none),
-			'fade' => $this->pInteglight_slider_settings->optionValueName_fade,
-			'slide' => $this->pInteglight_slider_settings->optionValueName_slide
+			'effect' => get_theme_mod('integlight_slider_effect', $this->pInteglight_slider_settings->effectName_fade),
+			'fade' => $this->pInteglight_slider_settings->effectName_fade,
+			'slide' => $this->pInteglight_slider_settings->effectName_slide
 		));
 	}
 }
@@ -335,9 +335,8 @@ class integlight_customizer_slider_setting
 			'section'  => $this->pSectionId,
 			'type'     => 'select',
 			'choices'  => array(
-				$this->pInteglight_slider_settings->optionValueName_fade  => __('Fade', 'integlight'),
-				$this->pInteglight_slider_settings->optionValueName_slide => __('Slide', 'integlight'),
-				$this->pInteglight_slider_settings->optionValueName_none => __('None', 'integlight'),
+				$this->pInteglight_slider_settings->effectName_fade  => __('Fade', 'integlight'),
+				$this->pInteglight_slider_settings->effectName_slide => __('Slide', 'integlight')
 			),
 		));
 	}
@@ -454,20 +453,20 @@ class integlight_customizer_slider
 
 		//グローバルで使う定数を定義
 		$GLOBALS['Integlight_slider_settings'] = new stdClass();
-		$GLOBALS['Integlight_slider_settings']->optionValueName_fade = 'fade';
-		$GLOBALS['Integlight_slider_settings']->optionValueName_slide = 'slide';
-		$GLOBALS['Integlight_slider_settings']->optionValueName_none = 'none';
+		$GLOBALS['Integlight_slider_settings']->effectName_fade = 'fade';
+		$GLOBALS['Integlight_slider_settings']->effectName_slide = 'slide';
+		$GLOBALS['Integlight_slider_settings']->headerTypeName_none = 'none';
 
 		global $Integlight_slider_settings;
 		$this->pInteglight_slider_settings = $Integlight_slider_settings;
-		// クラスのインスタンスを生成して処理を開始
-		new integlight_customizer_slider_applyHeaderTextStyle();
-		new integlight_customizer_slider_outerAssets($this->pInteglight_slider_settings);
 		$creSliderSectionId = new integlight_customizer_slider_creSection();
 
 		new integlight_customizer_HeaderTypeSelecter($creSliderSectionId);
-		new integlight_customizer_slider_setting($this->pInteglight_slider_settings, $creSliderSectionId);
 		new integlight_customizer_headerImage_updSection($creSliderSectionId);
+		// クラスのインスタンスを生成して処理を開始
+		new integlight_customizer_slider_applyHeaderTextStyle();
+		new integlight_customizer_slider_setting($this->pInteglight_slider_settings, $creSliderSectionId);
+		new integlight_customizer_slider_outerAssets($this->pInteglight_slider_settings);
 	}
 }
 
