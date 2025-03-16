@@ -224,9 +224,16 @@ textarea {
 <audio> : 音声を再生
 */
 
-img.aligncenter {
+.aligncenter {
     display: block;
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
+    /* 画像を中央配置 */
+}
+
+.alignright {
+    float: right;
+    /* 画像を右寄せ */
 }
 
 /* 
