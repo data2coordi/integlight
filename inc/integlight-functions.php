@@ -516,7 +516,15 @@ function integlight_g($target)
 }
 
 
+function add_preload_images()
+{
+?>
 
+
+<?php
+
+}
+add_action('wp_head', 'add_preload_images');
 
 
 

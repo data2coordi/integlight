@@ -224,6 +224,11 @@ textarea {
 <audio> : 音声を再生
 */
 
+img.aligncenter {
+    display: block;
+    margin: 0 auto;
+}
+
 /* 
 ====================
 9. フォーム (Forms)

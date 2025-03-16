@@ -40,14 +40,9 @@
 .site-footer a:focus {
   outline: none;
 }
+    
 
-.site-info {
-    display: flex;
-    align-items: center; /* 縦方向の中央寄せ */
-    justify-content: center; /* 横方向の中央寄せ（必要なら） */
-    height: 80px; /* 高さを指定 */
-    text-align: center;
-}
+    
 
 /************************************************************/
 /* 0. thumbnail***************************************************@@@/

@@ -94,5 +94,6 @@ class Integlight_initSampleSetup
 		update_option('integlight_initSetup_done', true);
 	}
 }
+//update_option('integlight_initSetup_done', false);
 
 new Integlight_initSampleSetup();

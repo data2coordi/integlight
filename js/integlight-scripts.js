@@ -90,7 +90,7 @@ if (settings.displayChoice === settings.headerTypeNameSlider) {
     if (typeof SliderClass === "function") {
         jQuery(document).ready(function ($) {
 
-            new SliderClass($, settings);
+            // new SliderClass($, settings);
 
         });
     }
