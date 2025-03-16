@@ -46,7 +46,7 @@
   font-size: 1.3rem;
   line-height: 2;
   font-weight: 400;
-  margin-top: 20px; 
+  margin-top: 20px;
   /* スライダーh2上スペース */
 }
 
@@ -110,7 +110,8 @@
 .slider.fade-effect .slide.active {
   opacity: 1;
   transition: opacity 3s ease-in-out;
-  height: auto;
+  height: 100vh;
+  /*height:autoではレイアウトの再計算が行われるため100%(100vh)とする*/
 }
 
 /* フェード式エフェクト _e ////////////////////////////*/
