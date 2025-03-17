@@ -2,121 +2,105 @@
 /* root **************************************************/
 /************************************************************/
 
-
-
-
 .site {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 /************************************************************/
 /* site level @@@ **************************************************/
 /************************************************************/
 .ly_site_header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-left: var(--ly-widthPadding);
-    padding-right: var(--ly-widthPadding);
-
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: var(--ly-widthPadding);
+  padding-right: var(--ly-widthPadding);
 }
 
 /************* content s *******************::*/
 .ly_site_content {
-    max-width: 100vw;
-    /*全幅子要素等の拡張対策*/
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--ly-betweenPadding);
-    margin-top: var(--ly-topMerge);
-    padding-left: var(--ly-widthPadding);
-    padding-right: var(--ly-widthPadding);
+  max-width: 100vw;
+  /*全幅子要素等の拡張対策*/
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--ly-betweenPadding);
+  margin-top: var(--ly-topMerge);
+  padding-left: var(--ly-widthPadding);
+  padding-right: var(--ly-widthPadding);
 }
 
-
+/****************************************/
+/**********フッターの調整をしている**********/
+.ly_site_content {
+  flex-direction: column;
+  min-height: 100vh; /* ビューポートの高さを最低限確保 */
+}
 
 .ly_site_content_widgetArea_left {
-    flex: 0 0 300px;
-    order: 1;
-    /* サイドバーを次に表示 */
-    width: 300px;
+  flex: 0 0 300px;
+  order: 1;
+  /* サイドバーを次に表示 */
+  width: 300px;
 }
-
-
-
 
 .ly_site_content_main {
-
-    max-width: var(--ly-content-max-width);
-    flex: 1;
-    order: 2;
-    /* メインコンテンツを最初に表示 */
+  max-width: var(--ly-content-max-width);
+  flex: 1;
+  order: 2;
+  /* メインコンテンツを最初に表示 */
 }
-
-
-
 
 /* top ページ s*/
 .integlight_front_page .ly_site_content {
-    margin: 0px;
+  margin: 0px;
 }
 
 .integlight_front_page .ly_site_content_main {
-    /* max-width: 100vw;*/
+  /* max-width: 100vw;*/
 }
 
 /* top ページ e*/
 
-
-
 .ly_site_content_widgetArea_right {
-    flex: 0 0 300px;
-    order: 3;
-    /* サイドバーを次に表示 */
-    width: 300px;
+  flex: 0 0 300px;
+  order: 3;
+  /* サイドバーを次に表示 */
+  width: 300px;
 }
 
 .ly_site_content_widgetArea_bottom {
-    flex: 1 1 100%;
-    order: 4;
-    /* ボトムウィジェットを最後に表示 */
+  flex: 1 1 100%;
+  order: 4;
+  /* ボトムウィジェットを最後に表示 */
 }
-
-
-
 
 /************* content e *******************::*/
 
 .site-footer {
-    width: 100%;
-    margin-top: var(--ly-topMerge);
-    padding-left: var(--ly-widthPadding);
-    padding-right: var(--ly-widthPadding);
+  width: 100%;
+  margin-top: var(--ly-topMerge);
+  padding-left: var(--ly-widthPadding);
+  padding-right: var(--ly-widthPadding);
 }
 
 /* footer下の余白対策*/
 .site-footer a,
 .site-footer span {
-    display: inline-block;
+  display: inline-block;
 }
 
 .ly_site_footer a {
-    color: #777;
-  }
-  
+  color: #777;
+}
 
 /************************************************************/
 /* entry-level @@@***************************************************/
 /************************************************************/
-
-
-
-
 
 /************************************************************/
 /************************************************************/
@@ -126,15 +110,13 @@
 /************************************************************/
 /************************************************************/
 
-
 /*************************************************************************/
 /* marge s******************************************/
 /*************************************************************************/
 
 * {
-    margin: 0px;
+  margin: 0px;
 }
-
 
 h1,
 h2,
@@ -144,7 +126,7 @@ h5,
 h6,
 section,
 article {
-    margin-top: var(--ly-elementTopMargin);
+  margin-top: var(--ly-elementTopMargin);
 }
 
 p,
@@ -152,7 +134,7 @@ ul,
 input,
 textarea,
 button {
-    margin-top: var(--ly-elementTopMarginSmall);
+  margin-top: var(--ly-elementTopMarginSmall);
 }
 
 .entry-content p,
@@ -160,16 +142,16 @@ button {
 .entry-content input,
 .entry-content textarea,
 .entry-content button {
-    margin-bottom: var(--ly-elementBottomMargin);
-    /* テキストの下にスペースを追加 */
+  margin-bottom: var(--ly-elementBottomMargin);
+  /* テキストの下にスペースを追加 */
 }
 
 .wp-block-image img {
-    margin-top: var(--ly-elementTopMarginSmall);  
+  margin-top: var(--ly-elementTopMarginSmall);
 }
 
 body .is-layout-flex {
-    margin-top: var(--ly-elementTopMargin);
+  margin-top: var(--ly-elementTopMargin);
 }
 
 /*************************************************************************/
@@ -190,66 +172,63 @@ input,
 textarea,
 button,
 label {
-    /*
+  /*
     padding: 1em;
     */
 }
-
 
 /*************************************************************************/
 /* padding e******************************************/
 /*************************************************************************/
 
-
-
-
 @media screen and (max-width: 768px) {
+  .site {
+    flex-direction: column;
+    width: 100vw;
+  }
 
-    .site {
-        flex-direction: column;
-        width: 100vw;
-    }
+  .ly_site_content_widgetArea_left {
+    width: 100%;
+    order: 1;
+  }
 
-    .ly_site_content_widgetArea_left {
-        width: 100%;
-        order: 1;
-    }
+  .ly_site_content_main {
+    width: 100%;
+    order: 2;
+  }
 
-    .ly_site_content_main {
-        width: 100%;
-        order: 2;
-    }
+  .ly_site_content_widgetArea_right {
+    width: 100%;
+    order: 3;
+  }
 
-    .ly_site_content_widgetArea_right {
-        width: 100%;
-        order: 3;
-    }
+  .ly_site_content_widgetArea_bottom {
+    width: 100%;
+    order: 4;
+  }
 
-    .ly_site_content_widgetArea_bottom {
-        width: 100%;
-        order: 4;
-    }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
 
-    img {
-        max-width: 100%;
-        height: auto;
-    }
+  .wp-block-image {
+    text-align: center;
+    /* スマホの時画像を中央寄せ */
+  }
 
-    .wp-block-image {
-        text-align: center;
-        /* スマホの時画像を中央寄せ */
-    }
+  body .is-layout-flex {
+    padding-left: var(--ly-widthPadding);
+    padding-right: var(--ly-widthPadding);
+  }
 
-    body .is-layout-flex {
-        padding-left: var(--ly-widthPadding);
-        padding-right: var(--ly-widthPadding);
-    }
+  .ly_site_content {
+    padding: 0 2em;
+    /* スマホで左右にpadding */
+  }
 
-    .ly_site_content {
-        padding: 0 1.5em;
-        /* スマホで左右にpadding */
-    }
-
-
+  h1, h2, h3, h4, h5, h6, section, article {
+    margin-top: calc(var(--ly-elementTopMargin) * 3);
+    line-height: 1.5;
+  }
 }
-
