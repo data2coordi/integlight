@@ -32,68 +32,65 @@ class Integlight_initSampleSetup
 		set_theme_mod('integlight_slider_text_top', 100);
 		set_theme_mod('integlight_slider_text_left', 200);
 
-		$default_image_url = get_template_directory_uri() . '/img/sample_slider_pc_01.webp';
-		set_theme_mod('integlight_slider_image_1', $default_image_url);
-
-		$default_image_url = get_template_directory_uri() . '/img/sample_slider_pc_02.webp';
-		set_theme_mod('integlight_slider_image_2', $default_image_url);
-
-		$default_image_url = get_template_directory_uri() . '/img/sample_slider_sp_01.webp';
-		set_theme_mod('integlight_slider_image_mobile_1', $default_image_url);
-
-		$default_image_url = get_template_directory_uri() . '/img/sample_slider_sp_02.webp';
-		set_theme_mod('integlight_slider_image_mobile_2', $default_image_url);
+		$this->initImage('integlight_slider_image_1', '/sample_slider_pc_01.webp', 'Sample Slider pc image01');
+		$this->initImage('integlight_slider_image_2', '/sample_slider_pc_02.webp', 'Sample Slider pc image02');
+		$this->initImage('integlight_slider_image_mobile_1', '/sample_slider_sp_01.webp', 'Sample Slider sp image01');
+		$this->initImage('integlight_slider_image_mobile_2', '/sample_slider_sp_02.webp', 'Sample Slider sp image02');
 	}
 
-	private function initLogo()
+	private function initImage($settingName, $imageFilename, $imageTitle)
 	{
 
+
+
 		// すでにロゴが設定されている場合は何もしない
-		if (get_theme_mod('custom_logo')) {
+		if (get_theme_mod($settingName)) {
 			return;
 		}
 
 		// サンプルのロゴ画像をテーマディレクトリ内に配置
-		$logoFilename = '/samplelogo_white.png';
-		$logo_path = get_template_directory() . '/img' . $logoFilename;
+
+		$logo_path = get_template_directory() . '/img' . $imageFilename;
 
 		// WordPressメディアライブラリに画像を登録
 		$upload_dir = wp_upload_dir();
 
-		if (!file_exists($upload_dir['path'] . $logoFilename)) {
-			copy($logo_path, $upload_dir['path'] . $logoFilename);
+		if (!file_exists($upload_dir['path'] . $imageFilename)) {
+			copy($logo_path, $upload_dir['path'] . $imageFilename);
 		}
 
 
-		$logo_url = $upload_dir['url'] . $logoFilename;
+		$logo_url = $upload_dir['url'] . $imageFilename;
 		// メディアライブラリに登録
 		$attachment = array(
 			'guid'           => $logo_url,
 			'post_mime_type' => 'image/png',
-			'post_title'     => 'Sample Logo TEST',
+			'post_title'     => $imageTitle,
 			'post_content'   => '',
 			'post_status'    => 'inherit'
 		);
-		$attach_id = wp_insert_attachment($attachment, $upload_dir['path'] . $logoFilename);
+		$attach_id = wp_insert_attachment($attachment, $upload_dir['path'] . $imageFilename);
 
 		// 画像のメタデータを生成
 		require_once ABSPATH . 'wp-admin/includes/image.php';
-		$attach_data = wp_generate_attachment_metadata($attach_id, $upload_dir['path'] . $logoFilename);
+		$attach_data = wp_generate_attachment_metadata($attach_id, $upload_dir['path'] . $imageFilename);
 		wp_update_attachment_metadata($attach_id, $attach_data);
 
 		// テーマカスタマイザーの `custom_logo` オプションを更新
-		set_theme_mod('custom_logo', $attach_id);
+		set_theme_mod($settingName, $attach_id);
 	}
 
 	public function integlight_initSampleSetup()
 	{
-		//var_dump('test0');
+
 		if (get_option('integlight_initSetup_done')) {
-			//var_dump('test1');
+
 			return;
 		}
-		//var_dump('test2');
-		$this->initLogo();
+
+		/*logo*/
+		$this->initImage('custom_logo', '/samplelogo_white.png', 'Sample Logo TEST');
+		/*slider*/
 		$this->initSlider();
 
 		//一度実行したらフラグをセット
