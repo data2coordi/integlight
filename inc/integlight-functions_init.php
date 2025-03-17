@@ -23,7 +23,7 @@ class Integlight_initSampleSetup
 		// カスタマイザーの設定名
 		set_theme_mod('integlight_display_choice', 'slider');
 
-		set_theme_mod('integlight_slider_effect', 'fade');
+		set_theme_mod('integlight_slider_effect', 'slide');
 		set_theme_mod('integlight_slider_change_duration', 3);
 
 		set_theme_mod('integlight_slider_text_1', 'Integlightであなたの経験・知識をデジタル資産に');
@@ -94,6 +94,6 @@ class Integlight_initSampleSetup
 		update_option('integlight_initSetup_done', true);
 	}
 }
-//update_option('integlight_initSetup_done', false);
+update_option('integlight_initSetup_done', false);
 
 new Integlight_initSampleSetup();

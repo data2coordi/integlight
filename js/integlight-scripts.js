@@ -90,7 +90,9 @@ if (settings.displayChoice === settings.headerTypeNameSlider) {
     if (typeof SliderClass === "function") {
         jQuery(document).ready(function ($) {
 
-            new SliderClass($, settings);
+            setTimeout(() => {
+                new SliderClass($, settings);
+            }, 0); // 0秒後（ミリ秒後）に実行
 
         });
     }
