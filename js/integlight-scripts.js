@@ -100,3 +100,5 @@ if (settings.displayChoice === settings.headerTypeNameSlider) {
 
 
 // Slider _s ////////////////////////////////////////////////////////////////
+
+

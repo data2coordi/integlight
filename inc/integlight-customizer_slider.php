@@ -195,13 +195,15 @@ class integlight_customizer_slider_outerAssets
 	{
 		$this->pInteglight_slider_settings = $slider_settings;
 		add_action('wp_enqueue_scripts', array($this, 'init_in_wp_enqueue_scripts'));
+		add_action('wp_enqueue_scripts', array($this, 'move_jquery_to_footer'));
+		add_filter('script_loader_tag', array($this, 'add_defer_to_script'), 10, 2);
 	}
 
 	public function init_in_wp_enqueue_scripts()
 	{
 		wp_enqueue_style('integlight-slide', get_template_directory_uri() . '/css/integlight-slide-style.css', array(), _S_VERSION);
-		wp_enqueue_script('jquery');
 		wp_enqueue_script('integlight_slider-script', get_template_directory_uri() . '/js/integlight-scripts.js', array('jquery'), _S_VERSION, true);
+		//wp_enqueue_script('jquery', false, array(), false, true);
 
 		// カスタマイザーの設定値をJavaScriptに渡す
 		wp_localize_script('integlight_slider-script', 'integlight_sliderSettings', array(
@@ -213,7 +215,40 @@ class integlight_customizer_slider_outerAssets
 			'headerTypeNameSlider' => $this->pInteglight_slider_settings->headerTypeName_slider
 		));
 	}
+
+
+	/* レンダリングブロック、layout計算増加の防止のためのチューニング s*/
+	public function add_defer_to_script($tag, $handle)
+	{
+		if ($handle === 'integlight_slider-script') {
+			return str_replace('src', 'defer src', $tag);
+		}
+		return $tag;
+	}
+
+	public function move_jquery_to_footer()
+	{
+		if (!is_admin()) {
+			wp_deregister_script('jquery'); // 既存の jQuery を解除
+			wp_register_script('jquery', includes_url('/js/jquery/jquery.min.js'), array(), '3.7.1', true);
+			wp_enqueue_script('jquery');
+		}
+	}
+	/* レンダリングブロック、layout計算増加の防止のためのチューニング s*/
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class integlight_customizer_slider_creSection
 {
