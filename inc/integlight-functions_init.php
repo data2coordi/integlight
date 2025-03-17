@@ -37,6 +37,12 @@ class Integlight_initSampleSetup
 
 		$default_image_url = get_template_directory_uri() . '/img/sample_slider_pc_02.webp';
 		set_theme_mod('integlight_slider_image_2', $default_image_url);
+
+		$default_image_url = get_template_directory_uri() . '/img/sample_slider_sp_01.webp';
+		set_theme_mod('integlight_slider_image_mobile_1', $default_image_url);
+
+		$default_image_url = get_template_directory_uri() . '/img/sample_slider_sp_02.webp';
+		set_theme_mod('integlight_slider_image_mobile_2', $default_image_url);
 	}
 
 	private function initLogo()
@@ -94,6 +100,6 @@ class Integlight_initSampleSetup
 		update_option('integlight_initSetup_done', true);
 	}
 }
-//update_option('integlight_initSetup_done', false);
+update_option('integlight_initSetup_done', false);
 
 new Integlight_initSampleSetup();
