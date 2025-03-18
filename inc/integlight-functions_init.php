@@ -26,8 +26,8 @@ class Integlight_initSampleSetup
 		set_theme_mod('integlight_slider_effect', 'slide');
 		set_theme_mod('integlight_slider_change_duration', 3);
 
-		set_theme_mod('integlight_slider_text_1', 'Integlightであなたの経験・知識をデジタル資産に');
-		set_theme_mod('integlight_slider_text_2', 'あなたが日々何気なく話していることや、仕事や趣味で得た知識・経験は、誰かにとって価値ある情報です。ブログに記録することで、それは時間とともに蓄積され、あなたの「デジタル資産」となります。発信を続けることで、多くの人に届く価値を生み出してみませんか？');
+		set_theme_mod('integlight_slider_text_1', 'Turn Your Experience and Knowledge into Digital Assets with Integlight');
+		set_theme_mod('integlight_slider_text_2', 'The things you casually talk about every day, as well as the knowledge and experience you gain from work or hobbies, can be valuable information for someone. By documenting them in a blog, they accumulate over time and become your "digital asset." Keep sharing, and you may create value that reaches many people.');
 		set_theme_mod('integlight_slider_text_font', 'yu_gothic');
 		set_theme_mod('integlight_slider_text_top', 100);
 		set_theme_mod('integlight_slider_text_left', 200);
