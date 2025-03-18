@@ -19,6 +19,8 @@ $display_choice = get_theme_mod('integlight_display_choice');
 if ($display_choice != $Integlight_slider_settings->headerTypeName_slider) return;
 
 
+
+
 if (wp_is_mobile()) {
 	$slider_image_1 = get_theme_mod('integlight_slider_image_mobile_1');
 	if (empty($slider_image_1)) {
@@ -49,21 +51,22 @@ if (!empty($slider_image_1) || !empty($slider_image_2) || !empty($slider_image_3
 			<!-- slide 1 -->
 			<?php if (!empty($slider_image_1)) : ?>
 				<div class="slide">
-					<img src="<?php echo esc_url($slider_image_1); ?>" alt="Slide 1">
+					<?php echo wp_get_attachment_image($slider_image_1, 'full'); ?>
 				</div>
 			<?php endif; ?>
 
 			<!-- slide 2 -->
 			<?php if (!empty($slider_image_2)) : ?>
 				<div class="slide">
-					<img src="<?php echo esc_url($slider_image_2); ?>" alt="Slide 2">
+					<?php echo wp_get_attachment_image($slider_image_2, 'full'); ?>
+
 				</div>
 			<?php endif; ?>
 
 			<!-- slide 3 -->
 			<?php if (!empty($slider_image_3)) : ?>
 				<div class="slide">
-					<img src="<?php echo esc_url($slider_image_3); ?>" alt="Slide 3">
+					<?php echo wp_get_attachment_image($slider_image_3, 'full'); ?>
 				</div>
 			<?php endif; ?>
 

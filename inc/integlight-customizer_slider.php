@@ -385,15 +385,21 @@ class integlight_customizer_slider_setting
 	{
 		$this->pWp_customize->add_setting($settingName, array(
 			'default' => '',
-			'sanitize_callback' => 'esc_url_raw',
+			'sanitize_callback' => 'absint',
 		));
 
-		$this->pWp_customize->add_control(new WP_Customize_Image_Control($this->pWp_customize, $settingName, array(
+
+
+		$this->pWp_customize->add_control(new WP_Customize_Media_Control($this->pWp_customize, $settingName, array(
 			'label'    => integlight_g($label),
 			'section'  => $this->pSectionId,
 			'settings' => $settingName,
+			'mime_type' => 'image', // 画像のみ許可
 		)));
 	}
+
+
+
 
 	private function textSetting($settingName, $label)
 	{

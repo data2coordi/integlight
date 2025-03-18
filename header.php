@@ -62,6 +62,7 @@
 	<?php wp_head(); ?>
 </head>
 <?php
+$frontPage = '';
 if (!is_home() && is_front_page()) {
 	$frontPage = 'integlight_front_page';
 }
