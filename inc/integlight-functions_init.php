@@ -114,7 +114,6 @@ class Integlight_initSampleSetup
 
 		//一度実行したらフラグをセット
 		update_option('integlight_initSetup_done', true);
-		error_log('init call endxxxxxxxxxxxxxxxx');
 	}
 }
 
