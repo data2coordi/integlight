@@ -31,8 +31,8 @@ function handleParentLinkClick(e) {
 	// 現在の項目の active 状態をトグルする
 	currentItem.classList.toggle("active");
 
-	// クリック後、リンクにフォーカスを設定（フォーカス管理用）
-	this.focus();
+	// ※ Safari では、ここでの this.focus() がリンク遷移に影響する可能性があるためコメントアウトまたは削除
+	//this.focus();
 }
 
 // フォーカスが外れたときの処理
