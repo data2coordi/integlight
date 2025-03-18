@@ -13,15 +13,10 @@
 /**
  * Enqueue scripts and styles.
  */
-class Integlight_Assets
+class InteglightAssets
 {
-
-
-
-
-
 	private static $styles = [
-		'integlight-awesome' => '/css/awesome-all.min.css', // 遅延対象
+		'integlight-awesome' => '/css/awesome-all.min.css',
 		'integlight-base-style-plus' => '/css/base-style.css',
 		'integlight-style-plus' => '/css/integlight-style.css',
 		'integlight-sp-style' => '/css/integlight-sp-style.css',
@@ -36,10 +31,15 @@ class Integlight_Assets
 		'integlight-helper' => '/css/helper.css',
 	];
 
+	// 遅延読み込み対象のスタイル
+	private static $deferred_styles = [
+		'integlight-awesome',
+		'integlight-block-module'
+	];
+
 	public static function init()
 	{
-		add_filter('style_loader_tag', [__CLASS__, 'defer_awesome_css'], 10, 2);
-
+		add_filter('style_loader_tag', [__CLASS__, 'defer_css'], 10, 2);
 		add_action('wp_enqueue_scripts', [__CLASS__, 'enqueue_frontend_styles']);
 		add_action('enqueue_block_editor_assets', [__CLASS__, 'enqueue_editor_styles']);
 	}
@@ -65,17 +65,14 @@ class Integlight_Assets
 		}
 	}
 
-	public static function defer_awesome_css($tag, $handle)
+	public static function defer_css($tag, $handle)
 	{
-
-		if ($handle === 'integlight-awesome') {
+		// 遅延読み込み対象のスタイルの場合、media='print' を適用し、onload で元に戻す
+		if (in_array($handle, self::$deferred_styles, true)) {
 			return str_replace("rel='stylesheet'", "rel='stylesheet' media='print' onload=\"this.media='all'\"", $tag);
 		}
 		return $tag;
 	}
 }
 
-Integlight_Assets::init();
-
-
-//editor用のスタイルの追加 _e ////////////////////////////////////////////////////////////////////////////////
+InteglightAssets::init();
