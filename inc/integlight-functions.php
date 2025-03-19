@@ -74,7 +74,7 @@ InteglightCommonCssAssets::init();
 
 
 //js 移動　PF対策	
-class InteglightMoveScriptsMain
+class InteglightCommonJsAssets
 {
 
 
@@ -102,7 +102,7 @@ class InteglightMoveScriptsMain
 }
 
 // 初期化処理
-InteglightMoveScriptsMain::init();
+InteglightCommonJsAssets::init();
 
 
 /***************************************** */
