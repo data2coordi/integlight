@@ -184,6 +184,13 @@ require get_template_directory() . '/inc/template-tags.php';
  */
 require get_template_directory() . '/inc/template-functions.php';
 
+
+// 以下は初期構成からの追加分 s	////////////////////////////////
+require get_template_directory() . '/inc/integlight-functions.php';
+// 以下は初期構成からの追加分 e	////////////////////////////////
+
+
+
 /**
  * Customizer additions.
  */
@@ -209,7 +216,3 @@ if (defined('JETPACK__VERSION')) {
 //////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////
-
-// 以下は初期構成からの追加分	////////////////////////////////
-// 新しいファイルを読み込む
-require get_template_directory() . '/inc/integlight-functions.php';

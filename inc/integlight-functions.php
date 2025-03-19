@@ -15,6 +15,52 @@
  */
 
 
+require get_template_directory() . '/inc/integlight-functions-outerAssets.php';
+
+class InteglightBaseAssets
+{
+	private static $styles = [
+		'integlight-awesome' => '/css/awesome-all.min.css',
+		'integlight-base-style-plus' => '/css/base-style.css',
+		'integlight-style-plus' => '/css/integlight-style.css',
+		'integlight-sp-style' => '/css/integlight-sp-style.css',
+		'integlight-layout' => '/css/layout.css',
+		'integlight-integlight-menu' => '/css/integlight-menu.css',
+		'integlight-post' => '/css/post.css',
+		'integlight-page' => '/css/page.css',
+		'integlight-front' => '/css/front.css',
+		'integlight-home' => '/css/home.css',
+		'integlight-module' => '/css/module.css',
+		'integlight-block-module' => '/css/block-module.css',
+		'integlight-helper' => '/css/helper.css',
+	];
+
+	private static $excludedStyles = [
+		'integlight-sp-style',
+	];
+
+	private static $deferredStyles = [
+		'integlight-sp-style' => '/css/integlight-awesome',
+		'integlight-sp-style' => '/css/integlight-block-module'
+	];
+
+
+	public static function init()
+	{
+		// スタイルリストを設定（追記可能）
+		InteglightRegStyles::add_styles(self::$styles);
+		InteglightRegStyles::add_excluded_styles(self::$excludedStyles);
+		// 遅延対象のスタイルを登録
+		InteglightDeferCss::add_deferred_styles(self::$deferredStyles);
+	}
+}
+
+
+// 初期化処理（ルートで実行）
+InteglightBaseAssets::init();
+
+
+
 
 // デフォルトから追加するテーマサポート _s ///////////////////////////////////////////////
 function integlight_setup_plus()
@@ -474,7 +520,5 @@ function add_preload_images()
 add_action('wp_head', 'add_preload_images');
 
 
-
 require get_template_directory() . '/inc/integlight-functions-block.php';
 require get_template_directory() . '/inc/integlight-functions-init.php';
-require get_template_directory() . '/inc/integlight-functions-assets.php';

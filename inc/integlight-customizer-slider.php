@@ -185,11 +185,13 @@ class integlight_customizer_slider_applyHeaderTextStyle
 }
 /* スライダーに表示するテキストe */
 
+require_once get_template_directory() . '/inc/integlight-functions-outerAssets.php';
 
 class integlight_customizer_slider_outerAssets
 {
 
 	private $pInteglight_slider_settings;
+
 
 	public function __construct($slider_settings)
 	{
@@ -197,13 +199,17 @@ class integlight_customizer_slider_outerAssets
 		add_action('wp_enqueue_scripts', array($this, 'init_in_wp_enqueue_scripts'));
 		add_action('wp_enqueue_scripts', array($this, 'move_jquery_to_footer'));
 		add_filter('script_loader_tag', array($this, 'add_defer_to_script'), 10, 2);
+
+		$styles = [
+			'integlight-slide' => '/css/integlight-slide-style.css',
+		];
+		InteglightRegStyles::add_styles($styles);
 	}
 
 	public function init_in_wp_enqueue_scripts()
 	{
-		wp_enqueue_style('integlight-slide', get_template_directory_uri() . '/css/integlight-slide-style.css', array(), _S_VERSION);
+		//wp_enqueue_style('integlight-slide', get_template_directory_uri() . '/css/integlight-slide-style.css', array(), _S_VERSION);
 		wp_enqueue_script('integlight_slider-script', get_template_directory_uri() . '/js/integlight-scripts.js', array('jquery'), _S_VERSION, true);
-		//wp_enqueue_script('jquery', false, array(), false, true);
 
 		// カスタマイザーの設定値をJavaScriptに渡す
 		wp_localize_script('integlight_slider-script', 'integlight_sliderSettings', array(

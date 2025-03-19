@@ -99,44 +99,81 @@ class InteglightRegStyles
 }
 InteglightRegStyles::init();
 
-class InteglightBaseAssets
+
+
+
+class InteglightDeferJs
 {
-	private static $styles = [
-		'integlight-awesome' => '/css/awesome-all.min.css',
-		'integlight-base-style-plus' => '/css/base-style.css',
-		'integlight-style-plus' => '/css/integlight-style.css',
-		'integlight-sp-style' => '/css/integlight-sp-style.css',
-		'integlight-layout' => '/css/layout.css',
-		'integlight-integlight-menu' => '/css/integlight-menu.css',
-		'integlight-post' => '/css/post.css',
-		'integlight-page' => '/css/page.css',
-		'integlight-front' => '/css/front.css',
-		'integlight-home' => '/css/home.css',
-		'integlight-module' => '/css/module.css',
-		'integlight-block-module' => '/css/block-module.css',
-		'integlight-helper' => '/css/helper.css',
-	];
+	private static $deferred_scripts = [];
 
-	private static $excludedStyles = [
-		'integlight-sp-style',
-	];
-
-	private static $deferredStyles = [
-		'integlight-sp-style' => '/css/integlight-awesome',
-		'integlight-sp-style' => '/css/integlight-block-module'
-	];
-
-
+	/**
+	 * 初期化メソッド
+	 */
 	public static function init()
 	{
-		// スタイルリストを設定（追記可能）
-		InteglightRegStyles::add_styles(self::$styles);
-		InteglightRegStyles::add_excluded_styles(self::$excludedStyles);
-		// 遅延対象のスタイルを登録
-		InteglightDeferCss::add_deferred_styles(self::$deferredStyles);
+		add_filter('script_loader_tag', [__CLASS__, 'defer_js'], 10, 2);
+	}
+
+	/**
+	 * 遅延対象のスクリプトを追加する
+	 * @param array $scripts 追加するスクリプトのハンドル名の配列
+	 */
+	public static function add_deferred_scripts(array $scripts)
+	{
+		self::$deferred_scripts = array_merge(self::$deferred_scripts, $scripts);
+		self::$deferred_scripts = array_unique(self::$deferred_scripts); // 重複を排除
+	}
+
+	/**
+	 * JSの遅延読み込み処理
+	 * @param string $tag    スクリプトタグ
+	 * @param string $handle スクリプトのハンドル名
+	 * @return string 修正後のタグ
+	 */
+	public static function defer_js($tag, $handle)
+	{
+		if (in_array($handle, self::$deferred_scripts, true)) {
+			return str_replace(' src', ' defer src', $tag);
+		}
+		return $tag;
 	}
 }
 
+// フィルタの登録を実行
+InteglightDeferJs::init();
 
-// 初期化処理（ルートで実行）
-InteglightBaseAssets::init();
+
+
+class InteglightRegScripts
+{
+	private static $scripts = [];
+	private static $excluded_scripts = [];
+
+	public static function init()
+	{
+		add_action('wp_enqueue_scripts', [__CLASS__, 'enqueue_frontend_scripts']);
+	}
+
+	public static function add_scripts(array $scripts)
+	{
+		self::$scripts = array_merge(self::$scripts, $scripts);
+	}
+
+	public static function add_excluded_scripts(array $excluded_scripts)
+	{
+		self::$excluded_scripts = array_merge(self::$excluded_scripts, $excluded_scripts);
+	}
+
+	public static function enqueue_frontend_scripts()
+	{
+		foreach (self::$scripts as $handle => $path) {
+			if (in_array($handle, self::$excluded_scripts, true)) {
+				continue;
+			}
+			wp_enqueue_script($handle, get_template_directory_uri() . $path, [], _S_VERSION, true);
+		}
+	}
+}
+
+// スクリプト登録の初期化
+InteglightRegScripts::init();

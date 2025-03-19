@@ -144,6 +144,8 @@ button {
 .entry-content button {
   margin-bottom: var(--ly-elementBottomMargin);
   /* テキストの下にスペースを追加 */
+  line-height: 1.8;
+  /* 本文の行間を広くする */
 }
 
 .wp-block-image img {
