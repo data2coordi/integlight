@@ -15,6 +15,11 @@
  */
 
 
+/***************************************** */
+/**css,js読み込み s***************************** */
+/***************************************** */
+
+
 require get_template_directory() . '/inc/integlight-functions-outerAssets.php';
 
 class InteglightBaseAssets
@@ -40,8 +45,9 @@ class InteglightBaseAssets
 	];
 
 	private static $deferredStyles = [
-		'integlight-sp-style' => '/css/integlight-awesome',
-		'integlight-sp-style' => '/css/integlight-block-module'
+		'integlight-awesome',
+		'integlight-sp-style',
+		'integlight-block-module'
 	];
 
 
@@ -55,9 +61,25 @@ class InteglightBaseAssets
 	}
 }
 
-
 // 初期化処理（ルートで実行）
 InteglightBaseAssets::init();
+
+
+//js 読み込み
+$scripts = [
+	'integlight-navigation' =>  ['path' => '/js/navigation.js', 'deps' => []],
+];
+InteglightRegScripts::add_scripts($scripts);
+
+//js 読み込み　WPデフォルトのコメント用
+if (is_singular() && comments_open() && get_option('thread_comments')) {
+	wp_enqueue_script('comment-reply');
+}
+
+
+/***************************************** */
+/**css,js読み込み e***************************** */
+/***************************************** */
 
 
 

@@ -67,7 +67,7 @@ class InteglightRegStyles
 
 	public static function init()
 	{
-		add_action('wp_enqueue_scripts', [__CLASS__, 'enqueue_frontend_styles']);
+		add_action('wp_enqueue_scripts', [__CLASS__, 'enqueue_frontend_styles'], 20);
 		add_action('enqueue_block_editor_assets', [__CLASS__, 'enqueue_editor_styles']);
 	}
 

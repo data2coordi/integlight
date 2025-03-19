@@ -119,8 +119,12 @@ class integlight_customizer_themeColor
 
 	public function enqueue_custom_css()
 	{
+
 		$base_pattern = get_theme_mod('integlight_base_color_setting', 'pattern1');
-		wp_enqueue_style('custom-pattern', get_template_directory_uri() . '/css/' . $base_pattern . '.css', array(), '1.0.0');
+
+		$styles = ['custom-pattern' => '/css/' . $base_pattern . '.css'];
+		InteglightRegStyles::add_styles($styles);
+		InteglightDeferCss::add_deferred_styles(['custom-pattern']);
 	}
 }
 

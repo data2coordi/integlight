@@ -37,7 +37,9 @@ h3::after {
 h2:hover::after,
 h3:hover::after,
 h2:focus:after,
-h3:focus:after {
+h3:focus:after,
+h2:active::after,
+h3:active::after, {
     transform: scale(1, 1);
     /* 線のx軸の長さを1 */
 }
