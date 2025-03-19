@@ -127,7 +127,6 @@ InteglightEditorStyles::add_styles([
 class InteglightRegScripts
 {
 	private static $scripts = [];
-	private static $excluded_scripts = [];
 
 	/**
 	 * 初期化メソッド
@@ -146,14 +145,6 @@ class InteglightRegScripts
 		self::$scripts = array_merge(self::$scripts, $scripts);
 	}
 
-	/**
-	 * 除外するスクリプトを追加
-	 * @param array $excluded_scripts 除外するスクリプトのハンドル
-	 */
-	public static function add_excluded_scripts(array $excluded_scripts)
-	{
-		self::$excluded_scripts = array_merge(self::$excluded_scripts, $excluded_scripts);
-	}
 
 	/**
 	 * フロントエンド用スクリプトの登録
@@ -161,9 +152,7 @@ class InteglightRegScripts
 	public static function enqueue_frontend_scripts()
 	{
 		foreach (self::$scripts as $handle => $data) {
-			if (in_array($handle, self::$excluded_scripts, true)) {
-				continue;
-			}
+
 
 			$path = $data['path'];
 			$deps = isset($data['deps']) ? $data['deps'] : [];
@@ -262,22 +251,6 @@ class InteglightMoveScripts
 
 // 初期化処理
 InteglightMoveScripts::init();
-
-class InteglightMoveScriptsMain
-{
-	private static $footerScripts = [
-		'jquery'   => '/js/jquery/jquery.min.js',
-	];
-
-	public static function init()
-	{
-		// フッターに移動するスクリプトを登録
-		InteglightMoveScripts::add_scripts(self::$footerScripts);
-	}
-}
-
-// 初期化処理
-InteglightMoveScriptsMain::init();
 /********************************************************* */
 /* jsファイル e***********************************************/
 /********************************************************* */

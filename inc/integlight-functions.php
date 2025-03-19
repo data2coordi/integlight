@@ -16,13 +16,13 @@
 
 
 /***************************************** */
-/**css,js読み込み s***************************** */
+/**css,js読み込み s************************ */
 /***************************************** */
 
 
 require get_template_directory() . '/inc/integlight-functions-outerAssets.php';
 
-class InteglightBaseAssets
+class InteglightCommonCssAssets
 {
 	private static $styles = [
 		'integlight-awesome' => '/css/awesome-all.min.css',
@@ -67,19 +67,42 @@ class InteglightBaseAssets
 }
 
 // 初期化処理（ルートで実行）
-InteglightBaseAssets::init();
+InteglightCommonCssAssets::init();
 
 
-//js 読み込み
-$scripts = [
-	'integlight-navigation' =>  ['path' => '/js/navigation.js', 'deps' => []],
-];
-InteglightRegScripts::add_scripts($scripts);
 
-//js 読み込み　WPデフォルトのコメント用
-if (is_singular() && comments_open() && get_option('thread_comments')) {
-	wp_enqueue_script('comment-reply');
+
+
+//js 移動　PF対策	
+class InteglightMoveScriptsMain
+{
+
+
+	public static function init()
+	{
+
+		//js 読み込み
+		$scripts = [
+			'integlight-navigation' =>  ['path' => '/js/navigation.js', 'deps' => []],
+		];
+		InteglightRegScripts::add_scripts($scripts);
+
+		// フッターに移動するスクリプトを登録
+		$footerScripts = [
+			'jquery'   => '/js/jquery/jquery.min.js',
+		];
+		InteglightMoveScripts::add_scripts($footerScripts);
+
+
+		//js 読み込み　WPデフォルトのコメント用
+		if (is_singular() && comments_open() && get_option('thread_comments')) {
+			wp_enqueue_script('comment-reply');
+		}
+	}
 }
+
+// 初期化処理
+InteglightMoveScriptsMain::init();
 
 
 /***************************************** */
