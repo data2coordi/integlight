@@ -173,13 +173,14 @@ class InteglightCopyRight
 	{
 ?>
 		<div class="wrap">
-			<h2>Copy Rightの設定</h2>
+
+			<h2><?php echo  __("Copyright Settings", "integlight") ?></h2>
 			<form method="post" action="options.php" enctype="multipart/form-data" encoding="multipart/form-data">
 				<?php
 				settings_fields('custom-menu-group');
 				do_settings_sections('custom-menu-group'); ?>
 				<div class="metabox-holder">
-					<p>Copy Rightを入力してください。</p>
+					<p><?php echo  __("Please enter the Copyright information.", "integlight") ?></p>
 					<p><input type="text" id="copy_right" name="copy_right" value="<?php echo get_option('copy_right'); ?>"></p>
 				</div>
 				<?php submit_button(); ?>
