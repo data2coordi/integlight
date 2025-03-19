@@ -13,6 +13,11 @@
 /**
  * Enqueue scripts and styles.
  */
+/********************************************************* */
+/* cssファイル s  **********************************/
+/********************************************************* */
+
+
 class InteglightDeferCss
 {
 	private static $deferred_styles = [];
@@ -98,7 +103,71 @@ class InteglightRegStyles
 	}
 }
 InteglightRegStyles::init();
+/********************************************************* */
+/* cssファイル e  **********************************/
+/********************************************************* */
 
+
+
+/********************************************************* */
+/* jsファイル s***********************************************/
+/********************************************************* */
+
+
+class InteglightRegScripts
+{
+	private static $scripts = [];
+	private static $excluded_scripts = [];
+
+	/**
+	 * 初期化メソッド
+	 */
+	public static function init()
+	{
+		add_action('wp_enqueue_scripts', [__CLASS__, 'enqueue_frontend_scripts']);
+	}
+
+	/**
+	 * スクリプトを追加
+	 * @param array $scripts ['handle' => ['path' => 'パス', 'deps' => ['依存スクリプト']]]
+	 */
+	public static function add_scripts(array $scripts)
+	{
+		self::$scripts = array_merge(self::$scripts, $scripts);
+	}
+
+	/**
+	 * 除外するスクリプトを追加
+	 * @param array $excluded_scripts 除外するスクリプトのハンドル
+	 */
+	public static function add_excluded_scripts(array $excluded_scripts)
+	{
+		self::$excluded_scripts = array_merge(self::$excluded_scripts, $excluded_scripts);
+	}
+
+	/**
+	 * フロントエンド用スクリプトの登録
+	 */
+	public static function enqueue_frontend_scripts()
+	{
+		foreach (self::$scripts as $handle => $data) {
+			if (in_array($handle, self::$excluded_scripts, true)) {
+				continue;
+			}
+
+			$path = $data['path'];
+			$deps = isset($data['deps']) ? $data['deps'] : [];
+
+			wp_enqueue_script($handle,  get_template_directory_uri() . $path, $deps, _S_VERSION, true);
+		}
+	}
+}
+
+
+
+
+// スクリプト登録の初期化
+InteglightRegScripts::init();
 
 
 
@@ -144,36 +213,61 @@ InteglightDeferJs::init();
 
 
 
-class InteglightRegScripts
+
+class InteglightMoveScripts
 {
 	private static $scripts = [];
-	private static $excluded_scripts = [];
 
+	/**
+	 * 初期化メソッド
+	 */
 	public static function init()
 	{
-		add_action('wp_enqueue_scripts', [__CLASS__, 'enqueue_frontend_scripts']);
+		add_action('wp_enqueue_scripts', [__CLASS__, 'move_scripts_to_footer'], 1);
 	}
 
+	/**
+	 * フッターに移動するスクリプトを登録
+	 * @param array $scripts ['handle' => 'パス'] の配列
+	 */
 	public static function add_scripts(array $scripts)
 	{
 		self::$scripts = array_merge(self::$scripts, $scripts);
 	}
 
-	public static function add_excluded_scripts(array $excluded_scripts)
+	/**
+	 * 指定したスクリプトをフッターに移動
+	 */
+	public static function move_scripts_to_footer()
 	{
-		self::$excluded_scripts = array_merge(self::$excluded_scripts, $excluded_scripts);
-	}
-
-	public static function enqueue_frontend_scripts()
-	{
-		foreach (self::$scripts as $handle => $path) {
-			if (in_array($handle, self::$excluded_scripts, true)) {
-				continue;
+		if (!is_admin()) {
+			foreach (self::$scripts as $handle => $path) {
+				wp_deregister_script($handle);
+				wp_register_script($handle, includes_url($path), [], _S_VERSION, true);
+				wp_enqueue_script($handle);
 			}
-			wp_enqueue_script($handle, get_template_directory_uri() . $path, [], _S_VERSION, true);
 		}
 	}
 }
 
-// スクリプト登録の初期化
-InteglightRegScripts::init();
+// 初期化処理
+InteglightMoveScripts::init();
+
+class InteglightMoveScriptsMain
+{
+	private static $footerScripts = [
+		'jquery'   => '/js/jquery/jquery.min.js',
+	];
+
+	public static function init()
+	{
+		// フッターに移動するスクリプトを登録
+		InteglightMoveScripts::add_scripts(self::$footerScripts);
+	}
+}
+
+// 初期化処理
+InteglightMoveScriptsMain::init();
+/********************************************************* */
+/* jsファイル e***********************************************/
+/********************************************************* */
