@@ -203,7 +203,6 @@ class integlight_customizer_slider_outerAssets
 		];
 		InteglightFrontendStyles::add_styles($styles);
 
-		/* レンダリングブロック、layout計算増加の防止のためのチューニング s*/
 		$scripts = [
 			'integlight_slider-script' =>  ['path' => '/js/integlight-scripts.js', 'deps' => ['jquery']],
 		];

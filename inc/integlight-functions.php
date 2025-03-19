@@ -89,7 +89,7 @@ class InteglightCommonJsAssets
 
 		// フッターに移動するスクリプトを登録
 		$footerScripts = [
-			'jquery'   => '/js/jquery/jquery.min.js',
+			'jquery'   => includes_url('/js/jquery/jquery.min.js')
 		];
 		InteglightMoveScripts::add_scripts($footerScripts);
 

@@ -144,8 +144,8 @@ add_action('enqueue_block_editor_assets', 'integlight_enqueue_block_assets');
 
 
 $footerScripts = [
-	'integlight-tab-block-script'   => '/blocks/tab-block/src/frontend.js',
-	'integlight-slider-block-script'   => '/blocks/slider-block/src/frontend.js',
+	'integlight-tab-block-script'   => get_template_directory_uri() . '/blocks/tab-block/src/frontend.js',
+	'integlight-slider-block-script'   => get_template_directory_uri() . '/blocks/slider-block/src/frontend.js',
 
 ];
 InteglightMoveScripts::add_scripts($footerScripts);
