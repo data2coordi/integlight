@@ -243,7 +243,7 @@ class InteglightMoveScripts
 	 */
 	public static function init()
 	{
-		add_action('wp_enqueue_scripts', [__CLASS__, 'move_scripts_to_footer'], 1);
+		add_action('wp_enqueue_scripts', [__CLASS__, 'move_scripts_to_footer'], 999);
 	}
 
 	/**
@@ -262,6 +262,8 @@ class InteglightMoveScripts
 	{
 		if (!is_admin()) {
 			foreach (self::$scripts as $handle => $path) {
+
+				wp_dequeue_script($handle);
 				wp_deregister_script($handle);
 				wp_register_script($handle, includes_url($path), [], _S_VERSION, true);
 				wp_enqueue_script($handle);
