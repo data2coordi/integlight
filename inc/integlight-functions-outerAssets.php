@@ -126,48 +126,69 @@ InteglightEditorStyles::add_styles([
 
 class InteglightRegScripts
 {
+	/**
+	 * スクリプトを登録する共通処理（サブクラスで配列を管理）
+	 */
+	protected static function enqueue_scripts($scripts)
+	{
+		foreach ($scripts as $handle => $data) {
+			$path = $data['path'];
+			$deps = isset($data['deps']) ? $data['deps'] : [];
+
+			wp_enqueue_script($handle, get_template_directory_uri() . $path, $deps, _S_VERSION, true);
+		}
+	}
+}
+
+/**
+ * フロントエンド用のスクリプト管理
+ */
+class InteglightFrontendScripts extends InteglightRegScripts
+{
 	private static $scripts = [];
 
-	/**
-	 * 初期化メソッド
-	 */
 	public static function init()
 	{
 		add_action('wp_enqueue_scripts', [__CLASS__, 'enqueue_frontend_scripts']);
 	}
 
-	/**
-	 * スクリプトを追加
-	 * @param array $scripts ['handle' => ['path' => 'パス', 'deps' => ['依存スクリプト']]]
-	 */
 	public static function add_scripts(array $scripts)
 	{
 		self::$scripts = array_merge(self::$scripts, $scripts);
 	}
 
-
-	/**
-	 * フロントエンド用スクリプトの登録
-	 */
 	public static function enqueue_frontend_scripts()
 	{
-		foreach (self::$scripts as $handle => $data) {
+		parent::enqueue_scripts(self::$scripts);
+	}
+}
+InteglightFrontendScripts::init();
 
+/**
+ * ブロックエディタ用のスクリプト管理
+ */
+class InteglightEditorScripts extends InteglightRegScripts
+{
+	private static $scripts = [];
 
-			$path = $data['path'];
-			$deps = isset($data['deps']) ? $data['deps'] : [];
+	public static function init()
+	{
+		add_action('enqueue_block_editor_assets', [__CLASS__, 'enqueue_editor_scripts']);
+	}
 
-			wp_enqueue_script($handle,  get_template_directory_uri() . $path, $deps, _S_VERSION, true);
-		}
+	public static function add_scripts(array $scripts)
+	{
+		self::$scripts = array_merge(self::$scripts, $scripts);
+	}
+
+	public static function enqueue_editor_scripts()
+	{
+		parent::enqueue_scripts(self::$scripts);
 	}
 }
 
-
-
-
-// スクリプト登録の初期化
-InteglightRegScripts::init();
-
+// 初期化
+InteglightEditorScripts::init();
 
 
 class InteglightDeferJs

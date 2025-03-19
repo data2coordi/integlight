@@ -207,7 +207,7 @@ class integlight_customizer_slider_outerAssets
 		$scripts = [
 			'integlight_slider-script' =>  ['path' => '/js/integlight-scripts.js', 'deps' => ['jquery']],
 		];
-		InteglightRegScripts::add_scripts($scripts);
+		InteglightFrontendScripts::add_scripts($scripts);
 
 
 		// 遅延対象のスクリプトを登録

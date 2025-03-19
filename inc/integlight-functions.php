@@ -85,7 +85,7 @@ class InteglightCommonJsAssets
 		$scripts = [
 			'integlight-navigation' =>  ['path' => '/js/navigation.js', 'deps' => []],
 		];
-		InteglightRegScripts::add_scripts($scripts);
+		InteglightFrontendScripts::add_scripts($scripts);
 
 		// フッターに移動するスクリプトを登録
 		$footerScripts = [
