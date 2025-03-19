@@ -196,7 +196,7 @@ class integlight_customizer_slider_outerAssets
 	public function __construct($slider_settings)
 	{
 		$this->pInteglight_slider_settings = $slider_settings;
-		add_action('wp_enqueue_scripts', array($this, 'init_in_wp_enqueue_scripts'));
+		add_action('wp_enqueue_scripts', array($this, 'provideTOjs'));
 
 		$styles = [
 			'integlight-slide' => '/css/integlight-slide-style.css',
@@ -218,7 +218,7 @@ class integlight_customizer_slider_outerAssets
 		/* レンダリングブロック、layout計算増加の防止のためのチューニング e*/
 	}
 
-	public function init_in_wp_enqueue_scripts()
+	public function provideTOjs()
 	{
 
 		// カスタマイザーの設定値をJavaScriptに渡す
