@@ -201,8 +201,7 @@ class integlight_customizer_slider_outerAssets
 		$styles = [
 			'integlight-slide' => '/css/integlight-slide-style.css',
 		];
-		InteglightRegStyles::add_styles($styles);
-
+		InteglightFrontendStyles::add_styles($styles);
 
 		/* レンダリングブロック、layout計算増加の防止のためのチューニング s*/
 		$scripts = [

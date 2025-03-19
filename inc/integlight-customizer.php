@@ -123,7 +123,8 @@ class integlight_customizer_themeColor
 		$base_pattern = get_theme_mod('integlight_base_color_setting', 'pattern1');
 
 		$styles = ['custom-pattern' => '/css/' . $base_pattern . '.css'];
-		InteglightRegStyles::add_styles($styles);
+		InteglightFrontendStyles::add_styles($styles);
+		InteglightEditorStyles::add_styles($styles);
 		InteglightDeferCss::add_deferred_styles(['custom-pattern']);
 	}
 }

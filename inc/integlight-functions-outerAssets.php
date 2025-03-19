@@ -59,50 +59,60 @@ class InteglightDeferCss
 InteglightDeferCss::init();
 
 
-
 class InteglightRegStyles
 {
-	private static $styles = [];
-	private static $excluded_styles = [];
-
-	public static function init()
-	{
-		add_action('wp_enqueue_scripts', [__CLASS__, 'enqueue_frontend_styles'], 20);
-		add_action('enqueue_block_editor_assets', [__CLASS__, 'enqueue_editor_styles']);
-	}
+	protected static $styles = []; // 各サブクラスで独自の配列を持つ
 
 	public static function add_styles(array $styles)
 	{
-		self::$styles = array_merge(self::$styles, $styles);
+		static::$styles = array_merge(static::$styles, $styles);
 	}
 
-	public static function add_excluded_styles(array $excluded_styles)
+	public static function enqueue_styles()
 	{
-		self::$excluded_styles = array_merge(self::$excluded_styles, $excluded_styles);
-	}
-
-	public static function enqueue_frontend_styles()
-	{
-		self::enqueue_styles();
-	}
-
-	public static function enqueue_editor_styles()
-	{
-		self::enqueue_styles(self::$excluded_styles);
-	}
-
-	private static function enqueue_styles($excluded = [])
-	{
-		foreach (self::$styles as $handle => $path) {
-
-			if (in_array($handle, $excluded, true)) {
-				continue;
-			}
+		foreach (static::$styles as $handle => $path) {
 			wp_enqueue_style($handle, get_template_directory_uri() . $path, [], _S_VERSION);
 		}
 	}
 }
-InteglightRegStyles::init();
+
+// フロントエンド用のスタイル管理クラス
+class InteglightFrontendStyles extends InteglightRegStyles
+{
+	protected static $styles = []; // フロントエンド専用の配列
+
+	public static function init()
+	{
+		add_action('wp_enqueue_scripts', [__CLASS__, 'enqueue_styles'], 20);
+	}
+}
+
+// エディタ用のスタイル管理クラス
+class InteglightEditorStyles extends InteglightRegStyles
+{
+	protected static $styles = []; // エディタ専用の配列
+
+	public static function init()
+	{
+		add_action('enqueue_block_editor_assets', [__CLASS__, 'enqueue_styles']);
+	}
+}
+
+// 各クラスの初期化
+InteglightFrontendStyles::init();
+InteglightEditorStyles::init();
+
+// フロントエンド用のスタイル登録 利用例
+/*
+InteglightFrontendStyles::add_styles([
+    'custom-pattern' => '/css/custom-pattern.css',
+]);
+
+// エディタ用のスタイル登録 利用例
+InteglightEditorStyles::add_styles([
+    'editor-style' => '/css/editor-style.css',
+]);
+*/
 /********************************************************* */
 /* cssファイル e  **********************************/
 /********************************************************* */

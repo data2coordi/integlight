@@ -40,9 +40,6 @@ class InteglightBaseAssets
 		'integlight-helper' => '/css/helper.css',
 	];
 
-	private static $excludedStyles = [
-		'integlight-sp-style',
-	];
 
 	private static $deferredStyles = [
 		'integlight-awesome',
@@ -54,8 +51,16 @@ class InteglightBaseAssets
 	public static function init()
 	{
 		// スタイルリストを設定（追記可能）
-		InteglightRegStyles::add_styles(self::$styles);
-		InteglightRegStyles::add_excluded_styles(self::$excludedStyles);
+		InteglightFrontendStyles::add_styles(self::$styles);
+
+		$excluded_key = 'integlight-sp-style';
+		// $styles から $excluded_key を除外してコピー
+		$EditorStyles = array_filter(self::$styles, function ($key) use ($excluded_key) {
+			return $key !== $excluded_key;
+		}, ARRAY_FILTER_USE_KEY);
+
+		InteglightEditorStyles::add_styles($EditorStyles);
+
 		// 遅延対象のスタイルを登録
 		InteglightDeferCss::add_deferred_styles(self::$deferredStyles);
 	}
