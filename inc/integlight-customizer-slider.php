@@ -322,38 +322,38 @@ class integlight_customizer_slider_setting
 		$this->pWp_customize = $wp_customize;
 
 		/* 効果 */
-		$this->labelSetting('integlight_slider_Animation_heading', 'Slider Animation');
-		$this->effectSetting('integlight_slider_effect', 'Effect');
-		$this->numberSetting('integlight_slider_change_duration', 'Slider Change Duration (seconds)', 1, 1);
+		$this->labelSetting('integlight_slider_Animation_heading', __('Slider Animation', 'integlight'));
+		$this->effectSetting('integlight_slider_effect', __('Effect', 'integlight'));
+		$this->numberSetting('integlight_slider_change_duration', __('Slider Change Duration (seconds)', 'integlight'), 1, 1);
 
 
 		/* テキスト */
-		$this->labelSetting('integlight_slider_text_heading', 'Slider Text');
-		$this->textSetting('integlight_slider_text_1', 'Slider Text Main');
-		$this->textSetting('integlight_slider_text_2', 'Slider Text Sub');
-		$this->colorSetting('integlight_slider_text_color', 'Slider Text color');
-		$this->fonttypeSetting('integlight_slider_text_font', 'Slider Text Font');
-		$this->labelSetting('integlight_slider_text_position_heading', 'Slider Text Position');
-		$this->numberSetting('integlight_slider_text_top', 'Slider Text Position Top (px)', 0, 1);
-		$this->numberSetting('integlight_slider_text_left', 'Slider Text Position Left (px)', 0, 1);
+		$this->labelSetting('integlight_slider_text_heading', __('Slider Text', 'integlight'));
+		$this->textSetting('integlight_slider_text_1', __('Slider Text Main', 'integlight'));
+		$this->textSetting('integlight_slider_text_2', __('Slider Text Sub', 'integlight'));
+		$this->colorSetting('integlight_slider_text_color', __('Slider Text color', 'integlight'));
+		$this->fonttypeSetting('integlight_slider_text_font', __('Slider Text Font', 'integlight'));
+		$this->labelSetting('integlight_slider_text_position_heading', __('Slider Text Position', 'integlight'));
+		$this->numberSetting('integlight_slider_text_top', __('Slider Text Position Top (px)', 'integlight'), 0, 1);
+		$this->numberSetting('integlight_slider_text_left', __('Slider Text Position Left (px)', 'integlight'), 0, 1);
 		/* 画像 */
-		$this->labelSetting('integlight_slider_image_heading', 'Slider Image', 'Recommended: 1920px (width) × 1080px (height).');
-		$this->imageSetting('integlight_slider_image_1', 'Slider Image 1');
-		$this->imageSetting('integlight_slider_image_2', 'Slider Image 2');
-		$this->imageSetting('integlight_slider_image_3', 'Slider Image 3');
+		$this->labelSetting('integlight_slider_image_heading', __('Slider Image', 'integlight'), __('Recommended: 1920px (width) × 1080px (height).', 'integlight'));
+		$this->imageSetting('integlight_slider_image_1', __('Slider Image 1', 'integlight'));
+		$this->imageSetting('integlight_slider_image_2', __('Slider Image 2', 'integlight'));
+		$this->imageSetting('integlight_slider_image_3', __('Slider Image 3', 'integlight'));
 
 
 
 		/*モバイル */
 		/*テキスト*/
-		$this->labelSetting('integlight_slider_text_position_heading_mobile', 'Slider Text Position Mobile');
-		$this->numberSetting('integlight_slider_text_top_mobile', 'Slider Text Position Top Mobile (px)', 0, 1);
-		$this->numberSetting('integlight_slider_text_left_mobile', 'Slider Text Position Left Mobile (px)', 0, 1);
+		$this->labelSetting('integlight_slider_text_position_heading_mobile', __('Slider Text Position Mobile', 'integlight'));
+		$this->numberSetting('integlight_slider_text_top_mobile', __('Slider Text Position Top Mobile (px)', 'integlight'), 0, 1);
+		$this->numberSetting('integlight_slider_text_left_mobile', __('Slider Text Position Left Mobile (px)', 'integlight'), 0, 1);
 		/*画像*/
-		$this->labelSetting('integlight_slider_image_mobile_heading', 'Slider Image mobile *option', 'Recommended: 750px (width) × 1334px (height).*If not set, the PC version will be applied.');
-		$this->imageSetting('integlight_slider_image_mobile_1', 'Slider Image mobile 1');
-		$this->imageSetting('integlight_slider_image_mobile_2', 'Slider Image mobile 2');
-		$this->imageSetting('integlight_slider_image_mobile_3', 'Slider Image mobile 3');
+		$this->labelSetting('integlight_slider_image_mobile_heading', __('Slider Image mobile *option', 'integlight'), __('Recommended: 750px (width) × 1334px (height).*If not set, the PC version will be applied.', 'integlight'));
+		$this->imageSetting('integlight_slider_image_mobile_1', __('Slider Image mobile 1', 'integlight'));
+		$this->imageSetting('integlight_slider_image_mobile_2', __('Slider Image mobile 2', 'integlight'));
+		$this->imageSetting('integlight_slider_image_mobile_3', __('Slider Image mobile 3', 'integlight'));
 	}
 
 
@@ -366,7 +366,7 @@ class integlight_customizer_slider_setting
 		));
 
 		$this->pWp_customize->add_control($settingName, array(
-			'label'    => integlight_g($label),
+			'label'    => $label,
 			'section'  => $this->pSectionId,
 			'type'     => 'select',
 			'choices'  => array(
@@ -386,7 +386,7 @@ class integlight_customizer_slider_setting
 
 
 		$this->pWp_customize->add_control(new WP_Customize_Media_Control($this->pWp_customize, $settingName, array(
-			'label'    => integlight_g($label),
+			'label'    => $label,
 			'section'  => $this->pSectionId,
 			'settings' => $settingName,
 			'mime_type' => 'image', // 画像のみ許可
@@ -403,7 +403,7 @@ class integlight_customizer_slider_setting
 			'sanitize_callback' => 'sanitize_textarea_field',
 		));
 		$this->pWp_customize->add_control($settingName,  array(
-			'label'   => integlight_g($label),
+			'label'   => $label,
 			'section' => $this->pSectionId,
 			'settings' => $settingName,
 		));
@@ -417,7 +417,7 @@ class integlight_customizer_slider_setting
 		));
 
 		$this->pWp_customize->add_control($settingName, array(
-			'label'    => integlight_g($label),
+			'label'    => $label,
 			'section'  => $this->pSectionId,
 			'type'     => 'number',
 			'input_attrs' => array(
@@ -436,9 +436,9 @@ class integlight_customizer_slider_setting
 			$this->pWp_customize,
 			$settingName,
 			array(
-				'label'    => integlight_g($label),
+				'label'    => $label,
 				'section'  => $this->pSectionId,
-				'description' => integlight_g($description)
+				'description' => $description
 
 			)
 		));
@@ -452,7 +452,7 @@ class integlight_customizer_slider_setting
 		));
 
 		$this->pWp_customize->add_control($settingName, array(
-			'label'    => integlight_g($label),
+			'label'    => $label,
 			'section'  => $this->pSectionId,
 			'type'     => 'select',
 			'choices'  => array(
@@ -473,7 +473,7 @@ class integlight_customizer_slider_setting
 			$this->pWp_customize,
 			$settingName,
 			array(
-				'label'    => integlight_g($label),
+				'label'    => $label,
 				'section'  => $this->pSectionId,
 				'settings' => $settingName,
 			)
