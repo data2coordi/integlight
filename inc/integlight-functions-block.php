@@ -21,7 +21,7 @@ function add_fontawesome_button_to_toolbar()
 {
 	//js 読み込み
 	$scripts = [
-		'integlight-gfontawesome' =>  ['path' => '/blocks/gfontawesome/build/index.js', 'deps' => ['wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-rich-text']],
+		'integlight-gfontawesome' =>  ['path' => '/blocks/gfontawesome/build/index.js', 'deps' => ['wp-blocks', 'wp-i18n', 'wp-element',  'wp-rich-text']],
 	];
 	InteglightEditorScripts::add_scripts($scripts);
 	$deferredScripts = ['integlight-gfontawesome'];
