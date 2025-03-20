@@ -3,20 +3,20 @@
 } */
 
 .integlight_pt button {
-  background: #0c62eb;
+  background: #0000ff;
 }
 
 
 .integlight_pt .pagetop {
-  background: #0c62eb;
+  background: #0000ff;
 }
 
 .integlight_pt p.head {
-  background: #0c62eb;
+  background: #0000ff;
 }
 
 .integlight_pt h2::after {
-  background: #0c62eb;
+  background: #0000ff;
 }
 
 .integlight_pt h3::after {
@@ -32,7 +32,7 @@
 .integlight_pt input[type="button"],
 .integlight_pt input[type="reset"],
 .integlight_pt input[type="submit"] {
-  background: #0c62eb;
+  background: #0000ff;
   color: #fff;
 }
 
@@ -64,7 +64,7 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: #0c62eb;
+  background: #0000ff;
   transition: left 0.3s ease-in-out;
   z-index: -1;
 }
@@ -75,9 +75,19 @@
 }
 
 #page-top:hover {
-  background: #0c62eb;
-  border: #0c62eb;
+  background: #0000ff;
+  border: #0000ff;
   color: #fff;
+}
+
+.posted-on a, .byline a, .cat-links a, .edit-link a, .tags-links a {
+  color: #0000ff;
+}
+
+.main-navigation>.menuToggle-containerForMenu>.menu>li.current_page_item>a::after,
+.main-navigation>.menuToggle-containerForMenu>.menu>li.current-menu-ancestor>a::after {
+  background: #0000ff;
+  /* メニューの下線アニメーション */
 }
 
 /* ボタングラデーション */

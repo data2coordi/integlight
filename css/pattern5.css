@@ -79,3 +79,13 @@
   border: #f90101;
   color: #fff;
 }
+
+.posted-on a, .byline a, .cat-links a, .edit-link a, .tags-links a {
+  color: #f90101;
+}
+
+.main-navigation>.menuToggle-containerForMenu>.menu>li.current_page_item>a::after,
+.main-navigation>.menuToggle-containerForMenu>.menu>li.current-menu-ancestor>a::after {
+  background: #f90101;
+  /* メニューの下線アニメーション */
+}

@@ -573,3 +573,52 @@ add_action('wp_head', 'add_preload_images');
 
 require get_template_directory() . '/inc/integlight-functions-block.php';
 require get_template_directory() . '/inc/integlight-functions-init.php';
+
+
+
+/********************************************************************/
+/* ブロックテーマへの適用s*/
+/********************************************************************/
+
+function integlight_register_block_styles()
+{
+	register_block_style(
+		'core/heading',
+		array(
+			'name'  => 'no-underline',
+			'label' => 'No Underline',
+			'inline_style' => '.wp-block-heading.is-style-no-underline::after { display: none !important; }'
+		)
+	);
+}
+add_action('init', 'integlight_register_block_styles');
+
+
+function mytheme_register_block_patterns()
+{
+	if (function_exists('register_block_pattern')) {
+		register_block_pattern(
+			'integlight/two-columns',
+			array(
+				'title'       => __('Two Columns', 'mytheme'),
+				'description' => _x('A layout with two columns for content.', 'Block pattern description', 'mytheme'),
+				'categories'  => array('columns'),
+				'content'     => "<!-- wp:columns -->
+<div class=\"wp-block-columns\">
+    <!-- wp:column -->
+    <div class=\"wp-block-column\"><p>" . __('Column one', 'mytheme') . "</p></div>
+    <!-- /wp:column -->
+    <!-- wp:column -->
+    <div class=\"wp-block-column\"><p>" . __('Column two', 'mytheme') . "</p></div>
+    <!-- /wp:column -->
+</div>
+<!-- /wp:columns -->",
+			)
+		);
+	}
+}
+add_action('init', 'mytheme_register_block_patterns');
+
+/********************************************************************/
+/* ブロックテーマへの適用e*/
+/********************************************************************/
