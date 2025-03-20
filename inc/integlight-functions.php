@@ -151,8 +151,8 @@ class InteglightCopyRight
 	{
 		add_submenu_page(
 			'themes.php',
-			integlight_g('Footer Settings'),
-			integlight_g('Footer'),
+			__('Footer Settings', 'integlight'),
+			__('Footer', 'integlight'),
 			'manage_options',
 			'custom_menu_page',
 			array($this, 'setting_menuPage'),
@@ -274,7 +274,7 @@ class InteglightTableOfContents
 		$screens = ['post', 'page'];
 		add_meta_box(
 			'toc_visibility_meta_box', // ID
-			integlight_g('TOC Visibility'), // タイトル
+			__('TOC Visibility', 'integlight'), // タイトル
 			array($this, 'render_toc_visibility_meta_box'), // コールバック関数
 			$screens, // 投稿タイプ
 			'side', // コンテキスト
@@ -289,7 +289,7 @@ class InteglightTableOfContents
 	?>
 		<label for="hide_toc">
 			<input type="checkbox" name="hide_toc" id="hide_toc" value="1" <?php checked($value, '1'); ?> />
-			<?php integlight_g('Hide TOC'); ?>
+			<?php __('Hide TOC', 'integlight'); ?>
 		</label>
 	<?php
 
@@ -424,7 +424,7 @@ function add_custom_seo_meta_box()
 	foreach ($post_types as $post_type) {
 		add_meta_box(
 			'seo_meta_box',            // メタボックスのID
-			integlight_g('Meta data setting(optional)'),                 // メタボックスのタイトル（管理画面に表示される）
+			__('Meta data setting(optional)', 'integlight'),                 // メタボックスのタイトル（管理画面に表示される）
 			'display_seo_meta_box',    // コールバック関数（メタボックス内のHTML出力）
 			$post_type,                // 対象の投稿タイプ
 			'normal',                  // 表示位置（normal, side, advanced など）
@@ -446,7 +446,7 @@ function display_seo_meta_box($post)
 	?>
 	<p>
 		<label for="custom_meta_title"><strong><?php echo integlight_g("Meta Title") ?></strong></label><br>
-		<input type="text" name="custom_meta_title" id="custom_meta_title" value="<?php echo esc_attr($custom_meta_title); ?>" style="width:100%;" placeholder="<?php echo integlight_g('ex) Improve Your English Speaking | 5 Easy & Effective Tips') ?>">
+		<input type="text" name="custom_meta_title" id="custom_meta_title" value="<?php echo esc_attr($custom_meta_title); ?>" style="width:100%;" placeholder="<?php echo __('ex) Improve Your English Speaking | 5 Easy & Effective Tips', 'integlight') ?>">
 	</p>
 	<p>
 		<label for="custom_meta_description"><strong><?php echo integlight_g("Meta Description") ?></strong></label><br>
@@ -554,11 +554,6 @@ add_action('wp_head', 'my_custom_meta_description');
 /********************************************************************/
 
 
-function integlight_g($target)
-{
-	/* translators: Dynamic translation string */
-	return __($target,	'integlight');
-}
 
 function add_preload_images()
 {
@@ -594,22 +589,22 @@ function integlight_register_block_styles()
 add_action('init', 'integlight_register_block_styles');
 
 
-function mytheme_register_block_patterns()
+function integlight_register_block_patterns()
 {
 	if (function_exists('register_block_pattern')) {
 		register_block_pattern(
 			'integlight/two-columns',
 			array(
-				'title'       => __('Two Columns', 'mytheme'),
-				'description' => _x('A layout with two columns for content.', 'Block pattern description', 'mytheme'),
+				'title'       => __('Two Columns', 'integlight'),
+				'description' => _x('A layout with two columns for content.', 'Block pattern description', 'integlight'),
 				'categories'  => array('columns'),
 				'content'     => "<!-- wp:columns -->
 <div class=\"wp-block-columns\">
     <!-- wp:column -->
-    <div class=\"wp-block-column\"><p>" . __('Column one', 'mytheme') . "</p></div>
+    <div class=\"wp-block-column\"><p>" . __('Column one', 'integlight') . "</p></div>
     <!-- /wp:column -->
     <!-- wp:column -->
-    <div class=\"wp-block-column\"><p>" . __('Column two', 'mytheme') . "</p></div>
+    <div class=\"wp-block-column\"><p>" . __('Column two', 'integlight') . "</p></div>
     <!-- /wp:column -->
 </div>
 <!-- /wp:columns -->",
@@ -617,7 +612,7 @@ function mytheme_register_block_patterns()
 		);
 	}
 }
-add_action('init', 'mytheme_register_block_patterns');
+add_action('init', 'integlight_register_block_patterns');
 
 /********************************************************************/
 /* ブロックテーマへの適用e*/

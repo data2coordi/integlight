@@ -262,14 +262,14 @@ class integlight_customizer_slider_creSection
 
 		// 大セクションを追加
 		$wp_customize->add_panel(self::SLIDER_PANEL_ID, array(
-			'title'    => integlight_g('Top Header Setting'),
-			'description' => integlight_g('Please select whether to display a slider or an image in the top header. The settings button for the selected option will be displayed.'),
+			'title'    => __('Top Header Setting', 'integlight'),
+			'description' => __('Please select whether to display a slider or an image in the top header. The settings button for the selected option will be displayed.', 'integlight'),
 			'priority' => 29
 		));
 
 		// 画像orスライダー選択セクションを追加
 		$wp_customize->add_section(self::SLIDER_OR_IMAGE_SECTION_ID, array(
-			'title'    => integlight_g('Select - Slider or Image'),
+			'title'    => __('Select - Slider or Image', 'integlight'),
 			'priority' => 29,
 			'panel' => self::SLIDER_PANEL_ID,
 
@@ -278,7 +278,7 @@ class integlight_customizer_slider_creSection
 
 		// スライダー作成用セクションを追加
 		$wp_customize->add_section(self::SLIDER_SECTION_ID, array(
-			'title'    => integlight_g('Slider Settings'),
+			'title'    => __('Slider Settings', 'integlight'),
 			'priority' => 29,
 			'panel' => self::SLIDER_PANEL_ID,
 			'active_callback' => function () {
@@ -456,8 +456,8 @@ class integlight_customizer_slider_setting
 			'section'  => $this->pSectionId,
 			'type'     => 'select',
 			'choices'  => array(
-				'yu_gothic' => integlight_g('yu gothic'),
-				'yu_mincho' => integlight_g('yu mincho'),
+				'yu_gothic' => __('yu gothic', 'integlight'),
+				'yu_mincho' => __('yu mincho', 'integlight'),
 			),
 		));
 	}

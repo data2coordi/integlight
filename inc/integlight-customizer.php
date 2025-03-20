@@ -92,16 +92,16 @@ class integlight_customizer_themeColor
 		$wp_customize->add_control('integlight_base_color_setting', array(
 			'section'     => 'colors', //既存の色セクションに追加
 			'settings'    => 'integlight_base_color_setting',
-			'label'       => integlight_g('Accent color setting'),
-			'description' => integlight_g('Select favorite accent color'),
+			'label'       => __('Accent color setting', 'integlight'),
+			'description' => __('Select favorite accent color', 'integlight'),
 			'type'        => 'radio',
 			'choices'     => array(
-				'pattern1' => integlight_g('None'),
-				'pattern2' => integlight_g('Blue'),
-				'pattern3' => integlight_g('Green'),
-				'pattern4' => integlight_g('Orange'),
-				'pattern5' => integlight_g('Red'),
-				'pattern6' => integlight_g('Pink'),
+				'pattern1' => __('None', 'integlight'),
+				'pattern2' => __('Blue', 'integlight'),
+				'pattern3' => __('Green', 'integlight'),
+				'pattern4' => __('Orange', 'integlight'),
+				'pattern5' => __('Red', 'integlight'),
+				'pattern6' => __('Pink', 'integlight'),
 			),
 		));
 	}
@@ -153,7 +153,7 @@ class integlight_customizer_ga
 	{
 		// Google Analytics 設定セクションを追加
 		$wp_customize->add_section('integlight_ga_section', array(
-			'title' => integlight_g('Google Analytics Setting'),
+			'title' => __('Google Analytics Setting', 'integlight'),
 			'priority' => 1000,
 		));
 
@@ -166,10 +166,10 @@ class integlight_customizer_ga
 
 		// トラッキングコード入力フィールドを追加
 		$wp_customize->add_control('integlight_ga_trackingCode', array(
-			'label' => integlight_g('Google Analytics Tracking Code'),
+			'label' => __('Google Analytics Tracking Code', 'integlight'),
 			'section' => 'integlight_ga_section',
 			'type' => 'textarea', // 複数行のテキストエリアを使用
-			'description' => integlight_g('Please paste the entire tracking code provided by Google Analytics.'),
+			'description' => __('Please paste the entire tracking code provided by Google Analytics.', 'integlight'),
 
 		));
 	}
@@ -208,7 +208,7 @@ class integlight_customizer_gtm
 	{
 		// Google Tag Manager 設定セクションを追加
 		$wp_customize->add_section('integlight_gtm_section', array(
-			'title' => integlight_g('Google Tag Manager Setting'),
+			'title' => __('Google Tag Manager Setting', 'integlight'),
 			'priority' => 1000,
 		));
 
@@ -221,10 +221,10 @@ class integlight_customizer_gtm
 
 		// GTM トラッキングコード入力フィールドを追加
 		$wp_customize->add_control('integlight_gtm_trackingCode', array(
-			'label' => integlight_g('Code to output in the <head> tag'),
+			'label' => __('Code to output in the <head> tag', 'integlight'),
 			'section' => 'integlight_gtm_section',
 			'type' => 'textarea', // 複数行のテキストエリアを使用
-			'description' => integlight_g('Please paste the code provided by Google Tag Manager.'),
+			'description' => __('Please paste the code provided by Google Tag Manager.', 'integlight'),
 		));
 
 		// Google Tag Manager noscript バックアップコードを入力する設定を追加
@@ -237,10 +237,10 @@ class integlight_customizer_gtm
 
 		// noscript トラッキングコード入力フィールドを追加
 		$wp_customize->add_control('integlight_gtm_noscriptCode', array(
-			'label' => integlight_g('Code to output immediately after the opening <body> tag'),
+			'label' => __('Code to output immediately after the opening <body> tag', 'integlight'),
 			'section' => 'integlight_gtm_section',
 			'type' => 'textarea',
-			'description' => integlight_g('Please paste the code provided by Google Tag Manager.'),
+			'description' => __('Please paste the code provided by Google Tag Manager.', 'integlight'),
 		));
 	}
 
