@@ -159,7 +159,9 @@ class integlight_customizer_ga
 
 		// Google Analytics トラッキングコードを入力する設定を追加
 		$wp_customize->add_setting('integlight_ga_trackingCode', array(
-			'default' => ''
+			'default' => '',
+			'sanitize_callback' =>  [$this, 'integlight_innocuousSanitize'], // 無害なサニタイズ関数を適用
+
 		));
 
 		// トラッキングコード入力フィールドを追加
@@ -171,6 +173,8 @@ class integlight_customizer_ga
 
 		));
 	}
+
+	public function integlight_innocuousSanitize() {}
 
 	// Google アナリティクスコードをサイトの <head> に出力
 	public function outCode()
@@ -210,7 +214,9 @@ class integlight_customizer_gtm
 
 		// Google Tag Manager トラッキングコードを入力する設定を追加
 		$wp_customize->add_setting('integlight_gtm_trackingCode', array(
-			'default' => ''
+			'default' => '',
+			'sanitize_callback' =>  [$this, 'integlight_innocuousSanitize'], // 無害なサニタイズ関数を適用
+
 		));
 
 		// GTM トラッキングコード入力フィールドを追加
@@ -223,7 +229,9 @@ class integlight_customizer_gtm
 
 		// Google Tag Manager noscript バックアップコードを入力する設定を追加
 		$wp_customize->add_setting('integlight_gtm_noscriptCode', array(
-			'default' => ''
+			'default' => '',
+			'sanitize_callback' => [$this, 'integlight_innocuousSanitize'], // 無害なサニタイズ関数を適用
+
 		));
 
 
@@ -235,6 +243,10 @@ class integlight_customizer_gtm
 			'description' => integlight_g('Please paste the code provided by Google Tag Manager.'),
 		));
 	}
+
+	// Google Tag Manager コードをサイトの <head> に出力
+	public function integlight_innocuousSanitize() {}
+
 
 	// Google Tag Manager コードをサイトの <head> に出力
 	public function outCode()

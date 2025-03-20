@@ -28,7 +28,7 @@
 		<span class="sep"> | </span>
 		<?php
 		/* translators: 1: Theme name, 2: Theme author. */
-		printf(esc_html('Theme: %1$s by %2$s.'), 'Integlight', '<a href="https://color.toshidayurika.com/">Yurika Toshida at Aurora Lab</a>');
+		printf(esc_html('Theme: %1$s by %2$s.'), 'Integlight', '<a href=' .  esc_url("https://color.toshidayurika.com/") . '>Yurika Toshida at Aurora Lab</a>');
 		?>
 	</div><!-- .site-info -->
 </footer><!-- #colophon -->

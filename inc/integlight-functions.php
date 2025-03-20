@@ -151,8 +151,8 @@ class InteglightCopyRight
 	{
 		add_submenu_page(
 			'themes.php',
-			__('Footer Settings', 'integlight'),
-			__('Footer', 'integlight'),
+			integlight_g('Footer Settings'),
+			integlight_g('Footer'),
 			'manage_options',
 			'custom_menu_page',
 			array($this, 'setting_menuPage'),
@@ -274,7 +274,7 @@ class InteglightTableOfContents
 		$screens = ['post', 'page'];
 		add_meta_box(
 			'toc_visibility_meta_box', // ID
-			__('TOC Visibility', 'integlight'), // タイトル
+			integlight_g('TOC Visibility'), // タイトル
 			array($this, 'render_toc_visibility_meta_box'), // コールバック関数
 			$screens, // 投稿タイプ
 			'side', // コンテキスト
@@ -289,7 +289,7 @@ class InteglightTableOfContents
 	?>
 		<label for="hide_toc">
 			<input type="checkbox" name="hide_toc" id="hide_toc" value="1" <?php checked($value, '1'); ?> />
-			<?php _e('Hide TOC', 'integlight'); ?>
+			<?php integlight_g('Hide TOC'); ?>
 		</label>
 	<?php
 
@@ -553,11 +553,12 @@ add_action('wp_head', 'my_custom_meta_description');
 /* SEO用カスタムフィールド（Meta Title / Meta Description）を追加するe*/
 /********************************************************************/
 
+
 function integlight_g($target)
 {
-	return __($target, 'integlight');
+	/* translators: Dynamic translation string */
+	return __($target,	'integlight');
 }
-
 
 function add_preload_images()
 {
