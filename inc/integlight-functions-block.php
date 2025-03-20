@@ -10,7 +10,7 @@ function register_theme_blocks()
 	$blocks = glob(get_template_directory() . '/blocks/*', GLOB_ONLYDIR);
 	foreach ($blocks as $block) {
 		if (file_exists($block . '/block.json')) {
-			register_block_type($block);
+			//register_block_type($block);
 		}
 	}
 }
@@ -50,23 +50,24 @@ add_action('enqueue_block_editor_assets', 'add_right_align_button_to_toolbar');
 /********************************************************************/
 
 /********************************************************************/
-/*font awesome 用のショートコードs*/
+/*font awesome 用フィルター置換*/
 /********************************************************************/
-function integlight_render_fontawesome_shortcode($atts)
+
+function integlight_replace_fontawesome_icons($content)
 {
-	$atts = shortcode_atts(
-		array('icon' => ''),
-		$atts,
-		'fa'
+	return preg_replace_callback(
+		'/\[fontawesome icon=([a-z0-9-]+)\]/i',
+		function ($matches) {
+			$icon = $matches[1];
+			if (empty($icon)) {
+				return '';
+			}
+			return '<i class="fas ' . esc_attr($icon) . '"></i>';
+		},
+		$content
 	);
-
-	if (empty($atts['icon'])) {
-		return '';
-	}
-
-	return '<i class="fas ' . esc_attr($atts['icon']) . '"></i>';
 }
-add_shortcode('fontawesome', 'integlight_render_fontawesome_shortcode');
+add_filter('the_content', 'integlight_replace_fontawesome_icons', 10);
 
 /********************************************************************/
 /*font awesome 用のショートコードe*/
