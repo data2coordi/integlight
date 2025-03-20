@@ -75,4 +75,10 @@
   left: 0;
 }
 
+#page-top:hover {
+  background: #555;
+  border: #555;
+  color: #fff;
+}
+
 

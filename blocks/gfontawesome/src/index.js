@@ -27,7 +27,7 @@ const FontAwesomeSearchButton = ({ value, onChange }) => {
     }, [isModalOpen, iconsData]);
 
     const insertIcon = (icon) => {
-        const shortcode = `[fontawesome icon="${icon}"]`;
+        const shortcode = `[fontawesome icon=${icon}]`;
         const newValue = insert(value, shortcode);
         onChange(newValue);
         setIsModalOpen(false);

@@ -10,7 +10,7 @@ function register_theme_blocks()
 	$blocks = glob(get_template_directory() . '/blocks/*', GLOB_ONLYDIR);
 	foreach ($blocks as $block) {
 		if (file_exists($block . '/block.json')) {
-			//register_block_type($block);
+			register_block_type($block);
 		}
 	}
 }

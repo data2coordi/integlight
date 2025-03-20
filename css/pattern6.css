@@ -75,3 +75,9 @@
 .wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link:active:before {
   left: 0;
 }
+
+#page-top:hover {
+  background: #f936f0;
+  border: #f936f0;
+  color: #fff;
+}
