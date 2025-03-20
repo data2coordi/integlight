@@ -41,7 +41,6 @@ class Integlight_initSampleSetup
 
 	private function initImage($settingName, $imageFilename, $imageTitle)
 	{
-		remove_theme_mod($settingName); //debug
 
 		// すでに設定済みなら処理しない
 		if (get_theme_mod($settingName)) {
