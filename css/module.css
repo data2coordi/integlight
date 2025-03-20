@@ -441,7 +441,8 @@
   display: grid;
   gap: 1vw;
   padding: var(--ly-elementPadding);
-  margin-top: var(--ly-elementTopMargin);
+  margin-top: calc(var(--ly-elementTopMargin) / 2);
+  /* 半分にしている */
   background: #f2f2f2;
   color: #444;
 }

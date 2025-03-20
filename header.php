@@ -19,46 +19,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 
-	<?php
-
-	if (is_singular()) {
-		global $post;
-
-		// カスタムフィールドから値を取得
-		$custom_title       = get_post_meta($post->ID, '_custom_meta_title', true);
-		$custom_description = get_post_meta($post->ID, '_custom_meta_description', true);
-
-		// Meta Title の処理：入力があればその値、なければ投稿タイトル + サイトタイトル
-		if ($custom_title) {
-			$meta_title = $custom_title;
-		} else {
-			$meta_title = get_the_title($post->ID) . ' | ' . get_bloginfo('name');
-		}
-
-		// Meta Description の処理：入力があればその値、なければ抜粋または本文から抽出
-		if ($custom_description) {
-			$meta_description = $custom_description;
-		} else {
-			if (has_excerpt($post->ID)) {
-				$meta_description = get_the_excerpt($post->ID);
-			} else {
-				// 投稿本文からHTMLタグを除去し、先頭155文字を抽出
-				$content = strip_tags($post->post_content);
-				$meta_description = mb_substr($content, 0, 155, 'UTF-8');
-			}
-		}
-	} else {
-		// シングルページ以外（アーカイブページなど）の場合は、サイト情報を利用
-		$meta_title = get_bloginfo('name');
-		$meta_description = get_bloginfo('description');
-	}
-	?>
-	<!-- meta タグの出力 -->
-	<title><?php echo esc_html($meta_title); ?></title>
-	<meta name="description" content="<?php echo esc_attr($meta_description); ?>">
-
-
-
 	<?php wp_head(); ?>
 </head>
 <?php

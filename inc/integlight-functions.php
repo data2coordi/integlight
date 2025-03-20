@@ -491,6 +491,18 @@ function save_seo_meta_box_data($post_id)
 }
 add_action('save_post', 'save_seo_meta_box_data');
 
+
+
+
+/*******title設定***********/
+//デフォルト
+////シングルサイト：ページのタイトル - 一般設定サイトタイトル
+////それ以外：一般設定サイトタイトル - 一般設定キャッチフレーズ
+//変更後
+////シングルサイト：
+///////設定あり：設定値
+///////設定なし：何もしない（デフォルト）
+////それ以外：何もしない（デフォルト）
 function my_custom_document_title($title_parts)
 {
 	if (is_singular()) {
@@ -501,8 +513,6 @@ function my_custom_document_title($title_parts)
 			// ここでカスタムフィールドの値を優先して設定
 			$title_parts['title'] = $custom_title;
 		} else {
-			// 入力がなければ投稿タイトル＋サイトタイトルにするなど、自由に処理可能
-			$title_parts['title'] = get_the_title($post->ID);
 		}
 	}
 	return $title_parts;
@@ -520,32 +530,21 @@ function my_custom_meta_description()
 {
 	if (is_singular()) {
 		global $post;
-
 		// カスタムフィールドから値を取得
 		$custom_description = get_post_meta($post->ID, '_custom_meta_description', true);
 
-		if ($custom_description) {
-			// ユーザーがカスタムフィールドに入力している場合、その値を利用
+		if (! empty($custom_description)) {
 			$meta_description = $custom_description;
+		} elseif (has_excerpt($post->ID)) {
+			$meta_description = get_the_excerpt($post->ID);
 		} else {
-			// 入力がない場合は、抜粋があれば抜粋を利用、なければ本文から先頭155文字を抽出
-			if (has_excerpt($post->ID)) {
-				$meta_description = get_the_excerpt($post->ID);
-			} else {
-				$content = strip_tags($post->post_content);
-				$meta_description = mb_substr($content, 0, 155, 'UTF-8');
-			}
+			// ユーザー入力も抜粋もない場合は meta description タグを出力しない
+			return;
 		}
-	} else {
-		// 投稿や固定ページ以外の場合はサイト説明を利用
-		$meta_description = get_bloginfo('description');
+		echo '<meta name="description" content="' . esc_attr($meta_description) . '">' . "\n";
 	}
-
-	// meta タグとして出力
-	echo '<meta name="description" content="' . esc_attr($meta_description) . '">' . "\n";
 }
 add_action('wp_head', 'my_custom_meta_description');
-
 
 
 
