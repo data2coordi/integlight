@@ -17,7 +17,7 @@
 <footer id="colophon" class="site-footer ly_site_footer">
 	<div class="site-info">
 
-		<?php echo "<br>" . get_option('copy_right'); ?>
+		<?php echo  get_option('copy_right'); ?>
 		<br>
 		<a href="<?php echo esc_url('https://wordpress.org/'); ?>">
 			<?php

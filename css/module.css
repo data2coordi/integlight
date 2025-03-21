@@ -130,7 +130,8 @@
 .comments-area #comment,
 .comments-area #submit {
   margin-top: 0;
-  color: #fff;
+  /* color: #fff; */
+  /* コメントの文字が白になってた */
 }
 
 .comments-area .form-submit {
@@ -544,6 +545,8 @@
 .create_bread {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  /* 一直線に */
   align-items: center;
   /* 垂直方向で中央揃え */
   gap: 10px;
