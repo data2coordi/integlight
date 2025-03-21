@@ -691,7 +691,7 @@
 /* fa s  all.mini.cssのfont awsomeのCSSのカスタマイズ*/
 
 .fa-chevron-right:before {
-  content: " ";
+  content: "\f054";
   /*ダミー*/
 }
 

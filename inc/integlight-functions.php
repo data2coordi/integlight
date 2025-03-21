@@ -339,12 +339,15 @@ class InteglightBreadcrumb
 		}
 	}
 
+
 	private function helper_addUl($breadcrumbData)
 	{
 		$ul = '<ul class="create_bread">';
+		$ul .= '<li>';
 		$ul .= '<i class="fa-solid fa-house"></i>';
-		$ul .= '<li><a href="' . home_url() . '">HOME</a></li>';
+		$ul .= '<a href="' . home_url() . '">HOME</a>';
 		$ul .= '<i class="fa-solid fa-angle-right"></i>';
+		$ul .= '</li>';
 
 		return $ul . $breadcrumbData .  '</ul>';
 	}
@@ -396,8 +399,10 @@ class InteglightBreadcrumb
 
 		if (!empty($categories)) {
 			foreach ($categories as $category) {
-				$output .= '<li><a href="' . esc_url(get_category_link($category->term_id)) . '">' . esc_html($category->name) . '</a></li>';
-				$output .= '<i class="fa-solid fa-angle-right"></i>';
+				$output .= '<li>';
+				$output .= '<a href="' . esc_url(get_category_link($category->term_id)) . '">' . esc_html($category->name) . '</a>';
+				$output .= '<i class="fa-solid fa-angle-right"></i>'; // ✅ <li> の中ならOK
+				$output .= '</li>';
 			}
 		}
 
