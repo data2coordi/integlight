@@ -16,12 +16,12 @@ class integlight_customizer_sidebar
 		add_action('customize_register', array($this, 'customize_register_sidebar'));
 	}
 
-	private function helper_setting($wp_customize, $no)
+	private function helper_setting($wp_customize, $no, $defPosition)
 	{
 
 		// サイドバー位置設定の追加
 		$wp_customize->add_setting('integlight_sidebar' . $no . '_position', array(
-			'default' => 'right',
+			'default' => $defPosition,
 			'sanitize_callback' => array($this, 'sanitize_sidebar_position'),
 		));
 
@@ -51,8 +51,8 @@ class integlight_customizer_sidebar
 			'priority' => 30,
 		));
 
-		$this->helper_setting($wp_customize, '1');
-		$this->helper_setting($wp_customize, '2');
+		$this->helper_setting($wp_customize, '1', 'right');
+		$this->helper_setting($wp_customize, '2', 'left');
 	}
 
 
