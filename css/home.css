@@ -1,3 +1,4 @@
+.blog .post-grid,
 .home .post-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -7,6 +8,7 @@
   width: 1200px;
 }
 
+.blog .grid-item,
 .home .grid-item {
   position: relative;
   display: flex;
@@ -24,11 +26,13 @@
     box-shadow 0.3s ease;
 }
 
+.blog .grid-item:hover,
 .home .grid-item:hover {
   transform: translateY(-10px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
+.blog .post-thumbnail,
 .home .post-thumbnail {
   position: absolute;
   top: 0;
@@ -39,17 +43,19 @@
   z-index: 0;
 }
 
+.blog .post-thumbnail img,
 .home .post-thumbnail img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   /* カバー画像として表示 */
   object-position: center;
-  
+
 }
 
 /* オーバーレイを追加 */
 
+.blog .grid-item::before,
 .home .grid-item::before {
   content: "";
   position: absolute;
@@ -62,10 +68,12 @@
   z-index: 1;
   /* オーバーレイを画像の上に表示 */
   pointer-events: none;
-  /* クリックやホバーを無効化（下の要素が反応する） */ 
+  /* クリックやホバーを無効化（下の要素が反応する） */
 }
 
 
+.blog .grid-item h2,
+.blog .grid-item h3,
 .home .grid-item h2,
 .home .grid-item h3 {
   position: absolute;
@@ -88,6 +96,7 @@
   /* クリックやホバーを無効化（下の要素が反応する） */
 }
 
+.blog .post-excerpt,
 .home .post-excerpt {
   position: absolute;
   top: 130px;
@@ -105,9 +114,10 @@
   width: 350px;
   /* pointer-events: none; */
   /* クリックやホバーを無効化（下の要素が反応する） */
-  
+
 }
 
+.blog .grid-item .post-meta,
 .home .grid-item .post-meta {
   position: relative;
   z-index: 2;
@@ -124,6 +134,9 @@
   /* クリックやホバーを無効化（下の要素が反応する） */
 }
 
+.blog .post-date,
+.blog .post-category,
+.blog .post-tags,
 .home .post-date,
 .home .post-category,
 .home .post-tags {
@@ -131,12 +144,15 @@
   padding: 0;
 }
 
+
 /* categoryという字を消している */
+.blog .post-category a:first-child,
 .home .post-category a:first-child {
   display: none;
 }
 
 /* カテゴリーを表示している */
+.blog .post-category p,
 .home .post-category p {
   position: relative;
   color: #fff;
@@ -148,21 +164,26 @@
   z-index: 999;
 }
 
+.blog .grid-item a,
 .home .grid-item a {
   text-decoration: none;
   color: inherit;
   font-size: 0.8rem;
 }
 
+.blog h2,
 .home h2 {
   line-height: 1.5;
 }
 
+.blog .post-tags,
 .home .post-tags {
   display: none;
 }
 
 @media screen and (max-width: 768px) {
+
+  .blog .post-grid,
   .home .post-grid {
     grid-template-columns: repeat(1, 1fr);
     /* 1列レイアウト */
@@ -172,24 +193,30 @@
     /* パディングを縮小 */
   }
 
+  .blog .grid-item,
   .home .grid-item {
     width: 90vw;
   }
-  
 
+
+  .blog .post-grid,
   .home .post-grid {
     width: 90vw;
   }
 
+  .blog .post-excerpt,
   .home .post-excerpt {
     width: 95%;
   }
 
+  .blog .grid-item h2,
+  .blog .grid-item h3,
   .home .grid-item h2,
   .home .grid-item h3 {
     width: 90%;
   }
 
+  .blog .post-category p,
   .home .post-category p {
     top: -111px;
   }

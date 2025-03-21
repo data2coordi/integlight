@@ -1,7 +1,9 @@
 <?php get_header(); ?>
 
 <?php
-integlight_display_headerContents();
+if (is_front_page() != false) {
+    integlight_display_headerContents();
+}
 
 ?>
 <?php if (have_posts()) : ?>
