@@ -57,7 +57,7 @@ if (! function_exists('integlight_header_style')) :
 
 		// If we get this far, we have custom styles. Let's do this.
 ?>
-		<style type="text/css">
+		<style>
 			<?php
 			// Has the text been hidden?
 			if (! display_header_text()) :

@@ -8,30 +8,30 @@ integlight_display_headerContents();
     <div class="post-grid">
         <?php while (have_posts()) : the_post(); ?>
             <div class="grid-item">
-                <a href="<?php the_permalink(); ?>">
 
-                    <?php
-                    // キャッチ画像があるか確認
-                    if (has_post_thumbnail()) : ?>
-                        <div class="post-thumbnail">
-                            <?php the_post_thumbnail('medium'); ?>
-                        </div>
-                        <?php else :
-                        // コンテンツから最初の画像を取得して表示
-                        $content = get_the_content();
-                        preg_match('/<img.+src=[\'"](?P<src>.+?)[\'"].*>/i', $content, $image);
-                        if (! empty($image)) : ?>
-                            <div class="post-thumbnail">
-                                <img src="<?php echo esc_url($image['src']); ?>" alt="First image from the post">
-                            </div>
-                    <?php endif;
-                    endif; ?>
 
-                    <!-- カテゴリ表示 -->
-                    <div class="post-category">
-                        <p>Category: <?php the_category(', '); ?></p>
+                <?php
+                // キャッチ画像があるか確認
+                if (has_post_thumbnail()) : ?>
+                    <div class="post-thumbnail">
+                        <?php the_post_thumbnail('medium'); ?>
                     </div>
-                </a>
+                    <?php else :
+                    // コンテンツから最初の画像を取得して表示
+                    $content = get_the_content();
+                    preg_match('/<img.+src=[\'"](?P<src>.+?)[\'"].*>/i', $content, $image);
+                    if (! empty($image)) : ?>
+                        <div class="post-thumbnail">
+                            <img src="<?php echo esc_url($image['src']); ?>" alt="First image from the post">
+                        </div>
+                <?php endif;
+                endif; ?>
+
+                <!-- カテゴリ表示 -->
+                <div class="post-category">
+                    <p>Category: <?php the_category(', '); ?></p>
+                </div>
+
 
                 <a href="<?php the_permalink(); ?>">
 

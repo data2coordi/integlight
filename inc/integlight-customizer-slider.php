@@ -160,7 +160,7 @@ class integlight_customizer_slider_applyHeaderTextStyle
 
 
 ?>
-		<style type="text/css">
+		<style>
 			.slider .text-overlay {
 				position: absolute;
 				left: <?php echo absint($left); ?>px;

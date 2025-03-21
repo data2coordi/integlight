@@ -52,7 +52,7 @@ class integlight_customizer_sidebar
 		));
 
 		$this->helper_setting($wp_customize, '1', 'right');
-		$this->helper_setting($wp_customize, '2', 'left');
+		$this->helper_setting($wp_customize, '2', 'none');
 	}
 
 
