@@ -8,6 +8,72 @@
  */
 
 
+
+class Integlight_ResetSetup
+{
+	public function __construct()
+	{
+		add_action('after_setup_theme', [$this, 'reset_theme_mods_and_images']);
+	}
+
+	/**
+	 * カスタマイザー設定と画像をリセット
+	 */
+	public function reset_theme_mods_and_images()
+	{
+		$this->delete_images();
+		$this->reset_theme_mods();
+		delete_option('integlight_initSetup_done'); // 初期化フラグ削除
+	}
+
+	/**
+	 * 画像を削除する
+	 */
+	private function delete_images()
+	{
+		$image_mods = [
+			'integlight_slider_image_1',
+			'integlight_slider_image_2',
+			'integlight_slider_image_mobile_1',
+			'integlight_slider_image_mobile_2',
+			'custom_logo', // 必要なら削除
+		];
+
+		foreach ($image_mods as $mod) {
+			$attachment_id = get_theme_mod($mod);
+			if ($attachment_id && is_numeric($attachment_id)) {
+				wp_delete_attachment($attachment_id, true); // メディアライブラリから削除
+			}
+			remove_theme_mod($mod); // カスタマイザー設定から削除
+		}
+	}
+
+	/**
+	 * 画像以外のカスタマイザー設定をリセット
+	 */
+	private function reset_theme_mods()
+	{
+		$text_mods = [
+			'integlight_display_choice',
+			'integlight_slider_effect',
+			'integlight_slider_change_duration',
+			'integlight_slider_text_1',
+			'integlight_slider_text_2',
+			'integlight_slider_text_font',
+			'integlight_slider_text_top',
+			'integlight_slider_text_left',
+		];
+
+		foreach ($text_mods as $mod) {
+			remove_theme_mod($mod);
+		}
+	}
+}
+
+// クラスをインスタンス化して実行
+//new Integlight_ResetSetup();
+
+
 class Integlight_initSampleSetup
 {
 	public function __construct()
@@ -17,20 +83,31 @@ class Integlight_initSampleSetup
 		add_action('after_switch_theme', [$this, 'integlight_initSampleSetup']);
 	}
 
+	private function ex_set_theme_mod($settingName, $value)
+	{
+		// すでに設定済みなら処理しない
+		if (get_theme_mod($settingName)) {
+			error_log("existing value:" . get_theme_mod($settingName));
+			return;
+		}
+		set_theme_mod($settingName, $value);
+		return;
+	}
 
 	private function initSlider()
 	{
 		// カスタマイザーの設定名
-		set_theme_mod('integlight_display_choice', 'slider');
+		$this->ex_set_theme_mod('integlight_display_choice', 'slider');
 
-		set_theme_mod('integlight_slider_effect', 'slide');
-		set_theme_mod('integlight_slider_change_duration', 3);
+		$this->ex_set_theme_mod('integlight_slider_effect', 'slide');
+		$this->ex_set_theme_mod('integlight_slider_change_duration', 3);
 
-		set_theme_mod('integlight_slider_text_1', 'Turn Your Experience and Knowledge into Digital Assets with Integlight');
-		set_theme_mod('integlight_slider_text_2', 'The things you casually talk about every day, as well as the knowledge and experience you gain from work or hobbies, can be valuable information for someone. By documenting them in a blog, they accumulate over time and become your "digital asset." Keep sharing, and you may create value that reaches many people.');
-		set_theme_mod('integlight_slider_text_font', 'yu_gothic');
-		set_theme_mod('integlight_slider_text_top', 100);
-		set_theme_mod('integlight_slider_text_left', 200);
+		$this->ex_set_theme_mod('integlight_slider_text_1', __('Turn Your Experience and Knowledge into Digital Assets with Integlight', 'integlight'));
+		$this->ex_set_theme_mod('integlight_slider_text_2', __('The things you casually talk about every day, as well as the knowledge and experience you gain from work or hobbies, can be valuable information for someone. By documenting them in a blog, they accumulate over time and become your digital asset. Keep sharing, and you may create value that reaches many people.', 'integlight'));
+
+		$this->ex_set_theme_mod('integlight_slider_text_font', 'yu_gothic');
+		$this->ex_set_theme_mod('integlight_slider_text_top', 100);
+		$this->ex_set_theme_mod('integlight_slider_text_left', 200);
 
 
 		$this->initImage('integlight_slider_image_1', 'sample_slider_pc_01.webp',  'Sample Slider pc image01');
@@ -44,7 +121,7 @@ class Integlight_initSampleSetup
 
 		// すでに設定済みなら処理しない
 		if (get_theme_mod($settingName)) {
-			error_log("既にget_theme_mod設定済:" . get_theme_mod($settingName));
+			error_log("existing value:" . get_theme_mod($settingName));
 			return;
 		}
 
@@ -101,11 +178,6 @@ class Integlight_initSampleSetup
 	public function integlight_initSampleSetup()
 	{
 
-		if (get_option('integlight_initSetup_done')) {
-
-			return;
-		}
-
 		/*logo*/
 		$this->initImage('custom_logo', 'samplelogo_white.png', 'Sample Logo TEST');
 		/*slider*/
@@ -116,5 +188,8 @@ class Integlight_initSampleSetup
 	}
 }
 
+//性能対策：一度のみ実行
+if (!get_option('integlight_initSetup_done')) {
 
-new Integlight_initSampleSetup();
+	new Integlight_initSampleSetup();
+}
