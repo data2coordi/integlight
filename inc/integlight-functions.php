@@ -445,12 +445,12 @@ function display_seo_meta_box($post)
 	$custom_meta_description = get_post_meta($post->ID, '_custom_meta_description', true);
 	?>
 	<p>
-		<label for="custom_meta_title"><strong><?php echo integlight_g("Meta Title") ?></strong></label><br>
+		<label for="custom_meta_title"><strong><?php echo __('Meta Title', 'integlight') ?></strong></label><br>
 		<input type="text" name="custom_meta_title" id="custom_meta_title" value="<?php echo esc_attr($custom_meta_title); ?>" style="width:100%;" placeholder="<?php echo __('ex) Improve Your English Speaking | 5 Easy & Effective Tips', 'integlight') ?>">
 	</p>
 	<p>
-		<label for="custom_meta_description"><strong><?php echo integlight_g("Meta Description") ?></strong></label><br>
-		<textarea name="custom_meta_description" id="custom_meta_description" rows="4" style="width:100%;" placeholder="<?php echo integlight_g("ex) Struggling with English speaking? Learn 5 simple and practical tips to boost your fluency and confidence in conversations. Perfect for beginners and intermediate learners!") ?>"><?php echo esc_textarea($custom_meta_description); ?></textarea>
+		<label for="custom_meta_description"><strong><?php echo __('Meta Description', 'integlight') ?></strong></label><br>
+		<textarea name="custom_meta_description" id="custom_meta_description" rows="4" style="width:100%;" placeholder="<?php echo __('ex) Struggling with English speaking? Learn 5 simple and practical tips to boost your fluency and confidence in conversations. Perfect for beginners and intermediate learners!', 'integlight') ?>"><?php echo esc_textarea($custom_meta_description); ?></textarea>
 	</p>
 <?php
 }

@@ -120,6 +120,11 @@ textarea {
     padding: 10px;
 }
 
+.wp-lightbox-overlay .close-button {
+    right: 16px !important;
+    top: 16px !important;
+  }
+
 
 
 /*-------------全幅ブロック----------*/
