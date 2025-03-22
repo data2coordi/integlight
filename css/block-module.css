@@ -1,33 +1,38 @@
 /***********ブロックエディタのセクション********/
-
+/*********************************/
+/*********************************/
 /*-------------タブブロック----------*/
-.tabs-navigation {
+.wp-block-integlight-tab-block .tabs-navigation {
   border-radius: 50px; /* 角丸の半径 */
   background: #eee;
   margin-top: var(--ly-elementTopMarginSmall);
 }
 
-.tabs-navigation li.active {
+/* 現在指している所のスタイル */
+.wp-block-integlight-tab-block .tabs-navigation li.active {
   background: #000;
   border-radius: 50px; /* 角丸の半径 */
   color: #fff;
   border: none;
 }
 
-.tabs {
+/* タブ全体を囲む線を消している */
+.wp-block-integlight-tab-block.tabs {
   border: none;
 }
 
-ul.tabs-navigation {
+/* タブナビの縦幅を狭くしている */
+.wp-block-integlight-tab-block ul.tabs-navigation {
   line-height: 1;
 }
 
-.integlight-tabs .tabs-navigation {
+/* タブナビの上にマージンをつけている */
+.wp-block-integlight-tab-block .integlight-tabs .tabs-navigation {
   margin-top: 30px;
 }
 
-
-.integlight-tabs-block
+.wp-block-integlight-tab-block
+  .integlight-tabs-block
   .block-editor-default-block-appender
   .block-editor-inserter {
   margin-top: 25px;
@@ -39,11 +44,10 @@ ul.tabs-navigation {
   /* タブのボーダーを消している */
 }
 
-.integlight-tabs .tabs-navigation li.active {
-  border-bottom: none;
-  /* タブの青い下線を消している */
-}
 
+
+/*********************************/
+/*********************************/
 /******コンテンツ内スライダー********/
 .wp-block-integlight-slider-block .wp-block-columns {
   padding: 0px 20px;
@@ -63,17 +67,8 @@ ul.tabs-navigation {
   z-index: -1;
 } */
 
-/******メディアとテキスト********/
-.wp-block-media-text>.wp-block-media-text__content {
-  padding: 0;
-}
-
-/******2カラムブロック********/
-.ly_site_content_main .wp-block-columns {
-  gap: 1em;
-  padding: 0 15px 10px 25px;
-}
-
+/*********************************/
+/*********************************/
 /******吹き出し画像********/
 figure.speech-bubble__image {
   flex-basis: 9%;
@@ -81,13 +76,9 @@ figure.speech-bubble__image {
 }
 
 @media (max-width: 768px) {
+  /******吹き出し画像********/
   figure.speech-bubble__image {
     flex-basis: 10%;
     min-width: 55px;
   }
-
-  /******2カラムブロック********/
-  .ly_site_content_main .wp-block-columns {
-    padding: 15px;
-}
 }

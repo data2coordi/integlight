@@ -246,7 +246,7 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
     font-weight: 900;
     /* solid アイコン用 */
     display: inline-block;
-    margin-left: 5px;
+    margin-left: 20px;
     font-size: 0.8em;
     /* お好みで調整 */
     vertical-align: middle;
