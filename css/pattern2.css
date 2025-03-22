@@ -84,8 +84,7 @@
   color: #0000ff;
 }
 
-.main-navigation>.menuToggle-containerForMenu>.menu>li.current_page_item>a::after,
-.main-navigation>.menuToggle-containerForMenu>.menu>li.current-menu-ancestor>a::after {
+.main-navigation>.menuToggle-containerForMenu>.menu>li>a::after {
   background: #0000ff;
   /* メニューの下線アニメーション */
 }

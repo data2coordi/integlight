@@ -108,34 +108,31 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
 */
 
 /* 親メニューのリンクを相対配置にして、擬似要素で下線を描画 */
-.main-navigation>.menuToggle-containerForMenu>.menu>li.current_page_item>a,
-.main-navigation>.menuToggle-containerForMenu>.menu>li.current-menu-ancestor>a {
+.main-navigation>.menuToggle-containerForMenu>.menu>li>a {
     position: relative;
 }
 
 /* 下線用の擬似要素 */
-
-.main-navigation>.menuToggle-containerForMenu>.menu>li.current_page_item>a::after,
-.main-navigation>.menuToggle-containerForMenu>.menu>li.current-menu-ancestor>a::after {
+.main-navigation>.menuToggle-containerForMenu>.menu>li>a::after {
     content: "";
     position: absolute;
     left: 0;
-    bottom: -1px;
-    /* テキストより少し下に配置（調整可） */
+    bottom: -1px; /* テキストより少し下に配置（調整可） */
     width: 100%;
-    height: 1px;
-    /* 下線の太さ */
-    background: currentColor;
-    /* リンクと同じ色にする */
+    height: 1px; /* 下線の太さ */
+    background: #999; /* リンクと同じ色にする */
     transform: scaleX(0);
     transform-origin: center;
     transition: transform 0.3s ease-in-out;
 }
 
-.main-navigation>.menuToggle-containerForMenu>.menu>li.current_page_item>a:hover::after,
-.main-navigation>.menuToggle-containerForMenu>.menu>li.current-menu-ancestor>a:hover::after {
+/* 現在のページ、親メニュー、ホバー時にアニメーションを適用 */
+.main-navigation>.menuToggle-containerForMenu>.menu>li.current_page_item>a::after,
+.main-navigation>.menuToggle-containerForMenu>.menu>li.current-menu-ancestor>a::after,
+.main-navigation>.menuToggle-containerForMenu>.menu>li>a:hover::after {
     transform: scaleX(1);
 }
+
 
 
 /************************************************************/
