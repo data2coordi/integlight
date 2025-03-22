@@ -2,37 +2,40 @@
 function handleDOMContentLoaded() {
 	// 「子メニューを持つ」リンクのクリックイベントを登録
 	var parentLinks = document.querySelectorAll(".menu-item-has-children > a");
-	for (var i = 0, len = parentLinks.length; i < len; i++) {
+	for (var i = 0; i < parentLinks.length; i++) {
 		parentLinks[i].addEventListener("click", handleParentLinkClick);
 	}
 
 	// 各「子メニューを持つ」項目で、フォーカスが完全に外れたときに active クラスを解除する
 	var menuItemsWithSub = document.querySelectorAll(".menu-item-has-children");
-	for (var j = 0, len2 = menuItemsWithSub.length; j < len2; j++) {
+	for (var j = 0; j < menuItemsWithSub.length; j++) {
 		menuItemsWithSub[j].addEventListener("focusout", handleMenuItemFocusOut);
 	}
 }
 
-// クリック時の処理（子メニューの開閉）
+// クリック時の処理（サブメニューの開閉）
 function handleParentLinkClick(e) {
-	e.preventDefault();
-	e.stopPropagation();
+	var linkWidth = this.offsetWidth;  // aタグの全幅
+	var clickPosition = e.offsetX;      // クリックされた位置（左端からの距離）
 
-	var currentItem = this.parentElement;
+	// 矢印部分（右端20px）のみ開閉処理
+	if (clickPosition > linkWidth - 20) {
+		e.preventDefault(); // デフォルトのリンク遷移を防ぐ
+		e.stopPropagation(); // イベントの親要素への伝播を防ぐ
 
-	// 同じ階層の兄弟項目から active クラスを除去する
-	var siblings = Array.prototype.slice.call(currentItem.parentElement.children);
-	for (var i = 0, len = siblings.length; i < len; i++) {
-		if (siblings[i] !== currentItem) {
-			siblings[i].classList.remove("active");
+		var currentItem = this.parentElement;
+
+		// 同じ階層の兄弟項目から active クラスを除去する
+		var siblings = Array.prototype.slice.call(currentItem.parentElement.children);
+		for (var i = 0; i < siblings.length; i++) {
+			if (siblings[i] !== currentItem) {
+				siblings[i].classList.remove("active");
+			}
 		}
+
+		// 現在の項目の active 状態をトグルする
+		currentItem.classList.toggle("active");
 	}
-
-	// 現在の項目の active 状態をトグルする
-	currentItem.classList.toggle("active");
-
-	// ※ Safari では、ここでの this.focus() がリンク遷移に影響する可能性があるためコメントアウトまたは削除
-	//this.focus();
 }
 
 // フォーカスが外れたときの処理
