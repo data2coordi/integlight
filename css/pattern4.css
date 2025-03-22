@@ -88,7 +88,3 @@
   color: #faa303;
 }
 
-.main-navigation>.menuToggle-containerForMenu>.menu>li>a::after {
-  background: #faa303;
-  /* メニューの下線アニメーション */
-}
