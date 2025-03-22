@@ -2,6 +2,14 @@
 /* テスト領域 s*/
 /////////////////////////////////////////////
 
+
+
+
+
+
+
+
+
 /////////////////////////////////////////////
 /* テスト領域 e*/
 
@@ -565,7 +573,7 @@ function add_preload_images()
 ?>
 
 
-<?php
+	<?php
 
 }
 add_action('wp_head', 'add_preload_images');
@@ -621,4 +629,102 @@ add_action('init', 'integlight_register_block_patterns');
 
 /********************************************************************/
 /* ブロックテーマへの適用e*/
+/********************************************************************/
+
+
+/********************************************************************/
+/* 投稿の画像を取得するページネーション s*/
+/********************************************************************/
+/**
+ * 投稿のサムネイル画像があればそのURLを、
+ * なければ本文の最初の画像URLを返す。
+ */
+class PostHelper
+{
+	/**
+	 * 投稿の画像を取得する（アイキャッチ or 本文の最初の画像）
+	 */
+	public static function get_post_image($post_id)
+	{
+		$thumb_url = get_the_post_thumbnail_url($post_id, 'full');
+		if ($thumb_url) {
+			return $thumb_url;
+		}
+
+		$post_content = get_post_field('post_content', $post_id);
+		$first_img_url = self::get_first_image_url_from_content($post_content);
+		if ($first_img_url) {
+			return $first_img_url;
+		}
+
+		return ''; // 画像がない場合のデフォルト処理（必要なら設定）
+	}
+
+	/**
+	 * 本文から最初の画像URLを抽出する
+	 */
+	private static function get_first_image_url_from_content($content)
+	{
+		if (preg_match('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content, $matches)) {
+			return $matches[1];
+		}
+		return '';
+	}
+
+	/**
+	 * ナビゲーションの共通HTMLを出力
+	 */
+	private static function get_post_navigation_item($post, $class, $icon)
+	{
+		if (!$post) {
+			return;
+		}
+
+		$post_id    = $post->ID;
+		$post_title = get_the_title($post_id);
+		$post_img   = self::get_post_image($post_id);
+		$post_url   = get_permalink($post_id);
+
+	?>
+		<div class="<?php echo esc_attr($class); ?>" style="background-image: url('<?php echo esc_url($post_img); ?>');">
+			<a href="<?php echo esc_url($post_url); ?>">
+				<?php if ($class === 'nav-previous') : ?>
+					<i class="fa-regular fa-square-caret-left"></i>
+				<?php endif; ?>
+				<?php echo esc_html($post_title); ?>
+				<?php if ($class === 'nav-next') : ?>
+					<i class="fa-regular fa-square-caret-right"></i>
+				<?php endif; ?>
+			</a>
+		</div>
+	<?php
+	}
+
+	/**
+	 * 前後の投稿ナビゲーションを表示する
+	 */
+	public static function get_post_navigation()
+	{
+		$prev_post = get_previous_post();
+		$next_post = get_next_post();
+
+		if (!$prev_post && !$next_post) {
+			return;
+		}
+
+	?>
+		<nav class="post-navigation" role="navigation">
+			<?php
+			self::get_post_navigation_item($prev_post, 'nav-previous', '<i class="fa-regular fa-square-caret-left"></i>');
+			self::get_post_navigation_item($next_post, 'nav-next', '<i class="fa-regular fa-square-caret-right"></i>');
+			?>
+		</nav>
+<?php
+	}
+}
+
+
+
+/********************************************************************/
+/* 投稿の画像を取得 e	*/
 /********************************************************************/

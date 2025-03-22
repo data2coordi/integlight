@@ -26,12 +26,10 @@ get_header();
 
 			get_template_part('template-parts/content', get_post_type());
 
-			the_post_navigation(
-				array(
-					'prev_text' => '<i class="fa-regular fa-square-caret-left"></i> %title',
-					'next_text' => '%title <i class="fa-regular fa-square-caret-right"></i>',
-				)
-			);
+			////////////////////////////前へ次へのページネーション s
+			PostHelper::get_post_navigation(); // クラスメソッドを呼び出す
+			////////////////////////////前へ次へのページネーションe 
+
 
 			// If comments are open or we have at least one comment, load up the comment template.
 			if (comments_open() || get_comments_number()) :
