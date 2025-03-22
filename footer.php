@@ -12,7 +12,10 @@
 
 ?>
 
-<a href="#" id="page-top"><i class="fa-solid fa-angle-up"></i></a>
+<a href="#" id="page-top">
+	<i class="fa-solid fa-angle-up"></i>
+	<span class="screen-reader-text">To Page Top</span>
+</a>
 
 <footer id="colophon" class="site-footer ly_site_footer">
 	<div class="site-info">
