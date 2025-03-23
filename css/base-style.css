@@ -102,8 +102,11 @@ a:active {
   color: #777;
 }
 
+/* タブフォーカスのスタイル */
 a:focus {
-  outline: thin dotted;
+  outline-width: 3px;
+  outline-style: solid;
+  outline-color: blue;  
 }
 
 a:hover,

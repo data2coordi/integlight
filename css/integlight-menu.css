@@ -2,92 +2,86 @@
 /* 共通スタイル */
 /************************************************************/
 .main-navigation {
-    padding: 0.5em;
-    position: relative;
-    font-family: sans-serif;
+  padding: 0.5em;
+  position: relative;
+  font-family: sans-serif;
 }
 
-
 .main-navigation a:focus {
-    outline: none;
+  outline: none;
 }
 
 /* メインメニュー（ul.menu） */
 ul.menu {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 ul.menu,
 ul.sub-menu {
-    list-style: none;
-    z-index: 1000;
+  list-style: none;
+  gap: 20px;
+  z-index: 1000;
 }
 
 /* 各メニュー項目 */
 .menu-item {
-    position: relative;
+  position: relative;
 }
-
-
 
 .sub-menu .menu-item {
-    border: 0.05em solid #666;
+  border: 0.05em solid #666;
 }
-
 
 /* ロゴがない時のデザインs */
 .site-title a,
 p.site-description {
-    color: #fff;
-    line-height: 1;
-    font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
-    font-weight: 800;
-    text-decoration: none;
-    margin-top: 0;
+  color: #fff;
+  line-height: 1;
+  font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+  font-weight: 800;
+  text-decoration: none;
+  margin-top: 0;
 }
 
 h1.site-title {
-    margin-top: 0;
+  margin-top: 0;
 }
 
 p.site-description {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 /* ロゴがない時のデザインe */
 
-
 /* メニューリンク */
 .main-navigation a {
-    color: white;
-    text-decoration: none;
-    display: block;
-    padding: 10px 15px;
-    font-size: 0.9em;
+  color: white;
+  text-decoration: none;
+  display: block;
+  padding: 10px 15px;
+  font-size: 0.9em;
 }
 
 /* 下層メニューのインデント（各階層毎に +30px） */
 ul.menu li ul.sub-menu a {
-    /* 最上位のリンクは左右15pxなので：15+30 = 45px */
-    padding-left: 45px;
-    font-size: 0.8em;
+  /* 最上位のリンクは左右15pxなので：15+30 = 45px */
+  padding-left: 45px;
+  font-size: 0.8em;
 }
 
 ul.menu li ul.sub-menu a:hover {
-    color: #999
+  color: #999;
 }
 
 ul.menu li ul.sub-menu li ul.sub-menu a {
-    padding-left: 75px;
+  padding-left: 75px;
 }
 
 /* ハンバーガーメニュー表示用 */
 .menuToggle-checkbox {
-    display: none;
+  display: none;
 }
-
-
 
 /* 現在選択されているTOPメニュー項目に下線を付ける */
 /* もしくは border-bottom を利用する場合は下記も有効です */
@@ -107,173 +101,202 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
 }
 */
 
-
 /************************************************************/
 /* PC版： min-width: 769px */
 /************************************************************/
 @media screen and (min-width: 769px) {
+  /* 最上位メニューを横並びに */
+  ul.menu {
+    display: flex;
+  }
 
-    /* 最上位メニューを横並びに */
-    ul.menu {
-        display: flex;
-    }
+  /* サブメニュー（第一階層）は親 li を基準に絶対配置 */
+  ul.menu > li.menu-item-has-children {
+    position: relative;
+  }
 
-    /* サブメニュー（第一階層）は親 li を基準に絶対配置 */
-    ul.menu>li.menu-item-has-children {
-        position: relative;
-    }
-
-    .menuToggle-containerForMenu>.menu>li>.sub-menu {
-        position: absolute;
-        width: calc(100vw * 0.15);
-    }
-
-
+  .menuToggle-containerForMenu > .menu > li > .sub-menu {
+    position: absolute;
+    width: calc(100vw * 0.15);
+  }
 }
 
 /************************************************************/
 /* スマホ版： max-width: 768px */
 /************************************************************/
 @media screen and (max-width: 768px) {
+  /* .main-navigation
+    > .menuToggle-containerForMenu
+    > .menu
+    > li.current_page_item
+    > a::after,
+  .main-navigation
+    > .menuToggle-containerForMenu
+    > .menu
+    > li.current-menu-ancestor
+    > a::after {
+    width: 30%;
+  } */
 
-    .main-navigation>.menuToggle-containerForMenu>.menu>li.current_page_item>a::after,
-    .main-navigation>.menuToggle-containerForMenu>.menu>li.current-menu-ancestor>a::after {
-        width: 30%;
-    }
+  .main-navigation {
+    top: 10px;
+    left: 10px;
+    /* ハンバーガーメニュー位置調整 */
+  }
 
-    .main-navigation {
-        top: 10px;
-        left: 10px;
-        /* ハンバーガーメニュー位置調整 */
-    }
+  /*****************************************/
+  /* ハンバーガーメニュー チェック時：☰→✖ の変化s */
+  /*****************************************/
+  .menuToggle-label {
+    display: block;
+    position: relative;
+    width: 40px;
+    height: 28.5px;
+    /* ×の位置調整 */
+    cursor: pointer;
+    z-index: 1100;
+    bottom: 10px;
+  }
 
-    /*****************************************/
-    /* ハンバーガーメニュー チェック時：☰→✖ の変化s */
-    /*****************************************/
-    .menuToggle-label {
-        display: block;
-        position: relative;
-        width: 40px;
-        height: 28.5px;
-        /* ×の位置調整 */
-        cursor: pointer;
-        z-index: 1100;
-        bottom: 10px;
-    }
+  /* ハンバーガーの3本線（疑似要素で作成） */
+  .menuToggle-label::before,
+  .menuToggle-label::after,
+  .menuToggle-label span {
+    content: "";
+    position: absolute;
+    width: 40px;
+    height: 2px;
+    /* 細くする */
+    background: white;
+    transition:
+      transform 0.3s,
+      opacity 0.3s;
+  }
 
-    /* ハンバーガーの3本線（疑似要素で作成） */
-    .menuToggle-label::before,
-    .menuToggle-label::after,
-    .menuToggle-label span {
-        content: "";
-        position: absolute;
-        width: 40px;
-        height: 2px;
-        /* 細くする */
-        background: white;
-        transition: transform 0.3s, opacity 0.3s;
-    }
+  .menuToggle-label::before {
+    top: 0;
+  }
 
-    .menuToggle-label::before {
-        top: 0;
-    }
+  .menuToggle-label span {
+    top: 50%;
+    transform: translateY(-50%);
+  }
 
-    .menuToggle-label span {
-        top: 50%;
-        transform: translateY(-50%);
-    }
+  .menuToggle-label::after {
+    bottom: 0;
+  }
 
-    .menuToggle-label::after {
-        bottom: 0;
-    }
+  .menuToggle-checkbox:checked + .menuToggle-label::before {
+    transform: translateY(13px) rotate(45deg);
+  }
 
-    .menuToggle-checkbox:checked+.menuToggle-label::before {
-        transform: translateY(13px) rotate(45deg);
-    }
+  .menuToggle-checkbox:checked + .menuToggle-label span {
+    opacity: 0;
+  }
 
-    .menuToggle-checkbox:checked+.menuToggle-label span {
-        opacity: 0;
-    }
+  .menuToggle-checkbox:checked + .menuToggle-label::after {
+    transform: translateY(-13px) rotate(-45deg);
+  }
 
-    .menuToggle-checkbox:checked+.menuToggle-label::after {
-        transform: translateY(-13px) rotate(-45deg);
-    }
+  /*****************************************/
+  /* ハンバーガーメニュー チェック時：☰→✖ の変化e */
+  /*****************************************/
 
-    /*****************************************/
-    /* ハンバーガーメニュー チェック時：☰→✖ の変化e */
-    /*****************************************/
+  /* メニューオーバーレイ */
+  .menuToggle-containerForMenu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    overflow-y: auto;
+    z-index: 1000;
+    padding-top: 60px;
+  }
 
-    /* メニューオーバーレイ */
-    .menuToggle-containerForMenu {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #000;
-        overflow-y: auto;
-        z-index: 1000;
-        padding-top: 60px;
-    }
+  .menuToggle-checkbox:checked ~ .menuToggle-containerForMenu {
+    display: block;
+  }
 
-    .menuToggle-checkbox:checked~.menuToggle-containerForMenu {
-        display: block;
-    }
+  /* メニューは縦並び */
+  ul.menu {
+    display: block;
+  }
 
-    /* メニューは縦並び */
-    ul.menu {
-        display: block;
-    }
+  ul.menu li {
+    border-bottom: 1px solid #444;
+  }
 
-    ul.menu li {
-        border-bottom: 1px solid #444;
-    }
 
+/****************************************/
+/****************************************/
+/*******フォントオーサムを少し大きく*********/
+
+
+.main-navigation li.menu-item-has-children > a::after {
+  font-size: 1.2em; /* アイコンを少し大きく */
 }
 
+.main-navigation ul.sub-menu li.menu-item-has-children > a::after {
+  font-size: 1.2em; /* スマホ表示用に調整 */
+  right: 15px;
+}
+}
 
 /************************************************************/
 /* サブメニューの展開（javascrptと連携）s */
 /************************************************************/
 
 /*メニュー内でサブサブメニューを持つ項目に ▶ アイコンを追加 */
-.main-navigation li.menu-item-has-children>a::after {
+/* メインメニューのリンクに相対位置を指定 */
+.main-navigation li.menu-item-has-children > a {
+    position: relative;
+    padding-right: 30px; /* アイコン用のスペース */
+  }
+  
+  /* メインメニューのアイコン（フォントオーサム）を右揃え */
+  .main-navigation li.menu-item-has-children > a::after {
     font-family: "Font Awesome 5 Free";
-    /* Font Awesome 5 の場合 */
-    content: "\f054";
-    /* fa-chevron-right の Unicode */
+    content: "\f054"; /* fa-chevron-right の Unicode */
     font-weight: 900;
-    /* solid アイコン用 */
-    display: inline-block;
-    margin-left: 20px;
-    font-size: 0.8em;
-    /* お好みで調整 */
-    vertical-align: middle;
-}
-
-
-
+    position: absolute;
+    right: 15px; /* 右端に配置 */
+    top: 50%;
+    transform: translateY(-50%); /* 垂直中央揃え */
+    font-size: 1em; /* スマホ表示用に調整 */
+  }
+  
+  /* サブメニューのアイコン（スマホ表示時も右揃え） */
+  .main-navigation ul.sub-menu li.menu-item-has-children > a::after {
+    position: absolute;
+    right: 10px; /* サブメニューアイコンを右端に配置 */
+    top: 50%;
+    transform: translateY(-50%); /* 垂直中央揃え */
+    font-size: 1em; /* スマホ表示用に調整 */
+  }
+  
 
 /* サブメニュー（インライン展開） */
-ul.menu>li.menu-item-has-children>ul.sub-menu {
-    display: none;
-    background: #000;
-    left: -150%;
+ul.menu > li.menu-item-has-children > ul.sub-menu {
+  display: none;
+  background: #000;
 }
 
-ul.menu>li.menu-item-has-children.active>ul.sub-menu {
-    display: block;
+ul.menu > li.menu-item-has-children.active > ul.sub-menu {
+  display: block;
 }
 
 /* サブサブメニューも同様 */
-ul.menu li ul.sub-menu li.menu-item-has-children>ul.sub-menu {
-    display: none;
-    background: #000;
+ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
+  display: none;
+  background: #000;
+  margin-top: 0;
 }
 
-ul.menu li ul.sub-menu li.menu-item-has-children.active>ul.sub-menu {
-    display: block;
+ul.menu li ul.sub-menu li.menu-item-has-children.active > ul.sub-menu {
+  display: block;
 }
 
 /************************************************************/

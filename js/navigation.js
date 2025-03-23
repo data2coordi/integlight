@@ -19,7 +19,7 @@ function handleParentLinkClick(e) {
 	var clickPosition = e.offsetX;      // クリックされた位置（左端からの距離）
 
 	// 矢印部分（右端20px）のみ開閉処理
-	if (clickPosition > linkWidth - 20) {
+	if (clickPosition > linkWidth - 40) {
 		e.preventDefault(); // デフォルトのリンク遷移を防ぐ
 		e.stopPropagation(); // イベントの親要素への伝播を防ぐ
 
