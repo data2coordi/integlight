@@ -682,6 +682,7 @@ class PostHelper
 
 		$post_id    = $post->ID;
 		$post_title = get_the_title($post_id);
+		$post_title = (mb_strlen($post_title, 'UTF-8') > 14) ? mb_substr($post_title, 0, 14, 'UTF-8') . '...' : $post_title;
 		$post_img   = self::get_post_image($post_id);
 		$post_url   = get_permalink($post_id);
 
