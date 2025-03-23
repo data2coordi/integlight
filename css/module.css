@@ -333,6 +333,22 @@
   /* アイコンとタイトルの間のスペース */
 }
 
+nav.post-navigation {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-title {
+}
+
+.nav-previous i,
+.nav-next i {
+}
+
+/***************************/
+/***************************/
+/*****前へ次へ画像********/
+
 .nav-previous a,
 .nav-next a {
   color: #000;
@@ -348,18 +364,6 @@
   color: #999;
   background: #000;
   opacity: 0.8;
-}
-
-nav.post-navigation {
-  display: flex;
-  justify-content: space-between;
-}
-
-.nav-title {
-}
-
-.nav-previous i,
-.nav-next i {
 }
 
 /************************************************************/
