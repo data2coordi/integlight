@@ -1,26 +1,26 @@
 /* .integlight_pt footer {
-  background-color: #faa303;
+  background-color: #fa9303;
 } */
 
 .integlight_pt button {
-  background-color: #faa303;
+  background-color: #fa9303;
 }
 
 
 .integlight_pt .pagetop {
-  background-color: #faa303;
+  background-color: #fa9303;
 }
 
 .integlight_pt p.head {
-  background-color: #faa303;
+  background-color: #fa9303;
 }
 
 .integlight_pt h2::after {
-  background-color: #faa303;
+  background-color: #fa9303;
 }
 
 .integlight_pt h3::after {
-  background-color: #ecca8b;
+  background-color: #75eab0;
 }
 
 .integlight_pt .entry-footer {
@@ -32,7 +32,7 @@
 .integlight_pt input[type="button"],
 .integlight_pt input[type="reset"],
 .integlight_pt input[type="submit"] {
-  background-color: #faa303;
+  background-color: #fa9303;
   color: #fff;
 }
 
@@ -64,7 +64,7 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background-color: #faa303;
+  background-color: #fa9303;
   transition: left 0.3s ease-in-out;
   z-index: -1;
 }
@@ -74,17 +74,30 @@
   left: 0;
 }
 
+#page-top {
+  border: #75eab0;
+  color: #75eab0; 
+}
+
 #page-top:hover {
-  background: #faa303;
-  border: #faa303;
+  background: #fa9303;
+  border: #fa9303;
   color: #fff;
 }
 
 .posted-on a {
-  color: #faa303;
+  color: #fa9703;
 }
 
 .posted-on a, .byline a, .cat-links a, .edit-link a, .tags-links a {
-  color: #faa303;
+  color: #75eab0;
+}
+
+.post-toc {
+  background-color: #FBF4C5;
+}
+
+.site-footer {
+  background-color: #221104;
 }
 
