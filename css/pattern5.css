@@ -80,6 +80,11 @@
   color: #fff;
 }
 
+#page-top {
+  border: 1px solid #fa9703;
+  color: #fa9703; 
+}
+
 .posted-on a {
   color: #fa9703;
 }
