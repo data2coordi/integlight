@@ -20,7 +20,7 @@
 }
 
 .integlight_pt h3::after {
-  background: #699ae9;
+  background: #c14f7e;
 }
 
 .integlight_pt .entry-footer {
@@ -80,8 +80,21 @@
   color: #fff;
 }
 
+#page-top {
+  border: 1px solid #c14f7e;
+  color: #c14f7e; 
+}
+
 .posted-on a, .byline a, .cat-links a, .edit-link a, .tags-links a {
-  color: #0000ff;
+  color: #c14f7e;
+}
+
+.post-toc {
+  background-color: #c4c4fd;
+}
+
+.site-footer {
+  background-color: #171717;
 }
 
 
