@@ -81,8 +81,8 @@
 }
 
 #page-top {
-  border: 1px solid #fa9703;
-  color: #fa9703; 
+  border: 1px solid #f90101;
+  color: #f90101; 
 }
 
 .posted-on a, .byline a, .cat-links a, .edit-link a, .tags-links a {
@@ -93,6 +93,7 @@
   background-color: #f1a9a9;
 }
 
+.site-header,
 .site-footer {
   background-color: #000000;
 }
