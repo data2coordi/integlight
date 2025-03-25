@@ -20,7 +20,7 @@
 }
 
 .integlight_pt h3::after {
-  background-color: #f18a8a;
+  background-color: #0064b3;
 }
 
 .integlight_pt .entry-footer {
@@ -75,12 +75,24 @@
 }
 
 #page-top:hover {
-  background: #f90101;
-  border: #f90101;
+  background: #0064b3;
+  border: #0064b3;
   color: #fff;
 }
 
+.posted-on a {
+  color: #fa9703;
+}
+
 .posted-on a, .byline a, .cat-links a, .edit-link a, .tags-links a {
-  color: #f90101;
+  color: #0064b3;
+}
+
+.post-toc {
+  background-color: #f1a9a9;
+}
+
+.site-footer {
+  background-color: #000000;
 }
 
