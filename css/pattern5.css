@@ -85,10 +85,6 @@
   color: #fa9703; 
 }
 
-.posted-on a {
-  color: #fa9703;
-}
-
 .posted-on a, .byline a, .cat-links a, .edit-link a, .tags-links a {
   color: #0064b3;
 }

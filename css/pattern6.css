@@ -87,12 +87,8 @@
   color: #49c1d1; 
 }
 
-.posted-on a {
-  color: #49c1d1;
-}
-
 .posted-on a, .byline a, .cat-links a, .edit-link a, .tags-links a {
-  color: #f936a8;
+  color: #49c1d1;
 }
 
 .post-toc {
