@@ -36,6 +36,8 @@
 
 .ly_site_content li {
   line-height: 1.8;
+  list-style-position: inside;
+  /* リストのドットをテキストと揃えている */
 }
 
 /******メディアとテキスト********/
