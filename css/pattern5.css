@@ -75,8 +75,8 @@
 }
 
 #page-top:hover {
-  background: #0064b3;
-  border: #0064b3;
+  background: #f90101;
+  border: #f90101;
   color: #fff;
 }
 
@@ -90,7 +90,7 @@
 }
 
 .post-toc {
-  background-color: #f1c9c9;
+  background-color: #f3dede;
 }
 
 .site-header,
