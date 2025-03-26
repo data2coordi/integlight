@@ -267,7 +267,7 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
     right: 15px; /* 右端に配置 */
     top: 50%;
     transform: translateY(-50%); /* 垂直中央揃え */
-    font-size: 1em; /* スマホ表示用に調整 */
+    font-size: 0.9em; /* スマホ表示用に調整 */
   }
   
   /* サブメニューのアイコン（スマホ表示時も右揃え） */
@@ -276,7 +276,7 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
     right: 10px; /* サブメニューアイコンを右端に配置 */
     top: 50%;
     transform: translateY(-50%); /* 垂直中央揃え */
-    font-size: 1em; /* スマホ表示用に調整 */
+    font-size: 0.9em; /* スマホ表示用に調整 */
   }
   
 
