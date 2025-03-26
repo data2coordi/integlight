@@ -34,12 +34,6 @@
   padding-right: var(--ly-widthPadding);
 }
 
-.ly_site_content li {
-  line-height: 1.8;
-  list-style-position: inside;
-  /* リストのドットをテキストと揃えている */
-}
-
 /******メディアとテキスト********/
 .wp-block-media-text>.wp-block-media-text__content {
   padding: 0;

@@ -62,6 +62,11 @@
 /*2 Text系タグのfont-size以外の設定 */
 /*******************************/
 /*2.1 段落*/
+.ly_site_content li {
+  line-height: 1.8;
+  list-style-position: inside;
+  /* リストのドットをテキストと揃えている */
+}
 
 /*2.2 見出し*/
 
