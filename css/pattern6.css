@@ -100,3 +100,10 @@
   background-color: #0a043b;
 }
 
+ul.menu > li.menu-item-has-children > ul.sub-menu,
+ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
+  background-color: #0a043b;
+}
+
+
+

@@ -98,3 +98,8 @@
   background-color: #1e1b2a;
 }
 
+ul.menu > li.menu-item-has-children > ul.sub-menu,
+ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
+  background-color: #1e1b2a;
+}
+
