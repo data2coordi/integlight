@@ -108,6 +108,8 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
   /* 最上位メニューを横並びに */
   ul.menu {
     display: flex;
+    flex-wrap: wrap;
+    /* メニューを2行にする */
   }
 
   /* サブメニュー（第一階層）は親 li を基準に絶対配置 */
