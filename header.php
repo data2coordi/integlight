@@ -19,6 +19,25 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 
+	<!-- OGP Meta Tags -->
+	<meta property="og:title" content="<?php bloginfo('name'); ?> - <?php wp_title('|', true, 'right'); ?>" />
+	<meta property="og:description" content="<?php echo esc_attr(get_bloginfo('description')); ?>" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="<?php echo esc_url(home_url('/')); ?>" />
+	<meta property="og:image" content="<?php
+										// 投稿やページにアイキャッチ画像があればそれを使用
+										if (has_post_thumbnail()) {
+											echo esc_url(get_the_post_thumbnail_url(null, 'full'));
+										} else {
+											// アイキャッチ画像がなければヘッダーロゴを使用
+											echo esc_url(get_template_directory_uri() . '/images/header-logo.png');
+										}
+										?>" />
+
+
+	<meta property="og:site_name" content="<?php bloginfo('name'); ?>" />
+	<meta property="og:locale" content="ja_JP" />
+
 	<?php wp_head(); ?>
 </head>
 <?php
