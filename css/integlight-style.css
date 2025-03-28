@@ -227,6 +227,16 @@ textarea {
 <th>    : 見出しセルを定義
 */
 
+.wp-block-table :is(table,thead,tbody,tfoot,td) {
+    border-color: #eee;
+    /* 表の線を薄くする */
+}
+
+.wp-block-table th {
+    border-color: #eee;
+    background: #eee;
+}
+
 /* 
 ====================
 8. メディア (Media)
