@@ -19,29 +19,32 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 
+	<!-- OGP Meta Tags s -->
 	<!-- OGP Meta Tags -->
-	<meta property="og:title" content="<?php bloginfo('name'); ?> - <?php wp_title('|', true, 'right'); ?>" />
-	<meta property="og:description" content="<?php echo esc_attr(get_bloginfo('description')); ?>" />
+	<meta property="og:title" content="<?php echo esc_attr(get_the_title()); ?>" />
+	<meta property="og:description" content="<?php
+												// 抜粋があればそれを使用、なければ本文から最初の100文字を取得
+												$excerpt = get_the_excerpt();
+												if (empty($excerpt)) {
+													$content = get_the_content();
+													// 100文字に制限
+													$excerpt = wp_trim_words(strip_tags($content), 25, '...'); // ここで100文字程度の制限をかける
+												}
+												echo esc_attr($excerpt);
+												?>" />
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="<?php echo esc_url(get_permalink()); ?>" />
 	<meta property="og:image" content="<?php
 										if (has_post_thumbnail()) {
-											// 投稿やページにアイキャッチ画像があれば、それを使用
 											echo esc_url(get_the_post_thumbnail_url(null, 'full'));
 										} else {
-											// アイキャッチ画像がなければ、カスタムロゴが設定されているか確認
-											$custom_logo = get_theme_mod('custom_logo');
-											if ($custom_logo) {
-												// カスタムロゴが設定されていれば、その画像を使用
-												echo esc_url(wp_get_attachment_image_url($custom_logo, 'full'));
-											} else {
-											}
 										}
 										?>" />
 
+	<meta property="og:site_name" content="<?php echo esc_attr(get_bloginfo('name')); ?>" />
+	<meta property="og:locale" content="<?php echo esc_attr(get_locale()); ?>" />
+	<!-- OGP Meta Tags e -->
 
-	<meta property="og:site_name" content="<?php bloginfo('name'); ?>" />
-	<meta property="og:locale" content="ja_JP" />
 
 	<?php wp_head(); ?>
 </head>
