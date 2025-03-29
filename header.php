@@ -25,12 +25,17 @@
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="<?php echo esc_url(get_permalink()); ?>" />
 	<meta property="og:image" content="<?php
-										// 投稿やページにアイキャッチ画像があればそれを使用
 										if (has_post_thumbnail()) {
+											// 投稿やページにアイキャッチ画像があれば、それを使用
 											echo esc_url(get_the_post_thumbnail_url(null, 'full'));
 										} else {
-											// アイキャッチ画像がなければヘッダーロゴを使用
-											echo esc_url(get_template_directory_uri() . '/images/header-logo.png');
+											// アイキャッチ画像がなければ、カスタムロゴが設定されているか確認
+											$custom_logo = get_theme_mod('custom_logo');
+											if ($custom_logo) {
+												// カスタムロゴが設定されていれば、その画像を使用
+												echo esc_url(wp_get_attachment_image_url($custom_logo, 'full'));
+											} else {
+											}
 										}
 										?>" />
 
