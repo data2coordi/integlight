@@ -23,7 +23,7 @@
 	<meta property="og:title" content="<?php bloginfo('name'); ?> - <?php wp_title('|', true, 'right'); ?>" />
 	<meta property="og:description" content="<?php echo esc_attr(get_bloginfo('description')); ?>" />
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="<?php echo esc_url(home_url('/')); ?>" />
+	<meta property="og:url" content="<?php echo esc_url(get_permalink()); ?>" />
 	<meta property="og:image" content="<?php
 										// 投稿やページにアイキャッチ画像があればそれを使用
 										if (has_post_thumbnail()) {
