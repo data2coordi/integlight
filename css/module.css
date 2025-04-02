@@ -71,6 +71,7 @@
 .wp-block-list li > ul {
   padding-left: 1.5em;
   /* リストの下の白ドットにインデント */
+
 }
 
 /*2.2 見出し*/
@@ -475,6 +476,13 @@ nav.post-navigation {
   .bl_card_body {
     grid-column: span 2;
     /* 本文を2列分占める */
+  }
+
+  nav.post-navigation {
+    flex-direction: column;
+    gap: 1em;
+    align-items: center;
+    /* 前の記事次の記事を縦に表示 */
   }
 }
 
