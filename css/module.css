@@ -190,13 +190,33 @@
 
 .ly_site_content_widgetArea_right li {
   font-size: 0.8rem;
-  /* カテゴリーの数字を小さくしている */
+  /* カテゴリーの文字を小さくしている */
   list-style: none;
 }
 
 .ly_site_content_widgetArea_right li a {
   text-decoration: none;
 }
+
+
+
+
+
+
+/*********カテゴリーのリストにインデント!!!!!!!!!!!****************/
+/*********カテゴリーのリストにインデント!!!!!!!!!!!****************/
+/*********カテゴリーのリストにインデント!!!!!!!!!!!****************/
+/*********カテゴリーのリストにインデント!!!!!!!!!!!****************/
+/*********カテゴリーのリストにインデント!!!!!!!!!!!****************/
+/*********カテゴリーのリストにインデント!!!!!!!!!!!****************/
+.wp-block-categories ul.children {
+  padding-left: 1.5em;
+  margin-top: 10px;
+}
+
+
+
+
 
 /* .widget .wp-block-search__button {
     color: #fff;
@@ -349,6 +369,26 @@
   background-repeat: no-repeat;
 }
 
+/*****前へ次へ画像********/
+
+.nav-previous a,
+.nav-next a {
+  color: #000;
+  background: #999;
+  padding: 5px 15px;
+  text-decoration: none;
+  width: 300px;
+  display: block;
+}
+
+.nav-previous a:hover,
+.nav-next a:hover {
+  color: #999;
+  background: #000;
+  opacity: 0.8;
+}
+
+
 .nav-subtitle {
   display: flex;
   align-items: center;
@@ -367,27 +407,6 @@ nav.post-navigation {
 
 .nav-previous i,
 .nav-next i {
-}
-
-/***************************/
-/***************************/
-/*****前へ次へ画像********/
-
-.nav-previous a,
-.nav-next a {
-  color: #000;
-  background: #999;
-  padding: 5px 15px;
-  text-decoration: none;
-  width: 300px;
-  display: block;
-}
-
-.nav-previous a:hover,
-.nav-next a:hover {
-  color: #999;
-  background: #000;
-  opacity: 0.8;
 }
 
 /************************************************************/

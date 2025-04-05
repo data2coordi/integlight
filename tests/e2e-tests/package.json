@@ -1,0 +1,13 @@
+{
+    "name": "my-playwright-app",
+    "version": "1.0.0",
+    "description": "A sample project for running Playwright tests with Docker and docker-compose",
+    "scripts": {
+      "test": "npx playwright test"
+    },
+    "dependencies": {
+      "playwright": "^1.51.1",
+      "@playwright/test": "^1.51.1"
+    }
+  }
+  

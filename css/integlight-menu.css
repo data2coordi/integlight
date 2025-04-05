@@ -71,7 +71,7 @@ ul.menu li ul.sub-menu a {
 }
 
 ul.menu li ul.sub-menu a:hover {
-  color: #999;
+  color: #555;
 }
 
 ul.menu li ul.sub-menu li ul.sub-menu a {
@@ -231,20 +231,18 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
     border-bottom: 1px solid #444;
   }
 
+  /****************************************/
+  /****************************************/
+  /*******フォントオーサムを少し大きく*********/
 
-/****************************************/
-/****************************************/
-/*******フォントオーサムを少し大きく*********/
+  .main-navigation li.menu-item-has-children > a::after {
+    font-size: 1.2em; /* アイコンを少し大きく */
+  }
 
-
-.main-navigation li.menu-item-has-children > a::after {
-  font-size: 1.2em; /* アイコンを少し大きく */
-}
-
-.main-navigation ul.sub-menu li.menu-item-has-children > a::after {
-  font-size: 1.2em; /* スマホ表示用に調整 */
-  right: 15px;
-}
+  .main-navigation ul.sub-menu li.menu-item-has-children > a::after {
+    font-size: 1.2em; /* スマホ表示用に調整 */
+    right: 15px;
+  }
 }
 
 /************************************************************/
@@ -254,31 +252,46 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
 /*メニュー内でサブサブメニューを持つ項目に ▶ アイコンを追加 */
 /* メインメニューのリンクに相対位置を指定 */
 .main-navigation li.menu-item-has-children > a {
-    position: relative;
-    padding-right: 30px; /* アイコン用のスペース */
-  }
-  
-  /* メインメニューのアイコン（フォントオーサム）を右揃え */
-  .main-navigation li.menu-item-has-children > a::after {
-    font-family: "Font Awesome 5 Free";
-    content: "\f054"; /* fa-chevron-right の Unicode */
-    font-weight: 900;
-    position: absolute;
-    right: 15px; /* 右端に配置 */
-    top: 50%;
-    transform: translateY(-50%); /* 垂直中央揃え */
-    font-size: 0.9em; /* スマホ表示用に調整 */
-  }
-  
-  /* サブメニューのアイコン（スマホ表示時も右揃え） */
-  .main-navigation ul.sub-menu li.menu-item-has-children > a::after {
-    position: absolute;
-    right: 10px; /* サブメニューアイコンを右端に配置 */
-    top: 50%;
-    transform: translateY(-50%); /* 垂直中央揃え */
-    font-size: 0.9em; /* スマホ表示用に調整 */
-  }
-  
+  position: relative;
+  padding-right: 30px; /* アイコン用のスペース */
+}
+
+/* メインメニューのアイコン（フォントオーサム）を右揃え */
+.main-navigation li.menu-item-has-children > a::after {
+  font-family: "Font Awesome 5 Free";
+  content: "\f054"; /* fa-chevron-right の Unicode */
+  font-weight: 900;
+  position: absolute;
+  right: 15px; /* 右端に配置 */
+  top: 50%;
+  transform: translateY(-50%); /* 垂直中央揃え */
+  font-size: 0.9em; /* スマホ表示用に調整 */
+}
+
+/**************アイコンのホバーした時の色を変えているs***************/
+.main-navigation a:hover {
+  color: #999;
+}
+.main-navigation li.menu-item-has-children > a:hover {
+  color: #999;
+}
+.main-navigation li.menu-item-has-children > a:hover::after {
+  color: #999;
+}
+
+.main-navigation ul.sub-menu li.menu-item-has-children > a:hover::after {
+  color: #999;
+}
+/**************アイコンのホバーした時の色を変えているe***************/
+
+/* サブメニューのアイコン（スマホ表示時も右揃え） */
+.main-navigation ul.sub-menu li.menu-item-has-children > a::after {
+  position: absolute;
+  right: 10px; /* サブメニューアイコンを右端に配置 */
+  top: 50%;
+  transform: translateY(-50%); /* 垂直中央揃え */
+  font-size: 0.9em; /* スマホ表示用に調整 */
+}
 
 /* サブメニュー（インライン展開） */
 ul.menu > li.menu-item-has-children > ul.sub-menu {
