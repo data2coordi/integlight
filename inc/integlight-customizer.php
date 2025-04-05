@@ -174,7 +174,11 @@ class integlight_customizer_ga
 		));
 	}
 
-	public function integlight_innocuousSanitize() {}
+	public function integlight_innocuousSanitize($value)
+	{
+
+		return $value;
+	}
 
 	// Google アナリティクスコードをサイトの <head> に出力
 	public function outCode()
@@ -245,8 +249,12 @@ class integlight_customizer_gtm
 	}
 
 	// Google Tag Manager コードをサイトの <head> に出力
-	public function integlight_innocuousSanitize() {}
 
+	public function integlight_innocuousSanitize($value)
+	{
+
+		return $value;
+	}
 
 	// Google Tag Manager コードをサイトの <head> に出力
 	public function outCode()
