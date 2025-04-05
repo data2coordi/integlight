@@ -1,5 +1,5 @@
 #sudo rm test-results/ -rf
-#sudo rm test.spec.js-snapshots/ -rf
+#sudo rm tests/visual.spec.js-snapshots/ -rf
 
 #sudo docker compose up --build
 sudo docker compose up

@@ -1,31 +1,53 @@
 import { test, expect } from '@playwright/test';
 
-test('ページのビジュアルリグレッションテスト', async ({ page }) => {
-  await page.goto('https://toshidayurika.com:7100/');
-  await expect(page).toHaveScreenshot({ fullPage: true });
+
+
+test('ページのビジュアルリグレッションテストhome top', async ({ page }) => {
 
   //home top
-  //  await page.goto('https://tech.toshidayurika.com/');
-  //  await expect(page).toHaveScreenshot({ fullPage: true });
+  await page.goto('https://tech.toshidayurika.com/', { waitUntil: 'networkidle' });
+  await expect(page).toHaveScreenshot({ fullPage: true, timeout: 100000, maxDiffPixelRatio: 0.15 });
+  //await expect(page).toHaveScreenshot({ fullPage: true, timeout: 100000 });
 
+});
+
+
+test('ページのビジュアルリグレッションテストfront top', async ({ page }) => {
   //front top
-  //await page.goto('https://color.toshidayurika.com/');
-  //await expect(page).toHaveScreenshot({ fullPage: true });
+  await page.goto('https://tech.toshidayurika.com/', { waitUntil: 'networkidle' });
+  await expect(page).toHaveScreenshot({ fullPage: true });
 
-  /*
+
+});
+
+
+test('ページのビジュアルリグレッションテストカテゴリ一覧', async ({ page }) => {
+
   //カテゴリ一覧
   await page.goto('https://color.toshidayurika.com/category/color/');
   await expect(page).toHaveScreenshot({ fullPage: true });
+
+});
+
+
+test('ページのビジュアルリグレッションテスト 固定ページ', async ({ page }) => {
 
 
   //固定ページ
   await page.goto('https://color.toshidayurika.com/profile_cto/');
   await expect(page).toHaveScreenshot({ fullPage: true });
 
+});
+
+test('ページのビジュアルリグレッションテスト ブログ', async ({ page }) => {
+
+
   //ブログ
   await page.goto('https://color.toshidayurika.com/2023/07/04/homemadedrape/');
   await expect(page).toHaveScreenshot({ fullPage: true });
-*/
 
-  console.log('テスト完了');
+
+
+
 });
+

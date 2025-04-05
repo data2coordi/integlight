@@ -259,11 +259,12 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
 /* メインメニューのアイコン（フォントオーサム）を右揃え */
 .main-navigation li.menu-item-has-children > a::after {
   font-family: "Font Awesome 5 Free";
-  content: "\f054"; /* fa-chevron-right の Unicode */
+  content: "\f138"; /* fa-chevron-right の Unicode */
   font-weight: 900;
   position: absolute;
-  right: 15px; /* 右端に配置 */
+  right: 0; /* 右端に配置 */
   top: 50%;
+  /* margin-left: 2em; */
   transform: translateY(-50%); /* 垂直中央揃え */
   font-size: 0.9em; /* スマホ表示用に調整 */
 }
