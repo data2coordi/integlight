@@ -2,10 +2,7 @@
 #sudo rm tests/visual.spec.js-snapshots/ -rf
 
 #sudo docker compose up --build
-sudo docker compose -f docker-compose.visual.yml up
-
-
-
+sudo docker compose -f docker-compose.menu.yml up
 
 exit
 
