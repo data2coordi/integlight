@@ -85,6 +85,7 @@ class integlight_customizer_themeColor
 		// Setting
 		$wp_customize->add_setting('integlight_base_color_setting', array(
 			'type'              => 'theme_mod',
+			'default'           => 'pattern1',
 			'sanitize_callback' => [$this, 'sanitize_choices'],
 		));
 
