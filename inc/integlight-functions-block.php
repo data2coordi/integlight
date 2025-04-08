@@ -5,7 +5,7 @@
 /********************************************************************/
 
 //Font Awesome 
-function add_fontawesome_button_to_toolbar()
+function integlight_add_fontawesome_button_to_toolbar()
 {
 	//js 読み込み
 	$scripts = [
@@ -15,7 +15,7 @@ function add_fontawesome_button_to_toolbar()
 	$deferredScripts = ['integlight-gfontawesome'];
 	InteglightDeferJs::add_deferred_scripts($deferredScripts);
 }
-add_fontawesome_button_to_toolbar();
+integlight_add_fontawesome_button_to_toolbar();
 
 
 /********************************************************************/
