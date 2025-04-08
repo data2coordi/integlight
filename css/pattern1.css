@@ -38,6 +38,7 @@
 
 
 /************ボタンアニメーション**********/
+.wp-block-button__link,
 .wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link {
   position: relative;
   isolation: isolate;
@@ -52,11 +53,14 @@
   transition: color 0.3s ease-in-out;
 }
 
+.wp-block-button__link:hover,
+.wp-block-button__link:active,
 .wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link:hover,
 .wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link:active {
   color: #fff !important; /* ホバー時は白テキスト */
 }
 
+.wp-block-button__link::before,
 .wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link::before {
   content: "";
   pointer-events: none;
@@ -70,8 +74,10 @@
   z-index: -1;
 }
 
+.wp-block-button__link:hover::before,
+.wp-block-button__link:active::before,
 .wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link:hover::before,
-.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link:active:before {
+.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link:active::before {
   left: 0;
 }
 
