@@ -51,4 +51,4 @@ The theme uses third-party libraries such as normalize.css by Nicolas Gallagher 
 
 Support
 For support, documentation, and the latest updates, please visit:
-https://color.toshidayurika.com/integlight/
+https://color.toshidayurika.com/integlight-en/
