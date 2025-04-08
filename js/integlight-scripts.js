@@ -1,7 +1,7 @@
 
 
 // Slider _s ////////////////////////////////////////////////////////////////
-class Slider {
+class Integlight_Slider {
     constructor($, settings) {
         this.$ = $;
         this.settings = settings;
@@ -15,7 +15,7 @@ class Slider {
     }
 }
 
-class SlideSlider extends Slider {
+class Integlight_SlideSlider extends Integlight_Slider {
     constructor($, settings) {
         super($, settings);
         // 初期状態の調整
@@ -52,7 +52,7 @@ class SlideSlider extends Slider {
     }
 }
 
-class FadeSlider extends Slider {
+class Integlight_FadeSlider extends Integlight_Slider {
     constructor($, settings) {
         super($, settings);
         this.currentIndex = 1;
@@ -78,20 +78,20 @@ class FadeSlider extends Slider {
 const settings = integlight_sliderSettings;
 
 if (settings.displayChoice === settings.headerTypeNameSlider) {
-    let SliderClass;
+    let Integlight_SliderClass;
     if (settings.effect === settings.fade) {
-        SliderClass = FadeSlider;
+        Integlight_SliderClass = Integlight_FadeSlider;
     } else if (settings.effect === settings.slide) {
-        SliderClass = SlideSlider;
+        Integlight_SliderClass = Integlight_SlideSlider;
     } else {
 
     }
 
-    if (typeof SliderClass === "function") {
+    if (typeof Integlight_SliderClass === "function") {
         jQuery(document).ready(function ($) {
 
             setTimeout(() => {
-                new SliderClass($, settings);
+                new Integlight_SliderClass($, settings);
             }, 0); // 0秒後（ミリ秒後）に実行
 
         });
