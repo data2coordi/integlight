@@ -32,5 +32,11 @@
     "support": {
         "issues": "https://github.com/data2coordi/integlight/issues",
         "source": "https://github.com/data2coordi/integlight"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
+        "process-timeout": 1200
     }
 }

@@ -1,0 +1,263 @@
+
+FILE: /var/www/html/wp-content/themes/integlight/inc/template-tags.php
+----------------------------------------------------------------------
+FOUND 1 ERROR AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 32 | ERROR | Strings should have translatable content
+----------------------------------------------------------------------
+
+
+FILE: ...html/wp-content/themes/integlight/inc/integlight-functions-outerAssets.php
+--------------------------------------------------------------------------------
+FOUND 39 ERRORS AND 1 WARNING AFFECTING 21 LINES
+--------------------------------------------------------------------------------
+  23 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+  23 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+  30 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+  30 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+  64 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+  64 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+  68 | ERROR   | Late static binding is not supported in PHP 5.2 or earlier.
+  68 | ERROR   | Late static binding is not supported in PHP 5.2 or earlier.
+  73 | ERROR   | Late static binding is not supported in PHP 5.2 or earlier.
+  74 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+  74 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+  82 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+  82 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+  86 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+  86 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+  93 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+  93 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+  97 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+  97 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+ 136 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+ 136 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+ 148 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+ 148 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+ 152 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+ 152 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+ 172 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+ 172 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+ 176 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+ 176 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+ 196 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+ 196 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+ 203 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+ 203 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+ 239 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+ 239 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+ 246 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+ 246 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+ 267 | WARNING | Deregistering core scripts is prohibited. A variable script
+     |         | handle was found. Inspection of the wp_deregister_script()
+     |         | call needed. Found: $handle
+ 268 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+ 268 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+--------------------------------------------------------------------------------
+
+
+FILE: ...ar/www/html/wp-content/themes/integlight/inc/integlight-functions-init.php
+--------------------------------------------------------------------------------
+FOUND 10 ERRORS AND 1 WARNING AFFECTING 8 LINES
+--------------------------------------------------------------------------------
+  16 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+  16 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+  34 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+  40 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+  56 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+  65 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+  83 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+  83 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+ 144 | ERROR   | Function array dereferencing is not present in PHP version 5.3
+     |         | or earlier
+ 144 | ERROR   | null coalescing operator (??) is not present in PHP version
+     |         | 5.6 or earlier
+ 165 | WARNING | Check that require_once is not being used to load template
+     |         | files. "get_template_part()" should be used to load template
+     |         | files.
+--------------------------------------------------------------------------------
+
+
+FILE: /var/www/html/wp-content/themes/integlight/inc/integlight-functions.php
+--------------------------------------------------------------------------------
+FOUND 23 ERRORS AND 17 WARNINGS AFFECTING 32 LINES
+--------------------------------------------------------------------------------
+  31 | WARNING | Check that require is not being used to load template files.
+     |         | "get_template_part()" should be used to load template files.
+  35 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+  49 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+  52 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+  56 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+  66 | ERROR   | The function array_filter() does not have a parameter "flag"
+     |         | in PHP version 5.5 or earlier
+  66 | ERROR   | Closures / anonymous functions are not available in PHP 5.2 or
+     |         | earlier
+  68 | ERROR   | The constant "ARRAY_FILTER_USE_KEY" is not present in PHP
+     |         | version 5.5 or earlier
+  93 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+  94 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+  94 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+  94 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+  94 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+  95 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+  99 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+ 101 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+ 160 | ERROR   | Themes should use add_theme_page() for adding admin pages.
+     |         | Found add_submenu_page.
+ 185 | WARNING | All output should be run through an escaping function (see the
+     |         | Security sections in the WordPress Developer Handbooks), found
+     |         | '__'.
+ 191 | WARNING | All output should be run through an escaping function (see the
+     |         | Security sections in the WordPress Developer Handbooks), found
+     |         | '__'.
+ 192 | WARNING | All output should be run through an escaping function (see the
+     |         | Security sections in the WordPress Developer Handbooks), found
+     |         | 'get_option'.
+ 282 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+ 282 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+ 311 | WARNING | $_POST data not unslashed before sanitization. Use
+     |         | wp_unslash() or similar
+ 311 | WARNING | Detected usage of a non-sanitized input variable:
+     |         | $_POST['toc_visibility_nonce']
+ 339 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+ 339 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+ 346 | WARNING | All output should be run through an escaping function (see the
+     |         | Security sections in the WordPress Developer Handbooks), found
+     |         | '$this'.
+ 461 | WARNING | All output should be run through an escaping function (see the
+     |         | Security sections in the WordPress Developer Handbooks), found
+     |         | '__'.
+ 462 | WARNING | All output should be run through an escaping function (see the
+     |         | Security sections in the WordPress Developer Handbooks), found
+     |         | '__'.
+ 465 | WARNING | All output should be run through an escaping function (see the
+     |         | Security sections in the WordPress Developer Handbooks), found
+     |         | '__'.
+ 466 | WARNING | All output should be run through an escaping function (see the
+     |         | Security sections in the WordPress Developer Handbooks), found
+     |         | '__'.
+ 475 | WARNING | $_POST data not unslashed before sanitization. Use
+     |         | wp_unslash() or similar
+ 475 | WARNING | Detected usage of a non-sanitized input variable:
+     |         | $_POST['seo_meta_box_nonce']
+ 497 | WARNING | $_POST data not unslashed before sanitization. Use
+     |         | wp_unslash() or similar
+ 502 | WARNING | $_POST data not unslashed before sanitization. Use
+     |         | wp_unslash() or similar
+ 528 | ERROR   | Empty ELSE statement detected
+ 582 | WARNING | Check that require is not being used to load template files.
+     |         | "get_template_part()" should be used to load template files.
+ 583 | WARNING | Check that require is not being used to load template files.
+     |         | "get_template_part()" should be used to load template files.
+ 593 | ERROR   | Registering and deregistering editor blocks should be done in
+     |         | a plugin, not in a theme. Found register_block_style().
+ 608 | ERROR   | Registering and deregistering editor blocks should be done in
+     |         | a plugin, not in a theme. Found register_block_pattern().
+--------------------------------------------------------------------------------
+
+
+FILE: /var/www/html/wp-content/themes/integlight/inc/integlight-customizer.php
+-------------------------------------------------------------------------------
+FOUND 10 ERRORS AFFECTING 5 LINES
+-------------------------------------------------------------------------------
+  78 | ERROR | Short array syntax (open) is not supported in PHP 5.3 or lower
+  78 | ERROR | Short array syntax (close) is not supported in PHP 5.3 or lower
+  79 | ERROR | Short array syntax (open) is not supported in PHP 5.3 or lower
+  79 | ERROR | Short array syntax (close) is not supported in PHP 5.3 or lower
+  89 | ERROR | Short array syntax (open) is not supported in PHP 5.3 or lower
+  89 | ERROR | Short array syntax (close) is not supported in PHP 5.3 or lower
+ 126 | ERROR | Short array syntax (open) is not supported in PHP 5.3 or lower
+ 126 | ERROR | Short array syntax (close) is not supported in PHP 5.3 or lower
+ 129 | ERROR | Short array syntax (open) is not supported in PHP 5.3 or lower
+ 129 | ERROR | Short array syntax (close) is not supported in PHP 5.3 or lower
+-------------------------------------------------------------------------------
+
+
+FILE: ...r/www/html/wp-content/themes/integlight/inc/integlight-customizer-base.php
+--------------------------------------------------------------------------------
+FOUND 0 ERRORS AND 2 WARNINGS AFFECTING 2 LINES
+--------------------------------------------------------------------------------
+ 77 | WARNING | Check that require is not being used to load template files.
+    |         | "get_template_part()" should be used to load template files.
+ 78 | WARNING | Check that require is not being used to load template files.
+    |         | "get_template_part()" should be used to load template files.
+--------------------------------------------------------------------------------
+
+
+FILE: ...www/html/wp-content/themes/integlight/inc/integlight-customizer-slider.php
+--------------------------------------------------------------------------------
+FOUND 12 ERRORS AND 1 WARNING AFFECTING 10 LINES
+--------------------------------------------------------------------------------
+ 112 | ERROR   | Closures / anonymous functions are not available in PHP 5.2 or
+     |         | earlier
+ 188 | WARNING | Check that require_once is not being used to load template
+     |         | files. "get_template_part()" should be used to load template
+     |         | files.
+ 201 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+ 203 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+ 206 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+ 207 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+ 207 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+ 207 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+ 207 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+ 208 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+ 213 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+ 215 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+     |         | lower
+ 284 | ERROR   | Closures / anonymous functions are not available in PHP 5.2 or
+     |         | earlier
+--------------------------------------------------------------------------------
+
+
+FILE: ...r/www/html/wp-content/themes/integlight/inc/integlight-functions-block.php
+--------------------------------------------------------------------------------
+FOUND 9 ERRORS AFFECTING 5 LINES
+--------------------------------------------------------------------------------
+ 11 | ERROR | Short array syntax (open) is not supported in PHP 5.3 or lower
+ 12 | ERROR | Short array syntax (open) is not supported in PHP 5.3 or lower
+ 12 | ERROR | Short array syntax (open) is not supported in PHP 5.3 or lower
+ 12 | ERROR | Short array syntax (close) is not supported in PHP 5.3 or lower
+ 12 | ERROR | Short array syntax (close) is not supported in PHP 5.3 or lower
+ 13 | ERROR | Short array syntax (close) is not supported in PHP 5.3 or lower
+ 15 | ERROR | Short array syntax (open) is not supported in PHP 5.3 or lower
+ 15 | ERROR | Short array syntax (close) is not supported in PHP 5.3 or lower
+ 33 | ERROR | Closures / anonymous functions are not available in PHP 5.2 or
+    |       | earlier
+--------------------------------------------------------------------------------
+
+Time: 801ms; Memory: 14MB
+
