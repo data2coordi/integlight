@@ -3,7 +3,7 @@ FILE: /var/www/html/wp-content/themes/integlight/inc/template-tags.php
 ----------------------------------------------------------------------
 FOUND 1 ERROR AFFECTING 1 LINE
 ----------------------------------------------------------------------
- 32 | ERROR | Strings should have translatable content
+ 31 | ERROR | Strings should have translatable content
 ----------------------------------------------------------------------
 
 
@@ -259,5 +259,111 @@ FOUND 9 ERRORS AFFECTING 5 LINES
     |       | earlier
 --------------------------------------------------------------------------------
 
-Time: 801ms; Memory: 14MB
+
+FILE: /var/www/html/wp-content/themes/integlight/template-parts/content-arc.php
+--------------------------------------------------------------------------------
+FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+--------------------------------------------------------------------------------
+ 36 | WARNING | All output should be run through an escaping function (see the
+    |         | Security sections in the WordPress Developer Handbooks), found
+    |         | 'get_the_excerpt'.
+--------------------------------------------------------------------------------
+
+
+FILE: ...var/www/html/wp-content/themes/integlight/template-parts/content-slide.php
+--------------------------------------------------------------------------------
+FOUND 0 ERRORS AND 2 WARNINGS AFFECTING 2 LINES
+--------------------------------------------------------------------------------
+ 76 | WARNING | All output should be run through an escaping function (see the
+    |         | Security sections in the WordPress Developer Handbooks), found
+    |         | 'get_theme_mod'.
+ 79 | WARNING | All output should be run through an escaping function (see the
+    |         | Security sections in the WordPress Developer Handbooks), found
+    |         | 'get_theme_mod'.
+--------------------------------------------------------------------------------
+
+
+FILE: /var/www/html/wp-content/themes/integlight/tests/unit-tests/bootstrap.php
+--------------------------------------------------------------------------------
+FOUND 5 ERRORS AND 3 WARNINGS AFFECTING 8 LINES
+--------------------------------------------------------------------------------
+  8 | ERROR   | The constant "PHP_MAJOR_VERSION" is not present in PHP version
+    |         | 5.2.6 or earlier
+ 20 | WARNING | All output should be run through an escaping function (see the
+    |         | Security sections in the WordPress Developer Handbooks), found
+    |         | '"Could not find {$_tests_dir}/includes/functions.php, have you
+    |         | run bin/install-wp-tests.sh ?"'.
+ 25 | WARNING | Check that require_once is not being used to load template
+    |         | files. "get_template_part()" should be used to load template
+    |         | files.
+ 32 | ERROR   | __DIR__ magic constant is not present in PHP version 5.2 or
+    |         | earlier
+ 36 | ERROR   | Closures / anonymous functions are not available in PHP 5.2 or
+    |         | earlier
+ 42 | ERROR   | Closures / anonymous functions are not available in PHP 5.2 or
+    |         | earlier
+ 46 | ERROR   | Closures / anonymous functions are not available in PHP 5.2 or
+    |         | earlier
+ 54 | WARNING | Check that require is not being used to load template files.
+    |         | "get_template_part()" should be used to load template files.
+--------------------------------------------------------------------------------
+
+
+FILE: /var/www/html/wp-content/themes/integlight/footer.php
+--------------------------------------------------------------------------------
+FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+--------------------------------------------------------------------------------
+ 23 | WARNING | All output should be run through an escaping function (see the
+    |         | Security sections in the WordPress Developer Handbooks), found
+    |         | 'get_option'.
+--------------------------------------------------------------------------------
+
+
+FILE: /var/www/html/wp-content/themes/integlight/sidebar.php
+--------------------------------------------------------------------------------
+FOUND 0 ERRORS AND 2 WARNINGS AFFECTING 2 LINES
+--------------------------------------------------------------------------------
+ 22 | WARNING | All output should be run through an escaping function (see the
+    |         | Security sections in the WordPress Developer Handbooks), found
+    |         | 'get_theme_mod'.
+ 34 | WARNING | All output should be run through an escaping function (see the
+    |         | Security sections in the WordPress Developer Handbooks), found
+    |         | 'get_theme_mod'.
+--------------------------------------------------------------------------------
+
+
+FILE: /var/www/html/wp-content/themes/integlight/home.php
+--------------------------------------------------------------------------------
+FOUND 3 ERRORS AND 3 WARNINGS AFFECTING 3 LINES
+--------------------------------------------------------------------------------
+ 45 | ERROR   | Overriding WordPress globals is prohibited. Found assignment to
+    |         | $title
+ 46 | ERROR   | The default value of the $encoding parameter for mb_strlen()
+    |         | was changed from ISO-8859-1 to UTF-8 in PHP 5.6. For
+    |         | cross-version compatibility, the $encoding parameter should be
+    |         | explicitly set.
+ 46 | WARNING | All output should be run through an escaping function (see the
+    |         | Security sections in the WordPress Developer Handbooks), found
+    |         | 'mb_substr'.
+ 46 | ERROR   | The default value of the $encoding parameter for mb_substr()
+    |         | was changed from ISO-8859-1 to UTF-8 in PHP 5.6. For
+    |         | cross-version compatibility, the $encoding parameter should be
+    |         | explicitly set.
+ 46 | WARNING | All output should be run through an escaping function (see the
+    |         | Security sections in the WordPress Developer Handbooks), found
+    |         | '$title'.
+ 50 | WARNING | All output should be run through an escaping function (see the
+    |         | Security sections in the WordPress Developer Handbooks), found
+    |         | 'wp_trim_words'.
+--------------------------------------------------------------------------------
+
+
+FILE: /var/www/html/wp-content/themes/integlight/header.php
+----------------------------------------------------------------------
+FOUND 1 ERROR AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 40 | ERROR | Empty ELSE statement detected
+----------------------------------------------------------------------
+
+Time: 1.11 secs; Memory: 14MB
 

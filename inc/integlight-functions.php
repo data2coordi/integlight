@@ -157,8 +157,7 @@ class InteglightCopyRight
 
 	public function setting()
 	{
-		add_submenu_page(
-			'themes.php',
+		add_theme_page(
 			__('Footer Settings', 'integlight'),
 			__('Footer', 'integlight'),
 			'manage_options',
