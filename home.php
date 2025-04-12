@@ -43,7 +43,7 @@ if (is_front_page() != false) {
 
                         <h2><?php
                             $title = get_the_title();
-                            echo (mb_strlen($title) > 19) ? mb_substr($title, 0, 19) . ' ...' : $title;
+                            echo (mb_strlen($title, 'UTF-8') > 19) ? mb_substr($title, 0, 19) . ' ...' : $title;
                             ?></h2>
 
                         <!-- 本文の先頭200文字を表示 -->
