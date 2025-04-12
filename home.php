@@ -42,8 +42,8 @@ if (is_front_page() != false) {
                         <!-- タイトルをタイルの左上に大きく表示 -->
 
                         <h2><?php
-                            $title = get_the_title();
-                            echo (mb_strlen($title, 'UTF-8') > 19) ? mb_substr($title, 0, 19) . ' ...' : $title;
+                            $tmpTitle = get_the_title();
+                            echo (mb_strlen($tmpTitle, 'UTF-8') > 19) ? mb_substr($tmpTitle, 0, 19) . ' ...' : $tmpTitle;
                             ?></h2>
 
                         <!-- 本文の先頭200文字を表示 -->
