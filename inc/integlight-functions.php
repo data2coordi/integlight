@@ -296,7 +296,7 @@ class InteglightTableOfContents
 	?>
 		<label for="hide_toc">
 			<input type="checkbox" name="hide_toc" id="hide_toc" value="1" <?php checked($value, '1'); ?> />
-			<?php __('Hide TOC', 'integlight'); ?>
+			<?php echo __('Hide TOC', 'integlight'); ?>
 		</label>
 	<?php
 
