@@ -307,7 +307,7 @@ class InteglightTableOfContents
 		if (!isset($_POST['toc_visibility_nonce'])) {
 			return;
 		}
-		if (!wp_verify_nonce($_POST['toc_visibility_nonce'], 'toc_visibility_nonce_action')) {
+		if (!wp_verify_nonce(wp_unslash($_POST['toc_visibility_nonce']), 'toc_visibility_nonce_action')) {
 			return;
 		}
 		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
@@ -471,7 +471,7 @@ function display_seo_meta_box($post)
 function save_seo_meta_box_data($post_id)
 {
 	// セキュリティチェック：nonceの存在と検証
-	if (! isset($_POST['seo_meta_box_nonce']) || ! wp_verify_nonce($_POST['seo_meta_box_nonce'], 'seo_meta_box_nonce_action')) {
+	if (! isset($_POST['seo_meta_box_nonce']) || ! wp_verify_nonce($wp_unslash(_POST['seo_meta_box_nonce']), 'seo_meta_box_nonce_action')) {
 		return;
 	}
 
@@ -493,12 +493,12 @@ function save_seo_meta_box_data($post_id)
 
 	// Meta Title の保存（入力があれば更新、空の場合は空文字でも更新される）
 	if (isset($_POST['custom_meta_title'])) {
-		update_post_meta($post_id, '_custom_meta_title', sanitize_text_field($_POST['custom_meta_title']));
+		update_post_meta($post_id, '_custom_meta_title', sanitize_text_field(wp_unslash($_POST['custom_meta_title'])));
 	}
 
 	// Meta Description の保存
 	if (isset($_POST['custom_meta_description'])) {
-		update_post_meta($post_id, '_custom_meta_description', sanitize_textarea_field($_POST['custom_meta_description']));
+		update_post_meta($post_id, '_custom_meta_description', sanitize_textarea_field(wp_unslash($_POST['custom_meta_description'])));
 	}
 }
 add_action('save_post', 'save_seo_meta_box_data');
