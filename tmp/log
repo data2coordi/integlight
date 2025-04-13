@@ -100,9 +100,26 @@ FOUND 10 ERRORS AND 1 WARNING AFFECTING 8 LINES
 --------------------------------------------------------------------------------
 
 
+FILE: /var/www/html/wp-content/themes/integlight/inc/integlight-customizer.php
+-------------------------------------------------------------------------------
+FOUND 10 ERRORS AFFECTING 5 LINES
+-------------------------------------------------------------------------------
+  78 | ERROR | Short array syntax (open) is not supported in PHP 5.3 or lower
+  78 | ERROR | Short array syntax (close) is not supported in PHP 5.3 or lower
+  79 | ERROR | Short array syntax (open) is not supported in PHP 5.3 or lower
+  79 | ERROR | Short array syntax (close) is not supported in PHP 5.3 or lower
+  89 | ERROR | Short array syntax (open) is not supported in PHP 5.3 or lower
+  89 | ERROR | Short array syntax (close) is not supported in PHP 5.3 or lower
+ 126 | ERROR | Short array syntax (open) is not supported in PHP 5.3 or lower
+ 126 | ERROR | Short array syntax (close) is not supported in PHP 5.3 or lower
+ 129 | ERROR | Short array syntax (open) is not supported in PHP 5.3 or lower
+ 129 | ERROR | Short array syntax (close) is not supported in PHP 5.3 or lower
+-------------------------------------------------------------------------------
+
+
 FILE: /var/www/html/wp-content/themes/integlight/inc/integlight-functions.php
 --------------------------------------------------------------------------------
-FOUND 23 ERRORS AND 17 WARNINGS AFFECTING 32 LINES
+FOUND 22 ERRORS AND 13 WARNINGS AFFECTING 29 LINES
 --------------------------------------------------------------------------------
   31 | WARNING | Check that require is not being used to load template files.
      |         | "get_template_part()" should be used to load template files.
@@ -130,77 +147,51 @@ FOUND 23 ERRORS AND 17 WARNINGS AFFECTING 32 LINES
   99 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
  101 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
      |         | lower
- 160 | ERROR   | Themes should use add_theme_page() for adding admin pages.
-     |         | Found add_submenu_page.
- 185 | WARNING | All output should be run through an escaping function (see the
+ 184 | WARNING | All output should be run through an escaping function (see the
+     |         | Security sections in the WordPress Developer Handbooks), found
+     |         | '__'.
+ 190 | WARNING | All output should be run through an escaping function (see the
      |         | Security sections in the WordPress Developer Handbooks), found
      |         | '__'.
  191 | WARNING | All output should be run through an escaping function (see the
      |         | Security sections in the WordPress Developer Handbooks), found
-     |         | '__'.
- 192 | WARNING | All output should be run through an escaping function (see the
-     |         | Security sections in the WordPress Developer Handbooks), found
      |         | 'get_option'.
- 282 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
- 282 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+ 281 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+ 281 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
      |         | lower
- 311 | WARNING | $_POST data not unslashed before sanitization. Use
-     |         | wp_unslash() or similar
- 311 | WARNING | Detected usage of a non-sanitized input variable:
+ 299 | WARNING | All output should be run through an escaping function (see the
+     |         | Security sections in the WordPress Developer Handbooks), found
+     |         | '__'.
+ 310 | WARNING | Detected usage of a non-sanitized input variable:
      |         | $_POST['toc_visibility_nonce']
- 339 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
- 339 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
+ 338 | ERROR   | Short array syntax (open) is not supported in PHP 5.3 or lower
+ 338 | ERROR   | Short array syntax (close) is not supported in PHP 5.3 or
      |         | lower
- 346 | WARNING | All output should be run through an escaping function (see the
+ 345 | WARNING | All output should be run through an escaping function (see the
      |         | Security sections in the WordPress Developer Handbooks), found
      |         | '$this'.
+ 460 | WARNING | All output should be run through an escaping function (see the
+     |         | Security sections in the WordPress Developer Handbooks), found
+     |         | '__'.
  461 | WARNING | All output should be run through an escaping function (see the
      |         | Security sections in the WordPress Developer Handbooks), found
      |         | '__'.
- 462 | WARNING | All output should be run through an escaping function (see the
+ 464 | WARNING | All output should be run through an escaping function (see the
      |         | Security sections in the WordPress Developer Handbooks), found
      |         | '__'.
  465 | WARNING | All output should be run through an escaping function (see the
      |         | Security sections in the WordPress Developer Handbooks), found
      |         | '__'.
- 466 | WARNING | All output should be run through an escaping function (see the
-     |         | Security sections in the WordPress Developer Handbooks), found
-     |         | '__'.
- 475 | WARNING | $_POST data not unslashed before sanitization. Use
-     |         | wp_unslash() or similar
- 475 | WARNING | Detected usage of a non-sanitized input variable:
-     |         | $_POST['seo_meta_box_nonce']
- 497 | WARNING | $_POST data not unslashed before sanitization. Use
-     |         | wp_unslash() or similar
- 502 | WARNING | $_POST data not unslashed before sanitization. Use
-     |         | wp_unslash() or similar
- 528 | ERROR   | Empty ELSE statement detected
+ 527 | ERROR   | Empty ELSE statement detected
+ 581 | WARNING | Check that require is not being used to load template files.
+     |         | "get_template_part()" should be used to load template files.
  582 | WARNING | Check that require is not being used to load template files.
      |         | "get_template_part()" should be used to load template files.
- 583 | WARNING | Check that require is not being used to load template files.
-     |         | "get_template_part()" should be used to load template files.
- 593 | ERROR   | Registering and deregistering editor blocks should be done in
+ 592 | ERROR   | Registering and deregistering editor blocks should be done in
      |         | a plugin, not in a theme. Found register_block_style().
- 608 | ERROR   | Registering and deregistering editor blocks should be done in
+ 607 | ERROR   | Registering and deregistering editor blocks should be done in
      |         | a plugin, not in a theme. Found register_block_pattern().
 --------------------------------------------------------------------------------
-
-
-FILE: /var/www/html/wp-content/themes/integlight/inc/integlight-customizer.php
--------------------------------------------------------------------------------
-FOUND 10 ERRORS AFFECTING 5 LINES
--------------------------------------------------------------------------------
-  78 | ERROR | Short array syntax (open) is not supported in PHP 5.3 or lower
-  78 | ERROR | Short array syntax (close) is not supported in PHP 5.3 or lower
-  79 | ERROR | Short array syntax (open) is not supported in PHP 5.3 or lower
-  79 | ERROR | Short array syntax (close) is not supported in PHP 5.3 or lower
-  89 | ERROR | Short array syntax (open) is not supported in PHP 5.3 or lower
-  89 | ERROR | Short array syntax (close) is not supported in PHP 5.3 or lower
- 126 | ERROR | Short array syntax (open) is not supported in PHP 5.3 or lower
- 126 | ERROR | Short array syntax (close) is not supported in PHP 5.3 or lower
- 129 | ERROR | Short array syntax (open) is not supported in PHP 5.3 or lower
- 129 | ERROR | Short array syntax (close) is not supported in PHP 5.3 or lower
--------------------------------------------------------------------------------
 
 
 FILE: ...r/www/html/wp-content/themes/integlight/inc/integlight-customizer-base.php
@@ -260,16 +251,6 @@ FOUND 9 ERRORS AFFECTING 5 LINES
 --------------------------------------------------------------------------------
 
 
-FILE: /var/www/html/wp-content/themes/integlight/template-parts/content-arc.php
---------------------------------------------------------------------------------
-FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
---------------------------------------------------------------------------------
- 36 | WARNING | All output should be run through an escaping function (see the
-    |         | Security sections in the WordPress Developer Handbooks), found
-    |         | 'get_the_excerpt'.
---------------------------------------------------------------------------------
-
-
 FILE: ...var/www/html/wp-content/themes/integlight/template-parts/content-slide.php
 --------------------------------------------------------------------------------
 FOUND 0 ERRORS AND 2 WARNINGS AFFECTING 2 LINES
@@ -319,42 +300,17 @@ FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
 --------------------------------------------------------------------------------
 
 
-FILE: /var/www/html/wp-content/themes/integlight/sidebar.php
---------------------------------------------------------------------------------
-FOUND 0 ERRORS AND 2 WARNINGS AFFECTING 2 LINES
---------------------------------------------------------------------------------
- 22 | WARNING | All output should be run through an escaping function (see the
-    |         | Security sections in the WordPress Developer Handbooks), found
-    |         | 'get_theme_mod'.
- 34 | WARNING | All output should be run through an escaping function (see the
-    |         | Security sections in the WordPress Developer Handbooks), found
-    |         | 'get_theme_mod'.
---------------------------------------------------------------------------------
-
-
 FILE: /var/www/html/wp-content/themes/integlight/home.php
 --------------------------------------------------------------------------------
-FOUND 3 ERRORS AND 3 WARNINGS AFFECTING 3 LINES
+FOUND 1 ERROR AND 1 WARNING AFFECTING 2 LINES
 --------------------------------------------------------------------------------
- 45 | ERROR   | Overriding WordPress globals is prohibited. Found assignment to
-    |         | $title
- 46 | ERROR   | The default value of the $encoding parameter for mb_strlen()
+ 46 | WARNING | All output should be run through an escaping function (see the
+    |         | Security sections in the WordPress Developer Handbooks), found
+    |         | 'htmlspecialchars'.
+ 47 | ERROR   | The default value of the $encoding parameter for mb_substr()
     |         | was changed from ISO-8859-1 to UTF-8 in PHP 5.6. For
     |         | cross-version compatibility, the $encoding parameter should be
     |         | explicitly set.
- 46 | WARNING | All output should be run through an escaping function (see the
-    |         | Security sections in the WordPress Developer Handbooks), found
-    |         | 'mb_substr'.
- 46 | ERROR   | The default value of the $encoding parameter for mb_substr()
-    |         | was changed from ISO-8859-1 to UTF-8 in PHP 5.6. For
-    |         | cross-version compatibility, the $encoding parameter should be
-    |         | explicitly set.
- 46 | WARNING | All output should be run through an escaping function (see the
-    |         | Security sections in the WordPress Developer Handbooks), found
-    |         | '$title'.
- 50 | WARNING | All output should be run through an escaping function (see the
-    |         | Security sections in the WordPress Developer Handbooks), found
-    |         | 'wp_trim_words'.
 --------------------------------------------------------------------------------
 
 
@@ -365,5 +321,5 @@ FOUND 1 ERROR AFFECTING 1 LINE
  40 | ERROR | Empty ELSE statement detected
 ----------------------------------------------------------------------
 
-Time: 1.11 secs; Memory: 14MB
+Time: 1.14 secs; Memory: 16MB
 

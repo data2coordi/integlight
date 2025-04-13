@@ -10,6 +10,7 @@
 
 
 
+
 /////////////////////////////////////////////
 /* テスト領域 e*/
 
@@ -188,7 +189,7 @@ class InteglightCopyRight
 				do_settings_sections('custom-menu-group'); ?>
 				<div class="metabox-holder">
 					<p><?php echo  __("Please enter the Copyright information.", "integlight") ?></p>
-					<p><input type="text" id="copy_right" name="copy_right" value="<?php echo get_option('copy_right'); ?>"></p>
+					<p><input type="text" id="copy_right" name="copy_right" value="<?php echo esc_attr(get_option('copy_right')); ?>"></p>
 				</div>
 				<?php submit_button(); ?>
 			</form>
