@@ -33,6 +33,6 @@
 		<span class="entry-date"><i class="fa-solid fa-calendar-days"></i><?php echo get_the_date(); ?></span>
 	</div>
 	<div class="bl_card_body">
-		<p class="bl_card_txt"><?php echo get_the_excerpt(); ?></p>
+		<p class="bl_card_txt"><?php echo wp_kses_post(get_the_excerpt()); ?></p>
 	</div>
 </div>

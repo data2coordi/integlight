@@ -43,7 +43,7 @@ test('ページのビジュアルリグレッションテスト ブログ', asyn
 
 
   //ブログ
-  await page.goto('https://color.toshidayurika.com/2023/07/04/homemadedrape/');
+  await page.goto('https://color.toshidayurika.com/howtouse/');
   await expect(page).toHaveScreenshot({ fullPage: true });
 
 
