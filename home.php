@@ -43,11 +43,18 @@ if (is_front_page() != false) {
 
                         <h2><?php
                             $tmpTitle = get_the_title();
-                            echo (mb_strlen($tmpTitle, 'UTF-8') > 19) ? mb_substr($tmpTitle, 0, 19) . ' ...' : $tmpTitle;
+                            echo htmlspecialchars(
+                                (mb_strlen($tmpTitle, 'UTF-8') > 19) ? mb_substr($tmpTitle, 0, 19) . ' ...' : $tmpTitle,
+                                ENT_QUOTES,
+                                'UTF-8'
+                            );
                             ?></h2>
 
                         <!-- 本文の先頭200文字を表示 -->
-                        <p class="post-excerpt"><?php echo wp_trim_words(get_the_content(), 78, ' ...'); ?></p>
+                        <p class="post-excerpt">
+                            <?php echo esc_html(wp_trim_words(wp_strip_all_tags(get_the_content()), 78, ' ...')); ?>
+                        </p>
+
 
                         <!-- 下部に日付、カテゴリ、タグを表示 -->
                         <div class="post-meta">
