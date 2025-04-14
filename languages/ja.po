@@ -83,6 +83,10 @@ msgstr "コメントはクローズされました。"
 msgid "https://wordpress.org/"
 msgstr "https://wordpress.org/"
 
+msgid "Display 'Powered by WordPress' and theme author credit"
+msgstr "『Powered by WordPress』とテーマの作者クレジットを表示する"
+
+
 #. translators: %s: CMS name, i.e. WordPress.
 #: footer.php:23
 msgid "Proudly powered by %s"
