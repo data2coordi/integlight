@@ -2,6 +2,14 @@
   background-color: #008554;
 } */
 
+/* タブフォーカスのスタイル */
+a:focus {
+  position: relative;
+  outline: none; /* デフォルトのアウトラインを消す */
+  box-shadow: 0 0 0 2px #ea5404;
+  border-radius: 5px; 
+}
+
 .integlight_pt button {
   background-color: #008554;
 }
