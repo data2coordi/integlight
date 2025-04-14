@@ -144,84 +144,6 @@ add_action('after_setup_theme', 'integlight_setup_plus');
 
 
 
-// ## footer クレジット対応 _s//////////////////////////////////////////////////////////////////////////////////
-
-
-
-class InteglightFooterSettings
-{
-	public function __construct()
-	{
-		add_filter('admin_menu', array($this, 'setting'));
-		add_action('admin_init', array($this, 'setting_db'));
-	}
-
-	public function setting()
-	{
-		add_theme_page(
-			__('Footer Settings', 'integlight'),
-			__('Footer', 'integlight'),
-			'manage_options',
-			'custom_footer_page',
-			array($this, 'setting_menuPage'),
-			6
-		);
-	}
-
-	public function setting_db()
-	{
-		register_setting('custom-menu-group', 'copy_right');
-		register_setting('custom-menu-group', 'integlight_show_footer_credit');
-	}
-
-	public function setting_menuPage()
-	{
-		$show_credit = get_option('integlight_show_footer_credit');
-		$copy_right = get_option('copy_right');
-?>
-		<div class="wrap">
-			<h2><?php echo __("Footer Settings", "integlight") ?></h2>
-			<form method="post" action="options.php" enctype="multipart/form-data" encoding="multipart/form-data">
-				<?php
-				settings_fields('custom-menu-group');
-				do_settings_sections('custom-menu-group');
-				?>
-				<div class="metabox-holder">
-					<!-- コピーライト設定 -->
-					<p><?php echo __("Please enter the Copyright information.", "integlight"); ?></p>
-					<p>
-						<input type="text" id="copy_right" name="copy_right" value="<?php echo esc_attr($copy_right); ?>" class="regular-text">
-					</p>
-
-					<!-- クレジット表示チェック -->
-					<p>
-						<label>
-							<input type="checkbox" name="integlight_show_footer_credit" value="1" <?php checked(1, $show_credit, true); ?> />
-							<?php echo __("Display 'Powered by WordPress' and theme author credit", "integlight"); ?>
-						</label>
-					</p>
-				</div>
-
-				<?php submit_button(); ?>
-			</form>
-		</div>
-	<?php
-	}
-}
-
-new InteglightFooterSettings();
-
-
-// ## footer クレジット対応 _e//////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
 
 
 
@@ -317,7 +239,7 @@ class InteglightTableOfContents
 	{
 		$value = get_post_meta($post->ID, 'hide_toc', true);
 		wp_nonce_field('toc_visibility_nonce_action', 'toc_visibility_nonce');
-	?>
+?>
 		<label for="hide_toc">
 			<input type="checkbox" name="hide_toc" id="hide_toc" value="1" <?php checked($value, '1'); ?> />
 			<?php echo __('Hide TOC', 'integlight'); ?>
@@ -449,7 +371,7 @@ new InteglightBreadcrumb();
 
 
 /********************************************************************/
-/* SEO用カスタムフィールド（Meta Title / Meta Description）を追加するs*/
+/* タイトル用カスタムフィールド（Meta Title / Meta Description）を追加するs*/
 /********************************************************************/
 
 // ① 管理画面にメタボックスを追加する
@@ -586,7 +508,7 @@ add_action('wp_head', 'my_custom_meta_description');
 
 
 /********************************************************************/
-/* SEO用カスタムフィールド（Meta Title / Meta Description）を追加するe*/
+/* タイトル用カスタムフィールド（Meta Title / Meta Description）を追加するe*/
 /********************************************************************/
 
 

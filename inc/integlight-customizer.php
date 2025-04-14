@@ -134,4 +134,54 @@ class integlight_customizer_themeColor
 new integlight_customizer_themeColor();
 
 
-// ## 配色カスタマイズ _e /////////////////////////////////////////////
+// ## フッター クレジット設定 _s /////////////////////////////////////////////
+class Integlight_Customizer_Footer
+{
+	public function __construct()
+	{
+		add_action('customize_register', array($this, 'register'));
+	}
+
+	public function register($wp_customize)
+	{
+		// セクション追加
+		$wp_customize->add_section('integlight_footer_section', array(
+			'title'    => __('Footer Settings', 'integlight'),
+			'priority' => 160,
+		));
+
+		// コピーライト設定
+		$wp_customize->add_setting('integlight_footer_copy_right', array(
+			'default'           => '',
+			'sanitize_callback' => 'sanitize_text_field',
+		));
+
+		$wp_customize->add_control('integlight_footer_copy_right', array(
+			'label'    => __('Copyright Text', 'integlight'),
+			'section'  => 'integlight_footer_section',
+			'type'     => 'text',
+		));
+
+		// クレジット表示チェックボックス
+		$wp_customize->add_setting('integlight_footer_show_credit', array(
+			'default'           => true,
+			'sanitize_callback' => array($this, 'sanitize_checkbox'),
+		));
+
+		$wp_customize->add_control('integlight_footer_show_credit', array(
+			'label'    => __('Display "Powered by WordPress" and theme author credit', 'integlight'),
+			'section'  => 'integlight_footer_section',
+			'type'     => 'checkbox',
+		));
+	}
+
+	public function sanitize_checkbox($checked)
+	{
+		return (isset($checked) && true == $checked) ? true : false;
+	}
+}
+
+// 初期化
+new Integlight_Customizer_Footer();
+
+// ## フッター クレジット設定 _e /////////////////////////////////////////////

@@ -9,7 +9,6 @@
  *
  * @package Integlight
  */
-
 ?>
 
 <a href="#" id="page-top">
@@ -20,9 +19,10 @@
 <footer id="colophon" class="site-footer ly_site_footer">
 	<div class="site-info">
 
-		<?php echo  get_option('copy_right'); ?>
+		<?php echo esc_html(get_theme_mod('integlight_footer_copy_right', '')); ?>
 		<br>
-		<?php if (get_option('integlight_show_footer_credit')) :  ?>
+
+		<?php if (get_theme_mod('integlight_footer_show_credit', true)) :  ?>
 
 			<?php
 			echo wp_kses_post(
