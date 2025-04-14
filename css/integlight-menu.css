@@ -7,9 +7,9 @@
   font-family: sans-serif;
 }
 
-.main-navigation a:focus {
-  outline: none;
-}
+/* .main-navigation a:focus {
+      outline: none;
+} */
 
 /* メインメニュー（ul.menu） */
 ul.menu {

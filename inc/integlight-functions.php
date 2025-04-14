@@ -147,70 +147,12 @@ add_action('after_setup_theme', 'integlight_setup_plus');
 
 
 
-// ## コピーライト対応 _s//////////////////////////////////////////////////////////////////////////////////
-class InteglightCopyRight
+class InteglightFooterSettings
 {
-
 	public function __construct()
 	{
 		add_filter('admin_menu', array($this, 'setting'));
-	}
-
-	public function setting()
-	{
-		add_theme_page(
-			__('Footer Settings', 'integlight'),
-			__('Footer', 'integlight'),
-			'manage_options',
-			'custom_menu_page',
-			array($this, 'setting_menuPage'),
-			6
-		);
-
-
 		add_action('admin_init', array($this, 'setting_db'));
-	}
-
-	public function setting_db()
-	{
-		register_setting('custom-menu-group', 'copy_right');
-	}
-
-
-	public function setting_menuPage()
-	{
-?>
-		<div class="wrap">
-
-			<h2><?php echo  __("Copyright Settings", "integlight") ?></h2>
-			<form method="post" action="options.php" enctype="multipart/form-data" encoding="multipart/form-data">
-				<?php
-				settings_fields('custom-menu-group');
-				do_settings_sections('custom-menu-group'); ?>
-				<div class="metabox-holder">
-					<p><?php echo  __("Please enter the Copyright information.", "integlight") ?></p>
-					<p><input type="text" id="copy_right" name="copy_right" value="<?php echo esc_attr(get_option('copy_right')); ?>"></p>
-				</div>
-				<?php submit_button(); ?>
-			</form>
-		</div>
-	<?php
-	}
-}
-
-new InteglightCopyRight();
-
-
-
-// ## コピーライト対応 _e//////////////////////////////////////////////////////////////////////////////////
-
-// ## クレジット対応 _s//////////////////////////////////////////////////////////////////////////////////
-
-class InteglightFooterCredit
-{
-	public function __construct()
-	{
-		add_filter('admin_menu', array($this, 'setting'));
 	}
 
 	public function setting()
@@ -223,35 +165,42 @@ class InteglightFooterCredit
 			array($this, 'setting_menuPage'),
 			6
 		);
-
-		add_action('admin_init', array($this, 'setting_db'));
 	}
 
 	public function setting_db()
 	{
-		// フッタークレジット設定（チェックボックス）
+		register_setting('custom-menu-group', 'copy_right');
 		register_setting('custom-menu-group', 'integlight_show_footer_credit');
 	}
 
 	public function setting_menuPage()
 	{
-	?>
+		$show_credit = get_option('integlight_show_footer_credit');
+		$copy_right = get_option('copy_right');
+?>
 		<div class="wrap">
-			<h2><?php echo __("Footer Credit Settings", "integlight") ?></h2>
+			<h2><?php echo __("Footer Settings", "integlight") ?></h2>
 			<form method="post" action="options.php" enctype="multipart/form-data" encoding="multipart/form-data">
 				<?php
 				settings_fields('custom-menu-group');
 				do_settings_sections('custom-menu-group');
 				?>
 				<div class="metabox-holder">
-					<!-- チェックボックス（表示ON/OFF） -->
+					<!-- コピーライト設定 -->
+					<p><?php echo __("Please enter the Copyright information.", "integlight"); ?></p>
+					<p>
+						<input type="text" id="copy_right" name="copy_right" value="<?php echo esc_attr($copy_right); ?>" class="regular-text">
+					</p>
+
+					<!-- クレジット表示チェック -->
 					<p>
 						<label>
-							<input type="checkbox" name="integlight_show_footer_credit" value="1" <?php checked(1, get_option('integlight_show_footer_credit'), true); ?> />
+							<input type="checkbox" name="integlight_show_footer_credit" value="1" <?php checked(1, $show_credit, true); ?> />
 							<?php echo __("Display 'Powered by WordPress' and theme author credit", "integlight"); ?>
 						</label>
 					</p>
 				</div>
+
 				<?php submit_button(); ?>
 			</form>
 		</div>
@@ -259,7 +208,7 @@ class InteglightFooterCredit
 	}
 }
 
-new InteglightFooterCredit();
+new InteglightFooterSettings();
 
 
 // ## クレジット対応 _e//////////////////////////////////////////////////////////////////////////////////
