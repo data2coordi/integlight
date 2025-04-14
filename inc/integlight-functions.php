@@ -525,7 +525,6 @@ add_action('wp_head', 'add_preload_images');
 
 
 require get_template_directory() . '/inc/integlight-functions-block.php';
-require get_template_directory() . '/inc/integlight-functions-init.php';
 
 
 
