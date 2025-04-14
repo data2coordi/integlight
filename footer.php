@@ -22,25 +22,28 @@
 
 		<?php echo  get_option('copy_right'); ?>
 		<br>
-		<?php
-		echo wp_kses_post(
-			sprintf(
-				__('Proudly powered by %s', 'integlight'),
-				'<a href="' . esc_url('https://wordpress.org/') . '">WordPress</a>'
-			)
-		);
-		?>
-		<span class="sep"> | </span>
-		<?php
-		echo wp_kses_post(
-			sprintf(
-				/* translators: 1: Theme name, 2: Theme author. */
-				__('Theme: %1$s by %2$s.', 'integlight'),
-				'Integlight',
-				'<a href="' . esc_url("https://color.toshidayurika.com/") . '">Yurika Toshida at Aurora Lab</a>'
-			)
-		);
-		?>
+		<?php if (get_option('integlight_show_footer_credit')) :  ?>
+
+			<?php
+			echo wp_kses_post(
+				sprintf(
+					__('Proudly powered by %s', 'integlight'),
+					'<a href="' . esc_url('https://wordpress.org/') . '">WordPress</a>'
+				)
+			);
+			?>
+			<span class="sep"> | </span>
+			<?php
+			echo wp_kses_post(
+				sprintf(
+					/* translators: 1: Theme name, 2: Theme author. */
+					__('Theme: %1$s by %2$s.', 'integlight'),
+					'Integlight',
+					'<a href="' . esc_url("https://color.toshidayurika.com/") . '">Yurika Toshida at Aurora Lab</a>'
+				)
+			);
+			?>
+		<?php endif; ?>
 	</div><!-- .site-info -->
 </footer><!-- #colophon -->
 </div><!-- #page -->

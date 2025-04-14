@@ -104,9 +104,10 @@ a:active {
 
 /* タブフォーカスのスタイル */
 a:focus {
-  outline-width: 3px;
+  outline-width: 2px;
   outline-style: solid;
-  outline-color: blue;  
+  outline-color: #fff;
+  padding: 3px;  
 }
 
 a:hover,

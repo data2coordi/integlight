@@ -204,6 +204,79 @@ new InteglightCopyRight();
 
 // ## コピーライト対応 _e//////////////////////////////////////////////////////////////////////////////////
 
+// ## クレジット対応 _s//////////////////////////////////////////////////////////////////////////////////
+
+class InteglightFooterCredit
+{
+	public function __construct()
+	{
+		add_filter('admin_menu', array($this, 'setting'));
+	}
+
+	public function setting()
+	{
+		add_theme_page(
+			__('Footer Settings', 'integlight'),
+			__('Footer', 'integlight'),
+			'manage_options',
+			'custom_footer_page',
+			array($this, 'setting_menuPage'),
+			6
+		);
+
+		add_action('admin_init', array($this, 'setting_db'));
+	}
+
+	public function setting_db()
+	{
+		// フッタークレジット設定（チェックボックス）
+		register_setting('custom-menu-group', 'integlight_show_footer_credit');
+	}
+
+	public function setting_menuPage()
+	{
+	?>
+		<div class="wrap">
+			<h2><?php echo __("Footer Credit Settings", "integlight") ?></h2>
+			<form method="post" action="options.php" enctype="multipart/form-data" encoding="multipart/form-data">
+				<?php
+				settings_fields('custom-menu-group');
+				do_settings_sections('custom-menu-group');
+				?>
+				<div class="metabox-holder">
+					<!-- チェックボックス（表示ON/OFF） -->
+					<p>
+						<label>
+							<input type="checkbox" name="integlight_show_footer_credit" value="1" <?php checked(1, get_option('integlight_show_footer_credit'), true); ?> />
+							<?php echo __("Display 'Powered by WordPress' and theme author credit", "integlight"); ?>
+						</label>
+					</p>
+				</div>
+				<?php submit_button(); ?>
+			</form>
+		</div>
+	<?php
+	}
+}
+
+new InteglightFooterCredit();
+
+
+// ## クレジット対応 _e//////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
