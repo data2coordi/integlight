@@ -156,7 +156,7 @@
 .home .post-category p {
   position: relative;
   color: #fff;
-  top: -104px;
+  /* top: -104px; */
   display: inline-block;
   background-color: #323232;
   padding: 4px 15px;
