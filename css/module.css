@@ -290,6 +290,8 @@
 .wp-block-preformatted {
   padding: 2em;
   /* 囲みテキストにpadding */
+  margin-bottom: 1em;
+  /* 下に空き */
 }
 
 .wp-block-buttons.is-layout-flex {

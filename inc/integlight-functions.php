@@ -417,7 +417,7 @@ function display_seo_meta_box($post)
 function save_seo_meta_box_data($post_id)
 {
 	// セキュリティチェック：nonceの存在と検証
-	if (! isset($_POST['seo_meta_box_nonce']) || ! wp_verify_nonce($wp_unslash(_POST['seo_meta_box_nonce']), 'seo_meta_box_nonce_action')) {
+	if (! isset($_POST['seo_meta_box_nonce']) || ! wp_verify_nonce(wp_unslash($_POST['seo_meta_box_nonce']), 'seo_meta_box_nonce_action')) {
 		return;
 	}
 
