@@ -86,12 +86,12 @@ msgstr "https://wordpress.org/"
 #. translators: %s: CMS name, i.e. WordPress.
 #: footer.php:23
 msgid "Proudly powered by %s"
-msgstr "WordPress（%s）で作成"
+msgstr "Proudly powered by %s"
 
 #. translators: 1: Theme name, 2: Theme author.
 #: footer.php:29
 msgid "Theme: %1$s by %2$s."
-msgstr "テーマ: %1$s (作成者: %2$s)"
+msgstr "Theme: %1$s by %2$s."
 
 #: functions.php:54
 msgid "Primary"
