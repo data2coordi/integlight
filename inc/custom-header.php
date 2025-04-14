@@ -36,13 +36,6 @@ function integlight_custom_header_setup()
 }
 add_action('after_setup_theme', 'integlight_custom_header_setup');
 
-//'custom-header'のサポートをオンにすると管理画面にヘッダーセクションが作成され、フッター設定と統一感がないため表示しない。
-function integlight_remove_custom_header_support()
-{
-	remove_theme_support('custom-header');
-}
-add_action('after_setup_theme', 'integlight_remove_custom_header_support', 20);
-
 
 if (! function_exists('integlight_header_style')) :
 	/**
