@@ -169,7 +169,7 @@ class Integlight_Customizer_Footer
 		));
 
 		$wp_customize->add_control('integlight_footer_show_credit', array(
-			'label'    => __("Display 'Powered by WordPr	ess' and theme author credit", 'integlight'),
+			'label'    => __("Display 'Powered by WordPress' and theme author credit", 'integlight'),
 			'section'  => 'integlight_footer_section',
 			'type'     => 'checkbox',
 		));
