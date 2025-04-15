@@ -520,7 +520,7 @@ nav.post-navigation {
   object-fit: cover;
 }
 
-/* カードの中のマージンを取っている */
+/* カードの中のマージンを取っている  */
 .bl_card_body .bl_card_txt p {
   margin-top: none; 
 }
