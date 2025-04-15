@@ -291,7 +291,7 @@
   padding: 2em;
   /* 囲みテキストにpadding */
   margin-bottom: 1em;
-  /* 下に空き */
+  /* 下に空きを作る */
 }
 
 .wp-block-buttons.is-layout-flex {
