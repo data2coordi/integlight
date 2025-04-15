@@ -4,6 +4,11 @@
 
 /* タブフォーカスのスタイル */
 a:focus {
+  outline: none; /* デフォルトのアウトラインを消す */
+  box-shadow: none;
+}
+
+a:focus-visible {
   position: relative;
   outline: none; /* デフォルトのアウトラインを消す */
   box-shadow: 0 0 0 2px #c14f7e;
