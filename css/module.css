@@ -520,6 +520,11 @@ nav.post-navigation {
   object-fit: cover;
 }
 
+/* カードの中のマージンを取っている */
+.bl_card_body .bl_card_txt p {
+  margin-top: none; 
+}
+
 /* カード全体e*/
 
 /* 画像側 s */
