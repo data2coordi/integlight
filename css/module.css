@@ -521,7 +521,7 @@ nav.post-navigation {
 }
 
 /* カードの中のマージンを取っている */
-.bl_card_body .bl_card_txt p {
+p.bl_card_body .bl_card_txt  {
   margin-top: none; 
 }
 
