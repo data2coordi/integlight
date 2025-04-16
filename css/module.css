@@ -474,26 +474,6 @@ nav.post-navigation {
   }
 }
 
-/* スマホレイアウト */
-@media (max-width: 768px) {
-  .bl_card_container {
-    grid-template-columns: 1fr 2fr;
-    grid-template-rows: auto auto;
-  }
-
-  .bl_card_body {
-    grid-column: span 2;
-    /* 本文を2列分占める */
-  }
-
-  nav.post-navigation {
-    flex-direction: column;
-    gap: 1em;
-    align-items: center;
-    /* 前の記事次の記事を縦に表示 */
-  }
-}
-
 /* カード全体のデザインs*/
 .bl_card_container {
   display: grid;
@@ -537,6 +517,8 @@ nav.post-navigation {
   transform: scale(1.1, 1.1);
   transition: 1s all;
 }
+
+
 
 /* category-labelを画像の左上に重ねる */
 .bl_card_img .category-label {
@@ -796,4 +778,31 @@ nav.post-navigation {
 .addtoany_content {
   margin: 50px auto;
   /* SNSシェアの上下空きを作っている */
+}
+
+/* スマホレイアウト */
+
+@media (max-width: 768px) {
+  /* カードレイアウト */
+  .bl_card_container {
+    padding: 1em;
+    margin-bottom: 1em;
+  }
+
+  .bl_card_body {
+    grid-column: span 2;
+    /* 本文を2列分占める */
+  }
+
+  .bl_card_container img {
+    height: 126px;
+  }
+
+  
+  nav.post-navigation {
+    flex-direction: column;
+    gap: 1em;
+    align-items: center;
+    /* 前の記事次の記事を縦に表示 */
+  }
 }

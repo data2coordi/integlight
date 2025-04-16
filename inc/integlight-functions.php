@@ -679,9 +679,24 @@ class PostHelper
 /* 抜粋関数の文字数を変更 s	*/
 /********************************************************************/
 
+function clean_auto_excerpt($excerpt)
+{
+	// ① 目次部分（"Index" で始まる行）があればそれを削除する例
+	// ※ 正規表現を投稿の実際の目次構成に合わせて調整してください
+	$excerpt = preg_replace('/^Index\s+.*?\n/', '', $excerpt);
+
+	// ② &nbsp; を通常の空白に変換（必要に応じて）
+	$excerpt = str_replace('&nbsp;', ' ', $excerpt);
+
+	return $excerpt;
+}
+add_filter('wp_trim_excerpt', 'clean_auto_excerpt', 20);
+
+
+
 function integlight_excerpt_length($length)
 {
-	return 70; // 語数を70語に変更
+	return 200; // 語数を70語に変更
 }
 add_filter('excerpt_length', 'integlight_excerpt_length');
 /********************************************************************/
