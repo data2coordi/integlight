@@ -66,12 +66,14 @@
   line-height: 1.8;
   list-style-position: inside;
   /* リストのドットをテキストと揃えている */
+  padding-left: 1.5em;
+  text-indent: -1.5em;
+  /* リストのインデント2行目を1行目と揃える */
 }
 
 .wp-block-list li > ul {
   padding-left: 1.5em;
   /* リストの下の白ドットにインデント */
-
 }
 
 /*2.2 見出し*/
@@ -85,7 +87,6 @@
   margin: 0px -15px -10px -25px;
   /* 親を変えずに表のパディングをなくす */
 }
-
 
 /************************************************************/
 /* メディア @@@***************************************************/
@@ -197,7 +198,6 @@
 .ly_site_content_widgetArea_right li a {
   text-decoration: none;
 }
-
 
 /*********カテゴリーのリストにインデント!!!!!!!!!!!****************/
 .wp-block-categories ul.children {
@@ -377,7 +377,6 @@
   opacity: 0.8;
 }
 
-
 .nav-subtitle {
   display: flex;
   align-items: center;
@@ -500,7 +499,6 @@ nav.post-navigation {
   object-fit: cover;
 }
 
-
 /* カード全体e*/
 
 /* 画像側 s */
@@ -517,8 +515,6 @@ nav.post-navigation {
   transform: scale(1.1, 1.1);
   transition: 1s all;
 }
-
-
 
 /* category-labelを画像の左上に重ねる */
 .bl_card_img .category-label {
@@ -771,7 +767,6 @@ nav.post-navigation {
 
 /* fa e*/
 
-
 /************************************************************/
 /* SNSシェア @@@ ***************************************************/
 /************************************************************/
@@ -798,7 +793,6 @@ nav.post-navigation {
     height: 126px;
   }
 
-  
   nav.post-navigation {
     flex-direction: column;
     gap: 1em;
