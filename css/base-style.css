@@ -109,7 +109,7 @@ a:focus {
 }
 
 a:focus-visible {
-  position: relative;
+  /* position: relative;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
   outline: none; /* デフォルトのアウトラインを消す */
   box-shadow: 0 0 0 2px #c9c9c9;
   border-radius: 5px; 
