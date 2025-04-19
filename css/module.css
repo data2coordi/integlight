@@ -205,7 +205,7 @@
   margin-top: 10px;
 }
 
-/*********最近の投稿のインデントを取る!!!!!!!!!!!****************/
+/*********最近の投稿のインデントを取る !!!!!!!!!!!****************/
 .wp-block-latest-posts.wp-block-latest-posts__list li {
   text-indent: 0;
   padding-left: 0;
