@@ -201,8 +201,13 @@
 
 /*********カテゴリーのリストにインデント!!!!!!!!!!!****************/
 .wp-block-categories ul.children {
-  padding-left: 1.5em;
+  /* padding-left: 1.5em; */
   margin-top: 10px;
+}
+
+/*********最近の投稿のインデントを取る!!!!!!!!!!!****************/
+.widget_recent_entries .ly_site_content li {
+  text-indent: 0;
 }
 
 /* .widget .wp-block-search__button {
@@ -436,6 +441,8 @@ nav.post-navigation {
   color: #222;
   line-height: 2.2;
   color: #222;
+  font-size: 0.9rem;
+  /* フォントを少し小さく */
 }
 
 .post-toc ul li a:hover {
