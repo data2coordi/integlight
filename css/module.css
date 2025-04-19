@@ -206,8 +206,9 @@
 }
 
 /*********最近の投稿のインデントを取る!!!!!!!!!!!****************/
-.widget_recent_entries .ly_site_content li {
+.wp-block-latest-posts.wp-block-latest-posts__list li {
   text-indent: 0;
+  padding-left: 0;
 }
 
 /* .widget .wp-block-search__button {
