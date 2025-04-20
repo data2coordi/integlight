@@ -788,6 +788,16 @@ nav.post-navigation {
   /* SNSシェアの上下空きを作っている */
 }
 
+.addtoany_content::before {
+  content: "＼シェアしてね！／";
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+
+
 /* スマホレイアウト */
 
 @media (max-width: 768px) {
