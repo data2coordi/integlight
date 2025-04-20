@@ -35,21 +35,19 @@ class integlight_customizer_slider_creSectionTest extends WP_UnitTestCase
         parent::setUp();
 
         // Ensure WP_Customize_Manager class is loaded
-        if (!class_exists('WP_Customize_Manager')) {
-            if (defined('ABSPATH') && defined('WPINC')) {
-                $customize_manager_path = ABSPATH . WPINC . '/class-wp-customize-manager.php';
-                if (file_exists($customize_manager_path)) {
-                    require_once $customize_manager_path;
-                } else {
-                    $this->fail('WP_Customize_Manager class file not found at expected path: ' . $customize_manager_path);
-                }
-            } else {
-                $this->fail('WordPress core constants (ABSPATH, WPINC) are not defined. WP test environment might not be loaded.');
-            }
+        if (!defined('ABSPATH') || !defined('WPINC')) {
+            $this->fail('WordPress core constants (ABSPATH, WPINC) are not defined. WP test environment might not be loaded.');
         }
-        if (!class_exists('WP_Customize_Manager')) {
-            $this->fail('Failed to load WP_Customize_Manager class.');
+
+        $customize_manager_path = ABSPATH . WPINC . '/class-wp-customize-manager.php';
+
+        if (!file_exists($customize_manager_path)) {
+            $this->fail('WP_Customize_Manager class file not found at expected path: ' . $customize_manager_path);
         }
+
+        // Attempt to load the class file
+        require_once $customize_manager_path;
+
 
         // Instantiate the class under test BEFORE creating WP_Customize_Manager
         // because its constructor adds the action hook we might trigger later.
@@ -60,10 +58,7 @@ class integlight_customizer_slider_creSectionTest extends WP_UnitTestCase
         // WP_UnitTestCase should handle most of this.
         // We might need to set up the global $wp_customize variable if tests depend on it,
         // but often passing the instance directly is cleaner.
-        global $wp_customize; // Make the global available if needed elsewhere
         $this->wp_customize = new WP_Customize_Manager();
-        $wp_customize = $this->wp_customize; // Assign to global if necessary for compatibility
-
     }
 
     /**
@@ -139,30 +134,7 @@ class integlight_customizer_slider_creSectionTest extends WP_UnitTestCase
         $this->assertTrue(call_user_func($section2->active_callback), 'Active callback should return true when choice is default.');
     }
 
-    /**
-     * slider_section の active_callback のロジックをテストします。
-     * WP_UnitTestCase を利用して get_theme_mod の動作をシミュレートします。
-     * (このテストは testCreSectionRegistersPanelAndSections 内でも検証されるが、単体テストとして残す)
-     */
-    public function testActiveCallbackLogicWithWpUnitTestCase(): void
-    {
-        // creSection 内で定義されている active_callback のロジックを再現
-        $callback_logic = function () {
-            return get_theme_mod('integlight_display_choice', 'slider') === 'slider';
-        };
 
-        // ケース1: theme_mod が 'slider' に設定されている場合
-        set_theme_mod('integlight_display_choice', 'slider');
-        $this->assertTrue(call_user_func($callback_logic), "Callback should return true when theme_mod is 'slider'");
-
-        // ケース2: theme_mod が 'image' に設定されている場合
-        set_theme_mod('integlight_display_choice', 'image');
-        $this->assertFalse(call_user_func($callback_logic), "Callback should return false when theme_mod is 'image'");
-
-        // ケース3: theme_mod が未設定の場合 (デフォルト値 'slider' が使われる)
-        remove_theme_mod('integlight_display_choice');
-        $this->assertTrue(call_user_func($callback_logic), "Callback should return true when theme_mod is not set (defaults to 'slider')");
-    }
 
     /**
      * コンストラクタが customize_register アクションフックを正しく登録するかテスト
