@@ -1,10 +1,21 @@
 #!/bin/bash
 
 clear
-#sudo docker exec -it dev_wp_env_wordpress_1 bash \
-#    -c "cd /var/www/html/wp-content/themes/integlight && ./vendor/bin/phpunit"
+
+sudo docker exec -it dev_wp_env_wordpress_1 bash \
+    -c "cd /var/www/html/wp-content/themes/integlight && ./vendor/bin/phpunit tests/unit-tests/integlight_customizer_HeaderTypeSelecterTest.php"
 
 
-# Dockerコンテナ内で指定したテストファイルを実行
+exit 
+
+sudo docker exec -it dev_wp_env_wordpress_1 bash \
+    -c "cd /var/www/html/wp-content/themes/integlight && ./vendor/bin/phpunit"
+
+exit
+
 sudo docker exec -it dev_wp_env_wordpress_1 bash \
     -c "cd /var/www/html/wp-content/themes/integlight && ./vendor/bin/phpunit tests/unit-tests/integlight_customizer_slider_creSectionTest.php"
+
+sudo docker exec -it dev_wp_env_wordpress_1 bash \
+    -c "cd /var/www/html/wp-content/themes/integlight && ./vendor/bin/phpunit tests/unit-tests/integlight_customizer_sliderTest.php"
+
