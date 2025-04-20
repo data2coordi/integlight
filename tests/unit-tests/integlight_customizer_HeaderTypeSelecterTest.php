@@ -118,7 +118,7 @@ class integlight_customizer_HeaderTypeSelecterTest extends WP_UnitTestCase
         $setting = $this->wp_customize->get_setting('integlight_display_choice');
 
         $this->assertInstanceOf(WP_Customize_Setting::class, $setting, 'Setting "integlight_display_choice" should be registered.');
-        $this->assertEquals('header', $setting->default, 'Setting default value should be "header".'); // デフォルト値を確認
+        $this->assertEquals('slider', $setting->default, 'Setting default value should be "header".'); // デフォルト値を確認
         $this->assertEquals('sanitize_text_field', $setting->sanitize_callback, 'Setting sanitize_callback should be "sanitize_text_field".');
 
         // --- コントロール (Control) の検証 ---

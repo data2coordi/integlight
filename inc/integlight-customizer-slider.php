@@ -69,7 +69,7 @@ class integlight_customizer_HeaderTypeSelecter
 
 		// 選択ボックスを追加
 		$wp_customize->add_setting('integlight_display_choice', array(
-			'default' => 'header',
+			'default' => $this->pInteglight_slider_settings->headerTypeName_slider,
 			'sanitize_callback' => 'sanitize_text_field',
 		));
 
