@@ -1,7 +1,6 @@
 <?php // tests/unit-tests/integlight_customizer_slider_settingTest.php
 
 declare(strict_types=1);
-
 // 依存クラスとテスト対象クラスを読み込む (オートロードされていない場合)
 // require_once dirname(__DIR__, 2) . '/inc/integlight-customizer-slider-creSection.php';
 // require_once dirname(__DIR__, 2) . '/inc/integlight-customizer-slider-setting.php';
