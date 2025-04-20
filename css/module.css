@@ -706,6 +706,10 @@ nav.post-navigation {
   background: #c4c4c4;
 }
 
+section.widget_block {
+  margin-top: 0;
+}
+
 /* tag e */
 
 /************************************************************/
@@ -786,6 +790,7 @@ nav.post-navigation {
 .addtoany_content {
   margin: 50px auto;
   /* SNSシェアの上下空きを作っている */
+  text-align: center;
 }
 
 .addtoany_content::before {

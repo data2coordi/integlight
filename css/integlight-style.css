@@ -7,40 +7,37 @@
 /*************************************************************************/
 
 :root {
-    --font-base: clamp(14px, 1.6vw, 16px);
+  --font-base: clamp(14px, 1.6vw, 16px);
 
-    --ly-widthPadding: calc(100vw * 0.05);
-    --ly-topMerge: calc(100vw * 0.05);
-    --ly-betweenPadding: calc(100vw * 0.05);
-    --ly-elementTopMargin: calc(100vw * 0.03);
-    --ly-elementTopMarginSmall: calc(100vw * 0.015);
-    --ly-elementPadding: calc(100vw * 0.01);
-    --ly-elementBottomMargin: calc(100vw * 0.015);
-    --ly-content-max-width: calc(800px);
+  --ly-widthPadding: calc(100vw * 0.05);
+  --ly-topMerge: calc(100vw * 0.05);
+  --ly-betweenPadding: calc(100vw * 0.05);
+  --ly-elementTopMargin: calc(100vw * 0.03);
+  --ly-elementTopMarginSmall: calc(100vw * 0.015);
+  --ly-elementPadding: calc(100vw * 0.01);
+  --ly-elementBottomMargin: calc(100vw * 0.015);
+  --ly-content-max-width: calc(800px);
 }
-
-
 
 /*******************************/
 /* 特殊設定 s */
 /*******************************/
 
-
-
 html {
-    font-family: Arial, Helvetica, sans-serif;
-    line-height: 1.15;
-    -webkit-text-size-adjust: 100%;
-    color: #333;
-    font-size: var(--font-base);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  color: #333;
+  font-size: var(--font-base);
 }
 
 /**********フッターの調整をしている*********/
 /***************************************/
-html, body {
-    height: 100%;
-    margin: 0;
-  }
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
 
 h1,
 h2,
@@ -48,67 +45,65 @@ h3,
 h4,
 h5,
 h6 {
-    clear: both;
+  clear: both;
 }
-
-
 
 /*******************************/
 /* 基本的なフォントサイズの設定 s */
 /*******************************/
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    /* フォントファミリの設定 */
-    font-size: 1rem;
-    /* bodyのフォントサイズは16px相当 */
-    line-height: 1.8;
-    /* 行間の調整 */
+  font-family: Arial, Helvetica, sans-serif;
+  /* フォントファミリの設定 */
+  font-size: 1rem;
+  /* bodyのフォントサイズは16px相当 */
+  line-height: 1.8;
+  /* 行間の調整 */
 }
 
 /* 見出しのフォントサイズ */
 h1 {
-    font-size: 2rem;
+  font-size: 2rem;
 }
 
 h2 {
-    font-size: 1.75rem;
+  font-size: 1.75rem;
 }
 
 h3 {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 
 h4 {
-    font-size: 1.25rem;
+  font-size: 1.25rem;
 }
 
 h5 {
-    font-size: 1.2rem;
+  font-size: 1.2rem;
 }
 
 h6 {
-    font-size: 1.1rem;
+  font-size: 1.1rem;
 }
 
 /* パラグラフやテキストに適用する基本的なサイズ */
 p,
 ul {
-    font-size: 1rem;
+  font-size: 1rem;
 }
 
 a {
-    font-size: 1rem;
+  font-size: 1rem;
 }
 
 /* 小さな文字のためのクラス */
 .small-text {
-    font-size: 0.875rem;
+  font-size: 0.875rem;
 }
 
 /* 大きな文字のためのクラス */
 .large-text {
-    font-size: 1.25rem;
+  font-size: 1.25rem;
 }
 
 button,
@@ -116,16 +111,14 @@ input,
 optgroup,
 select,
 textarea {
-    font-size: 100%;
-    padding: 10px;
+  font-size: 100%;
+  padding: 10px;
 }
 
 .wp-lightbox-overlay .close-button {
-    right: 16px !important;
-    top: 16px !important;
-  }
-
-
+  right: 16px !important;
+  top: 16px !important;
+}
 
 /*-------------全幅ブロック----------*/
 /* .wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-colum {
@@ -134,13 +127,9 @@ textarea {
 	padding-bottom: 20px;
 } */
 
-
 /*******************************/
 /* 基本的なフォントサイズの設定 e */
 /*******************************/
-
-
-
 
 /*****************************************************/
 /*****************************************************/
@@ -158,7 +147,6 @@ textarea {
 <title>      : ページタイトルを指定
 <body>       : 表示されるコンテンツを記述
 */
-
 
 /* 
 ====================
@@ -193,8 +181,6 @@ textarea {
 <a>     : ハイパーリンクを作成
 */
 
-
-
 /* 
 ====================
 5. フォーマット・インラインタグ (Inline Elements)
@@ -206,7 +192,6 @@ textarea {
 <code>    : コードスニペット
 <small>   : 小さいテキスト
 */
-
 
 /* 
 ====================
@@ -227,14 +212,15 @@ textarea {
 <th>    : 見出しセルを定義
 */
 
-.wp-block-table :is(table,thead,tbody,tfoot,td) {
-    border-color: #eee;
-    /* 表の線を薄くする */
+.wp-block-table :is(table, thead, tbody, tfoot, td) {
+  border: 3px solid #eee;
+  /* 表の線を薄くする */
+  padding: 0.8em;
 }
 
 .wp-block-table th {
-    border-color: #eee;
-    background: #eee;
+  border-color: #eee;
+  background: #eee;
 }
 
 /* 
@@ -247,15 +233,15 @@ textarea {
 */
 
 .aligncenter {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    /* 画像を中央配置 */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  /* 画像を中央配置 */
 }
 
 .alignright {
-    float: right;
-    /* 画像を右寄せ */
+  float: right;
+  /* 画像を右寄せ */
 }
 
 /* 
@@ -269,8 +255,6 @@ textarea {
 <label>    : 入力フィールドのラベル
 */
 
-
-
 /* 
 ====================
 10. メタ情報・SEO (Metadata)
@@ -279,17 +263,6 @@ textarea {
 <link>   : 外部リソースを参照
 <script> : JavaScriptコードを埋め込む
 */
-
-
-
-
-
-
-
-
-
-
-
 
 /*************************************************************************/
 /*************************************************************************/
