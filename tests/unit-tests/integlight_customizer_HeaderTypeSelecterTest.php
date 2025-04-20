@@ -9,6 +9,7 @@ declare(strict_types=1);
  * @covers integlight_customizer_HeaderTypeSelecter
  * @group customizer
  */
+require_once dirname(__DIR__, 2) . '/inc/integlight-customizer-slider.php';
 class integlight_customizer_HeaderTypeSelecterTest extends WP_UnitTestCase
 {
     /**
