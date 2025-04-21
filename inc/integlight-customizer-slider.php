@@ -425,6 +425,8 @@ class integlight_customizer_slider_setting
 			'label'   => $label,
 			'section' => $this->pSectionId,
 			'settings' => $settingName,
+			'type'    => 'textarea', // ← これを追加！
+
 		));
 	}
 

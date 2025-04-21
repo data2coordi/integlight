@@ -337,13 +337,13 @@ class integlight_customizer_slider_settingTest extends WP_UnitTestCase
             'integlight_slider_text_1' => [ // textSetting
                 'label' => __('Slider Text Main', 'integlight'),
                 'section' => $this->test_section_id,
-                'type' => 'text', // textSetting はデフォルトのテキストコントロールを追加
+                'type' => 'textarea', // textSetting はデフォルトのテキストコントロールを追加
                 'control_class' => 'WP_Customize_Control',
             ],
             'integlight_slider_text_2' => [ // textSetting
                 'label' => __('Slider Text Sub', 'integlight'),
                 'section' => $this->test_section_id,
-                'type' => 'text',
+                'type' => 'textarea',
                 'control_class' => 'WP_Customize_Control',
             ],
             'integlight_slider_text_color' => [ // colorSetting
