@@ -184,7 +184,7 @@
 }
 
 li > ul > .cat-item:last-of-type {
-  border-bottom: none
+  border-bottom: none;
   /* カテゴリーの二重線をとっている */
 }
 
@@ -800,7 +800,6 @@ section.widget_block {
   border-left: none;
 }
 
-
 /* fa e*/
 
 /************************************************************/
@@ -841,14 +840,19 @@ pre.wp-block-verse {
   content: "\f10d";
   font-weight: 900;
   position: absolute;
-  left:60px;
+  left: 60px;
   top: -25px;
   transform: translateX(-100%);
   font-size: 50px;
   color: #dedede;
 }
 
-
+/* カレンダーのデザイン */
+.wp-block-calendar td,
+.wp-block-calendar th {
+  border: 3px solid;
+  padding: 1em 0.25em;
+}
 
 /* スマホレイアウト */
 
