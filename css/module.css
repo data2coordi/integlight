@@ -183,6 +183,11 @@
   padding: 5px 0px;
 }
 
+li > ul > .cat-item:last-of-type {
+  border-bottom: none
+  /* カテゴリーの二重線をとっている */
+}
+
 .ly_site_content_widgetArea_right h2,
 .ly_site_content_widgetArea_right h3 {
   padding-top: 1em;
@@ -202,6 +207,7 @@
 
 .ly_site_content_widgetArea_right li a {
   text-decoration: none;
+  font-size: 0.9rem;
 }
 
 /*********カテゴリーのリストにマージン !!!!!!!!!!!****************/
@@ -211,9 +217,17 @@
 }
 
 /*********最近の投稿のインデントを取る!!!!!!!!!!!****************/
-.wp-block-latest-posts.wp-block-latest-posts__list li {
+.wp-block-latest-posts li {
   text-indent: 0;
   padding-left: 0;
+}
+
+/*********アーカイブの見た目を整えている!!!!!!!!!!!****************/
+.wp-block-archives li {
+  padding: 5px 0px;
+  border-bottom: 1px solid #eee;
+  text-indent: 0;
+  /* 左に寄るのを防いでいる */
 }
 
 /* .widget .wp-block-search__button {
