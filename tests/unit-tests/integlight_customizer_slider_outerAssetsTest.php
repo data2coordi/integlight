@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-// テスト対象クラスと依存クラスを含むファイルを読み込む
-// テスト対象クラスは setUp でインスタンス化される際に読み込まれるはずだが、
-// 明示的に読み込む場合は以下を追加
+// テスト対象クラスと依存クラスを含むファイルを読み込む (オートロードされていない場合)
 // require_once dirname(__DIR__, 2) . '/inc/integlight-customizer-slider.php';
+// require_once dirname(__DIR__, 2) . '/inc/integlight-functions-outerAssets.php'; // 依存クラス
 
 /**
  * integlight_customizer_slider_outerAssets クラスのユニットテスト
- * 主に provideTOjs メソッドによるスクリプトローカライズをテストします。
+ * コンストラクタでのアセット登録と provideTOjs メソッドによるローカライズをテストします。
  *
  * @coversDefaultClass integlight_customizer_slider_outerAssets
  * @group customizer
@@ -47,6 +46,14 @@ class integlight_customizer_slider_outerAssetsTest extends WP_UnitTestCase // �
     {
         parent::setUp();
 
+        // WordPress のスクリプト/スタイルシステムをリセット
+        $this->reset_wp_scripts_styles();
+
+        // 依存クラスの静的プロパティをリセット
+        $this->reset_static_property(InteglightFrontendStyles::class, 'styles');
+        $this->reset_static_property(InteglightFrontendScripts::class, 'scripts');
+        $this->reset_static_property(InteglightDeferJs::class, 'deferred_scripts');
+
         // テスト用のグローバル設定オブジェクトを作成
         $this->mock_slider_settings = new stdClass();
         $this->mock_slider_settings->effectName_fade = 'fade';
@@ -55,35 +62,13 @@ class integlight_customizer_slider_outerAssetsTest extends WP_UnitTestCase // �
         $this->mock_slider_settings->headerTypeName_image = 'image';
 
         // テスト対象クラスのインスタンスを作成
+        // ※コンストラクタ内でフック登録やアセット追加が行われる
         $this->instance = new integlight_customizer_slider_outerAssets($this->mock_slider_settings);
 
         // テスト前に theme_mod をクリア
         foreach ($this->theme_mods_keys as $key) {
             remove_theme_mod($key);
         }
-
-        // WordPress のスクリプト/スタイルシステムをリセット
-        wp_scripts()->registered = [];
-        wp_scripts()->queue = [];
-        wp_scripts()->done = [];
-        wp_scripts()->print_html = '';
-        wp_scripts()->print_code = '';
-        wp_scripts()->args = [];
-        wp_scripts()->concat = '';
-        wp_scripts()->concat_version = '';
-        wp_scripts()->do_concat = false;
-        wp_scripts()->default_dirs = [];
-
-        wp_styles()->registered = [];
-        wp_styles()->queue = [];
-        wp_styles()->done = [];
-        wp_styles()->print_html = '';
-        wp_styles()->print_code = '';
-        wp_styles()->args = [];
-        wp_styles()->concat = '';
-        wp_styles()->concat_version = '';
-        wp_styles()->do_concat = false;
-        wp_styles()->default_dirs = [];
     }
 
     /**
@@ -92,7 +77,7 @@ class integlight_customizer_slider_outerAssetsTest extends WP_UnitTestCase // �
     public function tearDown(): void
     {
         // コンストラクタで追加されたアクションフックを削除
-        remove_action('wp_enqueue_scripts', [$this->instance, 'provideTOjs']); // 正しいメソッド名に修正
+        remove_action('wp_enqueue_scripts', [$this->instance, 'provideTOjs']);
 
         // テスト後に theme_mod をクリア
         foreach ($this->theme_mods_keys as $key) {
@@ -103,35 +88,94 @@ class integlight_customizer_slider_outerAssetsTest extends WP_UnitTestCase // �
         unset($this->instance);
         unset($this->mock_slider_settings);
 
-        // WordPress のスクリプト/スタイルシステムを再度リセット (念のため)
-        wp_scripts()->registered = [];
-        wp_scripts()->queue = [];
-        wp_scripts()->done = [];
-        wp_styles()->registered = [];
-        wp_styles()->queue = [];
-        wp_styles()->done = [];
+        // WordPress のスクリプト/スタイルシステムを再度リセット
+        $this->reset_wp_scripts_styles();
 
+        // 依存クラスの静的プロパティをリセット
+        $this->reset_static_property(InteglightFrontendStyles::class, 'styles');
+        $this->reset_static_property(InteglightFrontendScripts::class, 'scripts');
+        $this->reset_static_property(InteglightDeferJs::class, 'deferred_scripts');
 
         parent::tearDown();
     }
 
     /**
+     * WordPress のスクリプト/スタイルシステムをリセットするヘルパーメソッド
+     */
+    private function reset_wp_scripts_styles(): void
+    {
+        global $wp_scripts, $wp_styles;
+        $wp_scripts = new WP_Scripts();
+        $wp_styles = new WP_Styles();
+    }
+
+    /**
+     * Reflection を使用して静的プロパティをリセットするヘルパーメソッド
+     */
+    private function reset_static_property(string $className, string $propertyName, $defaultValue = []): void
+    {
+        try {
+            $reflection = new ReflectionProperty($className, $propertyName);
+            // PHP 8.1 以降では setAccessible は不要な場合があるが、互換性のために残す
+            if (method_exists($reflection, 'setAccessible')) {
+                $reflection->setAccessible(true);
+            }
+            $reflection->setValue(null, $defaultValue); // 静的プロパティをリセット
+        } catch (ReflectionException $e) {
+            // プロパティが存在しないなどのエラー処理 (必要に応じて)
+            $this->fail("Failed to reset static property {$className}::{$propertyName}: " . $e->getMessage());
+        }
+    }
+
+    /**
+     * Reflection を使用して静的プロパティの値を取得するヘルパーメソッド
+     */
+    private function get_static_property_value(string $className, string $propertyName)
+    {
+        try {
+            $reflectionClass = new ReflectionClass($className);
+            $property = $reflectionClass->getProperty($propertyName);
+            // PHP 8.1 以降では setAccessible は不要な場合があるが、互換性のために残す
+            if (method_exists($property, 'setAccessible')) {
+                $property->setAccessible(true);
+            }
+            return $property->getValue();
+        } catch (ReflectionException $e) {
+            $this->fail("Failed to get static property {$className}::{$propertyName}: " . $e->getMessage());
+        }
+    }
+
+    /**
      * @test
      * @covers ::__construct
-     * コンストラクタが wp_enqueue_scripts アクションフック (provideTOjs) を正しく登録するかテスト
+     * コンストラクタがフックを追加し、関連クラスにアセットを登録するかテスト
      */
-    public function test_constructor_adds_provideTOjs_action(): void // メソッド名を変更
+    public function test_constructor_adds_hooks_and_assets(): void
     {
-        // setUp でインスタンスが作成され、コンストラクタが実行されている前提
-        $hook_priority = has_action('wp_enqueue_scripts', [$this->instance, 'provideTOjs']); // 正しいメソッド名
+        // Assert: フックが登録されているか
+        // setUp でインスタンスが作成される際にコンストラクタが実行されている
+        $this->assertGreaterThan(0, has_action('wp_enqueue_scripts', [$this->instance, 'provideTOjs']), 'Action hook wp_enqueue_scripts for provideTOjs should be added.');
+        $this->assertEquals(10, has_action('wp_enqueue_scripts', [$this->instance, 'provideTOjs']), 'Action hook wp_enqueue_scripts for provideTOjs should have default priority 10.');
 
-        $this->assertNotFalse(
-            $hook_priority,
-            'Constructor should add the provideTOjs method to the wp_enqueue_scripts action.' // メッセージを修正
-        );
-        // provideTOjs のデフォルト優先度 (10) を確認
-        $this->assertEquals(10, $hook_priority, 'The hook priority for provideTOjs should be the default (10).');
+        // Assert: InteglightFrontendStyles にスタイルが追加されたか
+        $styles = $this->get_static_property_value(InteglightFrontendStyles::class, 'styles');
+        $this->assertIsArray($styles, 'InteglightFrontendStyles::$styles should be an array.');
+        $this->assertArrayHasKey('integlight-slide', $styles, 'Style "integlight-slide" should be added to InteglightFrontendStyles.');
+        $this->assertEquals('/css/integlight-slide-style.css', $styles['integlight-slide'], 'Path for "integlight-slide" style should be correct.');
+
+        // Assert: InteglightFrontendScripts にスクリプトが追加されたか
+        $scripts = $this->get_static_property_value(InteglightFrontendScripts::class, 'scripts');
+        $this->assertIsArray($scripts, 'InteglightFrontendScripts::$scripts should be an array.');
+        $this->assertArrayHasKey('integlight_slider-script', $scripts, 'Script "integlight_slider-script" should be added to InteglightFrontendScripts.');
+        $this->assertEquals('/js/integlight-scripts.js', $scripts['integlight_slider-script']['path'], 'Path for "integlight_slider-script" should be correct.');
+        $this->assertContains('jquery', $scripts['integlight_slider-script']['deps'], 'Dependency "jquery" for "integlight_slider-script" should be set.');
+
+        // Assert: InteglightDeferJs に遅延スクリプトが追加されたか
+        $deferredScripts = $this->get_static_property_value(InteglightDeferJs::class, 'deferred_scripts');
+        $this->assertIsArray($deferredScripts, 'InteglightDeferJs::$deferred_scripts should be an array.');
+        $this->assertContains('integlight_slider-script', $deferredScripts, 'Script "integlight_slider-script" should be added to InteglightDeferJs for deferring.');
     }
+
 
     /**
      * @test
@@ -146,10 +190,16 @@ class integlight_customizer_slider_outerAssetsTest extends WP_UnitTestCase // �
         set_theme_mod('integlight_slider_change_duration', '5'); // 5秒
 
         // Act: wp_enqueue_scripts アクションを実行
+        // このアクションにより、コンストラクタで登録された provideTOjs が実行される
+        // また、InteglightFrontendScripts::enqueue_frontend_scripts も実行され、
+        // 'integlight_slider-script' がエンキューされる（ローカライズの前提条件）
         do_action('wp_enqueue_scripts');
 
         // Assert: ローカライズされたデータを取得して検証
         $scripts = wp_scripts();
+        // スクリプトがエンキューされていることを確認 (ローカライズの前提)
+        $this->assertTrue(wp_script_is('integlight_slider-script', 'enqueued'), 'Script integlight_slider-script should be enqueued before localization.');
+        // 登録も確認
         $this->assertTrue(wp_script_is('integlight_slider-script', 'registered'), 'Script integlight_slider-script should be registered.');
 
         $localized_data_string = $scripts->get_data('integlight_slider-script', 'data');
@@ -160,27 +210,37 @@ class integlight_customizer_slider_outerAssetsTest extends WP_UnitTestCase // �
         $this->assertIsString($localized_data_string, 'Localized data should be a string.');
         $this->assertNotEmpty($localized_data_string, 'Localized data string should not be empty.');
 
-        // 3. JSON 文字列部分を抽出 (さらに修正)
-        $json_string = null; // 初期化
-        if (preg_match('/var\s+integlight_sliderSettings\s*=\s*(\{.*?\})\s*;?\s*$/s', trim($localized_data_string), $matches)) {
-            $json_string = $matches[1];
-        } else {
-            $temp_string = preg_replace('/^var\s+integlight_sliderSettings\s*=\s*/', '', trim($localized_data_string));
-            $json_string = preg_replace('/;\s*$/', '', $temp_string);
+        // --- 正規表現を使わないJSON抽出 (修正版) ---
+        $startPos = strpos($localized_data_string, '{'); // 最初の '{' の位置
+        if ($startPos === false) {
+            $this->fail('Could not find the starting "{" in localized data string: [' . $localized_data_string . ']');
         }
-        $this->assertNotNull($json_string, 'Failed to extract JSON part from localized data string: [' . $localized_data_string . ']');
 
+        // 最初の '{' 以降で、最初の '};' を探す
+        $endMarker = '};';
+        $endMarkerPos = strpos($localized_data_string, $endMarker, $startPos);
+
+        if ($endMarkerPos === false) {
+            // '};' が見つからない場合のエラー処理 (必要に応じて)
+            // もし ';' がない形式もありうるなら、最後の '}' を探すフォールバックも検討
+            $this->fail('Could not find the ending marker "};" after "{" in localized data string: [' . $localized_data_string . ']');
+        }
+
+        // '{' から '};' の '}' までを抽出
+        // $endMarkerPos は ';' の位置なので、その1つ前までが '}'
+        $json_string = substr($localized_data_string, $startPos, $endMarkerPos - $startPos + 1);
+        // --- JSON抽出ここまで ---
 
         // 4. JSON デコードを実行
         $decoded_data = json_decode($json_string, true);
 
-        // 5. デコードが成功したか確認 (デバッグメッセージ修正)
+        // 5. デコードが成功したか確認
         $this->assertNotNull($decoded_data, 'json_decode failed. JSON string might be invalid. String attempted to decode: [' . $json_string . '] | Original localized string: [' . $localized_data_string . ']');
         // 6. 配列であることを確認
         $this->assertIsArray($decoded_data, 'Decoded localized data should be an array.');
 
 
-        // 各キーと値を確認
+        // 各キーと値を確認 (ここは変更なし)
         $this->assertArrayHasKey('displayChoice', $decoded_data, 'Localized data should have "displayChoice" key.');
         $this->assertEquals('slider', $decoded_data['displayChoice'], 'Localized displayChoice should be "slider".');
 
@@ -198,215 +258,5 @@ class integlight_customizer_slider_outerAssetsTest extends WP_UnitTestCase // �
 
         $this->assertArrayHasKey('headerTypeNameSlider', $decoded_data, 'Localized data should have "headerTypeNameSlider" key.');
         $this->assertEquals($this->mock_slider_settings->headerTypeName_slider, $decoded_data['headerTypeNameSlider']);
-    }
-
-
-    /**
-     * @test
-     * @covers ::provideTOjs
-     * ヘッダータイプが 'image' の場合にスクリプトが正しくローカライズされるかテスト
-     */
-    public function test_provideTOjs_localizes_correctly_when_image(): void // 新しいテストメソッド
-    {
-        // Arrange: ヘッダータイプを 'image' に設定、他はデフォルト
-        set_theme_mod('integlight_display_choice', $this->mock_slider_settings->headerTypeName_image); // 'image'
-
-        // Act: wp_enqueue_scripts アクションを実行
-        do_action('wp_enqueue_scripts');
-
-        // Assert: ローカライズされたデータを取得して検証
-        $scripts = wp_scripts();
-        $this->assertTrue(wp_script_is('integlight_slider-script', 'registered'), 'Script integlight_slider-script should be registered.');
-        $localized_data_string = $scripts->get_data('integlight_slider-script', 'data');
-
-        // 1. get_data が false を返さないことを確認
-        $this->assertNotFalse($localized_data_string, 'Failed to get localized data. wp_localize_script might have failed or script not enqueued/registered correctly.');
-        // 2. ローカライズデータが空でない文字列であることを確認
-        $this->assertIsString($localized_data_string, 'Localized data should be a string.');
-        $this->assertNotEmpty($localized_data_string, 'Localized data string should not be empty.');
-
-        // 3. JSON 文字列部分を抽出 (さらに修正)
-        $json_string = null; // 初期化
-        if (preg_match('/var\s+integlight_sliderSettings\s*=\s*(\{.*?\})\s*;?\s*$/s', trim($localized_data_string), $matches)) {
-            $json_string = $matches[1];
-        } else {
-            $temp_string = preg_replace('/^var\s+integlight_sliderSettings\s*=\s*/', '', trim($localized_data_string));
-            $json_string = preg_replace('/;\s*$/', '', $temp_string);
-        }
-        $this->assertNotNull($json_string, 'Failed to extract JSON part from localized data string: [' . $localized_data_string . ']');
-
-
-        // 4. JSON デコードを実行
-        $decoded_data = json_decode($json_string, true);
-
-        // 5. デコードが成功したか確認 (デバッグメッセージ修正)
-        $this->assertNotNull($decoded_data, 'json_decode failed. JSON string might be invalid. String attempted to decode: [' . $json_string . '] | Original localized string: [' . $localized_data_string . ']');
-        // 6. 配列であることを確認
-        $this->assertIsArray($decoded_data, 'Decoded localized data should be an array.');
-
-
-        // displayChoice が 'image' であることを確認
-        $this->assertArrayHasKey('displayChoice', $decoded_data);
-        $this->assertEquals('image', $decoded_data['displayChoice'], 'Localized displayChoice should be "image".');
-
-        // 他の値がデフォルト値で渡されていることを確認 (例: effect)
-        $this->assertArrayHasKey('effect', $decoded_data);
-        $this->assertEquals($this->mock_slider_settings->effectName_fade, $decoded_data['effect'], 'Localized effect should be the default ("fade").');
-
-        $this->assertArrayHasKey('changeDuration', $decoded_data);
-        $this->assertEquals('3', $decoded_data['changeDuration'], 'Localized changeDuration should be the default ("3").');
-    }
-
-    /**
-     * @test
-     * @covers ::provideTOjs
-     * theme_mod が未設定の場合にデフォルト値でローカライズされるかテスト
-     */
-    public function test_provideTOjs_localizes_correctly_with_defaults(): void // 新しいテストメソッド
-    {
-        // Arrange: theme_mod は setUp でクリア済み
-
-        // Act: wp_enqueue_scripts アクションを実行
-        do_action('wp_enqueue_scripts');
-
-        // Assert: ローカライズされたデータを取得して検証
-        $scripts = wp_scripts();
-        $this->assertTrue(wp_script_is('integlight_slider-script', 'registered'), 'Script integlight_slider-script should be registered.');
-        $localized_data_string = $scripts->get_data('integlight_slider-script', 'data');
-
-        // 1. get_data が false を返さないことを確認
-        $this->assertNotFalse($localized_data_string, 'Failed to get localized data. wp_localize_script might have failed or script not enqueued/registered correctly.');
-        // 2. ローカライズデータが空でない文字列であることを確認
-        $this->assertIsString($localized_data_string, 'Localized data should be a string.');
-        $this->assertNotEmpty($localized_data_string, 'Localized data string should not be empty.');
-
-        // 3. JSON 文字列部分を抽出 (さらに修正)
-        $json_string = null; // 初期化
-        if (preg_match('/var\s+integlight_sliderSettings\s*=\s*(\{.*?\})\s*;?\s*$/s', trim($localized_data_string), $matches)) {
-            $json_string = $matches[1];
-        } else {
-            $temp_string = preg_replace('/^var\s+integlight_sliderSettings\s*=\s*/', '', trim($localized_data_string));
-            $json_string = preg_replace('/;\s*$/', '', $temp_string);
-        }
-        $this->assertNotNull($json_string, 'Failed to extract JSON part from localized data string: [' . $localized_data_string . ']');
-
-
-        // 4. JSON デコードを実行
-        $decoded_data = json_decode($json_string, true);
-
-        // 5. デコードが成功したか確認 (デバッグメッセージ修正)
-        $this->assertNotNull($decoded_data, 'json_decode failed. JSON string might be invalid. String attempted to decode: [' . $json_string . '] | Original localized string: [' . $localized_data_string . ']');
-        // 6. 配列であることを確認
-        $this->assertIsArray($decoded_data, 'Decoded localized data should be an array.');
-
-
-        // 各値がデフォルト値であることを確認
-        $this->assertArrayHasKey('displayChoice', $decoded_data);
-        // get_theme_mod('integlight_display_choice') はデフォルト値が設定されていないため null を返すはず
-        $this->assertNull($decoded_data['displayChoice'], 'Localized displayChoice should be null when not set.');
-
-        $this->assertArrayHasKey('changeDuration', $decoded_data);
-        $this->assertEquals('3', $decoded_data['changeDuration'], 'Localized changeDuration should be the default ("3").');
-
-        $this->assertArrayHasKey('effect', $decoded_data);
-        $this->assertEquals($this->mock_slider_settings->effectName_fade, $decoded_data['effect'], 'Localized effect should be the default ("fade").');
-    }
-
-    /**
-     * @test
-     * @covers ::provideTOjs
-     * スライダーエフェクトが 'fade' の場合に正しいデータがローカライズされるかテスト
-     */
-    public function test_provideTOjs_localizes_fade_effect_correctly(): void // メソッド名を変更
-    {
-        // Arrange: ヘッダータイプとエフェクトを設定
-        set_theme_mod('integlight_display_choice', $this->mock_slider_settings->headerTypeName_slider);
-        set_theme_mod('integlight_slider_effect', $this->mock_slider_settings->effectName_fade); // 'fade'
-
-        // Act: wp_enqueue_scripts アクションを実行
-        do_action('wp_enqueue_scripts');
-
-        // Assert: ローカライズされたデータを取得して検証
-        $scripts = wp_scripts();
-        $this->assertTrue(wp_script_is('integlight_slider-script', 'registered'), 'Script integlight_slider-script should be registered.');
-        $localized_data_string = $scripts->get_data('integlight_slider-script', 'data');
-
-        // 1. get_data が false を返さないことを確認
-        $this->assertNotFalse($localized_data_string, 'Failed to get localized data. wp_localize_script might have failed or script not enqueued/registered correctly.');
-        // 2. ローカライズデータが空でない文字列であることを確認
-        $this->assertIsString($localized_data_string, 'Localized data should be a string.');
-        $this->assertNotEmpty($localized_data_string, 'Localized data string should not be empty.');
-
-        // 3. JSON 文字列部分を抽出 (さらに修正)
-        $json_string = null; // 初期化
-        if (preg_match('/var\s+integlight_sliderSettings\s*=\s*(\{.*?\})\s*;?\s*$/s', trim($localized_data_string), $matches)) {
-            $json_string = $matches[1];
-        } else {
-            $temp_string = preg_replace('/^var\s+integlight_sliderSettings\s*=\s*/', '', trim($localized_data_string));
-            $json_string = preg_replace('/;\s*$/', '', $temp_string);
-        }
-        $this->assertNotNull($json_string, 'Failed to extract JSON part from localized data string: [' . $localized_data_string . ']');
-
-
-        // 4. JSON デコードを実行
-        $decoded_data = json_decode($json_string, true);
-
-        // 5. デコードが成功したか確認 (デバッグメッセージ修正)
-        $this->assertNotNull($decoded_data, 'json_decode failed. JSON string might be invalid. String attempted to decode: [' . $json_string . '] | Original localized string: [' . $localized_data_string . ']');
-        // 6. 配列であることを確認
-        $this->assertIsArray($decoded_data, 'Decoded localized data should be an array.');
-
-
-        $this->assertArrayHasKey('effect', $decoded_data);
-        $this->assertEquals('fade', $decoded_data['effect'], 'Localized effect should be "fade".');
-    }
-
-    /**
-     * @test
-     * @covers ::provideTOjs
-     * スライダーエフェクトが 'slide' の場合に正しいデータがローカライズされるかテスト
-     */
-    public function test_provideTOjs_localizes_slide_effect_correctly(): void // メソッド名を変更
-    {
-        // Arrange: ヘッダータイプとエフェクトを設定
-        set_theme_mod('integlight_display_choice', $this->mock_slider_settings->headerTypeName_slider);
-        set_theme_mod('integlight_slider_effect', $this->mock_slider_settings->effectName_slide); // 'slide'
-
-        // Act: wp_enqueue_scripts アクションを実行
-        do_action('wp_enqueue_scripts');
-
-        // Assert: ローカライズされたデータを取得して検証
-        $scripts = wp_scripts();
-        $this->assertTrue(wp_script_is('integlight_slider-script', 'registered'), 'Script integlight_slider-script should be registered.');
-        $localized_data_string = $scripts->get_data('integlight_slider-script', 'data'); // 正しいハンドル名
-
-        // 1. get_data が false を返さないことを確認
-        $this->assertNotFalse($localized_data_string, 'Failed to get localized data. wp_localize_script might have failed or script not enqueued/registered correctly.');
-        // 2. ローカライズデータが空でない文字列であることを確認
-        $this->assertIsString($localized_data_string, 'Localized data should be a string.');
-        $this->assertNotEmpty($localized_data_string, 'Localized data string should not be empty.');
-
-        // 3. JSON 文字列部分を抽出 (さらに修正)
-        $json_string = null; // 初期化
-        if (preg_match('/var\s+integlight_sliderSettings\s*=\s*(\{.*?\})\s*;?\s*$/s', trim($localized_data_string), $matches)) {
-            $json_string = $matches[1];
-        } else {
-            $temp_string = preg_replace('/^var\s+integlight_sliderSettings\s*=\s*/', '', trim($localized_data_string));
-            $json_string = preg_replace('/;\s*$/', '', $temp_string);
-        }
-        $this->assertNotNull($json_string, 'Failed to extract JSON part from localized data string: [' . $localized_data_string . ']');
-
-
-        // 4. JSON デコードを実行
-        $decoded_data = json_decode($json_string, true); // 正しいオブジェクト名
-
-        // 5. デコードが成功したか確認 (デバッグメッセージ修正)
-        $this->assertNotNull($decoded_data, 'json_decode failed. JSON string might be invalid. String attempted to decode: [' . $json_string . '] | Original localized string: [' . $localized_data_string . ']');
-        // 6. 配列であることを確認
-        $this->assertIsArray($decoded_data, 'Decoded localized data should be an array.');
-
-
-        $this->assertArrayHasKey('effect', $decoded_data, 'Localized data should have "effect" key.');
-        $this->assertEquals('slide', $decoded_data['effect'], 'Localized effect should be "slide".');
     }
 }

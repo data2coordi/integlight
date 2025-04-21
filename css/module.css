@@ -641,6 +641,10 @@ nav.post-navigation {
   /*color: blue;  ホバー時に色を変える（任意） */
 }
 
+.fa-angle-right:before {
+  margin-left: 25px;
+}
+
 /* パンくずe */
 
 /*************************************/
@@ -795,6 +799,13 @@ section.widget_block {
   border: 1px solid #222;
   border-left: none;
 }
+
+.fa-quote-left {
+  font-size: 20px;
+  color: #999;
+  margin-right: 6px;
+}
+
 
 /* fa e*/
 
