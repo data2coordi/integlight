@@ -32,21 +32,39 @@ function integlight_display_headerContents()
 
 // 見出しセクション作成クラス _s ////////////////////////////////////////////////////////////////////////////////
 
-if (class_exists('WP_Customize_Control') && ! class_exists('integlight_customizer_creBigTitle')) {
-	class integlight_customizer_creBigTitle extends WP_Customize_Control
-	{
-		public $type = 'heading';
-		public function render_content()
-		{
-			if (! empty($this->label)) {
-				echo '<h3 style="border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 10px;">' . esc_html($this->label) . '</h3>';
+/**
+ * カスタムカスタマイザーコントロールクラスを定義する関数
+ * customize_register フックの早い段階で実行される
+ */
+function integlight_define_custom_controls()
+{
+	// integlight_customizer_creBigTitle クラスがまだ定義されていない場合のみ定義
+	if (! class_exists('integlight_customizer_creBigTitle')) {
+		// この時点では customize_register フック内なので WP_Customize_Control は存在するはず
+		// 念のため存在確認を追加しても良い
+		if (class_exists('WP_Customize_Control')) {
+			class integlight_customizer_creBigTitle extends WP_Customize_Control
+			{
+				public $type = 'heading';
+				public function render_content()
+				{
+					if (! empty($this->label)) {
+						echo '<h3 style="border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 10px;">' . esc_html($this->label) . '</h3>';
+					}
+					if (!empty($this->description)) {
+						echo '<span class="description customize-control-description">' . esc_html($this->description) . '</span>';
+					}
+				}
 			}
-			if (!empty($this->description)) {
-				echo '<span class="description customize-control-description">' . esc_html($this->description) . '</span>';
-			}
+		} else {
+			// WP_Customize_Control が見つからない場合のエラーログ（通常は発生しないはず）
+			trigger_error('WP_Customize_Control not found when trying to define integlight_customizer_creBigTitle.', E_USER_WARNING);
 		}
 	}
+	// 他にもカスタムコントロールがあればここに追加定義できます
 }
+// setting メソッドよりも早い優先度 (例: 9) でクラス定義関数をフック
+add_action('customize_register', 'integlight_define_custom_controls', 9);
 // 見出しセクション作成クラス _e ////////////////////////////////////////////////////////////////////////////////
 
 
@@ -319,6 +337,7 @@ class integlight_customizer_slider_setting
 
 	public function setting($wp_customize)
 	{
+		integlight_define_custom_controls();
 		$this->pWp_customize = $wp_customize;
 
 		/* 効果 */
@@ -490,6 +509,7 @@ class integlight_customizer_slider
 
 	public function __construct()
 	{
+
 
 
 		//グローバルで使う定数を定義

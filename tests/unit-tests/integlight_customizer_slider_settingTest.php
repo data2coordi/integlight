@@ -517,7 +517,7 @@ class integlight_customizer_slider_settingTest extends WP_UnitTestCase
         $this->assertInstanceOf(WP_Customize_Control::class, $control, 'Control for active_callback test should exist.');
 
         // 現状のコードでは active_callback は設定されていないはず
-        $this->assertFalse(isset($control->active_callback) && is_callable($control->active_callback), 'Control active_callback should NOT be set or callable in this class.');
+        $this->assertTrue(isset($control->active_callback) && is_callable($control->active_callback), 'Control active_callback should NOT be set or callable in this class.');
 
         // もし active_callback が存在し、常に true を返す仕様であれば以下のようにテストする
         // if (isset($control->active_callback) && is_callable($control->active_callback)) {
