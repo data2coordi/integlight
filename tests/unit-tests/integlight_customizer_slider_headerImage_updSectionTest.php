@@ -13,7 +13,7 @@ declare(strict_types=1);
  * @group customizer
  * @group slider
  */
-class integlight_customizer_headerImage_updSectionTest extends WP_UnitTestCase
+class integlight_customizer_slider_headerImage_updSectionTest extends WP_UnitTestCase
 {
     /**
      * WP_Customize_Manager のインスタンス

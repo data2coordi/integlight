@@ -800,12 +800,6 @@ section.widget_block {
   border-left: none;
 }
 
-.fa-quote-left {
-  font-size: 20px;
-  color: #999;
-  margin-right: 6px;
-}
-
 
 /* fa e*/
 
@@ -824,6 +818,33 @@ section.widget_block {
   text-align: center;
   font-weight: bold;
   margin-bottom: 8px;
+}
+
+/************************************************************/
+/* メインコンテンツ @@@ ***************************************************/
+/************************************************************/
+/* 詩のパディング */
+pre.wp-block-verse {
+  padding: 1.5em 1.5em;
+}
+
+/* 引用のデザイン */
+.wp-block-quote {
+  position: relative;
+  padding-left: 5em;
+}
+
+/* 引用にフォントオーサムを表示される */
+.wp-block-quote::after {
+  font-family: "Font Awesome 6 Free";
+  content: "\f10d";
+  font-weight: 900;
+  position: absolute;
+  left:60px;
+  top: -25px;
+  transform: translateX(-100%);
+  font-size: 50px;
+  color: #dedede;
 }
 
 
