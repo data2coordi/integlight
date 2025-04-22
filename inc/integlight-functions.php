@@ -381,135 +381,200 @@ new InteglightBreadcrumb();
 /* タイトル用カスタムフィールド（Meta Title / Meta Description）を追加するs*/
 /********************************************************************/
 
-// ① 管理画面にメタボックスを追加する
-function add_custom_seo_meta_box()
-{
-	// 対象の投稿タイプを配列で指定（例：投稿と固定ページ）
-	$post_types = array('post', 'page');
-	foreach ($post_types as $post_type) {
-		add_meta_box(
-			'seo_meta_box',            // メタボックスのID
-			__('Meta data setting(optional)', 'integlight'),                 // メタボックスのタイトル（管理画面に表示される）
-			'display_seo_meta_box',    // コールバック関数（メタボックス内のHTML出力）
-			$post_type,                // 対象の投稿タイプ
-			'normal',                  // 表示位置（normal, side, advanced など）
-			'high'                     // 優先度
-		);
-	}
-}
-add_action('add_meta_boxes', 'add_custom_seo_meta_box');
-
-// ② メタボックスの内容（入力欄）の出力
-function display_seo_meta_box($post)
-{
-	// セキュリティ用のnonceフィールドを出力
-	wp_nonce_field('seo_meta_box_nonce_action', 'seo_meta_box_nonce');
-
-	// 既に保存されている値を取得（なければ空文字）
-	$custom_meta_title       = get_post_meta($post->ID, '_custom_meta_title', true);
-	$custom_meta_description = get_post_meta($post->ID, '_custom_meta_description', true);
-	?>
-	<p>
-		<label for="custom_meta_title"><strong><?php echo __('Meta Title', 'integlight') ?></strong></label><br>
-		<input type="text" name="custom_meta_title" id="custom_meta_title" value="<?php echo esc_attr($custom_meta_title); ?>" style="width:100%;" placeholder="<?php echo __('ex) Improve Your English Speaking | 5 Easy & Effective Tips', 'integlight') ?>">
-	</p>
-	<p>
-		<label for="custom_meta_description"><strong><?php echo __('Meta Description', 'integlight') ?></strong></label><br>
-		<textarea name="custom_meta_description" id="custom_meta_description" rows="4" style="width:100%;" placeholder="<?php echo __('ex) Struggling with English speaking? Learn 5 simple and practical tips to boost your fluency and confidence in conversations. Perfect for beginners and intermediate learners!', 'integlight') ?>"><?php echo esc_textarea($custom_meta_description); ?></textarea>
-	</p>
-	<?php
-}
-
-// ③ メタボックスに入力されたデータを保存する
-function save_seo_meta_box_data($post_id)
-{
-	// セキュリティチェック：nonceの存在と検証
-	if (! isset($_POST['seo_meta_box_nonce']) || ! wp_verify_nonce(wp_unslash($_POST['seo_meta_box_nonce']), 'seo_meta_box_nonce_action')) {
-		return;
-	}
-
-	// 自動保存時は何もしない
-	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-		return;
-	}
-
-	// ユーザー権限の確認（投稿と固定ページで分岐）
-	if (isset($_POST['post_type']) && 'page' === $_POST['post_type']) {
-		if (! current_user_can('edit_page', $post_id)) {
-			return;
-		}
-	} else {
-		if (! current_user_can('edit_post', $post_id)) {
-			return;
-		}
-	}
-
-	// Meta Title の保存（入力があれば更新、空の場合は空文字でも更新される）
-	if (isset($_POST['custom_meta_title'])) {
-		update_post_meta($post_id, '_custom_meta_title', sanitize_text_field(wp_unslash($_POST['custom_meta_title'])));
-	}
-
-	// Meta Description の保存
-	if (isset($_POST['custom_meta_description'])) {
-		update_post_meta($post_id, '_custom_meta_description', sanitize_textarea_field(wp_unslash($_POST['custom_meta_description'])));
-	}
-}
-add_action('save_post', 'save_seo_meta_box_data');
-
-
-
-
-/*******title設定***********/
-//デフォルト
-////シングルサイト：ページのタイトル - 一般設定サイトタイトル
-////それ以外：一般設定サイトタイトル - 一般設定キャッチフレーズ
-//変更後
-////シングルサイト：
-///////設定あり：設定値
-///////設定なし：何もしない（デフォルト）
-////それ以外：何もしない（デフォルト）
-function my_custom_document_title($title_parts)
-{
-	if (is_singular()) {
-		global $post;
-		// カスタムフィールドから値を取得
-		$custom_title = get_post_meta($post->ID, '_custom_meta_title', true);
-		if ($custom_title) {
-			// ここでカスタムフィールドの値を優先して設定
-			$title_parts['title'] = $custom_title;
-		} else {
-		}
-	}
-	return $title_parts;
-}
-add_filter('document_title_parts', 'my_custom_document_title');
-
-
-
-
 
 /**
- * ヘッダーに meta description タグを出力する関数
+ * Class Integlight_SEO_Meta
+ *
+ * Handles custom SEO meta fields (title and description) for posts and pages.
  */
-function my_custom_meta_description()
+class Integlight_SEO_Meta
 {
-	if (is_singular()) {
-		global $post;
-		// カスタムフィールドから値を取得
-		$custom_description = get_post_meta($post->ID, '_custom_meta_description', true);
 
-		if (! empty($custom_description)) {
-			$meta_description = $custom_description;
-		} elseif (has_excerpt($post->ID)) {
-			$meta_description = get_the_excerpt($post->ID);
-		} else {
-			// ユーザー入力も抜粋もない場合は meta description タグを出力しない
+	/**
+	 * The meta key for the custom title.
+	 * @var string
+	 */
+	private $meta_key_title = '_custom_meta_title';
+
+	/**
+	 * The meta key for the custom description.
+	 * @var string
+	 */
+	private $meta_key_description = '_custom_meta_description';
+
+	/**
+	 * The nonce action name.
+	 * @var string
+	 */
+	private $nonce_action = 'seo_meta_box_nonce_action';
+
+	/**
+	 * The nonce field name.
+	 * @var string
+	 */
+	private $nonce_name = 'seo_meta_box_nonce';
+
+	/**
+	 * Constructor. Hooks into WordPress actions and filters.
+	 */
+	public function __construct()
+	{
+		add_action('add_meta_boxes', [$this, 'add_meta_box']);
+		add_action('save_post', [$this, 'save_meta_data']);
+		add_filter('document_title_parts', [$this, 'filter_document_title']);
+		add_action('wp_head', [$this, 'output_meta_description']);
+	}
+
+	/**
+	 * Adds the meta box to specified post types.
+	 * Action: add_meta_boxes
+	 */
+	public function add_meta_box()
+	{
+		// Target post types
+		$post_types = ['post', 'page'];
+		foreach ($post_types as $post_type) {
+			add_meta_box(
+				'seo_meta_box',                         // Meta box ID
+				__('Meta data setting(optional)', 'integlight'), // Meta box title
+				[$this, 'display_meta_box_content'],  // Callback function for content
+				$post_type,                             // Target post type
+				'normal',                               // Context (normal, side, advanced)
+				'high'                                  // Priority
+			);
+		}
+	}
+
+	/**
+	 * Displays the content of the meta box (input fields).
+	 * Callback for add_meta_box.
+	 *
+	 * @param WP_Post $post The current post object.
+	 */
+	public function display_meta_box_content($post)
+	{
+		// Add a nonce field for security
+		wp_nonce_field($this->nonce_action, $this->nonce_name);
+
+		// Get existing values
+		$custom_meta_title       = get_post_meta($post->ID, $this->meta_key_title, true);
+		$custom_meta_description = get_post_meta($post->ID, $this->meta_key_description, true);
+	?>
+		<p>
+			<label for="custom_meta_title"><strong><?php echo esc_html__('Meta Title', 'integlight'); ?></strong></label><br>
+			<input type="text" name="<?php echo esc_attr($this->meta_key_title); ?>" id="custom_meta_title" value="<?php echo esc_attr($custom_meta_title); ?>" style="width:100%;" placeholder="<?php echo esc_attr__('ex) Improve Your English Speaking | 5 Easy & Effective Tips', 'integlight'); ?>">
+		</p>
+		<p>
+			<label for="custom_meta_description"><strong><?php echo esc_html__('Meta Description', 'integlight'); ?></strong></label><br>
+			<textarea name="<?php echo esc_attr($this->meta_key_description); ?>" id="custom_meta_description" rows="4" style="width:100%;" placeholder="<?php echo esc_attr__('ex) Struggling with English speaking? Learn 5 simple and practical tips to boost your fluency and confidence in conversations. Perfect for beginners and intermediate learners!', 'integlight'); ?>"><?php echo esc_textarea($custom_meta_description); ?></textarea>
+		</p>
+	<?php
+	}
+
+	/**
+	 * Saves the data entered in the meta box.
+	 * Action: save_post
+	 *
+	 * @param int $post_id The ID of the post being saved.
+	 */
+	public function save_meta_data($post_id)
+	{
+		// Security check: Verify nonce
+		if (! isset($_POST[$this->nonce_name]) || ! wp_verify_nonce(wp_unslash($_POST[$this->nonce_name]), $this->nonce_action)) {
 			return;
 		}
-		echo '<meta name="description" content="' . esc_attr($meta_description) . '">' . "\n";
+
+		// Do nothing during autosave
+		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+			return;
+		}
+
+		// Check user permissions
+		$post_type = isset($_POST['post_type']) ? sanitize_key($_POST['post_type']) : get_post_type($post_id);
+		if ('page' === $post_type) {
+			if (! current_user_can('edit_page', $post_id)) {
+				return;
+			}
+		} else {
+			if (! current_user_can('edit_post', $post_id)) {
+				return;
+			}
+		}
+
+		// Save Meta Title
+		if (isset($_POST[$this->meta_key_title])) {
+			$title_value = sanitize_text_field(wp_unslash($_POST[$this->meta_key_title]));
+			update_post_meta($post_id, $this->meta_key_title, $title_value);
+		}
+
+		// Save Meta Description
+		if (isset($_POST[$this->meta_key_description])) {
+			$description_value = sanitize_textarea_field(wp_unslash($_POST[$this->meta_key_description]));
+			update_post_meta($post_id, $this->meta_key_description, $description_value);
+		}
+	}
+
+	/**
+	 * Filters the document title parts to use the custom meta title if set.
+	 * Filter: document_title_parts
+	 *
+	 * @param array $title_parts The parts of the document title.
+	 * @return array The potentially modified title parts.
+	 */
+	public function filter_document_title($title_parts)
+	{
+		if (is_singular()) {
+			global $post;
+			if ($post) { // Ensure $post is available
+				$custom_title = get_post_meta($post->ID, $this->meta_key_title, true);
+				if (! empty($custom_title)) {
+					// Use the custom title, overriding the default post title part
+					$title_parts['title'] = $custom_title;
+					// Optionally remove other parts like site name for SEO titles
+					// unset($title_parts['site']);
+					// unset($title_parts['tagline']);
+				}
+			}
+		}
+		return $title_parts;
+	}
+
+	/**
+	 * Outputs the meta description tag in the header.
+	 * Uses the custom meta description if set, otherwise falls back to the excerpt.
+	 * Action: wp_head
+	 */
+	public function output_meta_description()
+	{
+		if (is_singular()) {
+			global $post;
+			if (! $post) { // Ensure $post is available
+				return;
+			}
+
+			$meta_description = '';
+			// Get custom meta description
+			$custom_description = get_post_meta($post->ID, $this->meta_key_description, true);
+
+			if (! empty($custom_description)) {
+				$meta_description = $custom_description;
+			} elseif (has_excerpt($post->ID)) {
+				// Fallback to excerpt if custom description is empty
+				$meta_description = get_the_excerpt($post->ID);
+			}
+
+			// Output the meta tag only if we have a description
+			if (! empty($meta_description)) {
+				echo '<meta name="description" content="' . esc_attr($meta_description) . '">' . "\n";
+			}
+		}
 	}
 }
-add_action('wp_head', 'my_custom_meta_description');
+
+// Instantiate the class to initialize the functionality
+new Integlight_SEO_Meta();
+
+
 
 
 
