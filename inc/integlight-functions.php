@@ -593,44 +593,78 @@ require get_template_directory() . '/inc/integlight-functions-block.php';
 /* ブロックテーマへの適用s*/
 /********************************************************************/
 
-function integlight_register_block_styles()
-{
-	register_block_style(
-		'core/heading',
-		array(
-			'name'  => 'no-underline',
-			'label' => 'No Underline',
-			'inline_style' => '.wp-block-heading.is-style-no-underline::after { display: none !important; }'
-		)
-	);
-}
-add_action('init', 'integlight_register_block_styles');
 
-
-function integlight_register_block_patterns()
+/**
+ * Class Integlight_Block_Assets
+ *
+ * Registers custom block styles and patterns for the theme.
+ */
+class Integlight_Block_Assets
 {
-	if (function_exists('register_block_pattern')) {
-		register_block_pattern(
-			'integlight/two-columns',
-			array(
-				'title'       => __('Two Columns', 'integlight'),
-				'description' => _x('A layout with two columns for content.', 'Block pattern description', 'integlight'),
-				'categories'  => array('columns'),
-				'content'     => "<!-- wp:columns -->
-<div class=\"wp-block-columns\">
-    <!-- wp:column -->
-    <div class=\"wp-block-column\"><p>" . __('Column one', 'integlight') . "</p></div>
-    <!-- /wp:column -->
-    <!-- wp:column -->
-    <div class=\"wp-block-column\"><p>" . __('Column two', 'integlight') . "</p></div>
-    <!-- /wp:column -->
-</div>
-<!-- /wp:columns -->",
-			)
+
+	/**
+	 * Constructor. Hooks into WordPress init action.
+	 */
+	public function __construct()
+	{
+		// Both styles and patterns should be registered during the 'init' action.
+		add_action('init', [$this, 'register_assets']);
+	}
+
+	/**
+	 * Registers both block styles and patterns.
+	 * Action: init
+	 */
+	public function register_assets()
+	{
+		$this->register_block_styles();
+		$this->register_block_patterns();
+	}
+
+	/**
+	 * Registers custom block styles.
+	 * Called by register_assets during the 'init' action.
+	 */
+	private function register_block_styles()
+	{
+		register_block_style(
+			'core/heading',
+			[
+				'name'         => 'no-underline',
+				'label'        => __('No Underline', 'integlight'), // Use __() for translatable strings
+				'inline_style' => '.wp-block-heading.is-style-no-underline::after { display: none !important; }',
+			]
 		);
+		// Add more block styles here if needed
+	}
+
+	/**
+	 * Registers custom block patterns.
+	 * Called by register_assets during the 'init' action.
+	 */
+	private function register_block_patterns()
+	{
+		// Check if the function exists before calling it (good practice)
+		if (function_exists('register_block_pattern')) {
+			register_block_pattern(
+				'integlight/two-columns',
+				[
+					'title'       => __('Two Columns', 'integlight'),
+					'description' => _x('A layout with two columns for content.', 'Block pattern description', 'integlight'),
+					'categories'  => ['columns'], // Use array() or [] consistently
+					'content'     => "<!-- wp:columns -->\n<div class=\"wp-block-columns\">\n    <!-- wp:column -->\n    <div class=\"wp-block-column\"><p>" . esc_html__('Column one', 'integlight') . "</p></div>\n    <!-- /wp:column -->\n    <!-- wp:column -->\n    <div class=\"wp-block-column\"><p>" . esc_html__('Column two', 'integlight') . "</p></div>\n    <!-- /wp:column -->\n</div>\n<!-- /wp:columns -->",
+				]
+			);
+			// Add more block patterns here if needed
+		}
 	}
 }
-add_action('init', 'integlight_register_block_patterns');
+
+// Instantiate the class to initialize the functionality
+new Integlight_Block_Assets();
+
+
+
 
 /********************************************************************/
 /* ブロックテーマへの適用e*/
