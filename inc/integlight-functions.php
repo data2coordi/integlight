@@ -130,11 +130,13 @@ add_action('after_setup_theme', ['InteglightCommonJsAssets', 'init']);
 function integlight_setup_plus()
 {
 
+
 	// resolve of  theme check _s
 	add_theme_support("wp-block-styles");
 	add_theme_support("responsive-embeds");
 	add_theme_support("align-wide");
 	// resolve of  theme check _e
+
 
 }
 add_action('after_setup_theme', 'integlight_setup_plus');
@@ -415,7 +417,7 @@ function display_seo_meta_box($post)
 		<label for="custom_meta_description"><strong><?php echo __('Meta Description', 'integlight') ?></strong></label><br>
 		<textarea name="custom_meta_description" id="custom_meta_description" rows="4" style="width:100%;" placeholder="<?php echo __('ex) Struggling with English speaking? Learn 5 simple and practical tips to boost your fluency and confidence in conversations. Perfect for beginners and intermediate learners!', 'integlight') ?>"><?php echo esc_textarea($custom_meta_description); ?></textarea>
 	</p>
-<?php
+	<?php
 }
 
 // ③ メタボックスに入力されたデータを保存する
@@ -516,17 +518,6 @@ add_action('wp_head', 'my_custom_meta_description');
 /* タイトル用カスタムフィールド（Meta Title / Meta Description）を追加するe*/
 /********************************************************************/
 
-
-
-function add_preload_images()
-{
-?>
-
-
-	<?php
-
-}
-add_action('wp_head', 'add_preload_images');
 
 
 require get_template_directory() . '/inc/integlight-functions-block.php';
