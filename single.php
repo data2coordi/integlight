@@ -27,7 +27,7 @@ get_header();
 			get_template_part('template-parts/content', get_post_type());
 
 			////////////////////////////前へ次へのページネーション s
-			PostHelper::get_post_navigation(); // クラスメソッドを呼び出す
+			Integlight_PostHelper::get_post_navigation(); // クラスメソッドを呼び出す
 			////////////////////////////前へ次へのページネーションe 
 
 
