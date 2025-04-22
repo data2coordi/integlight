@@ -1,7 +1,8 @@
 #sudo rm test-results/ -rf
 #sudo rm tests/visual.spec.js-snapshots/ -rf
 
-#sudo docker compose up --build
+
+clear
 sudo docker compose -f docker-compose.visual.yml up
 
 
@@ -11,16 +12,17 @@ exit
 
 
 
-npm install
-
-sudo docker compose up --build
 
 ## 削除
 sudo rm test-results/ -rf
 sudo rm test.spec.js-snapshots/ -rf
 
+## build
 
-## テスト実行
-sudo docker compose up
+#npm install とRUN npx playwright install でインストールしたものを削除する。これが、ないとdocker-composeでボリュームを指定しているため、installが上書きされる。
+#削除すると、インストールされたものでボリューム側を初期化するのがdocker-composeの仕様
+sudo docker compose -f docker-compose.visual.yml down --volumes --remove-orphans
+#
+sudo docker compose -f docker-compose.visual.yml up --build
 
-docker exec -it my-playwright-app bash
+

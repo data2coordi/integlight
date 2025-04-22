@@ -76,7 +76,7 @@ class InteglightCommonCssAssets
 }
 
 // 初期化処理（ルートで実行）
-InteglightCommonCssAssets::init();
+add_action('after_setup_theme', ['InteglightCommonCssAssets', 'init']);
 
 
 
@@ -104,6 +104,11 @@ class InteglightCommonJsAssets
 
 
 		//js 読み込み　WPデフォルトのコメント用
+		add_action('wp_enqueue_scripts', [__CLASS__, 'enqueue_comment_reply_script']);
+	}
+
+	public static function enqueue_comment_reply_script()
+	{
 		if (is_singular() && comments_open() && get_option('thread_comments')) {
 			wp_enqueue_script('comment-reply');
 		}
@@ -111,7 +116,7 @@ class InteglightCommonJsAssets
 }
 
 // 初期化処理
-InteglightCommonJsAssets::init();
+add_action('after_setup_theme', ['InteglightCommonJsAssets', 'init']);
 
 
 /***************************************** */
