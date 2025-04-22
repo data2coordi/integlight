@@ -125,10 +125,7 @@ class integlight_functions_InteglightCommonJsAssetsTest extends WP_UnitTestCase 
         // update_option('comment_registration', 0);
         // update_option('comment_moderation', 0);
 
-        // ★★★ after_setup_theme フックを実行して init() を呼び出す ★★★
-        // これにより、各テストメソッド開始前にスクリプトが登録される
-        // このタイミングで title-tag の通知が発生する可能性がある
-        do_action('after_setup_theme');
+
 
         // デバッグ用: setUp完了時点でcomment-replyがエンキューされていないことを確認
         // $this->assertFalse(wp_script_is('comment-reply', 'enqueued'), 'comment-reply should NOT be enqueued at the end of setUp');
@@ -169,8 +166,13 @@ class integlight_functions_InteglightCommonJsAssetsTest extends WP_UnitTestCase 
         // --- Arrange ---
         // setUp で do_action('after_setup_theme') が実行され、init() が呼ばれているはず
         $expectedFrontendScripts = [
-            'integlight-navigation' => ['path' => '/js/navigation.js', 'deps' => [], 'version' => false, 'in_footer' => false], // version と in_footer を追加 (add メソッドの引数に合わせる)
+            'integlight-navigation' => ['path' => '/js/navigation.js', 'deps' => []],
+
         ];
+        // --- Act ---
+        // テスト対象のメソッドを呼び出す
+        InteglightCommonJsAssets::init();
+        // Act は不要 (setUp で実行済み)
 
         // --- Act ---
         // Act は不要 (setUp で実行済み)
@@ -196,9 +198,8 @@ class integlight_functions_InteglightCommonJsAssetsTest extends WP_UnitTestCase 
         ];
 
         // --- Act ---
-        // Act は不要 (setUp で実行済み)
-
-        // --- Assert ---
+        // テスト対象のメソッドを呼び出す
+        InteglightCommonJsAssets::init();
         // init() が実行された結果、静的プロパティに値がセットされているはず
         $actualFooterScripts = self::getStaticPropertyValue(InteglightMoveScripts::class, 'scripts');
         // jQuery のパスは環境によって変わる可能性があるため、キーの存在と値が文字列であることのみを確認する方が堅牢かもしれない
