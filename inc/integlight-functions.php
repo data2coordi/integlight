@@ -683,7 +683,7 @@ class Integlight_PostHelper
 	/**
 	 * 投稿の画像を取得する（アイキャッチ or 本文の最初の画像）
 	 */
-	public static function get_post_image($post_id)
+	private static function get_post_image($post_id)
 	{
 		$thumb_url = get_the_post_thumbnail_url($post_id, 'full');
 		if ($thumb_url) {
