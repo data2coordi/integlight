@@ -774,26 +774,69 @@ class Integlight_PostHelper
 /* 抜粋関数の文字数を変更 s	*/
 /********************************************************************/
 
-function clean_auto_excerpt($excerpt)
+/**
+ * Class Integlight_Excerpt_Customizer
+ *
+ * Customizes the excerpt length and cleans up the automatically generated excerpt.
+ */
+class Integlight_Excerpt_Customizer
 {
-	// ① 目次部分（"Index" で始まる行）があればそれを削除する例
-	// ※ 正規表現を投稿の実際の目次構成に合わせて調整してください
-	$excerpt = preg_replace('/^Index\s+.*?\n/', '', $excerpt);
+	/**
+	 * The desired excerpt length in words.
+	 * @var int
+	 */
+	private $excerpt_length = 200; // 語数を200語に設定
 
-	// ② &nbsp; を通常の空白に変換（必要に応じて）
-	$excerpt = str_replace('&nbsp;', ' ', $excerpt);
+	/**
+	 * Constructor. Hooks the methods into WordPress filters.
+	 */
+	public function __construct()
+	{
+		add_filter('excerpt_length', [$this, 'custom_excerpt_length']);
+		add_filter('wp_trim_excerpt', [$this, 'clean_auto_excerpt'], 20); // 優先度 20 を維持
+	}
 
-	return $excerpt;
+	/**
+	 * Sets the custom excerpt length.
+	 * Filter: excerpt_length
+	 *
+	 * @param int $length Default excerpt length.
+	 * @return int Custom excerpt length.
+	 */
+	public function custom_excerpt_length($length)
+	{
+		return $this->excerpt_length;
+	}
+
+	/**
+	 * Cleans the automatically generated excerpt.
+	 * Removes the Table of Contents and replaces non-breaking spaces.
+	 * Filter: wp_trim_excerpt
+	 *
+	 * @param string $excerpt The automatically generated excerpt.
+	 * @return string The cleaned excerpt.
+	 */
+	public function clean_auto_excerpt($excerpt)
+	{
+
+		// ② &nbsp; を通常の空白に変換
+		$excerpt = str_replace('&nbsp;', ' ', $excerpt);
+
+		// ③ HTMLタグを除去 (wp_trim_excerpt は通常タグを除去しますが、念のため)
+		$excerpt = strip_tags($excerpt);
+
+		// ④ 不要な空白や改行を整理
+		$excerpt = trim(preg_replace('/\s+/', ' ', $excerpt));
+
+		return $excerpt;
+	}
 }
-add_filter('wp_trim_excerpt', 'clean_auto_excerpt', 20);
+
+// Instantiate the class to initialize the functionality
+new Integlight_Excerpt_Customizer();
 
 
 
-function integlight_excerpt_length($length)
-{
-	return 200; // 語数を70語に変更
-}
-add_filter('excerpt_length', 'integlight_excerpt_length');
 /********************************************************************/
 /* 抜粋関数の文字数を変更 e	*/
 /********************************************************************/
