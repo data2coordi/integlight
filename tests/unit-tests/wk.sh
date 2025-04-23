@@ -4,9 +4,9 @@ clear
 
 
 
-
 sudo docker exec -it dev_wp_env_wordpress_1 bash \
-  -c "cd /var/www/html/wp-content/themes/integlight && ./vendor/bin/phpunit tests/unit-tests/integlight_functions_outerAssets_InteglightDeferCssTest.php"
+  -c "cd /var/www/html/wp-content/themes/integlight && ./vendor/bin/phpunit tests/unit-tests/integlight_functions_outerAssets_InteglightFrontendStylesTest.php"
+
 
 
 
@@ -48,6 +48,8 @@ sudo docker exec -it dev_wp_env_wordpress_1 bash \
 sudo docker exec -it dev_wp_env_wordpress_1 bash \
   -c "cd /var/www/html/wp-content/themes/integlight && ./vendor/bin/phpunit tests/unit-tests/nteglight_functions_Integlight_Excerpt_CustomizerTest.php"
 
+sudo docker exec -it dev_wp_env_wordpress_1 bash \
+  -c "cd /var/www/html/wp-content/themes/integlight && ./vendor/bin/phpunit tests/unit-tests/integlight_functions_outerAssets_InteglightDeferCssTest.php"
 
 
 ##### integlight_functions e
