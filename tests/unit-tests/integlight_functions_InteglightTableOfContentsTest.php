@@ -317,37 +317,53 @@ HTML;
         $this->assertEquals('0', get_post_meta($this->test_post_id, 'hide_toc', true), 'Meta should not be updated without permission.');
     }
 
-    /**
-     * @test
-     * @covers ::save_toc_visibility_meta_box_data
-     * Test that saving is skipped during autosave.
-     */
     public function save_toc_visibility_meta_box_data_should_skip_during_autosave(): void
     {
         // Arrange
-        if (!defined('DOING_AUTOSAVE')) {
-            define('DOING_AUTOSAVE', true);
-        }
         $user_id = self::factory()->user->create(['role' => 'editor']);
         wp_set_current_user($user_id);
+
+        // 元の投稿ID (setUp で作成されたもの)
+        $original_post_id = $this->test_post_id;
+        update_post_meta($original_post_id, 'hide_toc', '0'); // 元の投稿に初期値を設定
+
+        // --- オートセーブをシミュレート ---
+        // 1. オートセーブ用のデータを作成 (編集中の動作を模倣)
+        $autosave_data = [
+            'post_ID'      => $original_post_id, // 親投稿のID
+            'post_title'   => 'Autosave Revision Title',
+            'post_content' => 'Autosave revision content.',
+            // 必要であれば、オートセーブ中に存在する可能性のある他のフィールドを追加
+        ];
+        // 2. wp_create_post_autosave() を使用してオートセーブリビジョンを作成
+        //    この関数は正しい post_name フォーマット (例: {parent_id}-autosave-v1) を設定します
+        $autosave_revision_id = wp_create_post_autosave($autosave_data);
+
+        // オートセーブリビジョンが正常に作成されたか確認 (失敗時はテストが失敗する)
+        $this->assertIsInt($autosave_revision_id, 'Failed to create autosave revision.');
+        $this->assertGreaterThan(0, $autosave_revision_id, 'Autosave revision ID should be positive.');
+        // --- オートセーブのシミュレートここまで ---
+
+        // $_POST データを設定 (nonce, チェックボックスの値)
         $_POST['toc_visibility_nonce'] = wp_create_nonce('toc_visibility_nonce_action');
-        $_POST['hide_toc'] = '1';
-        update_post_meta($this->test_post_id, 'hide_toc', '0'); // Initial value
+        $_POST['hide_toc'] = '1'; // チェックボックスがチェックされた状態をシミュレート
 
         // Act
-        $this->instance->save_toc_visibility_meta_box_data($this->test_post_id);
+        // save_toc_visibility_meta_box_data メソッドを【オートセーブリビジョンのID】で呼び出す
+        // これにより、メソッド内の wp_is_post_autosave($autosave_revision_id) が true を返すはず
+        $this->instance->save_toc_visibility_meta_box_data($autosave_revision_id);
 
         // Assert
-        $this->assertEquals('0', get_post_meta($this->test_post_id, 'hide_toc', true), 'Meta should not be updated during autosave.');
+        // メタデータが【元の投稿ID】で更新されていないことを確認
+        $this->assertEquals('0', get_post_meta($original_post_id, 'hide_toc', true), 'Meta should not be updated during autosave.');
 
-        // Clean up the constant if it was defined here
-        // Note: This might not be perfectly clean if the constant was defined elsewhere.
-        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE === true && !isset($GLOBALS['_was_doing_autosave_defined'])) {
-            // A more robust approach might involve a custom bootstrap or test listener
-            // For simplicity, we'll assume it wasn't defined before this test.
-            // This part is tricky and might need adjustment based on the test runner setup.
-        }
+        // このテスト固有の後処理 (ユーザー、$_POST)
+        wp_set_current_user(0);
+        unset($_POST['toc_visibility_nonce']);
+        unset($_POST['hide_toc']);
+        // 作成されたオートセーブリビジョンは、WP_UnitTestCase の後処理で自動的に削除されます
     }
+
 
 
     /**
