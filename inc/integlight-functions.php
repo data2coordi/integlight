@@ -263,7 +263,7 @@ class InteglightTableOfContents
 		if (!wp_verify_nonce(wp_unslash($_POST['toc_visibility_nonce']), 'toc_visibility_nonce_action')) {
 			return;
 		}
-		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+		if (wp_is_post_autosave($post_id)) {
 			return;
 		}
 		if (!current_user_can('edit_post', $post_id)) {
@@ -485,7 +485,7 @@ class Integlight_SEO_Meta
 		}
 
 		// Do nothing during autosave
-		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+		if (wp_is_post_autosave($post_id)) {
 			return;
 		}
 

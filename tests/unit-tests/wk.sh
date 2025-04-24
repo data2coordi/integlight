@@ -4,12 +4,11 @@ clear
 
 
 
+#sudo docker exec -it dev_wp_env_wordpress_1 bash \
+#  -c "cd /var/www/html/wp-content/themes/integlight && ./vendor/bin/phpunit tests/unit-tests/integlight_functions_Integlight_SEO_MetaTest.php"
+
 sudo docker exec -it dev_wp_env_wordpress_1 bash \
-  -c "cd /var/www/html/wp-content/themes/integlight && ./vendor/bin/phpunit tests/unit-tests/integlight_functions_FunctionsTest.php"
-
-
-
-
+    -c "cd /var/www/html/wp-content/themes/integlight && ./vendor/bin/phpunit"
 
 
 
