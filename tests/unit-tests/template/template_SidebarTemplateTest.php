@@ -1,107 +1,123 @@
 <?php
-
-/**
- * Class SidebarTemplateTest
- *
- * Tests for the sidebar.php template file.
- *
- * @package Integlight
- */
-
-// クラス名を PSR-4/PSR-12 準拠に修正することを推奨 (例: SidebarTemplateTest)
 class template_SidebarTemplateTest extends WP_UnitTestCase
 {
 
-    // !!! IMPORTANT: Verify this ID matches your theme's register_sidebar() call !!!
-    const SIDEBAR_ID = 'sidebar-1'; // <--- 修正例
-
-    /**
-     * 各テストメソッド実行前のセットアップ
-     */
-    public function set_up()
+    public function setUp(): void
     {
-        parent::set_up();
-        // 各テストの前にウィジェット設定をリセット (より確実に)
-        update_option('sidebars_widgets', [
-            'wp_inactive_widgets' => [],
-            self::SIDEBAR_ID => [], // Explicitly clear the target sidebar
+        parent::setUp();
+        // サイドバー登録
+        register_sidebar([
+            'name' => 'Sidebar 1',
+            'id'   => 'sidebar-1',
+        ]);
+        register_sidebar([
+            'name' => 'Sidebar 2',
+            'id'   => 'sidebar-2',
         ]);
     }
 
-    /**
-     * 各テストメソッド実行後のティアダウン
-     */
-    public function tear_down()
+    public function test_sidebar_not_displayed_on_page()
     {
-        // ウィジェット設定をリセット (より確実に)
-        update_option('sidebars_widgets', [
-            'wp_inactive_widgets' => [],
-            self::SIDEBAR_ID => [], // Explicitly clear the target sidebar
+        $page_id = $this->factory->post->create([
+            'post_type' => 'page',
         ]);
-        parent::tear_down();
-    }
 
-    /**
-     * ヘルパー関数: sidebar.php の出力を取得します。
-     *
-     * @return string キャプチャされたHTML出力。
-     */
-    private function get_sidebar_template_output(): string
-    {
+        $this->go_to(get_permalink($page_id)); // これが重要！
+
         ob_start();
-        get_sidebar();
-        return ob_get_clean();
-    }
-    /**
-     * @test
-     * サイドバーがアクティブな場合 (ウィジェットが存在する場合) の出力をテストします。
-     */
-    public function test_sidebar_output_when_active()
-    {
-        // --- Arrange (準備) ---
-        // テスト用のウィジェットをサイドバーに追加
-        $widgets = get_option('sidebars_widgets', []);
-        // Ensure the key matches the constant
-        $widgets[self::SIDEBAR_ID] = ['search-2']; // Add search widget instance 2
-        update_option('sidebars_widgets', $widgets);
-        // Add settings for the specific widget instance
-        update_option('widget_search', [2 => ['title' => 'Test Search'], '_multiwidget' => 1]);
+        include get_template_directory() . '/sidebar.php';
+        $output = ob_get_clean();
 
-        // --- Act (実行) ---
-        $output = $this->get_sidebar_template_output();
-
-        // --- Assert (検証) ---
-        // *** MODIFICATION START: Simplest check ***
-        // アクティブなはずなので、出力が完全に空（または空白のみ）ではないことだけを確認
-        $this->assertNotEmpty(trim($output), 'Sidebar output should not be empty or just whitespace when active.');
-        // *** MODIFICATION END ***
+        $this->assertEmpty(trim($output));
     }
 
-
-
-    /**
-     * @test
-     * サイドバーが非アクティブな場合 (ウィジェットが存在しない場合) の出力をテストします。
-     */
-    public function test_sidebar_output_when_inactive()
+    public function test_sidebar_1_displayed_when_active_and_position_not_none()
     {
-        // --- Arrange (準備) ---
-        // Widgets are cleared in set_up
-        // *** REMOVED problematic assertion ***
-        // $this->assertFalse(is_active_sidebar(self::SIDEBAR_ID), 'Sidebar should be inactive.');
+        // 投稿（is_page() ではない）を作成
+        $post_id = $this->factory->post->create([
+            'post_type' => 'post',
+        ]);
+        $GLOBALS['post'] = get_post($post_id);
+        setup_postdata($GLOBALS['post']);
 
-        // --- Act (実行) ---
-        $output = $this->get_sidebar_template_output();
+        // sidebar-1 をアクティブにする
+        add_filter('is_active_sidebar', function ($active, $index) {
+            if ($index === 'sidebar-1') return true;
+            return $active;
+        }, 10, 2);
 
-        // --- Assert (検証) ---
-        // Check if the output is empty OR if the wrapper exists but contains no widgets
-        if (empty(trim($output))) {
-            $this->assertEmpty(trim($output), 'Sidebar output should be empty or whitespace when inactive.');
-        } else {
-            // If the wrapper exists, ensure no widget sections are inside
-            $this->assertStringContainsString('<aside id="secondary"', $output, 'Aside wrapper might be present even if inactive.');
-            // Check that no <section id="..."> tags (standard widget wrappers) are present
-            $this->assertStringNotContainsString('<section id="', $output, 'No widget sections should be present when inactive.');
-        }
+        set_theme_mod('integlight_sidebar1_position', 'right');
+
+        ob_start();
+        include get_template_directory() . '/sidebar.php';
+        $output = ob_get_clean();
+
+        $this->assertStringContainsString('id="secondary"', $output);
+        $this->assertStringContainsString('ly_site_content_widgetArea_right', $output);
+    }
+
+    public function test_sidebar_2_displayed_when_active_and_position_not_none()
+    {
+        $post_id = $this->factory->post->create([
+            'post_type' => 'post',
+        ]);
+        $GLOBALS['post'] = get_post($post_id);
+        setup_postdata($GLOBALS['post']);
+
+        add_filter('is_active_sidebar', function ($active, $index) {
+            if ($index === 'sidebar-2') return true;
+            return $active;
+        }, 10, 2);
+
+        set_theme_mod('integlight_sidebar2_position', 'left');
+
+        ob_start();
+        include get_template_directory() . '/sidebar.php';
+        $output = ob_get_clean();
+
+        $this->assertStringContainsString('id="third"', $output);
+        $this->assertStringContainsString('ly_site_content_widgetArea_left', $output);
+    }
+
+    public function test_sidebar_1_not_displayed_when_position_is_none()
+    {
+        $post_id = $this->factory->post->create([
+            'post_type' => 'post',
+        ]);
+        $this->go_to(get_permalink($post_id));
+
+        add_filter('is_active_sidebar', function ($active, $index) {
+            if ($index === 'sidebar-1') return true;
+            return $active;
+        }, 10, 2);
+
+        set_theme_mod('integlight_sidebar1_position', 'none');
+
+        ob_start();
+        include get_template_directory() . '/sidebar.php';
+        $output = ob_get_clean();
+
+        $this->assertStringNotContainsString('id="secondary"', $output, 'Sidebar-1 should not be displayed when position is "none".');
+    }
+
+    public function test_sidebar_2_not_displayed_when_position_is_none()
+    {
+        $post_id = $this->factory->post->create([
+            'post_type' => 'post',
+        ]);
+        $this->go_to(get_permalink($post_id));
+
+        add_filter('is_active_sidebar', function ($active, $index) {
+            if ($index === 'sidebar-2') return true;
+            return $active;
+        }, 10, 2);
+
+        set_theme_mod('integlight_sidebar2_position', 'none');
+
+        ob_start();
+        include get_template_directory() . '/sidebar.php';
+        $output = ob_get_clean();
+
+        $this->assertStringNotContainsString('id="third"', $output, 'Sidebar-2 should not be displayed when position is "none".');
     }
 }
