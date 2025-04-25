@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 // テスト対象のクラスファイルを読み込む (パスは環境に合わせて調整してください)
-require_once dirname(__DIR__, 2) . '/inc/integlight-functions.php'; // Integlight_Excerpt_Customizer が定義されているファイル
+//require_once dirname(__DIR__, 2) . '/inc/integlight-functions.php'; // Integlight_Excerpt_Customizer が定義されているファイル
 
 /**
  * Test case for the Integlight_Excerpt_Customizer class.

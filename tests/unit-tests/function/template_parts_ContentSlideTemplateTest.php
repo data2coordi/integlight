@@ -29,7 +29,7 @@ class template_parts_ContentSlideTemplateTest extends WP_UnitTestCase
     public static function wpSetUpBeforeClass($factory)
     {
         // テスト用のダミー画像ファイルパス (テストファイルからの相対パス)
-        $dummy_image_path = __DIR__ . '/dummy-image.png';
+        $dummy_image_path = dirname(__FILE__, 2) . '/dummy-image.png';
         if (! file_exists($dummy_image_path)) {
             // ダミー画像がない場合は一時ファイルを作成
             $dummy_image_path = wp_tempnam('dummy-image.png');

@@ -222,7 +222,7 @@ class template_tags_TemplateTagsTest extends WP_UnitTestCase
 
         // --- Add a Thumbnail ---
         // *** NOTE: Ensure 'dummy-image.png' exists in the same directory as this test file. ***
-        $image_path = __DIR__ . '/dummy-image.png'; // 画像ファイル名を確認
+        $image_path = dirname(__FILE__, 2) . '/dummy-image.png';  // 画像ファイル名を確認
         if (!file_exists($image_path)) {
             // 画像がない場合はテストをスキップ
             $this->markTestSkipped('Test image file not found at ' . $image_path);

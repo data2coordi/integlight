@@ -46,7 +46,7 @@ class template_parts_ContentArcTemplateTest extends WP_UnitTestCase
         ]);
 
         // サムネイルを追加 (オプション)
-        $image_path = __DIR__ . '/dummy-image.png';
+        $image_path =  dirname(__FILE__, 2) . '/dummy-image.png';
         if (file_exists($image_path)) {
             $this->attachment_id = self::factory()->attachment->create_upload_object($image_path, $this->post_id);
             if (!is_wp_error($this->attachment_id)) {

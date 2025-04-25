@@ -63,7 +63,7 @@ class template_parts_ContentTemplateTest extends WP_UnitTestCase
         ]);
 
         // 投稿にサムネイルを追加
-        $image_path = __DIR__ . '/dummy-image.png'; // テストファイルと同じディレクトリにある画像を想定
+        $image_path = dirname(__FILE__, 2) . '/dummy-image.png';  // テストファイルと同じディレクトリにある画像を想定
         if (file_exists($image_path)) {
             // 画像をアップロードし、アタッチメントとして投稿に関連付ける
             $this->attachment_id = self::factory()->attachment->create_upload_object($image_path, $this->post_id);

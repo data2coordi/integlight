@@ -29,7 +29,7 @@ class integlight_functions_Integlight_PostHelperTest extends WP_UnitTestCase
         // --- テスト用画像ファイルの準備 ---
         // プロジェクト内のテスト用画像へのパス (例: tests/assets/dummy-image.png)
         // このパスは実際の環境に合わせて調整してください。
-        self::$dummy_image_path = dirname(__FILE__, 2) . '/unit-tests/dummy-image.png';
+        self::$dummy_image_path = dirname(__FILE__, 2) . '/dummy-image.png';
 
         // 画像ファイルが存在しない場合は、一時ファイルを作成 (内容は空でも可)
         if (!file_exists(self::$dummy_image_path)) {
