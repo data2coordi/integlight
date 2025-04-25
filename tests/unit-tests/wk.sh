@@ -6,7 +6,7 @@ clear
 
 sudo docker exec -it dev_wp_env_wordpress_1 bash \
   -c "cd /var/www/html/wp-content/themes/integlight && ./vendor/bin/phpunit \
-  tests/unit-tests/template_HomeTemplateTest.php"
+  tests/unit-tests/template_HeaderTemplateTest.php"
 
 
 
@@ -57,6 +57,11 @@ sudo docker exec -it dev_wp_env_wordpress_1 bash \
   tests/unit-tests/template_HomeTemplateTest.php"
 
 
+
+
+sudo docker exec -it dev_wp_env_wordpress_1 bash \
+  -c "cd /var/www/html/wp-content/themes/integlight && ./vendor/bin/phpunit \
+  tests/unit-tests/template_HeaderTemplateTest.php"
 
 
 
