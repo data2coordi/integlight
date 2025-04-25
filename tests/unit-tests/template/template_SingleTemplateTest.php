@@ -1,6 +1,5 @@
 <?php
 
-use WP_UnitTestCase;
 
 /**
  * Class template_SingleTemplateTest
