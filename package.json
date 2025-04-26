@@ -1,11 +1,12 @@
 {
   "devDependencies": {
-    "@wordpress/scripts": "^30.11.0",
+    "@wordpress/scripts": "^30.15.0",
     "dir-archiver": "^1.1.1",
-    "node-sass": "^7.0.1",
+    "jest": "^29.7.0",
     "nodemon": "^3.1.9",
     "onchange": "^7.1.0",
-    "rtlcss": "^3.5.0"
+    "rtlcss": "^3.5.0",
+    "sass": "^1.87.0"
   },
   "rtlcssConfig": {
     "options": {
@@ -28,7 +29,8 @@
     "lint:js": "wp-scripts lint-js 'js/*.js'",
     "bundle": "dir-archiver --src . --dest ../_s.zip --exclude .DS_Store .stylelintrc.json .eslintrc .git .gitattributes .github .gitignore README.md composer.json composer.lock node_modules vendor package-lock.json package.json .travis.yml phpcs.xml.dist sass style.css.map yarn.lock",
     "start": "wp-scripts start",
-    "build": "wp-scripts build"
+    "build": "wp-scripts build",
+    "test:unit:js": "wp-scripts test-unit-js"
   },
   "name": "integlight",
   "description": "[![Build Status](https://travis-ci.org/Automattic/_s.svg?branch=master)](https://travis-ci.org/Automattic/_s)",
