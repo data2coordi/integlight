@@ -1,0 +1,1 @@
+<?php // Empty file for template capture ?>
