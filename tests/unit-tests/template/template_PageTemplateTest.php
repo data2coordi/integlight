@@ -128,7 +128,6 @@ class template_PageTemplateTest extends WP_UnitTestCase
     /**
      * @test
      * 通常の固定ページ表示時に page.php がロードされ、基本的な要素が含まれることを確認。
-     * @expectedDeprecated the_block_template_skip_link
      */
     public function test_page_template_loads_on_regular_page()
     {
