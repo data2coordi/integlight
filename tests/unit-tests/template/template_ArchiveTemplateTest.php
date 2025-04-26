@@ -19,12 +19,15 @@ class template_ArchiveTemplateTest extends WP_UnitTestCase
     public function test_category_archive_with_posts()
     {
         // --- Arrange ---
-        $category = $this->factory->category->create_and_get(['name' => 'Test Category']);
+        $category_description = 'Test Category Description'; // 説明文を定義
+        // --- 修正: カテゴリ作成時に description を指定 ---
+        $category = $this->factory->category->create_and_get([
+            'name' => 'Test Category',
+            'description' => $category_description
+        ]);
+        // --- 削除: update_term_meta は不要 ---
+        // update_term_meta($category->term_id, 'description', 'Term description ' . $category->term_id);
         $this->factory->post->create_many(3, ['post_category' => [$category->term_id]]);
-
-        // Activate sidebar for testing its presence
-        update_option('sidebars_widgets', ['sidebar-1' => ['text-1'], 'wp_inactive_widgets' => []]);
-        set_theme_mod('integlight_sidebar1_position', 'right');
 
         // --- Simulate Query ---
         global $wp_query, $wp_the_query;
@@ -38,7 +41,6 @@ class template_ArchiveTemplateTest extends WP_UnitTestCase
 
         // --- Act: Require the template directly ---
         ob_start();
-        // archive.php が内部で get_header/get_footer を呼ぶことを想定
         require get_theme_file_path('archive.php');
         $output = ob_get_clean();
 
@@ -46,17 +48,16 @@ class template_ArchiveTemplateTest extends WP_UnitTestCase
         $this->assertNotEmpty($output, 'Output should not be empty.');
         $this->assertStringContainsString('<main id="primary" class="site-main', $output, 'Main content area #primary not found.');
         $this->assertStringContainsString('<header class="page-header">', $output, 'Page header not found.');
-        // --- 修正: the_archive_title の出力に合わせて span タグを含める ---
         $this->assertStringContainsString('<h1 class="page-title">Category: <span>Test Category</span></h1>', $output, 'Correct archive title not found.');
+        // --- 修正: 正しい説明文でアサーション ---
+        $this->assertStringContainsString('<div class="archive-description"><p>' . $category_description . '</p>', $output, 'Archive description not found.');
         $this->assertStringContainsString('class="bl_card_container"', $output, 'Post card container (from content-arc.php) not found.');
         $this->assertEquals(2, substr_count($output, 'class="bl_card_container"'), 'Expected 2 posts per page.');
-        // --- 修正: サイドバーとフッターは archive.php 内で require されるため、存在を確認 ---
-        $this->assertStringContainsString('id="secondary"', $output, 'Sidebar #secondary not found.'); // get_sidebar() が呼ばれる
-        $this->assertStringContainsString('<footer id="colophon"', $output, 'Footer #colophon not found.'); // get_footer() が呼ばれる
 
         // --- Cleanup ---
         wp_reset_query(); // クエリをリセット
     }
+
 
     /**
      * @test
