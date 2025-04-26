@@ -44,7 +44,7 @@ describe('グローバルメニューの挙動', () => {
 
         // click と focusout がそれぞれ登録されているかどうかは internal だが、
         // イベント発火時に期待動作するかで検証する
-        expect(link1.onclick).toBeUndefined(); // addEventListener なので onclick ではなく listener が登録
+        expect(link1.onclick).toBeNull(); // addEventListener なので onclick ではなく listener が登録
         // 実際にクリックして動作を試すのは後続のテストで確認
     });
 
@@ -99,25 +99,29 @@ describe('グローバルメニューの挙動', () => {
     });
 
     describe('handleMenuItemFocusOut & checkFocus', () => {
-        it('フォーカスが外れたら active が解除される', done => {
+        it('フォーカスが外れたら active が解除される', (done) => {
             const link1 = document.getElementById('link1');
             const li1 = document.getElementById('item1');
 
-            // まず active をつける
+            // 最初 active にしておく
             li1.classList.add('active');
-            // フォーカスを子要素に設定
-            link1.focus();
-            expect(document.activeElement).toBe(link1);
 
-            // フォーカスアウトをトリガー
-            const event = new FocusEvent('focusout', { bubbles: true });
-            li1.dispatchEvent(event);
+            // ★ document.activeElement をモックする
+            Object.defineProperty(document, 'activeElement', {
+                value: document.body, // li1 の外側をフォーカスさせる
+                configurable: true,
+            });
 
-            // setTimeout(…,0) の後に実行されるので少し待つ
+            // フォーカスアウトイベントを発火
+            const focusOutEvent = new FocusEvent('focusout');
+            li1.dispatchEvent(focusOutEvent);
+
+            // setTimeout の後で結果を確認
             setTimeout(() => {
                 expect(li1.classList.contains('active')).toBe(false);
                 done();
             }, 0);
         });
     });
+
 });

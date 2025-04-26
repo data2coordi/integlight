@@ -53,3 +53,7 @@ function checkFocus(item) {
 
 // ページ読み込み完了時に初期処理を実行
 document.addEventListener("DOMContentLoaded", handleDOMContentLoaded);
+
+
+export { handleDOMContentLoaded, handleParentLinkClick, handleMenuItemFocusOut, checkFocus };
+
