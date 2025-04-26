@@ -1,13 +1,5 @@
 <?php
 
-/**
- * Class HeaderTemplateTest
- *
- * Tests for the header.php template file.
- *
- * @package Integlight
- */
-
 // クラス名を PSR-4/PSR-12 準拠に修正することを推奨 (例: HeaderTemplateTest)
 class template_HeaderTemplateTest extends WP_UnitTestCase
 {
@@ -24,9 +16,9 @@ class template_HeaderTemplateTest extends WP_UnitTestCase
     /**
      * 各テストメソッド実行前のセットアップ
      */
-    public function set_up()
+    public function set_up() // メソッド名を set_up に統一
     {
-        parent::set_up();
+        parent::set_up(); // 親の setUp を最初に呼び出す
 
         // テスト用ユーザーを作成
         $this->user_id = self::factory()->user->create(['role' => 'editor']);
@@ -51,12 +43,14 @@ class template_HeaderTemplateTest extends WP_UnitTestCase
         ]);
 
         // サムネイルを追加 (OGP画像テスト用)
+        // 投稿が作成された後に行う
         $image_path =  dirname(__FILE__, 2) . '/dummy-image.png';
         if (file_exists($image_path)) {
             $this->attachment_id = self::factory()->attachment->create_upload_object($image_path, $this->post_id);
             if (!is_wp_error($this->attachment_id)) {
                 set_post_thumbnail($this->post_id, $this->attachment_id);
             } else {
+                error_log('Failed to create attachment: ' . $this->attachment_id->get_error_message()); // エラーログ
                 $this->attachment_id = null;
             }
         }
@@ -76,26 +70,37 @@ class template_HeaderTemplateTest extends WP_UnitTestCase
     /**
      * 各テストメソッド実行後のティアダウン
      */
-    public function tear_down()
+    public function tear_down() // メソッド名を tear_down に統一
     {
+        // アクションフックを削除
+        remove_action('wp_head', [$this, 'action_wp_head_fired']);
+        remove_action('wp_body_open', [$this, 'action_wp_body_open_fired']);
+
         // グローバル状態のリセット
         wp_reset_query();
         wp_reset_postdata();
-        unset($GLOBALS['post']);
+        // --- 修正: tearDown で確実に unset ---
+        unset($GLOBALS['post'], $GLOBALS['wp_query'], $GLOBALS['wp_the_query']);
 
         // フロントページ設定をリセット
         update_option('show_on_front', 'posts');
         update_option('page_on_front', 0);
 
-        // アクションフックを削除
-        remove_action('wp_head', [$this, 'action_wp_head_fired']);
-        remove_action('wp_body_open', [$this, 'action_wp_body_open_fired']);
+        // --- 追加: テーマMODのリセット ---
+        remove_theme_mods();
 
-        // 作成したデータのクリーンアップ
-        if ($this->attachment_id) {
-            wp_delete_attachment($this->attachment_id, true);
-        }
-        parent::tear_down();
+        // 作成したデータのクリーンアップ (投稿なども削除した方がより確実)
+        // wp_delete_post($this->post_id, true);
+        // wp_delete_post($this->front_page_id, true);
+        // if ($this->attachment_id) {
+        //     wp_delete_attachment($this->attachment_id, true);
+        // }
+        // wp_delete_user($this->user_id); // ユーザー削除は他のテストに影響する可能性あり注意
+
+        // --- 修正: キャッシュフラッシュ ---
+        wp_cache_flush();
+
+        parent::tear_down(); // 親の tearDown は最後に呼び出す
     }
 
     // wp_head アクション用のコールバック
@@ -117,9 +122,19 @@ class template_HeaderTemplateTest extends WP_UnitTestCase
      */
     private function get_header_output(): string
     {
+        $header_path = get_template_directory() . '/header.php';
+        if (!file_exists($header_path)) {
+            trigger_error('header.php not found at ' . $header_path, E_USER_WARNING);
+            return '';
+        }
         ob_start();
-        // テスト対象のテンプレートファイルを直接読み込む
-        get_header();
+        // header.php を直接読み込む
+        require $header_path;
+        // 注意: この方法では get_header() が内部で実行するアクション
+        // (wp_head, wp_body_open など) が自動では実行されません。
+        // 必要であれば手動で do_action() を呼び出す
+        // do_action('wp_head');
+        // do_action('wp_body_open');
         return ob_get_clean();
     }
 
