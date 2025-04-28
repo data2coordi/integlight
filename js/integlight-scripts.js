@@ -103,4 +103,9 @@ if (settings.displayChoice === settings.headerTypeNameSlider) {
 
 // Slider _s ////////////////////////////////////////////////////////////////
 
-
+// ここでまとめてexport
+export {
+    Integlight_Slider,
+    Integlight_SlideSlider,
+    Integlight_FadeSlider
+};
