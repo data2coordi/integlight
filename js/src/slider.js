@@ -58,9 +58,9 @@ class Integlight_FadeSlider extends Integlight_Slider {
         this.currentIndex = 1;
 
         this.$slider.addClass('fade-effect');
+        this.$slide.css('transition', 'opacity ' + this.changingDuration + 's ease-in-out');
 
         setInterval(() => this.showSlide(), this.displayDuration * 1000);
-        this.showSlide();
     }
 
     showSlide() {
@@ -70,7 +70,7 @@ class Integlight_FadeSlider extends Integlight_Slider {
         }
         this.$slide.not(this.$slide.eq(this.currentIndex)).removeClass('active');
         this.$slide.eq(this.currentIndex).addClass('active');
-        this.$slide.css('transition', 'opacity ' + this.changingDuration + 's ease-in-out');
+
     }
 }
 
