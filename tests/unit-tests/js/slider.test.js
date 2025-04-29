@@ -100,7 +100,7 @@ describe('Integlight Slider Scripts (Blackbox - Fade Initial)', () => {
         // ★★★ 修正箇所 ★★★
         // スクリプトを読み込み、クラス定義を取得するだけ
         // (ready ハンドラや setTimeout はここでは実行しない)
-        const scriptExports = require('../../../js/src/integlight-scripts');
+        const scriptExports = require('../../../js/src/slider');
         // require がクラスを直接エクスポートしない場合、グローバルから取得するなどの代替策が必要
         // ここでは require が返すか、グローバルに Integlight_FadeSlider が存在すると仮定
         Integlight_FadeSlider = scriptExports.Integlight_FadeSlider || global.Integlight_FadeSlider;

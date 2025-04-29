@@ -1,9 +1,7 @@
 clear
 
 
-npm run test:unit:js  tests/unit-tests/js/customizer.test.js
-
-npm run test:unit:js  tests/unit-tests/js/navigation.test.js
+npm run test:unit:js  tests/unit-tests/js/slider.test.js
 
 
 exit
