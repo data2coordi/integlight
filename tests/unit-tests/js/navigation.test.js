@@ -7,7 +7,7 @@ import {
     handleParentLinkClick,
     handleMenuItemFocusOut,
     checkFocus,
-} from '../../../js/navigation'; // 適宜パスを調整してください
+} from '../../../js/src/navigation'; // 適宜パスを調整してください
 
 describe('グローバルメニューの挙動', () => {
     let container;

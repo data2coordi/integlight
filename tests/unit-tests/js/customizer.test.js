@@ -100,7 +100,7 @@ describe('Customizer Script Tests (Simple DOM Check)', () => {
         document.body.innerHTML = '';
 
         // スクリプトを再読み込み
-        require('../../../js/customizer');
+        require('../../../js/src/customizer');
     });
 
     // --- 個別のテストケース (変更なし) ---
