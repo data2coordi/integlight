@@ -61,7 +61,7 @@ function integlight_customize_partial_blogdescription()
  */
 function integlight_customize_preview_js()
 {
-	wp_enqueue_script('integlight-customizer', get_template_directory_uri() . '/js/customizer.js', array('customize-preview'), _INTEGLIGHT_S_VERSION, true);
+	wp_enqueue_script('integlight-customizer', get_template_directory_uri() . '/js/build/customizer.js', array('customize-preview'), _INTEGLIGHT_S_VERSION, true);
 }
 add_action('customize_preview_init', 'integlight_customize_preview_js');
 

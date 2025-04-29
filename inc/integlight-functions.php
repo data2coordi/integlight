@@ -92,7 +92,7 @@ class InteglightCommonJsAssets
 
 		//js 読み込み
 		$scripts = [
-			'integlight-navigation' =>  ['path' => '/js/navigation.js', 'deps' => []],
+			'integlight-navigation' =>  ['path' => '/js/build/navigation.js', 'deps' => []],
 		];
 		InteglightFrontendScripts::add_scripts($scripts);
 
