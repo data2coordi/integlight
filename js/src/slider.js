@@ -4,7 +4,6 @@
 class Integlight_Slider {
     constructor($, settings) {
         this.$ = $;
-        this.settings = settings;
         this.$slider = this.$('.slider');
         this.$slides = this.$slider.find('.slides');
         this.$slide = this.$slides.find('.slide');

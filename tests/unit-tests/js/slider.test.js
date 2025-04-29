@@ -1,156 +1,131 @@
-/**
- * @jest-environment jsdom // jsdom環境を指定
- */
-
-// --- Mock Setup ---
-// グローバル変数のモック設定 (テストケース内で使用)
-const mockSliderSettingsBase = {
-    displayChoice: 'slider', // スライダーが有効になるような値
+//本体側import時に、実行されて、エラーになるのを防止
+global.integlight_sliderSettings = {
+    displayChoice: 'slider',
     headerTypeNameSlider: 'slider',
+    effect: 'fade',
     fade: 'fade',
     slide: 'slide',
-    changeDuration: 2, // テストで使う値
+    changeDuration: 3
 };
 
-// import 文は削除 または コメントアウト
-// import { Integlight_SlideSlider, Integlight_FadeSlider } from '../../../js/integlight-scripts';
+//本体側import時に、実行されて、エラーになるのを防止
+// jQuery のモックを修正して ready メソッドを追加
+global.jQuery = jest.fn(() => ({
+    ready: jest.fn((callback) => {
+        // テストの中で ready が呼ばれると即座にコールバックを実行
+        callback(jQuery);
+    }),
+    // 必要に応じてその他の jQuery メソッドもモック
+    fn: {
+        extend: jest.fn()
+    }
+}));
 
 
-describe('Integlight Slider Scripts (Blackbox - Fade Initial)', () => {
-    // 共通のモックやヘルパーを定義
-    let mockJQ;
-    let mockSlideElement;
-    let mockSlidesContainer;
-    let mockSliderContainer;
-    let mockReadyObject;
-    let Integlight_FadeSlider; // クラス定義を保持する変数
+let Integlight_FadeSlider; // ← ここではimportしない！
 
-    beforeEach(() => {
+describe('Integlight_FadeSlider', () => {
+    let mock$, mockSlideElements, instance;
+
+    beforeEach(async () => {
         jest.useFakeTimers();
-        jest.resetModules();
 
-        // --- jQuery Mock (シンプル版) ---
-        mockSlideElement = {
-            width: jest.fn(() => 100),
-            first: jest.fn(() => ({ clone: jest.fn(() => ({})) })),
+        // ★ここで動的importする　//本体側import時に、実行されて、エラーになるのを防止
+        const module = await import('../../../js/src/slider.js');
+        Integlight_FadeSlider = module.Integlight_FadeSlider;
+
+        mockSlideElements = {
             length: 3,
-            eq: jest.fn(index => {
-                const mockEqResult = {
-                    _index: index,
-                    addClass: jest.fn(),
-                    removeClass: jest.fn()
-                };
-                // 結果を results 配列に格納 (アサーションで取得するため)
-                const results = mockSlideElement.eq.mock.results;
-                results[results.length] = { type: 'return', value: mockEqResult };
-                return mockEqResult;
-            }),
-            not: jest.fn(excludedObject => {
-                const mockNotResult = {
-                    _excludedIndex: excludedObject ? excludedObject._index : null,
-                    addClass: jest.fn(),
-                    removeClass: jest.fn()
-                };
-                const results = mockSlideElement.not.mock.results;
-                results[results.length] = { type: 'return', value: mockNotResult };
-                return mockNotResult;
-            }),
             css: jest.fn(),
-        };
-        mockSlidesContainer = {
-            find: jest.fn(sel => sel === '.slide' ? mockSlideElement : {}),
-            append: jest.fn(),
-            css: jest.fn(),
-        };
-        mockSliderContainer = {
-            addClass: jest.fn(),
-            find: jest.fn(sel => sel === '.slides' ? mockSlidesContainer : {}),
-        };
-        mockReadyObject = {
-            // ready コールバックは実行するが、引数の $ は mockJQ を渡す
-            ready: jest.fn(cb => { if (typeof cb === 'function') cb(mockJQ); })
-        };
-        const jQueryMockImplementation = (selectorOrFunction) => {
-            if (selectorOrFunction === '.slider') return mockSliderContainer;
-            if (selectorOrFunction === document || typeof selectorOrFunction === 'function') return mockReadyObject;
-            return {};
-        };
-        mockJQ = jest.fn(jQueryMockImplementation);
-        global.$ = mockJQ;
-        global.jQuery = mockJQ;
-        // --- End jQuery Mock ---
-
-        // DOM準備
-        document.body.innerHTML = `
-            <div class="slider">
-                <div class="slides">
-                    <div class="slide" id="slide-1">Slide 1</div>
-                    <div class="slide" id="slide-2">Slide 2</div>
-                    <div class="slide" id="slide-3">Slide 3</div>
-                </div>
-            </div>
-        `;
-
-        // Fade 用の設定
-        window.integlight_sliderSettings = {
-            ...mockSliderSettingsBase,
-            effect: 'fade', // フェード効果を指定
+            eq: jest.fn(index => ({
+                addClass: jest.fn(),
+            })),
+            not: jest.fn(() => ({
+                removeClass: jest.fn(),
+            }))
         };
 
-        // ★★★ 修正箇所 ★★★
-        // スクリプトを読み込み、クラス定義を取得するだけ
-        // (ready ハンドラや setTimeout はここでは実行しない)
-        const scriptExports = require('../../../js/src/slider');
-        // require がクラスを直接エクスポートしない場合、グローバルから取得するなどの代替策が必要
-        // ここでは require が返すか、グローバルに Integlight_FadeSlider が存在すると仮定
-        Integlight_FadeSlider = scriptExports.Integlight_FadeSlider || global.Integlight_FadeSlider;
+        const mockSlidesWrapper = {
+            find: jest.fn(() => mockSlideElements)
+        };
 
-        // スクリプト末尾の setTimeout(0) は進めておく (ready ハンドラ登録のため)
-        jest.advanceTimersByTime(1);
-        // ready ハンドラ自体は実行しておく (内部の setTimeout(0) をスケジュールさせるため)
-        if (mockReadyObject.ready.mock.calls.length > 0) {
-            mockReadyObject.ready.mock.calls[0][0];
-        }
-        // 注意: この時点ではまだ new Integlight_FadeSlider は実行されていない
+        const mockSliderElement = {
+            find: jest.fn(() => mockSlidesWrapper),
+            addClass: jest.fn()
+        };
 
+        mock$ = jest.fn(() => {
+            return mockSliderElement;
+        });
+
+        /*
+        mock$ = jest.fn(selector => {
+            if (selector === '.slider') {
+                return mockSliderElement;
+            }
+            return null;
+        });
+        */
+
+        const settings = { changeDuration: 5 };
+
+        instance = new Integlight_FadeSlider(mock$, settings);
     });
 
     afterEach(() => {
         jest.useRealTimers();
+        jest.clearAllMocks();
     });
 
-    // テスト1.1: ページ読み込み時、最初のスライドが表示されていること。
-    it('ページ読み込み時、最初のスライドが表示されていること', () => {
-        // Arrange: クラスが定義されていることを確認
-        expect(Integlight_FadeSlider).toBeDefined();
-
-        // Act: ★★★ 修正箇所 ★★★
-        // テスト内で直接インスタンスを生成する
-        // これにより、コンストラクタ内の showSlide のみが実行される
-        const slider = new Integlight_FadeSlider(mockJQ, window.integlight_sliderSettings);
-
-        // Assert
-        // 初期化時にクラス操作が行われることを確認
-        expect(mockSliderContainer.addClass).toHaveBeenCalledWith('fade-effect');
-
-        // コンストラクタ内の showSlide で eq が1回だけ呼ばれるはず
-        expect(mockSlideElement.eq).toHaveBeenCalledTimes(1);
-        expect(mockSlideElement.eq).toHaveBeenCalledWith(1); // 最初の呼び出しは index 1
-
-        // eq(1) の結果オブジェクトに対する操作を確認
-        const firstEqCallResult = mockSlideElement.eq.mock.results[0].value;
-        expect(firstEqCallResult.addClass).toHaveBeenCalledWith('active');
-
-        // not の呼び出しを確認
-        expect(mockSlideElement.not).toHaveBeenCalledTimes(1);
-        expect(mockSlideElement.not).toHaveBeenCalledWith(firstEqCallResult);
-
-        // not の結果オブジェクトに対する操作を確認
-        const firstNotCallResult = mockSlideElement.not.mock.results[0].value;
-        expect(firstNotCallResult.removeClass).toHaveBeenCalledWith('active');
-
-        // css の呼び出しを確認
-        expect(mockSlideElement.css).toHaveBeenCalledWith('transition', expect.stringContaining('opacity'));
+    it('should initialize correctly', () => {
+        expect(instance.currentIndex).toBe(1);
+        //expect(mock$.mock.calls[0][0]).toBe('.slider');
+        expect(instance.$slider.addClass).toHaveBeenCalledWith('fade-effect');
+        expect(mockSlideElements.css).toHaveBeenCalledWith('transition', expect.stringContaining('opacity'));
     });
+
+    it('should update slides correctly on showSlide', () => {
+        jest.advanceTimersByTime(5000); // 5秒進める（changeDuration）
+
+        expect(mockSlideElements.eq).toHaveBeenCalled();
+        expect(mockSlideElements.not).toHaveBeenCalled();
+    });
+
+    it('should reset currentIndex to 0 when reaching slideCount', () => {
+        instance.currentIndex = 2; // スライド数（mockSlideElements.length=3）の最後の1つ前に設定
+        jest.advanceTimersByTime(5000); // 5秒進める（changeDuration）
+
+        expect(instance.currentIndex).toBe(0); // 3枚目の後なのでリセットされる
+    });
+
+    it('should remove active class from all slides except the current one', () => {
+        instance.currentIndex = 2;
+        jest.advanceTimersByTime(5000);
+
+        // eq(2)が呼ばれたオブジェクトを取得
+        const targetSlide = mockSlideElements.eq.mock.results[0].value;
+
+        // notに正しい引数が渡されたか（参照が一致するかではなく、呼ばれたか）
+        expect(mockSlideElements.not).toHaveBeenCalled();
+        const calledWithArg = mockSlideElements.not.mock.calls[0][0];
+        expect(calledWithArg).toEqual(targetSlide); // deepEqual
+
+        // removeClassが正しく呼ばれているか
+        const returnedFromNot = mockSlideElements.not.mock.results[0].value;
+        expect(returnedFromNot.removeClass).toHaveBeenCalledWith('active');
+    });
+
+    it('should add active class to the current slide', () => {
+        jest.advanceTimersByTime(5000); // currentIndex = 1
+        jest.advanceTimersByTime(5000); // currentIndex = 2
+
+        // eq に currentIndex=2 が渡された回を探す
+        const eqCallIndex = mockSlideElements.eq.mock.calls.findIndex(args => args[0] === 2);
+        const returnedFromEq = mockSlideElements.eq.mock.results[eqCallIndex]?.value;
+
+        expect(returnedFromEq.addClass).toHaveBeenCalledWith('active');
+    });
+
+
 
 });
