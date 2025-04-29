@@ -1,7 +1,7 @@
 global.integlight_sliderSettings = {
     displayChoice: 'slider',
     headerTypeNameSlider: 'slider',
-    effect: 'fade',
+    effect: 'slide',
     fade: 'fade',
     slide: 'slide',
     changeDuration: 3
@@ -16,34 +16,35 @@ global.jQuery = jest.fn(() => ({
     }
 }));
 
-let Integlight_FadeSlider;
+let Integlight_SlideSlider;
 
-describe('Integlight_FadeSlider', () => {
-    let mock$, mockSlideElements, slideMocks, instance;
+describe('Integlight_SlideSlider', () => {
+    let mock$, mockSlideElements, mockSlidesWrapper, slideMocks, instance;
 
     beforeEach(async () => {
         jest.useFakeTimers();
 
         const module = await import('../../../js/src/slider.js');
-        Integlight_FadeSlider = module.Integlight_FadeSlider;
+        Integlight_SlideSlider = module.Integlight_SlideSlider;
 
         slideMocks = [
-            { addClass: jest.fn() },
-            { addClass: jest.fn() },
-            { addClass: jest.fn() },
+            { width: jest.fn(() => 100) },
+            { width: jest.fn(() => 100) },
+            { width: jest.fn(() => 100) },
         ];
 
         mockSlideElements = {
             length: 3,
             css: jest.fn(),
             eq: jest.fn(index => slideMocks[index]),
-            not: jest.fn(() => ({
-                removeClass: jest.fn(),
-            }))
+            first: jest.fn(() => ({ clone: jest.fn(() => 'cloned-slide') })),
+            append: jest.fn(),
+            width: jest.fn(() => 100)  // 👈 これを追加
         };
-
-        const mockSlidesWrapper = {
-            find: jest.fn(() => mockSlideElements)
+        mockSlidesWrapper = {
+            find: jest.fn(() => mockSlideElements),
+            css: jest.fn(),
+            append: jest.fn()
         };
 
         const mockSliderElement = {
@@ -51,13 +52,10 @@ describe('Integlight_FadeSlider', () => {
             addClass: jest.fn()
         };
 
-        mock$ = jest.fn(() => {
-            return mockSliderElement;
-        });
+        mock$ = jest.fn(() => mockSliderElement);
 
         const settings = { changeDuration: 5 };
-
-        instance = new Integlight_FadeSlider(mock$, settings);
+        instance = new Integlight_SlideSlider(mock$, settings);
     });
 
     afterEach(() => {
@@ -65,48 +63,36 @@ describe('Integlight_FadeSlider', () => {
         jest.clearAllMocks();
     });
 
-    it('should initialize correctly', () => {
-        expect(instance.currentIndex).toBe(1);
-        expect(instance.$slider.addClass).toHaveBeenCalledWith('fade-effect');
-        expect(mockSlideElements.css).toHaveBeenCalledWith('transition', expect.stringContaining('opacity'));
+    it('should initialize correctly and append clone', () => {
+        expect(instance.currentIndex).toBe(0);
+        expect(instance.$slider.addClass).toHaveBeenCalledWith('slide-effect');
+        expect(mockSlideElements.first).toHaveBeenCalled();
+        expect(mockSlidesWrapper.append).toHaveBeenCalledWith('cloned-slide');
     });
 
-    it('should update slides correctly on showSlide', () => {
+    it('should update slide position with transition', () => {
+        instance.currentIndex = 0;
         jest.advanceTimersByTime(5000);
 
-        expect(mockSlideElements.eq).toHaveBeenCalled();
-        expect(mockSlideElements.not).toHaveBeenCalled();
+        expect(mockSlidesWrapper.css).toHaveBeenCalledWith(
+            'transition',
+            expect.stringContaining('ease-in-out')
+        );
+        expect(mockSlidesWrapper.css).toHaveBeenCalledWith(
+            'transform',
+            expect.stringContaining('translateX')
+        );
     });
 
-    it('should reset currentIndex to 0 when reaching slideCount', () => {
+    it('should reset index after last slide and remove transition', () => {
         instance.currentIndex = 2;
-        jest.advanceTimersByTime(5000);
+        jest.advanceTimersByTime(5000); // move to clone
+
+
+        jest.advanceTimersByTime(instance.changingDuration * 1000); // timeout to reset
 
         expect(instance.currentIndex).toBe(0);
-    });
-
-    it('should remove active class from all slides except the current one', () => {
-        instance.currentIndex = 2;
-        jest.advanceTimersByTime(5000);
-
-        const targetSlide = slideMocks[2];
-        const calledWithArg = mockSlideElements.not.mock.calls[0][0];
-
-        // ここではaddClassの呼び出しが正しいかをチェックする
-        expect(mockSlideElements.not).toHaveBeenCalled();
-        expect(calledWithArg.addClass).toHaveBeenCalled(); // addClassが呼ばれたかをチェック
-
-        const returnedFromNot = mockSlideElements.not.mock.results[0].value;
-        expect(returnedFromNot.removeClass).toHaveBeenCalledWith('active');
-    });
-
-    it('should add active class to the current slide', () => {
-        jest.advanceTimersByTime(5000);
-        jest.advanceTimersByTime(5000);
-
-        const eqCallIndex = mockSlideElements.eq.mock.calls.findIndex(args => args[0] === 2);
-        const returnedFromEq = mockSlideElements.eq.mock.results[eqCallIndex]?.value;
-
-        expect(returnedFromEq.addClass).toHaveBeenCalledWith('active');
+        expect(mockSlidesWrapper.css).toHaveBeenCalledWith('transition', 'none');
+        expect(mockSlidesWrapper.css).toHaveBeenCalledWith('transform', 'translateX(0px)');
     });
 });
