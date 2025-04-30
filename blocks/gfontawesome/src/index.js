@@ -111,3 +111,5 @@ registerFormatType('fontawesome/icon', {
     className: 'gfontawesome-shortcode',
     edit: (props) => <FontAwesomeSearchButton {...props} />,
 });
+
+export { FontAwesomeSearchButton };

@@ -1,5 +1,11 @@
 {
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@wordpress/block-editor": "^14.17.0",
+    "@wordpress/components": "^29.8.0",
+    "@wordpress/element": "^6.22.0",
+    "@wordpress/rich-text": "^7.22.0",
     "@wordpress/scripts": "^30.15.0",
     "dir-archiver": "^1.1.1",
     "jest": "^29.7.0",
