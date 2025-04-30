@@ -76,19 +76,25 @@ class Integlight_FadeSlider extends Integlight_Slider {
 
 const settings = integlight_sliderSettings;
 
+console.log('@@@@@@@@@@1');
 if (settings.displayChoice === settings.headerTypeNameSlider) {
     let Integlight_SliderClass;
+    console.log('@@@@@@@@@@2');
     if (settings.effect === settings.fade) {
+        console.log('@@@@@@@@@@3');
         Integlight_SliderClass = Integlight_FadeSlider;
     } else if (settings.effect === settings.slide) {
+        console.log('@@@@@@@@@@4');
         Integlight_SliderClass = Integlight_SlideSlider;
     } else {
-
+        console.log('@@@@@@@@@@5');
     }
 
     if (typeof Integlight_SliderClass === "function") {
+        console.log('@@@@@@@@@@6');
         jQuery(document).ready(function ($) {
-
+            console.log('@@@@@@@@@@7');
+            console.log(Integlight_SliderClass);
             setTimeout(() => {
                 new Integlight_SliderClass($, settings);
             }, 0); // 0秒後（ミリ秒後）に実行

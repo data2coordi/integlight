@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-
+console.log('@@@@@@@@@@@ test start');
 // jQuery のモック
 global.jQuery = jest.fn(() => ({
     ready: jest.fn((cb) => cb()), // jQuery(document).ready のモック
@@ -10,10 +10,24 @@ global.jQuery = jest.fn(() => ({
 // コンソールログのモックを解除する
 beforeAll(() => {
     jest.restoreAllMocks(); // console.log を元に戻す
+    console.log('@@@@@@@@@@@ beforeAll');
+
 });
 
 beforeEach(() => {
     jest.resetModules()
+    // モック定義
+    jest.mock('../../../js/src/slider.js', () => {
+        // const actual = jest.requireActual('../../../js/src/slider.js');
+        console.log('@@@@@@@@@@@ mockset');
+        return {
+            //...actual,
+            Integlight_SlideSlider: jest.fn(),
+            Integlight_FadeSlider: jest.fn(),
+        };
+
+    });
+
 });
 
 
@@ -26,21 +40,13 @@ afterEach(() => {
 global.integlight_sliderSettings = {
     displayChoice: 'slider',
     headerTypeNameSlider: 'slider',
-    effect: 'slide',
+    effect: 'fade',
     slide: 'slide',
     fade: 'fade',
     changeDuration: 3,
 };
 
-// モック定義
-jest.mock('../../../js/src/slider.js', () => {
-    const actual = jest.requireActual('../../../js/src/slider.js');
-    return {
-        ...actual,
-        Integlight_SlideSlider: jest.fn(),
-        Integlight_FadeSlider: jest.fn(),
-    };
-});
+
 
 describe('Mock Replacement Smoke Test', () => {
 
@@ -58,10 +64,12 @@ describe('Mock Replacement Smoke Test', () => {
 
 
 
-    it('スライドクラスが正常に new されることを確認', () => {
-        const mod = require('../../../js/src/slider.js');
+    it('スライドクラスが正常に new されることを確認', async () => {
+        jest.useFakeTimers(); // ①タイマーのモックを有効化
         const settings = global.integlight_sliderSettings;
+        const mod = await import('../../../js/src/slider.js');
 
+        jest.runAllTimers();
         // Integlight_SlideSlider クラスが new されたか確認
         //new mod.Integlight_SlideSlider({}, settings);
 
