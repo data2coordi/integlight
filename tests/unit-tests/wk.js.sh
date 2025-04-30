@@ -2,7 +2,7 @@ clear
 
 
 #npm run test:unit:js  tests/unit-tests/js/gfontawesome.test.js
-npm run test:unit:js  tests/unit-tests/js/slider.init.test.js
+npm run test:unit:js  tests/unit-tests/js/slider.init2.test.js
 
 
 exit
