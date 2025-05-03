@@ -74,35 +74,45 @@ class Integlight_FadeSlider extends Integlight_Slider {
 }
 
 
-// 新たにトップレベルのロジックをクラス化
+// Manager ////////////////////////////////////////////////////////////////
 class Integlight_SliderManager {
-    constructor(settings) {
+    /**
+     * @param {Object} settings
+     * @param {Object<string, class>} [effectRegistry] - { [effectName]: SliderClass }
+     * @param {$} [$=jQuery]
+     */
+    constructor(settings, effectRegistry = null, $ = jQuery) {
         this.settings = settings;
-        this.$ = jQuery;
-        this.sliderClass = null;
+        this.$ = $;
+        // デフォルトレジストリ生成
+        this.effectRegistry = effectRegistry || {
+            [settings.fade]: Integlight_FadeSlider,
+            [settings.slide]: Integlight_SlideSlider
+        };
     }
 
     init() {
-        if (this.settings.displayChoice === this.settings.headerTypeNameSlider) {
-            if (this.settings.effect === this.settings.fade) {
-                this.sliderClass = Integlight_FadeSlider;
-            } else if (this.settings.effect === this.settings.slide) {
-                this.sliderClass = Integlight_SlideSlider;
-            }
-
-            if (typeof this.sliderClass === "function") {
-                this.$(document).ready(() => {
-                    setTimeout(() => {
-                        new this.sliderClass(this.$, this.settings);
-                    }, 0);
-                });
-            }
+        if (this.settings.displayChoice !== this.settings.headerTypeNameSlider) {
+            return;
         }
+
+        const SliderClass = this.effectRegistry[this.settings.effect];
+        if (typeof SliderClass !== 'function') {
+            return;
+        }
+
+        this.$(document).ready(() => {
+            setTimeout(() => {
+                new SliderClass(this.$, this.settings);
+            }, 0);
+        });
     }
 }
 
-// 初期化処理
-const sliderManager = new Integlight_SliderManager(integlight_sliderSettings);
+// 初期化処理（デフォルト）
+const sliderManager = new Integlight_SliderManager(
+    integlight_sliderSettings
+);
 sliderManager.init();
 
 
@@ -113,5 +123,7 @@ sliderManager.init();
 export {
     Integlight_Slider,
     Integlight_SlideSlider,
-    Integlight_FadeSlider
+    Integlight_FadeSlider,
+    Integlight_SliderManager
+
 };
