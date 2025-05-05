@@ -108,6 +108,21 @@ a:focus-visible {
   color: #555;
 }
 
+.site-header {
+  position: relative;
+  border-bottom: 10px solid #555;
+}
+
+.site-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 3px;
+  background-color: #eee;
+}
+
 @media screen and (max-width: 768px) {
   .main-navigation li.menu-item-has-children > a::after {
     right: 15px;

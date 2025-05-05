@@ -97,8 +97,8 @@ a:focus-visible {
 }
 
 #page-top:hover {
-  background: #0000ff;
-  border: #0000ff;
+  background: #c14f7e;
+  border: #c14f7e;
   color: #fff;
 }
 
@@ -118,6 +118,21 @@ a:focus-visible {
 .site-header,
 .site-footer {
   background-color: #1e1d1d;
+}
+
+.site-header {
+  position: relative;
+  border-bottom: 10px solid #0000ff;
+}
+
+.site-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 3px;
+  background-color: #c14f7e;
 }
 
 ul.menu > li.menu-item-has-children > ul.sub-menu,

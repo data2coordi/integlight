@@ -102,8 +102,8 @@ a:focus-visible {
 }
 
 #page-top:hover {
-  background: #fa9303;
-  border: #fa9303;
+  background: #75eab0;
+  border: #75eab0;
   color: #fff;
 }
 
@@ -120,6 +120,22 @@ a:focus-visible {
 .site-footer {
   background-color: #221104;
 }
+
+.site-header {
+  position: relative;
+  border-bottom: 10px solid #fa9301;
+}
+
+.site-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 3px;
+  background-color: #75eab0;
+}
+
 
 ul.menu > li.menu-item-has-children > ul.sub-menu,
 ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {

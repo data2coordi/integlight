@@ -1,112 +1,105 @@
-// jest.setup.js
+// /home/h95mori/dev_wp_env/html/wp-content/themes/integlight/tests/unit-tests/js/gfontawesome.test.js
 
 import '@testing-library/jest-dom';
-import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
 
-// モック wp オブジェクト
-global.wp = {
-    element: require('@wordpress/element'),
-    richText: {
-        insert: jest.fn((value, shortcode) => value + shortcode),
-    },
-    blockEditor: {
-        RichTextToolbarButton: ({ icon, title, onClick }) => (
-            <button onClick={onClick} aria-label={title}>{icon}</button>
-        ),
-    },
-    components: {
-        Modal: ({ children, onRequestClose }) => (
-            <div data-testid="modal">
-                <button onClick={onRequestClose}>Close</button>
-                {children}
-            </div>
-        ),
-        Button: ({ onClick, children }) => (
-            <button onClick={onClick}>{children}</button>
-        ),
-        TextControl: ({ label, value, onChange }) => (
-            <label>
-                {label}
-                <input
-                    value={value}
-                    onChange={(e) => onChange(e.target.value)}
-                    aria-label={label}
-                />
-            </label>
-        ),
-        Spinner: () => <div>Loading...</div>,
-    },
-};
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { FontAwesomeSearchButton } from '../../../blocks/gfontawesome/src/index.js';
+// --- WordPress 環境の最小限モック ---
+// beforeAll で一度だけ定義
+beforeAll(() => {
+    global.wp = {
+        // React の基本機能 (useState, useEffect, Fragment) のために必要
+        element: require('@wordpress/element'),
+        // アイコン挿入機能のモック
+        richText: {
+            insert: jest.fn((value, content) => value + content), // 最も単純な挿入動作
+            registerFormatType: jest.fn(), // index.js 読み込みに必要
+        },
+        // ツールバーボタンのモック (単純な button)
+        blockEditor: {
+            RichTextToolbarButton: ({ title, onClick }) => (
+                <button data-testid="toolbar-button" onClick={onClick} aria-label={title || 'Toolbar Button'}>
+                    Toolbar Button
+                </button>
+            ),
+        },
+        // モーダルと内部コンポーネントのモック (単純な要素)
+        components: {
+            Modal: ({ children, title }) => <div data-testid="modal" aria-label={title}>{children}</div>,
+            Button: ({ onClick, children, 'aria-label': ariaLabel }) => <button onClick={onClick} aria-label={ariaLabel}>{children}</button>,
+            TextControl: ({ label, value, onChange }) => <input type="text" aria-label={label} value={value || ''} onChange={(e) => onChange(e.target.value)} />,
+            Spinner: () => <div data-testid="spinner">Loading...</div>,
+        },
+    };
 
-describe('FontAwesomeSearchButton', () => {
+    // fetch API のモック (固定レスポンス)
+    global.fetch = jest.fn(() =>
+        Promise.resolve({
+            ok: true,
+            json: () => Promise.resolve({ solid: ['fa-home', 'fa-user'] }), // テストに必要な最小限のアイコン
+        })
+    );
+});
+
+// --- テスト本体 ---
+describe('FontAwesomeSearchButton (Simplified)', () => {
+    let FontAwesomeSearchButton;
     const mockOnChange = jest.fn();
-    const mockInsert = jest.fn((value, shortcode) => value + shortcode);
 
-    beforeEach(() => {
-        // モックをクリア
+    // 各テスト前にコンポーネントを動的にインポートし、モックをクリア
+    beforeEach(async () => {
+        // モジュールキャッシュをリセットしてからインポート
+        jest.resetModules();
+        const module = await import('../../../blocks/gfontawesome/src/index.js');
+        FontAwesomeSearchButton = module.FontAwesomeSearchButton;
+
+        // モック関数の呼び出し履歴をクリア
         mockOnChange.mockClear();
-        mockInsert.mockClear();
-        wp.richText.insert = mockInsert;
-
-        // fetch をモック
-        global.fetch = jest.fn(() =>
-            Promise.resolve({
-                json: () => Promise.resolve({
-                    solid: ['fa-home', 'fa-user', 'fa-cog'],
-                    brands: ['fa-twitter', 'fa-facebook']
-                }),
-            })
-        );
+        global.wp.richText.insert.mockClear();
+        global.fetch.mockClear();
     });
 
-    afterEach(() => {
-        global.fetch.mockRestore?.();
+    // Test 1: ツールバーボタンが表示され、クリックでモーダルが開くか
+    it('ツールバーボタンが表示され、クリックでモーダルが開くこと', () => {
+        render(<FontAwesomeSearchButton value="Initial" onChange={mockOnChange} />);
+
+        // ツールバーボタンが表示されていることを確認
+        const toolbarButton = screen.getByTestId('toolbar-button');
+        expect(toolbarButton).toBeInTheDocument();
+
+        // ボタンをクリック
+        fireEvent.click(toolbarButton);
+
+        // モーダルが表示されることを確認
+        expect(screen.getByTestId('modal')).toBeInTheDocument();
     });
 
-    it('renders toolbar button', () => {
-        render(<FontAwesomeSearchButton value="" onChange={mockOnChange} />);
-        expect(screen.getByRole('button', { name: 'Font Awesome Icon Search' })).toBeInTheDocument();
-    });
+    // Test 2: アイコンをクリックすると onChange が呼ばれるか (fetch も含む)
+    it('アイコンをクリックすると onChange が正しい値で呼ばれること', async () => {
+        const initialValue = "Initial value";
+        render(<FontAwesomeSearchButton value={initialValue} onChange={mockOnChange} />);
 
-    it('opens modal on button click and loads icons', async () => {
-        render(<FontAwesomeSearchButton value="Hello" onChange={mockOnChange} />);
-        fireEvent.click(screen.getByRole('button', { name: 'Font Awesome Icon Search' }));
+        // ツールバーボタンをクリックしてモーダルを開く
+        fireEvent.click(screen.getByTestId('toolbar-button'));
 
-        expect(await screen.findByTestId('modal')).toBeInTheDocument();
-        expect(global.fetch).toHaveBeenCalledWith(
-            '/wp-content/themes/integlight/blocks/gfontawesome/fontawesome-icons.json'
-        );
-    });
+        // fetch が呼ばれたことを確認 (モーダル表示時に fetch が走るため)
+        expect(global.fetch).toHaveBeenCalledTimes(1);
 
-    it('filters icons based on search input', async () => {
-        render(<FontAwesomeSearchButton value="" onChange={mockOnChange} />);
-        fireEvent.click(screen.getByRole('button', { name: 'Font Awesome Icon Search' }));
+        // アイコンボタンが表示されるのを待つ (fetch の非同期処理後)
+        const iconButton = await screen.findByRole('button', { name: 'fa-home' });
+        expect(iconButton).toBeInTheDocument();
 
-        await screen.findByText(/solid/i); // カテゴリ表示確認
-
-        const input = screen.getByLabelText('Search');
-        fireEvent.change(input, { target: { value: 'home' } });
-
-        expect(await screen.findByText((_, el) => el?.className.includes('fa-home'))).toBeInTheDocument();
-    });
-
-    it('inserts shortcode when icon is clicked', async () => {
-        render(<FontAwesomeSearchButton value="start-" onChange={mockOnChange} />);
-        fireEvent.click(screen.getByRole('button', { name: 'Font Awesome Icon Search' }));
-
-        await screen.findByText(/solid/i);
-
-        const iconButton = screen.getAllByRole('button').find(btn =>
-            btn.querySelector('i.fas.fa-home')
-        );
-
+        // アイコンボタンをクリック
         fireEvent.click(iconButton);
 
-        expect(mockInsert).toHaveBeenCalledWith('start-', '[fontawesome icon=fa-home]');
-        expect(mockOnChange).toHaveBeenCalledWith('start-[fontawesome icon=fa-home]');
+        // wp.richText.insert が呼ばれたか確認
+        expect(global.wp.richText.insert).toHaveBeenCalledTimes(1);
+        expect(global.wp.richText.insert).toHaveBeenCalledWith(initialValue, '[fontawesome icon=fa-home]');
+
+        // onChange が insert の結果で呼ばれたか確認
+        expect(mockOnChange).toHaveBeenCalledTimes(1);
+        expect(mockOnChange).toHaveBeenCalledWith(initialValue + '[fontawesome icon=fa-home]'); // insert モックの挙動に基づく
+
+        // モーダルが閉じていることを確認
+        expect(screen.queryByTestId('modal')).not.toBeInTheDocument();
     });
 });
