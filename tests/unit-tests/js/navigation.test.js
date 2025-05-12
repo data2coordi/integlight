@@ -7,6 +7,9 @@ import {
     handleParentLinkClick,
     handleMenuItemFocusOut,
     checkFocus,
+    handleFocusOnParentLink, // ← 追記（エクスポート済みである前提）
+    handleKeydownEscape, // ← 追加
+
 } from '../../../js/src/navigation'; // 適宜パスを調整してください
 
 describe('グローバルメニューの挙動', () => {
@@ -121,6 +124,86 @@ describe('グローバルメニューの挙動', () => {
                 expect(li1.classList.contains('active')).toBe(false);
                 done();
             }, 0);
+        });
+    });
+
+
+    describe('handleFocusOnParentLink', () => {
+        it('フォーカス時に対象項目に active を付け、他の兄弟項目からは外す', () => {
+            const link1 = document.getElementById('link1');
+            const li1 = document.getElementById('item1');
+            const link2 = document.getElementById('link2');
+            const li2 = document.getElementById('item2');
+
+            // 最初に両方 active にしておく
+            li1.classList.add('active');
+            li2.classList.add('active');
+
+            // link1 にフォーカスが当たったと仮定
+            handleFocusOnParentLink.call(link1);
+
+            expect(li1.classList.contains('active')).toBe(true);
+            expect(li2.classList.contains('active')).toBe(false);
+        });
+
+        it('フォーカス対象のみに active が付与される', () => {
+            const link2 = document.getElementById('link2');
+            const li2 = document.getElementById('item2');
+
+            // 何も active でない状態から開始
+            expect(li2.classList.contains('active')).toBe(false);
+
+            handleFocusOnParentLink.call(link2);
+
+            expect(li2.classList.contains('active')).toBe(true);
+        });
+    });
+
+
+
+    describe('handleKeydownEscape', () => {
+        it('Escape キーで active を解除し、親リンクにフォーカスを戻す', () => {
+            const link1 = document.getElementById('link1');
+            const li1 = document.getElementById('item1');
+            const subLink = document.createElement('a');
+            subLink.href = '#';
+            subLink.textContent = 'Sub';
+            li1.querySelector('.sub-menu').appendChild(subLink);
+
+            // active を付与して、サブリンクに focus させる
+            li1.classList.add('active');
+            li1.appendChild(subLink);
+
+            // JSDOM 環境では document.activeElement をモック
+            Object.defineProperty(document, 'activeElement', {
+                value: subLink,
+                configurable: true,
+            });
+
+            const focusSpy = jest.spyOn(link1, 'focus');
+
+            // Escape キーイベント発火
+            const escEvent = new KeyboardEvent('keydown', { key: 'Escape' });
+            handleKeydownEscape(escEvent);
+
+            expect(li1.classList.contains('active')).toBe(false);
+            expect(focusSpy).toHaveBeenCalled();
+        });
+
+
+        it('active な親メニューが無ければ何もしない', () => {
+            const link1 = document.getElementById('link1');
+            const li1 = document.getElementById('item1');
+
+            // active にしない
+            link1.focus();
+
+            const focusSpy = jest.spyOn(link1, 'focus');
+            const escEvent = new KeyboardEvent('keydown', { key: 'Escape' });
+            handleKeydownEscape(escEvent);
+
+            expect(focusSpy).not.toHaveBeenCalled();
+            expect(li1.classList.contains('active')).toBe(false);
         });
     });
 

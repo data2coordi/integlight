@@ -104,5 +104,5 @@ document.addEventListener("keydown", handleKeydownEscape);
 
 
 
-export { handleDOMContentLoaded, handleParentLinkClick, handleMenuItemFocusOut, checkFocus };
+export { handleDOMContentLoaded, handleParentLinkClick, handleMenuItemFocusOut, checkFocus, handleFocusOnParentLink, handleKeydownEscape };
 
