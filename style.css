@@ -4,7 +4,7 @@ Theme URI: https://color.toshidayurika.com/integlight-en/
 Author: Yurika Toshida at Aurora Lab
 Author URI: https://color.toshidayurika.com/
 Description: A simple, lightweight and stylish theme that helps users turn their knowledge and experience into a digital asset called a blog.
-Version: 1.0.3
+Version: 1.0.4
 Tested up to: 6.7
 Requires PHP: 7.4
 License: GNU General Public License v2 or later
@@ -21,15 +21,7 @@ Underscores is distributed under the terms of the GNU GPL v2 or later.
 Normalizing styles have been helped along thanks to the fine work of
 Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 
----
 
-Changelog:
-- Version 1.0.4 (2025-05-12): 
-    - Fixed issues with footer display logic.
-    - Updated support for PHP 8.x.
-    - Enhanced accessibility features.
-    - Added PR #12 for improving theme responsiveness on mobile devices.
-    - Other minor bug fixes and improvements.
 
 ---
 
