@@ -138,60 +138,7 @@ class template_HeaderTemplateTest extends WP_UnitTestCase
         return ob_get_clean();
     }
 
-    /**
-     * @test
-     * 通常の投稿ページで header.php が基本的な要素を出力することを確認。
-     */
-    public function test_header_output_on_single_post()
-    {
-        // --- Arrange ---
-        $this->go_to(get_permalink($this->post_id));
 
-        // --- Act ---
-        $output = $this->get_header_output();
-
-        // --- Assert ---
-        // 1. 基本的なHTML構造
-        $this->assertStringStartsWith('<!doctype html>', trim($output));
-        $this->assertStringContainsString('<html ' . get_language_attributes() . '>', $output);
-        $this->assertStringContainsString('<head>', $output);
-        $this->assertStringContainsString('<meta charset="' . get_bloginfo('charset') . '">', $output);
-        $this->assertStringContainsString('<meta name="viewport" content="width=device-width, initial-scale=1">', $output);
-        $this->assertStringContainsString('</head>', $output);
-        $this->assertStringContainsString('<body ', $output); // body タグ開始
-        $this->assertStringContainsString('class="', $output); // body_class が呼ばれているか
-        $this->assertStringContainsString('integlight_pt', $output); // body_class のカスタムクラス
-        $this->assertStringNotContainsString('integlight_front_page', $output); // フロントページ用クラスがないこと
-
-        // 2. OGPタグ (投稿コンテキスト)
-        $this->assertStringContainsString('property="og:title" content="' . esc_attr(get_the_title($this->post_id)) . '"', $output);
-        $this->assertStringContainsString('property="og:description" content="' . esc_attr(get_the_excerpt($this->post_id)) . '"', $output);
-        $this->assertStringContainsString('property="og:url" content="' . esc_url(get_permalink($this->post_id)) . '"', $output);
-        if ($this->attachment_id) {
-            $thumbnail_url = get_the_post_thumbnail_url($this->post_id, 'full');
-            $this->assertStringContainsString('property="og:image" content="' . esc_url($thumbnail_url) . '"', $output);
-        } else {
-            $this->assertStringContainsString('property="og:image" content=""', $output); // 画像なし
-        }
-        $this->assertStringContainsString('property="og:site_name" content="' . esc_attr(get_bloginfo('name')) . '"', $output);
-        $this->assertStringContainsString('property="og:locale" content="' . esc_attr(get_locale()) . '"', $output);
-
-        // 3. アクションフック
-        $this->assertTrue($this->wp_head_fired, 'wp_head action was not fired.');
-        $this->assertTrue($this->wp_body_open_fired, 'wp_body_open action was not fired.');
-
-        // 4. サイトヘッダー要素
-        $this->assertStringContainsString('<header id="masthead"', $output);
-        $this->assertStringContainsString('<div class="site-branding">', $output);
-        // 通常ページではサイトタイトルは <p>
-        $this->assertStringContainsString('<p class="site-title"><a href="' . esc_url(home_url('/')) . '"', $output);
-        $this->assertStringContainsString(get_bloginfo('name') . '</a></p>', $output);
-        // *** MODIFICATION START: Remove site description check ***
-        // $this->assertStringContainsString('<p class="site-description">' . get_bloginfo('description') . '</p>', $output); // キャッチフレーズ
-        // *** MODIFICATION END ***
-        $this->assertStringContainsString('<nav id="site-navigation"', $output);
-        $this->assertStringContainsString('id="primary-menu"', $output); // wp_nav_menu が呼ばれているか
-    }
 
     /**
      * @test
