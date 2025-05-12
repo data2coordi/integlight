@@ -55,5 +55,54 @@ function checkFocus(item) {
 document.addEventListener("DOMContentLoaded", handleDOMContentLoaded);
 
 
+
+
+
+//アクセシビリティ対応　キーボード操作でサブメニュー開閉 s
+
+
+// フォーカスされたらサブメニューを開く（EnterではなくTab移動時）
+function handleFocusOnParentLink() {
+	const currentItem = this.parentElement;
+
+	// 同階層の他メニューを閉じる
+	const siblings = Array.from(currentItem.parentElement.children);
+	siblings.forEach(sibling => {
+		if (sibling !== currentItem) {
+			sibling.classList.remove("active");
+		}
+	});
+
+	currentItem.classList.add("active");
+}
+
+
+
+
+document.querySelectorAll(".menu-item-has-children > a").forEach(link => {
+	link.addEventListener("focus", handleFocusOnParentLink);
+});
+
+//escでメニューを閉じる
+function handleKeydownEscape(e) {
+	if (e.key === "Escape") {
+		// 現在フォーカスされているリンクの親メニューを閉じる
+		const focusedElement = document.activeElement;
+		const menuItem = focusedElement.closest(".menu-item-has-children.active");
+		if (menuItem) {
+			menuItem.classList.remove("active");
+			menuItem.querySelector("a").focus(); // 親メニューにフォーカスを戻す
+		}
+	}
+}
+
+document.addEventListener("keydown", handleKeydownEscape);
+
+//アクセシビリティ対応　キーボード操作でサブメニュー開閉 e
+
+
+
+
+
 export { handleDOMContentLoaded, handleParentLinkClick, handleMenuItemFocusOut, checkFocus };
 
