@@ -43,10 +43,8 @@ if (is_front_page() != false) {
 
                         <h2><?php
                             $tmpTitle = get_the_title();
-                            echo htmlspecialchars(
-                                (mb_strlen($tmpTitle, 'UTF-8') > 19) ? mb_substr($tmpTitle, 0, 19) . ' ...' : $tmpTitle,
-                                ENT_QUOTES,
-                                'UTF-8'
+                            echo esc_html(
+                                (strlen($tmpTitle) > 19) ? wp_html_excerpt($tmpTitle, 19) . ' ...' : $tmpTitle
                             );
                             ?></h2>
 
