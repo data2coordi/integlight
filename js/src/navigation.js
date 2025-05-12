@@ -1,20 +1,20 @@
 // DOMContentLoaded イベント時の初期処理
-function handleDOMContentLoaded() {
+function integlight_handleDOMContentLoaded() {
 	// 「子メニューを持つ」リンクのクリックイベントを登録
 	var parentLinks = document.querySelectorAll(".menu-item-has-children > a");
 	for (var i = 0; i < parentLinks.length; i++) {
-		parentLinks[i].addEventListener("click", handleParentLinkClick);
+		parentLinks[i].addEventListener("click", integlight_handleParentLinkClick);
 	}
 
 	// 各「子メニューを持つ」項目で、フォーカスが完全に外れたときに active クラスを解除する
 	var menuItemsWithSub = document.querySelectorAll(".menu-item-has-children");
 	for (var j = 0; j < menuItemsWithSub.length; j++) {
-		menuItemsWithSub[j].addEventListener("focusout", handleMenuItemFocusOut);
+		menuItemsWithSub[j].addEventListener("focusout", integlight_handleMenuItemFocusOut);
 	}
 }
 
 // クリック時の処理（サブメニューの開閉）
-function handleParentLinkClick(e) {
+function integlight_handleParentLinkClick(e) {
 	var linkWidth = this.offsetWidth;  // aタグの全幅
 	var clickPosition = e.offsetX;      // クリックされた位置（左端からの距離）
 
@@ -39,20 +39,20 @@ function handleParentLinkClick(e) {
 }
 
 // フォーカスが外れたときの処理
-function handleMenuItemFocusOut(e) {
+function integlight_handleMenuItemFocusOut(e) {
 	// 少し待ってから、現在のフォーカスがこの項目内にないなら active クラスを解除する
-	setTimeout(checkFocus, 0, this);
+	setTimeout(integlight_checkFocus, 0, this);
 }
 
 // setTimeout のコールバックとして呼び出される関数
-function checkFocus(item) {
+function integlight_checkFocus(item) {
 	if (!item.contains(document.activeElement)) {
 		item.classList.remove("active");
 	}
 }
 
 // ページ読み込み完了時に初期処理を実行
-document.addEventListener("DOMContentLoaded", handleDOMContentLoaded);
+document.addEventListener("DOMContentLoaded", integlight_handleDOMContentLoaded);
 
 
 
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", handleDOMContentLoaded);
 
 
 // フォーカスされたらサブメニューを開く（EnterではなくTab移動時）
-function handleFocusOnParentLink() {
+function integlight_handleFocusOnParentLink() {
 	const currentItem = this.parentElement;
 
 	// 同階層の他メニューを閉じる
@@ -80,11 +80,11 @@ function handleFocusOnParentLink() {
 
 
 document.querySelectorAll(".menu-item-has-children > a").forEach(link => {
-	link.addEventListener("focus", handleFocusOnParentLink);
+	link.addEventListener("focus", integlight_handleFocusOnParentLink);
 });
 
 //escでメニューを閉じる
-function handleKeydownEscape(e) {
+function integlight_handleKeydownEscape(e) {
 	if (e.key === "Escape") {
 		// 現在フォーカスされているリンクの親メニューを閉じる
 		const focusedElement = document.activeElement;
@@ -96,7 +96,7 @@ function handleKeydownEscape(e) {
 	}
 }
 
-document.addEventListener("keydown", handleKeydownEscape);
+document.addEventListener("keydown", integlight_handleKeydownEscape);
 
 //アクセシビリティ対応　キーボード操作でサブメニュー開閉 e
 
@@ -104,5 +104,5 @@ document.addEventListener("keydown", handleKeydownEscape);
 
 
 
-export { handleDOMContentLoaded, handleParentLinkClick, handleMenuItemFocusOut, checkFocus, handleFocusOnParentLink, handleKeydownEscape };
+export { integlight_handleDOMContentLoaded, integlight_handleParentLinkClick, integlight_handleMenuItemFocusOut, integlight_checkFocus, integlight_handleFocusOnParentLink, integlight_handleKeydownEscape };
 

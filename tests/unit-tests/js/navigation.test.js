@@ -3,12 +3,12 @@
  */
 
 import {
-    handleDOMContentLoaded,
-    handleParentLinkClick,
-    handleMenuItemFocusOut,
-    checkFocus,
-    handleFocusOnParentLink, // ← 追記（エクスポート済みである前提）
-    handleKeydownEscape, // ← 追加
+    integlight_handleDOMContentLoaded as handleDOMContentLoaded,
+    integlight_handleParentLinkClick as handleParentLinkClick,
+    integlight_handleMenuItemFocusOut as handleMenuItemFocusOut,
+    integlight_checkFocus as checkFocus,
+    integlight_handleFocusOnParentLink as handleFocusOnParentLink, // ← 追記（エクスポート済みである前提）
+    integlight_handleKeydownEscape as handleKeydownEscape, // ← 追加
 
 } from '../../../js/src/navigation'; // 適宜パスを調整してください
 
