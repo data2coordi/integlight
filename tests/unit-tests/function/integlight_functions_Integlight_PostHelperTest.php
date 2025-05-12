@@ -117,7 +117,7 @@ class integlight_functions_Integlight_PostHelperTest extends WP_UnitTestCase
         $this->assertStringContainsString('<div class="nav-previous"', $output);
         $this->assertStringContainsString('style="background-image: url(\'' . esc_url($prev_image_url) . '\');"', $output);
         $this->assertStringContainsString('<a href="' . esc_url($prev_post_url) . '">', $output);
-        $this->assertStringContainsString(esc_html('Previous Post ...'), $output); // 切り詰め
+        $this->assertStringContainsString(esc_html('Previous Post...'), $output); // 切り詰め
         // 次の投稿部分 (本文画像)
         $this->assertStringContainsString('<div class="nav-next"', $output);
         $this->assertStringContainsString('style="background-image: url(\'' . esc_url(self::$current_content_img_url) . '\');"', $output);

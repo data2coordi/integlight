@@ -166,7 +166,7 @@ class integlight_functions_InteglightCommonJsAssetsTest extends WP_UnitTestCase 
         // --- Arrange ---
         // setUp で do_action('after_setup_theme') が実行され、init() が呼ばれているはず
         $expectedFrontendScripts = [
-            'integlight-navigation' => ['path' => '/js/navigation.js', 'deps' => []],
+            'integlight-navigation' => ['path' => '/js/build/navigation.js', 'deps' => []],
 
         ];
         // --- Act ---

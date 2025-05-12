@@ -167,7 +167,7 @@ class integlight_customizer_slider_outerAssetsTest extends WP_UnitTestCase // �
         $scripts = $this->get_static_property_value(InteglightFrontendScripts::class, 'scripts');
         $this->assertIsArray($scripts, 'InteglightFrontendScripts::$scripts should be an array.');
         $this->assertArrayHasKey('integlight_slider-script', $scripts, 'Script "integlight_slider-script" should be added to InteglightFrontendScripts.');
-        $this->assertEquals('/js/integlight-scripts.js', $scripts['integlight_slider-script']['path'], 'Path for "integlight_slider-script" should be correct.');
+        $this->assertEquals('/js/build/slider.js', $scripts['integlight_slider-script']['path'], 'Path for "integlight_slider-script" should be correct.');
         $this->assertContains('jquery', $scripts['integlight_slider-script']['deps'], 'Dependency "jquery" for "integlight_slider-script" should be set.');
 
         // Assert: InteglightDeferJs に遅延スクリプトが追加されたか
