@@ -26,7 +26,7 @@ if (is_front_page() != false) {
                         preg_match('/<img.+src=[\'"](?P<src>.+?)[\'"].*>/i', $content, $image);
                         if (! empty($image)) : ?>
                             <div class="post-thumbnail">
-                                <img src="<?php echo esc_url($image['src']); ?>" alt="First image from the post">
+                                <img src="<?php echo esc_url($image['src']); ?>" alt="">
                             </div>
                     <?php endif;
                     endif; ?>
