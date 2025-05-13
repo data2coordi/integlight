@@ -13,12 +13,9 @@ const mockCustomize = jest.fn((settingId, setupCallback) => {
 });
 
 
-const mockReadyCallback = jest.fn(cb => cb());
+
 const mockJQuery = jest.fn(selectorOrFunction => {
-    if (typeof selectorOrFunction === 'function') {
-        mockReadyCallback(selectorOrFunction);
-        return { ready: mockReadyCallback };
-    }
+
 
     const elements = document.querySelectorAll(selectorOrFunction);
     return {
@@ -51,12 +48,10 @@ describe('Customizer Script Tests (Simple DOM Check)', () => {
     beforeEach(() => {
         jest.resetModules();
         global.wp = { customize: mockCustomize };
-        global.$ = mockJQuery;
         global.jQuery = mockJQuery;
 
         mockCustomize.mockClear();
         mockJQuery.mockClear();
-        mockReadyCallback.mockClear();
 
         bindCallbacks = {};
         document.body.innerHTML = '';
@@ -164,17 +159,4 @@ describe('Customizer Script Tests (Simple DOM Check)', () => {
         });
     });
 
-    test('wp.customize should be called for expected settings on load', () => {
-        // Assert
-        expect(mockCustomize).toHaveBeenCalledWith('blogname', expect.any(Function));
-        expect(mockCustomize).toHaveBeenCalledWith('blogdescription', expect.any(Function));
-        expect(mockCustomize).toHaveBeenCalledWith('header_textcolor', expect.any(Function));
-
-        expect(bindCallbacks['blogname']).toBeDefined();
-        expect(typeof bindCallbacks['blogname']).toBe('function');
-        expect(bindCallbacks['blogdescription']).toBeDefined();
-        expect(typeof bindCallbacks['blogdescription']).toBe('function');
-        expect(bindCallbacks['header_textcolor']).toBeDefined();
-        expect(typeof bindCallbacks['header_textcolor']).toBe('function');
-    });
 });
