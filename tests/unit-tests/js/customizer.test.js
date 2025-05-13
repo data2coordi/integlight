@@ -5,16 +5,13 @@
 // --- Mock Setup ---
 let bindCallbacks = {};
 const mockCustomize = jest.fn((settingId, setupCallback) => {
-    const customizeObject = {
-        bind: jest.fn((changeCallback) => {
-            bindCallbacks[settingId] = changeCallback;
-        }),
-    };
-    if (typeof setupCallback === 'function') {
-        setupCallback(customizeObject);
-    }
-    return customizeObject;
+    setupCallback({
+        bind: (callback) => {
+            bindCallbacks[settingId] = callback;
+        }
+    });
 });
+
 
 // jQuery のモックを修正
 const mockReadyCallback = jest.fn(callback => callback());
