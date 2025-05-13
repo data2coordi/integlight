@@ -199,7 +199,8 @@ address {
 
 mark,
 ins {
-  background: #fff9c0;
+  /*background: #fff9c0;*/
+  /******広告の背景色消してる******/
   text-decoration: none;
 }
 
