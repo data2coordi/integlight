@@ -13,58 +13,33 @@ const mockCustomize = jest.fn((settingId, setupCallback) => {
 });
 
 
-// jQuery のモックを修正
-const mockReadyCallback = jest.fn(callback => callback());
+const mockReadyCallback = jest.fn(cb => cb());
 const mockJQuery = jest.fn(selectorOrFunction => {
     if (typeof selectorOrFunction === 'function') {
-        // $(document).ready() or $(function() { ... })
         mockReadyCallback(selectorOrFunction);
         return { ready: mockReadyCallback };
     }
 
-    // 通常のセレクターの場合
     const elements = document.querySelectorAll(selectorOrFunction);
-
-    // jQueryオブジェクトのモックを返す
     return {
-        /**
-         * .text() のモック実装
-         * @param {string} [value] 設定するテキスト (省略時は何もしない)
-         */
-        text: jest.fn(function (value) { // Chaining のため通常の関数にする
-            if (value !== undefined && elements.length > 0) {
+        text: jest.fn(function (value) {
+            if (value !== undefined) {
                 elements.forEach(el => {
-                    // a タグの場合はその要素、それ以外は直接 textContent を設定
-                    const targetElement = el.tagName === 'A' ? el : el;
-                    targetElement.textContent = value;
+                    el.textContent = value;
                 });
             }
-            // jQuery のようにチェイン可能にするために this を返す
             return this;
         }),
-
-        /**
-         * .css() のモック実装
-         * @param {object} styles スタイルプロパティのオブジェクト
-         */
-        css: jest.fn(function (styles) { // Chaining のため通常の関数にする
-            if (typeof styles === 'object' && styles !== null && elements.length > 0) {
+        css: jest.fn(function (styles) {
+            if (styles && typeof styles === 'object') {
                 elements.forEach(el => {
-                    // スタイルオブジェクトの各プロパティを要素の style に適用
-                    Object.keys(styles).forEach(prop => {
-                        // 'clip' のような特殊なプロパティも考慮 (jsdomの限界はある)
-                        // キャメルケースへの変換が必要な場合もあるが、ここでは単純に代入
+                    for (const prop in styles) {
                         el.style[prop] = styles[prop];
-                    });
+                    }
                 });
             }
-            // jQuery のようにチェイン可能にするために this を返す
             return this;
-        }),
-
-        // 他の必要なメソッド (ready, find など)
-        ready: mockReadyCallback,
-        find: jest.fn().mockReturnThis(), // find は単純なモックのまま (必要なら実装)
+        })
     };
 });
 
@@ -72,31 +47,20 @@ const mockJQuery = jest.fn(selectorOrFunction => {
 // --- Tests ---
 describe('Customizer Script Tests (Simple DOM Check)', () => {
 
+
     beforeEach(() => {
         jest.resetModules();
-
-        // モックをグローバルに再設定
         global.wp = { customize: mockCustomize };
         global.$ = mockJQuery;
         global.jQuery = mockJQuery;
 
-        // モックの内部状態をリセット
         mockCustomize.mockClear();
         mockJQuery.mockClear();
         mockReadyCallback.mockClear();
-        // jQueryメソッドのモック呼び出し履歴もクリア (より確実に)
-        if (mockJQuery.mock.results[0]?.value?.text) {
-            mockJQuery.mock.results[0].value.text.mockClear();
-        }
-        if (mockJQuery.mock.results[0]?.value?.css) {
-            mockJQuery.mock.results[0].value.css.mockClear();
-        }
-
 
         bindCallbacks = {};
         document.body.innerHTML = '';
 
-        // スクリプトを再読み込み
         require('../../../js/src/customizer');
     });
 
