@@ -115,26 +115,19 @@ class template_HeaderTemplateTest extends WP_UnitTestCase
         $this->wp_body_open_fired = true;
     }
 
-    /**
-     * ヘルパー関数: header.php の出力を取得します。
-     *
-     * @return string キャプチャされたHTML出力。
-     */
     private function get_header_output(): string
     {
         $header_path = get_template_directory() . '/header.php';
-        if (!file_exists($header_path)) {
+        if (! file_exists($header_path)) {
             trigger_error('header.php not found at ' . $header_path, E_USER_WARNING);
             return '';
         }
+
         ob_start();
-        // header.php を直接読み込む
         require $header_path;
-        // 注意: この方法では get_header() が内部で実行するアクション
-        // (wp_head, wp_body_open など) が自動では実行されません。
-        // 必要であれば手動で do_action() を呼び出す
-        // do_action('wp_head');
-        // do_action('wp_body_open');
+        // ここでフックを手動発火
+        do_action('wp_head');
+        do_action('wp_body_open');
         return ob_get_clean();
     }
 
@@ -142,67 +135,125 @@ class template_HeaderTemplateTest extends WP_UnitTestCase
 
     /**
      * @test
-     * フロントページ (最新の投稿) で header.php が呼び出されることを確認。
+     * 非フロントページ（通常の投稿ページ）では、$frontPage が空文字となり、
+     * body_class に integlight_front_page が含まれないことを確認。
      */
-    public function test_header_output_on_front_page_posts()
+    public function test_body_class_on_single_post()
     {
-        // --- Arrange ---
-        // フロントページ設定は setUp で 'posts' に設定済み
-        $this->go_to(home_url('/'));
+        // Arrange
+        $this->go_to(get_permalink($this->post_id));
+        update_option('show_on_front', 'posts');
 
-        // --- Act ---
-        // get_header() を直接呼び出して、エラーなく実行されるか確認
-        // 出力内容はチェックしない
-        try {
-            ob_start();
-            get_header();
-            ob_end_clean();
-            $header_called = true;
-        } catch (\Exception $e) {
-            $header_called = false;
-        }
+        $output = $this->get_header_output();
 
-        // --- Assert ---
-        // get_header() がエラーなく呼び出されたことだけを確認
-        $this->assertTrue($header_called, 'get_header() should be callable on front page (posts).');
-        // *** MODIFICATION START: Remove action hook checks ***
-        // アクションフックのチェックは省略
-        // $this->assertTrue($this->wp_head_fired, 'wp_head action should fire on front page (posts).');
-        // $this->assertTrue($this->wp_body_open_fired, 'wp_body_open action should fire on front page (posts).');
-        // *** MODIFICATION END ***
+        // Assert: body タグのクラス属性に integlight_pt はあるが integlight_front_page はない
+        $this->assertMatchesRegularExpression('/<body[^>]+class="[^"]*integlight_pt[^"]*"/', $output);
+        $this->assertDoesNotMatchRegularExpression('/integlight_front_page/', $output);
     }
 
     /**
      * @test
-     * フロントページ (固定ページ) で header.php が呼び出されることを確認。
+     * フロントページ（固定ページ）のとき、body_class に integlight_front_page が含まれることを確認。
      */
-    public function test_header_output_on_front_page_static()
+    public function test_body_class_on_front_page_static_contains_front_page_class()
     {
-        // --- Arrange ---
-        // フロントページに固定ページを設定
+        // Arrange
         update_option('show_on_front', 'page');
         update_option('page_on_front', $this->front_page_id);
         $this->go_to(home_url('/'));
 
-        // --- Act ---
-        // get_header() を直接呼び出して、エラーなく実行されるか確認
-        // 出力内容はチェックしない
-        try {
-            ob_start();
-            get_header();
-            ob_end_clean();
-            $header_called = true;
-        } catch (\Exception $e) {
-            $header_called = false;
-        }
+        $output = $this->get_header_output();
 
-        // --- Assert ---
-        // get_header() がエラーなく呼び出されたことだけを確認
-        $this->assertTrue($header_called, 'get_header() should be callable on front page (static).');
-        // *** MODIFICATION START: Remove action hook checks ***
-        // アクションフックのチェックは省略
-        // $this->assertTrue($this->wp_head_fired, 'wp_head action should fire on front page (static).');
-        // $this->assertTrue($this->wp_body_open_fired, 'wp_body_open action should fire on front page (static).');
-        // *** MODIFICATION END ***
+        // Assert
+        $this->assertMatchesRegularExpression('/<body[^>]+class="[^"]*integlight_front_page[^"]*"/', $output);
+    }
+
+    /**
+     * @test
+     * is_home && is_front_page のとき site-title が <h1> タグで出力されること。
+     */
+    public function test_site_title_tag_on_home_and_front()
+    {
+        // Arrange: 投稿一覧フロント
+        update_option('show_on_front', 'posts');
+        $this->go_to(home_url('/'));
+
+        $output = $this->get_header_output();
+
+        // Assert: h1.outline
+        $this->assertMatchesRegularExpression('/<h1 class="site-title">.*?<\/h1>/', $output);
+        $this->assertDoesNotMatchRegularExpression('/<p class="site-title">/', $output);
+    }
+
+    public function test_site_title_tag_on_non_home()
+    {
+        // Arrange: 投稿ページを表示させる
+        $this->go_to(get_permalink($this->post_id));
+
+        // Act: ヘルパー経由でヘッダー HTML をキャプチャ
+        $output = $this->get_header_output();
+
+        // Assert: <p class="site-title"> が出力されている
+        $this->assertMatchesRegularExpression(
+            '/<p class="site-title">.*?<\/p>/',
+            $output
+        );
+        $this->assertDoesNotMatchRegularExpression(
+            '/<h1 class="site-title">/',
+            $output
+        );
+    }
+
+    /**
+     * @test
+     * site-description が必ず <p class="site-description"> で出力されること。
+     */
+    public function test_site_description_output(): void
+    {
+
+        // サイト概要はオプションから取得されるので、先に設定しておく
+        update_option('blogdescription', 'My Description');
+        $this->go_to(home_url('/'));
+
+        $output = $this->get_header_output();
+
+        // Assert: PHPUnit 9/10 対応の新メソッドを使う
+        $this->assertMatchesRegularExpression(
+            '/<p class="site-description">My Description<\/p>/',
+            $output
+        );
+    }
+
+    /**
+     * @test
+     * スキップリンク（.skip-link.screen-reader-text）が #primary に向けて出力されていること。
+     */
+    public function test_skip_link_presence()
+    {
+        // Arrange
+        $this->go_to(home_url('/'));
+
+        $output = $this->get_header_output();
+
+        // Assert
+        $this->assertMatchesRegularExpression('/<a[^>]+class="skip-link screen-reader-text"[^>]+href="#primary">Skip to content<\/a>/', $output);
+    }
+
+    /**
+     * @test
+     * ナビゲーションに menuToggle-containerForMenu クラスを含むコンテナが出力されていること。
+     */
+    public function test_navigation_container_class()
+    {
+        // Arrange
+        $this->go_to(home_url('/'));
+
+        $output = $this->get_header_output();
+
+        // Assert
+        $this->assertMatchesRegularExpression(
+            '/<div id="primary-menu" class="menu">/',
+            $output
+        );
     }
 }
