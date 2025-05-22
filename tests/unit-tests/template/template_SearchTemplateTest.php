@@ -52,10 +52,7 @@ class template_SearchTemplateTest extends WP_UnitTestCase
         // 対象 URL に移動
         $this->go_to($search_url);
 
-        // メインクエリを実行
-        $GLOBALS['wp_query']->query_vars['s'] = $search_term;
-        $GLOBALS['wp_query']->is_search = true;
-        $GLOBALS['wp_query']->is_main_query = true;
+
 
         // search.php がテンプレートとして使用されるかを確認
         $template = get_query_template('search');
