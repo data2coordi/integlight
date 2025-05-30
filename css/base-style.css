@@ -115,13 +115,13 @@ a:focus-visible,
   transition: outline 0.2s ease;
 }
 
-
-/* .wp-block-button__link:focus-visible {
-  outline: none; 
-  box-shadow: 0 0 0 3px rgba(230, 230, 230, 0.5);
-  border-radius: 5px;
-  transition: 0.2s ease; 
-} */
+/*  */
+.easyLink-info-name a:focus-visible,
+.easyLink-info-btn-amazon:focus-visible,
+.easyLink-info-btn-rakuten:focus-visible {
+  outline: 2px solid #e6e6e6;
+  transition: outline 0.2s ease;
+}
 
 .wp-block-button__link {
   position: relative;

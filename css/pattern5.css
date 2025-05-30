@@ -14,6 +14,13 @@ a:focus-visible,
   transition: outline 0.2s ease;
 }
 
+.easyLink-info-name a:focus-visible,
+.easyLink-info-btn-amazon:focus-visible,
+.easyLink-info-btn-rakuten:focus-visible {
+  outline: 2px solid #0064b3;
+  transition: outline 0.2s ease;
+}
+
 .integlight_pt button {
   background-color: #f90101;
 }
