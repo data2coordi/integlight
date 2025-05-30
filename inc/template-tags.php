@@ -30,7 +30,7 @@ if (! function_exists('integlight_posted_on')) :
 		/* translators: %s: post date. */
 		$posted_on = sprintf(esc_html_x('%s', 'post date', 'integlight'), '<a href="' . esc_url(get_permalink()) . '" rel="bookmark">' . $time_string . '</a>');
 
-		echo '<span class="posted-on">Posted on <i class="fa-solid fa-calendar-days"></i>' . $posted_on . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '<span class="posted-on">' . esc_html__('Posted on', 'integlight') . ' <i class="fa-solid fa-calendar-days"></i>' . $posted_on . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 
 	}

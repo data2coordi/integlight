@@ -515,3 +515,9 @@ msgstr "Copy Rightの設定"
 
 msgid "Please enter the Copyright information."
 msgstr "Copy Rightを入力してください。"
+
+msgid "Published on"
+msgstr "公開日"
+
+msgid "Posted on"
+msgstr "公開日"

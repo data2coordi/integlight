@@ -56,7 +56,7 @@ if (is_front_page() != false) {
 
                         <!-- 下部に日付、カテゴリ、タグを表示 -->
                         <div class="post-meta">
-                            <p class="post-date">Published on: <?php echo get_the_date(); ?></p>
+                            <p class="post-date"><?php echo __("Published on", "integlight"); ?> : <?php echo get_the_date(); ?></p>
                         </div>
                     </a>
                 </div>
