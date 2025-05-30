@@ -5,14 +5,13 @@
 /* タブフォーカスのスタイル */
 a:focus {
   outline: none; /* デフォルトのアウトラインを消す */
-  box-shadow: none;/* ボックスシャドウのラインを消す */
 }
 
-a:focus-visible {
-  /* position: relative; */
-  outline: none; /* デフォルトのアウトラインを消す */
-  box-shadow: 0 0 0 2px #0064b3;
-  border-radius: 5px; 
+a:focus-visible,
+.wp-block-button__link:focus-visible {
+  outline: 2px solid #0064b3;
+  outline-offset: 2px;
+  transition: outline 0.2s ease;
 }
 
 .integlight_pt button {

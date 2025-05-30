@@ -7,15 +7,13 @@
 a:focus,
 .wp-block-button__link:focus {
   outline: none; /* デフォルトのアウトラインを消す */
-  box-shadow: none;
 }
 
 a:focus-visible,
 .wp-block-button__link:focus-visible {
-  outline: none; /* デフォルトのアウトラインを消す */
-  box-shadow: 0 0 0 3px #c9c9c9 !important;
-  border-radius: 5px;
-  transition: 0.2s ease; 
+  outline: 2px solid #c9c9c9;
+  outline-offset: 2px;
+  transition: outline 0.2s ease;
 }
 
 

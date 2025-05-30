@@ -106,16 +106,22 @@ a:active {
 a:focus,
 .wp-block-button__link:focus {
   outline: none; /* デフォルトのアウトラインを消す */
-  box-shadow: none;
 }
 
 a:focus-visible,
 .wp-block-button__link:focus-visible {
-  outline: none; /* デフォルトのアウトラインを消す */
+  outline: 2px solid #e6e6e6;
+  outline-offset: 2px;
+  transition: outline 0.2s ease;
+}
+
+
+/* .wp-block-button__link:focus-visible {
+  outline: none; 
   box-shadow: 0 0 0 3px rgba(230, 230, 230, 0.5);
   border-radius: 5px;
   transition: 0.2s ease; 
-}
+} */
 
 .wp-block-button__link {
   position: relative;
