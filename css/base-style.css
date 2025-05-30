@@ -115,7 +115,7 @@ a:focus-visible,
   transition: outline 0.2s ease;
 }
 
-/*  */
+/* 広告のタブフォーカス */
 .easyLink-info-name a:focus-visible,
 .easyLink-info-btn-amazon:focus-visible,
 .easyLink-info-btn-rakuten:focus-visible {
