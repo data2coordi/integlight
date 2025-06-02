@@ -468,7 +468,6 @@ new Integlight_SEO_Meta();
 
 
 
-require get_template_directory() . '/inc/integlight-functions-block.php';
 
 
 
