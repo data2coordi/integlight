@@ -596,7 +596,7 @@ nav.post-navigation {
 }
 
 /* パンくずアイコン */
-svg {
+.ly_site_content svg {
   width: 0.9em;
   height: 0.9em;
   margin-left: 5px;
@@ -604,7 +604,7 @@ svg {
   /* 少し下げてる */
 }
 
-svg:first-child {
+.ly_site_content svg:first-child {
   width: 1.1em;
   height: 1.1em;
   margin-right: 5px;
