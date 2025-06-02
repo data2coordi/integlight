@@ -595,9 +595,24 @@ nav.post-navigation {
   /*color: blue;  ホバー時に色を変える（任意） */
 }
 
-.fa-angle-right:before {
-  margin-left: 25px;
+/* パンくずアイコン */
+svg {
+  width: 0.9em;
+  height: 0.9em;
+  margin-left: 5px;
+  vertical-align: -0.1em;
+  /* 少し下げてる */
 }
+
+svg:first-child {
+  width: 1.1em;
+  height: 1.1em;
+  margin-right: 5px;
+}
+
+/* .fa-angle-right:before {
+  margin-left: 25px;
+} */
 
 /* パンくずe */
 
@@ -765,19 +780,7 @@ section.widget_block {
 /************************************************************/
 /* SNSシェア @@@ ***************************************************/
 /************************************************************/
-.addtoany_content {
-  margin: 50px auto;
-  /* SNSシェアの上下空きを作っている */
-  text-align: center;
-}
 
-.addtoany_content::before {
-  content: "＼シェアしてね！／";
-  display: block;
-  text-align: center;
-  font-weight: bold;
-  margin-bottom: 8px;
-}
 
 /************************************************************/
 /* メインコンテンツ @@@ ***************************************************/
