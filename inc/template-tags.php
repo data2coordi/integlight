@@ -131,7 +131,15 @@ if (! function_exists('integlight_post_thumbnail')) :
 ?>
 
 			<div class="post-thumbnail">
-				<?php the_post_thumbnail(); ?>
+				<?php the_post_thumbnail(
+					'full',
+					[
+						'class' => 'responsive-img',
+						'loading' => 'eager',
+						'decoding' => 'async',
+						'sizes' => '(max-width: 850px) 20vw, 1200px'
+					]
+				); ?>
 			</div><!-- .post-thumbnail -->
 
 		<?php else : ?>
