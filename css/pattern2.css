@@ -128,7 +128,18 @@ a:focus-visible,
 
 .site-header {
   position: relative;
-  border-bottom: 10px solid #0000ff;
+  padding-bottom: 13px; /* 10px + 3px を確保 */
+  /* border-bottom: none; */
+}
+
+.site-header::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 3px; /* 上の線（10px） */
+  height: 10px;
+  background-color: #0000ff; /* ブルー */
 }
 
 .site-header::after {
@@ -136,10 +147,12 @@ a:focus-visible,
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -10px;
+  bottom: 0; /* 下の線（3px） */
   height: 3px;
-  background-color: #c14f7e;
+  background-color: #c14f7e; /* ローズピンク */
 }
+
+
 
 ul.menu > li.menu-item-has-children > ul.sub-menu,
 ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {

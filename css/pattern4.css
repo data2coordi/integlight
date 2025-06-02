@@ -122,13 +122,13 @@ a:focus-visible,
   background-color: #fcf0de;
 }
 
-.site-header,
 .site-footer {
   background-color: #221104;
 }
 
-.site-header {
-  position: relative;
+
+/* .site-header {
+  background-color: #221104;
   border-bottom: 10px solid #fa9301;
 }
 
@@ -137,10 +137,24 @@ a:focus-visible,
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -10px;
+  bottom: 0; 
   height: 3px;
   background-color: #75eab0;
+  will-change: transform;
+} */
+
+.site-header {
+  background-color: #221104;
+  background-image: linear-gradient(to bottom,
+  #fa9301 0 8px,
+  #75eab0 8px 11px
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 11px;
+  background-position: bottom;
+  padding-bottom: 11px;
 }
+
 
 
 ul.menu > li.menu-item-has-children > ul.sub-menu,
