@@ -123,35 +123,17 @@ a:focus-visible,
   background-color: #fae7f2;
 }
 
-.site-header,
+
 .site-footer {
   background-color: #0a043b;
 }
 
 .site-header {
-  position: relative;
-  padding-bottom: 13px; /* 10px + 3px を確保 */
-  border-bottom: none;
-}
-
-.site-header::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 3px; /* 上の線 */
-  height: 10px;
-  background-color: #f936a8;
-}
-
-.site-header::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0; /* 下の線 */
-  height: 3px;
-  background-color: #49c1d1;
+  background-color: #0a043b;
+  background-image: linear-gradient(to bottom,
+  #f936a8 0 8px,
+  #49c1d1 8px 11px
+  );
 }
 
 

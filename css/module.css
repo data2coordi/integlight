@@ -2,11 +2,12 @@
 /* 0. header***************************************************@@@/
 /************************************************************/
 
-/* .site-header {
-  position: relative;
-  background-color: #000;
-  padding-bottom: 3px; ← 擬似要素分のスペースを事前に確保
-} */
+.site-header {
+  background-repeat: no-repeat;
+  background-size: 100% 11px;
+  background-position: bottom;
+  padding-bottom: 11px;
+}
 
 .site-header .custom-logo {
   width: 295.21px;
