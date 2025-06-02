@@ -99,7 +99,8 @@ class integlight_functions_InteglightBreadcrumbTest extends WP_UnitTestCase
 
         // Assert
         $this->assertStringContainsString('<ul class="create_bread">', $output);
-        $this->assertStringContainsString('<li><i class="fa-solid fa-house"></i><a href="' . home_url() . '">HOME</a><i class="fa-solid fa-angle-right"></i></li>', $output);
+        $this->assertStringContainsString('<a href="' . home_url() . '">HOME</a>', $output);
+        $this->assertStringContainsString('<svg xmlns="http://www.w3.org/2000/svg"', $output);
         $this->assertStringContainsString('<li>Single Post Title</li>', $output); // Only post title
         $this->assertStringContainsString('</ul>', $output);
     }
@@ -130,9 +131,11 @@ class integlight_functions_InteglightBreadcrumbTest extends WP_UnitTestCase
 
         // Assert
         $this->assertStringContainsString('<ul class="create_bread">', $output);
-        $this->assertStringContainsString('<li><i class="fa-solid fa-house"></i><a href="' . home_url() . '">HOME</a><i class="fa-solid fa-angle-right"></i></li>', $output);
+        $this->assertStringContainsString('<a href="' . home_url() . '">HOME</a>', $output);
+        $this->assertStringContainsString('<svg xmlns="http://www.w3.org/2000/svg"', $output);
+
         // Category link should appear
-        $this->assertStringContainsString('<li><a href="' . esc_url($cat_link) . '">Test Category</a><i class="fa-solid fa-angle-right"></i></li>', $output);
+        $this->assertStringContainsString('<li><a href="' . esc_url($cat_link) . '">Test Category</a><svg xmlns="http://www.w3.org/2000/svg"', $output);
         $this->assertStringContainsString('<li>Post In Category</li>', $output); // Post title at the end
         $this->assertStringContainsString('</ul>', $output);
     }
@@ -163,9 +166,11 @@ class integlight_functions_InteglightBreadcrumbTest extends WP_UnitTestCase
 
         // Assert
         $this->assertStringContainsString('<ul class="create_bread">', $output);
-        $this->assertStringContainsString('<li><i class="fa-solid fa-house"></i><a href="' . home_url() . '">HOME</a><i class="fa-solid fa-angle-right"></i></li>', $output);
+        $this->assertStringContainsString('<a href="' . home_url() . '">HOME</a>', $output);
+        $this->assertStringContainsString('<svg xmlns="http://www.w3.org/2000/svg"', $output);
+
         // Parent category link should appear
-        $this->assertStringContainsString('<li><a href="' . esc_url($parent_cat_link) . '">Parent Category</a></li><i class="fa-solid fa-angle-right"></i>', $output);
+        $this->assertStringContainsString('<li><a href="' . esc_url($parent_cat_link) . '">Parent Category</a></li><svg xmlns="http://www.w3.org/2000/svg"', $output);
         $this->assertStringContainsString('<li>Child Category</li>', $output); // Current category at the end
         $this->assertStringContainsString('</ul>', $output);
     }
@@ -191,7 +196,9 @@ class integlight_functions_InteglightBreadcrumbTest extends WP_UnitTestCase
 
         // Assert
         $this->assertStringContainsString('<ul class="create_bread">', $output);
-        $this->assertStringContainsString('<li><i class="fa-solid fa-house"></i><a href="' . home_url() . '">HOME</a><i class="fa-solid fa-angle-right"></i></li>', $output);
+        $this->assertStringContainsString('<a href="' . home_url() . '">HOME</a>', $output);
+        $this->assertStringContainsString('<svg xmlns="http://www.w3.org/2000/svg"', $output);
+
         $this->assertStringContainsString('<li>Test Tag</li>', $output); // Tag name at the end
         $this->assertStringContainsString('</ul>', $output);
         $this->assertStringNotContainsString('<a href=', substr($output, strpos($output, 'HOME</a>') + strlen('HOME</a>'))); // No other links after HOME
@@ -217,7 +224,8 @@ class integlight_functions_InteglightBreadcrumbTest extends WP_UnitTestCase
 
         // Assert
         $this->assertStringContainsString('<ul class="create_bread">', $output);
-        $this->assertStringContainsString('<li><i class="fa-solid fa-house"></i><a href="' . home_url() . '">HOME</a><i class="fa-solid fa-angle-right"></i></li>', $output);
+        $this->assertStringContainsString('<a href="' . home_url() . '">HOME</a>', $output);
+        $this->assertStringContainsString('<svg xmlns="http://www.w3.org/2000/svg"', $output);
         $this->assertStringContainsString('<li>Static Page Title</li>', $output); // Page title at the end
         $this->assertStringContainsString('</ul>', $output);
         $this->assertStringNotContainsString('<a href=', substr($output, strpos($output, 'HOME</a>') + strlen('HOME</a>'))); // No other links after HOME
@@ -261,7 +269,9 @@ class integlight_functions_InteglightBreadcrumbTest extends WP_UnitTestCase
         // Assert
         $this->assertNotEmpty($output, 'Output from generate_breadcrumb should not be empty.');
         $this->assertStringContainsString('<ul class="create_bread">', $output);
-        $this->assertStringContainsString('<li><i class="fa-solid fa-house"></i><a href="' . home_url() . '">HOME</a><i class="fa-solid fa-angle-right"></i></li>', $output);
+        $this->assertStringContainsString('<a href="' . home_url() . '">HOME</a>', $output);
+
+        $this->assertStringContainsString('<svg xmlns="http://www.w3.org/2000/svg"', $output);
         // Check the specific 404 part generated by generate_breadcrumb
         $this->assertStringContainsString('<li>ページが見つかりません</li>', $output); // Line 266 (approx)
         $this->assertStringContainsString('</ul>', $output);
@@ -287,7 +297,8 @@ class integlight_functions_InteglightBreadcrumbTest extends WP_UnitTestCase
 
         // Assert
         $this->assertStringContainsString('<ul class="create_bread">', $output);
-        $this->assertStringContainsString('<li><i class="fa-solid fa-house"></i><a href="' . home_url() . '">HOME</a><i class="fa-solid fa-angle-right"></i></li>', $output);
+        $this->assertStringContainsString('<a href="' . home_url() . '">HOME</a>', $output);
+        $this->assertStringContainsString('<svg xmlns="http://www.w3.org/2000/svg"', $output);
         // single_term_title() for date archives usually returns the date string
         $this->assertStringContainsString('<li>Archive Test Category</li>', $output); // Archive title
 
