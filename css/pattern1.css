@@ -6,7 +6,15 @@
 /* タブフォーカスのスタイル */
 a:focus,
 .wp-block-button__link:focus {
-  outline: none; /* デフォルトのアウトラインを消す */
+  outline: 2px solid #c9c9c9;
+  outline-offset: 2px;
+  border-radius: 4px;
+  transition: outline 0.2s ease;
+}
+
+a:focus:not(:focus-visible),
+.wp-block-button__link:focus:not(:focus-visible) {
+  outline: none; /* マウス操作時だけ非表示 */
 }
 
 a:focus-visible,

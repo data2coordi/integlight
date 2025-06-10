@@ -3,8 +3,17 @@
 } */
 
 /* タブフォーカスのスタイル */
-a:focus {
-  outline: none; /* デフォルトのアウトラインを消す */
+a:focus,
+.wp-block-button__link:focus {
+  outline: 2px solid #49c1d1;
+  outline-offset: 2px;
+  border-radius: 4px;
+  transition: outline 0.2s ease;
+}
+
+a:focus:not(:focus-visible),
+.wp-block-button__link:focus:not(:focus-visible) {
+  outline: none; /* マウス操作時だけ非表示 */
 }
 
 a:focus-visible,
