@@ -543,7 +543,4 @@ msgstr "HOME"
 msgid "Page not found"
 msgstr "ページが見つかりません"
 
-msgid "Page not found"
-msgstr "ページが見つかりません"
-
 
