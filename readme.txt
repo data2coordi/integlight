@@ -1,9 +1,9 @@
 Integlight
-Contributors: automattic
-Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready, accessibility-ready, responsive-layout
-Requires at least: 4.5
-Tested up to: 6.2
-Requires PHP: 7.0
+Contributors: data2coordi
+Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready, accessibility-ready, responsive-layout, block-patterns, block-styles, editor-style, wide-blocks
+Requires at least: 5.6
+Tested up to: 6.5
+Requires PHP: 7.4
 Stable tag: 1.0.1
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -23,32 +23,36 @@ After installation, click "Activate" to apply the theme to your site.
 
 Frequently Asked Questions
 Q1: Does this theme support plugins?
-Yes, Integlight includes built-in support for popular plugins like WooCommerce and Jetpack's Infinite Scroll.
+A1: Yes, Integlight is designed to be compatible with most popular WordPress plugins.
 
 Q2: Is this theme customizable?
-Absolutely! Integlight can be easily extended with child themes and custom CSS, making it flexible for various project needs.
+A2: Absolutely! Integlight can be easily extended with child themes and custom CSS, making it flexible for various project needs. You can also use the WordPress Customizer for various theme options.
 
 Q3: Is this theme translation-ready?
-Yes, Integlight is fully translation-ready and compatible with multilingual plugins.
+A3: Yes, Integlight is fully translation-ready and compatible with multilingual plugins. The text domain is `integlight`.
 
 Changelog
-1.0.1 - April 5, 2025
+== 1.0.1 - April 5, 2024 ==
+* Updated compatibility for WordPress 6.2 (Note: Consider updating this to the latest WordPress version you've tested with, e.g., 6.5)
+* Improved accessibility features
+* Optimized performance and fixed minor bugs
 
-Updated compatibility for WordPress 6.2
-
-Improved accessibility features
-
-Optimized performance and fixed minor bugs
-
-1.0.0 - March 19, 2025
-
-Initial release
+== 1.0.0 - March 19, 2024 ==
+* Initial release
 
 Credits
 Integlight is developed with a focus on clean code and modern design.
 
-The theme uses third-party libraries such as normalize.css by Nicolas Gallagher and Jonathan Neal (MIT License).
+This theme uses the following third-party resources:
+
+* normalize.css by Nicolas Gallagher and Jonathan Neal, licensed under the MIT License. (https://necolas.github.io/normalize.css/)
+* Font Awesome icons. If you are using Font Awesome Free, its licenses are:
+  * Fonts: SIL OFL 1.1 (https://scripts.sil.org/OFL)
+  * CSS/JS Code: MIT License (https://opensource.org/licenses/MIT)
+  * Icons: CC BY 4.0 License (https://creativecommons.org/licenses/by/4.0/)
+  (Please ensure you specify if you are using Font Awesome Pro and its respective license if applicable.)
+* (If you are using other third-party assets like specific images, fonts, or JavaScript libraries that are bundled with the theme, list them here with their respective licenses and source URIs. For example: "Sample Image from Unsplash (Unsplash License, https://unsplash.com/license)").
 
 Support
 For support, documentation, and the latest updates, please visit:
-https://color.toshidayurika.com/integlight-en/
+https://github.com/data2coordi/integlight/issues
