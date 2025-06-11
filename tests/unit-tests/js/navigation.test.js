@@ -10,6 +10,8 @@ import {
     integlight_handleFocusOnParentLink as handleFocusOnParentLink, // ← 追記（エクスポート済みである前提）
     integlight_handleKeydownEscape as handleKeydownEscape, // ← 追加
 
+    integlight_initMobileMenuAccessibility as initMobileMenuAccessibility
+
 } from '../../../js/src/navigation'; // 適宜パスを調整してください
 
 describe('グローバルメニューの挙動', () => {
@@ -204,6 +206,33 @@ describe('グローバルメニューの挙動', () => {
 
             expect(focusSpy).not.toHaveBeenCalled();
             expect(li1.classList.contains('active')).toBe(false);
+        });
+    });
+
+
+    describe('モバイルのキー操作について', () => {
+        test('初期化時に適切な属性が設定される', () => {
+            const label = document.createElement('div');
+            label.className = 'menuToggle-label';
+
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.className = 'menuToggle-checkbox';
+
+            const container = document.createElement('div');
+            container.className = 'menuToggle-containerForMenu';
+
+            const link = document.createElement('a');
+            container.appendChild(link);
+
+            document.body.append(label, checkbox, container);
+
+            initMobileMenuAccessibility({ toggleLabel: label, checkbox, container });
+
+            expect(label.getAttribute('tabindex')).toBe('0');
+            expect(label.getAttribute('aria-expanded')).toBe('false');
+            expect(container.getAttribute('aria-hidden')).toBe('true');
+            expect(link.getAttribute('tabindex')).toBe('-1');
         });
     });
 

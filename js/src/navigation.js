@@ -102,51 +102,34 @@ document.addEventListener("keydown", integlight_handleKeydownEscape);
 
 
 
+//モバイルの場合のアクセシビリティ対応 s
+function integlight_initMobileMenuAccessibility({ toggleLabel, checkbox, container }) {
+	if (!toggleLabel || !checkbox || !container) return;
 
-// ──────────────────────────────
-// モバイルメニューのキーボードアクセシビリティ対応
-var toggleLabel = document.querySelector('.menuToggle-label');
-var checkbox = document.querySelector('.menuToggle-checkbox');
-var container = document.querySelector('.menuToggle-containerForMenu');
-
-// 初期状態：フォーカス可能＆ARIA属性セット、リンクをタブ順から外す
-if (toggleLabel) {
+	// 初期状態設定
 	toggleLabel.setAttribute('tabindex', '0');
 	toggleLabel.setAttribute('aria-expanded', 'false');
-}
-if (container) {
 	container.setAttribute('aria-hidden', 'true');
-	container.querySelectorAll('a').forEach(function (a) {
-		a.setAttribute('tabindex', '-1');
-	});
-}
+	container.querySelectorAll('a').forEach(a => a.setAttribute('tabindex', '-1'));
 
-// 状態更新用ヘルパー
-function updateMenuAccessibility(isOpen) {
-	if (toggleLabel) toggleLabel.setAttribute('aria-expanded', String(isOpen));
-	if (container) container.setAttribute('aria-hidden', String(!isOpen));
-	if (container) {
-		container.querySelectorAll('a').forEach(function (a, idx) {
+	// 状態更新関数
+	function updateMenuAccessibility(isOpen) {
+		toggleLabel.setAttribute('aria-expanded', String(isOpen));
+		container.setAttribute('aria-hidden', String(!isOpen));
+		container.querySelectorAll('a').forEach((a, idx) => {
 			if (isOpen) {
 				a.removeAttribute('tabindex');
-				if (idx === 0) a.focus();  // 開いたら最初のリンクにフォーカス
+				if (idx === 0) a.focus();
 			} else {
 				a.setAttribute('tabindex', '-1');
 			}
 		});
 	}
-}
 
-// チェックボックス（ハンバーガーメニュー）開閉時に呼び出し
-if (checkbox) {
-	checkbox.addEventListener('change', function () {
-		updateMenuAccessibility(this.checked);
-	});
-}
+	// イベント登録
+	checkbox.addEventListener('change', () => updateMenuAccessibility(checkbox.checked));
 
-// Enter / Space キーでもトグルできるように
-if (toggleLabel && checkbox) {
-	toggleLabel.addEventListener('keydown', function (e) {
+	toggleLabel.addEventListener('keydown', (e) => {
 		if (e.key === 'Enter' || e.key === ' ') {
 			e.preventDefault();
 			checkbox.checked = !checkbox.checked;
@@ -154,6 +137,16 @@ if (toggleLabel && checkbox) {
 		}
 	});
 }
+
+
+document.addEventListener('DOMContentLoaded', () => {
+	integlight_initMobileMenuAccessibility({
+		toggleLabel: document.querySelector('.menuToggle-label'),
+		checkbox: document.querySelector('.menuToggle-checkbox'),
+		container: document.querySelector('.menuToggle-containerForMenu'),
+	});
+});
+//モバイルの場合のアクセシビリティ対応 e
 // ──────────────────────────────
 
 // 以降、既存の esc 閉じ・サブメニュー開閉ロジック…
@@ -164,7 +157,8 @@ export {
 	integlight_handleMenuItemFocusOut,
 	integlight_checkFocus,
 	integlight_handleFocusOnParentLink,
-	integlight_handleKeydownEscape
+	integlight_handleKeydownEscape,
+	integlight_initMobileMenuAccessibility
 };
 
 
