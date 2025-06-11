@@ -521,3 +521,29 @@ msgstr "公開日"
 
 msgid "Posted on"
 msgstr "公開日"
+
+msgid "next"
+msgstr "次へ"
+
+msgid "prev"
+msgstr "前へ"
+
+
+msgid "Category:"
+msgstr "カテゴリー:"
+
+
+msgid "No posts found."
+msgstr "投稿はありません"
+
+
+msgid "HOME"
+msgstr "HOME"
+
+msgid "Page not found"
+msgstr "ページが見つかりません"
+
+msgid "Page not found"
+msgstr "ページが見つかりません"
+
+

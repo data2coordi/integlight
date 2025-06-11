@@ -27,8 +27,9 @@
 			<?php
 			echo wp_kses_post(
 				sprintf(
+					/* translators: %s: WordPress link. */
 					__('Proudly powered by %s', 'integlight'),
-					'<a href="' . esc_url('https://wordpress.org/') . '">WordPress</a>'
+					'<a href="' . esc_url('https://wordpress.org/') . '">' . esc_html__('WordPress', 'integlight') . '</a>'
 				)
 			);
 			?>
@@ -38,8 +39,8 @@
 				sprintf(
 					/* translators: 1: Theme name, 2: Theme author. */
 					__('Theme: %1$s by %2$s.', 'integlight'),
-					'Integlight',
-					'<a href="' . esc_url("https://color.toshidayurika.com/") . '">Yurika Toshida at Aurora Lab</a>'
+					esc_html_x('Integlight', 'Theme name', 'integlight'),
+					'<a href="' . esc_url("https://color.toshidayurika.com/") . '">' . esc_html__('Yurika Toshida at Aurora Lab', 'integlight') . '</a>'
 				)
 			);
 			?>

@@ -188,7 +188,7 @@ class InteglightBreadcrumb
 		$ul = '<ul class="create_bread">';
 		$ul .= '<li>';
 		$ul .= $this->awesome_home;
-		$ul .= '<a href="' . home_url() . '">HOME</a>';
+		$ul .= '<a href="' . esc_url(home_url('/')) . '">' . esc_html__('HOME', 'integlight') . '</a>';
 		$ul .= $this->awesome_rightArrow;
 		$ul .= '</li>';
 
@@ -207,7 +207,7 @@ class InteglightBreadcrumb
 		} elseif (is_page()) {
 			$output .= '<li>' . get_the_title() . '</li>';
 		} elseif (is_404()) {
-			$output .= '<li>ページが見つかりません</li>';
+			$output .= '<li>' . esc_html__('Page not found', 'integlight') . '</li>';
 		}
 
 		return $this->helper_addUl($output);
@@ -344,12 +344,12 @@ class Integlight_SEO_Meta
 		$custom_meta_description = get_post_meta($post->ID, $this->meta_key_description, true);
 ?>
 		<p>
-			<label for="custom_meta_title"><strong><?php echo esc_html__('Meta Title', 'integlight'); ?></strong></label><br>
-			<input type="text" name="<?php echo esc_attr($this->meta_key_title); ?>" id="custom_meta_title" value="<?php echo esc_attr($custom_meta_title); ?>" style="width:100%;" placeholder="<?php echo esc_attr__('ex) Improve Your English Speaking | 5 Easy & Effective Tips', 'integlight'); ?>">
+			<label for="custom_meta_title"><strong><?php esc_html_e('Meta Title', 'integlight'); ?></strong></label><br>
+			<input type="text" name="<?php echo esc_attr($this->meta_key_title); ?>" id="custom_meta_title" value="<?php echo esc_attr($custom_meta_title); ?>" style="width:100%;" placeholder="<?php esc_attr_e('ex) Improve Your English Speaking | 5 Easy & Effective Tips', 'integlight'); ?>">
 		</p>
 		<p>
-			<label for="custom_meta_description"><strong><?php echo esc_html__('Meta Description', 'integlight'); ?></strong></label><br>
-			<textarea name="<?php echo esc_attr($this->meta_key_description); ?>" id="custom_meta_description" rows="4" style="width:100%;" placeholder="<?php echo esc_attr__('ex) Struggling with English speaking? Learn 5 simple and practical tips to boost your fluency and confidence in conversations. Perfect for beginners and intermediate learners!', 'integlight'); ?>"><?php echo esc_textarea($custom_meta_description); ?></textarea>
+			<label for="custom_meta_description"><strong><?php esc_html_e('Meta Description', 'integlight'); ?></strong></label><br>
+			<textarea name="<?php echo esc_attr($this->meta_key_description); ?>" id="custom_meta_description" rows="4" style="width:100%;" placeholder="<?php esc_attr_e('ex) Struggling with English speaking? Learn 5 simple and practical tips to boost your fluency and confidence in conversations. Perfect for beginners and intermediate learners!', 'integlight'); ?>"><?php echo esc_textarea($custom_meta_description); ?></textarea>
 		</p>
 	<?php
 	}
@@ -603,7 +603,7 @@ class Integlight_PostHelper
 
 		$post_id    = $post->ID;
 		$post_title = get_the_title($post_id);
-		$post_title = (strlen($post_title) > 14) ? wp_html_excerpt($post_title, 14) . '...' : $post_title;
+		$post_title = (strlen($post_title) > 14) ? wp_html_excerpt($post_title, 14) . esc_html__('...', 'integlight') : $post_title;
 		$post_img   = self::get_post_image($post_id);
 		$post_url   = get_permalink($post_id);
 

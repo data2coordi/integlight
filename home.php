@@ -33,7 +33,7 @@ if (is_front_page() != false) {
 
                     <!-- カテゴリ表示 -->
                     <div class="post-category">
-                        <p>Category: <?php the_category(', '); ?></p>
+                        <p><?php esc_html_e('Category:', 'integlight'); ?> <?php the_category(', '); ?></p>
                     </div>
 
 
@@ -44,13 +44,13 @@ if (is_front_page() != false) {
                         <h2><?php
                             $tmpTitle = get_the_title();
                             echo esc_html(
-                                (strlen($tmpTitle) > 19) ? wp_html_excerpt($tmpTitle, 19) . ' ...' : $tmpTitle
+                                (strlen($tmpTitle) > 19) ? wp_html_excerpt($tmpTitle, 19) . esc_html__(' ...', 'integlight') : $tmpTitle
                             );
                             ?></h2>
 
                         <!-- 本文の先頭200文字を表示 -->
                         <p class="post-excerpt">
-                            <?php echo esc_html(wp_trim_words(wp_strip_all_tags(get_the_content()), 78, ' ...')); ?>
+                            <?php echo esc_html(wp_trim_words(wp_strip_all_tags(get_the_content()), 78, esc_html__(' ...', 'integlight'))); ?>
                         </p>
 
 
@@ -63,7 +63,7 @@ if (is_front_page() != false) {
             <?php endwhile; ?>
         </div>
     <?php else : ?>
-        <p>No posts found.</p>
+        <p><?php esc_html_e('No posts found.', 'integlight'); ?></p>
     <?php endif; ?>
 </main>
 <?php get_footer(); ?>
