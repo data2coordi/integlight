@@ -13,7 +13,8 @@ jobs:
 
 
       - name: build
-        run: zip -r integlight.zip . -x ".*" ".phpcs.xml.dist" ".phpunit.result.cache" "phpunit.xml.dist" "vendor/" "vendor/*"  "tests/" "tests/*"  "tmp/" "tmp/*" "bin/" "bin/*"
+        run: zip -r integlight.zip . -x ".*" ".phpcs.xml.dist" ".phpunit.result.cache" "phpunit.xml.dist" "vendor/" "tests/" "tmp/" "bin/" "node_modules/" "package.json" "package-lock.json" "yarn.lock" "composer.json" "composer.lock" "Gruntfile.js" "gulpfile.js" "webpack.config.js" "postcss.config.js" "babel.config.js" "integlight.zip" "*.log"
+
 
       - name: リリースを作成する
         uses: actions/create-release@v1
