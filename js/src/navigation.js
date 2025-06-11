@@ -103,6 +103,74 @@ document.addEventListener("keydown", integlight_handleKeydownEscape);
 
 
 
+// ──────────────────────────────
+// モバイルメニューのキーボードアクセシビリティ対応
+var toggleLabel = document.querySelector('.menuToggle-label');
+var checkbox = document.querySelector('.menuToggle-checkbox');
+var container = document.querySelector('.menuToggle-containerForMenu');
 
-export { integlight_handleDOMContentLoaded, integlight_handleParentLinkClick, integlight_handleMenuItemFocusOut, integlight_checkFocus, integlight_handleFocusOnParentLink, integlight_handleKeydownEscape };
+// 初期状態：フォーカス可能＆ARIA属性セット、リンクをタブ順から外す
+if (toggleLabel) {
+	toggleLabel.setAttribute('tabindex', '0');
+	toggleLabel.setAttribute('aria-expanded', 'false');
+}
+if (container) {
+	container.setAttribute('aria-hidden', 'true');
+	container.querySelectorAll('a').forEach(function (a) {
+		a.setAttribute('tabindex', '-1');
+	});
+}
+
+// 状態更新用ヘルパー
+function updateMenuAccessibility(isOpen) {
+	if (toggleLabel) toggleLabel.setAttribute('aria-expanded', String(isOpen));
+	if (container) container.setAttribute('aria-hidden', String(!isOpen));
+	if (container) {
+		container.querySelectorAll('a').forEach(function (a, idx) {
+			if (isOpen) {
+				a.removeAttribute('tabindex');
+				if (idx === 0) a.focus();  // 開いたら最初のリンクにフォーカス
+			} else {
+				a.setAttribute('tabindex', '-1');
+			}
+		});
+	}
+}
+
+// チェックボックス（ハンバーガーメニュー）開閉時に呼び出し
+if (checkbox) {
+	checkbox.addEventListener('change', function () {
+		updateMenuAccessibility(this.checked);
+	});
+}
+
+// Enter / Space キーでもトグルできるように
+if (toggleLabel && checkbox) {
+	toggleLabel.addEventListener('keydown', function (e) {
+		if (e.key === 'Enter' || e.key === ' ') {
+			e.preventDefault();
+			checkbox.checked = !checkbox.checked;
+			updateMenuAccessibility(checkbox.checked);
+		}
+	});
+}
+// ──────────────────────────────
+
+// 以降、既存の esc 閉じ・サブメニュー開閉ロジック…
+
+export {
+	integlight_handleDOMContentLoaded,
+	integlight_handleParentLinkClick,
+	integlight_handleMenuItemFocusOut,
+	integlight_checkFocus,
+	integlight_handleFocusOnParentLink,
+	integlight_handleKeydownEscape
+};
+
+
+
+
+
+
+
 
