@@ -51,7 +51,8 @@ This theme uses the following third-party resources:
   * CSS/JS Code: MIT License (https://opensource.org/licenses/MIT)
   * Icons: CC BY 4.0 License (https://creativecommons.org/licenses/by/4.0/)
   (Please ensure you specify if you are using Font Awesome Pro and its respective license if applicable.)
-* (If you are using other third-party assets like specific images, fonts, or JavaScript libraries that are bundled with the theme, list them here with their respective licenses and source URIs. For example: "Sample Image from Unsplash (Unsplash License, https://unsplash.com/license)").
+
+* No other third-party assets such as images, fonts, or JavaScript libraries are bundled with this theme.
 
 Support
 For support, documentation, and the latest updates, please visit:
