@@ -48,6 +48,11 @@ h3::after {
     height: 1.5px;
 }
 
+/* home投稿一覧のアニメーションを取る */
+.blog .grid-item h2::after, .blog .grid-item h3::after, .home .grid-item h2::after, .home .grid-item h3::after {
+    display: none;
+}
+
 /***************************************/
 /* ライン　アニメーション　e */
 /***************************************/
