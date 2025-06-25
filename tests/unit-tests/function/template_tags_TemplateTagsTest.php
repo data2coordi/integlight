@@ -68,7 +68,7 @@ class template_tags_TemplateTagsTest extends WP_UnitTestCase
             esc_html(get_the_date('', $this->post_id))
         );
         $expected_link = sprintf('<a href="%s" rel="bookmark">%s</a>', esc_url(get_permalink($this->post_id)), $expected_time_html);
-        $this->assertStringContainsString('<span class="posted-on">Posted on <i class="fa-solid fa-calendar-days"></i>', $output);
+        $this->assertStringContainsString('<span class="posted-on"> <i class="fa-solid fa-calendar-days"></i>', $output);
         $this->assertStringContainsString($expected_link . '</span>', $output);
 
         // Test with different modified date
@@ -84,14 +84,14 @@ class template_tags_TemplateTagsTest extends WP_UnitTestCase
         $output_modified = ob_get_clean();
 
         $expected_time_html_modified = sprintf(
-            '<time class="entry-date published" datetime="%1$s">%2$s</time><time class="updated" datetime="%3$s">%4$s</time>',
+            'Posted on：<time class="entry-date published" datetime="%1$s">%2$s</time> Updated on：<time class="updated" datetime="%3$s">%4$s</time>',
             esc_attr(get_the_date(DATE_W3C, $this->post_id)),
             esc_html(get_the_date('', $this->post_id)),
             esc_attr(get_the_modified_date(DATE_W3C, $this->post_id)),
             esc_html(get_the_modified_date('', $this->post_id))
         );
         $expected_link_modified = sprintf('<a href="%s" rel="bookmark">%s</a>', esc_url(get_permalink($this->post_id)), $expected_time_html_modified);
-        $this->assertStringContainsString('<span class="posted-on">Posted on <i class="fa-solid fa-calendar-days"></i>', $output_modified);
+        $this->assertStringContainsString('<span class="posted-on"> <i class="fa-solid fa-calendar-days"></i>', $output_modified);
         $this->assertStringContainsString($expected_link_modified . '</span>', $output_modified);
     }
 

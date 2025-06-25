@@ -175,7 +175,7 @@ class template_parts_ContentTemplateTest extends WP_UnitTestCase
         $this->assertStringContainsString('<header class="entry-header">', $output);
         $this->assertStringContainsString('<h1 class="entry-title">Test Post Title</h1>', $output, 'Should display H1 title on single view.');
         $this->assertStringContainsString('<div class="entry-meta">', $output, 'Entry meta should be present for posts.');
-        $this->assertStringContainsString('Posted on', $output, 'Check for posted_on output.'); // integlight_posted_on の出力確認
+        $this->assertStringContainsString('<span class="posted-on">', $output, 'Check for posted_on output.'); // integlight_posted_on の出力確認
         $this->assertStringContainsString('by <span class="author vcard"><a', $output, 'Check for posted_by output.'); // integlight_posted_by の出力確認
 
         // サムネイルの検証 (アタッチメントが存在する場合のみ)
@@ -254,7 +254,7 @@ class template_parts_ContentTemplateTest extends WP_UnitTestCase
         $this->assertStringContainsString('<header class="entry-header">', $output);
         $this->assertStringContainsString('<h2 class="entry-title"><a href="' . esc_url(get_permalink($this->post_id)) . '" rel="bookmark">Test Post Title</a></h2>', $output, 'Should display H2 title with link on archive view.');
         $this->assertStringContainsString('<div class="entry-meta">', $output);
-        $this->assertStringContainsString('Posted on', $output);
+        $this->assertStringContainsString('<span class="posted-on">', $output);
         $this->assertStringContainsString('by <span class="author vcard"><a', $output);
 
         // サムネイルの検証 (アタッチメントが存在する場合のみ、リンク付き)
