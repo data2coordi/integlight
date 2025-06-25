@@ -522,6 +522,9 @@ msgstr "公開日"
 msgid "Posted on"
 msgstr "公開日"
 
+msgid "Updated on"
+msgstr "更新日"
+
 msgid "next"
 msgstr "次へ"
 
