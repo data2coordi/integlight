@@ -140,11 +140,13 @@ function integlight_initMobileMenuAccessibility({ toggleLabel, checkbox, contain
 
 
 document.addEventListener('DOMContentLoaded', () => {
-	integlight_initMobileMenuAccessibility({
-		toggleLabel: document.querySelector('.menuToggle-label'),
-		checkbox: document.querySelector('.menuToggle-checkbox'),
-		container: document.querySelector('.menuToggle-containerForMenu'),
-	});
+	if (window.matchMedia('(max-width: 768px)').matches) {
+		integlight_initMobileMenuAccessibility({
+			toggleLabel: document.querySelector('.menuToggle-label'),
+			checkbox: document.querySelector('.menuToggle-checkbox'),
+			container: document.querySelector('.menuToggle-containerForMenu'),
+		});
+	}
 });
 //モバイルの場合のアクセシビリティ対応 e
 // ──────────────────────────────
