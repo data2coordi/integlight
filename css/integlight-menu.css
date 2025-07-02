@@ -79,11 +79,11 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
 }
 
 /* デフォルトでできるメニューを横並びに */
-#primary-menu.menu ul {
+/* #primary-menu.menu ul {
   display: flex;
   gap: 1rem;
   list-style: none;
-}
+} */
 
 /* ハンバーガーメニュー表示用 */
 .menuToggle-checkbox {
