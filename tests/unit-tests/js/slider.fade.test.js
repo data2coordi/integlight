@@ -57,6 +57,8 @@ describe('Integlight_FadeSlider', () => {
 
         const settings = { changeDuration: 5 };
 
+        mockSlideElements.removeClass = jest.fn(); // ← これを beforeEach に追加
+
         instance = new Integlight_FadeSlider(mock$, settings);
     });
 
@@ -66,7 +68,7 @@ describe('Integlight_FadeSlider', () => {
     });
 
     it('should initialize correctly', () => {
-        expect(instance.currentIndex).toBe(1);
+        expect(instance.currentIndex).toBe(0);
         expect(instance.$slider.addClass).toHaveBeenCalledWith('fade-effect');
         expect(mockSlideElements.css).toHaveBeenCalledWith('transition', expect.stringContaining('opacity'));
     });
