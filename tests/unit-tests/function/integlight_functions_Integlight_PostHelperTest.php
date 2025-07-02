@@ -1,17 +1,17 @@
-<?php // tests/unit-tests/integlight_functions_Integlight_PostHelperTest_WPUnit_Simple.php
+<?php // tests/unit-tests/integlight_functions_Integlight_PostNavigationTest_WPUnit_Simple.php
 
 declare(strict_types=1);
 
 /**
- * Test case for Integlight_PostHelper::get_post_navigation using WP_UnitTestCase.
+ * Test case for Integlight_PostNavigation::get_post_navigation using WP_UnitTestCase.
  * Focuses on the public method without mocks, keeping setup relatively simple.
  *
- * @coversDefaultClass Integlight_PostHelper
+ * @coversDefaultClass Integlight_PostNavigation
  * @covers ::get_post_navigation
  * @group functions
  * @group posts
  */
-class integlight_functions_Integlight_PostHelperTest extends WP_UnitTestCase
+class integlight_functions_Integlight_PostNavigationTest extends WP_UnitTestCase
 {
     protected static $prev_post_id;
     protected static $current_post_id;
@@ -108,7 +108,7 @@ class integlight_functions_Integlight_PostHelperTest extends WP_UnitTestCase
 
         // --- Act ---
         ob_start();
-        Integlight_PostHelper::get_post_navigation();
+        Integlight_PostNavigation::get_post_navigation();
         $output = ob_get_clean();
 
         // --- Assert ---
@@ -139,7 +139,7 @@ class integlight_functions_Integlight_PostHelperTest extends WP_UnitTestCase
 
         // --- Act ---
         ob_start();
-        Integlight_PostHelper::get_post_navigation();
+        Integlight_PostNavigation::get_post_navigation();
         $output = ob_get_clean();
 
         // --- Assert ---
@@ -168,7 +168,7 @@ class integlight_functions_Integlight_PostHelperTest extends WP_UnitTestCase
 
         // --- Act ---
         ob_start();
-        Integlight_PostHelper::get_post_navigation();
+        Integlight_PostNavigation::get_post_navigation();
         $output = ob_get_clean();
 
         // --- Assert ---
@@ -213,7 +213,7 @@ class integlight_functions_Integlight_PostHelperTest extends WP_UnitTestCase
 
         // --- Act ---
         ob_start();
-        Integlight_PostHelper::get_post_navigation();
+        Integlight_PostNavigation::get_post_navigation();
         $output = ob_get_clean();
 
         // --- Assert ---

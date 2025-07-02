@@ -560,7 +560,7 @@ new Integlight_Block_Assets();
  * 投稿のサムネイル画像があればそのURLを、
  * なければ本文の最初の画像URLを返す。
  */
-class Integlight_PostHelper
+class Integlight_PostNavigation
 {
 	/**
 	 * 投稿の画像を取得する（アイキャッチ or 本文の最初の画像）
