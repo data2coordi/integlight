@@ -132,11 +132,17 @@
 }
 
 
-/* categoryという字を消している */
+/* カテゴリーという字を消している */
 .blog .post-category p,
 .home .post-category p {
-  font-size: 0; 
+  font-size: 13px; 
 }
+
+.blog .post-category p a,
+.home .post-category p a {
+  font-size: 13px; /* aタグだけ元に戻す */
+}
+
 
 /* .blog .post-category p a,
 .home .post-category p a {
@@ -167,6 +173,7 @@
 .blog h2,
 .home h2 {
   line-height: 1.5;
+  font-size: 1.5rem;
 }
 
 .blog .post-tags,
@@ -206,6 +213,6 @@
   .blog .grid-item h3,
   .home .grid-item h2,
   .home .grid-item h3 {
-    width: 90%;
+    width: 100%;
   }
 }

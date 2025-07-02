@@ -14,26 +14,31 @@ if (is_front_page() != false) {
                 <div class="grid-item">
 
 
-                    <?php
-                    // キャッチ画像があるか確認
-                    if (has_post_thumbnail()) : ?>
-                        <div class="post-thumbnail">
-                            <?php the_post_thumbnail('medium'); ?>
-                        </div>
-                        <?php else :
-                        // コンテンツから最初の画像を取得して表示
-                        $content = get_the_content();
-                        preg_match('/<img.+src=[\'"](?P<src>.+?)[\'"].*>/i', $content, $image);
-                        if (! empty($image)) : ?>
-                            <div class="post-thumbnail">
-                                <img src="<?php echo esc_url($image['src']); ?>" alt="">
-                            </div>
-                    <?php endif;
-                    endif; ?>
+<?php
+// キャッチ画像があるか確認
+if ( has_post_thumbnail() ) : ?>
+    <div class="post-thumbnail">
+        <?php the_post_thumbnail( 'medium' ); ?>
+    </div>
+<?php else :
+    // コンテンツから最初の画像を取得して表示
+    $content = get_the_content();
+    preg_match( '/<img.+src=[\'"](?P<src>.+?)[\'"].*>/i', $content, $image );
+
+    if ( ! empty( $image ) ) : ?>
+        <div class="post-thumbnail">
+            <img src="<?php echo esc_url( $image['src'] ); ?>" alt="">
+        </div>
+    <?php else : ?>
+        <div class="post-thumbnail">
+            <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/default.webp' ); ?>" alt="デフォルト画像">
+        </div>
+    <?php endif;
+endif; ?>
 
                     <!-- カテゴリ表示 -->
                     <div class="post-category">
-                        <p><?php esc_html_e('Category:', 'integlight'); ?> <?php the_category(', '); ?></p>
+                        <p><?php the_category(', '); ?></p>
                     </div>
 
 
@@ -44,7 +49,7 @@ if (is_front_page() != false) {
                         <h2><?php
                             $tmpTitle = get_the_title();
                             echo esc_html(
-                                (strlen($tmpTitle) > 19) ? wp_html_excerpt($tmpTitle, 19) . esc_html__(' ...', 'integlight') : $tmpTitle
+                                (strlen($tmpTitle) > 25) ? wp_html_excerpt($tmpTitle, 25) . esc_html__(' ...', 'integlight') : $tmpTitle
                             );
                             ?></h2>
 
