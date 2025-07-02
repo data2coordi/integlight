@@ -54,10 +54,14 @@ class Integlight_SlideSlider extends Integlight_Slider {
 class Integlight_FadeSlider extends Integlight_Slider {
     constructor($, settings) {
         super($, settings);
-        this.currentIndex = 1;
+        this.currentIndex = 0;
 
         this.$slider.addClass('fade-effect');
         this.$slide.css('transition', 'opacity ' + this.changingDuration + 's ease-in-out');
+
+        // 初期表示のスライドに .active を付与
+        this.$slide.removeClass('active');
+        this.$slide.eq(this.currentIndex).addClass('active');
 
         setInterval(() => this.showSlide(), this.displayDuration * 1000);
     }
