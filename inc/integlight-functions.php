@@ -560,7 +560,7 @@ new Integlight_Block_Assets();
  * 投稿のサムネイル画像があればそのURLを、
  * なければ本文の最初の画像URLを返す。
  */
-class Integlight_PostNavigation
+class Integlight_PostNavigations
 {
 	/**
 	 * 投稿の画像を取得する（アイキャッチ or 本文の最初の画像）
@@ -721,4 +721,56 @@ new Integlight_Excerpt_Customizer();
 
 /********************************************************************/
 /* 抜粋関数の文字数を変更 e	*/
+/********************************************************************/
+
+
+/********************************************************************/
+/* サムネイル取得(存在しなければ、本文の画像、デフォルト画像を取得) s	*/
+/********************************************************************/
+
+class Integlight_PostThumbnail {
+
+	/**
+	 * 指定投稿の表示用サムネイルHTMLを出力する。
+	 * @param int|null $post_id 投稿ID（省略時は現在の投稿）
+	 * @param string $size アイキャッチ画像のサイズ（デフォルト: 'medium'）
+	 * @param string $default_url デフォルト画像のURL（空なら /assets/default.webp）
+	 */
+	public static function render($post_id = null, $size = 'medium', $default_url = '') {
+		if (is_null($post_id)) {
+			$post_id = get_the_ID();
+		}
+
+		// アイキャッチ画像がある場合
+		if (has_post_thumbnail($post_id)) {
+			echo '<div class="post-thumbnail">';
+			echo get_the_post_thumbnail($post_id, $size);
+			echo '</div>';
+			return;
+		}
+
+		// 本文から最初の画像を抽出
+		$content = get_post_field('post_content', $post_id);
+		preg_match('/<img.+src=[\'"](?P<src>.+?)[\'"].*>/i', $content, $image);
+
+		if (!empty($image['src'])) {
+			echo '<div class="post-thumbnail">';
+			echo '<img src="' . esc_url($image['src']) . '" alt="">';
+			echo '</div>';
+			return;
+		}
+
+		// デフォルト画像（未指定時は /assets/default.webp）
+		if (empty($default_url)) {
+			$default_url = get_template_directory_uri() . '/assets/default.webp';
+		}
+
+		echo '<div class="post-thumbnail">';
+		echo '<img src="' . esc_url($default_url) . '" alt="デフォルト画像">';
+		echo '</div>';
+	}
+}
+
+/********************************************************************/
+/* サムネイル取得 e	*/
 /********************************************************************/
