@@ -61,7 +61,6 @@ if (!is_home() && is_front_page()) {
 
 				<input type="checkbox" id="menuToggle-checkbox" class="menuToggle-checkbox" />
 				<label for="menuToggle-checkbox" class="menuToggle-label"><span></span></label>
-
 				<?php
 				wp_nav_menu(
 					array(
@@ -72,6 +71,5 @@ if (!is_home() && is_front_page()) {
 					)
 				);
 				?>
-	</div>
-	</nav><!-- #site-navigation -->
-	</header><!-- #masthead -->
+			</nav><!-- #site-navigation -->
+		</header><!-- #masthead -->
