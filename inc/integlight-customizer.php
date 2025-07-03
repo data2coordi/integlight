@@ -103,6 +103,8 @@ class integlight_customizer_themeColor
 				'pattern4' => __('Orange', 'integlight'),
 				'pattern5' => __('Red', 'integlight'),
 				'pattern6' => __('Pink', 'integlight'),
+				'pattern7' => __('Khaki', 'integlight'),
+				'pattern8' => __('Navy', 'integlight'),
 			),
 		));
 	}

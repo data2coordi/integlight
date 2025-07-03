@@ -323,6 +323,14 @@ msgstr "赤"
 msgid "Pink"
 msgstr "ピンク"
 
+#: inc/integlight-customizer.php:448
+msgid "Khaki"
+msgstr "カーキ"
+
+#: inc/integlight-customizer.php:448
+msgid "Navy"
+msgstr "ネイビー"
+
 
 
 
