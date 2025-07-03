@@ -79,19 +79,53 @@ function integlight_handleFocusOnParentLink() {
 
 
 
+// document.querySelectorAll(".menu-item-has-children > a").forEach(link => {
+// 	link.addEventListener("focus", integlight_handleFocusOnParentLink);
+// });
+//Tabキー移動時にサブメニューを開く（クリックとは競合しない）
+
 document.querySelectorAll(".menu-item-has-children > a").forEach(link => {
-	link.addEventListener("focus", integlight_handleFocusOnParentLink);
+	link.addEventListener("keydown", (e) => {
+		if (e.key === "Tab") {
+			const currentItem = link.parentElement;
+
+			// すでに active なら（＝サブが開いてるなら）何もしない＝次に進める
+			if (currentItem.classList.contains("active")) {
+				return;
+			}
+
+			// 同階層の他メニューを閉じる
+			const siblings = Array.from(currentItem.parentElement.children);
+			siblings.forEach(sibling => {
+				if (sibling !== currentItem) {
+					sibling.classList.remove("active");
+				}
+			});
+
+			currentItem.classList.add("active");
+		}
+	});
 });
 
-//escでメニューを閉じる
+
 function integlight_handleKeydownEscape(e) {
 	if (e.key === "Escape") {
-		// 現在フォーカスされているリンクの親メニューを閉じる
 		const focusedElement = document.activeElement;
 		const menuItem = focusedElement.closest(".menu-item-has-children.active");
 		if (menuItem) {
 			menuItem.classList.remove("active");
-			menuItem.querySelector("a").focus(); // 親メニューにフォーカスを戻す
+
+			// 🔽 変更点：親メニューに戻さず「次のフォーカス要素へ移動」
+			const focusableElements = Array.from(document.querySelectorAll('a, button, input, [tabindex]:not([tabindex="-1"])'))
+				.filter(el => !el.disabled && el.offsetParent !== null);
+			const currentIndex = focusableElements.indexOf(focusedElement);
+
+			if (currentIndex !== -1 && currentIndex + 1 < focusableElements.length) {
+				focusableElements[currentIndex + 1].focus();
+			} else {
+				// なければフォーカスを外す
+				focusedElement.blur();
+			}
 		}
 	}
 }
@@ -119,7 +153,9 @@ function integlight_initMobileMenuAccessibility({ toggleLabel, checkbox, contain
 		container.querySelectorAll('a').forEach((a, idx) => {
 			if (isOpen) {
 				a.removeAttribute('tabindex');
-				if (idx === 0) a.focus();
+				if (idx === 0) {
+					requestAnimationFrame(() => a.focus());
+				}
 			} else {
 				a.setAttribute('tabindex', '-1');
 			}
