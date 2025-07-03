@@ -66,8 +66,8 @@ if (!is_home() && is_front_page()) {
 					array(
 						'theme_location' => 'menu-1',
 						'menu_id'        => 'primary-menu',
-						'menu_class'     => 'menu',
-						'container_class'		=> 'menuToggle-containerForMenu',
+						'container_class' => 'menuToggle-containerForMenu',  // ここで自動ラッパー生成
+						'fallback_cb'     => 'integlight_custom_fallback_menu_simple',
 					)
 				);
 				?>

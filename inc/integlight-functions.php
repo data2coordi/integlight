@@ -779,3 +779,29 @@ class Integlight_PostThumbnail
 		return self::get_thumbnail_url($post_id, $size, $default_url);
 	}
 }
+
+function integlight_custom_fallback_menu_simple()
+{
+	$pages = get_pages();
+
+	if (empty($pages)) {
+		return;
+	}
+
+	// ここで必ずメニューのラッパーを出す（メニューがある場合と同じ構造に）
+	echo '<div class="menuToggle-containerForMenu">';
+	echo '<ul id="primary-menu" class="menu">';
+
+	foreach ($pages as $page) {
+		$classes = ['menu-item', 'page-item-' . $page->ID];
+		if (is_page($page->ID)) {
+			$classes[] = 'current-menu-item';
+		}
+		echo '<li class="' . esc_attr(implode(' ', $classes)) . '">';
+		echo '<a href="' . esc_url(get_permalink($page->ID)) . '">' . esc_html($page->post_title) . '</a>';
+		echo '</li>';
+	}
+
+	echo '</ul>';
+	echo '</div>';
+}
