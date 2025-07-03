@@ -728,7 +728,8 @@ new Integlight_Excerpt_Customizer();
 /* サムネイル取得(存在しなければ、本文の画像、デフォルト画像を取得) s	*/
 /********************************************************************/
 
-class Integlight_PostThumbnail {
+class Integlight_PostThumbnail
+{
 
 	/**
 	 * 指定投稿の表示用サムネイルHTMLを出力する。
@@ -736,16 +737,15 @@ class Integlight_PostThumbnail {
 	 * @param string $size アイキャッチ画像のサイズ（デフォルト: 'medium'）
 	 * @param string $default_url デフォルト画像のURL（空なら /assets/default.webp）
 	 */
-	public static function render($post_id = null, $size = 'medium', $default_url = '') {
+	public static function render($post_id = null, $size = 'medium', $default_url = '')
+	{
 		if (is_null($post_id)) {
 			$post_id = get_the_ID();
 		}
 
 		// アイキャッチ画像がある場合
 		if (has_post_thumbnail($post_id)) {
-			echo '<div class="post-thumbnail">';
 			echo get_the_post_thumbnail($post_id, $size);
-			echo '</div>';
 			return;
 		}
 
@@ -754,9 +754,7 @@ class Integlight_PostThumbnail {
 		preg_match('/<img.+src=[\'"](?P<src>.+?)[\'"].*>/i', $content, $image);
 
 		if (!empty($image['src'])) {
-			echo '<div class="post-thumbnail">';
 			echo '<img src="' . esc_url($image['src']) . '" alt="">';
-			echo '</div>';
 			return;
 		}
 
@@ -765,9 +763,7 @@ class Integlight_PostThumbnail {
 			$default_url = get_template_directory_uri() . '/assets/default.webp';
 		}
 
-		echo '<div class="post-thumbnail">';
-		echo '<img src="' . esc_url($default_url) . '" alt="デフォルト画像">';
-		echo '</div>';
+		echo '<img src="' . esc_url($default_url) . '" alt="">';
 	}
 }
 

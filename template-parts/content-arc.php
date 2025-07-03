@@ -20,7 +20,7 @@
 				echo '<span class="category-label">' . esc_html($last_category->name) . '</span>';
 			}
 			?>
-			<img src="<?php the_post_thumbnail_url(); ?>" alt="">
+			<?php Integlight_PostThumbnail::render(); ?>
 		</a>
 	</figure>
 

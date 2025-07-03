@@ -13,8 +13,9 @@ if (is_front_page() != false) {
             <?php while (have_posts()) : the_post(); ?>
                 <div class="grid-item">
 
-
-                    <?php Integlight_PostThumbnail::render(); ?>
+                    <div class="post-thumbnail">
+                        <?php Integlight_PostThumbnail::render(); ?>
+                    </div>
 
                     <!-- カテゴリ表示 -->
                     <div class="post-category">
