@@ -40,7 +40,6 @@ class InteglightCommonCssAssets
 		'integlight-sp-style' => '/css/integlight-sp-style.css',
 		'integlight-layout' => '/css/layout.css',
 		'integlight-integlight-menu' => '/css/integlight-menu.css',
-		'integlight-integlight-menu-def' => '/css/integlight-menu-def.css',
 		'integlight-post' => '/css/post.css',
 		'integlight-page' => '/css/page.css',
 		'integlight-front' => '/css/front.css',
