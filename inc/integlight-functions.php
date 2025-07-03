@@ -608,7 +608,7 @@ class Integlight_PostNavigations
 		$post_url   = get_permalink($post_id);
 
 	?>
-		<div class="<?php echo esc_attr($class); ?>" style="background-image: url('<?php echo esc_url($post_img); ?>');">
+		<div class="<?php echo esc_attr($class); ?>" style="background-image: url('<?php echo Integlight_PostThumbnail::getUrl($post_id); ?>');">
 			<a href="<?php echo esc_url($post_url); ?>">
 				<?php if ($class === 'nav-previous') : ?>
 					<i class="fa-regular fa-square-caret-left"></i>
@@ -731,6 +731,35 @@ new Integlight_Excerpt_Customizer();
 class Integlight_PostThumbnail
 {
 
+	private static function get_thumbnail_url($post_id = null, $size = 'medium', $default_url = '')
+	{
+
+
+		if (is_null($post_id)) {
+			$post_id = get_the_ID();
+		}
+
+		// アイキャッチ画像がある場合
+		if (has_post_thumbnail($post_id)) {
+			$thumbnail_url = get_the_post_thumbnail_url($post_id, $size);
+			return esc_url($thumbnail_url);
+		};
+
+		// 本文から最初の画像を抽出
+		$content = get_post_field('post_content', $post_id);
+		preg_match('/<img.+src=[\'"](?P<src>.+?)[\'"].*>/i', $content, $image);
+
+		if (!empty($image['src'])) {
+			return esc_url($image['src']);
+		}
+
+		// デフォルト画像（未指定時は /assets/default.webp）
+		if (empty($default_url)) {
+			$default_url = get_template_directory_uri() . '/assets/default.webp';
+			return esc_url($default_url);
+		}
+	}
+
 	/**
 	 * 指定投稿の表示用サムネイルHTMLを出力する。
 	 * @param int|null $post_id 投稿ID（省略時は現在の投稿）
@@ -739,34 +768,13 @@ class Integlight_PostThumbnail
 	 */
 	public static function render($post_id = null, $size = 'medium', $default_url = '')
 	{
-		if (is_null($post_id)) {
-			$post_id = get_the_ID();
-		}
+		echo '<img src="' . self::get_thumbnail_url($post_id, $size, $default_url) . '" alt="">';
 
-		// アイキャッチ画像がある場合
-		if (has_post_thumbnail($post_id)) {
-			echo get_the_post_thumbnail($post_id, $size);
-			return;
-		}
+		return;
+	}
 
-		// 本文から最初の画像を抽出
-		$content = get_post_field('post_content', $post_id);
-		preg_match('/<img.+src=[\'"](?P<src>.+?)[\'"].*>/i', $content, $image);
-
-		if (!empty($image['src'])) {
-			echo '<img src="' . esc_url($image['src']) . '" alt="">';
-			return;
-		}
-
-		// デフォルト画像（未指定時は /assets/default.webp）
-		if (empty($default_url)) {
-			$default_url = get_template_directory_uri() . '/assets/default.webp';
-		}
-
-		echo '<img src="' . esc_url($default_url) . '" alt="">';
+	public static function getUrl($post_id = null, $size = 'medium', $default_url = '')
+	{
+		return self::get_thumbnail_url($post_id, $size, $default_url);
 	}
 }
-
-/********************************************************************/
-/* サムネイル取得 e	*/
-/********************************************************************/
