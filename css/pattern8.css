@@ -1,12 +1,11 @@
 /* .integlight_pt footer {
-  background-color: #555;
+  background: #1D4B69;
 } */
-
 
 /* タブフォーカスのスタイル */
 a:focus,
 .wp-block-button__link:focus {
-  outline: 2px solid #c9c9c9;
+  outline: 2px solid #f4faca;
   outline-offset: 2px;
   border-radius: 4px;
   transition: outline 0.2s ease;
@@ -19,7 +18,7 @@ a:focus:not(:focus-visible),
 
 a:focus-visible,
 .wp-block-button__link:focus-visible {
-  outline: 2px solid #c9c9c9;
+  outline: 2px solid #f4faca;
   outline-offset: 2px;
   transition: outline 0.2s ease;
 }
@@ -27,30 +26,29 @@ a:focus-visible,
 .easyLink-info-name a:focus-visible,
 .easyLink-info-btn-amazon:focus-visible,
 .easyLink-info-btn-rakuten:focus-visible {
-  outline: 2px solid #c9c9c9;
+  outline: 2px solid #f4faca;
   transition: outline 0.2s ease;
 }
 
-
 .integlight_pt button {
-  background-color: #555;
+  background: #1D4B69;
 }
 
 
 .integlight_pt .pagetop {
-  background-color: #555;
+  background: #1D4B69;
 }
 
 .integlight_pt p.head {
-  background-color: #555;
+  background: #1D4B69;
 }
 
 .integlight_pt h2::after {
-  background-color: #555;
+  background: #1D4B69;
 }
 
 .integlight_pt h3::after {
-  background-color: #777;
+  background: #f4faca;
 }
 
 .integlight_pt .entry-footer {
@@ -62,10 +60,11 @@ a:focus-visible,
 .integlight_pt input[type="button"],
 .integlight_pt input[type="reset"],
 .integlight_pt input[type="submit"] {
-  background-color: #555;
+  background: #1D4B69;
   color: #fff;
 }
 
+/* background: linear-gradient(90deg, #ec8be7 20%, #edb1ea 40%, #d579ee 70%); */
 
 /************ボタンアニメーション**********/
 .wp-block-button__link,
@@ -102,7 +101,7 @@ a:focus-visible,
   left: -100%;
   width: 100%;
   height: 100%;
-  background-color: #555;
+  background: #1D4B69;
   transition: left 0.3s ease-in-out;
   z-index: -1;
 }
@@ -110,41 +109,65 @@ a:focus-visible,
 .wp-block-button__link:hover::before,
 .wp-block-button__link:active::before,
 .wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link:hover::before,
-.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link:active::before {
+.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link:active:before {
   left: 0;
 }
 
 #page-top:hover {
-  background: #555;
-  border: #555;
+  background: #f4faca;
+  border: #f4faca;
   color: #fff;
 }
 
-.posted-on a, .byline a, .cat-links a, .edit-link a, .tags-links a {
-  color: #555;
+#page-top {
+  border: 1px solid #f4faca;
+  color: #f4faca; 
 }
 
-.site-footer{
-  background-color: #000;
+.posted-on a, .byline a, .cat-links a, .edit-link a, .tags-links a {
+  color: #f4faca;
+}
+
+.post-toc {
+  background-color: #f4faca;
+}
+
+
+.site-footer {
+  background-color: #94A1A9;
 }
 
 .site-header {
-  background-color: #000;
+  background-color: #94A1A9;
   background-image: linear-gradient(to bottom,
-  #555 0 8px,
-  #eee 8px 11px
+  #1D4B69 0 8px,
+  #f4faca 8px 11px
   );
 }
 
 
 
+ul.menu > li.menu-item-has-children > ul.sub-menu,
+ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
+  background-color: #94A1A9;
+}
+
+/**************アイコンのホバーした時の色を変えているs***************/
+.main-navigation li.menu-item-has-children > a:hover::after {
+  color: #f4faca;
+}
+
+.main-navigation ul.sub-menu li.menu-item-has-children > a:hover::after {
+  color: #f4faca;
+}
+/**************アイコンのホバーした時の色を変えているe***************/
 
 @media screen and (max-width: 768px) {
   .main-navigation li.menu-item-has-children > a::after {
     right: 15px;
   }
+
+  .menuToggle-containerForMenu {
+    background: #94A1A9;
+  }
 }
-
-
-
-
