@@ -61,15 +61,18 @@ if (!is_home() && is_front_page()) {
 
 				<input type="checkbox" id="menuToggle-checkbox" class="menuToggle-checkbox" />
 				<label for="menuToggle-checkbox" class="menuToggle-label"><span></span></label>
-				<?php
-				wp_nav_menu(
-					array(
-						'theme_location' => 'menu-1',
-						'menu_id'        => 'primary-menu',
-						'menu_class'     => 'menu',
-						'container_class'		=> 'menuToggle-containerForMenu',
-					)
-				);
-				?>
+				<div class="menuToggle-containerForMenu">
+
+					<?php
+					wp_nav_menu(
+						array(
+							'theme_location' => 'menu-1',
+							'menu_id'        => 'primary-menu',
+							'menu_class'     => 'menu',
+							'container_class'		=> false,
+						)
+					);
+					?>
+				</div>
 			</nav><!-- #site-navigation -->
 		</header><!-- #masthead -->
