@@ -1,6 +1,7 @@
 // DOMContentLoaded イベント時の初期処理
 function integlight_handleDOMContentLoaded() {
 	// 「子メニューを持つ」リンクのクリックイベントを登録
+
 	var parentLinks = document.querySelectorAll(".menu-item-has-children > a");
 	for (var i = 0; i < parentLinks.length; i++) {
 		parentLinks[i].addEventListener("click", integlight_handleParentLinkClick);
@@ -14,6 +15,7 @@ function integlight_handleDOMContentLoaded() {
 }
 
 // クリック時の処理（サブメニューの開閉）
+// 自分の兄弟のactiveをはずし、自分をアクティブにする
 function integlight_handleParentLinkClick(e) {
 	var linkWidth = this.offsetWidth;  // aタグの全幅
 	var clickPosition = e.offsetX;      // クリックされた位置（左端からの距離）
@@ -39,8 +41,9 @@ function integlight_handleParentLinkClick(e) {
 }
 
 // フォーカスが外れたときの処理
+// 自分の子にアクティブ要素がなければ自分からアクティブを外す
 function integlight_handleMenuItemFocusOut(e) {
-	// 少し待ってから、現在のフォーカスがこの項目内にないなら active クラスを解除する
+	// フォーカスがまだ、他要素に移っていない可能性を考慮し、少し待ってから、現在のフォーカスがこの項目内にないなら active クラスを解除する
 	setTimeout(integlight_checkFocus, 0, this);
 }
 
@@ -57,31 +60,9 @@ document.addEventListener("DOMContentLoaded", integlight_handleDOMContentLoaded)
 
 
 
-
+//////////////////////////////////////
 //アクセシビリティ対応　キーボード操作でサブメニュー開閉 s
-
-
-// フォーカスされたらサブメニューを開く（EnterではなくTab移動時）
-function integlight_handleFocusOnParentLink() {
-	const currentItem = this.parentElement;
-
-	// 同階層の他メニューを閉じる
-	const siblings = Array.from(currentItem.parentElement.children);
-	siblings.forEach(sibling => {
-		if (sibling !== currentItem) {
-			sibling.classList.remove("active");
-		}
-	});
-
-	currentItem.classList.add("active");
-}
-
-
-
-
-// document.querySelectorAll(".menu-item-has-children > a").forEach(link => {
-// 	link.addEventListener("focus", integlight_handleFocusOnParentLink);
-// });
+//////////////////////////////////////
 //Tabキー移動時にサブメニューを開く（クリックとは競合しない）
 
 document.querySelectorAll(".menu-item-has-children > a").forEach(link => {
@@ -112,31 +93,26 @@ function integlight_handleKeydownEscape(e) {
 	if (e.key === "Escape") {
 		const focusedElement = document.activeElement;
 		const menuItem = focusedElement.closest(".menu-item-has-children.active");
+
 		if (menuItem) {
 			menuItem.classList.remove("active");
 
-			// 🔽 変更点：親メニューに戻さず「次のフォーカス要素へ移動」
-			const focusableElements = Array.from(document.querySelectorAll('a, button, input, [tabindex]:not([tabindex="-1"])'))
-				.filter(el => !el.disabled && el.offsetParent !== null);
-			const currentIndex = focusableElements.indexOf(focusedElement);
+			focusedElement.blur();
 
-			if (currentIndex !== -1 && currentIndex + 1 < focusableElements.length) {
-				focusableElements[currentIndex + 1].focus();
-			} else {
-				// なければフォーカスを外す
-				focusedElement.blur();
-			}
 		}
 	}
 }
 
 document.addEventListener("keydown", integlight_handleKeydownEscape);
-
+//////////////////////////////////////
 //アクセシビリティ対応　キーボード操作でサブメニュー開閉 e
+//////////////////////////////////////
 
 
 
+//////////////////////////////////////
 //モバイルの場合のアクセシビリティ対応 s
+//////////////////////////////////////
 function integlight_initMobileMenuAccessibility({ toggleLabel, checkbox, container }) {
 	if (!toggleLabel || !checkbox || !container) return;
 
@@ -184,25 +160,69 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 	}
 });
+//////////////////////////////////////
 //モバイルの場合のアクセシビリティ対応 e
-// ──────────────────────────────
+//////////////////////////////////////
 
-// 以降、既存の esc 閉じ・サブメニュー開閉ロジック…
+
 
 export {
 	integlight_handleDOMContentLoaded,
 	integlight_handleParentLinkClick,
 	integlight_handleMenuItemFocusOut,
 	integlight_checkFocus,
-	integlight_handleFocusOnParentLink,
 	integlight_handleKeydownEscape,
 	integlight_initMobileMenuAccessibility
 };
 
 
 
+/********************************************************:: */
+/*想定しているHTML構造 s
+/********************************************************:: */
+/*
+<nav id="site-navigation" class="main-navigation">
 
+  <!-- ハンバーガーメニュー制御用 -->
+  <input type="checkbox" id="menuToggle-checkbox" class="menuToggle-checkbox" />
+  <label for="menuToggle-checkbox" class="menuToggle-label"><span></span></label>
 
+  <!-- メニューラッパー -->
+  <div class="menuToggle-containerForMenu">
+	<ul id="primary-menu" class="menu">
+	  
+	  <!-- トップレベルメニュー1 -->
+	  <li class="menu-item menu-item-has-children">
+		<a href="#">親メニュー1</a>
+		<ul class="sub-menu">
+		  <li class="menu-item"><a href="#">子メニュー1-1</a></li>
+		  <li class="menu-item"><a href="#">子メニュー1-2</a></li>
+		  <li class="menu-item menu-item-has-children">
+			<a href="#">子メニュー1-3</a>
+			<ul class="sub-menu">
+			  <li class="menu-item"><a href="#">孫メニュー1-3-1</a></li>
+			</ul>
+		  </li>
+		</ul>
+	  </li>
 
+	  <!-- トップレベルメニュー2 -->
+	  <li class="menu-item"><a href="#">親メニュー2</a></li>
+
+	  <!-- トップレベルメニュー3 -->
+	  <li class="menu-item menu-item-has-children">
+		<a href="#">親メニュー3</a>
+		<ul class="sub-menu">
+		  <li class="menu-item"><a href="#">子メニュー3-1</a></li>
+		</ul>
+	  </li>
+
+	</ul>
+  </div>
+</nav>
+*/
+/********************************************************:: */
+/*想定しているHTML構造 e
+/********************************************************:: */
 
 
