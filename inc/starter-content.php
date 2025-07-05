@@ -27,39 +27,24 @@ function integlight_get_starter_content()
         'theme_mods' => array(
             'custom_logo' => '{{sample-logo}}',
             'integlight_display_choice' => 'slider',
-            'integlight_slider_effect' => 'slide',
+            'integlight_slider_effect' => 'fade',
             'integlight_slider_change_duration' => 3,
             'integlight_slider_text_1' => __('Turn Your Experience and Knowledge into Digital Assets with Integlight', 'integlight'),
             'integlight_slider_text_2' => __('The things you casually talk about every day, as well as the knowledge and experience you gain from work or hobbies, can be valuable information for someone. By documenting them in a blog, they accumulate over time and become your digital asset. Keep sharing, and you may create value that reaches many people.', 'integlight'),
             'integlight_slider_text_font' => 'yu_gothic',
             'integlight_slider_text_top' => 100,
             'integlight_slider_text_left' => 200,
+            'integlight_slider_text_color' => '#ffffff',
             'integlight_slider_image_1' => '{{image-slider-1}}',
             'integlight_slider_image_2' => '{{image-slider-2}}',
             'integlight_slider_image_mobile_1' => '{{image-slider-sp-1}}',
             'integlight_slider_image_mobile_2' => '{{image-slider-sp-2}}',
         ),
-        'posts' => array(
-            'home' => array(
-                'post_type'    => 'page',
-                'post_title'   => __('Welcome', 'integlight'),
-                'post_content' => '<!-- You can insert sample content with blocks here -->',
-                'thumbnail'    => '{{image-slider-1}}',
-            ),
-        ),
+
         'options' => array(
-            'show_on_front' => 'page',
-            'page_on_front' => '{{home}}',
+            'show_on_front' => 'posts',
         ),
-        'nav_menus' => array(
-            'primary' => array(
-                'name' => __('Primary Menu', 'integlight'),
-                'items' => array(
-                    'link_home',
-                    'page_home',
-                ),
-            ),
-        ),
+
     );
 
     return apply_filters('integlight_starter_content', $starter_content);
