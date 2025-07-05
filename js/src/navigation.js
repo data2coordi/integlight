@@ -144,3 +144,54 @@ export {
 	GlobalKeyController,
 	MobileMenuController
 };
+
+
+
+
+/********************************************************:: */
+/*想定しているHTML構造 s
+/********************************************************:: */
+/*
+<nav id="site-navigation" class="main-navigation">
+
+  <!-- ハンバーガーメニュー制御用 -->
+  <input type="checkbox" id="menuToggle-checkbox" class="menuToggle-checkbox" />
+  <label for="menuToggle-checkbox" class="menuToggle-label"><span></span></label>
+
+  <!-- メニューラッパー -->
+  <div class="menuToggle-containerForMenu">
+	<ul id="primary-menu" class="menu">
+	  
+	  <!-- トップレベルメニュー1 -->
+	  <li class="menu-item menu-item-has-children">
+		<a href="#">親メニュー1</a>
+		<ul class="sub-menu">
+		  <li class="menu-item"><a href="#">子メニュー1-1</a></li>
+		  <li class="menu-item"><a href="#">子メニュー1-2</a></li>
+		  <li class="menu-item menu-item-has-children">
+			<a href="#">子メニュー1-3</a>
+			<ul class="sub-menu">
+			  <li class="menu-item"><a href="#">孫メニュー1-3-1</a></li>
+			</ul>
+		  </li>
+		</ul>
+	  </li>
+
+	  <!-- トップレベルメニュー2 -->
+	  <li class="menu-item"><a href="#">親メニュー2</a></li>
+
+	  <!-- トップレベルメニュー3 -->
+	  <li class="menu-item menu-item-has-children">
+		<a href="#">親メニュー3</a>
+		<ul class="sub-menu">
+		  <li class="menu-item"><a href="#">子メニュー3-1</a></li>
+		</ul>
+	  </li>
+
+	</ul>
+  </div>
+</nav>
+*/
+/********************************************************:: */
+/*想定しているHTML構造 e
+/********************************************************:: */
