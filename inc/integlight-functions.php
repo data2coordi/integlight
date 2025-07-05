@@ -565,21 +565,6 @@ class Integlight_PostNavigations
 	/**
 	 * 投稿の画像を取得する（アイキャッチ or 本文の最初の画像）
 	 */
-	private static function get_post_image($post_id)
-	{
-		$thumb_url = get_the_post_thumbnail_url($post_id, 'full');
-		if ($thumb_url) {
-			return $thumb_url;
-		}
-
-		$post_content = get_post_field('post_content', $post_id);
-		$first_img_url = self::get_first_image_url_from_content($post_content);
-		if ($first_img_url) {
-			return $first_img_url;
-		}
-
-		return ''; // 画像がない場合のデフォルト処理（必要なら設定）
-	}
 
 	/**
 	 * 本文から最初の画像URLを抽出する
@@ -604,7 +589,6 @@ class Integlight_PostNavigations
 		$post_id    = $post->ID;
 		$post_title = get_the_title($post_id);
 		$post_title = (strlen($post_title) > 14) ? wp_html_excerpt($post_title, 14) . esc_html__('...', 'integlight') : $post_title;
-		$post_img   = self::get_post_image($post_id);
 		$post_url   = get_permalink($post_id);
 
 	?>

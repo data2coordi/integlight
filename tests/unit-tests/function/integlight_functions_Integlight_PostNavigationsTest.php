@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @group functions
  * @group posts
  */
-class integlight_functions_Integlight_PostNavigationTest extends WP_UnitTestCase
+class integlight_functions_Integlight_PostNavigationsTest extends WP_UnitTestCase
 {
     protected static $prev_post_id;
     protected static $current_post_id;
@@ -101,14 +101,14 @@ class integlight_functions_Integlight_PostNavigationTest extends WP_UnitTestCase
 
         $prev_post_url = get_permalink(self::$prev_post_id);
         $next_post_url = get_permalink(self::$next_post_id);
-        $prev_image_url = get_the_post_thumbnail_url(self::$prev_post_id, 'full');
+        $prev_image_url = get_the_post_thumbnail_url(self::$prev_post_id, 'medium');
         // next_post はサムネイルがないので、本文画像が使われるはず (self::$current_content_img_url)
 
         $this->assertNotEmpty($prev_image_url, 'Previous post thumbnail URL should exist.');
 
         // --- Act ---
         ob_start();
-        Integlight_PostNavigation::get_post_navigation();
+        Integlight_PostNavigations::get_post_navigation();
         $output = ob_get_clean();
 
         // --- Assert ---
@@ -129,7 +129,7 @@ class integlight_functions_Integlight_PostNavigationTest extends WP_UnitTestCase
     /**
      * @test
      * 最初の投稿の場合 (前の投稿がない場合) の出力をテストします。
-     * next: 本文画像あり
+     * next: 本文画像なし
      */
     public function get_post_navigation_should_output_only_next_when_no_prev(): void
     {
@@ -139,7 +139,7 @@ class integlight_functions_Integlight_PostNavigationTest extends WP_UnitTestCase
 
         // --- Act ---
         ob_start();
-        Integlight_PostNavigation::get_post_navigation();
+        Integlight_PostNavigations::get_post_navigation();
         $output = ob_get_clean();
 
         // --- Assert ---
@@ -149,7 +149,9 @@ class integlight_functions_Integlight_PostNavigationTest extends WP_UnitTestCase
         // 次の投稿部分 (current_post_id が次になる)
         $this->assertStringContainsString('<div class="nav-next"', $output);
         // current_post_id には画像がないので、背景画像URLは空になるはず
-        $this->assertStringContainsString('style="background-image: url(\'\');"', $output);
+        $default_image = get_template_directory_uri() . '/assets/default.webp';
+        $this->assertStringContainsString("style=\"background-image: url('{$default_image}');\"", $output);
+
         $this->assertStringContainsString('<a href="' . esc_url($next_post_url) . '">', $output);
         $this->assertStringContainsString(esc_html('Current Post T...'), $output); // 切り詰め
         $this->assertStringContainsString('</nav>', $output);
@@ -168,7 +170,7 @@ class integlight_functions_Integlight_PostNavigationTest extends WP_UnitTestCase
 
         // --- Act ---
         ob_start();
-        Integlight_PostNavigation::get_post_navigation();
+        Integlight_PostNavigations::get_post_navigation();
         $output = ob_get_clean();
 
         // --- Assert ---
@@ -176,7 +178,8 @@ class integlight_functions_Integlight_PostNavigationTest extends WP_UnitTestCase
         // 前の投稿部分 (current_post_id が前になる)
         $this->assertStringContainsString('<div class="nav-previous"', $output);
         // current_post_id には画像がないので、背景画像URLは空になるはず
-        $this->assertStringContainsString('style="background-image: url(\'\');"', $output);
+        $default_image = get_template_directory_uri() . '/assets/default.webp';
+        $this->assertStringContainsString("style=\"background-image: url('{$default_image}');\"", $output);
         $this->assertStringContainsString('<a href="' . esc_url($prev_post_url) . '">', $output);
         $this->assertStringContainsString(esc_html('Current Post T...'), $output); // 切り詰め
         // 次の投稿部分がないこと
@@ -213,7 +216,7 @@ class integlight_functions_Integlight_PostNavigationTest extends WP_UnitTestCase
 
         // --- Act ---
         ob_start();
-        Integlight_PostNavigation::get_post_navigation();
+        Integlight_PostNavigations::get_post_navigation();
         $output = ob_get_clean();
 
         // --- Assert ---

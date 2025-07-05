@@ -233,6 +233,9 @@ class integlight_customizer_integlight_customizer_themeColorTest extends WP_Unit
             'pattern4' => __('Orange', 'integlight'),
             'pattern5' => __('Red', 'integlight'),
             'pattern6' => __('Pink', 'integlight'),
+            'pattern7' => __('Khaki', 'integlight'),
+            'pattern8' => __('Navy', 'integlight'),
+
         ];
         $this->assertEquals($expected_choices, $control->choices, 'Control choices should be correct.');
     }

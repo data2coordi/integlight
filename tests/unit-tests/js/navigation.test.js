@@ -2,238 +2,200 @@
  * @jest-environment jsdom
  */
 
-import {
-    integlight_handleDOMContentLoaded as handleDOMContentLoaded,
-    integlight_handleParentLinkClick as handleParentLinkClick,
-    integlight_handleMenuItemFocusOut as handleMenuItemFocusOut,
-    integlight_checkFocus as checkFocus,
-    integlight_handleFocusOnParentLink as handleFocusOnParentLink, // ← 追記（エクスポート済みである前提）
-    integlight_handleKeydownEscape as handleKeydownEscape, // ← 追加
+import { MenuController, GlobalKeyController, MobileMenuController } from '../../../js/src/navigation';
 
-    integlight_initMobileMenuAccessibility as initMobileMenuAccessibility
-
-} from '../../../js/src/navigation'; // 適宜パスを調整してください
-
-describe('グローバルメニューの挙動', () => {
+describe('グローバルメニューの挙動（ブラックボックステスト）', () => {
     let container;
 
     beforeEach(() => {
-        // DOM 構造を用意
         document.body.innerHTML = `
+      <nav>
         <ul class="menu">
           <li class="menu-item-has-children" id="item1">
             <a href="#" id="link1">Parent 1</a>
-            <ul class="sub-menu"><li>Child</li></ul>
+            <ul class="sub-menu"><li><a href="#">Child 1</a></li></ul>
           </li>
           <li class="menu-item-has-children" id="item2">
             <a href="#" id="link2">Parent 2</a>
-            <ul class="sub-menu"><li>Child</li></ul>
+            <ul class="sub-menu"><li><a href="#">Child 2</a></li></ul>
           </li>
         </ul>
-      `;
-        container = document.body;
+      </nav>
+    `;
 
-        // 各リンクに offsetWidth を与える
-        const link1 = document.getElementById('link1');
-        Object.defineProperty(link1, 'offsetWidth', { value: 100, configurable: true });
-        const link2 = document.getElementById('link2');
-        Object.defineProperty(link2, 'offsetWidth', { value: 100, configurable: true });
+        // offsetWidth モック
+        Object.defineProperty(document.getElementById('link1'), 'offsetWidth', { value: 100 });
+        Object.defineProperty(document.getElementById('link2'), 'offsetWidth', { value: 100 });
 
-        // 初期化
-        handleDOMContentLoaded();
+        new MenuController().init();
+        new GlobalKeyController().init();
     });
 
-    test('handleDOMContentLoaded でイベントリスナーが登録される', () => {
-        const link1 = document.getElementById('link1');
-        const li1 = document.getElementById('item1');
-
-        // click と focusout がそれぞれ登録されているかどうかは internal だが、
-        // イベント発火時に期待動作するかで検証する
-        expect(link1.onclick).toBeNull(); // addEventListener なので onclick ではなく listener が登録
-        // 実際にクリックして動作を試すのは後続のテストで確認
+    afterEach(() => {
+        // 各テスト後にすべてのモックを元の実装に復元
+        jest.restoreAllMocks();
     });
 
-    describe('handleParentLinkClick', () => {
-        it('リンクの右端をクリックすると active がトグルされる', () => {
-            const link1 = document.getElementById('link1');
-            const li1 = document.getElementById('item1');
-
-            // クリック位置を右端寄りに設定 (offsetX > offsetWidth - 40)
-            const event = new MouseEvent('click', { bubbles: true });
-            Object.defineProperty(event, 'offsetX', { value: 70 }); // 100 - 40 = 60 を超えている
-            link1.dispatchEvent(event);
-
-            expect(li1.classList.contains('active')).toBe(true);
-
-            // もう一度同じ場所をクリックすると外れる
-            link1.dispatchEvent(event);
-            expect(li1.classList.contains('active')).toBe(false);
-        });
-
-        it('リンクの左側（テキスト領域）をクリックしても active にならない', () => {
-            const link1 = document.getElementById('link1');
-            const li1 = document.getElementById('item1');
-
-            const event = new MouseEvent('click', { bubbles: true });
-            Object.defineProperty(event, 'offsetX', { value: 10 }); // 右端 60px より左側
-            link1.dispatchEvent(event);
-
-            expect(li1.classList.contains('active')).toBe(false);
-        });
-
-        it('同じ階層の兄弟からは active が外れる', () => {
-            const link1 = document.getElementById('link1');
-            const li1 = document.getElementById('item1');
-            const link2 = document.getElementById('link2');
-            const li2 = document.getElementById('item2');
-
-            // item1 を開く
-            const event1 = new MouseEvent('click', { bubbles: true });
-            Object.defineProperty(event1, 'offsetX', { value: 70 });
-            link1.dispatchEvent(event1);
-            expect(li1.classList.contains('active')).toBe(true);
-
-            // item2 を開く
-            const event2 = new MouseEvent('click', { bubbles: true });
-            Object.defineProperty(event2, 'offsetX', { value: 70 });
-            link2.dispatchEvent(event2);
-
-            expect(li2.classList.contains('active')).toBe(true);
-            expect(li1.classList.contains('active')).toBe(false);
-        });
+    test('右端クリックで active トグル', () => {
+        const link = document.getElementById('link1');
+        const item = document.getElementById('item1');
+        const evt = new MouseEvent('click', { bubbles: true });
+        Object.defineProperty(evt, 'offsetX', { value: 90 });
+        link.dispatchEvent(evt);
+        expect(item.classList.contains('active')).toBe(true);
+        link.dispatchEvent(evt);
+        expect(item.classList.contains('active')).toBe(false);
     });
 
-    describe('handleMenuItemFocusOut & checkFocus', () => {
-        it('フォーカスが外れたら active が解除される', (done) => {
-            const link1 = document.getElementById('link1');
-            const li1 = document.getElementById('item1');
-
-            // 最初 active にしておく
-            li1.classList.add('active');
-
-            // ★ document.activeElement をモックする
-            Object.defineProperty(document, 'activeElement', {
-                value: document.body, // li1 の外側をフォーカスさせる
-                configurable: true,
-            });
-
-            // フォーカスアウトイベントを発火
-            const focusOutEvent = new FocusEvent('focusout');
-            li1.dispatchEvent(focusOutEvent);
-
-            // setTimeout の後で結果を確認
-            setTimeout(() => {
-                expect(li1.classList.contains('active')).toBe(false);
-                done();
-            }, 0);
-        });
+    test('左クリックで active 無効', () => {
+        const link = document.getElementById('link1');
+        const item = document.getElementById('item1');
+        const evt = new MouseEvent('click', { bubbles: true });
+        Object.defineProperty(evt, 'offsetX', { value: 10 });
+        link.dispatchEvent(evt);
+        expect(item.classList.contains('active')).toBe(false);
     });
 
+    test('兄弟間で active 切り替え', () => {
+        const l1 = document.getElementById('link1');
+        const l2 = document.getElementById('link2');
+        const i1 = document.getElementById('item1');
+        const i2 = document.getElementById('item2');
+        const evt = new MouseEvent('click', { bubbles: true });
+        Object.defineProperty(evt, 'offsetX', { value: 90 });
+        l1.dispatchEvent(evt);
+        expect(i1.classList.contains('active')).toBe(true);
+        l2.dispatchEvent(evt);
+        expect(i2.classList.contains('active')).toBe(true);
+        expect(i1.classList.contains('active')).toBe(false);
+    });
 
-    describe('handleFocusOnParentLink', () => {
-        it('フォーカス時に対象項目に active を付け、他の兄弟項目からは外す', () => {
-            const link1 = document.getElementById('link1');
-            const li1 = document.getElementById('item1');
-            const link2 = document.getElementById('link2');
-            const li2 = document.getElementById('item2');
+    test('Tabキーで active 付与', () => {
+        const link = document.getElementById('link1');
+        const item = document.getElementById('item1');
+        const evt = new KeyboardEvent('keydown', { key: 'Tab' });
+        link.dispatchEvent(evt);
+        expect(item.classList.contains('active')).toBe(true);
+    });
 
-            // 最初に両方 active にしておく
-            li1.classList.add('active');
-            li2.classList.add('active');
+    test('focusout による active 削除', done => {
+        const item = document.getElementById('item1');
+        item.classList.add('active');
 
-            // link1 にフォーカスが当たったと仮定
-            handleFocusOnParentLink.call(link1);
+        // jest.spyOn を使用して document.activeElement のゲッターをモック
+        jest.spyOn(document, 'activeElement', 'get').mockReturnValue(document.body);
 
-            expect(li1.classList.contains('active')).toBe(true);
-            expect(li2.classList.contains('active')).toBe(false);
-        });
+        const evt = new FocusEvent('focusout');
+        item.dispatchEvent(evt);
+        setTimeout(() => {
+            expect(item.classList.contains('active')).toBe(false);
+            done();
+        }, 0);
+    });
 
-        it('フォーカス対象のみに active が付与される', () => {
-            const link2 = document.getElementById('link2');
-            const li2 = document.getElementById('item2');
+    test('Escape キーで active を解除し、フォーカスを外す', () => {
+        const item = document.getElementById('item1');
+        const subLink = document.createElement('a');
+        subLink.href = '#';
+        subLink.textContent = 'Sub';
 
-            // 何も active でない状態から開始
-            expect(li2.classList.contains('active')).toBe(false);
+        item.appendChild(subLink);
+        item.classList.add('active');
 
-            handleFocusOnParentLink.call(link2);
+        const blurSpy = jest.spyOn(subLink, 'blur').mockImplementation(() => { });
 
-            expect(li2.classList.contains('active')).toBe(true);
-        });
+        // jest.spyOn を使用して document.activeElement のゲッターをモック
+        jest.spyOn(document, 'activeElement', 'get').mockReturnValue(subLink);
+
+        // Escape キーイベントを発火
+        // document にイベントリスナがあるため bubbles: true が必要
+        const evt = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true });
+        document.dispatchEvent(evt);
+
+        // 検証
+        expect(item.classList.contains('active')).toBe(false); // active クラスが削除されているか
+        expect(blurSpy).toHaveBeenCalled();                    // blur() が呼び出されたか
     });
 
 
+    test('子リンククリック時に active 維持', () => {
+        const item = document.getElementById('item1');
+        const subLink = item.querySelector('.sub-menu a');
+        item.classList.add('active');
+        const evt = new MouseEvent('click', { bubbles: true });
+        subLink.dispatchEvent(evt);
+        expect(item.classList.contains('active')).toBe(true);
+    });
+});
 
-    describe('handleKeydownEscape', () => {
-        it('Escape キーで active を解除し、親リンクにフォーカスを戻す', () => {
-            const link1 = document.getElementById('link1');
-            const li1 = document.getElementById('item1');
-            const subLink = document.createElement('a');
-            subLink.href = '#';
-            subLink.textContent = 'Sub';
-            li1.querySelector('.sub-menu').appendChild(subLink);
+describe('モバイルメニュー操作', () => {
+    let label, checkbox, container, link;
 
-            // active を付与して、サブリンクに focus させる
-            li1.classList.add('active');
-            li1.appendChild(subLink);
-
-            // JSDOM 環境では document.activeElement をモック
-            Object.defineProperty(document, 'activeElement', {
-                value: subLink,
-                configurable: true,
-            });
-
-            const focusSpy = jest.spyOn(link1, 'focus');
-
-            // Escape キーイベント発火
-            const escEvent = new KeyboardEvent('keydown', { key: 'Escape' });
-            handleKeydownEscape(escEvent);
-
-            expect(li1.classList.contains('active')).toBe(false);
-            expect(focusSpy).toHaveBeenCalled();
-        });
-
-
-        it('active な親メニューが無ければ何もしない', () => {
-            const link1 = document.getElementById('link1');
-            const li1 = document.getElementById('item1');
-
-            // active にしない
-            link1.focus();
-
-            const focusSpy = jest.spyOn(link1, 'focus');
-            const escEvent = new KeyboardEvent('keydown', { key: 'Escape' });
-            handleKeydownEscape(escEvent);
-
-            expect(focusSpy).not.toHaveBeenCalled();
-            expect(li1.classList.contains('active')).toBe(false);
-        });
+    beforeEach(() => {
+        label = document.createElement('div');
+        label.className = 'menuToggle-label';
+        checkbox = document.createElement('input');
+        checkbox.className = 'menuToggle-checkbox';
+        checkbox.type = 'checkbox';
+        container = document.createElement('div');
+        container.className = 'menuToggle-containerForMenu';
+        link = document.createElement('a');
+        container.appendChild(link);
+        document.body.append(label, checkbox, container);
     });
 
-
-    describe('モバイルのキー操作について', () => {
-        test('初期化時に適切な属性が設定される', () => {
-            const label = document.createElement('div');
-            label.className = 'menuToggle-label';
-
-            const checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.className = 'menuToggle-checkbox';
-
-            const container = document.createElement('div');
-            container.className = 'menuToggle-containerForMenu';
-
-            const link = document.createElement('a');
-            container.appendChild(link);
-
-            document.body.append(label, checkbox, container);
-
-            initMobileMenuAccessibility({ toggleLabel: label, checkbox, container });
-
-            expect(label.getAttribute('tabindex')).toBe('0');
-            expect(label.getAttribute('aria-expanded')).toBe('false');
-            expect(container.getAttribute('aria-hidden')).toBe('true');
-            expect(link.getAttribute('tabindex')).toBe('-1');
+    test('初期化時に属性が設定される', () => {
+        Object.defineProperty(window, 'matchMedia', {
+            value: jest.fn().mockReturnValue({ matches: true }),
+            configurable: true
         });
+        new MobileMenuController().init();
+        expect(label.getAttribute('tabindex')).toBe('0');
+        expect(label.getAttribute('aria-expanded')).toBe('false');
+        expect(container.getAttribute('aria-hidden')).toBe('true');
+        expect(link.getAttribute('tabindex')).toBe('-1');
     });
 
+    test('Enter/Space でトグル動作する', () => {
+        // Arrange: matchMedia をモックして、コントローラーが初期化されるようにする
+
+        Object.defineProperty(window, 'matchMedia', {
+            value: jest.fn().mockReturnValue({ matches: true }),
+            configurable: true
+        });
+
+
+        // MobileMenuController に DOM を直接注入
+        const ctrl = new MobileMenuController();
+        ctrl.toggleLabel = label;
+        ctrl.checkbox = checkbox;
+        ctrl.container = container;
+        ctrl.init();
+        // Arrange: MobileMenuController をインスタンス化して初期化する
+        // beforeEach でDOM要素はクラス名付きで作成されているため、コンストラクタが要素を取得できる
+
+        // Act & Assert: Enter キーでチェックボックスが true になる
+        const enterEvt = new KeyboardEvent('keydown', { key: 'Enter' });
+        label.dispatchEvent(enterEvt);
+
+
+        expect(checkbox.checked).toBe(true);
+
+
+        // Act & Assert: Space キーでチェックボックスが false になる
+        const spaceEvt = new KeyboardEvent('keydown', { key: ' ' });
+        label.dispatchEvent(spaceEvt);
+        expect(checkbox.checked).toBe(false);
+    });
+
+    test('update(false) で属性が戻る', () => {
+        const ctrl = new MobileMenuController();
+        ctrl.toggleLabel = label;
+        ctrl.checkbox = checkbox;
+        ctrl.container = container;
+        ctrl.update(false);
+        expect(label.getAttribute('aria-expanded')).toBe('false');
+        expect(container.getAttribute('aria-hidden')).toBe('true');
+        expect(link.getAttribute('tabindex')).toBe('-1');
+    });
 });

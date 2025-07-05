@@ -252,7 +252,7 @@ class template_HeaderTemplateTest extends WP_UnitTestCase
 
         // Assert
         $this->assertMatchesRegularExpression(
-            '/<div id="primary-menu" class="menu">/',
+            '/<ul id="primary-menu" class="menu">/',
             $output
         );
     }
