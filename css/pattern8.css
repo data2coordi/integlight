@@ -114,18 +114,18 @@ a:focus-visible,
 }
 
 #page-top:hover {
-  background: #f4faca;
-  border: #f4faca;
+  background: #cfce7e;
+  border: #cfce7e;
   color: #fff;
 }
 
 #page-top {
-  border: 1px solid #f4faca;
-  color: #f4faca; 
+  border: 1px solid #cfce7e;
+  color: #cfce7e; 
 }
 
 .posted-on a, .byline a, .cat-links a, .edit-link a, .tags-links a {
-  color: #f4faca;
+  color: #cfce7e;
 }
 
 .post-toc {
