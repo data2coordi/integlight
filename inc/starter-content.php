@@ -5,23 +5,23 @@ function integlight_get_starter_content()
         'attachments' => array(
             'image-slider-1' => array(
                 'post_title' => 'Sample Slider pc image01',
-                'file'       => 'img/sample_slider_pc_01.webp',
+                'file'       => 'assets/sample_slider_pc_01.webp',
             ),
             'image-slider-2' => array(
                 'post_title' => 'Sample Slider pc image02',
-                'file'       => 'img/sample_slider_pc_02.webp',
+                'file'       => 'assets/sample_slider_pc_02.webp',
             ),
             'image-slider-sp-1' => array(
                 'post_title' => 'Sample Slider sp image01',
-                'file'       => 'img/sample_slider_sp_01.webp',
+                'file'       => 'assets/sample_slider_sp_01.webp',
             ),
             'image-slider-sp-2' => array(
                 'post_title' => 'Sample Slider sp image02',
-                'file'       => 'img/sample_slider_sp_02.webp',
+                'file'       => 'assets/sample_slider_sp_02.webp',
             ),
             'sample-logo' => array(
                 'post_title' => 'Sample Logo TEST',
-                'file'       => 'img/samplelogo_white.png',
+                'file'       => 'assets/samplelogo_white.png',
             ),
         ),
         'theme_mods' => array(

@@ -37,6 +37,7 @@ Changelog
 * Added 2 new color patterns configurable via the Customizer
 * Improved submenu behavior: fixed requiring two clicks to open submenu to just one click
 * Enhanced default menu layout for cases when no menu is created to improve usability
+* Added starter content feature to display preview
 
 == 1.0.1 - April 5, 2024 ==
 * Updated compatibility for WordPress 6.2 (Note: Consider updating this to the latest WordPress version you've tested with, e.g., 6.5)
