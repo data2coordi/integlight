@@ -131,10 +131,10 @@
   padding: 0;
 }
 
-.blog .post-category p a,
+/* .blog .post-category p a,
 .home .post-category p a {
-  font-size: 13px; /* aタグだけ元に戻す */
-}
+  font-size: 13px; 
+} */
 
 
 /* .blog .post-category p a,
