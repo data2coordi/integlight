@@ -25,11 +25,22 @@
 
 
 /***************************************** */
+/**php読み込み s************************ */
+/***************************************** */
+
+require get_template_directory() . '/inc/integlight-functions-outerAssets.php';
+
+require get_template_directory() . '/inc/starter-content.php';
+/***************************************** */
+/**php読み込み e************************ */
+/***************************************** */
+
+
+/***************************************** */
 /**css,js読み込み s************************ */
 /***************************************** */
 
 
-require get_template_directory() . '/inc/integlight-functions-outerAssets.php';
 
 class InteglightCommonCssAssets
 {
