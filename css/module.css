@@ -18,8 +18,8 @@
 /* ロゴがない時のデザインs */
 .site-branding {
   width: 25vw;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .site-title a,
@@ -425,6 +425,11 @@ li>ul>.cat-item:last-of-type {
 
   .site-branding {
     width: 100vw;
+  }
+
+  .custom-logo ~ .site-title,
+  .custom-logo ~ .site-description {
+  margin-top: 0;
   }
 }
 
