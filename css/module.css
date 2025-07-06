@@ -16,22 +16,34 @@
 }
 
 /* ロゴがない時のデザインs */
+.site-branding {
+  width: 25vw;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 .site-title a,
 p.site-description {
   color: #fff;
   line-height: 1;
   font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
-  font-weight: 800;
+  font-weight: 500;
   text-decoration: none;
   margin-top: 0;
 }
 
-h1.site-title {
-  margin-top: 0;
+.site-title a {
+  font-size: 1.6rem;
+  font-weight: 600;
 }
 
 p.site-description {
-  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+h1.site-title {
+  margin-top: 0;
+  line-height: 1.2;
 }
 
 /* ロゴがない時のデザインe */
@@ -409,6 +421,10 @@ li>ul>.cat-item:last-of-type {
 @media screen and (max-width: 768px) {
   .navigation.post-navigation .nav-links {
     flex-direction: column;
+  }
+
+  .site-branding {
+    width: 100vw;
   }
 }
 
