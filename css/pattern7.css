@@ -5,7 +5,7 @@
 /* タブフォーカスのスタイル */
 a:focus,
 .wp-block-button__link:focus {
-  outline: 2px solid #E5AAB4;
+  outline: 2px solid #fbb4c0;
   outline-offset: 2px;
   border-radius: 4px;
   transition: outline 0.2s ease;
@@ -18,7 +18,7 @@ a:focus:not(:focus-visible),
 
 a:focus-visible,
 .wp-block-button__link:focus-visible {
-  outline: 2px solid #E5AAB4;
+  outline: 2px solid #fbb4c0;
   outline-offset: 2px;
   transition: outline 0.2s ease;
 }
@@ -26,7 +26,7 @@ a:focus-visible,
 .easyLink-info-name a:focus-visible,
 .easyLink-info-btn-amazon:focus-visible,
 .easyLink-info-btn-rakuten:focus-visible {
-  outline: 2px solid #E5AAB4;
+  outline: 2px solid #fbb4c0;
   transition: outline 0.2s ease;
 }
 
@@ -48,7 +48,7 @@ a:focus-visible,
 }
 
 .integlight_pt h3::after {
-  background: #E5AAB4;
+  background: #fbb4c0;
 }
 
 .integlight_pt .entry-footer {
@@ -114,18 +114,18 @@ a:focus-visible,
 }
 
 #page-top:hover {
-  background: #E5AAB4;
-  border: #E5AAB4;
+  background: #fbb4c0;
+  border: #fbb4c0;
   color: #fff;
 }
 
 #page-top {
-  border: 1px solid #E5AAB4;
-  color: #E5AAB4; 
+  border: 1px solid #fbb4c0;
+  color: #fbb4c0; 
 }
 
 .posted-on a, .byline a, .cat-links a, .edit-link a, .tags-links a {
-  color: #E5AAB4;
+  color: #fb8296;
 }
 
 .post-toc {
@@ -141,7 +141,7 @@ a:focus-visible,
   background-color: #87755e;
   background-image: linear-gradient(to bottom,
   #5a7a44 0 8px,
-  #E5AAB4 8px 11px
+  #fbb4c0 8px 11px
   );
 }
 
@@ -154,11 +154,11 @@ ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
 
 /**************アイコンのホバーした時の色を変えているs***************/
 .main-navigation li.menu-item-has-children > a:hover::after {
-  color: #E5AAB4;
+  color: #fbb4c0;
 }
 
 .main-navigation ul.sub-menu li.menu-item-has-children > a:hover::after {
-  color: #E5AAB4;
+  color: #fbb4c0;
 }
 /**************アイコンのホバーした時の色を変えているe***************/
 
