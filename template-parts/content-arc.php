@@ -33,6 +33,12 @@
 		<span class="entry-date"><i class="fa-solid fa-calendar-days"></i><?php echo get_the_date(); ?></span>
 	</div>
 	<div class="bl_card_body">
-		<p class="bl_card_txt"><?php echo wp_kses_post(get_the_excerpt()); ?></p>
+		<?php
+		$excerpt = wp_kses_post(get_the_excerpt());
+		$excerpt_text = wp_strip_all_tags($excerpt);  // HTMLタグを除去してテキスト化
+		$excerpt_trimmed = mb_strimwidth($excerpt_text, 0, 150, '…'); // 140文字に切り詰めて末尾に「…」を付ける
+
+		?>
+		<p class="bl_card_txt"><?php echo $excerpt_trimmed; ?></p>
 	</div>
 </div>

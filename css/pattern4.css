@@ -1,5 +1,5 @@
 /* .integlight_pt footer {
-  background-color: #fa9303;
+  background-color: #fa9301;
 } */
 
 /* タブフォーカスのスタイル */
@@ -31,20 +31,20 @@ a:focus-visible,
 }
 
 .integlight_pt button {
-  background-color: #fa9303;
+  background-color: #fa9301;
 }
 
 
 .integlight_pt .pagetop {
-  background-color: #fa9303;
+  background-color: #fa9301;
 }
 
 .integlight_pt p.head {
-  background-color: #fa9303;
+  background-color: #fa9301;
 }
 
 .integlight_pt h2::after {
-  background-color: #fa9303;
+  background-color: #fa9301;
 }
 
 .integlight_pt h3::after {
@@ -60,8 +60,8 @@ a:focus-visible,
 .integlight_pt input[type="button"],
 .integlight_pt input[type="reset"],
 .integlight_pt input[type="submit"] {
-  background-color: #fa9303;
-  color: #fff;
+  background-color: #fa9301;
+  color: #222;
 }
 
 /************ボタンアニメーション**********/
@@ -99,7 +99,7 @@ a:focus-visible,
   left: -100%;
   width: 100%;
   height: 100%;
-  background-color: #fa9303;
+  background-color: #fa9301;
   transition: left 0.3s ease-in-out;
   z-index: -1;
 }
@@ -124,7 +124,7 @@ a:focus-visible,
 
 
 .posted-on a, .byline a, .cat-links a, .edit-link a, .tags-links a {
-  color: #08bd63;
+  color: #05773e;
 }
 
 .post-toc {

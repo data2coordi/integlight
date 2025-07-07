@@ -18,7 +18,7 @@ if (! function_exists('integlight_posted_on')) :
 		$time_string = '<time class="entry-date published updated" datetime="%1$s">%2$s</time>';
 		if (get_the_time('U') !== get_the_modified_time('U')) {
 
-			$time_string = esc_html__('Posted on', 'integlight') . '：<time class="entry-date published" datetime="%1$s">%2$s</time>' . ' ' . esc_html__('Updated on', 'integlight') . '：<time class="updated" datetime="%3$s">%4$s</time>';
+			$time_string = esc_html__('Posted on', 'integlight') . ':<time class="entry-date published" datetime="%1$s">%2$s</time>' . ' ' . esc_html__('Updated on', 'integlight') . ':<time class="updated" datetime="%3$s">%4$s</time>';
 		}
 
 		$time_string = sprintf(
