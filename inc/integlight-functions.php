@@ -540,17 +540,15 @@ class Integlight_Block_Assets
 		// Check if the function exists before calling it (good practice)
 		if (function_exists('register_block_pattern')) {
 			register_block_pattern(
-				'aurora/director-section-en',
+				'integlight/media-and-text-pattern',
 				array(
-					'title'       => 'Target: Director Section',
-					'description' => 'Introduction section showing challenges and solutions for less experienced directors',
-					'categories'  => array('aurora-patterns'),
-					'keywords'    => array('director', 'support', 'project management'),
+					'title'       => __('media and text', 'integlight'),
+					'categories'  => array('featured'),
 					'content'     => '
 <!-- wp:media-text {"mediaPosition":"left","mediaType":"image","mediaLink":"","isStackedOnMobile":true,"verticalAlignment":"center"} -->
 <div class="wp-block-media-text is-stacked-on-mobile is-vertically-aligned-center">
   <figure class="wp-block-media-text__media">
-    <img src="' . esc_url(get_template_directory_uri() . '/assets/Firefly-203280.webp') . '" alt="Firefly image" />
+    <img src="' . esc_url(get_template_directory_uri() . '/assets/pattern-woman1.webp') . '" alt="Firefly image" />
   </figure>
   <div class="wp-block-media-text__content">
     <!-- wp:heading {"level":4} -->
@@ -569,6 +567,112 @@ class Integlight_Block_Assets
 				)
 			);
 			// Add more block patterns here if needed
+
+
+
+
+			register_block_pattern(
+				'integlight/text and media',
+				array(
+					'title'       => __('text and media', 'integlight'),
+					'categories'  => array('featured'),
+					'content'     => '
+<!-- wp:media-text {"mediaType":"image","mediaPosition":"right","mediaId":0,"mediaUrl":"/assets/pattern-woman2.webp","isStackedOnMobile":true} -->
+<div class="wp-block-media-text has-media-on-the-right is-stacked-on-mobile">
+  <div class="wp-block-media-text__content">
+    <!-- wp:heading {"level":4} -->
+    <h4 class="wp-block-heading">For Production Agencies</h4>
+    <!-- /wp:heading -->
+
+    <!-- wp:paragraph -->
+    <p>
+      "We want to deliver WordPress sites tailored to our clients\' needs, but lack the in-house expertise and technical skills to do so."<br><br>
+      Many production agencies face the challenge 	.
+    </p>
+    <!-- /wp:paragraph -->
+  </div>
+  <figure class="wp-block-media-text__media">
+<img src="' . esc_url(get_template_directory_uri() . '/assets/pattern-woman2.webp') . '" alt="Firefly image" />  </figure>
+</div>
+<!-- /wp:media-text -->
+        ',
+				)
+			);
+
+
+
+
+
+
+
+
+
+
+
+
+
+			register_block_pattern(
+				'integlight/big-quote',
+				array(
+					'title'       => __('big quote', 'integlight'),
+					'categories'  => array('featured'),
+
+					'content'     => '
+<!-- wp:quote -->
+<blockquote class="wp-block-quote">
+  <!-- wp:paragraph -->
+  <p><strong>"When I first used [integlight], I was amazed. It’s intuitive to use, yet the site loads incredibly fast. This ensures readers can enjoy articles without any stress."</strong></p>
+  <!-- /wp:paragraph -->
+
+  <!-- wp:paragraph -->
+  <p><strong>"What I especially like is the 8 color variations. They are all sophisticated, and just by choosing one, my blog\'s impression becomes much more stylish. Even someone like me, who lacks design confidence, could easily create a consistent site."</strong></p>
+  <!-- /wp:paragraph -->
+
+  <!-- wp:paragraph -->
+  <p><strong>"Moreover, by adding [aurora-design-blocks], I could use sliders and balloon features, which greatly enhanced article expressiveness. And it only costs 1,980 yen — truly amazing. I’m glad I found it!"</strong> (FIRE Mania - Investor & Blogger)</p>
+  <!-- /wp:paragraph -->
+</blockquote>
+<!-- /wp:quote -->
+',
+				)
+			);
+
+			register_block_pattern(
+				'integlight/strong-table',
+				array(
+					'title'       => __('strong table', 'integlight'),
+					'categories'  => array('featured'),
+
+					'content'     => '
+<!-- wp:table {"hasFixedLayout":true} -->
+<figure class="wp-block-table">
+<table class="has-fixed-layout">
+  <thead>
+    <tr>
+      <th>Common Mistake</th>
+      <th>Solution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>No event is triggered</td>
+      <td>Check for <code>Click ID</code> typos or insufficient tag wait time</td>
+    </tr>
+    <tr>
+      <td>Event not showing</td>
+      <td>Twitter embed buttons cannot be captured by GTM</td>
+    </tr>
+    <tr>
+      <td>No click event detected</td>
+      <td>Likely blocked by JavaScript or iframe handling</td>
+    </tr>
+  </tbody>
+</table>
+</figure>
+<!-- /wp:table -->
+',
+				)
+			);
 		}
 	}
 }
