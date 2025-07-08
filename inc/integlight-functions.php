@@ -540,13 +540,33 @@ class Integlight_Block_Assets
 		// Check if the function exists before calling it (good practice)
 		if (function_exists('register_block_pattern')) {
 			register_block_pattern(
-				'integlight/two-columns',
-				[
-					'title'       => __('Two Columns', 'integlight'),
-					'description' => _x('A layout with two columns for content.', 'Block pattern description', 'integlight'),
-					'categories'  => ['columns'], // Use array() or [] consistently
-					'content'     => "<!-- wp:columns -->\n<div class=\"wp-block-columns\">\n    <!-- wp:column -->\n    <div class=\"wp-block-column\"><p>" . esc_html__('Column one', 'integlight') . "</p></div>\n    <!-- /wp:column -->\n    <!-- wp:column -->\n    <div class=\"wp-block-column\"><p>" . esc_html__('Column two', 'integlight') . "</p></div>\n    <!-- /wp:column -->\n</div>\n<!-- /wp:columns -->",
-				]
+				'aurora/director-section-en',
+				array(
+					'title'       => 'Target: Director Section',
+					'description' => 'Introduction section showing challenges and solutions for less experienced directors',
+					'categories'  => array('aurora-patterns'),
+					'keywords'    => array('director', 'support', 'project management'),
+					'content'     => '
+<!-- wp:media-text {"mediaPosition":"left","mediaType":"image","mediaLink":"","isStackedOnMobile":true,"verticalAlignment":"center"} -->
+<div class="wp-block-media-text is-stacked-on-mobile is-vertically-aligned-center">
+  <figure class="wp-block-media-text__media">
+    <img src="' . esc_url(get_template_directory_uri() . '/assets/Firefly-203280.webp') . '" alt="Firefly image" />
+  </figure>
+  <div class="wp-block-media-text__content">
+    <!-- wp:heading {"level":4} -->
+    <h4 class="wp-block-heading">Director</h4>
+    <!-- /wp:heading -->
+
+    <!-- wp:paragraph -->
+    <p>"Less experienced and uneasy about design and development, struggling to keep projects on track." <br />
+    One common challenge for less experienced directors is lacking sufficient knowledge in specialized design and development.
+    This can cause project delays and communication difficulties with clients and teams.</p>
+    <!-- /wp:paragraph -->
+  </div>
+</div>
+<!-- /wp:media-text -->
+        ',
+				)
 			);
 			// Add more block patterns here if needed
 		}

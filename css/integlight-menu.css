@@ -92,19 +92,19 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
 
 /**************アイコンのホバーした時の色を変えているs***************/
 .main-navigation a:hover {
-  color: #999;
+  color: #c2c2c2;
 }
 
 .main-navigation li.menu-item-has-children>a:hover {
-  color: #999;
+  color: #c2c2c2;
 }
 
 .main-navigation li.menu-item-has-children>a:hover::after {
-  color: #999;
+  color: #c2c2c2;
 }
 
 .main-navigation ul.sub-menu li.menu-item-has-children>a:hover::after {
-  color: #999;
+  color: #c2c2c2;
 }
 
 /**************アイコンのホバーした時の色を変えているe***************/
