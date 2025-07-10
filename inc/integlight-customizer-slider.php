@@ -8,7 +8,7 @@
 //フロントエンドでの表示制御用
 function integlight_display_headerContents()
 {
-	$choice = get_theme_mod('integlight_display_choice', 'slider');
+	$choice = get_theme_mod('integlight_display_choice', 'none');
 
 
 	switch ($choice) {
