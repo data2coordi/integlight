@@ -557,8 +557,7 @@ class Integlight_Block_Assets
 
     <!-- wp:paragraph -->
     <p>"Less experienced and uneasy about design and development, struggling to keep projects on track." <br />
-    One common challenge for less experienced directors is lacking sufficient knowledge in specialized design and development.
-    This can cause project delays and communication difficulties with clients and teams.</p>
+    One common challenge for less experienced directors is lacking sufficient knowledge in specialized design.</p>
     <!-- /wp:paragraph -->
   </div>
 </div>
@@ -629,7 +628,7 @@ class Integlight_Block_Assets
   <!-- /wp:paragraph -->
 
   <!-- wp:paragraph -->
-  <p><strong>"Moreover, by adding [aurora-design-blocks], I could use sliders and balloon features, which greatly enhanced article expressiveness. And it only costs 1,980 yen — truly amazing. I’m glad I found it!"</strong> (FIRE Mania - Investor & Blogger)</p>
+  <p><strong>"Moreover, by adding [aurora-design-blocks], I could use sliders and balloon features, which greatly enhanced article expressiveness. And it only costs 1,980 yen — truly amazing. I’m glad I found it!"</strong></p>
   <!-- /wp:paragraph -->
 </blockquote>
 <!-- /wp:quote -->

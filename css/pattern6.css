@@ -61,7 +61,7 @@ a:focus-visible,
 .integlight_pt input[type="reset"],
 .integlight_pt input[type="submit"] {
   background: #f936a8;
-  color: #fff;
+  color: #222;
 }
 
 /* background: linear-gradient(90deg, #ec8be7 20%, #edb1ea 40%, #d579ee 70%); */
@@ -125,7 +125,7 @@ a:focus-visible,
 }
 
 .posted-on a, .byline a, .cat-links a, .edit-link a, .tags-links a {
-  color: #05b5cc;
+  color: #047786;
 }
 
 .post-toc {

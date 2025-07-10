@@ -1,11 +1,11 @@
 /* .integlight_pt footer {
-  background-color: #f90101;
+  background-color: #9b7091;
 } */
 
 /* タブフォーカスのスタイル */
 a:focus,
 .wp-block-button__link:focus {
-  outline: 2px solid #0064b3;
+  outline: 2px solid #424e5c;
   outline-offset: 2px;
   border-radius: 4px;
   transition: outline 0.2s ease;
@@ -18,7 +18,7 @@ a:focus:not(:focus-visible),
 
 a:focus-visible,
 .wp-block-button__link:focus-visible {
-  outline: 2px solid #0064b3;
+  outline: 2px solid #424e5c;
   outline-offset: 2px;
   transition: outline 0.2s ease;
 }
@@ -26,29 +26,29 @@ a:focus-visible,
 .easyLink-info-name a:focus-visible,
 .easyLink-info-btn-amazon:focus-visible,
 .easyLink-info-btn-rakuten:focus-visible {
-  outline: 2px solid #0064b3;
+  outline: 2px solid #424e5c;
   transition: outline 0.2s ease;
 }
 
 .integlight_pt button {
-  background-color: #f90101;
+  background-color: #9b7091;
 }
 
 
 .integlight_pt .pagetop {
-  background-color: #f90101;
+  background-color: #9b7091;
 }
 
 .integlight_pt p.head {
-  background-color: #f90101;
+  background-color: #9b7091;
 }
 
 .integlight_pt h2::after {
-  background-color: #f90101;
+  background-color: #9b7091;
 }
 
 .integlight_pt h3::after {
-  background-color: #0064b3;
+  background-color: #424e5c;
 }
 
 .integlight_pt .entry-footer {
@@ -60,7 +60,7 @@ a:focus-visible,
 .integlight_pt input[type="button"],
 .integlight_pt input[type="reset"],
 .integlight_pt input[type="submit"] {
-  background-color: #f90101;
+  background-color: #9b7091;
   color: #fff;
 }
 
@@ -99,7 +99,7 @@ a:focus-visible,
   left: -100%;
   width: 100%;
   height: 100%;
-  background-color: #f90101;
+  background-color: #9b7091;
   transition: left 0.3s ease-in-out;
   z-index: -1;
 }
@@ -112,18 +112,18 @@ a:focus-visible,
 }
 
 #page-top:hover {
-  background: #0064b3;
-  border: #0064b3;
+  background: #424e5c;
+  border: #424e5c;
   color: #fff;
 }
 
 #page-top {
-  border: 1px solid #0064b3;
-  color: #0064b3; 
+  border: 1px solid #424e5c;
+  color: #424e5c; 
 }
 
 .posted-on a, .byline a, .cat-links a, .edit-link a, .tags-links a {
-  color: #0064b3;
+  color: #424e5c;
 }
 
 .post-toc {
@@ -132,14 +132,14 @@ a:focus-visible,
 
 
 .site-footer {
-  background-color: #000000;
+  background-color: #a7758c;
 }
 
 .site-header {
-  background-color: #000000;
+  background-color: #ba85a7;
   background-image: linear-gradient(to bottom,
-  #f90101 0 8px,
-  #0064b3 8px 11px
+  #9b7091 0 8px,
+  #424e5c 8px 11px
   );
 }
 
@@ -147,16 +147,16 @@ a:focus-visible,
 
 ul.menu > li.menu-item-has-children > ul.sub-menu,
 ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
-  background-color: #000000;
+  background-color: #a7758c;
 }
 
 /**************アイコンのホバーした時の色を変えているs***************/
 .main-navigation li.menu-item-has-children > a:hover::after {
-  color: #0064b3;
+  color: #424e5c;
 }
 
 .main-navigation ul.sub-menu li.menu-item-has-children > a:hover::after {
-  color: #0064b3;
+  color: #424e5c;
 }
 /**************アイコンのホバーした時の色を変えているe***************/
 
@@ -166,7 +166,7 @@ ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
   }
 
   .menuToggle-containerForMenu {
-    background: #000000;
+    background: #a7758c;
   }
 }
 

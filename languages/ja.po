@@ -316,8 +316,8 @@ msgid "Orange"
 msgstr "オレンジ"
 
 #: inc/integlight-customizer.php:448
-msgid "Red"
-msgstr "赤"
+msgid "Purple"
+msgstr "パープル"
 
 #: inc/integlight-customizer.php:448
 msgid "Pink"
