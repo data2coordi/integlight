@@ -84,7 +84,7 @@ class template_tags_TemplateTagsTest extends WP_UnitTestCase
         $output_modified = ob_get_clean();
 
         $expected_time_html_modified = sprintf(
-            'Posted on：<time class="entry-date published" datetime="%1$s">%2$s</time> Updated on：<time class="updated" datetime="%3$s">%4$s</time>',
+            'Posted on:<time class="entry-date published" datetime="%1$s">%2$s</time> Updated on:<time class="updated" datetime="%3$s">%4$s</time>',
             esc_attr(get_the_date(DATE_W3C, $this->post_id)),
             esc_html(get_the_date('', $this->post_id)),
             esc_attr(get_the_modified_date(DATE_W3C, $this->post_id)),

@@ -141,18 +141,13 @@ class integlight_functions_Integlight_Block_AssetsTest extends WP_UnitTestCase /
         do_action('init');
 
         // Assert: パターンが登録されているか確認
-        $pattern_after = $registry->get_registered('integlight/two-columns');
-        $this->assertNotNull($pattern_after, 'Pattern "integlight/two-columns" should be registered after init action.');
+        $pattern_after = $registry->get_registered('integlight/media-and-text-pattern');
+        $this->assertNotNull($pattern_after, 'Pattern "integlight/media-and-text-pattern" should be registered after init action.');
         $this->assertIsArray($pattern_after, 'Registered pattern data should be an array.');
 
         // 登録されたパターンのプロパティを確認
-        $this->assertEquals(__('Two Columns', 'integlight'), $pattern_after['title'], 'Registered pattern title should be correct.');
-        $this->assertEquals(_x('A layout with two columns for content.', 'Block pattern description', 'integlight'), $pattern_after['description'], 'Registered pattern description should be correct.');
-        $this->assertEquals(['columns'], $pattern_after['categories'], 'Registered pattern categories should be correct.');
-
-        // コンテンツの比較 (空白や改行に注意)
-        $expected_content = "<!-- wp:columns -->\n<div class=\"wp-block-columns\">\n    <!-- wp:column -->\n    <div class=\"wp-block-column\"><p>" . esc_html__('Column one', 'integlight') . "</p></div>\n    <!-- /wp:column -->\n    <!-- wp:column -->\n    <div class=\"wp-block-column\"><p>" . esc_html__('Column two', 'integlight') . "</p></div>\n    <!-- /wp:column -->\n</div>\n<!-- /wp:columns -->";
-        $this->assertEquals($expected_content, $pattern_after['content'], 'Registered pattern content should be correct.');
+        $this->assertEquals(__('media and text', 'integlight'), $pattern_after['title'], 'Registered pattern title should be correct.');
+        $this->assertEquals(['featured'], $pattern_after['categories'], 'Registered pattern categories should be correct.');
     }
 
     /**

@@ -130,8 +130,8 @@ class integlight_customizer_slider_creSectionTest extends WP_UnitTestCase
         $this->assertTrue(call_user_func($section2->active_callback), 'Active callback should return true when choice is slider.');
         set_theme_mod('integlight_display_choice', 'image');
         $this->assertFalse(call_user_func($section2->active_callback), 'Active callback should return false when choice is image.');
-        remove_theme_mod('integlight_display_choice'); // デフォルト値('slider')をテスト
-        $this->assertTrue(call_user_func($section2->active_callback), 'Active callback should return true when choice is default.');
+        remove_theme_mod('integlight_display_choice'); // デフォルト値('none')をテスト
+        $this->assertFalse(call_user_func($section2->active_callback), 'Active callback should return true when choice is default.');
     }
 
 

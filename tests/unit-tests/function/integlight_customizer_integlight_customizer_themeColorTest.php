@@ -231,7 +231,7 @@ class integlight_customizer_integlight_customizer_themeColorTest extends WP_Unit
             'pattern2' => __('Blue', 'integlight'),
             'pattern3' => __('Green', 'integlight'),
             'pattern4' => __('Orange', 'integlight'),
-            'pattern5' => __('Red', 'integlight'),
+            'pattern5' => __('Purple', 'integlight'),
             'pattern6' => __('Pink', 'integlight'),
             'pattern7' => __('Khaki', 'integlight'),
             'pattern8' => __('Navy', 'integlight'),
