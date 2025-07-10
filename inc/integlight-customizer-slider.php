@@ -300,7 +300,7 @@ class integlight_customizer_slider_creSection
 			'priority' => 29,
 			'panel' => self::SLIDER_PANEL_ID,
 			'active_callback' => function () {
-				return get_theme_mod('integlight_display_choice', 'slider') === 'slider';
+				return get_theme_mod('integlight_display_choice', 'none') === 'slider';
 			},
 		));
 	}
