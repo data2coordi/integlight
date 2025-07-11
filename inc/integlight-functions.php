@@ -146,6 +146,7 @@ function integlight_setup_plus()
 	add_theme_support("wp-block-styles");
 	add_theme_support("responsive-embeds");
 	add_theme_support("align-wide");
+	add_theme_support('border');
 	// resolve of  theme check _e
 
 
