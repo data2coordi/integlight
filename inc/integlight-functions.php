@@ -145,9 +145,26 @@ function integlight_setup_plus()
 	// resolve of  theme check _s
 	add_theme_support("wp-block-styles");
 	add_theme_support("responsive-embeds");
-	add_theme_support("align-wide");
 	add_theme_support('border');
+
+
+	// エディターでテーマのスタイルを反映（別途CSSが必要）
+	add_theme_support('editor-styles');
+
+	// 余白（マージン・パディング）のUIを有効化
+	add_theme_support('custom-spacing');
+
+	// 行間（line-height）のUIを有効化
+	add_theme_support('custom-line-height');
+
+	// 単位（px, %, em など）をユーザーが選べるように
+	add_theme_support('custom-units');
+
+	add_theme_support('editor-color-palette');
+
 	// resolve of  theme check _e
+
+
 
 
 }
