@@ -160,7 +160,7 @@ function integlight_setup_plus()
 	// 単位（px, %, em など）をユーザーが選べるように
 	add_theme_support('custom-units');
 
-	add_theme_support('editor-color-palette');
+	//add_theme_support('editor-color-palette');
 
 	// resolve of  theme check _e
 
