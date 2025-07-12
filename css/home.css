@@ -153,8 +153,9 @@
   font-size: 0.8rem;
 }
 
-.blog h2,
-.home h2 {
+
+/* homeのh2が小さくしたいから修正している */
+#primary .post-grid .grid-item h2 {
   line-height: 1.5;
   font-size: 1.5rem;
 }
