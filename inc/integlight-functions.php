@@ -690,6 +690,74 @@ class Integlight_Block_Assets
 ',
 				)
 			);
+
+			register_block_pattern(
+				'integlight/post-columns',
+				array(
+					'title'       => __('Post Columns – Morning Routine', 'integlight'),
+					'categories'  => array('featured'),
+
+					'content'     => <<<HTML
+<!-- wp:columns -->
+<div class="wp-block-columns">
+  <!-- wp:column {"style":{"color":{"background":"#7fdde7"},"border":{"radius":"10px"},"spacing":{"padding":{"right":"var:preset|spacing|40","left":"var:preset|spacing|40"}}}} -->
+  <div class="wp-block-column has-background" style="border-radius:10px;background-color:#7fdde7;padding-right:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)">
+    <!-- wp:heading {"className":"is-style-no-underline"} -->
+    <h2 class="wp-block-heading is-style-no-underline">Post 01</h2>
+    <!-- /wp:heading -->
+
+    <!-- wp:paragraph -->
+    <p>On Sunday mornings, I wake up a bit later than on weekdays. No alarm. Just the soft morning light filtering through the curtains, gently saying “you can wake up now.”</p>
+    <!-- /wp:paragraph -->
+  </div>
+  <!-- /wp:column -->
+
+  <!-- wp:column {"style":{"color":{"background":"#7fdde7"},"border":{"radius":"10px"},"spacing":{"padding":{"right":"var:preset|spacing|40","left":"var:preset|spacing|40"}}}} -->
+  <div class="wp-block-column has-background" style="border-radius:10px;background-color:#7fdde7;padding-right:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)">
+    <!-- wp:heading {"className":"is-style-no-underline"} -->
+    <h2 class="wp-block-heading is-style-no-underline">Post 02</h2>
+    <!-- /wp:heading -->
+
+    <!-- wp:paragraph -->
+    <p>I move to the living room and boil some water. Since I’ve been cutting back on caffeine, I started drinking rooibos tea instead. It’s mild, and feels healthy somehow—just the way I like it.</p>
+    <!-- /wp:paragraph -->
+  </div>
+  <!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+HTML
+				)
+			);
+
+			register_block_pattern(
+				'integlight/promo-box',
+				array(
+					'title'       => __('Integlight Promo Box', 'integlight'),
+					'categories'  => array('featured'),
+
+					'content'     => <<<HTML
+<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group">
+  <!-- wp:group {"style":{"color":{"background":"#d9ffed","text":"#566b65"},"border":{"radius":"10px","color":"#566b65","width":"1px"},"spacing":{"padding":{"top":"0","bottom":"0","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}},"elements":{"link":{"color":{"text":"#566b65"}}}},"layout":{"type":"constrained"}} -->
+  <div class="wp-block-group has-border-color has-text-color has-background has-link-color" style="border-color:#566b65;border-width:1px;border-radius:10px;color:#566b65;background-color:#d9ffed;padding-top:0;padding-right:var(--wp--preset--spacing--50);padding-bottom:0;padding-left:var(--wp--preset--spacing--50)">
+    <!-- wp:image {"id":6407,"width":"100px","height":"100px","scale":"cover","sizeSlug":"full","linkDestination":"none","align":"center"} -->
+    <figure class="wp-block-image aligncenter size-full is-resized"><img src="https://integlight.auroralab-design.com/wp-content/uploads/2025/07/cropped-ファビコン.webp" alt="" class="wp-image-6407" style="object-fit:cover;width:100px;height:100px"/></figure>
+    <!-- /wp:image -->
+
+    <!-- wp:heading {"textAlign":"center","className":"is-style-no-underline"} -->
+    <h2 class="wp-block-heading has-text-align-center is-style-no-underline">Integlight</h2>
+    <!-- /wp:heading -->
+
+    <!-- wp:paragraph {"align":"center"} -->
+    <p class="has-text-align-center">Build a professional website for free.<br>The “Integlight” theme, officially approved by WordPress, combines sleek design with lightning-fast performance.<br>No complex settings. No hassle. Just launch your SEO-ready digital asset today.</p>
+    <!-- /wp:paragraph -->
+  </div>
+  <!-- /wp:group -->
+</div>
+<!-- /wp:group -->
+HTML
+				)
+			);
 		}
 	}
 }
