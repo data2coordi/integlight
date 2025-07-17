@@ -61,7 +61,7 @@ a:focus-visible,
 .integlight_pt input[type="reset"],
 .integlight_pt input[type="submit"] {
   background-color: #9b7091;
-  color: #fff;
+  color: #000;
 }
 
 /************ボタンアニメーション**********/
@@ -133,6 +133,7 @@ a:focus-visible,
 
 .site-footer {
   background-color: #a7758c;
+  color: #000;
 }
 
 .site-header {
