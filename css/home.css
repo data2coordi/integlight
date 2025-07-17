@@ -211,7 +211,7 @@
   justify-content: space-between;   /* or space-evenly も可 */
   flex-wrap: wrap;
   gap: 1rem;
-  margin: 2rem auto;
+  margin: 4rem auto;
   padding: 0 2rem;
   max-width: 900px;
 }
@@ -232,62 +232,37 @@
   height: 150px;
   background-color: #f0f0f0; /* グレー背景 */
   color: #000;
+  text-align: center;
   border-radius: 50%;
   font-weight: bold;
   font-size: 0.9rem;
   margin: 0 8px 8px 0;
   text-decoration: none;
+  box-shadow: inset 2px 2px 6px rgba(255, 255, 255, 0.6),
+              inset -2px -2px 6px rgba(0, 0, 0, 0.05),
+              0 2px 6px rgba(0,0,0,0.08);
 }
 
 .home .category-link:hover {
   opacity: 0.7;
+  transition: all 0.3s ease;
 }
 
-.home .child-categories {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
+@media screen and (max-width: 768px) {
+  .home .category-list {
+    padding: 0;
+    justify-content: center;
+    gap: 0.5rem; /* スマホで隙間を狭める */
+  }
+
+  .home .category-link {
+    width: 100px;
+    height: 100px;
+    font-size: 0.75rem;
+  }
 }
 
-.home .child-category-link {
-  display: inline-block;
-  background-color: #4f4f4f;
-  color: #fff;
-  padding: 0.3rem 0.8rem 0.3rem 0.8rem;  /* ←右paddingは少し減らす */
-  font-size: 0.7rem;
-  text-decoration: none;
-  margin: 0 6px 6px 0;
-  font-weight: 600;
-  position: relative;
-  border-radius: 0;
-  line-height: 1.5;
-  vertical-align: middle;
-  overflow: visible; /* 念のため追加 */
-  /* ▼ここを追加 ▼ */
-  width: 100px;           /* ← 好きな固定幅にする（調整OK） */
-  text-align: center;     /* ← 文字を中央寄せ */
-  white-space: nowrap;    /* ← 改行させない */
-}
 
-/* 三角を作っている */
-.home .child-category-link::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: -0.5em;  /* ←マイナス指定で枠外にくっつける！ */
-  transform: translateY(-50%);
-  width: 0;
-  height: 0;
-  right: -11px;
-  border-top: 1.2em solid transparent;   /* ← 高さをUP */
-  border-bottom: 1.2em solid transparent;
-  border-left: 1em solid #4f4f4f;        /* ← 幅をUP */  /* ←カラーここで変えられる */
-}
-
-.home .child-category-link:hover {
-  opacity: 0.7;
-}
 
 /***********************************************/
 /*先頭のカテゴリ一覧e*/

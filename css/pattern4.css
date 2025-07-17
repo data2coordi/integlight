@@ -131,6 +131,11 @@ a:focus-visible,
   background-color: #fcf0de;
 }
 
+/* homeのカテゴリーの色 */
+.home .category-link {
+  background: #fcf0de;
+}
+
 .site-footer {
   background-color: #221104;
 }

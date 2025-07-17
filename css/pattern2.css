@@ -134,6 +134,11 @@ a:focus-visible,
   background-color: #1e1d1d;
 }
 
+/* homeのカテゴリーの色 */
+.home .category-link {
+  background: #dcdcfb;
+}
+
 .site-header {
   background-color: #1e1d1d;
   background-image: linear-gradient(to bottom,
