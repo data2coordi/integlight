@@ -208,7 +208,8 @@
 
 .home .category-list {
   display: flex;
-  justify-content: space-between;   /* or space-evenly も可 */
+  justify-content: space-between;
+  /* or space-evenly も可 */
   flex-wrap: wrap;
   gap: 1rem;
   margin: 4rem auto;
@@ -217,8 +218,10 @@
 }
 
 .home .category-item {
-  flex: 1;                           /* ←等幅にする */
-  max-width: 300px;                 /* ←横に並べたい最大幅 */
+  flex: 1;
+  /* ←等幅にする */
+  max-width: 300px;
+  /* ←横に並べたい最大幅 */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -230,7 +233,8 @@
   align-items: center;
   width: 150px;
   height: 150px;
-  background-color: #f0f0f0; /* グレー背景 */
+  background-color: #f0f0f0;
+  /* グレー背景 */
   color: #000;
   text-align: center;
   border-radius: 50%;
@@ -239,8 +243,8 @@
   margin: 0 8px 8px 0;
   text-decoration: none;
   box-shadow: inset 2px 2px 6px rgba(255, 255, 255, 0.6),
-              inset -2px -2px 6px rgba(0, 0, 0, 0.05),
-              0 2px 6px rgba(0,0,0,0.08);
+    inset -2px -2px 6px rgba(0, 0, 0, 0.05),
+    0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
 .home .category-link:hover {
@@ -248,16 +252,13 @@
   transition: all 0.3s ease;
 }
 
-/* カテゴリー無しを非表示 */
-.category-uncategorized {
-  display: none;
-}
 
 @media screen and (max-width: 768px) {
   .home .category-list {
     padding: 0;
     justify-content: center;
-    gap: 0.5rem; /* スマホで隙間を狭める */
+    gap: 0.5rem;
+    /* スマホで隙間を狭める */
   }
 
   .home .category-link {
@@ -271,4 +272,4 @@
 
 /***********************************************/
 /*先頭のカテゴリ一覧e*/
-/***********************************************/ 
+/***********************************************/
