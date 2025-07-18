@@ -85,7 +85,7 @@ class integlight_customizer_themeColor
 		// Setting
 		$wp_customize->add_setting('integlight_base_color_setting', array(
 			'type'              => 'theme_mod',
-			'default'           => 'pattern1',
+			'default'           => 'pattern8',
 			'sanitize_callback' => [$this, 'sanitize_choices'],
 		));
 
@@ -97,14 +97,14 @@ class integlight_customizer_themeColor
 			'description' => __('Select favorite accent color', 'integlight'),
 			'type'        => 'radio',
 			'choices'     => array(
-				'pattern1' => __('None', 'integlight'),
+				'pattern8' => __('Navy', 'integlight'),
+				'pattern7' => __('Khaki', 'integlight'),
+				'pattern5' => __('Purple', 'integlight'),
 				'pattern2' => __('Blue', 'integlight'),
 				'pattern3' => __('Green', 'integlight'),
 				'pattern4' => __('Orange', 'integlight'),
-				'pattern5' => __('Purple', 'integlight'),
 				'pattern6' => __('Pink', 'integlight'),
-				'pattern7' => __('Khaki', 'integlight'),
-				'pattern8' => __('Navy', 'integlight'),
+				'pattern1' => __('None', 'integlight'),
 			),
 		));
 	}
@@ -123,7 +123,7 @@ class integlight_customizer_themeColor
 	public function enqueue_custom_css()
 	{
 
-		$base_pattern = get_theme_mod('integlight_base_color_setting', 'pattern1');
+		$base_pattern = get_theme_mod('integlight_base_color_setting', 'pattern8');
 
 		$styles = ['custom-pattern' => '/css/' . $base_pattern . '.css'];
 		InteglightFrontendStyles::add_styles($styles);
