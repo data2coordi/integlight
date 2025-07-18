@@ -248,6 +248,11 @@
   transition: all 0.3s ease;
 }
 
+/* カテゴリー無しを非表示 */
+.category-uncategorized {
+  display: none;
+}
+
 @media screen and (max-width: 768px) {
   .home .category-list {
     padding: 0;
