@@ -257,6 +257,17 @@ msgid "Slider Image mobile 3"
 msgstr "スライダー画像3（モバイル）"
 
 
+msgid "[Integlight] Display Profile"
+msgstr "【Integlight】プロフィール表示"
+
+msgid "Display the profile of a selected user"
+msgstr "任意のユーザーのプロフィールを表示"
+
+msgid "User to display:"
+msgstr "表示するユーザー:"
+
+msgid "-- Please select a user --"
+msgstr "ユーザーを選択してください"
 
 
 

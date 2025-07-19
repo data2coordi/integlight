@@ -254,4 +254,16 @@ label {
   .ly_site_content_main .wp-block-columns {
     padding: 15px;
 }
+
+
+/******スマホで行間と改行のスペース********/
+p, ul, input, textarea, button {
+  margin-top: calc(var(--ly-elementTopMargin) * 2);
 }
+
+.entry-content p, .entry-content ul, .entry-content input, .entry-content textarea, .entry-content button {
+  line-height: 2;
+}
+}
+
+
