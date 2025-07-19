@@ -845,7 +845,7 @@ class Integlight_PostNavigations
 			self::get_post_navigation_item($next_post, 'nav-next', '<i class="fa-regular fa-square-caret-right"></i>');
 			?>
 		</nav>
-<?php
+		<?php
 	}
 }
 
@@ -987,7 +987,7 @@ class Integlight_PostThumbnail
 /********************************************************************/
 /* Profile表示 s	*/
 /********************************************************************/
-/*
+
 class Integlight_Profile_Widget extends WP_Widget
 {
 	public function __construct()
@@ -1009,8 +1009,11 @@ class Integlight_Profile_Widget extends WP_Widget
 
 			echo $args['before_widget'];
 		?>
-			<div class="author-profile-widget">
-				<?php echo get_avatar($user_id, 96); ?>
+			<div class="integlight-author-profile-widget">
+
+				<?php echo get_avatar($user_id, 96);
+				?>
+
 				<p>
 					<a href="<?php echo esc_url($author_url); ?>" target="_blank" rel="noopener noreferrer">
 						<?php echo esc_html($display_name); ?>
@@ -1029,8 +1032,9 @@ class Integlight_Profile_Widget extends WP_Widget
 		$users = get_users(array('orderby' => 'display_name'));
 
 		echo '<p><label for="' . $this->get_field_id('user_id') . '">' . __('User to display:', 'integlight') . '</label>';
-		echo '<select class="widefat" style="min-height: 5.5em;" id="' . $this->get_field_id('user_id') . '" name="' . $this->get_field_name('user_id') . '">';
+		echo '<select class="widefat"  id="' . $this->get_field_id('user_id') . '" name="' . $this->get_field_name('user_id') . '">';
 		echo '<option value="">' . __('-- Please select a user --', 'integlight') . '</option>';
+
 
 		foreach ($users as $user) {
 			printf(
@@ -1040,7 +1044,6 @@ class Integlight_Profile_Widget extends WP_Widget
 				esc_html($user->display_name)
 			);
 		}
-		echo '</select></p>';
 	}
 
 	public function update($new_instance, $old_instance)
@@ -1056,15 +1059,6 @@ function integlight_register_widgets()
 	register_widget('Integlight_Profile_Widget');
 }
 add_action('widgets_init', 'integlight_register_widgets');
-
-*/
-
-
-
-
-
-
-
 
 /********************************************************************/
 /* Profile表示 e	*/
