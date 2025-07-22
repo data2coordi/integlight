@@ -45,9 +45,6 @@ if (is_front_page() != false) {
             <?php while (have_posts()) : the_post(); ?>
                 <div class="grid-item">
 
-                    <div class="post-thumbnail">
-                        <?php Integlight_PostThumbnail::render(); ?>
-                    </div>
 
                     <!-- カテゴリ表示 -->
                     <div class="post-category">
@@ -56,7 +53,9 @@ if (is_front_page() != false) {
 
 
                     <a href="<?php the_permalink(); ?>">
-
+                        <div class="post-thumbnail">
+                            <?php Integlight_PostThumbnail::render(); ?>
+                        </div>
                         <!-- タイトルをタイルの左上に大きく表示 -->
 
                         <h2><?php
