@@ -1,123 +1,159 @@
 <?php
 
 /**
- * Class template_HomeTemplateTest
- *
- * @package Integlight
+ * @package integlight
  */
 
-/**
- * home.php のテストケース
- */
 class template_HomeTemplateTest extends WP_UnitTestCase
 {
-    /**
-     * テスト用の投稿ID配列
-     * @var int[]
-     */
-    private static $post_ids = [];
+    private string $long_title;
+    private string $short_title;
+    private int $parent_cat_id;
 
-    /**
-     * テストクラス全体のセットアップ
-     * @param WP_UnitTest_Factory $factory
-     */
-    public static function wpSetUpBeforeClass($factory): void
+    public function setUp(): void
     {
-        // テスト用の投稿を複数作成
-        self::$post_ids = $factory->post->create_many(5, ['post_status' => 'publish']);
+        parent::setUp();
+
+        // 長いタイトル（30文字）
+        $this->long_title = str_repeat('a', 30);
+
+        // 短いタイトル（10文字）
+        $this->short_title = str_repeat('b', 10);
+
+        // 抜粋・タイトル用の投稿を作成
+        $this->factory()->post->create_many(10, [
+            'post_status'  => 'publish',
+            'post_date'    => current_time('mysql'),
+            'post_content' => str_repeat('x', 300),  // 300文字の本文
+            'post_title'   => $this->long_title,
+        ]);
+        $this->factory()->post->create_many(5, [
+            'post_status'  => 'publish',
+            'post_date'    => current_time('mysql'),
+            'post_content' => '短い本文',
+            'post_title'   => $this->short_title,
+        ]);
+
+        // カテゴリ作成
+        $this->parent_cat_id = $this->factory()->category->create([
+            'name'   => '親カテゴリ',
+            'parent' => 0,
+            'slug'   => 'parent-cat',
+        ]);
     }
 
-    /**
-     * テストクラス全体のティアダウン
-     */
-    public static function wpTearDownAfterClass(): void
+    public function test_home_template_is_loaded()
     {
-        // 作成した投稿を削除
-        foreach (self::$post_ids as $post_id) {
-            wp_delete_post($post_id, true);
-        }
-        self::$post_ids = [];
+        $this->go_to(home_url('/'));
+        $this->assertTrue(is_home());
+
+        ob_start();
+        include get_template_directory() . '/home.php';
+        $output = ob_get_clean();
+
+        // home.php の main 要素確認
+        $this->assertStringContainsString('<main id="primary">', $output);
     }
 
-    /**
-     * 各テストメソッド実行前のセットアップ
-     */
-    public function set_up()
+    public function test_post_title_trimmed()
     {
-        parent::set_up();
-        // フロントページ設定を「最新の投稿が表示される」に設定
-        update_option('show_on_front', 'posts');
-        update_option('page_on_front', 0);
-        update_option('page_for_posts', 0);
-    }
-
-    /**
-     * 各テストメソッド実行後のティアダウン
-     */
-    public function tear_down()
-    {
-        // グローバル状態のリセット
-        wp_reset_query();
-        wp_reset_postdata();
-        unset($GLOBALS['post']);
-
-        // フロントページ設定をリセット
-        update_option('show_on_front', 'posts');
-        update_option('page_on_front', 0);
-        update_option('page_for_posts', 0);
-
-        parent::tear_down();
-    }
-
-    /**
-     * @test
-     * ホームページ (投稿あり) で home.php の挙動を検証
-     */
-    public function test_home_template_with_posts()
-    {
-        // ホームページにアクセスをシミュレート
         $this->go_to(home_url('/'));
 
-        // クエリがホームでメインクエリであることを確認
-        $this->assertTrue(is_home(), 'Query should be is_home()');
-        $this->assertTrue($GLOBALS['wp_query']->is_main_query(), 'Should be the main query');
-
-        // home.php のテンプレートファイルを取得して読み込む
-        $template_file = get_page_template();
-
         ob_start();
-        require $template_file;
+        include get_template_directory() . '/home.php';
         $output = ob_get_clean();
 
-        // 投稿タイトルが含まれていることを確認
-        $first_post = get_post(self::$post_ids[0]);
-        $this->assertStringContainsString(esc_html($first_post->post_title), $output, 'Output should contain the first post title.');
+        // 長いタイトルは25文字＋「 ...」で切り詰め
+        $expected_trim = mb_substr($this->long_title, 0, 25) . ' ...';
+        $this->assertStringContainsString($expected_trim, $output);
 
-        // <article>タグが含まれていることを確認
-        $this->assertStringContainsString('<article', $output, 'Output should contain article tag.');
+        // 短いタイトルはそのまま
+        $this->assertStringContainsString($this->short_title, $output);
     }
 
-    /**
-     * @test
-     * ホームページ (投稿なし) で home.php の挙動を検証
-     */
-    public function test_home_template_without_posts()
+    public function test_post_excerpt_length()
     {
-        // 投稿がないクエリをシミュレート
-        $this->go_to(home_url('/?post_type=nonexistent'));
-
-        $this->assertTrue(is_home(), 'Query should be is_home()');
-        $this->assertFalse(have_posts(), 'have_posts() should return false');
-
-        // home.php のテンプレートを取得して読み込み
-        $template_file = get_page_template();
+        $this->go_to(home_url('/'));
 
         ob_start();
-        require $template_file;
+        include get_template_directory() . '/home.php';
         $output = ob_get_clean();
 
+        // 抜粋部分のテキストだけ抽出
+        preg_match('/<p class="post-excerpt">\s*(.+?)\s*<\/p>/s', $output, $matches);
+        $excerpt_text = strip_tags($matches[1]);
 
-        // content-none.php のラッパー要素が含まれているかも確認
-        $this->assertStringContainsString('<main id="primary" class="site-main ly_site_content_main">', $output, 'Output should contain no-results wrapper.');
+        // 連続50文字の"x"がない
+        $this->assertDoesNotMatchRegularExpression('/x{50,}/', $excerpt_text);
+
+        // 抜粋文字数は200文字以下
+        $this->assertLessThanOrEqual(200, mb_strlen($excerpt_text));
+    }
+
+    public function test_pagination_is_present()
+    {
+        $this->go_to(home_url('/'));
+
+        ob_start();
+        include get_template_directory() . '/home.php';
+        $output = ob_get_clean();
+
+        // ページネーションHTML確認
+        $this->assertStringContainsString('class="page-numbers"', $output);
+    }
+
+    public function test_top_category_listed()
+    {
+        $this->go_to(home_url('/'));
+
+        ob_start();
+        include get_template_directory() . '/home.php';
+        $output = ob_get_clean();
+
+        // 親カテゴリ名と一覧コンテナ
+        $this->assertStringContainsString('親カテゴリ', $output);
+        $this->assertStringContainsString('category-list', $output);
+    }
+
+    public function test_post_thumbnail_present()
+    {
+        $this->go_to(home_url('/'));
+
+        ob_start();
+        include get_template_directory() . '/home.php';
+        $output = ob_get_clean();
+
+        // デフォルトサムネイル画像確認
+        $this->assertMatchesRegularExpression('/<img.*src=.*default\\.webp.*>/i', $output);
+    }
+
+    public function test_post_date_displayed()
+    {
+        $this->go_to(home_url('/'));
+
+        ob_start();
+        include get_template_directory() . '/home.php';
+        $output = ob_get_clean();
+
+        // Published on の文言確認
+        $this->assertStringContainsString('Published on', $output);
+    }
+
+    public function test_no_posts_message()
+    {
+        // すべての投稿を削除
+        $all = get_posts(['numberposts' => -1, 'post_status' => 'publish']);
+        foreach ($all as $post) {
+            wp_delete_post($post->ID, true);
+        }
+
+        $this->go_to(home_url('/'));
+
+        ob_start();
+        include get_template_directory() . '/home.php';
+        $output = ob_get_clean();
+
+        // 投稿なしメッセージ確認
+        $this->assertStringContainsString('No posts found.', $output);
     }
 }
