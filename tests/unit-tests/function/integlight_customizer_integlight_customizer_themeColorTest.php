@@ -198,7 +198,7 @@ class integlight_customizer_integlight_customizer_themeColorTest extends WP_Unit
         $setting = $this->wp_customize->get_setting($this->setting_id);
         $this->assertInstanceOf(WP_Customize_Setting::class, $setting, "Setting '{$this->setting_id}' should be added.");
         $this->assertEquals('theme_mod', $setting->type, 'Setting type should be theme_mod.');
-        $this->assertEquals('pattern1', $setting->default, 'Setting default value should be "pattern1".');
+        $this->assertEquals('pattern8', $setting->default, 'Setting default value should be "pattern8".');
         $this->assertTrue(is_callable($setting->sanitize_callback), 'Setting sanitize_callback should be callable.');
         // コールバックが正しいメソッドを指しているか確認
         $this->assertEquals([$this->instance, 'sanitize_choices'], $setting->sanitize_callback, 'Setting sanitize_callback should point to the correct method.');
@@ -321,8 +321,8 @@ class integlight_customizer_integlight_customizer_themeColorTest extends WP_Unit
 
         // Act & Assert: 様々な値をサニタイズして確認
         $this->assertEquals('pattern3', $setting->sanitize('pattern3')); // Valid
-        $this->assertEquals('pattern1', $setting->sanitize('invalid_value')); // Invalid, should return default 'pattern1'
-        $this->assertEquals('pattern1', $setting->sanitize('')); // Empty, should return default 'pattern1'
+        $this->assertEquals('pattern8', $setting->sanitize('invalid_value')); // Invalid, should return default 'pattern8'
+        $this->assertEquals('pattern8', $setting->sanitize('')); // Empty, should return default 'pattern8'
     }
 
     /**
@@ -376,7 +376,7 @@ class integlight_customizer_integlight_customizer_themeColorTest extends WP_Unit
     public function enqueue_custom_css_should_use_default_when_mod_not_set(): void
     {
         // Arrange: テーマ設定は setUp でクリア済み
-        $expected_css_file = '/css/pattern1.css'; // デフォルト値 'pattern1' に対応
+        $expected_css_file = '/css/pattern8.css'; // デフォルト値 'pattern8' に対応
 
         // Act: wp_enqueue_scripts アクションを実行
         $this->instance->enqueue_custom_css(); // 直接呼び出し
