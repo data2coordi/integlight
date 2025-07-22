@@ -79,7 +79,20 @@ if (is_front_page() != false) {
                     </a>
                 </div>
             <?php endwhile; ?>
+
+
         </div>
+        <?php
+        the_posts_pagination( //ページャーを出力
+            array(
+                'mid_size' => 2, // 現在ページの左右に表示するページ番号の数
+                'prev_next' => true,
+                'prev_text' => '<i class="fa-regular fa-square-caret-left"></i> ' . esc_html__('prev', 'integlight'),
+                'next_text' => esc_html__('next', 'integlight') . ' <i class="fa-regular fa-square-caret-right"></i>',
+                'type' => 'plain', // 戻り値の指定 (plain/list)
+            )
+        );
+        ?>
     <?php else : ?>
         <p><?php esc_html_e('No posts found.', 'integlight'); ?></p>
     <?php endif; ?>
