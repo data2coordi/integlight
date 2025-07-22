@@ -56,7 +56,6 @@ class InteglightCommonCssAssets
 		'integlight-front' => '/css/front.css',
 		'integlight-home' => '/css/home.css',
 		'integlight-module' => '/css/module.css',
-		'integlight-block-module' => '/css/block-module.css',
 		'integlight-helper' => '/css/helper.css',
 	];
 
