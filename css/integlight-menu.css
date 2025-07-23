@@ -46,8 +46,6 @@ ul.sub-menu {
 /* サブメニューの装飾 s */
 /************************************************************/
 
-
-
 /* 下層メニューのインデント（各階層毎に +30px） */
 ul.menu li ul.sub-menu a {
   /* 最上位のリンクは左右15pxなので：15+30 = 45px */
@@ -62,8 +60,6 @@ ul.menu li ul.sub-menu a:hover {
 ul.menu li ul.sub-menu li ul.sub-menu a {
   padding-left: 75px;
 }
-
-
 
 /*メニュー内でサブサブメニューを持つ項目に ▶ アイコンを追加 */
 /* メインメニューのリンクに相対位置を指定 */
@@ -138,7 +134,6 @@ ul.menu li ul.sub-menu li.menu-item-has-children>ul.sub-menu {
 /* サブメニューの装飾 e */
 /************************************************************/
 
-
 /************************************************************/
 /* PC版： min-width: 769px */
 /************************************************************/
@@ -160,6 +155,14 @@ ul.menu li ul.sub-menu li.menu-item-has-children>ul.sub-menu {
     position: absolute;
     width: calc(100vw * 0.15);
   }
+}
+
+.menuToggle-label {
+
+  background: none !important;
+
+  /* 背景色をなくす */
+  border: none;
 }
 
 /************************************************************/
@@ -186,9 +189,10 @@ ul.menu li ul.sub-menu li.menu-item-has-children>ul.sub-menu {
   }
 
   /*****************************************/
-  /* ハンバーガーメニュー チェック時：☰→✖ の変化s */
+  /* ハンバーガーメニュー チェック時：☰→✕ の変化s */
   /*****************************************/
   .menuToggle-label {
+    /* buttonにこのクラスが残るので、そのまま利用 */
     display: block;
     position: relative;
     width: 40px;
@@ -197,9 +201,20 @@ ul.menu li ul.sub-menu li.menu-item-has-children>ul.sub-menu {
     cursor: pointer;
     z-index: 1100;
     bottom: 10px;
+
+    /* 枠線をなくす */
+    padding: 0;
+    /* 内側の余白をなくす */
+    margin: 0;
+    /* 外側の余白をなくす */
+    appearance: none;
+    /* OSによるデフォルトスタイルを無効化（Safari, Firefoxなど） */
+    -webkit-appearance: none;
+    /* Webkitブラウザ用（Chromeなど） */
+    /* --- ここまで追加・修正 --- */
   }
 
-  /* ハンバーガーの3本線（疑似要素で作成） */
+  /* ハンバーガーの3本線（擬似要素で作成） */
   .menuToggle-label::before,
   .menuToggle-label::after,
   .menuToggle-label span {
@@ -207,6 +222,7 @@ ul.menu li ul.sub-menu li.menu-item-has-children>ul.sub-menu {
     position: absolute;
     width: 40px;
     height: 2px;
+    right: 1px;
     /* 細くする */
     background: white;
     transition:
@@ -227,8 +243,20 @@ ul.menu li ul.sub-menu li.menu-item-has-children>ul.sub-menu {
     bottom: 0;
   }
 
+  /* スクリーンリーダー用テキストの非表示 */
+  .screen-reader-text {
+    clip: rect(1px, 1px, 1px, 1px);
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    word-wrap: normal;
+    /* IE 6/7 */
+    border: 0;
+  }
+
   /*****************************************/
-  /* ハンバーガーメニュー チェック時：☰→✖ の変化e */
+  /* ハンバーガーメニュー チェック時：☰→✕ の変化e */
   /*****************************************/
 
   /* メニューオーバーレイ */
@@ -243,7 +271,6 @@ ul.menu li ul.sub-menu li.menu-item-has-children>ul.sub-menu {
     z-index: 1000;
     padding-top: 60px;
   }
-
 
   /* メニューは縦並び */
   ul.menu {
@@ -270,9 +297,6 @@ ul.menu li ul.sub-menu li.menu-item-has-children>ul.sub-menu {
   }
 }
 
-
-
-
 /**************************************************************************************************/
 /**************************************************************************************************/
 /**************************************************************************************************/
@@ -282,7 +306,6 @@ ul.menu li ul.sub-menu li.menu-item-has-children>ul.sub-menu {
 /**************************************************************************************************/
 /**************************************************************************************************/
 /**************************************************************************************************/
-
 
 /************************************************************/
 /* ハンバーガーメニュー のクローズオープン s  jsとは連携しないcssで完結*/
@@ -314,25 +337,19 @@ ul.menu li ul.sub-menu li.menu-item-has-children>ul.sub-menu {
   .menuToggle-checkbox:checked+.menuToggle-label::after {
     transform: translateY(-13px) rotate(-45deg);
   }
-
 }
 
 /************************************************************/
 /* ハンバーガーメニュー のクローズオープン e */
 /************************************************************/
 
-
 /************************************************************/
 /* サブメニューの展開（javascrptと連携）s */
 /************************************************************/
 
-
-
 ul.menu>li.menu-item-has-children.active>ul.sub-menu {
   display: block;
 }
-
-
 
 ul.menu li ul.sub-menu li.menu-item-has-children.active>ul.sub-menu {
   display: block;

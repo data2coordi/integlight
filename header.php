@@ -95,14 +95,18 @@ if (!is_home() && is_front_page()) {
 
 			<nav id="site-navigation" class="main-navigation">
 
-				<input type="checkbox" id="menuToggle-checkbox" class="menuToggle-checkbox" />
-				<label for="menuToggle-checkbox" class="menuToggle-label"><span></span></label>
+				<input type="checkbox" id="menuToggle-checkbox" class="menuToggle-checkbox" aria-hidden="true" />
+				<button id="menuToggle-button" class="menuToggle-label" aria-controls="primary-menu-container" aria-expanded="false">
+					<span class="screen-reader-text"><?php esc_html_e('Menu', 'integlight'); ?></span>
+					<span></span>
+				</button>
 				<?php
 				wp_nav_menu(
 					array(
 						'theme_location' => 'menu-1',
 						'menu_id'        => 'primary-menu',
-						'container_class' => 'menuToggle-containerForMenu',  // ここで自動ラッパー生成
+						'container_class' => 'menuToggle-containerForMenu',
+						'container_id'    => 'primary-menu-container', // ここにIDを追加
 						'fallback_cb'     => 'integlight_custom_fallback_menu_simple',
 					)
 				);

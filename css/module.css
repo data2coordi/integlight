@@ -447,6 +447,10 @@ nav.navigation.pagination {
   /* ページネーション */
   /* ページネーション */
   /* ページネーション */
+  .pagination .nav-links {
+    width: 90vw;
+  }
+
   .pagination .page-numbers {
     width: 45px;
     height: 45px;

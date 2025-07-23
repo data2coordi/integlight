@@ -86,12 +86,12 @@ class GlobalKeyController {
 // =============================
 class MobileMenuController {
 	constructor({
-		toggleLabelSel = '.menuToggle-label',
+		toggleButtonSel = '#menuToggle-button', // toggleLabelSel を toggleButtonSel に変更
 		checkboxSel = '.menuToggle-checkbox',
 		containerSel = '.menuToggle-containerForMenu',
 		breakpoint = 768
 	} = {}) {
-		this.toggleLabel = document.querySelector(toggleLabelSel);
+		this.toggleButton = document.querySelector(toggleButtonSel); // toggleLabel を toggleButton に変更
 		this.checkbox = document.querySelector(checkboxSel);
 		this.container = document.querySelector(containerSel);
 		this.bp = breakpoint;
@@ -99,25 +99,36 @@ class MobileMenuController {
 
 	init() {
 		if (!window.matchMedia(`(max-width: ${this.bp}px)`).matches) return;
-		if (!this.toggleLabel || !this.checkbox || !this.container) return;
+		if (!this.toggleButton || !this.checkbox || !this.container) return; // toggleLabel を toggleButton に変更
 
-		this.toggleLabel.setAttribute('tabindex', '0');
-		this.toggleLabel.setAttribute('aria-expanded', 'false');
+		// button要素はデフォルトでtabindexが設定されるため、明示的なtabindex="0"は不要
+
+		// 初期状態はHTMLで設定済みなので不要
+		// this.toggleButton.setAttribute('aria-expanded', 'false');
 		this.container.setAttribute('aria-hidden', 'true');
 		this.container.querySelectorAll('a').forEach(a => a.setAttribute('tabindex', '-1'));
 
 		this.checkbox.addEventListener('change', () => this.update(this.checkbox.checked));
-		this.toggleLabel.addEventListener('keydown', e => {
-			if (e.key === 'Enter' || e.key === ' ') {
-				e.preventDefault();
-				this.checkbox.checked = !this.checkbox.checked;
-				this.update(this.checkbox.checked);
-			}
+
+		// button要素の場合、clickイベントで十分
+		this.toggleButton.addEventListener('click', () => {
+			this.checkbox.checked = !this.checkbox.checked;
+			this.update(this.checkbox.checked);
 		});
+
+		// EnterやSpaceキーはbuttonのデフォルト動作で処理されるため、明示的なkeydownリスナーは不要だが、
+		// checkboxの状態と同期させるために残す場合は以下のようになる。
+		// this.toggleButton.addEventListener('keydown', e => {
+		//     if (e.key === 'Enter' || e.key === ' ') {
+		//         e.preventDefault(); // デフォルト動作をキャンセルしない場合は削除
+		//         this.checkbox.checked = !this.checkbox.checked;
+		//         this.update(this.checkbox.checked);
+		//     }
+		// });
 	}
 
 	update(isOpen) {
-		this.toggleLabel.setAttribute('aria-expanded', String(isOpen));
+		this.toggleButton.setAttribute('aria-expanded', String(isOpen)); // toggleLabel を toggleButton に変更
 		this.container.setAttribute('aria-hidden', String(!isOpen));
 		this.container.querySelectorAll('a').forEach((a, idx) => {
 			if (isOpen) {
