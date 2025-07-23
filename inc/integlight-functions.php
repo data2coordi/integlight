@@ -1063,3 +1063,29 @@ add_action('widgets_init', 'integlight_register_widgets');
 /********************************************************************/
 /* Profile表示 e	*/
 /********************************************************************/
+
+/********************************************************************/
+/* 検索ボックスにラベル追加 ユーザビリティ対応s	*/
+/********************************************************************/
+add_filter('render_block', 'add_label_to_wp_block_search', 10, 2);
+
+function add_label_to_wp_block_search($block_content, $block)
+{
+	if ($block['blockName'] !== 'core/search') {
+		return $block_content;
+	}
+
+	$label = '<label for="wp-block-search__input-1" class="screen-reader-text">検索</label>';
+
+	$block_content = preg_replace(
+		'/(<input[^>]*id="wp-block-search__input-1"[^>]*>)/',
+		$label . '$1',
+		$block_content,
+		1
+	);
+
+	return $block_content;
+}
+/********************************************************************/
+/* 検索ボックスにラベル追加 ユーザビリティ対応e	*/
+/********************************************************************/
