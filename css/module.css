@@ -310,21 +310,33 @@ li>ul>.cat-item:last-of-type {
 /************************************************************/
 /* ページコントロール @@@***************************************************/
 /************************************************************/
-
+nav.navigation.pagination {
+  text-align: center;
+}
 /* 次へ */
 .pagination .nav-links {
-  width: 300px;
+  width: 400px;
   display: block;
+  margin: auto;
+  margin-top: 2rem;
 }
 
 /* 次への数字の囲みをコメントアウト */
-/* .pagination .page-numbers {
-    border: 2px solid #555;
-} */
+.pagination .page-numbers {
+  border: 1px solid #555;
+  width: 50px;
+  height: 50px;
+  line-height: 50px; /* 中央揃え */
+  text-align: center;
+  border-radius: 50%;
+  display: inline-block;
+  margin:0.3em;
+  text-decoration: none;
+}
 
 .pagination .next.page-numbers,
 .pagination .prev.page-numbers {
-  border: none;
+  display: none;
 }
 
 .pagination .page-numbers:hover,
@@ -333,12 +345,12 @@ li>ul>.cat-item:last-of-type {
   background: #f5f4f4;
 }
 
-.pagination .fa-arrow-alt-circle-right:before,
+/* .pagination .fa-arrow-alt-circle-right:before,
 .pagination .fa-circle-right:before,
 .pagination .fa-arrow-alt-circle-left:before,
 .pagination .fa-circle-left:before {
   vertical-align: -15%;
-}
+} */
 
 /************************************************************/
 /* ページコントロール 次の記事@@@***************************************************/

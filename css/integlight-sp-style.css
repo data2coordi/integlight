@@ -4,7 +4,7 @@
 h2,
 h3 {
     /*color: #222;*/
-    border-bottom: 0.01em solid #c8c8c8;
+    border-bottom: 0.005em solid #e3e3e3;
     width: 100%;
     position: relative;
     /*::afterにabsoluteをかけるので設定*/
