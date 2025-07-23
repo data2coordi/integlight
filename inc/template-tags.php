@@ -149,7 +149,9 @@ if (! function_exists('integlight_post_thumbnail')) :
 						'class' => 'responsive-img',
 						'loading' => 'eager',
 						'decoding' => 'async',
-						'sizes' => '(max-width: 850px) 20vw, 1200px'
+						'sizes' => '(max-width: 850px) 20vw, 1200px',
+						'fetchpriority' => 'high'  // PF対応
+
 					]
 				); ?>
 			</div><!-- .post-thumbnail -->
@@ -160,13 +162,10 @@ if (! function_exists('integlight_post_thumbnail')) :
 				<?php
 				the_post_thumbnail(
 					'post-thumbnail',
-					array(
-						'alt' => the_title_attribute(
-							array(
-								'echo' => false,
-							)
-						),
-					)
+					[
+						'alt' => the_title_attribute(['echo' => false]),
+						'fetchpriority' => 'high', // PF対応
+					]
 				);
 				?>
 			</a>
