@@ -12,6 +12,10 @@ exit
 
 sudo docker exec -it dev_wp_env-wordpress-1 bash \
   -c "cd /var/www/html/wp-content/themes/integlight && ./vendor/bin/phpunit \
+tests/unit-tests/function/integlight_functions_Integlight_PostNavigationsTest.php"
+
+sudo docker exec -it dev_wp_env-wordpress-1 bash \
+  -c "cd /var/www/html/wp-content/themes/integlight && ./vendor/bin/phpunit \
 tests/unit-tests/template/template_HomeTemplateTest.php"
 
 
