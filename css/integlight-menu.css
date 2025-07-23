@@ -159,6 +159,9 @@ ul.menu li ul.sub-menu li.menu-item-has-children>ul.sub-menu {
 
 .menuToggle-label {
 
+  display: none;
+
+
   background: none !important;
 
   /* 背景色をなくす */
