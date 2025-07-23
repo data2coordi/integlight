@@ -308,14 +308,14 @@ li>ul>.cat-item:last-of-type {
 /* 新着記事 e*/
 
 /************************************************************/
-/* ページコントロール @@@***************************************************/
+/* ページネーション @@@***************************************************/
 /************************************************************/
 nav.navigation.pagination {
   text-align: center;
 }
 /* 次へ */
 .pagination .nav-links {
-  width: 400px;
+  width: 600px;
   display: block;
   margin: auto;
   margin-top: 2rem;
@@ -443,8 +443,23 @@ nav.navigation.pagination {
   .custom-logo ~ .site-description {
   margin-top: 0;
   }
+
+  /* ページネーション */
+  /* ページネーション */
+  /* ページネーション */
+  .pagination .page-numbers {
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    margin-left: 0;
+  }
+  /* ページネーション */
+  /* ページネーション */
+  /* ページネーション */
 }
 
+
+/*****前へ次へ画像********/
 .nav-previous,
 .nav-next {
   width: 300px;
@@ -454,22 +469,25 @@ nav.navigation.pagination {
   background-repeat: no-repeat;
 }
 
-/*****前へ次へ画像********/
-
-.nav-previous a,
-.nav-next a {
+/* aタグの中のテキストには、背景色がつけられないからspanで囲んでいる */
+.nav-previous .nav-label,
+.nav-next .nav-label {
   color: #000;
   background: #999;
-  padding: 5px 15px;
+  padding: 3px 10px;
   text-decoration: none;
   width: 300px;
-  display: block;
+  display: inline-block;
 }
 
-.nav-previous a:hover,
-.nav-next a:hover {
+.nav-previous .nav-label:hover,
+.nav-next .nav-label:hover {
   color: #999;
   background: #000;
+}
+
+.nav-previous:hover,
+.nav-next:hover {
   opacity: 0.8;
 }
 

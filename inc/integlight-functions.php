@@ -811,8 +811,8 @@ class Integlight_PostNavigations
 		$post_url   = get_permalink($post_id);
 
 	?>
-		<div class="<?php echo esc_attr($class); ?>" style="background-image: url('<?php echo Integlight_PostThumbnail::getUrl($post_id); ?>');">
-			<a href="<?php echo esc_url($post_url); ?>">
+		<a href="<?php echo esc_url($post_url); ?>" class="<?php echo esc_attr($class); ?>" style="display: block; background-image: url('<?php echo Integlight_PostThumbnail::getUrl($post_id); ?>'); background-size: cover; background-position: center;">
+			<span class="nav-label">
 				<?php if ($class === 'nav-previous') : ?>
 					<i class="fa-regular fa-square-caret-left"></i>
 				<?php endif; ?>
@@ -820,8 +820,9 @@ class Integlight_PostNavigations
 				<?php if ($class === 'nav-next') : ?>
 					<i class="fa-regular fa-square-caret-right"></i>
 				<?php endif; ?>
-			</a>
-		</div>
+			</span>
+		</a>
+
 	<?php
 	}
 
