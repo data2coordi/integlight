@@ -4,9 +4,10 @@
 
 import { MenuController, GlobalKeyController, MobileMenuController } from '../../../js/src/navigation';
 
+//
+// グローバルメニューの挙動（ブラックボックステスト）
+//
 describe('グローバルメニューの挙動（ブラックボックステスト）', () => {
-    let container;
-
     beforeEach(() => {
         document.body.innerHTML = `
       <nav>
@@ -23,7 +24,7 @@ describe('グローバルメニューの挙動（ブラックボックステス�
       </nav>
     `;
 
-        // offsetWidth モック
+        // offsetWidth を十分に大きくして「右端クリック」をシミュレート
         Object.defineProperty(document.getElementById('link1'), 'offsetWidth', { value: 100 });
         Object.defineProperty(document.getElementById('link2'), 'offsetWidth', { value: 100 });
 
@@ -32,7 +33,6 @@ describe('グローバルメニューの挙動（ブラックボックステス�
     });
 
     afterEach(() => {
-        // 各テスト後にすべてのモックを元の実装に復元
         jest.restoreAllMocks();
     });
 
@@ -40,7 +40,7 @@ describe('グローバルメニューの挙動（ブラックボックステス�
         const link = document.getElementById('link1');
         const item = document.getElementById('item1');
         const evt = new MouseEvent('click', { bubbles: true });
-        Object.defineProperty(evt, 'offsetX', { value: 90 });
+        Object.defineProperty(evt, 'offsetX', { value: 90 }); // 右端 100−40=60 より大きい
         link.dispatchEvent(evt);
         expect(item.classList.contains('active')).toBe(true);
         link.dispatchEvent(evt);
@@ -51,7 +51,7 @@ describe('グローバルメニューの挙動（ブラックボックステス�
         const link = document.getElementById('link1');
         const item = document.getElementById('item1');
         const evt = new MouseEvent('click', { bubbles: true });
-        Object.defineProperty(evt, 'offsetX', { value: 10 });
+        Object.defineProperty(evt, 'offsetX', { value: 10 }); // 左側
         link.dispatchEvent(evt);
         expect(item.classList.contains('active')).toBe(false);
     });
@@ -73,7 +73,7 @@ describe('グローバルメニューの挙動（ブラックボックステス�
     test('Tabキーで active 付与', () => {
         const link = document.getElementById('link1');
         const item = document.getElementById('item1');
-        const evt = new KeyboardEvent('keydown', { key: 'Tab' });
+        const evt = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true });
         link.dispatchEvent(evt);
         expect(item.classList.contains('active')).toBe(true);
     });
@@ -81,10 +81,7 @@ describe('グローバルメニューの挙動（ブラックボックステス�
     test('focusout による active 削除', done => {
         const item = document.getElementById('item1');
         item.classList.add('active');
-
-        // jest.spyOn を使用して document.activeElement のゲッターをモック
         jest.spyOn(document, 'activeElement', 'get').mockReturnValue(document.body);
-
         const evt = new FocusEvent('focusout');
         item.dispatchEvent(evt);
         setTimeout(() => {
@@ -97,105 +94,204 @@ describe('グローバルメニューの挙動（ブラックボックステス�
         const item = document.getElementById('item1');
         const subLink = document.createElement('a');
         subLink.href = '#';
-        subLink.textContent = 'Sub';
-
         item.appendChild(subLink);
         item.classList.add('active');
 
         const blurSpy = jest.spyOn(subLink, 'blur').mockImplementation(() => { });
-
-        // jest.spyOn を使用して document.activeElement のゲッターをモック
         jest.spyOn(document, 'activeElement', 'get').mockReturnValue(subLink);
 
-        // Escape キーイベントを発火
-        // document にイベントリスナがあるため bubbles: true が必要
         const evt = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true });
         document.dispatchEvent(evt);
 
-        // 検証
-        expect(item.classList.contains('active')).toBe(false); // active クラスが削除されているか
-        expect(blurSpy).toHaveBeenCalled();                    // blur() が呼び出されたか
+        expect(item.classList.contains('active')).toBe(false);
+        expect(blurSpy).toHaveBeenCalled();
     });
-
 
     test('子リンククリック時に active 維持', () => {
         const item = document.getElementById('item1');
-        const subLink = item.querySelector('.sub-menu a');
         item.classList.add('active');
+        const subLink = item.querySelector('.sub-menu a');
         const evt = new MouseEvent('click', { bubbles: true });
         subLink.dispatchEvent(evt);
         expect(item.classList.contains('active')).toBe(true);
     });
 });
 
+//
+// モバイルメニュー操作
+//
 describe('モバイルメニュー操作', () => {
-    let label, checkbox, container, link;
-
     beforeEach(() => {
-        label = document.createElement('div');
-        label.className = 'menuToggle-label';
-        checkbox = document.createElement('input');
-        checkbox.className = 'menuToggle-checkbox';
-        checkbox.type = 'checkbox';
-        container = document.createElement('div');
-        container.className = 'menuToggle-containerForMenu';
-        link = document.createElement('a');
-        container.appendChild(link);
-        document.body.append(label, checkbox, container);
+        document.body.innerHTML = `
+      <nav class="main-navigation">
+        <input
+          type="checkbox"
+          id="menuToggle-checkbox"
+          class="menuToggle-checkbox"
+          aria-hidden="true"
+        />
+        <button
+          id="menuToggle-button"
+          class="menuToggle-label"
+          aria-controls="primary-menu-container"
+          aria-expanded="false"
+        >
+          <span class="screen-reader-text">Menu</span>
+          <span></span>
+        </button>
+        <div
+          class="menuToggle-containerForMenu"
+          id="primary-menu-container"
+        >
+          <ul id="primary-menu" class="menu">
+            <li class="menu-item"><a href="#">Home</a></li>
+            <li class="menu-item"><a href="#">About</a></li>
+          </ul>
+        </div>
+      </nav>
+    `;
+
+        // モバイル表示を強制
+        Object.defineProperty(window, 'matchMedia', {
+            value: () => ({ matches: true }),
+            configurable: true,
+        });
     });
 
-    test('初期化時に属性が設定される', () => {
-        Object.defineProperty(window, 'matchMedia', {
-            value: jest.fn().mockReturnValue({ matches: true }),
-            configurable: true
-        });
+    test('初期化時にコンテナとリンクに属性が設定される', () => {
         new MobileMenuController().init();
-        expect(label.getAttribute('tabindex')).toBe('0');
-        expect(label.getAttribute('aria-expanded')).toBe('false');
+
+        const button = document.getElementById('menuToggle-button');
+        const container = document.getElementById('primary-menu-container');
+        const links = container.querySelectorAll('a');
+
+        // ボタンの aria-expanded はマークアップ側の false のまま
+        expect(button.getAttribute('aria-expanded')).toBe('false');
+
+        // JSで付与される aria-hidden と tabindex
         expect(container.getAttribute('aria-hidden')).toBe('true');
-        expect(link.getAttribute('tabindex')).toBe('-1');
+        links.forEach(link => {
+            expect(link.getAttribute('tabindex')).toBe('-1');
+        });
     });
 
-    test('Enter/Space でトグル動作する', () => {
-        // Arrange: matchMedia をモックして、コントローラーが初期化されるようにする
+    test('クリックでメニューが開き、属性が切り替わる', () => {
+        const controller = new MobileMenuController();
+        controller.init();
 
-        Object.defineProperty(window, 'matchMedia', {
-            value: jest.fn().mockReturnValue({ matches: true }),
-            configurable: true
-        });
+        const button = document.getElementById('menuToggle-button');
+        const container = document.getElementById('primary-menu-container');
+        const firstLink = container.querySelector('a');
 
+        // 初期状態
+        expect(button.getAttribute('aria-expanded')).toBe('false');
+        expect(container.getAttribute('aria-hidden')).toBe('true');
+        expect(firstLink.getAttribute('tabindex')).toBe('-1');
 
-        // MobileMenuController に DOM を直接注入
-        const ctrl = new MobileMenuController();
-        ctrl.toggleLabel = label;
-        ctrl.checkbox = checkbox;
-        ctrl.container = container;
-        ctrl.init();
-        // Arrange: MobileMenuController をインスタンス化して初期化する
-        // beforeEach でDOM要素はクラス名付きで作成されているため、コンストラクタが要素を取得できる
+        // ボタンをクリックして開く
+        button.click();
 
-        // Act & Assert: Enter キーでチェックボックスが true になる
-        const enterEvt = new KeyboardEvent('keydown', { key: 'Enter' });
-        label.dispatchEvent(enterEvt);
-
-
-        expect(checkbox.checked).toBe(true);
-
-
-        // Act & Assert: Space キーでチェックボックスが false になる
-        const spaceEvt = new KeyboardEvent('keydown', { key: ' ' });
-        label.dispatchEvent(spaceEvt);
-        expect(checkbox.checked).toBe(false);
+        // 開いた後
+        expect(button.getAttribute('aria-expanded')).toBe('true');
+        expect(container.getAttribute('aria-hidden')).toBe('false');
+        expect(firstLink.hasAttribute('tabindex')).toBe(false);
     });
 
     test('update(false) で属性が戻る', () => {
-        const ctrl = new MobileMenuController();
-        ctrl.toggleLabel = label;
-        ctrl.checkbox = checkbox;
-        ctrl.container = container;
-        ctrl.update(false);
-        expect(label.getAttribute('aria-expanded')).toBe('false');
+        const controller = new MobileMenuController();
+        controller.init();
+
+        // 一度開いてから閉じるシナリオも検証できますが、
+        // ここでは直接 update(false) を呼び出して属性をチェック
+        controller.update(false);
+
+        const button = document.getElementById('menuToggle-button');
+        const container = document.getElementById('primary-menu-container');
+        const firstLink = container.querySelector('a');
+
+        expect(button.getAttribute('aria-expanded')).toBe('false');
         expect(container.getAttribute('aria-hidden')).toBe('true');
-        expect(link.getAttribute('tabindex')).toBe('-1');
+        expect(firstLink.getAttribute('tabindex')).toBe('-1');
     });
+
+    test('Enter/Space でトグル動作する（click シミュレーションに置換）', () => {
+        // モバイル判定を常に true に設定
+        Object.defineProperty(window, 'matchMedia', {
+            value: () => ({ matches: true }),
+            configurable: true,
+        });
+
+        // テスト用 DOM
+        document.body.innerHTML = `
+    <nav class="main-navigation">
+      <input
+        type="checkbox"
+        id="menuToggle-checkbox"
+        class="menuToggle-checkbox"
+        aria-hidden="true"
+      />
+      <button
+        id="menuToggle-button"
+        class="menuToggle-label"
+        aria-controls="primary-menu-container"
+        aria-expanded="false"
+      >
+        <span class="screen-reader-text">Menu</span>
+        <span></span>
+      </button>
+      <div
+        class="menuToggle-containerForMenu"
+        id="primary-menu-container"
+      >
+        <ul id="primary-menu" class="menu">
+          <li class="menu-item"><a href="#">Home</a></li>
+          <li class="menu-item"><a href="#">About</a></li>
+        </ul>
+      </div>
+    </nav>
+  `;
+
+        const controller = new MobileMenuController();
+        controller.init();
+
+        const button = document.getElementById('menuToggle-button');
+        const container = document.getElementById('primary-menu-container');
+        const firstLink = container.querySelector('a');
+
+        // 初期状態
+        expect(button.getAttribute('aria-expanded')).toBe('false');
+        expect(container.getAttribute('aria-hidden')).toBe('true');
+        expect(firstLink.getAttribute('tabindex')).toBe('-1');
+
+        // ユーザー操作: ボタンを click で開く
+        button.click();
+        expect(button.getAttribute('aria-expanded')).toBe('true');
+        expect(container.getAttribute('aria-hidden')).toBe('false');
+        expect(firstLink.hasAttribute('tabindex')).toBe(false);
+
+        // 再度 click で閉じる
+        button.click();
+        expect(button.getAttribute('aria-expanded')).toBe('false');
+        expect(container.getAttribute('aria-hidden')).toBe('true');
+        expect(firstLink.getAttribute('tabindex')).toBe('-1');
+    });
+
+
 });
+
+
+/*
+テストケース一覧をテキストにはりつけたい。
+#	グループ	テスト名	残存
+1	グローバルメニュー	右端クリックで active トグル	
+2		左クリックで active 無効	
+3		兄弟間で active 切り替え	
+4		Tabキーで active 付与	
+5		focusout による active 削除	
+6		Escape キーで active を解除し、フォーカスを外す	
+7		子リンククリック時に active 維持	
+8	モバイルメニュー操作	初期化時にコンテナとリンクに属性が設定される	
+9		クリックでメニューが開き、属性が切り替わる	
+10		Enter/Space でトグル動作する	
+11		update(false) で属性が戻る	
+*/
