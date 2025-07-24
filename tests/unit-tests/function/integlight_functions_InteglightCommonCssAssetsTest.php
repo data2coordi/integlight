@@ -87,7 +87,6 @@ class integlight_functions_InteglightCommonCssAssetsTest extends TestCase // ま
         // setUp() でリセットされた状態からテストを開始します。
 
         $expectedFrontendStyles = [
-            'integlight-awesome' => '/css/awesome-all.min.css',
             'integlight-base-style-plus' => '/css/base-style.css',
             'integlight-style-plus' => '/css/integlight-style.css',
             'integlight-sp-style' => '/css/integlight-sp-style.css', // Included in frontend
@@ -105,7 +104,6 @@ class integlight_functions_InteglightCommonCssAssetsTest extends TestCase // ま
         unset($expectedEditorStyles['integlight-sp-style']); // Excluded from editor
 
         $expectedDeferredStyles = [
-            'integlight-awesome',
             'integlight-sp-style',
             'integlight-block-module'
         ];

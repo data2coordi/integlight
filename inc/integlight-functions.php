@@ -45,7 +45,6 @@ require get_template_directory() . '/inc/starter-content.php';
 class InteglightCommonCssAssets
 {
 	private static $styles = [
-		'integlight-awesome' => '/css/awesome-all.min.css',
 		'integlight-base-style-plus' => '/css/base-style.css',
 		'integlight-style-plus' => '/css/integlight-style.css',
 		'integlight-sp-style' => '/css/integlight-sp-style.css',
@@ -61,7 +60,6 @@ class InteglightCommonCssAssets
 
 
 	private static $deferredStyles = [
-		'integlight-awesome',
 		'integlight-sp-style',
 		'integlight-block-module'
 	];
@@ -773,28 +771,15 @@ new Integlight_Block_Assets();
 
 
 /********************************************************************/
-/* 投稿の画像を取得するページネーション s*/
+/* 次へ＆前へのページネーション s*/
 /********************************************************************/
-/**
- * 投稿のサムネイル画像があればそのURLを、
- * なければ本文の最初の画像URLを返す。
- */
 class Integlight_PostNavigations
 {
 	/**
 	 * 投稿の画像を取得する（アイキャッチ or 本文の最初の画像）
 	 */
 
-	/**
-	 * 本文から最初の画像URLを抽出する
-	 */
-	private static function get_first_image_url_from_content($content)
-	{
-		if (preg_match('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content, $matches)) {
-			return $matches[1];
-		}
-		return '';
-	}
+
 
 	/**
 	 * ナビゲーションの共通HTMLを出力
@@ -814,11 +799,11 @@ class Integlight_PostNavigations
 		<a href="<?php echo esc_url($post_url); ?>" class="<?php echo esc_attr($class); ?>" style="display: block; background-image: url('<?php echo Integlight_PostThumbnail::getUrl($post_id); ?>'); background-size: cover; background-position: center;">
 			<span class="nav-label">
 				<?php if ($class === 'nav-previous') : ?>
-					<i class="fa-regular fa-square-caret-left"></i>
+					<?php echo $icon; ?>
 				<?php endif; ?>
 				<?php echo esc_html($post_title); ?>
 				<?php if ($class === 'nav-next') : ?>
-					<i class="fa-regular fa-square-caret-right"></i>
+					<?php echo $icon; ?>
 				<?php endif; ?>
 			</span>
 		</a>
@@ -834,25 +819,36 @@ class Integlight_PostNavigations
 		$prev_post = get_previous_post();
 		$next_post = get_next_post();
 
+
 		if (!$prev_post && !$next_post) {
 			return;
 		}
 
+		$icon_prev = <<<SVG
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="24" height="24" aria-hidden="true" focusable="false">
+  <path d="M224 320C224 313.3 226.8 307 231.7 302.4L343.7 198.4C350.7 191.9 360.9 190.2 369.6 194C378.3 197.8 384 206.5 384 216L384 424C384 433.5 378.3 442.2 369.6 446C360.9 449.8 350.7 448.1 343.7 441.6L231.7 337.6C226.8 333.1 224 326.7 224 320z"/>
+</svg>
+SVG;
+
+		$icon_next = <<<SVG
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="24" height="24" aria-hidden="true" focusable="false">
+  <path d="M305 441C295.6 450.4 280.4 450.4 271.1 441C261.8 431.6 261.7 416.4 271.1 407.1L358.1 320.1L271.1 233.1C261.7 223.7 261.7 208.5 271.1 199.2C280.5 189.9 295.7 189.8 305 199.2L409 303C418.4 312.4 418.4 327.6 409 336.9L305 441z"/>
+</svg>
+SVG;
+
+
 	?>
 		<nav class="post-navigation" role="navigation">
 			<?php
-			self::get_post_navigation_item($prev_post, 'nav-previous', '<i class="fa-regular fa-square-caret-left"></i>');
-			self::get_post_navigation_item($next_post, 'nav-next', '<i class="fa-regular fa-square-caret-right"></i>');
+			self::get_post_navigation_item($prev_post, 'nav-previous', $icon_prev);
+			self::get_post_navigation_item($next_post, 'nav-next', $icon_next);
 			?>
 		</nav>
 		<?php
 	}
 }
-
-
-
 /********************************************************************/
-/* 投稿の画像を取得 e	*/
+/* 次へ＆前へのページネーション e*/
 /********************************************************************/
 
 
