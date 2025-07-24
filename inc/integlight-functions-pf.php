@@ -1,8 +1,28 @@
 <?php
+/*
+
+add_action('wp_enqueue_scripts', function () {
+    if (!is_admin()) {
+        wp_dequeue_style('wp-block-library');
+    }
+}, 20);
+*/
+
+
+
+
+
+
+
+
+
+
 
 /***************************************** */
 /**css,js読み込み s************************ */
 /***************************************** */
+
+
 
 
 
@@ -25,7 +45,7 @@ class InteglightCommonCssAssets
 
     private static $deferredStyles = [
         'integlight-sp-style',
-        'integlight-block-module'
+        'wp-block-library' /*ブロックエディタ用css*/
     ];
 
 
