@@ -105,7 +105,7 @@ class integlight_functions_InteglightCommonCssAssetsTest extends TestCase // ま
 
         $expectedDeferredStyles = [
             'integlight-sp-style',
-            'integlight-block-module'
+            'wp-block-library'
         ];
         // Sort for consistent comparison as order might not be guaranteed internally
         sort($expectedDeferredStyles);
