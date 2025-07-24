@@ -186,8 +186,8 @@ endif;
  * wp_body_open
  * @package Integlight
  */
-if (! function_exists('wp_body_open')) :
-	function wp_body_open()
+if (! function_exists('integlight_wp_body_open')) :
+	function integlight_wp_body_open()
 	{
 		do_action('wp_body_open');
 	}
