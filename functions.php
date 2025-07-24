@@ -160,10 +160,6 @@ add_action('widgets_init', 'integlight_widgets_init');
  */
 require get_template_directory() . '/inc/custom-header.php';
 
-/**
- * Custom template tags for this theme.
- */
-require get_template_directory() . '/inc/template-tags.php';
 
 
 

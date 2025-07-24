@@ -1,17 +1,11 @@
 <?php
 
 /**
- * Custom template tags for this theme
- *
- * Eventually, some of the functionality here could be replaced by core features.
- *
+ * integlight_posted_on
+ * 投稿日付を付与
  * @package Integlight
  */
-
 if (! function_exists('integlight_posted_on')) :
-	/**
-	 * Prints HTML with meta information for the current post-date/time.
-	 */
 	function integlight_posted_on()
 	{
 
@@ -48,10 +42,13 @@ if (! function_exists('integlight_posted_on')) :
 	}
 endif;
 
+
+/**
+ * integlight_posted_by
+ * * 投稿作成者を付与
+ * @package Integlight
+ */
 if (! function_exists('integlight_posted_by')) :
-	/**
-	 * Prints HTML with meta information for the current author.
-	 */
 	function integlight_posted_by()
 	{
 		$byline = sprintf(
@@ -65,10 +62,19 @@ if (! function_exists('integlight_posted_by')) :
 	}
 endif;
 
+
+
+
+
+
+
+
+/**
+ * integlight_entry_footer
+ * フッターを付与
+ * @package Integlight
+ */
 if (! function_exists('integlight_entry_footer')) :
-	/**
-	 * Prints HTML with meta information for the categories, tags and comments.
-	 */
 	function integlight_entry_footer()
 	{
 		// Hide category and tag text for pages.
@@ -126,13 +132,13 @@ if (! function_exists('integlight_entry_footer')) :
 	}
 endif;
 
+
+/**
+ * integlight_post_thumbnail
+ * サムネイルを付与
+ * @package Integlight
+ */
 if (! function_exists('integlight_post_thumbnail')) :
-	/**
-	 * Displays an optional post thumbnail.
-	 *
-	 * Wraps the post thumbnail in an anchor element on index views, or a div
-	 * element when on single views.
-	 */
 	function integlight_post_thumbnail()
 	{
 		if (post_password_required() || is_attachment() || ! has_post_thumbnail()) {
@@ -175,14 +181,75 @@ if (! function_exists('integlight_post_thumbnail')) :
 	}
 endif;
 
+
+/**
+ * wp_body_open
+ * @package Integlight
+ */
 if (! function_exists('wp_body_open')) :
-	/**
-	 * Shim for sites older than 5.2.
-	 *
-	 * @link https://core.trac.wordpress.org/ticket/12563
-	 */
 	function wp_body_open()
 	{
 		do_action('wp_body_open');
 	}
 endif;
+
+
+
+
+/********************************************************************/
+/* サムネイル取得(存在しなければ、本文の画像、デフォルト画像を取得) s	*/
+/********************************************************************/
+
+class Integlight_PostThumbnail
+{
+
+	private static function get_thumbnail_url($post_id = null, $size = 'medium', $default_url = '')
+	{
+
+
+		if (is_null($post_id)) {
+			$post_id = get_the_ID();
+		}
+
+		// アイキャッチ画像がある場合
+		if (has_post_thumbnail($post_id)) {
+			$thumbnail_url = get_the_post_thumbnail_url($post_id, $size);
+			return esc_url($thumbnail_url);
+		};
+
+		// 本文から最初の画像を抽出
+		$content = get_post_field('post_content', $post_id);
+		preg_match('/<img.+src=[\'"](?P<src>.+?)[\'"].*>/i', $content, $image);
+
+		if (!empty($image['src'])) {
+			return esc_url($image['src']);
+		}
+
+		// デフォルト画像（未指定時は /assets/default.webp）
+		if (empty($default_url)) {
+			$default_url = get_template_directory_uri() . '/assets/default.webp';
+			return esc_url($default_url);
+		}
+	}
+
+	/**
+	 * 指定投稿の表示用サムネイルHTMLを出力する。
+	 * @param int|null $post_id 投稿ID（省略時は現在の投稿）
+	 * @param string $size アイキャッチ画像のサイズ（デフォルト: 'medium'）
+	 * @param string $default_url デフォルト画像のURL（空なら /assets/default.webp）
+	 */
+	public static function render($post_id = null, $size = 'medium', $default_url = '')
+	{
+		echo '<img src="' . self::get_thumbnail_url($post_id, $size, $default_url) . '" alt="">';
+
+		return;
+	}
+
+	public static function getUrl($post_id = null, $size = 'medium', $default_url = '')
+	{
+		return self::get_thumbnail_url($post_id, $size, $default_url);
+	}
+}
+/********************************************************************/
+/* サムネイル取得(存在しなければ、本文の画像、デフォルト画像を取得) e	*/
+/********************************************************************/

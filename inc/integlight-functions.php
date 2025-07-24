@@ -31,6 +31,7 @@
 require get_template_directory() . '/inc/integlight-functions-outerAssets.php';
 
 require get_template_directory() . '/inc/starter-content.php';
+require get_template_directory() . '/inc/integlight-functions-cmn.php';
 /***************************************** */
 /**php読み込み e************************ */
 /***************************************** */
@@ -498,7 +499,7 @@ new Integlight_SEO_Meta();
 
 
 /********************************************************************/
-/* ブロックテーマへの適用s*/
+/* ブロックエディター用のパターン登録s*/
 /********************************************************************/
 
 
@@ -766,7 +767,7 @@ new Integlight_Block_Assets();
 
 
 /********************************************************************/
-/* ブロックテーマへの適用e*/
+/* ブロックエディター用のパターン登録e*/
 /********************************************************************/
 
 
@@ -924,60 +925,6 @@ new Integlight_Excerpt_Customizer();
 /********************************************************************/
 
 
-/********************************************************************/
-/* サムネイル取得(存在しなければ、本文の画像、デフォルト画像を取得) s	*/
-/********************************************************************/
-
-class Integlight_PostThumbnail
-{
-
-	private static function get_thumbnail_url($post_id = null, $size = 'medium', $default_url = '')
-	{
-
-
-		if (is_null($post_id)) {
-			$post_id = get_the_ID();
-		}
-
-		// アイキャッチ画像がある場合
-		if (has_post_thumbnail($post_id)) {
-			$thumbnail_url = get_the_post_thumbnail_url($post_id, $size);
-			return esc_url($thumbnail_url);
-		};
-
-		// 本文から最初の画像を抽出
-		$content = get_post_field('post_content', $post_id);
-		preg_match('/<img.+src=[\'"](?P<src>.+?)[\'"].*>/i', $content, $image);
-
-		if (!empty($image['src'])) {
-			return esc_url($image['src']);
-		}
-
-		// デフォルト画像（未指定時は /assets/default.webp）
-		if (empty($default_url)) {
-			$default_url = get_template_directory_uri() . '/assets/default.webp';
-			return esc_url($default_url);
-		}
-	}
-
-	/**
-	 * 指定投稿の表示用サムネイルHTMLを出力する。
-	 * @param int|null $post_id 投稿ID（省略時は現在の投稿）
-	 * @param string $size アイキャッチ画像のサイズ（デフォルト: 'medium'）
-	 * @param string $default_url デフォルト画像のURL（空なら /assets/default.webp）
-	 */
-	public static function render($post_id = null, $size = 'medium', $default_url = '')
-	{
-		echo '<img src="' . self::get_thumbnail_url($post_id, $size, $default_url) . '" alt="">';
-
-		return;
-	}
-
-	public static function getUrl($post_id = null, $size = 'medium', $default_url = '')
-	{
-		return self::get_thumbnail_url($post_id, $size, $default_url);
-	}
-}
 
 
 /********************************************************************/
