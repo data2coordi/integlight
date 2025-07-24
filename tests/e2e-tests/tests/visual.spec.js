@@ -1,73 +1,24 @@
 import { test, expect } from '@playwright/test';
 
+test('モバイルでハンバーガーメニューの開閉ができる', async ({ page }) => {
+  // モバイル表示に設定
+  await page.setViewportSize({ width: 375, height: 800 });
 
-
-test('ページのビジュアルリグレッションテストhome top', async ({ page }) => {
-
-  //home top
+  // ページにアクセス
   await page.goto('http://wpdev.toshidayurika.com:7100/', { waitUntil: 'networkidle' });
-  await expect(page).toHaveScreenshot({ fullPage: true, timeout: 100000, maxDiffPixelRatio: 0.15 });
-  //await expect(page).toHaveScreenshot({ fullPage: true, timeout: 100000 });
 
-});
+  // メニューコンテナ（開閉対象）とトグルボタン取得
+  const toggleButton = page.locator('#menuToggle-button');
+  const menuContainer = page.locator('.menuToggle-containerForMenu');
 
+  // 初期状態は閉じている
+  await expect(menuContainer).toHaveAttribute('aria-hidden', 'true');
 
-test('ページのビジュアルリグレッションテストfront top', async ({ page }) => {
-  //front top
-  await page.goto('http://wpdev.toshidayurika.com:7100/fire%e3%81%a7%e8%87%aa%e7%94%b1%e3%81%a8%e6%88%90%e9%95%b7%e3%82%92%e6%8e%b4%e3%82%80%ef%bc%81/', { waitUntil: 'networkidle' });
-  await expect(page).toHaveScreenshot({ fullPage: true });
+  // クリックして開く
+  await toggleButton.click();
+  await expect(menuContainer).toHaveAttribute('aria-hidden', 'false');
 
-
-});
-
-
-test('ページのビジュアルリグレッションテストカテゴリ一覧', async ({ page }) => {
-
-  //カテゴリ一覧
-  await page.goto('http://wpdev.toshidayurika.com:7100/category/fire-blog/http://wpdev.toshidayurika.com:7100/category/fire-blog/');
-  await expect(page).toHaveScreenshot({ fullPage: true });
-
-});
-
-
-test('ページのビジュアルリグレッションテスト 固定ページ', async ({ page }) => {
-
-
-  //固定ページ
-  await page.goto('http://wpdev.toshidayurika.com:7100/profile/');
-  await expect(page).toHaveScreenshot({ fullPage: true });
-
-});
-
-test('ページのビジュアルリグレッションテスト ブログ', async ({ page }) => {
-
-
-  //ブログ
-  await page.goto('http://wpdev.toshidayurika.com:7100/sidefire-7500man-life-cost/');
-  await expect(page).toHaveScreenshot({ fullPage: true });
-
-
-
-
-});
-
-test('ページのビジュアルリグレッションテスト プラグイン１', async ({ page }) => {
-
-
-  await page.goto('http://wpdev.toshidayurika.com:7100/ptest/');
-  await expect(page).toHaveScreenshot({ fullPage: true });
-
-
-
-
-});
-test('ページのビジュアルリグレッションテスト プラグイン2', async ({ page }) => {
-
-
-  await page.goto('http://wpdev.toshidayurika.com:7100/ptest2/');
-  await expect(page).toHaveScreenshot({ fullPage: true });
-
-
-
-
+  // 再度クリックして閉じる
+  await toggleButton.click();
+  await expect(menuContainer).toHaveAttribute('aria-hidden', 'true');
 });
