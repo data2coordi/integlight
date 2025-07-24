@@ -484,11 +484,11 @@ nav.navigation.pagination {
   display: inline-block;
 }
 
-.nav-previous .nav-label:hover,
+/* .nav-previous .nav-label:hover,
 .nav-next .nav-label:hover {
   color: #999;
   background: #000;
-}
+} */
 
 .nav-previous:hover,
 .nav-next:hover {
