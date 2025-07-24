@@ -1,13 +1,4 @@
 <?php
-/*
-
-add_action('wp_enqueue_scripts', function () {
-    if (!is_admin()) {
-        wp_dequeue_style('wp-block-library');
-    }
-}, 20);
-*/
-
 
 
 
@@ -21,6 +12,14 @@ add_action('wp_enqueue_scripts', function () {
 /***************************************** */
 /**css,js読み込み s************************ */
 /***************************************** */
+
+//wp-block-libraryは遅延できないため、フロントでは除外する。 
+//遅延もさせているがPSIで指摘されるため、除外も実施
+add_action('wp_enqueue_scripts', function () {
+    if (!is_admin()) {
+        wp_dequeue_style('wp-block-library');
+    }
+}, 20);
 
 
 
