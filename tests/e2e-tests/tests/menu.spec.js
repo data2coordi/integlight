@@ -7,7 +7,6 @@ import { test, expect } from '@playwright/test';
 /****************************************************************************************:     */
 /****************************************************************************************:     */
 /*
-
 test('PC-01: メインメニュー → サブメニュー → サブサブメニューの開閉と閉じる確認', async ({ page }) => {
   // 1. ページを開く
   await page.goto('http://wpdev.toshidayurika.com:7100/', { waitUntil: 'networkidle' });
@@ -57,7 +56,7 @@ test('PC-01: メインメニュー → サブメニュー → サブサブメニ
 
 });
 
-
+*/
 
 /****************************************************************************************:     */
 /****************************************************************************************:     */
@@ -162,7 +161,6 @@ test('SP-01: メインメニュー → サブメニュー → サブサブメニ
 
 });
 
-
 */
 
 /****************************************************************************************:     */
@@ -170,7 +168,6 @@ test('SP-01: メインメニュー → サブメニュー → サブサブメニ
 /*キーボードPC操作*/
 /****************************************************************************************:     */
 /****************************************************************************************:     */
-
 /*
 
 test('PC-02: Tabでメイン→サブ→サブサブ開いて、ESCで全閉じ確認', async ({ page }) => {
@@ -218,8 +215,8 @@ test('PC-02: Tabでメイン→サブ→サブサブ開いて、ESCで全閉じ�
 
 
 });
-
-
+*/
+/*
 
 test('PC-03: Tabで開いて Shift+Tabで戻りつつメニューが階層的に閉じる確認', async ({ page }) => {
   // 1. ページを開く
@@ -280,6 +277,86 @@ test('PC-03: Tabで開いて Shift+Tabで戻りつつメニューが階層的に
 
 });
 */
+/*
+test('PC-04: Tabでメイン→サブ→サブサブ→次のサブ', async ({ page }) => {
+  // 1. ページを開く
+  await page.goto('http://wpdev.toshidayurika.com:7100/', { waitUntil: 'networkidle' });
+
+  // 2. メインメニューをTabでフォーカス→開く
+  const mainLink = page.locator('.main-navigation .menu-item-has-children > a').first();
+  await mainLink.focus();
+  await page.keyboard.press('Tab'); // メインメニュー
+  const mainItem = mainLink.locator('..');
+  await expect(mainItem).toHaveClass(/active/);
+
+
+  // 3. サブメニューが可視化されていることを確認
+  const subMenu = mainItem.locator('> .sub-menu');
+  await expect(subMenu).toBeVisible();
+
+  await page.waitForTimeout(500);
+
+  // 4. サブサブを持つリンクをTabでフォーカス→開く
+  const subSubLink = subMenu.locator('li.menu-item-has-children > a').first();
+  //await subSubLink.focus();
+  await page.keyboard.press('Tab'); // メインメニュー
+  const subSubItem = subSubLink.locator('..');
+  await expect(subSubItem).toHaveClass(/active/);
+
+  // 5. サブサブメニューが可視化されていることを確認
+  const subSubMenu = subSubItem.locator('> .sub-menu');
+  await expect(subSubMenu).toBeVisible();
+
+  await page.waitForTimeout(500);
+
+
+  await page.keyboard.press('Tab');
+  await page.waitForTimeout(500);
+  await page.keyboard.press('Tab');
+  await page.waitForTimeout(500);
+  await page.keyboard.press('Tab');
+  await page.waitForTimeout(500);
+  await page.keyboard.press('Tab');
+  await page.waitForTimeout(500);
+  await page.keyboard.press('Tab');
+  await page.waitForTimeout(500);
+  await page.keyboard.press('Tab');
+  await page.waitForTimeout(500);
+  await page.keyboard.press('Tab');
+  await page.waitForTimeout(500);
+  await page.keyboard.press('Tab');
+  await page.waitForTimeout(500);
+  await page.keyboard.press('Tab');
+  await page.waitForTimeout(500);
+  await expect(subMenu).toBeVisible();
+  await expect(subSubMenu).toBeHidden();
+  await page.keyboard.press('Tab');
+  await page.waitForTimeout(500);
+  await page.keyboard.press('Tab');
+  await page.waitForTimeout(500);
+  await page.keyboard.press('Tab');
+  await page.waitForTimeout(500);
+
+
+
+
+  // 6. ESCキーを一度押して全階層を閉じる
+  await page.keyboard.press('Escape');
+
+  // 7. どの階層にも .active がなく、サブ・サブサブともに隠れていること
+  await expect(mainItem).not.toHaveClass(/active/);
+  await expect(subSubItem).not.toHaveClass(/active/);
+  await expect(subMenu).toBeHidden();
+  await expect(subSubMenu).toBeHidden();
+
+  await page.waitForTimeout(500);
+
+
+});
+
+*/
+
+
 /****************************************************************************************:     */
 /****************************************************************************************:     */
 /*キーボードモバイル操作*/
@@ -303,60 +380,180 @@ test('モバイルでハンバーガーメニューをキーボード操作で�
   // フォーカスしてEnterキーで開く
   await toggleButton.focus();
   await toggleButton.press('Enter');
+  await page.waitForTimeout(500);
+
   await expect(menuContainer).toHaveAttribute('aria-hidden', 'false');
 
   // 再度Enterキーで閉じる
   await toggleButton.press('Enter');
+  await page.waitForTimeout(500);
+
   await expect(menuContainer).toHaveAttribute('aria-hidden', 'true');
+
 });
-*/
-test('SP-02: ハンバーガー開いてTabでメイン→サブ→サブサブ開き、ESCで全閉じ確認', async ({ page }) => {
-  // 1. モバイル表示に設定しページを開く
+test('SP-02: モバイルでTabでメイン→サブ→サブサブ開いて、ESCで全閉じ確認', async ({ page }) => {
+  // 1. モバイル表示に設定してページを開く
   await page.setViewportSize({ width: 375, height: 800 });
   await page.goto('http://wpdev.toshidayurika.com:7100/', { waitUntil: 'networkidle' });
 
-  // 2. ハンバーガーメニューをキーボードで開く
+  // 2. ハンバーガーメニューをEnterキーで開く
   const toggleButton = page.locator('#menuToggle-button');
   const menuContainer = page.locator('.menuToggle-containerForMenu');
+  await expect(menuContainer).toHaveAttribute('aria-hidden', 'true');
   await toggleButton.focus();
   await toggleButton.press('Enter');
   await page.waitForTimeout(500);
 
   await expect(menuContainer).toHaveAttribute('aria-hidden', 'false');
 
-  // 3. メインメニューにTabで移動 → フォーカス＆開く
+  // 3. メインメニューのリンクにフォーカス→Tabで開く
+  const mainLink = page.locator('.main-navigation .menu-item-has-children > a').first();
+  //await mainLink.focus();
+  await page.keyboard.press('Tab');
+  await page.waitForTimeout(500);
   await page.keyboard.press('Tab');
   await page.waitForTimeout(500);
 
-  const mainLink = page.locator('.main-navigation .menu-item-has-children > a').first();
   const mainItem = mainLink.locator('..');
   await expect(mainItem).toHaveClass(/active/);
 
-  // 4. サブメニューが表示されていること
+  // 4. サブメニューが表示されることを確認
   const subMenu = mainItem.locator('> .sub-menu');
   await expect(subMenu).toBeVisible();
+
   await page.waitForTimeout(500);
 
-  // 5. Tabでサブサブメニューに移動 → フォーカス＆開く
-  await page.keyboard.press('Tab');
-  await page.waitForTimeout(500);
-
+  // 5. サブサブを持つリンクにTabでフォーカス→開く
   const subSubLink = subMenu.locator('li.menu-item-has-children > a').first();
+  await page.keyboard.press('Tab');
   const subSubItem = subSubLink.locator('..');
   await expect(subSubItem).toHaveClass(/active/);
 
-  // 6. サブサブメニューが表示されていること
+  // 6. サブサブメニューが表示されることを確認
   const subSubMenu = subSubItem.locator('> .sub-menu');
   await expect(subSubMenu).toBeVisible();
+
   await page.waitForTimeout(500);
 
-  // 7. ESCキーで全メニュー閉じる
+  // 7. ESCキーで全閉じ
   await page.keyboard.press('Escape');
-  await page.waitForTimeout(500);
 
-  // 8. すべて非表示＆.activeクラスが外れていること
+  // 8. 全階層が閉じていることを確認
   await expect(mainItem).not.toHaveClass(/active/);
   await expect(subSubItem).not.toHaveClass(/active/);
   await expect(subMenu).toBeHidden();
   await expect(subSubMenu).toBeHidden();
+
+  await page.waitForTimeout(500);
+});
+
+test('PC-03: Tabで開いて Shift+Tabで戻りつつメニューが階層的に閉じる確認', async ({ page }) => {
+  // 1. モバイル表示に設定してページを開く
+  await page.setViewportSize({ width: 375, height: 800 });
+  await page.goto('http://wpdev.toshidayurika.com:7100/', { waitUntil: 'networkidle' });
+
+  // 2. ハンバーガーメニューをEnterキーで開く
+  const toggleButton = page.locator('#menuToggle-button');
+  const menuContainer = page.locator('.menuToggle-containerForMenu');
+  await expect(menuContainer).toHaveAttribute('aria-hidden', 'true');
+  await toggleButton.focus();
+  await toggleButton.press('Enter');
+  await page.waitForTimeout(500);
+
+  await expect(menuContainer).toHaveAttribute('aria-hidden', 'false');
+
+  // 3. メインメニューのリンクにフォーカス→Tabで開く
+  const mainLink = page.locator('.main-navigation .menu-item-has-children > a').first();
+  //await mainLink.focus();
+  await page.keyboard.press('Tab');
+  await page.waitForTimeout(500);
+  await page.keyboard.press('Tab');
+  await page.waitForTimeout(500);
+
+  const mainItem = mainLink.locator('..');
+  await expect(mainItem).toHaveClass(/active/);
+
+  // 3. サブメニューが可視化されていることを確認
+  const subMenu = mainItem.locator('> .sub-menu');
+  await expect(subMenu).toBeVisible();
+
+  await page.waitForTimeout(500);
+
+  // 4. サブサブを持つリンクをTabでフォーカス→開く
+  const subSubLink = subMenu.locator('li.menu-item-has-children > a').first();
+  //await subSubLink.focus();
+  await page.keyboard.press('Tab'); // メインメニュー
+  const subSubItem = subSubLink.locator('..');
+  await expect(subSubItem).toHaveClass(/active/);
+
+  // 5. サブサブメニューが可視化されていることを確認
+  const subSubMenu = subSubItem.locator('> .sub-menu');
+  await expect(subSubMenu).toBeVisible();
+
+  await page.waitForTimeout(500);
+
+
+  // 5. Shift+Tab 2回: サブサブメニューのフォーカスが外れる → サブサブ閉じ
+  await page.keyboard.press('Shift+Tab');
+  await page.waitForTimeout(500);
+  await page.keyboard.press('Shift+Tab');
+  await page.waitForTimeout(500);
+
+  await expect(subSubItem).not.toHaveClass(/active/);
+  await expect(subSubMenu).toBeHidden();
+  // サブメニューはまだ開いている
+  await expect(subMenu).toBeVisible();
+
+
+  //  console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+  //  const html_subsub = await subsubMenu.evaluate(el => el.outerHTML);
+  //  console.log(html_subsub);
+
+
+
+  // 7. Shift+Tab 三回目: メインメニューのフォーカスが外れる → メイン閉じ
+  await page.keyboard.press('Shift+Tab');
+  await page.waitForTimeout(500);
+  await expect(mainItem).not.toHaveClass(/active/);
+  await expect(subMenu).toBeHidden();
+  await page.waitForTimeout(500);
+
+});
+
+*/
+
+/****************************************************************************************:     */
+/****************************************************************************************:     */
+/*アクセサビリティテスト*/
+/****************************************************************************************:     */
+/****************************************************************************************:     */
+
+
+test('AX-01: メニューの aria-expanded 属性が正しく反映されるか確認', async ({ page }) => {
+  await page.goto('http://wpdev.toshidayurika.com:7100/', { waitUntil: 'networkidle' });
+
+  const mainMenuLink = page.locator('.menu-item.menu-item-has-children > a').first();
+  const subMenuLink = page.locator('.sub-menu .menu-item-has-children > a').first();
+
+  // 初期状態：閉じている
+  await expect(mainMenuLink).toHaveAttribute('aria-expanded', null);
+  await expect(subMenuLink).toHaveAttribute('aria-expanded', 'false');
+
+  // メインメニューを開く（EnterまたはClick）
+  await mainMenuLink.focus();
+  await page.keyboard.press('Tab');
+
+  await expect(mainMenuLink).toHaveAttribute('aria-expanded', 'true');
+
+  // サブメニューを開く
+  await subMenuLink.focus();
+  await page.keyboard.press('Tab');
+
+  await expect(subMenuLink).toHaveAttribute('aria-expanded', 'true');
+
+  // Escで全閉じ
+  await page.keyboard.press('Escape');
+
+  await expect(mainMenuLink).toHaveAttribute('aria-expanded', 'false');
+  await expect(subMenuLink).toHaveAttribute('aria-expanded', 'false');
 });
