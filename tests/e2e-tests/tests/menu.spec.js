@@ -1,34 +1,33 @@
 import { test, expect } from '@playwright/test';
 
 test('PC-01: メインメニュー → サブメニュー → サブサブメニューの開閉', async ({ page }) => {
+  // 1. ページを開く
   await page.goto('http://wpdev.toshidayurika.com:7100/', { waitUntil: 'networkidle' });
 
-  // メインメニューの親メニュー項目（子メニューがあるもの）を取得
-  const mainMenu = page.locator('.main-navigation .menu-item-has-children').first();
+  // 2. 最初の「子を持つメニュー」(メインメニュー)を取得しクリック
+  const mainMenuItem = page.locator('.main-navigation .menu-item-has-children').first();
+  const mainLink = mainMenuItem.locator('> a');
+  const mainBox = await mainLink.boundingBox();
+  if (!mainBox) throw new Error('メインメニューリンクのboundingBoxが取得できません');
+  await mainLink.click({ position: { x: mainBox.width - 10, y: mainBox.height / 2 } });
 
-  // メインメニューのリンク右端をクリック（例：横幅200pxの右端付近）
-  const box = await mainMenu.locator('> a').boundingBox();
-  if (!box) throw new Error('メインメニューリンクのboundingBoxが取得できません');
-  await mainMenu.locator('> a').click({ position: { x: box.width - 10, y: box.height / 2 } });
-
-  // 直下のサブメニューのみ取得して表示確認
-  const subMenu = mainMenu.locator('> .sub-menu');
+  // 3. サブメニューが開き、親の <li> に .active が付いていることを確認
+  const subMenu = mainMenuItem.locator('> .sub-menu');
   await expect(subMenu).toBeVisible();
+  await expect(mainMenuItem).toHaveClass(/active/);
 
-  // サブメニュー内でさらに子メニューを持つ最初の項目を取得
-  const subSubTrigger = subMenu.locator('.menu-item-has-children').first();
-
-  // そのリンクの右端をクリック（子メニュー開閉のトリガー想定）
-  const subSubLink = subSubTrigger.locator('> a');
+  // 4. サブメニュー内の「子を持つメニュー」(サブサブ開閉トリガー)を取得しクリック
+  const subSubItem = subMenu.locator('li.menu-item-has-children').first();
+  const subSubLink = subSubItem.locator('> a');
   const subSubBox = await subSubLink.boundingBox();
   if (!subSubBox) throw new Error('サブサブメニューリンクのboundingBoxが取得できません');
   await subSubLink.click({ position: { x: subSubBox.width - 10, y: subSubBox.height / 2 } });
 
-  // サブサブメニューの直下の表示を確認
-  const subSubMenu = subSubTrigger.locator('> .sub-menu');
+  // 5. サブサブメニューが開き、クリックした <li> に .active が付いていることを確認
+  const subSubMenu = subSubItem.locator('> .sub-menu');
   await expect(subSubMenu).toBeVisible();
+  await expect(subSubItem).toHaveClass(/active/);
 });
-
 
 
 
