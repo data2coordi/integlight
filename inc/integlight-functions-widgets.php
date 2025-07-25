@@ -27,14 +27,13 @@ class Integlight_Profile_Widget extends WP_Widget
 ?>
             <div class="integlight-author-profile-widget">
 
-                <?php echo get_avatar($user_id, 96);
-                ?>
 
-                <p>
-                    <a href="<?php echo esc_url($author_url); ?>" target="_blank" rel="noopener noreferrer">
-                        <?php echo esc_html($display_name); ?>
-                    </a>
-                </p>
+
+                <a href="<?php echo esc_url($author_url); ?>" target="_blank" rel="noopener noreferrer">
+                    <?php echo get_avatar($user_id, 96); ?>
+                    <?php echo esc_html($display_name); ?>
+                </a>
+
                 <p><?php echo wp_kses_post(nl2br($description)); ?></p>
             </div>
 <?php
