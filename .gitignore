@@ -2,3 +2,4 @@ vendor/
 from_other/
 bk/
 node_modules/
+tests/e2e-tests/test-results/
