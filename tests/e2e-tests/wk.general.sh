@@ -3,7 +3,9 @@
 
 #sudo docker compose up --build
 clear
-sudo docker compose -f docker-compose.menu.yml up
+#sudo docker compose -f docker-compose.menu.yml up
+
+sudo -E docker compose -f docker-compose.slider.yml up
 
 exit
 
