@@ -74,7 +74,7 @@ add_action('after_setup_theme', ['InteglightCommonCssAssets', 'init']);
 
 
 
-//js 移動　PF対策	
+//js 移動　PF対応!!!
 class InteglightCommonJsAssets
 {
 

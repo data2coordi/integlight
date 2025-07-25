@@ -156,7 +156,7 @@ if (! function_exists('integlight_post_thumbnail')) :
 						'loading' => 'eager',
 						'decoding' => 'async',
 						'sizes' => '(max-width: 850px) 20vw, 1200px',
-						'fetchpriority' => 'high'  // PF対応
+						'fetchpriority' => 'high'  // PF対応!!!
 
 					]
 				); ?>
@@ -170,7 +170,7 @@ if (! function_exists('integlight_post_thumbnail')) :
 					'post-thumbnail',
 					[
 						'alt' => the_title_attribute(['echo' => false]),
-						'fetchpriority' => 'high', // PF対応
+						'fetchpriority' => 'high', // PF対応!!!
 					]
 				);
 				?>

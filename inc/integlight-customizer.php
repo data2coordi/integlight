@@ -128,7 +128,7 @@ class integlight_customizer_themeColor
 		$styles = ['custom-pattern' => '/css/' . $base_pattern . '.css'];
 		InteglightFrontendStyles::add_styles($styles);
 		InteglightEditorStyles::add_styles($styles);
-		InteglightDeferCss::add_deferred_styles(['custom-pattern']);
+		InteglightDeferCss::add_deferred_styles(['custom-pattern']); //PF対応!!!
 	}
 }
 

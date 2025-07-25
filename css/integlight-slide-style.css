@@ -111,7 +111,7 @@
 
 }
 
-/*lcp高速化のためのチューニング*/
+/*PF対応!!!：lcp高速化のためのチューニング*/
 
 .slider.fade-effect .slide.active {
   /* フェードイン時に表示 */
