@@ -192,21 +192,17 @@ test('E2E-03: カスタマイザーで画像、テキストを選択し、トッ
 
 
 
-  // 5. 画像設定 - 1枚目の画像設定開始
+  // 5.1 画像設定 - 1枚目の画像設定開始
 
   // 画像変更ボタンをクリック（1枚目）
   await page.getByRole('button', { name: '画像を変更' }).nth(0).click();
 
-  // メディアライブラリのモーダルが表示されるのを待つ
-  await page.waitForSelector('.media-frame');
-  await page.waitForSelector('.attachment');
 
   // 画像が表示されるエリアをスクロール（遅延読み込み対応）
   const mediaModal = page.locator('.attachments-browser');
   await mediaModal.evaluate(el => {
     el.scrollTop = el.scrollHeight;
   });
-  await page.waitForTimeout(1500);
 
 
   const imageFileNamePartial = 'Firefly-203280';
@@ -216,16 +212,26 @@ test('E2E-03: カスタマイザーで画像、テキストを選択し、トッ
   });
 
   // 特定の画像を取得
-  const targetImage = page.locator(`img[src*="${imageFileNamePartial}"]`);
+  const targetImage = page.locator(`img[src*="${imageFileNamePartial}"]`).first();
   await expect(targetImage).toHaveCount(1);
 
-  // 確実に見えるようにする
-  await targetImage.scrollIntoViewIfNeeded();
-  await page.locator('img[src*="Firefly-203280"]').click({ force: true });
+  await targetImage.click({ force: true });
 
   await page.locator('.media-button-select').click();
 
 
+
+
+  // 5.2 メインテキスト設定 - 1枚目の画像設定開始
+  const titleInput = page.getByLabel('スライダーテキスト（メイン）').nth(0); // 1枚目のタイトル
+  const descriptionInput = page.getByLabel('スライダーテキスト（サブ）').nth(0); // 1枚目の説明
+
+  await titleInput.fill('テストタイトル');
+  await descriptionInput.fill('これはPlaywrightテストによって入力された説明文です。');
+
+  // 入力の確認（任意）
+  await expect(titleInput).toHaveValue('テストタイトル');
+  await expect(descriptionInput).toHaveValue('これはPlaywrightテストによって入力された説明文です。');
 
 
 
