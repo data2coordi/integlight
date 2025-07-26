@@ -7,6 +7,7 @@ clear
 
 sudo -E docker compose -f docker-compose.slider.yml up
 
+
 exit
 
 
