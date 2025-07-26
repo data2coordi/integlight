@@ -194,29 +194,22 @@ test('E2E-03: カスタマイザーで画像、テキストを選択し、トッ
 
   // 5.1 画像設定 - 1枚目の画像設定開始
 
-  // 画像変更ボタンをクリック（1枚目）
-  await page.getByRole('button', { name: '画像を変更' }).nth(0).click();
+  // 1) 画像変更ボタンをクリック（1枚目）
+  await page.getByRole('button', { name: '画像を変更' }).first().click();
 
-
-  // 画像が表示されるエリアをスクロール（遅延読み込み対応）
+  // 2) メディアライブラリモーダルの表示を待つ
   const mediaModal = page.locator('.attachments-browser');
-  await mediaModal.evaluate(el => {
-    el.scrollTop = el.scrollHeight;
-  });
+  await mediaModal.waitFor({ state: 'visible', timeout: 10000 });
 
-
+  // 3) 対象画像を取得し、可視化を待ってスクロール
   const imageFileNamePartial = 'Firefly-203280';
-  await page.waitForSelector(`img[src*="${imageFileNamePartial}"]`, {
-    timeout: 10000,
-    state: 'visible',
-  });
-
-  // 特定の画像を取得
   const targetImage = page.locator(`img[src*="${imageFileNamePartial}"]`).first();
-  await expect(targetImage).toHaveCount(1);
+  await expect(targetImage).toBeVisible({ timeout: 10000 });
+  await targetImage.scrollIntoViewIfNeeded();
 
+
+  // 4) クリックして選択完了
   await targetImage.click({ force: true });
-
   await page.locator('.media-button-select').click();
 
 
@@ -255,7 +248,7 @@ test('E2E-03: カスタマイザーで画像、テキストを選択し、トッ
   await page.goto(baseUrl, { waitUntil: 'networkidle' });
   await expect(page.locator('.slider.fade-effect')).toBeVisible();
 
-  // ８. 画像が１秒で変わることを確認
+  // ８.1 画像が１秒で変わることを確認
   // 表示中のスライド画像のsrcを取得（activeクラスがあるスライド内のimg）
   const getActiveImageSrc = async () => {
     const activeSlide = page.locator('.slider.fade-effect .slide.active img');
@@ -274,6 +267,15 @@ test('E2E-03: カスタマイザーで画像、テキストを選択し、トッ
   // 画像が切り替わっていることを確認
   expect(secondSrc).not.toBe(firstSrc);
 
+
+  // 8.2 セットした画像がスライダーに含まれていることを確認
+  const selectedSrc = await targetImage.getAttribute('src');
+
+  const sliderImages = page.locator('.slider.fade-effect .slide img');
+  const matched = await sliderImages.evaluateAll((imgs, src) =>
+    imgs.some(img => img.getAttribute('src') === src), selectedSrc);
+
+  expect(matched).toBe(true);
 
 });
 
