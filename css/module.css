@@ -703,6 +703,80 @@ nav.post-navigation {
 
 /* パンくずe */
 
+
+/***********************************************/
+/*先頭のカテゴリ一覧s*/
+/***********************************************/
+
+.blog .category-list {
+  display: flex;
+  justify-content: space-between;
+  /* or space-evenly も可 */
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 4rem auto;
+  padding: 0 2rem;
+  max-width: 900px;
+}
+
+.blog .category-item {
+  flex: 1;
+  /* ←等幅にする */
+  max-width: 300px;
+  /* ←横に並べたい最大幅 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.blog .category-link {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 150px;
+  background-color: #f0f0f0;
+  /* グレー背景 */
+  color: #000;
+  text-align: center;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin: 0 8px 8px 0;
+  padding: 10px;
+  text-decoration: none;
+  box-shadow: inset 2px 2px 6px rgba(255, 255, 255, 0.6),
+    inset -2px -2px 6px rgba(0, 0, 0, 0.05),
+    0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.blog .category-link:hover {
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+
+@media screen and (max-width: 768px) {
+  .blog .category-list {
+    padding: 0;
+    justify-content: center;
+    gap: 0.5rem;
+    /* スマホで隙間を狭める */
+  }
+
+  .blog .category-link {
+    width: 100px;
+    height: 100px;
+    font-size: 0.75rem;
+  }
+}
+
+
+
+/***********************************************/
+/*先頭のカテゴリ一覧e*/
+/***********************************************/
+
 /*************************************/
 /* entry-header + 投稿情報 +entry-footer s*/
 /*************************************/
@@ -902,7 +976,7 @@ pre.wp-block-verse {
 
 /* プロフィールデザイン */
 /* プロフィールデザイン */
-/* プロフィールデザイン */
+/* プロフィールデザインs */
 .integlight-author-profile-widget {
   background: #fff;                     /* カードの背景色（必要なら調整） */
   padding: 1.5rem;                      /* 内側の余白でゆとりを出す */
@@ -921,9 +995,9 @@ pre.wp-block-verse {
   text-align: left;
 }
 
-.integlight-author-profile-widget p:first-of-type {
+/* .integlight-author-profile-widget p:first-of-type {
   text-align: center;
-}
+} */
 
 
 .integlight-author-profile-widget img {
@@ -939,8 +1013,9 @@ pre.wp-block-verse {
   font-weight: bold;       /* ボールドに */
   text-decoration: none;   /* 下線を消す */
   color: #555;          /* リンクの色を親に合わせる（必要に応じて） */
-}
-
+} 
+/* プロフィールデザインe */
+/* プロフィールデザイン */
 
 
 /* スマホレイアウト */

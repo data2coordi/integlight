@@ -131,6 +131,7 @@ a:focus-visible,
 }
 
 /* homeのカテゴリーの色 */
+.blog .category-link,
 .home .category-link {
   background: #f3dede;
 }

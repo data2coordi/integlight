@@ -133,6 +133,7 @@ a:focus-visible,
 }
 
 /* homeのカテゴリーの色 */
+.blog .category-link,
 .home .category-link {
   background: #e9d1d5;
 }
