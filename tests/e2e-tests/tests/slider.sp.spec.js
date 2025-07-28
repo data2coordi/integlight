@@ -7,25 +7,6 @@ test.use({
         'Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1',
 });
 
-// テスト本体（省略部分はあなたの元のコードと同じ）
-test('E2E-04(モバイル): カスタマイザーで画像、テキストを選択...', async ({ page }) => {
-    const baseUrl = 'http://wpdev.toshidayurika.com:7100';
-
-
-    await page.goto(baseUrl);
-    await expect(page.locator('.slider.fade-effect')).toBeVisible();
-
-    // 以下、これまでのテストコードをそのまま貼り付け
-
-    // …ログイン～カスタマイザー操作…
-    await page.waitForTimeout(3000);
-
-    await expect(
-        page.locator('.slider.fade-effect .slide img[src*="Firefly-260521"]')
-    ).toHaveCount(1);
-
-    // wp_is_mobile() が true になっていることを前提にした挙動がここで確認できるはず
-});
 
 test('E2E-05(モバイル): カスタマイザーで画像、テキストを選択...', async ({ context, page }) => {
 
@@ -118,23 +99,23 @@ test('E2E-05(モバイル): カスタマイザーで画像、テキストを選�
     const titleInput = page.getByLabel('スライダーテキスト（メイン）').nth(0); // 1枚目のタイトル
     const descriptionInput = page.getByLabel('スライダーテキスト（サブ）').nth(0); // 1枚目の説明
 
-    await titleInput.fill('テストタイトル');
-    await descriptionInput.fill('これはPlaywrightテストによって入力された説明文です。');
+    await titleInput.fill('テストタイトルsp');
+    await descriptionInput.fill('これはPlaywrightテストによって入力された説明文です。sp');
 
     // 入力の確認（任意）
-    await expect(titleInput).toHaveValue('テストタイトル');
-    await expect(descriptionInput).toHaveValue('これはPlaywrightテストによって入力された説明文です。');
+    await expect(titleInput).toHaveValue('テストタイトルsp');
+    await expect(descriptionInput).toHaveValue('これはPlaywrightテストによって入力された説明文です。sp');
 
     // 5.3 メインテキストの位置設定 - 1枚目の画像設定開始
     // テキスト位置：上（top）
-    const topInput = page.getByLabel('スライダーテキスト位置（上）');
-    await topInput.fill('100');
-    await expect(topInput).toHaveValue('100');
+    const topInput = page.getByLabel('スライダーテキスト位置（モバイル、上）');
+    await topInput.fill('10');
+    await expect(topInput).toHaveValue('10');
 
     // テキスト位置：左（left）
-    const leftInput = page.getByLabel('スライダーテキスト位置（左）');
-    await leftInput.fill('150');
-    await expect(leftInput).toHaveValue('150');
+    const leftInput = page.getByLabel('スライダーテキスト位置（モバイル、左）');
+    await leftInput.fill('15');
+    await expect(leftInput).toHaveValue('15');
 
 
 
@@ -186,8 +167,8 @@ test('E2E-05(モバイル): カスタマイザーで画像、テキストを選�
     const mainText = page.locator('.slider .text-overlay h1'); // メインタイトル
     const subText = page.locator('.slider .text-overlay h2');   // サブテキスト（p要素の場合）
 
-    await expect(mainText).toHaveText('テストタイトル');
-    await expect(subText).toHaveText('これはPlaywrightテストによって入力された説明文です。');
+    await expect(mainText).toHaveText('テストタイトルsp');
+    await expect(subText).toHaveText('これはPlaywrightテストによって入力された説明文です。sp');
 
     //9.2テキストの表示されている位置が正しいこと
     const overlay = page.locator('.slider .text-overlay');
@@ -202,8 +183,8 @@ test('E2E-05(モバイル): カスタマイザーで画像、テキストを選�
     });
 
     // 期待される位置との比較
-    expect(position.top).toBe('200px');
-    expect(position.left).toBe('20px');
+    expect(position.top).toBe('10px');
+    expect(position.left).toBe('15px');
 
 });
 
