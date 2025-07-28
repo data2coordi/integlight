@@ -1,12 +1,12 @@
-import { test, expect } from '@playwright/test';
-
+import { test, expect, devices } from '@playwright/test';
 
 /****************************************************************************************:     */
 /****************************************************************************************:     */
 /*slider通常ケース*/
 /****************************************************************************************:     */
 /****************************************************************************************:     */
-/*
+
+
 test('E2E-01: カスタマイザーでフェイド方式を選択し、トップページでスライダーが表示されることを確認', async ({ page }) => {
   const baseUrl = 'http://wpdev.toshidayurika.com:7100';
 
@@ -147,8 +147,6 @@ test('E2E-01: カスタマイザーでスライド方式を選択し、トップ
 
 });
 
-*/
-
 test('E2E-03: カスタマイザーで画像、テキストを選択し、トップページでスライダーが表示されることを確認', async ({ page }) => {
   const baseUrl = 'http://wpdev.toshidayurika.com:7100';
 
@@ -194,8 +192,12 @@ test('E2E-03: カスタマイザーで画像、テキストを選択し、トッ
 
   // 5.1 画像設定 - 1枚目の画像設定開始
 
+  // スライダー画像を一度削除してから選択
+  await page.getByRole('button', { name: '削除' }).first().click(); // ← 追加
+  await page.waitForTimeout(500); // ← 念のため待機
+
   // 1) 画像変更ボタンをクリック（1枚目）
-  await page.getByRole('button', { name: '画像を変更' }).first().click();
+  await page.getByRole('button', { name: '画像を選択' }).first().click();
 
   // 2) メディアライブラリモーダルの表示を待つ
   const mediaModal = page.locator('.attachments-browser');
@@ -204,13 +206,26 @@ test('E2E-03: カスタマイザーで画像、テキストを選択し、トッ
   // 3) 対象画像を取得し、可視化を待ってスクロール
   const imageFileNamePartial = 'Firefly-203280';
   const targetImage = page.locator(`img[src*="${imageFileNamePartial}"]`).first();
-  await expect(targetImage).toBeVisible({ timeout: 10000 });
+  await expect(targetImage).toBeVisible({ timeout: 15000 });
   await targetImage.scrollIntoViewIfNeeded();
 
 
   // 4) クリックして選択完了
   await targetImage.click({ force: true });
   await page.locator('.media-button-select').click();
+  // 画像選択完了後、モーダルが閉じるのを待つ
+
+  await page.locator('.media-modal').waitFor({ state: 'hidden', timeout: 10000 });
+
+
+  const selectedSrc = await targetImage.getAttribute('src');
+  // 任意：期待される部分文字列を含むかどうか
+  expect(selectedSrc).toContain('Firefly-203280');
+
+
+
+
+
 
 
 
@@ -226,7 +241,16 @@ test('E2E-03: カスタマイザーで画像、テキストを選択し、トッ
   await expect(titleInput).toHaveValue('テストタイトル');
   await expect(descriptionInput).toHaveValue('これはPlaywrightテストによって入力された説明文です。');
 
+  // 5.3 メインテキストの位置設定 - 1枚目の画像設定開始
+  // テキスト位置：上（top）
+  const topInput = page.getByLabel('スライダーテキスト位置（上）');
+  await topInput.fill('100');
+  await expect(topInput).toHaveValue('100');
 
+  // テキスト位置：左（left）
+  const leftInput = page.getByLabel('スライダーテキスト位置（左）');
+  await leftInput.fill('150');
+  await expect(leftInput).toHaveValue('150');
 
 
 
@@ -269,20 +293,31 @@ test('E2E-03: カスタマイザーで画像、テキストを選択し、トッ
 
 
   // 8.2 セットした画像がスライダーに含まれていることを確認
-  const selectedSrc = await targetImage.getAttribute('src');
+  await expect(page.locator(`.slider.fade-effect .slide img[src*="Firefly-203280"]`)).toBeVisible({ timeout: 10000 });
 
-  const sliderImages = page.locator('.slider.fade-effect .slide img');
-  const matched = await sliderImages.evaluateAll((imgs, src) =>
-    imgs.some(img => img.getAttribute('src') === src), selectedSrc);
 
-  expect(matched).toBe(true);
+  //9.1上記でセットしたテキストが表示されていること
+  // 9.1 スライダーテキストが正しく表示されていることを確認
+  const mainText = page.locator('.slider .text-overlay h1'); // メインタイトル
+  const subText = page.locator('.slider .text-overlay h2');   // サブテキスト（p要素の場合）
+
+  await expect(mainText).toHaveText('テストタイトル');
+  await expect(subText).toHaveText('これはPlaywrightテストによって入力された説明文です。');
+
+  //9.2テキストの表示されている位置が正しいこと
+  const overlay = page.locator('.slider .text-overlay');
+
+  // getComputedStyleで top / left の位置を取得
+  const position = await overlay.evaluate((el) => {
+    const style = window.getComputedStyle(el);
+    return {
+      top: style.top,
+      left: style.left,
+    };
+  });
+
+  // 期待される位置との比較
+  expect(position.top).toBe('100px');
+  expect(position.left).toBe('150px');
 
 });
-
-
-
-/****************************************************************************************:     */
-/****************************************************************************************:     */
-/*通常ケースSP操作*/
-/****************************************************************************************:     */
-/****************************************************************************************:     */
