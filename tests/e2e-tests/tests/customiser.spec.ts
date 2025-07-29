@@ -22,6 +22,7 @@ async function openCustomizer(page, baseUrl: string) {
     await expect(page.locator('.wp-full-overlay-main')).toBeVisible({ timeout: 10000 });
 }
 
+// 共通関数：テーマを切り替え
 async function activateTheme(page, baseUrl: string, themeSlug: string) {
     await page.goto(`${baseUrl}/wp-admin/themes.php`, { waitUntil: 'networkidle' });
 
@@ -34,82 +35,120 @@ async function activateTheme(page, baseUrl: string, themeSlug: string) {
         await page.waitForSelector(`${themeSelector}.active`, { timeout: 5000 });
     }
 }
-test.describe('Google Analytics カスタマイザー設定（PC）', () => {
-    test.use({
-        viewport: { width: 1280, height: 800 },
-        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
+
+// 4ケース共通のテスト群を関数化
+function runCustomizerTests({
+    testTitlePrefix,
+    baseUrl,
+    settingButtonName,
+    inputLabel,
+    inputCode,
+    outputTarget, // 'head' or 'body'
+}: {
+    testTitlePrefix: string;
+    baseUrl: string;
+    settingButtonName: string;
+    inputLabel: string;
+    inputCode: string;
+    outputTarget: 'head' | 'body';
+}) {
+    test.describe(`${testTitlePrefix} カスタマイザー設定`, () => {
+        test('E2E-GA-01:トラッキングIDを入力し保存できる', async ({ page }) => {
+            await login(page, baseUrl);
+            await openCustomizer(page, baseUrl);
+
+            await page.getByRole('button', { name: settingButtonName }).click();
+            const input = page.getByLabel(inputLabel);
+
+            await input.fill('');
+            await input.fill(inputCode);
+
+            const saveBtn = page.locator('#save');
+            await saveBtn.click();
+            await expect(saveBtn).toHaveAttribute('value', '公開済み');
+            await expect(saveBtn).toBeDisabled();
+        });
+
+        test('E2E-GA-02:保存したトラッキングIDが次回表示時に復元される', async ({ page }) => {
+            await login(page, baseUrl);
+            await openCustomizer(page, baseUrl);
+
+            await page.getByRole('button', { name: settingButtonName }).click();
+            const input = page.getByLabel(inputLabel);
+
+            await expect(input).toHaveValue(inputCode);
+        });
+
+        test('E2E-GA-03: トラッキングIDがフロントエンドに出力される', async ({ page }) => {
+            await page.goto(baseUrl, { waitUntil: 'networkidle' });
+            const targetContent = await page.locator(outputTarget).innerHTML();
+            expect(targetContent).toContain(inputCode);
+        });
+        test('E2E-GA-04: Twenty TwentyでもGAがheadに出力される', async ({ page }) => {
+            await login(page, baseUrl);
+            await activateTheme(page, baseUrl, 'twentytwenty');
+
+            await page.goto(baseUrl, { waitUntil: 'networkidle' });
+            const headContent = await page.locator(outputTarget).innerHTML();
+
+            expect(headContent).toContain(inputCode);
+            await activateTheme(page, baseUrl, 'integlight');
+        });
+
+        // 5. Twenty Twentyで保存IDが復元される
+        test('E2E-GA-05: Twenty Twentyでも保存したトラッキングIDが次回表示時に復元される', async ({ page }) => {
+            await login(page, baseUrl);
+            await activateTheme(page, baseUrl, 'twentytwenty');
+            await openCustomizer(page, baseUrl);
+
+            await page.getByRole('button', { name: settingButtonName }).click();
+            const trackingIdInput = page.getByLabel(inputLabel);
+
+            await expect(trackingIdInput).toHaveValue(inputCode);
+            await activateTheme(page, baseUrl, 'integlight');
+        });
     });
+}
 
-    const baseUrl = 'http://wpdev.toshidayurika.com:7100';
-
-
-
-
-    test('E2E-GA-01: トラッキングIDを入力し保存できる', async ({ page }) => {
-        await login(page, baseUrl);
-        await openCustomizer(page, baseUrl);
-
-        await page.getByRole('button', { name: 'Google Analytics 設定' }).click();
-        const trackingIdInput = page.getByLabel('Google Analytics トラッキングコード');
-
-        await trackingIdInput.fill('');
-        await trackingIdInput.fill('<script>UA-12345678-1</script>');
-
-        const saveBtn = page.locator('#save');
-        await saveBtn.click();
-        await expect(saveBtn).toHaveAttribute('value', '公開済み');
-        await expect(saveBtn).toBeDisabled();
-    });
-
-    test('E2E-GA-02: 保存したトラッキングIDが次回表示時に復元される', async ({ page }) => {
-        await login(page, baseUrl);
-        await openCustomizer(page, baseUrl);
-
-        await page.getByRole('button', { name: 'Google Analytics 設定' }).click();
-        const trackingIdInput = page.getByLabel('Google Analytics トラッキングコード');
-
-        await expect(trackingIdInput).toHaveValue('<script>UA-12345678-1</script>');
-    });
-
-    test('E2E-GA-03: トラッキングIDがフロントエンドに出力される', async ({ page }) => {
-        await page.goto(baseUrl, { waitUntil: 'networkidle' });
-        const headContent = await page.locator('head').innerHTML();
-        expect(headContent).toContain('<script>UA-12345678-1</script>');
-
-    });
-
-    test('E2E-GA-04: Twenty TwentyでもGAがheadに出力される', async ({ page }) => {
-        const baseUrl = 'http://wpdev.toshidayurika.com:7100';
-        const twentySlug = 'twentytwenty';
-        const integlightSlug = 'integlight';
+const baseUrl = 'http://wpdev.toshidayurika.com:7100';
 
 
-        await login(page, baseUrl);
-        await activateTheme(page, baseUrl, twentySlug);
-
-        await page.goto(baseUrl, { waitUntil: 'networkidle' });
-        const headContent = await page.locator('head').innerHTML();
-
-        expect(headContent).toContain('<script>UA-12345678-1</script>');
-        await activateTheme(page, baseUrl, integlightSlug);
-
-    });
-
-    test('E2E-GA-05: Twenty Twentyでも保存したトラッキングIDが次回表示時に復元される', async ({ page }) => {
-        await login(page, baseUrl);
-
-        const twentySlug = 'twentytwenty';
-        const integlightSlug = 'integlight';
-
-        await activateTheme(page, baseUrl, twentySlug);
-        await openCustomizer(page, baseUrl);
-
-        await page.getByRole('button', { name: 'Google Analytics 設定' }).click();
-        const trackingIdInput = page.getByLabel('Google Analytics トラッキングコード');
-
-        await expect(trackingIdInput).toHaveValue('<script>UA-12345678-1</script>');
-        await activateTheme(page, baseUrl, integlightSlug);
-    });
-
-
+runCustomizerTests({
+    testTitlePrefix: 'Google Analytics',
+    baseUrl,
+    settingButtonName: 'Google Analytics 設定',
+    inputLabel: 'Google Analytics トラッキングコード',
+    inputCode: '<script>UA-12345678-1</script>',
+    outputTarget: 'head',
 });
+
+
+runCustomizerTests({
+    testTitlePrefix: 'Google Tag Manager（head）',
+    baseUrl,
+    settingButtonName: 'Google Tag Manager 設定',
+    inputLabel: 'headタグに出力するコード',
+    inputCode: '<script>GTM-head-12345678-1</script>',
+    outputTarget: 'head',
+});
+
+runCustomizerTests({
+    testTitlePrefix: 'Google Tag Manager（body）',
+    baseUrl,
+    settingButtonName: 'Google Tag Manager 設定',
+    inputLabel: 'bodyタグ開始直後に出力するコード',
+    inputCode: '<script>GTM-body-12345678-1</script>',
+    outputTarget: 'body',
+});
+
+runCustomizerTests({
+    testTitlePrefix: 'Googleアドセンス自動広告',
+    baseUrl,
+    settingButtonName: 'Googleアドセンス自動広告',
+    inputLabel: 'アドセンス自動広告コード',
+    inputCode: '<script>adSense-head-12345678-1</script>',
+    outputTarget: 'head',
+});
+
+
+// 追加で必要なら、Twenty Twenty テーマでの確認テストも別途関数化可能です。
