@@ -36,6 +36,31 @@ async function activateTheme(page, baseUrl: string, themeSlug: string) {
     }
 }
 
+/**
+ * 画面上にコード内容を可視表示する（動画出力向け）
+ * @param page PlaywrightのPageオブジェクト
+ * @param code 表示したいコード文字列
+ */
+export async function showCodeOverlay(page: Page, code: string) {
+    await page.evaluate((code) => {
+        const el = document.createElement('pre');
+        el.textContent = code;
+        el.style.position = 'fixed';
+        el.style.top = '0';
+        el.style.left = '0';
+        el.style.padding = '10px';
+        el.style.background = 'white';
+        el.style.color = 'black';
+        el.style.fontSize = '14px';
+        el.style.zIndex = '99999';
+        el.id = 'visible-script-code';
+        document.body.appendChild(el);
+
+
+    }, code);
+    await page.waitForTimeout(3000);
+}
+
 // 4ケース共通のテスト群を関数化
 function runCustomizerTests({
     testTitlePrefix,
@@ -53,7 +78,7 @@ function runCustomizerTests({
     outputTarget: 'head' | 'body';
 }) {
     test.describe(`${testTitlePrefix} カスタマイザー設定`, () => {
-        test('E2E-GA-01:トラッキングIDを入力し保存できる', async ({ page }) => {
+        test('E2E-01:トラッキングIDを入力し保存できる', async ({ page }) => {
             await login(page, baseUrl);
             await openCustomizer(page, baseUrl);
 
@@ -64,12 +89,14 @@ function runCustomizerTests({
             await input.fill(inputCode);
 
             const saveBtn = page.locator('#save');
+            await expect(saveBtn).toBeEnabled();
+
             await saveBtn.click();
             await expect(saveBtn).toHaveAttribute('value', '公開済み');
             await expect(saveBtn).toBeDisabled();
         });
 
-        test('E2E-GA-02:保存したトラッキングIDが次回表示時に復元される', async ({ page }) => {
+        test('E2E-02:保存したトラッキングIDが次回表示時に復元される', async ({ page }) => {
             await login(page, baseUrl);
             await openCustomizer(page, baseUrl);
 
@@ -79,12 +106,15 @@ function runCustomizerTests({
             await expect(input).toHaveValue(inputCode);
         });
 
-        test('E2E-GA-03: トラッキングIDがフロントエンドに出力される', async ({ page }) => {
+        test('E2E-03: トラッキングIDがフロントエンドに出力される', async ({ page }) => {
             await page.goto(baseUrl, { waitUntil: 'networkidle' });
             const targetContent = await page.locator(outputTarget).innerHTML();
             expect(targetContent).toContain(inputCode);
+
+            await showCodeOverlay(page, inputCode);
+
         });
-        test('E2E-GA-04: Twenty TwentyでもGAがheadに出力される', async ({ page }) => {
+        test('E2E-04: Twenty Twentyでも出力される', async ({ page }) => {
             await login(page, baseUrl);
             await activateTheme(page, baseUrl, 'twentytwenty');
 
@@ -93,10 +123,12 @@ function runCustomizerTests({
 
             expect(headContent).toContain(inputCode);
             await activateTheme(page, baseUrl, 'integlight');
+            await showCodeOverlay(page, inputCode);
+
         });
 
         // 5. Twenty Twentyで保存IDが復元される
-        test('E2E-GA-05: Twenty Twentyでも保存したトラッキングIDが次回表示時に復元される', async ({ page }) => {
+        test('E2E-05: Twenty Twentyでも保存したトラッキングIDが次回表示時に復元される', async ({ page }) => {
             await login(page, baseUrl);
             await activateTheme(page, baseUrl, 'twentytwenty');
             await openCustomizer(page, baseUrl);
@@ -106,6 +138,9 @@ function runCustomizerTests({
 
             await expect(trackingIdInput).toHaveValue(inputCode);
             await activateTheme(page, baseUrl, 'integlight');
+            await showCodeOverlay(page, inputCode);
+
+
         });
     });
 }
@@ -114,7 +149,7 @@ const baseUrl = 'http://wpdev.toshidayurika.com:7100';
 
 
 runCustomizerTests({
-    testTitlePrefix: 'Google Analytics',
+    testTitlePrefix: 'GA',
     baseUrl,
     settingButtonName: 'Google Analytics 設定',
     inputLabel: 'Google Analytics トラッキングコード',
@@ -124,7 +159,7 @@ runCustomizerTests({
 
 
 runCustomizerTests({
-    testTitlePrefix: 'Google Tag Manager（head）',
+    testTitlePrefix: 'GTM-head',
     baseUrl,
     settingButtonName: 'Google Tag Manager 設定',
     inputLabel: 'headタグに出力するコード',
@@ -133,7 +168,7 @@ runCustomizerTests({
 });
 
 runCustomizerTests({
-    testTitlePrefix: 'Google Tag Manager（body）',
+    testTitlePrefix: 'GTM-body',
     baseUrl,
     settingButtonName: 'Google Tag Manager 設定',
     inputLabel: 'bodyタグ開始直後に出力するコード',
@@ -142,7 +177,7 @@ runCustomizerTests({
 });
 
 runCustomizerTests({
-    testTitlePrefix: 'Googleアドセンス自動広告',
+    testTitlePrefix: 'adSense',
     baseUrl,
     settingButtonName: 'Googleアドセンス自動広告',
     inputLabel: 'アドセンス自動広告コード',
