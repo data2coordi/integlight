@@ -58,9 +58,11 @@ async function setSliderText(page, mainText, subText) {
     await expect(page.getByLabel('スライダーテキスト（サブ）').nth(0)).toHaveValue(subText);
 }
 
-async function setTextPosition(page, top, left) {
-    await page.getByLabel('スライダーテキスト位置（モバイル、上）').fill(top);
-    await page.getByLabel('スライダーテキスト位置（モバイル、左）').fill(left);
+async function setTextPosition(page, top, left, text_positionLavel_top, text_positionLavel_left) {
+
+
+    await page.getByLabel(text_positionLavel_top).fill(top);
+    await page.getByLabel(text_positionLavel_left).fill(left);
 }
 
 async function saveCustomizer(page) {
@@ -131,6 +133,8 @@ test.describe('モバイル環境', () => {
             textPositionLeft: '15',
             image_delBtnNo: 3,
             image_selBtnNo: 0,
+            text_positionLavel_top: 'スライダーテキスト位置（モバイル、上）（px）',
+            text_positionLavel_left: 'スライダーテキスト位置（モバイル、左）（px）',
         };
 
         const {
@@ -144,6 +148,8 @@ test.describe('モバイル環境', () => {
             textPositionLeft,
             image_delBtnNo,
             image_selBtnNo,
+            text_positionLavel_top,
+            text_positionLavel_left,
         } = CONFIG;
 
         await test.step('1. 管理画面にログイン', () => login(page, baseUrl));
@@ -156,7 +162,7 @@ test.describe('モバイル環境', () => {
         await test.step('5.2 スライダーテキストを入力', () =>
             setSliderText(page, mainText, subText));
         await test.step('5.3 テキストの表示位置を設定', () =>
-            setTextPosition(page, textPositionTop, textPositionLeft));
+            setTextPosition(page, textPositionTop, textPositionLeft, text_positionLavel_top, text_positionLavel_left));
         await test.step('6. 公開ボタンをクリックして変更を保存', () =>
             saveCustomizer(page));
         await test.step('7〜9. フロントページで表示確認', () =>
@@ -181,6 +187,8 @@ test.describe('PC環境', () => {
             textPositionLeft: '150',
             image_delBtnNo: 0,
             image_selBtnNo: 0,
+            text_positionLavel_top: 'スライダーテキスト位置（上）（px）',
+            text_positionLavel_left: 'スライダーテキスト位置（左）（px）',
         };
 
         const {
@@ -194,6 +202,8 @@ test.describe('PC環境', () => {
             textPositionLeft,
             image_delBtnNo,
             image_selBtnNo,
+            text_positionLavel_top,
+            text_positionLavel_left,
         } = CONFIG;
 
         await test.step('1. 管理画面にログイン', () => login(page, baseUrl));
@@ -206,7 +216,7 @@ test.describe('PC環境', () => {
         await test.step('5.2 スライダーテキストを入力', () =>
             setSliderText(page, mainText, subText));
         await test.step('5.3 テキストの表示位置を設定', () =>
-            setTextPosition(page, textPositionTop, textPositionLeft));
+            setTextPosition(page, textPositionTop, textPositionLeft, text_positionLavel_top, text_positionLavel_left));
         await test.step('6. 公開ボタンをクリックして変更を保存', () =>
             saveCustomizer(page));
         await test.step('7〜9. フロントページで表示確認', () =>
