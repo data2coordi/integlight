@@ -123,11 +123,11 @@ a:focus-visible,
 }
 
 .posted-on a, .byline a, .cat-links a, .edit-link a, .tags-links a {
-  color: #ea5404;
+  color: #b84405;
 }
 
 .post-toc {
-  background-color: #c5dcd4;
+  background-color: #daeae4;
 }
 
 /* homeのカテゴリーの色 */

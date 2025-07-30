@@ -99,7 +99,8 @@ h1.site-title {
 /*******************************/
 /*2.1 段落*/
 .ly_site_content li {
-  line-height: 1.8;
+  line-height: 2;
+  /* リストは行間を広くして視認性アップ */
   list-style-position: inside;
   /* リストのドットをテキストと揃えている */
   padding-left: 1.5em;

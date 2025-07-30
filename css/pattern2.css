@@ -123,11 +123,11 @@ a:focus-visible,
 }
 
 .posted-on a, .byline a, .cat-links a, .edit-link a, .tags-links a {
-  color: #c14f7e;
+  color: #a1305f;
 }
 
 .post-toc {
-  background-color: #dcdcfb;
+  background-color: #eaeafe;
 }
 
 .site-footer {

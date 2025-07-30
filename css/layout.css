@@ -158,7 +158,7 @@ button {
 .entry-content input,
 .entry-content textarea,
 .entry-content button {
-  margin-bottom: var(--ly-elementBottomMargin);
+  margin-bottom: calc(var(--ly-elementBottomMargin) / 2);
   /* テキストの下にスペースを追加 */
   line-height: 1.8;
   /* 本文の行間を広くする */
