@@ -125,7 +125,7 @@ a:focus-visible,
 }
 
 .posted-on a, .byline a, .cat-links a, .edit-link a, .tags-links a {
-  color: #7d7c45;
+  color: #565528;
 }
 
 .post-toc {
@@ -141,6 +141,7 @@ a:focus-visible,
 
 .site-footer {
   background-color: #94A1A9;
+  color: #000;
 }
 
 .site-header {
