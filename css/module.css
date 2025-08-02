@@ -507,6 +507,7 @@ nav.navigation.pagination {
 nav.post-navigation {
   display: flex;
   justify-content: space-between;
+  margin-top: 3em;
 }
 
 .nav-title {}
