@@ -378,7 +378,7 @@ class Integlight_SEO_Meta
 
 			if (! empty($custom_description)) {
 				$meta_description = $custom_description;
-			} elseif (has_excerpt($post->ID)) {
+			} else {
 				// Fallback to excerpt if custom description is empty
 				$meta_description = get_the_excerpt($post->ID);
 			}
