@@ -144,6 +144,11 @@ a:focus-visible,
   color: #000;
 }
 
+/* フッターの文字色を変えてる */
+.ly_site_footer a {
+  color: #000;
+}
+
 .site-header {
   background-color: #87755e;
   background-image: linear-gradient(to bottom,
