@@ -155,7 +155,7 @@ if (! function_exists('integlight_post_thumbnail')) :
 						'class' => 'responsive-img',
 						'loading' => 'eager',
 						'decoding' => 'async',
-						'sizes' => '(max-width: 850px) 20vw, 1200px',
+						'sizes' => '(max-width: 850px) 100vw, 900px)',
 						'fetchpriority' => 'high'  // PF対応!!!
 
 					]
