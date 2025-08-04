@@ -45,7 +45,7 @@ class InteglightCommonCssAssets
 
     private static $deferredStyles = [
         'integlight-sp-style',
-        'wp-block-library' /*ブロックエディタ用css*/
+        'wp-block-library' /*ブロックアイテム用css*/
     ];
 
 
