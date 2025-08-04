@@ -141,6 +141,15 @@ a:focus-visible,
   background-color: #1e1b2a;
 }
 
+/* フッターメニューの線の色 */
+.footer-menu li::before {
+  background-color: #fff;
+}
+
+.footer-menu li:last-child::after {
+  background-color: #fff;
+}
+
 .site-header {
   background-color: #1e1b2a;
   background-image: linear-gradient(to bottom,

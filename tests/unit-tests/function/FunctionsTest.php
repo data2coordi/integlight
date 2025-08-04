@@ -75,8 +75,11 @@ class template_FunctionsTest extends WP_UnitTestCase
         // do_action('after_setup_theme');
 
         $registered_menus = get_registered_nav_menus();
-        $this->assertArrayHasKey('menu-1', $registered_menus, 'Nav menu "menu-1" should be registered.');
-        $this->assertEquals('Primary', $registered_menus['menu-1'], 'Nav menu "menu-1" description should be "Primary".');
+        $this->assertArrayHasKey('header', $registered_menus, 'Nav menu "header" should be registered.');
+        $this->assertEquals('header', $registered_menus['header'], 'Nav menu "header" description should be "Primary".');
+
+        $this->assertArrayHasKey('footer', $registered_menus, 'Nav menu "header" should be registered.');
+        $this->assertEquals('footer', $registered_menus['footer'], 'Nav menu "header" description should be "Primary".');
     }
 
     /**

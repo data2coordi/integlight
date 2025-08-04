@@ -52,7 +52,7 @@ function integlight_setup()
 	register_nav_menus(
 		array(
 			'header' => esc_html__('header', 'integlight'),
-			'footer' => esc_html__('Footer', 'integlight'),
+			'footer' => esc_html__('footer', 'integlight'),
 		)
 	);
 

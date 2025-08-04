@@ -134,6 +134,15 @@ a:focus-visible,
   background-color: #1e1d1d;
 }
 
+/* フッターメニューの線の色 */
+.footer-menu li::before {
+  background-color: #fff;
+}
+
+.footer-menu li:last-child::after {
+  background-color: #fff;
+}
+
 /* homeのカテゴリーの色 */
 .blog .category-link,
 .home .category-link {

@@ -54,6 +54,7 @@ class integlight_functions_FunctionsTest extends WP_UnitTestCase
     public function test_nav_menus_are_registered()
     {
         $menus = get_registered_nav_menus();
-        $this->assertArrayHasKey('menu-1', $menus);
+        $this->assertArrayHasKey('header', $menus);
+        $this->assertArrayHasKey('footer', $menus);
     }
 }
