@@ -574,3 +574,9 @@ msgstr "フッター"
 
 msgid "header"
 msgstr "ヘッダー"
+
+
+
+
+msgid "The footer menu will be displayed once you create a menu specifically for the footer."
+msgstr "フッターメニューはメニューでフッター用メニューを作成すると表示されます。"
