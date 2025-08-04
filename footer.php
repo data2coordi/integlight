@@ -17,6 +17,13 @@
 </a>
 
 <footer id="colophon" class="site-footer ly_site_footer">
+
+	<?php if (is_active_sidebar('footer-1')) : ?>
+		<div id="footer-widget-area" class="footer-widgets-wrapper">
+			<?php dynamic_sidebar('footer-1'); ?>
+		</div>
+	<?php endif; ?>
+
 	<div class="site-info">
 
 		<?php echo esc_html(get_theme_mod('integlight_footer_copy_right', '')); ?>

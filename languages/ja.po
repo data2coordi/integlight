@@ -568,3 +568,6 @@ msgstr "ページが見つかりません"
 
 msgid "Integlight is a lightweight, fast, and beautifully designed WordPress theme that helps you turn your knowledge into a digital asset through blogging. It features clean typography, spacious layout, and eight professionally curated color schemes that make your content shine. No coding required—customize colors, layout, and typography easily through the WordPress Customizer. Ideal for writers and bloggers who want a clean and elegant blogging experience."
 msgstr "Integlightは、知識や経験をブログで「デジタル資産化」するための軽量・高速・美しいWordPressテーマで、余白を活かしたクリーンなレイアウト、洗練されたタイポグラフィ、プロ監修の8色カラーバリエーションによりコンテンツを引き立て、コーディング不要でカスタマイザーから簡単にカラー・レイアウト・タイポ調整ができ、シンプルで上品なブログ体験を求めるライターやブロガーに最適です。"
+
+msgid "Footer1"
+msgstr "フッター1"
