@@ -155,12 +155,26 @@ if (! function_exists('integlight_post_thumbnail')) :
 						'class' => 'responsive-img',
 						'loading' => 'eager',
 						'decoding' => 'async',
-						'sizes' => '(max-width: 850px) 100vw, 900px)',
+						'sizes' => '(max-width: 850px) 20vw, 800px)', //PF対応!!!：20vwとすることで、srcsetで低解像度を選択させる。
 						'fetchpriority' => 'high'  // PF対応!!!
 
 					]
-				); ?>
+				);
+				/*
+				PF対応!!!の前提：20vwとすることで下記のsrcsetの300w用画像を選択させる。
+				sizes="(max-width: 850px) 20vw, 900px"
+				srcset="
+					https://.../Firefly_882369-300x171.webp 300w,
+					https://.../Firefly_882369-768x439.webp 768w,
+					https://.../Firefly_882369.webp 900w
+
+				*/
+
+				?>
 			</div><!-- .post-thumbnail -->
+
+
+
 
 		<?php else : ?>
 
