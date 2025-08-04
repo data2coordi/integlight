@@ -571,3 +571,6 @@ msgstr "Integlightは、知識や経験をブログで「デジタル資産化�
 
 msgid "Footer1"
 msgstr "フッター1"
+
+msgid "header"
+msgstr "ヘッダー"

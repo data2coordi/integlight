@@ -63,8 +63,8 @@ h1.site-title {
   background-color: #000;
   color: #fff;
   text-align: center;
-  font-size: 1rem;
-  padding: 10px;
+  font-size: 0.8rem;
+  /* padding: 10px; */
 }
 
 .site-footer a {
@@ -74,6 +74,58 @@ h1.site-title {
 .site-footer a:focus {
   outline: none;
 }
+
+.footer-menu {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  margin-bottom: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.ly_site_footer a {
+  font-size: 0.8rem;
+  text-decoration: none;
+}
+.ly_site_footer a:hover {
+  opacity: 0.5;
+}
+
+.site-info {
+  margin-bottom: 1.2rem;
+}
+
+.footer-menu li {
+  position: relative;
+  padding: 0 0.5em;
+}
+
+.footer-menu li::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  width: 1px;
+  height: 1rem;
+  background-color: #000;
+}
+
+/* .footer-menu li:first-child::before {
+  display: none;
+} */
+
+.footer-menu li:last-child::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  width: 1px;
+  height: 1rem;
+  background-color: #000;
+}
+
 
 /************************************************************/
 /* 0. thumbnail***************************************************@@@/

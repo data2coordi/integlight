@@ -103,8 +103,8 @@ if (!is_home() && is_front_page()) {
 				<?php
 				wp_nav_menu(
 					array(
-						'theme_location' => 'menu-1',
-						'menu_id'        => 'primary-menu',
+						'theme_location' => 'header',
+						'menu_id'        => 'header-menu',
 						'container_class' => 'menuToggle-containerForMenu',
 						'container_id'    => 'primary-menu-container', // ここにIDを追加
 						'fallback_cb'     => 'integlight_custom_fallback_menu_simple',
