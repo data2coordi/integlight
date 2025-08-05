@@ -72,11 +72,3 @@ add_action('customize_preview_init', 'integlight_customize_preview_js');
 /////////////////////////////////////////////
 /////////////////////////////////////////////
 /////////////////////////////////////////////
-
-// integlightでの追加分
-require get_template_directory() . '/inc/integlight-customizer.php';
-require get_template_directory() . '/inc/integlight-customizer-slider.php';
-
-
-
-/** test */

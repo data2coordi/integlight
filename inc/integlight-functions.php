@@ -1,19 +1,4 @@
 <?php
-/*  テスト領域 s*/
-/////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-/////////////////////////////////////////////
-/* テスト領域 e*/
-
 
 /**
  * Integlight functions and definitions
@@ -22,28 +7,6 @@
  *
  * @package Integlight
  */
-
-
-/***************************************** */
-/**php読み込み s************************ */
-/***************************************** */
-
-require get_template_directory() . '/inc/integlight-functions-outerAssets.php';
-
-require get_template_directory() . '/inc/starter-content.php';
-require get_template_directory() . '/inc/integlight-functions-cmn.php';
-require get_template_directory() . '/inc/integlight-functions-pf.php';
-require get_template_directory() . '/inc/integlight-functions-widgets.php';
-require get_template_directory() . '/inc/integlight-functions-pattern.php';
-require get_template_directory() . '/inc/integlight-functions-tmp.php';
-
-/***************************************** */
-/**php読み込み e************************ */
-/***************************************** */
-
-
-
-
 
 
 // デフォルトから追加するテーマサポート _s ///////////////////////////////////////////////
