@@ -120,7 +120,7 @@ input,
 optgroup,
 select,
 textarea {
-  font-size: 100%;
+  font-size: 0.9rem;
   padding: 10px;
 }
 
