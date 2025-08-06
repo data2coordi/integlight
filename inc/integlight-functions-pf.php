@@ -34,10 +34,6 @@ class InteglightCommonCssAssets
         'integlight-sp-style' => '/css/integlight-sp-style.css',
         'integlight-layout' => '/css/layout.css',
         'integlight-integlight-menu' => '/css/integlight-menu.css',
-        'integlight-post' => '/css/post.css',
-        'integlight-page' => '/css/page.css',
-        'integlight-front' => '/css/front.css',
-        'integlight-home' => '/css/home.css',
         'integlight-module' => '/css/module.css',
         'integlight-helper' => '/css/helper.css',
     ];
@@ -54,6 +50,31 @@ class InteglightCommonCssAssets
         // スタイルリストを設定（追記可能）
         InteglightFrontendStyles::add_styles(self::$styles);
 
+        // 以下、必要に応じて追加
+        if (is_single()) {
+            InteglightFrontendStyles::add_styles([
+                'integlight-post' => '/css/post.css',
+            ]);
+        }
+
+        if (is_page()) {
+            InteglightFrontendStyles::add_styles([
+                'integlight-page' => '/css/page.css',
+            ]);
+        }
+
+        if (is_front_page() && (!is_home())) {
+            InteglightFrontendStyles::add_styles([
+                'integlight-front' => '/css/front.css',
+            ]);
+        }
+
+        if (is_home()) {
+            InteglightFrontendStyles::add_styles([
+                'integlight-home' => '/css/home.css',
+            ]);
+        }
+
         $excluded_key = 'integlight-sp-style';
         // $styles から $excluded_key を除外してコピー
         $EditorStyles = array_filter(self::$styles, function ($key) use ($excluded_key) {
@@ -68,7 +89,7 @@ class InteglightCommonCssAssets
 }
 
 // 初期化処理（ルートで実行）
-add_action('after_setup_theme', ['InteglightCommonCssAssets', 'init']);
+add_action('wp', ['InteglightCommonCssAssets', 'init']);
 
 
 
