@@ -89,10 +89,10 @@ class InteglightCommonJsAssets
         InteglightFrontendScripts::add_scripts($scripts);
 
         // フッターに移動するスクリプトを登録
-        $footerScripts = [
-            'jquery'   => includes_url('/js/jquery/jquery.min.js')
-        ];
-        InteglightMoveScripts::add_scripts($footerScripts);
+        //$footerScripts = [
+        //  'jquery'   => includes_url('/js/jquery/jquery.min.js') jqueryが不要なときもロードされてしまうため廃止
+        //];
+        //InteglightMoveScripts::add_scripts($footerScripts);
 
 
         //js 読み込み　WPデフォルトのコメント用
