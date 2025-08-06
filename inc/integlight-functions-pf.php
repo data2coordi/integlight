@@ -47,33 +47,35 @@ class InteglightCommonCssAssets
 
     public static function init()
     {
-        // スタイルリストを設定（追記可能）
-        InteglightFrontendStyles::add_styles(self::$styles);
 
         // 以下、必要に応じて追加
         if (is_single()) {
-            InteglightFrontendStyles::add_styles([
+            self::$styles = array_merge(self::$styles, [
                 'integlight-post' => '/css/post.css',
             ]);
         }
 
         if (is_page()) {
-            InteglightFrontendStyles::add_styles([
+            self::$styles = array_merge(self::$styles, [
                 'integlight-page' => '/css/page.css',
             ]);
         }
 
         if (is_front_page() && (!is_home())) {
-            InteglightFrontendStyles::add_styles([
+            self::$styles = array_merge(self::$styles, [
                 'integlight-front' => '/css/front.css',
             ]);
         }
 
         if (is_home()) {
-            InteglightFrontendStyles::add_styles([
+            self::$styles = array_merge(self::$styles, [
                 'integlight-home' => '/css/home.css',
             ]);
         }
+
+        // スタイルリストを設定（追記可能）
+        InteglightFrontendStyles::add_styles(self::$styles);
+
 
         $excluded_key = 'integlight-sp-style';
         // $styles から $excluded_key を除外してコピー
