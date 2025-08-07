@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "build:css": "mkdir -p build && for file in src/*.css; do filename=$(basename \"$file\" .css); postcss \"$file\" -o \"build/${filename}.css\"; done",
+    "css": "chokidar 'src/*.css' -c \"npm run build:css\""
+  }
+}

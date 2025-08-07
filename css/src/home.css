@@ -1,0 +1,276 @@
+.blog .post-grid,
+.home .post-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  /* 4列レイアウト */
+  gap: 20px;
+  padding: 20px;
+  width: 1200px;
+}
+
+.blog .grid-item,
+.home .grid-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* コンテンツを上部と下部に配置 */
+  background-color: #fff;
+  border: 1px solid #d7d7d7;
+  overflow: hidden;
+  height: 350px;
+  /* タイルの高さ */
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.blog .grid-item:hover,
+.home .grid-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.blog .post-thumbnail,
+.home .post-thumbnail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* カバー画像として全体に表示 */
+  z-index: 0;
+}
+
+.blog .post-thumbnail img,
+.home .post-thumbnail img {
+  width: 90%;
+  height: 60%;
+  object-fit: cover;
+  /* カバー画像として表示 */
+  object-position: center;
+  padding-top: 5%;
+
+}
+
+/* オーバーレイを追加 */
+
+/* .blog .grid-item::before,
+.home .grid-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+  pointer-events: none;
+} */
+
+
+.blog .grid-item h2,
+.blog .grid-item h3,
+.home .grid-item h2,
+.home .grid-item h3 {
+  position: absolute;
+  top: 215px;
+  /* タイトルの位置を調整 */
+  z-index: 2;
+  /* タイトルを大きくする */
+  color: #222;
+  /* 白色の文字 */
+  margin: 0;
+  /* マージンをリセット */
+  border-bottom: none;
+  width: 100%;
+  padding: 0 5%;
+  line-height: 1.4;
+  /* 行間を狭くする */
+  /* pointer-events: none; */
+  /* クリックやホバーを無効化（下の要素が反応する） */
+}
+
+.blog .post-excerpt,
+.home .post-excerpt {
+  display: none;
+}
+
+/* .blog .post-excerpt,
+.home .post-excerpt {
+  position: absolute;
+  top: 130px;
+  left: 15px;
+  z-index: 2;
+  color: #222;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  margin: 5px 0;
+  padding: 0 5%;
+  width: 350px;
+} */
+
+.blog .grid-item .post-meta,
+.home .grid-item .post-meta {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* 左寄せ */
+  padding: 5%;
+  color: #222;
+}
+
+.blog .post-date,
+.blog .post-category,
+.blog .post-tags,
+.home .post-date,
+.home .post-category,
+.home .post-tags {
+  margin: 0;
+  padding: 0;
+}
+
+/* カテゴリーを表示している */
+.blog .post-category p,
+.home .post-category p {
+  position: relative;
+  color: #fff;
+  display: inline-block;
+  font-size: 13px;
+  background-color: #323232;
+  padding: 4px 15px;
+  top: 19px;
+  left: 19px;
+  margin: 0;
+  z-index: 999;
+}
+
+.blog .grid-item a,
+.home .grid-item a {
+  text-decoration: none;
+  color: inherit;
+  font-size: 0.8rem;
+}
+
+
+/* homeのh2が小さくしたいから修正している */
+#primary .post-grid .grid-item h2 {
+  line-height: 1.5;
+  font-size: 1.5rem;
+}
+
+.blog .post-tags,
+.home .post-tags {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+
+  .blog .post-grid,
+  .home .post-grid {
+    grid-template-columns: repeat(1, 1fr);
+    /* 1列レイアウト */
+    gap: 10px;
+    /* ギャップを狭く */
+    /* padding: 10px; */
+    /* パディングを縮小 */
+  }
+
+  .blog .grid-item,
+  .home .grid-item {
+    width: 90vw;
+  }
+
+
+  .blog .post-grid,
+  .home .post-grid {
+    width: 90vw;
+  }
+
+  .blog .post-excerpt,
+  .home .post-excerpt {
+    width: 95%;
+  }
+
+  .blog .grid-item h2,
+  .blog .grid-item h3,
+  .home .grid-item h2,
+  .home .grid-item h3 {
+    width: 100%;
+  }
+}
+
+
+/***********************************************/
+/*先頭のカテゴリ一覧s*/
+/***********************************************/
+
+.home .category-list {
+  display: flex;
+  justify-content: space-between;
+  /* or space-evenly も可 */
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 4rem auto;
+  padding: 0 2rem;
+  max-width: 900px;
+}
+
+.home .category-item {
+  flex: 1;
+  /* ←等幅にする */
+  max-width: 300px;
+  /* ←横に並べたい最大幅 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home .category-link {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 150px;
+  background-color: #f0f0f0;
+  /* グレー背景 */
+  color: #000;
+  text-align: center;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin: 0 8px 8px 0;
+  padding: 10px;
+  text-decoration: none;
+  box-shadow: inset 2px 2px 6px rgba(255, 255, 255, 0.6),
+    inset -2px -2px 6px rgba(0, 0, 0, 0.05),
+    0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.home .category-link:hover {
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+
+@media screen and (max-width: 768px) {
+  .home .category-list {
+    padding: 0;
+    justify-content: center;
+    gap: 0.5rem;
+    /* スマホで隙間を狭める */
+  }
+
+  .home .category-link {
+    width: 100px;
+    height: 100px;
+    font-size: 0.75rem;
+  }
+}
+
+
+
+/***********************************************/
+/*先頭のカテゴリ一覧e*/
+/***********************************************/
