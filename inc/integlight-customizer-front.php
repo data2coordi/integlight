@@ -18,7 +18,7 @@ class InteglightThemeColorLoader
 }
 new InteglightThemeColorLoader();
 
-
+/*
 class InteglightHomeTypeLoader
 {
     public function __construct()
@@ -36,3 +36,4 @@ class InteglightHomeTypeLoader
     }
 }
 new InteglightHomeTypeLoader();
+*/

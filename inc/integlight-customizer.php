@@ -123,7 +123,7 @@ class integlight_customizer_themeColor
 // インスタンスを作成して初期化
 new integlight_customizer_themeColor();
 
-
+/*
 class integlight_customizer_HomeType
 {
 	public function __construct()
@@ -177,8 +177,7 @@ class integlight_customizer_HomeType
 
 // インスタンスを作成して初期化
 new integlight_customizer_HomeType();
-
-
+*/
 
 
 
