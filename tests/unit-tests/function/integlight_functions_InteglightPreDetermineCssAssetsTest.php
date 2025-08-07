@@ -126,20 +126,20 @@ class integlight_functions_InteglightPreDetermineCssAssetsTest extends WP_UnitTe
     public function contextProvider(): array
     {
         $base = [
-            'integlight-base-style-plus' => '/css/base-style.css',
-            'integlight-style-plus'      => '/css/integlight-style.css',
-            'integlight-sp-style'        => '/css/integlight-sp-style.css',
-            'integlight-layout'          => '/css/layout.css',
-            'integlight-integlight-menu' => '/css/integlight-menu.css',
-            'integlight-module'          => '/css/module.css',
-            'integlight-helper'          => '/css/helper.css',
+            'integlight-base-style-plus' => '/css/build/base-style.css',
+            'integlight-style-plus'      => '/css/build/integlight-style.css',
+            'integlight-sp-style'        => '/css/build/integlight-sp-style.css',
+            'integlight-layout'          => '/css/build/layout.css',
+            'integlight-integlight-menu' => '/css/build/integlight-menu.css',
+            'integlight-module'          => '/css/build/module.css',
+            'integlight-helper'          => '/css/build/helper.css',
         ];
 
         return [
-            'post'  => ['post', array_merge($base, ['integlight-post'  => '/css/post.css'])],
-            'page'  => ['page', array_merge($base, ['integlight-page'  => '/css/page.css'])],
-            'front' => ['front', array_merge($base, ['integlight-page'  => '/css/page.css', 'integlight-front' => '/css/front.css'])],
-            'home'  => ['home', array_merge($base, ['integlight-home'  => '/css/home.css'])],
+            'post'  => ['post', array_merge($base, ['integlight-post'  => '/css/build/post.css'])],
+            'page'  => ['page', array_merge($base, ['integlight-page'  => '/css/build/page.css'])],
+            'front' => ['front', array_merge($base, ['integlight-page'  => '/css/build/page.css', 'integlight-front' => '/css/build/front.css'])],
+            'home'  => ['home', array_merge($base, ['integlight-home'  => '/css/build/home.css'])],
         ];
     }
 }
