@@ -10,7 +10,7 @@ class InteglightThemeColorLoader
     {
         $base_pattern = get_theme_mod('integlight_base_color_setting', 'pattern8');
 
-        $styles = ['custom-pattern' => '/css/' . $base_pattern . '.css'];
+        $styles = ['custom-pattern' => '/css/build/' . $base_pattern . '.css'];
         InteglightFrontendStyles::add_styles($styles);
         InteglightEditorStyles::add_styles($styles);
         InteglightDeferCss::add_deferred_styles(['custom-pattern']);

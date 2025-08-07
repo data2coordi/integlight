@@ -29,13 +29,13 @@ add_action('wp_enqueue_scripts', function () {
 class InteglightPreDetermineCssAssets
 {
     private static $styles = [
-        'integlight-base-style-plus' => '/css/base-style.css',
-        'integlight-style-plus' => '/css/integlight-style.css',
-        'integlight-sp-style' => '/css/integlight-sp-style.css',
-        'integlight-layout' => '/css/layout.css',
-        'integlight-integlight-menu' => '/css/integlight-menu.css',
-        'integlight-module' => '/css/module.css',
-        'integlight-helper' => '/css/helper.css',
+        'integlight-base-style-plus' => '/css/build/base-style.css',
+        'integlight-style-plus' => '/css/build/integlight-style.css',
+        'integlight-sp-style' => '/css/build/integlight-sp-style.css',
+        'integlight-layout' => '/css/build/layout.css',
+        'integlight-integlight-menu' => '/css/build/integlight-menu.css',
+        'integlight-module' => '/css/build/module.css',
+        'integlight-helper' => '/css/build/helper.css',
     ];
 
 
@@ -51,25 +51,25 @@ class InteglightPreDetermineCssAssets
         // 以下、必要に応じて追加
         if (is_single()) {
             self::$styles = array_merge(self::$styles, [
-                'integlight-post' => '/css/post.css',
+                'integlight-post' => '/css/build/post.css',
             ]);
         }
 
         if (is_page()) {
             self::$styles = array_merge(self::$styles, [
-                'integlight-page' => '/css/page.css',
+                'integlight-page' => '/css/build/page.css',
             ]);
         }
 
         if (is_front_page() && (!is_home())) {
             self::$styles = array_merge(self::$styles, [
-                'integlight-front' => '/css/front.css',
+                'integlight-front' => '/css/build/front.css',
             ]);
         }
 
         if (is_home()) {
             self::$styles = array_merge(self::$styles, [
-                'integlight-home' => '/css/home.css',
+                'integlight-home' => '/css/build/home.css',
             ]);
         }
 
