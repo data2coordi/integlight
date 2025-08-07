@@ -3,9 +3,9 @@
 use PHPUnit\Framework\TestCase; // または WP_UnitTestCase を使用
 
 /**
- * Test case for InteglightCommonCssAssets class.
+ * Test case for InteglightPreDetermineCssAssets class.
  */
-class integlight_functions_InteglightCommonCssAssetsTest extends WP_UnitTestCase
+class integlight_functions_InteglightPreDetermineCssAssetsTest extends WP_UnitTestCase
 {
     /**
      * Reflection-based helper to get or set static properties
@@ -29,9 +29,9 @@ class integlight_functions_InteglightCommonCssAssetsTest extends WP_UnitTestCase
         self::staticProperty(InteglightEditorStyles::class, 'styles', []);
         self::staticProperty(InteglightDeferCss::class, 'deferred_styles', []);
         // Reset CommonCssAssets to defaults
-        $defaults = (new ReflectionClass(InteglightCommonCssAssets::class))->getDefaultProperties();
-        self::staticProperty(InteglightCommonCssAssets::class, 'styles', $defaults['styles']);
-        self::staticProperty(InteglightCommonCssAssets::class, 'deferredStyles', $defaults['deferredStyles']);
+        $defaults = (new ReflectionClass(InteglightPreDetermineCssAssets::class))->getDefaultProperties();
+        self::staticProperty(InteglightPreDetermineCssAssets::class, 'styles', $defaults['styles']);
+        self::staticProperty(InteglightPreDetermineCssAssets::class, 'deferredStyles', $defaults['deferredStyles']);
     }
 
     /**
@@ -103,7 +103,7 @@ class integlight_functions_InteglightCommonCssAssetsTest extends WP_UnitTestCase
         }
 
         // Act
-        InteglightCommonCssAssets::init();
+        InteglightPreDetermineCssAssets::init();
 
         // Assert Frontend styles
         $actual = self::staticProperty(InteglightFrontendStyles::class, 'styles');

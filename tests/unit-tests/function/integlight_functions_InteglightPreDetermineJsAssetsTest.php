@@ -3,11 +3,11 @@
 use PHPUnit\Framework\TestCase; // 通常は WP_UnitTestCase を使用します
 
 /**
- * Test case for InteglightCommonJsAssets class.
+ * Test case for InteglightPreDetermineJsAssets class.
  *
  * @group assets
  */
-class integlight_functions_InteglightCommonJsAssetsTest extends WP_UnitTestCase // WP_UnitTestCase を継承
+class integlight_functions_InteglightPreDetermineJsAssetsTest extends WP_UnitTestCase // WP_UnitTestCase を継承
 {
     /**
      * @var array<string> List of expected incorrect usage messages during tests.
@@ -158,7 +158,7 @@ class integlight_functions_InteglightCommonJsAssetsTest extends WP_UnitTestCase 
 
     /**
      * @test
-     * @covers InteglightCommonJsAssets::init
+     * @covers InteglightPreDetermineJsAssets::init
      * Verifies that frontend scripts are added correctly.
      */
     public function test_init_adds_frontend_scripts(): void
@@ -171,7 +171,7 @@ class integlight_functions_InteglightCommonJsAssetsTest extends WP_UnitTestCase 
         ];
         // --- Act ---
         // テスト対象のメソッドを呼び出す
-        InteglightCommonJsAssets::init();
+        InteglightPreDetermineJsAssets::init();
         // Act は不要 (setUp で実行済み)
 
         // --- Act ---
@@ -185,7 +185,7 @@ class integlight_functions_InteglightCommonJsAssetsTest extends WP_UnitTestCase 
 
     /**
      * @test
-     * @covers InteglightCommonJsAssets::init
+     * @covers InteglightPreDetermineJsAssets::init
      * Verifies that scripts to move to footer are added correctly.
      */
     //public function test_init_adds_footer_scripts(): void
@@ -199,7 +199,7 @@ class integlight_functions_InteglightCommonJsAssetsTest extends WP_UnitTestCase 
 
     // --- Act ---
     // テスト対象のメソッドを呼び出す
-    // InteglightCommonJsAssets::init();
+    // InteglightPreDetermineJsAssets::init();
     // init() が実行された結果、静的プロパティに値がセットされているはず
     //$actualFooterScripts = self::getStaticPropertyValue(InteglightMoveScripts::class, 'scripts');
     // jQuery遅延処理は削除
@@ -212,8 +212,8 @@ class integlight_functions_InteglightCommonJsAssetsTest extends WP_UnitTestCase 
 
     /**
      * @test
-     * @covers InteglightCommonJsAssets::init // init がフックを登録することを確認
-     * @covers InteglightCommonJsAssets::enqueue_comment_reply_script // このメソッドのロジックをテスト
+     * @covers InteglightPreDetermineJsAssets::init // init がフックを登録することを確認
+     * @covers InteglightPreDetermineJsAssets::enqueue_comment_reply_script // このメソッドのロジックをテスト
      * Verifies that comment-reply script is enqueued when conditions are met.
      */
     public function test_init_enqueues_comment_reply_when_conditions_met(): void
@@ -229,7 +229,7 @@ class integlight_functions_InteglightCommonJsAssetsTest extends WP_UnitTestCase 
 
         // --- Act ---
         // wp_enqueue_scripts フックを手動で実行して、
-        // InteglightCommonJsAssets::enqueue_comment_reply_script を呼び出す
+        // InteglightPreDetermineJsAssets::enqueue_comment_reply_script を呼び出す
         do_action('wp_enqueue_scripts');
 
         // --- Assert ---
@@ -239,8 +239,8 @@ class integlight_functions_InteglightCommonJsAssetsTest extends WP_UnitTestCase 
 
     /**
      * @test
-     * @covers InteglightCommonJsAssets::init
-     * @covers InteglightCommonJsAssets::enqueue_comment_reply_script // カバーするメソッドを追加
+     * @covers InteglightPreDetermineJsAssets::init
+     * @covers InteglightPreDetermineJsAssets::enqueue_comment_reply_script // カバーするメソッドを追加
      * Verifies that comment-reply script is NOT enqueued when not on a singular page.
      */
     public function test_init_does_not_enqueue_comment_reply_when_not_singular(): void
@@ -262,8 +262,8 @@ class integlight_functions_InteglightCommonJsAssetsTest extends WP_UnitTestCase 
 
     /**
      * @test
-     * @covers InteglightCommonJsAssets::init
-     * @covers InteglightCommonJsAssets::enqueue_comment_reply_script // カバーするメソッドを追加
+     * @covers InteglightPreDetermineJsAssets::init
+     * @covers InteglightPreDetermineJsAssets::enqueue_comment_reply_script // カバーするメソッドを追加
      * Verifies that comment-reply script is NOT enqueued when comments are closed.
      */
     public function test_init_does_not_enqueue_comment_reply_when_comments_closed(): void
@@ -285,8 +285,8 @@ class integlight_functions_InteglightCommonJsAssetsTest extends WP_UnitTestCase 
 
     /**
      * @test
-     * @covers InteglightCommonJsAssets::init
-     * @covers InteglightCommonJsAssets::enqueue_comment_reply_script // カバーするメソッドを追加
+     * @covers InteglightPreDetermineJsAssets::init
+     * @covers InteglightPreDetermineJsAssets::enqueue_comment_reply_script // カバーするメソッドを追加
      * Verifies that comment-reply script is NOT enqueued when threaded comments are disabled.
      */
     public function test_init_does_not_enqueue_comment_reply_when_threading_disabled(): void

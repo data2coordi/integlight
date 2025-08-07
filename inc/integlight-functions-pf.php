@@ -26,7 +26,7 @@ add_action('wp_enqueue_scripts', function () {
 
 
 
-class InteglightCommonCssAssets
+class InteglightPreDetermineCssAssets
 {
     private static $styles = [
         'integlight-base-style-plus' => '/css/base-style.css',
@@ -91,14 +91,14 @@ class InteglightCommonCssAssets
 }
 
 // 初期化処理（ルートで実行）
-add_action('wp', ['InteglightCommonCssAssets', 'init']);
+add_action('wp', ['InteglightPreDetermineCssAssets', 'init']);
 
 
 
 
 
 //js 移動　PF対応!!!
-class InteglightCommonJsAssets
+class InteglightPreDetermineJsAssets
 {
 
 
@@ -131,7 +131,7 @@ class InteglightCommonJsAssets
 }
 
 // 初期化処理
-add_action('after_setup_theme', ['InteglightCommonJsAssets', 'init']);
+add_action('after_setup_theme', ['InteglightPreDetermineJsAssets', 'init']);
 
 
 /***************************************** */
