@@ -1,6 +1,7 @@
 {
   "scripts": {
     "build:css": "mkdir -p build && for file in src/*.css; do filename=$(basename \"$file\" .css); postcss \"$file\" -o \"build/${filename}.css\"; done",
-    "css": "chokidar 'src/*.css' -c \"npm run build:css\""
+    "watch:css": "chokidar 'src/*.css' -c \"npm run build:css\"",
+    "watch:css:restart": "nodemon --watch src --ext css --exec \"npm run build:css\""
   }
 }
