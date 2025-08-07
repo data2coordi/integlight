@@ -188,27 +188,27 @@ class integlight_functions_InteglightCommonJsAssetsTest extends WP_UnitTestCase 
      * @covers InteglightCommonJsAssets::init
      * Verifies that scripts to move to footer are added correctly.
      */
-    public function test_init_adds_footer_scripts(): void
-    {
-        // --- Arrange ---
-        // setUp で do_action('after_setup_theme') が実行され、init() が呼ばれているはず
-        // includes_url() は WordPress 環境が必要
-        $expectedFooterScripts = [
-            'jquery' => includes_url('/js/jquery/jquery.min.js'), // jQuery のパスを取得
-        ];
+    //public function test_init_adds_footer_scripts(): void
+    //{
+    // --- Arrange ---
+    // setUp で do_action('after_setup_theme') が実行され、init() が呼ばれているはず
+    // includes_url() は WordPress 環境が必要
+    //$expectedFooterScripts = [
+    // 'jquery' => includes_url('/js/jquery/jquery.min.js'), // jQuery のパスを取得
+    //];
 
-        // --- Act ---
-        // テスト対象のメソッドを呼び出す
-        InteglightCommonJsAssets::init();
-        // init() が実行された結果、静的プロパティに値がセットされているはず
-        $actualFooterScripts = self::getStaticPropertyValue(InteglightMoveScripts::class, 'scripts');
-        // jQuery のパスは環境によって変わる可能性があるため、キーの存在と値が文字列であることのみを確認する方が堅牢かもしれない
-        $this->assertArrayHasKey('jquery', $actualFooterScripts, 'Footer scripts should contain jquery handle.');
-        $this->assertIsString($actualFooterScripts['jquery'], 'jQuery path should be a string.');
-        // 必要であれば、パスの一部が含まれているかなどを確認
-        // $this->assertStringContainsString('/js/jquery/jquery.min.js', $actualFooterScripts['jquery']);
-        // $this->assertEquals($expectedFooterScripts, $actualFooterScripts, 'Footer scripts were not added correctly.'); // 完全一致が必要な場合
-    }
+    // --- Act ---
+    // テスト対象のメソッドを呼び出す
+    // InteglightCommonJsAssets::init();
+    // init() が実行された結果、静的プロパティに値がセットされているはず
+    //$actualFooterScripts = self::getStaticPropertyValue(InteglightMoveScripts::class, 'scripts');
+    // jQuery遅延処理は削除
+    //$this->assertArrayHasKey('jquery', $actualFooterScripts, 'Footer scripts should contain jquery handle.');
+    //$this->assertIsString($actualFooterScripts['jquery'], 'jQuery path should be a string.');
+    // 必要であれば、パスの一部が含まれているかなどを確認
+    // $this->assertStringContainsString('/js/jquery/jquery.min.js', $actualFooterScripts['jquery']);
+    // $this->assertEquals($expectedFooterScripts, $actualFooterScripts, 'Footer scripts were not added correctly.'); // 完全一致が必要な場合
+    //}
 
     /**
      * @test
