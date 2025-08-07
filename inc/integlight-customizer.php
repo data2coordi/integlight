@@ -124,6 +124,65 @@ class integlight_customizer_themeColor
 new integlight_customizer_themeColor();
 
 
+class integlight_customizer_HomeType
+{
+	public function __construct()
+	{
+		add_action('customize_register', [$this, 'customize_register']);
+	}
+
+	public function customize_register($wp_customize)
+	{
+
+		// サイドバー位置セクションの追加
+		$wp_customize->add_section('integlight_hometype_section', array(
+			'title' => __('hometype Settings', 'integlight'),
+			'priority' => 30,
+		));
+
+		// Setting
+		$wp_customize->add_setting('integlight_hometype_setting', array(
+			'type'              => 'theme_mod',
+			'default'           => 'home1',
+			'sanitize_callback' => [$this, 'sanitize_choices'],
+		));
+
+		// Control
+		$wp_customize->add_control('integlight_hometype_setting', array(
+			'section'     => 'integlight_hometype_section', //既存の色セクションに追加
+			'settings'    => 'integlight_hometype_setting',
+			'label'       => __('Home type setting', 'integlight'),
+			'description' => __('Select favorite home type', 'integlight'),
+			'type'        => 'radio',
+			'choices'     => array(
+				'home1' => __('home1', 'integlight'),
+				'home2' => __('home2', 'integlight'),
+				'home3' => __('home3', 'integlight'),
+				'home4' => __('home4', 'integlight'),
+			),
+		));
+	}
+
+	public function sanitize_choices($input, $setting)
+	{
+		global $wp_customize;
+		$control = $wp_customize->get_control($setting->id);
+		if (array_key_exists($input, $control->choices)) {
+			return $input;
+		} else {
+			return $setting->default;
+		}
+	}
+}
+
+// インスタンスを作成して初期化
+new integlight_customizer_HomeType();
+
+
+
+
+
+
 // ## フッター クレジット設定 _s /////////////////////////////////////////////
 class Integlight_Customizer_Footer
 {
