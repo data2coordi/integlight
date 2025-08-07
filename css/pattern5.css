@@ -138,7 +138,7 @@ a:focus-visible,
 
 
 .site-footer {
-  background-color: #a7758c;
+  background-color: #ba85a7;
   color: #000;
 }
 
@@ -159,7 +159,7 @@ a:focus-visible,
 
 ul.menu > li.menu-item-has-children > ul.sub-menu,
 ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
-  background-color: #a7758c;
+  background-color: #ba85a7;
 }
 
 /**************フォントオーサムのホバーした時の色を変えているs***************/
@@ -176,7 +176,7 @@ ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
   }
 
   .menuToggle-containerForMenu {
-    background: #a7758c;
+    background: #ba85a7;
   }
 }
 
