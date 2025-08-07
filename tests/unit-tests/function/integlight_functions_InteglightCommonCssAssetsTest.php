@@ -2,131 +2,144 @@
 
 use PHPUnit\Framework\TestCase; // または WP_UnitTestCase を使用
 
-// bootstrap.php で読み込まれるため、以下の require_once は不要になります
-// require_once dirname(__FILE__, 3) . '/inc/integlight-functions-outerAssets.php';
-// require_once dirname(__FILE__, 3) . '/inc/integlight-functions.php';
-
 /**
  * Test case for InteglightCommonCssAssets class.
  */
-class integlight_functions_InteglightCommonCssAssetsTest extends TestCase // または extends WP_UnitTestCase
+class integlight_functions_InteglightCommonCssAssetsTest extends WP_UnitTestCase
 {
     /**
-     * Helper function to get the value of a protected or private static property.
-     *
-     * @param string $className    The name of the class.
-     * @param string $propertyName The name of the static property.
-     * @return mixed The value of the static property.
-     * @throws ReflectionException If the class or property does not exist.
+     * Reflection-based helper to get or set static properties
      */
-    protected static function getStaticPropertyValue(string $className, string $propertyName)
+    protected static function staticProperty(string $class, string $prop, $value = null)
     {
-        $reflector = new ReflectionClass($className);
-        $property = $reflector->getProperty($propertyName);
-        $property->setAccessible(true); // Allow access to protected/private property
-        return $property->getValue();
+        $ref = new ReflectionClass($class);
+        $property = $ref->getProperty($prop);
+        $property->setAccessible(true);
+        if (func_num_args() === 2) {
+            return $property->getValue();
+        }
+        $property->setValue(null, $value);
     }
 
-    /**
-     * Helper function to set the value of a protected or private static property.
-     *
-     * @param string $className    The name of the class.
-     * @param string $propertyName The name of the static property.
-     * @param mixed  $value        The value to set.
-     * @throws ReflectionException If the class or property does not exist.
-     */
-    protected static function setStaticPropertyValue(string $className, string $propertyName, $value): void
-    {
-        $reflector = new ReflectionClass($className);
-        $property = $reflector->getProperty($propertyName);
-        $property->setAccessible(true); // Allow access to protected/private property
-        $property->setValue(null, $value); // Set static property
-    }
-
-    /**
-     * Set up the test environment before each test method.
-     * Resets the static properties of dependency classes.
-     */
     protected function setUp(): void
     {
         parent::setUp();
-        // Reset static arrays to ensure test isolation
-        // bootstrap.php で InteglightCommonCssAssets::init() が実行されている可能性があるため、
-        // ここでリセットすることが重要になります。
-        self::setStaticPropertyValue(InteglightFrontendStyles::class, 'styles', []);
-        self::setStaticPropertyValue(InteglightEditorStyles::class, 'styles', []);
-        self::setStaticPropertyValue(InteglightDeferCss::class, 'deferred_styles', []);
+        // Reset dependencies
+        self::staticProperty(InteglightFrontendStyles::class, 'styles', []);
+        self::staticProperty(InteglightEditorStyles::class, 'styles', []);
+        self::staticProperty(InteglightDeferCss::class, 'deferred_styles', []);
+        // Reset CommonCssAssets to defaults
+        $defaults = (new ReflectionClass(InteglightCommonCssAssets::class))->getDefaultProperties();
+        self::staticProperty(InteglightCommonCssAssets::class, 'styles', $defaults['styles']);
+        self::staticProperty(InteglightCommonCssAssets::class, 'deferredStyles', $defaults['deferredStyles']);
     }
 
     /**
-     * Clean up the test environment after each test method.
-     * Resets the static properties of dependency classes.
+     * @dataProvider contextProvider
      */
-    protected function tearDown(): void
+    public function test_init_adds_correct_styles_and_deferred_handles(string $context, array $expectedFrontend)
     {
-        // Reset static arrays again to be safe
-        self::setStaticPropertyValue(InteglightFrontendStyles::class, 'styles', []);
-        self::setStaticPropertyValue(InteglightEditorStyles::class, 'styles', []);
-        self::setStaticPropertyValue(InteglightDeferCss::class, 'deferred_styles', []);
-        parent::tearDown();
-    }
+        // Arrange context
+        switch ($context) {
+            case 'post':
+                $id = wp_insert_post([
+                    'post_title'   => 'テスト投稿',
+                    'post_content' => '内容',
+                    'post_status'  => 'publish',
+                    'post_type'    => 'post',
+                ]);
+                $this->go_to(get_permalink($id));
+                break;
 
+            case 'page':
+                $id = wp_insert_post([
+                    'post_title'   => 'テスト固定ページ',
+                    'post_content' => '内容',
+                    'post_status'  => 'publish',
+                    'post_type'    => 'page',
+                ]);
+                $this->go_to(get_permalink($id));
+                break;
 
-    /**
-     * Test the init() method.
-     *
-     * Verifies that the correct styles are added to the frontend, editor,
-     * and deferred style lists.
-     *
-     * @covers InteglightCommonCssAssets::init
-     */
-    public function test_init_adds_correct_styles_and_deferred_handles(): void
-    {
-        // --- Arrange ---
-        // bootstrap.php で init() が既に呼ばれている可能性を考慮し、
-        // setUp() でリセットされた状態からテストを開始します。
+            case 'front':
+                // create and set static front page
+                $id = wp_insert_post([
+                    'post_title'   => 'フロントページ',
+                    'post_content' => '内容',
+                    'post_status'  => 'publish',
+                    'post_type'    => 'page',
+                ]);
+                update_option('show_on_front', 'page');
+                update_option('page_on_front', $id);
+                $this->go_to(home_url('/'));
+                break;
 
-        $expectedFrontendStyles = [
-            'integlight-base-style-plus' => '/css/base-style.css',
-            'integlight-style-plus' => '/css/integlight-style.css',
-            'integlight-sp-style' => '/css/integlight-sp-style.css', // Included in frontend
-            'integlight-layout' => '/css/layout.css',
-            'integlight-integlight-menu' => '/css/integlight-menu.css',
-            'integlight-post' => '/css/post.css',
-            'integlight-page' => '/css/page.css',
-            'integlight-front' => '/css/front.css',
-            'integlight-home' => '/css/home.css',
-            'integlight-module' => '/css/module.css',
-            'integlight-helper' => '/css/helper.css',
-        ];
+            case 'home':
+                // blog posts index: clear front page
+                update_option('show_on_front', 'posts');
+                update_option('page_on_front', 0);
+                $this->go_to(home_url('/'));
+                break;
 
-        $expectedEditorStyles = $expectedFrontendStyles;
-        unset($expectedEditorStyles['integlight-sp-style']); // Excluded from editor
+            default:
+                throw new \InvalidArgumentException("Unknown context: {$context}");
+        }
 
-        $expectedDeferredStyles = [
-            'integlight-sp-style',
-            'wp-block-library'
-        ];
-        // Sort for consistent comparison as order might not be guaranteed internally
-        sort($expectedDeferredStyles);
+        $GLOBALS['wp']->main();
 
-        // --- Act ---
-        // init() は bootstrap.php で実行されているか、
-        // あるいはテスト対象として明示的に呼び出す必要があるかもしれません。
-        // ここでは、init() がテスト対象のメソッドであるため、明示的に呼び出します。
-        // もし bootstrap で既に呼ばれていて、その結果をテストしたい場合は、
-        // この呼び出しは不要で、setUp() でのリセットも不要になる場合があります。
-        // (ただし、テストの独立性を保つためには setUp/tearDown でのリセットが推奨されます)
+        // Confirm WP conditional
+        if ($context === 'post') {
+            $this->assertTrue(is_single(), 'Expected single post context');
+            $this->assertFalse(is_page(), 'Not page context');
+        } elseif ($context === 'page') {
+            $this->assertTrue(is_page(), 'Expected page context');
+            $this->assertFalse(is_single(), 'Not single post context');
+        } elseif ($context === 'front') {
+            $this->assertTrue(is_front_page(), 'Expected front page context');
+            $this->assertFalse(is_home(), 'Not blog index context');
+        } else {
+            // Home (posts index) context
+            $this->assertTrue(is_home(), 'Expected blog index context');
+        }
+
+        // Act
         InteglightCommonCssAssets::init();
 
-        // --- Assert ---
-        $actualFrontendStyles = self::getStaticPropertyValue(InteglightFrontendStyles::class, 'styles');
-        $actualEditorStyles = self::getStaticPropertyValue(InteglightEditorStyles::class, 'styles');
-        $actualDeferredStyles = self::getStaticPropertyValue(InteglightDeferCss::class, 'deferred_styles');
-        sort($actualDeferredStyles); // Sort for comparison
+        // Assert Frontend styles
+        $actual = self::staticProperty(InteglightFrontendStyles::class, 'styles');
+        $this->assertEquals($expectedFrontend, $actual, "Frontend styles mismatch for {$context}");
 
-        $this->assertEquals($expectedFrontendStyles, $actualFrontendStyles, 'Frontend styles were not added correctly.');
-        $this->assertEquals($expectedEditorStyles, $actualEditorStyles, 'Editor styles were not added correctly (or exclusion failed).');
-        $this->assertEquals($expectedDeferredStyles, $actualDeferredStyles, 'Deferred style handles were not added correctly.');
+        // Assert Editor styles
+        $editor = self::staticProperty(InteglightEditorStyles::class, 'styles');
+        $expectedEditor = $expectedFrontend;
+        unset($expectedEditor['integlight-sp-style']);
+        $this->assertEquals($expectedEditor, $editor, "Editor styles mismatch for {$context}");
+
+        // Assert Deferred styles
+        $deferred = self::staticProperty(InteglightDeferCss::class, 'deferred_styles');
+        sort($deferred);
+        $expectedDeferred = ['integlight-sp-style', 'wp-block-library'];
+        sort($expectedDeferred);
+        $this->assertEquals($expectedDeferred, $deferred, "Deferred styles mismatch for {$context}");
+    }
+
+    public function contextProvider(): array
+    {
+        $base = [
+            'integlight-base-style-plus' => '/css/base-style.css',
+            'integlight-style-plus'      => '/css/integlight-style.css',
+            'integlight-sp-style'        => '/css/integlight-sp-style.css',
+            'integlight-layout'          => '/css/layout.css',
+            'integlight-integlight-menu' => '/css/integlight-menu.css',
+            'integlight-module'          => '/css/module.css',
+            'integlight-helper'          => '/css/helper.css',
+        ];
+
+        return [
+            'post'  => ['post', array_merge($base, ['integlight-post'  => '/css/post.css'])],
+            'page'  => ['page', array_merge($base, ['integlight-page'  => '/css/page.css'])],
+            'front' => ['front', array_merge($base, ['integlight-page'  => '/css/page.css', 'integlight-front' => '/css/front.css'])],
+            'home'  => ['home', array_merge($base, ['integlight-home'  => '/css/home.css'])],
+        ];
     }
 }
