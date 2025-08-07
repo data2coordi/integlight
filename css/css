@@ -1,1 +1,2 @@
-npm run watch:css:restart
+#npm run watch:css:restart
+npm run watch:css
