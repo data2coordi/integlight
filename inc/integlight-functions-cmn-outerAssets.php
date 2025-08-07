@@ -49,7 +49,12 @@ class InteglightDeferCss
 	public static function defer_css($tag, $handle)
 	{
 		if (in_array($handle, self::$deferred_styles, true)) {
-			return str_replace("rel='stylesheet'", "rel='stylesheet' media='print' onload=\"this.media='all'\"", $tag);
+			$tag = str_replace("media='all'", "", $tag);
+			return str_replace(
+				"rel='stylesheet'",
+				"rel='stylesheet' media='print' onload=\"this.onload=null;this.media='all';\"",
+				$tag
+			);
 		}
 		return $tag;
 	}
