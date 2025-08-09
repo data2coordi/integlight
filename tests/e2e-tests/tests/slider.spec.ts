@@ -123,7 +123,7 @@ test.describe('モバイル環境', () => {
     test('E2E-slide-sp: カスタマイザーで画像、テキストを選択...', async ({ page }) => {
 
         const CONFIG = {
-            baseUrl: 'http://wpdev.toshidayurika.com:7100',
+            baseUrl: 'https://wpdev.toshidayurika.com',
             effectLabel: 'フェード',
             interval: '1',
             imagePartialName: 'Firefly-260521',
@@ -177,7 +177,7 @@ test.describe('PC環境', () => {
     test('E2E-slide-PC: カスタマイザーで画像、テキストを選択...', async ({ page }) => {
 
         const CONFIG = {
-            baseUrl: 'http://wpdev.toshidayurika.com:7100',
+            baseUrl: 'https://wpdev.toshidayurika.com',
             effectLabel: 'フェード',
             interval: '1',
             imagePartialName: 'Firefly-203280',
