@@ -155,7 +155,7 @@ if (! function_exists('integlight_post_thumbnail')) :
 						'class' => 'responsive-img',
 						'loading' => 'eager',
 						'decoding' => 'async',
-						'sizes' => '(max-width: 850px) 20vw, 800px', //PF対応!!!：20vwとすることで、srcsetで低解像度を選択させる。
+						'sizes' => '(max-width: 480px) 20vw, 800px', //PF対応!!!：20vwとすることで、srcsetで低解像度を選択させる。
 						'fetchpriority' => 'high'  // PF対応!!!
 
 					]

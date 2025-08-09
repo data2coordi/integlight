@@ -8,7 +8,7 @@ import { test, expect } from '@playwright/test';
 /****************************************************************************************:     */
 test('PC-01: メインメニュー → サブメニュー → サブサブメニューの開閉と閉じる確認', async ({ page }) => {
   // 1. ページを開く
-  await page.goto('http://wpdev.toshidayurika.com:7100/', { waitUntil: 'networkidle' });
+  await page.goto('https://wpdev.toshidayurika.com/', { waitUntil: 'networkidle' });
 
   // 2. 最初のメインメニューを取得してクリック
   const mainMenuItem = page.locator('.main-navigation .menu-item-has-children').first();
@@ -66,7 +66,7 @@ test('モバイルでハンバーガーメニューの開閉ができる', async
   await page.setViewportSize({ width: 375, height: 800 });
 
   // ページにアクセス
-  await page.goto('http://wpdev.toshidayurika.com:7100/', { waitUntil: 'networkidle' });
+  await page.goto('https://wpdev.toshidayurika.com/', { waitUntil: 'networkidle' });
 
   // メニューコンテナ（開閉対象）とトグルボタン取得
   const toggleButton = page.locator('#menuToggle-button');
@@ -95,7 +95,7 @@ test('SP-01: メインメニュー → サブメニュー → サブサブメニ
 
 
   // ページにアクセス
-  await page.goto('http://wpdev.toshidayurika.com:7100/', { waitUntil: 'networkidle' });
+  await page.goto('https://wpdev.toshidayurika.com/', { waitUntil: 'networkidle' });
 
   // メニューコンテナ（開閉対象）とトグルボタン取得
   const toggleButton = page.locator('#menuToggle-button');
@@ -167,7 +167,7 @@ test('SP-01: メインメニュー → サブメニュー → サブサブメニ
 
 test('PC-02: Tabでメイン→サブ→サブサブ開いて、ESCで全閉じ確認', async ({ page }) => {
   // 1. ページを開く
-  await page.goto('http://wpdev.toshidayurika.com:7100/', { waitUntil: 'networkidle' });
+  await page.goto('https://wpdev.toshidayurika.com/', { waitUntil: 'networkidle' });
 
   // 2. メインメニューをTabでフォーカス→開く
   const mainLink = page.locator('.main-navigation .menu-item-has-children > a').first();
@@ -213,7 +213,7 @@ test('PC-02: Tabでメイン→サブ→サブサブ開いて、ESCで全閉じ�
 
 test('PC-03: Tabで開いて Shift+Tabで戻りつつメニューが階層的に閉じる確認', async ({ page }) => {
   // 1. ページを開く
-  await page.goto('http://wpdev.toshidayurika.com:7100/', { waitUntil: 'networkidle' });
+  await page.goto('https://wpdev.toshidayurika.com/', { waitUntil: 'networkidle' });
 
   // 2. メインメニューをTabでフォーカス→開く
   const mainLink = page.locator('.main-navigation .menu-item-has-children > a').first();
@@ -271,7 +271,7 @@ test('PC-03: Tabで開いて Shift+Tabで戻りつつメニューが階層的に
 });
 test('PC-04: Tabでメイン→サブ→サブサブ→次のサブ', async ({ page }) => {
   // 1. ページを開く
-  await page.goto('http://wpdev.toshidayurika.com:7100/', { waitUntil: 'networkidle' });
+  await page.goto('https://wpdev.toshidayurika.com/', { waitUntil: 'networkidle' });
 
   // 2. メインメニューをTabでフォーカス→開く
   const mainLink = page.locator('.main-navigation .menu-item-has-children > a').first();
@@ -356,7 +356,7 @@ test('モバイルでハンバーガーメニューをキーボード操作で�
   await page.setViewportSize({ width: 375, height: 800 });
 
   // ページにアクセス
-  await page.goto('http://wpdev.toshidayurika.com:7100/', { waitUntil: 'networkidle' });
+  await page.goto('https://wpdev.toshidayurika.com/', { waitUntil: 'networkidle' });
 
   // トグルボタンとメニュー取得
   const toggleButton = page.locator('#menuToggle-button');
@@ -382,7 +382,7 @@ test('モバイルでハンバーガーメニューをキーボード操作で�
 test('SP-02: モバイルでTabでメイン→サブ→サブサブ開いて、ESCで全閉じ確認', async ({ page }) => {
   // 1. モバイル表示に設定してページを開く
   await page.setViewportSize({ width: 375, height: 800 });
-  await page.goto('http://wpdev.toshidayurika.com:7100/', { waitUntil: 'networkidle' });
+  await page.goto('https://wpdev.toshidayurika.com/', { waitUntil: 'networkidle' });
 
   // 2. ハンバーガーメニューをEnterキーで開く
   const toggleButton = page.locator('#menuToggle-button');
@@ -438,7 +438,7 @@ test('SP-02: モバイルでTabでメイン→サブ→サブサブ開いて、E
 test('SP-03: Tabで開いて Shift+Tabで戻りつつメニューが階層的に閉じる確認', async ({ page }) => {
   // 1. モバイル表示に設定してページを開く
   await page.setViewportSize({ width: 375, height: 800 });
-  await page.goto('http://wpdev.toshidayurika.com:7100/', { waitUntil: 'networkidle' });
+  await page.goto('https://wpdev.toshidayurika.com/', { waitUntil: 'networkidle' });
 
   // 2. ハンバーガーメニューをEnterキーで開く
   const toggleButton = page.locator('#menuToggle-button');
@@ -519,7 +519,7 @@ test('SP-03: Tabで開いて Shift+Tabで戻りつつメニューが階層的に
 test('アクセシビリティ: モバイルハンバーガーのaria-expanded/aria-hidden切替検証', async ({ page }) => {
   // モバイル表示に設定
   await page.setViewportSize({ width: 375, height: 800 });
-  await page.goto('http://wpdev.toshidayurika.com:7100/', { waitUntil: 'networkidle' });
+  await page.goto('https://wpdev.toshidayurika.com/', { waitUntil: 'networkidle' });
 
   const toggleButton = page.locator('#menuToggle-button');
   const menuContainer = page.locator('.menuToggle-containerForMenu');

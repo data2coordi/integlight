@@ -145,7 +145,7 @@ function runCustomizerTests({
     });
 }
 
-const baseUrl = 'http://wpdev.toshidayurika.com:7100';
+const baseUrl = 'https://wpdev.toshidayurika.com';
 
 
 runCustomizerTests({

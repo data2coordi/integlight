@@ -18,7 +18,7 @@ class InteglightThemeColorLoader
 }
 new InteglightThemeColorLoader();
 
-/*
+
 class InteglightHomeTypeLoader
 {
     public function __construct()
@@ -35,5 +35,4 @@ class InteglightHomeTypeLoader
         InteglightDeferCss::add_deferred_styles(['home-type']);
     }
 }
-new InteglightHomeTypeLoader();
-*/
+//new InteglightHomeTypeLoader();

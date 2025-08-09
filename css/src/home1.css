@@ -1,5 +1,18 @@
-  .home1 {
-      width: 100px;
-      height: 100px;
-      font-size: 0.75rem;
-  }
+.ly_site_content,
+.ly_site_header {
+  /* flex-direction: column;*/
+
+}
+
+.site-header,
+ul.menu li ul.sub-menu li.menu-item-has-children>ul.sub-menu,
+ul.menu>li.menu-item-has-children>ul.sub-menu {
+  background: #fff;
+}
+
+.main-navigation a {
+  color: #222;
+  font-weight: bold;
+}
+
+.main-navigation li.menu-item-has-children>a:after {}
