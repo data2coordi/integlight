@@ -35,4 +35,4 @@ class InteglightHomeTypeLoader
         InteglightDeferCss::add_deferred_styles(['home-type']);
     }
 }
-//new InteglightHomeTypeLoader();
+new InteglightHomeTypeLoader();
