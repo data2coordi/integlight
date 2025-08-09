@@ -267,3 +267,36 @@ class Integlight_PostThumbnail
 /********************************************************************/
 /* サムネイル取得(存在しなければ、本文の画像、デフォルト画像を取得) e	*/
 /********************************************************************/
+
+/**
+ * 簡易モバイル判定（User-Agentをもとに）
+ *
+ * @return bool true=モバイル、false=PC
+ */
+function my_is_mobile_simple()
+{
+	if (empty($_SERVER['HTTP_USER_AGENT'])) {
+		return false;
+	}
+	$ua = $_SERVER['HTTP_USER_AGENT'];
+
+	// iPhone, Android, iPad, Mobile などの文字列で判定（必要に応じて追加可能）
+	$mobile_agents = [
+		'iPhone',
+		'iPod',
+		'Android',
+		'Mobile',
+		'webOS',
+		'BlackBerry',
+		'Opera Mini',
+		'IEMobile',
+		'Windows Phone',
+	];
+
+	foreach ($mobile_agents as $agent) {
+		if (stripos($ua, $agent) !== false) {
+			return true;
+		}
+	}
+	return false;
+}

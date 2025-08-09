@@ -21,7 +21,7 @@ if ($display_choice != $Integlight_slider_settings->headerTypeName_slider) retur
 
 
 
-if (wp_is_mobile()) {
+if (my_is_mobile_simple()) {
 	$slider_image_1 = get_theme_mod('integlight_slider_image_mobile_1');
 	if (empty($slider_image_1)) {
 		$slider_image_1 = get_theme_mod('integlight_slider_image_1'); // PCの画像

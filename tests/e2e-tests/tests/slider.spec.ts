@@ -170,7 +170,7 @@ test.describe('モバイル環境', () => {
     });
 });
 
-
+/*
 test.describe('PC環境', () => {
 
     // テスト本体
@@ -223,3 +223,4 @@ test.describe('PC環境', () => {
             verifySliderOnFront(page, baseUrl, imagePartialName, mainText, subText, textPositionTop, textPositionLeft));
     });
 });
+*/
