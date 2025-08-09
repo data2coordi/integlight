@@ -153,7 +153,7 @@ runCustomizerTests({
     baseUrl,
     settingButtonName: 'Google Analytics 設定',
     inputLabel: 'Google Analytics トラッキングコード',
-    inputCode: '<script>UA-12345678-1</script>',
+    inputCode: '<script>//UA-12345678-1</script>',
     outputTarget: 'head',
 });
 
@@ -163,7 +163,7 @@ runCustomizerTests({
     baseUrl,
     settingButtonName: 'Google Tag Manager 設定',
     inputLabel: 'headタグに出力するコード',
-    inputCode: '<script>GTM-head-12345678-1</script>',
+    inputCode: '<script>//GTM-head-12345678-1</script>',
     outputTarget: 'head',
 });
 
@@ -172,7 +172,7 @@ runCustomizerTests({
     baseUrl,
     settingButtonName: 'Google Tag Manager 設定',
     inputLabel: 'bodyタグ開始直後に出力するコード',
-    inputCode: '<script>GTM-body-12345678-1</script>',
+    inputCode: '<script>//GTM-body-12345678-1</script>',
     outputTarget: 'body',
 });
 
@@ -181,7 +181,7 @@ runCustomizerTests({
     baseUrl,
     settingButtonName: 'Googleアドセンス自動広告',
     inputLabel: 'アドセンス自動広告コード',
-    inputCode: '<script>adSense-head-12345678-1</script>',
+    inputCode: '<script>//adSense-head-12345678-1</script>',
     outputTarget: 'head',
 });
 
