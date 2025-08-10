@@ -149,7 +149,7 @@ class integlight_customizer_HomeType
 
 		// Control
 		$wp_customize->add_control('integlight_hometype_setting', array(
-			'section'     => 'integlight_hometype_section', //既存の色セクションに追加
+			'section'     => 'integlight_hometype_section',
 			'settings'    => 'integlight_hometype_setting',
 			'label'       => __('Home type setting', 'integlight'),
 			'description' => __('Select favorite home type', 'integlight'),
