@@ -335,11 +335,8 @@ class Integlight_SliderManager {
             return;
         }
 
-        this.$(document).ready(() => {
-            //setTimeoutなしだとDOM構築は終わっているけど、まだ画像のロードやCSSの描画が完全じゃない可能性あり。非同期待ち行列の後ろに並ばせる。
-            setTimeout(() => {
-                new SliderClass(this.$, this.settings);
-            }, 0);
+        this.$(window).on('load', () => {
+            new SliderClass(this.$, this.settings);
         });
     }
 }
