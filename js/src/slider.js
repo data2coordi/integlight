@@ -182,7 +182,7 @@ class Integlight_FadeSlider2 extends Integlight_Slider {
         this.changingDuration = this.displayDuration / 2;
 
         // CSS 衝突回避クラス
-        this.$slider.addClass('fade-25-50-25').removeClass('slide-effect fade-effect');
+        //this.$slider.addClass('fade-25-50-25').removeClass('slide-effect fade-effect');
 
         // safety check
         if (!this.$slider || !this.$slides) {
@@ -275,23 +275,25 @@ class Integlight_FadeSlider2 extends Integlight_Slider {
     showSlide() {
         this._log('showSlide start', this.baseIndex);
 
-        // フェードアウト（全要素を一旦透明に）
+        // フェードアウト開始
         this.$visible.forEach($s => $s.css('opacity', 0));
 
-        // フェード時間後に画像を差し替えてフェードイン
+        // setTimeoutはchangingDurationの80%くらいに短縮
+        const waitTime = this.changingDuration * 800; // ミリ秒なので * 1000省略の場合は調整してください
+
         setTimeout(() => {
-            // 配列を1つ進める（並び順を変える）
+            // 画像切替
             this.baseIndex = (this.baseIndex + 1) % this.images.length;
             for (let i = 0; i < 3; i++) {
                 const src = this.images[(this.baseIndex + i) % this.images.length];
                 this.$visible[i].find('img').attr('src', src);
             }
-
-            // フェードイン（元の opacity に戻す）
+            // フェードイン開始
             this.$visible.forEach($s => $s.css('opacity', 1));
             this._log('showSlide done', this.baseIndex, this.$visible.map(v => v.find('img').attr('src')));
-        }, Math.round(this.changingDuration * 1000));
+        }, waitTime);
     }
+
 
     destroy() {
         clearInterval(this._intervalId);
