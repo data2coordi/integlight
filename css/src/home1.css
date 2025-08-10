@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap');
+
+article, h1, h2, h3, h4, h5, h6, section {
+  border-bottom: none;
+  font-family: 'RocknRoll One', sans-serif;
+  font-weight: 500;
+}
+
 /*************ヘッダー*********/
 /*************ヘッダー*********/
 /*************ヘッダーs*********/
@@ -81,3 +89,6 @@ p.site-description{
   height: 50vh;
 } */
 
+.blog .post-grid, .home .post-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
