@@ -273,16 +273,25 @@ class Integlight_FadeSlider2 extends Integlight_Slider {
     }
 
     showSlide() {
-        const prevIndex = this.currentIndex;
-        this.currentIndex = (this.currentIndex + 1) % this.slideCount;
+        this._log('showSlide start', this.baseIndex);
 
-        // 前スライドをフェードアウト
-        this.$slide.eq(prevIndex).css('z-index', 1).animate({ opacity: 0 }, this.changingDuration * 1000);
+        // フェードアウト開始
+        this.$visible.forEach($s => $s.css('opacity', 0));
 
-        // 次スライドをフェードイン
-        this.$slide.eq(this.currentIndex)
-            .css({ opacity: 0, 'z-index': 2 })
-            .animate({ opacity: 1 }, this.changingDuration * 1000);
+        // setTimeoutはchangingDurationの80%くらいに短縮
+        const waitTime = this.changingDuration * 800; // ミリ秒なので * 1000省略の場合は調整してください
+
+        setTimeout(() => {
+            // 画像切替
+            this.baseIndex = (this.baseIndex + 1) % this.images.length;
+            for (let i = 0; i < 3; i++) {
+                const src = this.images[(this.baseIndex + i) % this.images.length];
+                this.$visible[i].find('img').attr('src', src);
+            }
+            // フェードイン開始
+            this.$visible.forEach($s => $s.css('opacity', 1));
+            this._log('showSlide done', this.baseIndex, this.$visible.map(v => v.find('img').attr('src')));
+        }, waitTime);
     }
 
 
