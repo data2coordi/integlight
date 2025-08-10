@@ -5,12 +5,14 @@ if (is_front_page() != false) {
     integlight_display_headerContents();
 }
 
-if (true) {
-    get_template_part('template-parts/content-home', 'pattern1');
-} elseif (false) {
+$pattern = isset($_GET['pattern']) ? $_GET['pattern'] : '';
+
+if ($pattern === '0') {
+    get_template_part('template-parts/content-home', 'pattern0');
+} elseif ($pattern === '2') {
     get_template_part('template-parts/content-home', 'pattern2');
 } else {
-    get_template_part('template-parts/content-home', 'pattern0');
+    get_template_part('template-parts/content-home', 'pattern2');
 }
 
 ?>

@@ -21,6 +21,8 @@ require get_template_directory() . '/inc/integlight-functions.php';
 require get_template_directory() . '/inc/integlight-functions-pf.php';
 require get_template_directory() . '/inc/integlight-functions-widgets.php';
 require get_template_directory() . '/inc/integlight-functions-pattern.php';
+require get_template_directory() . '/inc/integlight-load-more.php';
+
 require get_template_directory() . '/inc/integlight-functions-tmp.php';
 require get_template_directory() . '/inc/starter-content.php';
 
