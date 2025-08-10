@@ -1,6 +1,7 @@
 {
   "scripts": {
     "start": "wp-scripts start",
-    "build": "wp-scripts build src/*.js --output-path=build"
+    "build": "wp-scripts build src/*.js --output-path=build",
+    "start2": "chokidar 'src/*.js' -c 'filename=$(basename {path} .js); wp-scripts build {path} --output-path=tmp_build && cp tmp_build/*.js build/ && rm -rf tmp_build'"
   }
 }

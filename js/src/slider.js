@@ -89,7 +89,6 @@ class Integlight_SlideSlider2 extends Integlight_Slider {
         this.$slider.addClass('slide-effect');
 
         this.slideCount = this.$slide.length;
-        this.currentIndex = 2; // 左に2枚クローン追加した分の開始位置
 
         // スライド幅（50vw）をpxで計算
         this.updateSlideWidth();
@@ -102,21 +101,11 @@ class Integlight_SlideSlider2 extends Integlight_Slider {
         this.$slides.append(this.$slide.eq(0).clone());
         this.$slides.append(this.$slide.eq(1).clone());
 
-        // クローンを含む合計枚数
-        const totalSlides = this.slideCount + 4;
-
-        // .slides幅をセット
-        this.$slides.css('width', totalSlides * this.slideWidth + 'px');
 
         // 最初の位置にセット（左に2枚分オフセット）
+        this.currentIndex = 2; // 左に2枚クローン追加した分の開始位置
         this.helperSlide(this.currentIndex, false);
 
-        // リサイズ対応
-        $(window).on('resize', () => {
-            this.updateSlideWidth();
-            this.$slides.css('width', totalSlides * this.slideWidth + 'px');
-            this.helperSlide(this.currentIndex, false);
-        });
 
         // トランジション終了時のループ処理
         this.$slides.on('transitionend', () => {
@@ -131,35 +120,28 @@ class Integlight_SlideSlider2 extends Integlight_Slider {
                     this.$slides.css('transition', `transform ${this.changingDuration}s ease-in-out`);
                 });
             }
-            // 左端のクローンを越えたら本物の最後にジャンプ（必要なら）
-            /*
-            if (this.currentIndex <= 1) {
-                this.$slides.css('transition', 'none');
-                this.currentIndex = this.slideCount + 1;
-                this.helperSlide(this.currentIndex, false);
-                requestAnimationFrame(() => {
-                    this.$slides[0].offsetHeight;
-                    this.$slides.css('transition', `transform ${this.changingDuration}s ease-in-out`);
-                });
-            }
-                */
+
         });
 
         setInterval(() => this.showSlide(), this.displayDuration * 1000);
     }
 
+
     updateSlideWidth() {
-        this.slideWidth = this.$slider.width() * 0.5; // 50vwのpx換算
+
+        this.slideWidth = this.$slide.width();// 50vwのpx換算
+        this.offset = this.slideWidth * 0.5; // 25vwオフセット
+
     }
 
+
     helperSlide(index, animate) {
-        const offset = this.$slider.width() * 0.25; // 25vwオフセット
         if (animate) {
             this.$slides.css('transition', `transform ${this.changingDuration}s ease-in-out`);
         } else {
             this.$slides.css('transition', 'none');
         }
-        const x = (-index * this.slideWidth) + offset;
+        const x = (-index * this.slideWidth) + this.offset;
         this.$slides.css('transform', `translateX(${x}px)`);
     }
 
@@ -326,14 +308,9 @@ class Integlight_SliderManager {
     }
 
     init() {
-        if (this.settings.displayChoice !== this.settings.headerTypeNameSlider) {
-            return;
-        }
 
         const SliderClass = this.effectRegistry[this.settings.effect + this.settings.homeType];
-        if (typeof SliderClass !== 'function') {
-            return;
-        }
+
 
         this.$(window).on('load', () => {
             new SliderClass(this.$, this.settings);
@@ -341,7 +318,7 @@ class Integlight_SliderManager {
     }
 }
 
-// 初期化処理（デフォルト）
+// 初期化処理 　　（デフォルト）
 const sliderManager = new Integlight_SliderManager(
     integlight_sliderSettings
 );
