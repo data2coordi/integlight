@@ -22,7 +22,7 @@ class Integlight_SlideSlider extends Integlight_Slider {
         this.$slider.addClass('slide-effect');
 
         this.slideWidth = this.$slide.width();
-        // クローン要素を追加
+        // クローン要素を追加　理由は別紙設計書参照
         this.$slides.append(this.$slide.first().clone());
 
 
@@ -34,6 +34,7 @@ class Integlight_SlideSlider extends Integlight_Slider {
         if (flag) {
             this.$slides.css('transition', 'transform ' + this.changingDuration + 's ease-in-out');
         } else {
+            //移動状態を初期状態に戻す
             this.$slides.css('transition', 'none');
         }
         this.$slides.css('transform', 'translateX(' + (-index * this.slideWidth) + 'px)');
@@ -42,8 +43,11 @@ class Integlight_SlideSlider extends Integlight_Slider {
     showSlide() {
         this.currentIndex++;
         this.helperSlide(this.currentIndex, true);
+
+        //ループが一周したとき
         if (this.currentIndex === this.slideCount) {
             this.currentIndex = 0;
+            //スライド期間の秒数待ってから開始状態に瞬間移動させる。WAIT機能
             setTimeout(() => {
                 this.helperSlide(this.currentIndex, false);
             }, this.changingDuration * 1000);
@@ -106,6 +110,7 @@ class Integlight_SliderManager {
         }
 
         this.$(document).ready(() => {
+            //setTimeoutなしだとDOM構築は終わっているけど、まだ画像のロードやCSSの描画が完全じゃない可能性あり。非同期待ち行列の後ろに並ばせる。
             setTimeout(() => {
                 new SliderClass(this.$, this.settings);
             }, 0);
