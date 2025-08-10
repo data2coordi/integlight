@@ -140,25 +140,3 @@
 /* slider _e //////////////////////////////////////////////// */
 
 
-/*3分割スライダー用　一時的
-/* スライド式エフェクト */
-.slider.slide-effect .slide {
-  min-width: 50vw;
-  /* 
-  
-  1枚あたり画面幅の50% 
-  box-sizing: border-box;
-  */
-}
-
-
-.slider .slide img {
-  height: auto;
-  object-fit: contain;
-  /* 縦横比を維持しながら、収まらない部分をカット */
-}
-
-
-.slider.slide-effect .slide img {
-  /* width: 100%;*/
-}

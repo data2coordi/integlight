@@ -55,6 +55,8 @@ class Integlight_SlideSlider extends Integlight_Slider {
     }
 }
 
+
+
 class Integlight_FadeSlider extends Integlight_Slider {
     constructor($, settings) {
         super($, settings);
@@ -167,6 +169,138 @@ class Integlight_SlideSlider2 extends Integlight_Slider {
     }
 }
 
+class Integlight_FadeSlider2 extends Integlight_Slider {
+    constructor($, settings) {
+        super($, settings);
+        this.$ = $;
+        this.settings = settings || {};
+        this.debug = !!this.settings.debug;
+        this._log = (...a) => { if (this.debug) console.log('[FadeSlider2]', ...a); };
+
+        // 安全な duration 設定（親クラスの値がない場合のフォールバック）
+        this.displayDuration = this.settings.changeDuration || this.displayDuration || 5;
+        this.changingDuration = this.displayDuration / 2;
+
+        // CSS 衝突回避クラス
+        this.$slider.addClass('fade-25-50-25').removeClass('slide-effect fade-effect');
+
+        // safety check
+        if (!this.$slider || !this.$slides) {
+            this._log('missing .slider or .slides, abort');
+            return;
+        }
+
+        // 元 DOM から画像リストを取得（settings.images があればそちらを優先）
+        const domImgs = this.$slide.map((i, el) => this.$(el).find('img').attr('src')).get();
+        this.images = (Array.isArray(this.settings.images) && this.settings.images.length)
+            ? this.settings.images.slice()
+            : domImgs.slice();
+
+        if (!this.images || this.images.length === 0) {
+            this._log('no images found for FadeSlider2 - abort');
+            return;
+        }
+
+        // 画像が3未満なら複製して最低3枚にする
+        while (this.images.length < 3) {
+            this.images = this.images.concat(this.images.slice(0, 3 - this.images.length));
+        }
+
+        // 内部インデックス（左側に表示する画像の配列インデックス）
+        this.baseIndex = 0;
+
+        // 強制的に .slides の transform/transition を無効化（既存スライド動作と衝突しないように）
+        this.$slides.css({
+            transition: 'none',
+            transform: 'none',
+            width: '100%',
+            display: 'flex',
+            'align-items': 'stretch',
+            'justify-content': 'center',
+            gap: '0'
+        });
+
+        // 既存スライド要素を破棄して 3つだけ作る（left / center / right）
+        this.$slides.empty();
+        this.$visible = []; // jQuery 要素配列
+
+        const widths = ['25%', '50%', '25%'];
+        const roles = ['left', 'center', 'right'];
+
+        for (let i = 0; i < 3; i++) {
+            const $s = this.$('<div/>', { class: 'slide slide-' + roles[i] }).css({
+                flex: '0 0 ' + widths[i],
+                position: 'relative',
+                overflow: 'hidden',
+                boxSizing: 'border-box'
+            });
+            const $img = this.$('<img/>').attr('src', this.images[(this.baseIndex + i) % this.images.length]).css({
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                display: 'block'
+            });
+            $s.append($img);
+            this.$slides.append($s);
+            this.$visible.push($s);
+        }
+
+        // 高さを揃える（CSSの .slider 高さを尊重）
+        this.updateHeights();
+
+        // opacity 用トランジションを適用
+        this.$visible.forEach($s => $s.css('transition', `opacity ${this.changingDuration}s ease-in-out`));
+
+        // 初期はすべて表示（フェードは showSlide で制御）
+        this.$visible.forEach($s => $s.css('opacity', 1));
+
+        // リサイズで高さ再計算
+        this._onResize = () => this.updateHeights();
+        this.$(window).on('resize.fadeSlider2', this._onResize);
+
+        // 自動切替
+        this._intervalId = setInterval(() => this.showSlide(), this.displayDuration * 1000);
+        this._log('initialized', { displayDuration: this.displayDuration, changingDuration: this.changingDuration });
+    }
+
+    updateHeights() {
+        // slider の高さに合わせる（CSSで height が指定されている前提）
+        const h = Math.max(0, this.$slider.height() || Math.round(window.innerHeight * 0.35));
+        this.$visible.forEach($s => $s.css('height', h + 'px'));
+        // img の高さを 100% にしてフィットさせる
+        this.$visible.forEach($s => $s.find('img').css('height', '100%'));
+        this._log('updateHeights', h);
+    }
+
+    showSlide() {
+        this._log('showSlide start', this.baseIndex);
+
+        // フェードアウト（全要素を一旦透明に）
+        this.$visible.forEach($s => $s.css('opacity', 0));
+
+        // フェード時間後に画像を差し替えてフェードイン
+        setTimeout(() => {
+            // 配列を1つ進める（並び順を変える）
+            this.baseIndex = (this.baseIndex + 1) % this.images.length;
+            for (let i = 0; i < 3; i++) {
+                const src = this.images[(this.baseIndex + i) % this.images.length];
+                this.$visible[i].find('img').attr('src', src);
+            }
+
+            // フェードイン（元の opacity に戻す）
+            this.$visible.forEach($s => $s.css('opacity', 1));
+            this._log('showSlide done', this.baseIndex, this.$visible.map(v => v.find('img').attr('src')));
+        }, Math.round(this.changingDuration * 1000));
+    }
+
+    destroy() {
+        clearInterval(this._intervalId);
+        this.$(window).off('resize.fadeSlider2', this._onResize);
+        this._log('destroyed');
+    }
+}
+
+
 
 
 
@@ -182,9 +316,10 @@ class Integlight_SliderManager {
         this.$ = $;
         // デフォルトレジストリ生成
         this.effectRegistry = effectRegistry || {
-            [settings.fade]: Integlight_FadeSlider,
-            //[settings.slide]: Integlight_SlideSlider,
-            [settings.slide]: Integlight_SlideSlider2
+            [settings.fade + settings.home1]: Integlight_FadeSlider,
+            [settings.fade + settings.home2]: Integlight_FadeSlider2,
+            [settings.slide + settings.home1]: Integlight_SlideSlider,
+            [settings.slide + settings.home2]: Integlight_SlideSlider2
         };
     }
 
@@ -193,7 +328,7 @@ class Integlight_SliderManager {
             return;
         }
 
-        const SliderClass = this.effectRegistry[this.settings.effect];
+        const SliderClass = this.effectRegistry[this.settings.effect + this.settings.homeType];
         if (typeof SliderClass !== 'function') {
             return;
         }
