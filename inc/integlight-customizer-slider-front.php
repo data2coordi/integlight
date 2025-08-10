@@ -7,17 +7,19 @@
 //フロントエンドでの表示制御用
 function integlight_display_headerContents()
 {
+	global $Integlight_slider_settings;
+
 	$choice = get_theme_mod('integlight_display_choice', 'none');
 
 
 	switch ($choice) {
-		case 'slider':
+		case $Integlight_slider_settings->headerTypeName_slider:
 			// 値1と一致する場合の処理
 			get_template_part('template-parts/content', 'slide');
 
 			break;
 
-		case 'image':
+		case $Integlight_slider_settings->headerTypeName_image:
 			if (get_header_image()) {
 				echo '<img src="' . esc_url(get_header_image()) . '" class="topImage" ' .  ' alt="' . esc_attr(get_bloginfo('name')) . '">';
 			}
@@ -91,6 +93,8 @@ class integlight_customizer_slider_outerAssets
 add_action('template_redirect', function () {
 	if (is_home() || is_front_page()) {
 		global $Integlight_slider_settings;
-		new integlight_customizer_slider_outerAssets($Integlight_slider_settings);
+		if ($Integlight_slider_settings->headerTypeName_slider === get_theme_mod('integlight_display_choice', 'none')) {
+			new integlight_customizer_slider_outerAssets($Integlight_slider_settings);
+		}
 	}
 });
