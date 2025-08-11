@@ -580,3 +580,15 @@ msgstr "ヘッダー"
 
 msgid "The footer menu will be displayed once you create a menu specifically for the footer."
 msgstr "フッターメニューはメニューでフッター用メニューを作成すると表示されます。"
+
+msgid "Site Type Settings"
+msgstr "サイトタイプ設定"
+
+msgid "Select favorite site type"
+msgstr "好きなサイトタイプを選択してください"
+
+msgid "orthodox"
+msgstr "オーソドックス"
+
+msgid "lively"
+msgstr "にぎやか"

@@ -136,8 +136,8 @@ class integlight_customizer_HomeType
 
 		// サイドバー位置セクションの追加
 		$wp_customize->add_section('integlight_hometype_section', array(
-			'title' => __('hometype Settings', 'integlight'),
-			'priority' => 30,
+			'title' => __('Site Type Settings', 'integlight'),
+			'priority' => 29,
 		));
 
 		// Setting
@@ -151,14 +151,14 @@ class integlight_customizer_HomeType
 		$wp_customize->add_control('integlight_hometype_setting', array(
 			'section'     => 'integlight_hometype_section',
 			'settings'    => 'integlight_hometype_setting',
-			'label'       => __('Home type setting', 'integlight'),
-			'description' => __('Select favorite home type', 'integlight'),
+			'label'       => __('Site Type Settings', 'integlight'),
+			'description' => __('Select favorite site type', 'integlight'),
 			'type'        => 'radio',
 			'choices'     => array(
-				'home1' => __('home1', 'integlight'),
-				'home2' => __('home2', 'integlight'),
-				'home3' => __('home3', 'integlight'),
-				'home4' => __('home4', 'integlight'),
+				'home1' => __('orthodox', 'integlight'),
+				'home2' => __('lively', 'integlight'),
+				//'home3' => __('home3', 'integlight'),
+				//'home4' => __('home4', 'integlight'),
 			),
 		));
 	}
