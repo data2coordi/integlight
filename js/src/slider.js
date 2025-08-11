@@ -287,7 +287,7 @@ class Integlight_FadeSlider2 extends Integlight_Slider {
 class Integlight_SliderManager {
     /**
      * @param {Object} settings
-     * @param {Object<string, class>} [effectRegistry] - { [effectName]: SliderClass }
+     * @param {Object<string class>} [effectRegistry] - { [effectName]: SliderClass }
      * @param {$} [$=jQuery]
      */
     constructor(settings, effectRegistry = null, $ = jQuery) {

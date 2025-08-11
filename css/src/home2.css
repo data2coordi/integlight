@@ -219,7 +219,7 @@
   line-height: 1.35;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;  /* 2行で省略 */
+   /* 2行で省略-webkit-line-clamp: 2;  */
   overflow: hidden;
   word-break: break-word;
   overflow-wrap: anywhere;
@@ -235,7 +235,7 @@
   color: #444;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;          /* 情報量優先は 3 に */
+  /* -webkit-line-clamp: 1;          情報量優先は 3 に */
   overflow: hidden;
   min-height: 0;
 }
@@ -439,19 +439,20 @@ body.home2 .top-categories-posts .post-grid {
     line-height: 1.35;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+    /* -webkit-line-clamp: 2; */
     overflow: hidden;
   }
 
   .home .post-grid .grid-item > a > .post-excerpt,
   .blog .post-grid .grid-item > a > .post-excerpt {
     margin: 0 0 10px;
+    padding: 0 16px;
     font-size: 14px;
     line-height: 1.7;
     color: #444;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2; /* 情報量重視なら3に */
+    /* -webkit-line-clamp: 2; 情報量重視なら3に */
     overflow: hidden;
   }
 
@@ -476,6 +477,11 @@ body.home2 .top-categories-posts .post-grid {
 
   .home .grid-item h2 {
     width: 90%;
+  }
+
+  .home .post-date {
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
 }
