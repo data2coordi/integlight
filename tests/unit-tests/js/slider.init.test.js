@@ -44,17 +44,7 @@ import { Integlight_SliderManager } from '../../../js/src/slider.js';
 
 
 
-afterAll(() => {
-    // Clean up the global variable
-    if (Object.prototype.hasOwnProperty.call(global, 'jQuery')) {
-        delete global.jQuery;
-    }
-    // Clean up the global variable
-    if (Object.prototype.hasOwnProperty.call(global, 'integlight_sliderSettings')) {
-        delete global.integlight_sliderSettings;
-    }
 
-});
 
 describe('Integlight_SliderManager', () => {
     // Factory function to create a mock jQuery object
@@ -66,17 +56,17 @@ describe('Integlight_SliderManager', () => {
         return $fn;
     };
 
-
+    const $mock = make$(); // Mock jQuery
+    const mockFade = jest.fn(); // Mock function for the fade effect
+    const mockSlide = jest.fn();
+    const registry = {
+        fadehome1: class { constructor($, s) { mockFade($, s); } },
+        slidehome1: class { constructor($, s) { mockSlide($, s); } }
+    };
 
     it('should call the FadeSlider initializer when effect is fade', () => {
         const settings = { ...global.integlight_sliderSettings, effect: 'fade', homeType: 'home1' }; // Set effect to 'fade'
-        const $mock = make$(); // Mock jQuery
-        const mockFade = jest.fn(); // Mock function for the fade effect
-        const mockSlide = jest.fn();
-        const registry = {
-            fadehome1: class { constructor($, s) { mockFade($, s); } },
-            slidehome1: class { constructor($, s) { mockSlide($, s); } }
-        };
+
         const manager = new Integlight_SliderManager(
             settings,
             registry, // Pass the mock fade function in the registry
@@ -93,13 +83,7 @@ describe('Integlight_SliderManager', () => {
 
     it('should call the FadeSlider initializer when effect is slide', () => {
         const settings = { ...global.integlight_sliderSettings, effect: 'slide', homeType: 'home1' }; // Set effect to 'fade'
-        const $mock = make$(); // Mock jQuery
-        const mockFade = jest.fn(); // Mock function for the fade effect
-        const mockSlide = jest.fn();
-        const registry = {
-            fadehome1: class { constructor($, s) { mockFade($, s); } },
-            slidehome1: class { constructor($, s) { mockSlide($, s); } }
-        };
+
         const manager = new Integlight_SliderManager(
             settings,
             registry, // Pass the mock fade function in the registry
