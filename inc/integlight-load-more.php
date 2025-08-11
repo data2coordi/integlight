@@ -14,17 +14,15 @@ class Integlight_Load_More
 
         add_action('wp_ajax_integlight_load_more_category_posts', [$this, 'ajax_load_more_category_posts']);
         add_action('wp_ajax_nopriv_integlight_load_more_category_posts', [$this, 'ajax_load_more_category_posts']);
+
+        $scripts = [
+            'integlight-loadmore' =>  ['path' => '/js/build/loadmore.js', 'deps' => ['jquery']],
+        ];
+        InteglightFrontendScripts::add_scripts($scripts);
     }
 
     public function enqueue_scripts()
     {
-        wp_enqueue_script(
-            'integlight-loadmore',
-            get_template_directory_uri() . '/js/build/loadmore.js',
-            ['jquery'],
-            '1.0',
-            true
-        );
 
         wp_localize_script('integlight-loadmore', 'integlightLoadMore', [
             'ajax_url' => admin_url('admin-ajax.php'),

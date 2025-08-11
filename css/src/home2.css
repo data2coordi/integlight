@@ -177,15 +177,64 @@
 /*************コピーの帯e*********/
 /*************コピーの帯*********/
 
+
+/*************ボタン*********/
+/*************ボタン*********/
+/*************ボタンs*********/
 .integlight_pt button {
-  margin-left: auto;
-  margin-right: auto;
-  width: 350px;
+  /* width: 350px; */
   padding: 15px;
   border: 1px solid #555;
   background: #fff;
   color: #555;
 }
+
+/* ボタン本体（今の指定をそのまま活かしつつ） */
+#load-more,
+.load-more-cat {
+  display:flex;
+  margin: 40px auto 0;      /* 左右オートで中央 */
+  align-items:center;
+  gap:28px;
+  justify-content:center;
+  width: clamp(240px, calc(100vw - 48px), 350px);
+  box-sizing: border-box;
+  color:#555;                 /* ← これが矢印の色になる */
+  background:#fff;
+  border:1px solid currentColor;
+  padding:15px 28px;
+}
+
+/* 矢印（SVG）をマスクとして表示 */
+/* 例：テーマ直下に assets/yajirushi.svg を置いた場合 */
+#load-more::after,
+.load-more-cat::after{
+  content:"";
+  width:80px;
+  height:10px;
+  background-color: currentColor;
+
+  /* ← 長書きで確実に */
+  -webkit-mask-image: url("/wp-content/themes/integlight/assets/yajirushi.svg");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+          mask-image: url("/wp-content/themes/integlight/assets/yajirushi.svg");
+          mask-repeat: no-repeat;
+          mask-position: center;
+          mask-size: contain;
+}
+
+/* 例：ホバーで色を変える */
+#load-more:hover,
+.load-more-cat:hover{
+  color:#111;                 /* 矢印も一緒に変わる */
+}
+
+
+/*************ボタンe*********/
+/*************ボタン*********/
+
 
 
 

@@ -180,8 +180,7 @@ class Integlight_FadeSlider2 extends Integlight_Slider {
             this.$visible.push($s);
         }
 
-        // 高さを揃える（CSSの .slider 高さを尊重）
-        console.log('@@@5');
+
 
         // opacity 用トランジションを適用
         this.$visible.forEach($s => $s.css('transition', `opacity ${this.changingDuration}s ease-out`));

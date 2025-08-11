@@ -26,9 +26,9 @@ echo '<section class="top-categories-posts">';
 echo '<h2>トップカテゴリー毎の記事</h2>';
 
 $categories = get_categories([
-    'parent'     => 0,
-    'hide_empty' => true,
-    'number'     => 3,
+    'parent'     => 0, //最上位カテゴリのみ
+    'hide_empty' => true, //空カテゴリは無視
+    'number'     => 0, //上限なし
 ]);
 
 foreach ($categories as $cat) :
