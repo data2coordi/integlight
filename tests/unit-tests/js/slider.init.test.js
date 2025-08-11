@@ -8,13 +8,8 @@ jest.mock('../../../js/src/slider.js', () => {
     // ★★★ Ensure the global variable exists within the mock factory's scope ★★★
     if (typeof global.integlight_sliderSettings === 'undefined') {
         global.integlight_sliderSettings = {
-            displayChoice: 'slider',
-            headerTypeNameSlider: 'slider',
-            effect: 'fade',
             fadeName: 'fade',
             slideName: 'slide',
-            changeDuration: 5,
-            homeType: 'home1',
             home1Name: 'home1',
             home2Name: 'home2',
         };
