@@ -19,6 +19,9 @@ class template_parts_ContentSlideTemplateTest extends WP_UnitTestCase
     private static $image_url_1; // 画像URLも保持
     private static $image_url_2; // 画像URLも保持
 
+    /*ブローバル変数復元用*/
+    private $backup_slider_settings;
+
     // テスト用のスライダー設定オブジェクトを模倣
     private static $mock_slider_settings;
 
@@ -81,8 +84,11 @@ class template_parts_ContentSlideTemplateTest extends WP_UnitTestCase
     public function set_up()
     {
         parent::set_up();
+        $this->backup_slider_settings = $GLOBALS['Integlight_slider_settings'];
+
         // グローバル変数を設定
         global $Integlight_slider_settings;
+
         $Integlight_slider_settings = self::$mock_slider_settings;
 
         // 各テストの前にテーマ設定をクリア
@@ -104,6 +110,8 @@ class template_parts_ContentSlideTemplateTest extends WP_UnitTestCase
     {
         // グローバル変数をクリア
         unset($GLOBALS['Integlight_slider_settings']);
+        $GLOBALS['Integlight_slider_settings'] = $this->backup_slider_settings;
+
         parent::tear_down();
     }
 

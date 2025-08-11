@@ -12,13 +12,24 @@ declare(strict_types=1);
  */
 class integlight_customizer_sliderTest extends WP_UnitTestCase
 {
+
+	/*ブローバル変数復元用*/
+	private $backup_slider_settings;
+
+	public function set_Up(): void
+	{
+
+		// テスト中に設定されたグローバル変数を削除
+		$this->backup_slider_settings = $GLOBALS['Integlight_slider_settings'];
+	}
 	/**
 	 * 各テストの後にグローバル変数をクリーンアップします。
 	 */
 	public function tearDown(): void
 	{
-		// テスト中に設定されたグローバル変数を削除
+
 		unset($GLOBALS['Integlight_slider_settings']);
+		$GLOBALS['Integlight_slider_settings'] = $this->backup_slider_settings;
 
 		// 注意: 依存クラスによって追加されたアクションフックも必要に応じて削除する必要がある場合がありますが、
 		// このテストクラスの範囲を超える可能性があります。

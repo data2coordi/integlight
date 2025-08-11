@@ -127,7 +127,7 @@ class template_parts_ContentArcTemplateTest extends WP_UnitTestCase
         $this->assertStringContainsString('<span class="category-label">Arc Cat</span>', $output, 'Category label check');
         if ($this->attachment_id) {
             // 画像の src 属性が含まれるか (よりシンプルに)
-            $image_url = wp_get_attachment_image_url($this->attachment_id, 'thumbnail'); // テンプレートで使用しているサイズに合わせる
+            $image_url = wp_get_attachment_image_url($this->attachment_id, 'medium'); // テンプレートで使用しているサイズに合わせる
             if ($image_url) {
                 $this->assertStringContainsString('src="' . esc_url($image_url) . '"', $output, 'Image src check');
             } else {

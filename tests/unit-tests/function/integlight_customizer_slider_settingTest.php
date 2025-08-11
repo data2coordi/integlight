@@ -44,6 +44,14 @@ class integlight_customizer_slider_settingTest extends WP_UnitTestCase
      */
     private $test_section_id = 'test_slider_settings_section';
 
+
+
+
+
+    /*ブローバル変数復元用*/
+    private $backup_slider_settings;
+
+
     /**
      * 各テストの前に実行されるセットアップメソッド
      */
@@ -76,7 +84,10 @@ class integlight_customizer_slider_settingTest extends WP_UnitTestCase
         $this->mock_slider_settings = new stdClass();
         $this->mock_slider_settings->effectName_fade = 'fade';
         $this->mock_slider_settings->effectName_slide = 'slide';
+
+
         // グローバル変数にセット
+        $this->backup_slider_settings = $GLOBALS['Integlight_slider_settings'];
         $GLOBALS['Integlight_slider_settings'] = $this->mock_slider_settings;
 
         // テスト対象クラスのインスタンスを作成 (引数の順番を修正済み)
@@ -142,6 +153,7 @@ class integlight_customizer_slider_settingTest extends WP_UnitTestCase
         unset($this->slider_section_helper);
         unset($this->mock_slider_settings);
         unset($this->instance);
+        $GLOBALS['Integlight_slider_settings'] = $this->backup_slider_settings;
 
         parent::tearDown();
     }

@@ -656,11 +656,15 @@ body.home2 .top-categories-posts .post-grid {
 /***********ハンバーガーメニュー**************/
 /***********ハンバーガーメニューs**************/
 @media (max-width: 780px) {
-  .menuToggle-label span, .menuToggle-label:after, .menuToggle-label:before {
-    background-color: #222;
-    height: 1px;
+  header .menuToggle-label span,
+  header .menuToggle-label::before,
+  header .menuToggle-label::after{
+      background:#222;
+      height: 1px ;
+      left: 10px;
   }
-  .home #masthead.ly_site_content, .home #masthead.ly_site_header {
+  
+  #masthead.ly_site_content, #masthead.ly_site_header {
     flex-direction: row;
   }
 

@@ -7,7 +7,7 @@
  *
  * @package Integlight
  */
-class PageTemplateTest extends WP_UnitTestCase
+class template_PageTemplateTest extends WP_UnitTestCase
 {
     private $page_id;
     private $front_page_id;

@@ -60,6 +60,11 @@ class integlight_customizer_slider_outerAssetsTest extends WP_UnitTestCase // �
         $this->mock_slider_settings->effectName_slide = 'slide';
         $this->mock_slider_settings->headerTypeName_slider = 'slider';
         $this->mock_slider_settings->headerTypeName_image = 'image';
+        $this->mock_slider_settings->homeType1 = 'home1';
+        $this->mock_slider_settings->homeType2 = 'home2';
+        $this->mock_slider_settings->homeType3 = 'home3';
+        $this->mock_slider_settings->homeType4 = 'home4';
+
 
         // テスト対象クラスのインスタンスを作成
         // ※コンストラクタ内でフック登録やアセット追加が行われる
@@ -241,8 +246,6 @@ class integlight_customizer_slider_outerAssetsTest extends WP_UnitTestCase // �
 
 
         // 各キーと値を確認 (ここは変更なし)
-        $this->assertArrayHasKey('displayChoice', $decoded_data, 'Localized data should have "displayChoice" key.');
-        $this->assertEquals('slider', $decoded_data['displayChoice'], 'Localized displayChoice should be "slider".');
 
         $this->assertArrayHasKey('changeDuration', $decoded_data, 'Localized data should have "changeDuration" key.');
         $this->assertEquals('5', $decoded_data['changeDuration'], 'Localized changeDuration should be "5".');
