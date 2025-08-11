@@ -1,16 +1,15 @@
 global.integlight_sliderSettings = {
-    displayChoice: 'slider',
+
     headerTypeNameSlider: 'slider',
     effect: 'slide',
-    fade: 'fade',
-    slide: 'slide',
+    fadeName: 'fade',
+    slideName: 'slide',
     changeDuration: 3
 };
 
 global.jQuery = jest.fn(() => ({
-    ready: jest.fn((callback) => {
-        callback(jQuery);
-    }),
+
+    on: jest.fn(),
     fn: {
         extend: jest.fn()
     }
@@ -39,12 +38,20 @@ describe('Integlight_SlideSlider', () => {
             eq: jest.fn(index => slideMocks[index]),
             first: jest.fn(() => ({ clone: jest.fn(() => 'cloned-slide') })),
             append: jest.fn(),
-            width: jest.fn(() => 100)  // 👈 これを追加
+            width: jest.fn(() => 100),  // 👈 これを追加
+            one: jest.fn(),  // ← ここを追加
         };
         mockSlidesWrapper = {
             find: jest.fn(() => mockSlideElements),
             css: jest.fn(),
-            append: jest.fn()
+            append: jest.fn(),
+            one: jest.fn((event, cb) => {
+                if (event === 'transitionend' && typeof cb === 'function') {
+                    cb();
+                }
+                return mockSlidesWrapper;  // チェイン可能にする場合
+            }),
+
         };
 
         const mockSliderElement = {

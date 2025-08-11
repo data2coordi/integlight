@@ -103,7 +103,6 @@ class Integlight_SlideSlider2 extends Integlight_Slider {
         this.$slides.append(this.$slide.eq(0).clone());
         this.$slides.append(this.$slide.eq(1).clone());
 
-
         // 最初の位置にセット（左に2枚分オフセット）
         this.currentIndex = 2; // 左に2枚クローン追加した分の開始位置
         this.helperSlide(this.currentIndex, false);
@@ -122,7 +121,7 @@ class Integlight_SlideSlider2 extends Integlight_Slider {
 
     helperSlide(index, animate) {
         if (animate) {
-            this.$slides.css('transition', `transform ${this.changingDuration}s ease-in-out`);
+            this.$slides.css('transition', `transform ${this.changingDuration}s ease-out`);
         } else {
             this.$slides.css('transition', 'none');
         }

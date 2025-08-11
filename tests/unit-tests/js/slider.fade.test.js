@@ -8,9 +8,10 @@ global.integlight_sliderSettings = {
 };
 
 global.jQuery = jest.fn(() => ({
-    ready: jest.fn((callback) => {
-        callback(jQuery);
-    }),
+
+    on: jest.fn(),
+
+
     fn: {
         extend: jest.fn()
     }
