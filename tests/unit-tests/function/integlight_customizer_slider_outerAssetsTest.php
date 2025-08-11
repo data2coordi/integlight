@@ -60,10 +60,10 @@ class integlight_customizer_slider_outerAssetsTest extends WP_UnitTestCase // �
         $this->mock_slider_settings->effectName_slide = 'slide';
         $this->mock_slider_settings->headerTypeName_slider = 'slider';
         $this->mock_slider_settings->headerTypeName_image = 'image';
-        $this->mock_slider_settings->homeType1 = 'home1';
-        $this->mock_slider_settings->homeType2 = 'home2';
-        $this->mock_slider_settings->homeType3 = 'home3';
-        $this->mock_slider_settings->homeType4 = 'home4';
+        $this->mock_slider_settings->homeType1Name = 'home1';
+        $this->mock_slider_settings->homeType2Name = 'home2';
+        $this->mock_slider_settings->homeType3Name = 'home3';
+        $this->mock_slider_settings->homeType4Name = 'home4';
 
 
         // テスト対象クラスのインスタンスを作成
@@ -253,11 +253,11 @@ class integlight_customizer_slider_outerAssetsTest extends WP_UnitTestCase // �
         $this->assertArrayHasKey('effect', $decoded_data, 'Localized data should have "effect" key.');
         $this->assertEquals('slide', $decoded_data['effect'], 'Localized effect should be "slide".');
 
-        $this->assertArrayHasKey('fade', $decoded_data, 'Localized data should have "fade" key.');
-        $this->assertEquals($this->mock_slider_settings->effectName_fade, $decoded_data['fade']);
+        $this->assertArrayHasKey('fadeName', $decoded_data, 'Localized data should have "fade" key.');
+        $this->assertEquals($this->mock_slider_settings->effectName_fade, $decoded_data['fadeName']);
 
-        $this->assertArrayHasKey('slide', $decoded_data, 'Localized data should have "slide" key.');
-        $this->assertEquals($this->mock_slider_settings->effectName_slide, $decoded_data['slide']);
+        $this->assertArrayHasKey('slideName', $decoded_data, 'Localized data should have "slide" key.');
+        $this->assertEquals($this->mock_slider_settings->effectName_slide, $decoded_data['slideName']);
 
         $this->assertArrayHasKey('headerTypeNameSlider', $decoded_data, 'Localized data should have "headerTypeNameSlider" key.');
         $this->assertEquals($this->mock_slider_settings->headerTypeName_slider, $decoded_data['headerTypeNameSlider']);

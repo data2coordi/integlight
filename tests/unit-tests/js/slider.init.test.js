@@ -2,32 +2,6 @@
  * @jest-environment jsdom
  */
 
-// Define the global variable at the top level (as a safety measure)
-if (typeof global.integlight_sliderSettings === 'undefined') {
-    global.integlight_sliderSettings = {
-        displayChoice: 'slider',
-        headerTypeNameSlider: 'slider',
-        effect: 'fade', // Default value for the global setting
-        fadeName: 'fade',
-        slideName: 'slide',
-        changeDuration: 5,
-        homeType: 'home1',
-        home1Name: 'home1',
-        home2Name: 'home2',
-    };
-}
-
-// ★★★ Define global jQuery BEFORE jest.mock ★★★
-if (typeof global.jQuery === 'undefined') {
-    global.jQuery = jest.fn(() => ({
-        ready: jest.fn((callback) => {
-            callback(global.jQuery); // Pass the mock jQuery itself
-        }),
-
-        on: jest.fn(),
-        // Add other methods if needed by the constructor or init logic being tested indirectly
-    }));
-}
 
 // Mock the slider module BEFORE imports
 jest.mock('../../../js/src/slider.js', () => {
@@ -49,9 +23,6 @@ jest.mock('../../../js/src/slider.js', () => {
     // ★★★ Ensure jQuery exists within the mock factory's scope ★★★
     if (typeof global.jQuery === 'undefined') {
         global.jQuery = jest.fn(() => ({
-            ready: jest.fn((callback) => {
-                callback(global.jQuery);
-            }),
             on: jest.fn(),
             // Add other methods if needed
         }));
@@ -71,10 +42,7 @@ jest.mock('../../../js/src/slider.js', () => {
 // Import the mocked module (which exports the real class definition)
 import { Integlight_SliderManager } from '../../../js/src/slider.js';
 
-beforeAll(() => {
-    // Enable timer mocks
-    jest.useFakeTimers();
-});
+
 
 afterAll(() => {
     // Clean up the global variable
@@ -85,8 +53,7 @@ afterAll(() => {
     if (Object.prototype.hasOwnProperty.call(global, 'integlight_sliderSettings')) {
         delete global.integlight_sliderSettings;
     }
-    // Restore real timers
-    jest.useRealTimers();
+
 });
 
 describe('Integlight_SliderManager', () => {
@@ -94,17 +61,10 @@ describe('Integlight_SliderManager', () => {
     //const make$ = () => jest.fn(() => ({ ready: cb => cb() }));
     const make$ = () => {
         const $fn = jest.fn((selector) => {
-            if (selector === window) {
-                return { on: (event, cb) => cb() }; // onされると即実行
-            }
-            return { ready: cb => cb(), on: jest.fn() };
+            return { on: (event, cb) => cb() }; // onされると即実行
         });
         return $fn;
     };
-    afterEach(() => {
-        // Clear all timers after each test
-        jest.clearAllTimers();
-    });
 
 
 
@@ -126,7 +86,6 @@ describe('Integlight_SliderManager', () => {
         manager.init();
         window.dispatchEvent(new Event('load'));
         // Run only pending timers (the setTimeout(0) inside ready())
-        jest.runOnlyPendingTimers();
 
         // Expect the mock fade function to have been called with correct arguments
         expect(mockFade).toHaveBeenCalledWith($mock, settings);
@@ -150,7 +109,6 @@ describe('Integlight_SliderManager', () => {
         manager.init();
         window.dispatchEvent(new Event('load'));
         // Run only pending timers (the setTimeout(0) inside ready())
-        jest.runOnlyPendingTimers();
 
         // Expect the mock fade function to have been called with correct arguments
         expect(mockSlide).toHaveBeenCalledWith($mock, settings);
