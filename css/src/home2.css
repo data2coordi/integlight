@@ -205,10 +205,15 @@
   min-width: 0;
 }
 
+.home .post-date {
+  padding-bottom: 12px;
+}
+
 /* タイトル（上段） */
 .post-grid .grid-item > a > h2 {
   grid-row: 1;
   margin: .2rem 0 6px;
+  padding-top: 10px;
   font-weight: 800;
   font-size: clamp(17px, 1.8vw, 20px);
   line-height: 1.35;
@@ -230,7 +235,7 @@
   color: #444;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;          /* 情報量優先は 3 に */
+  -webkit-line-clamp: 1;          /* 情報量優先は 3 に */
   overflow: hidden;
   min-height: 0;
 }
@@ -467,6 +472,10 @@ body.home2 .top-categories-posts .post-grid {
     padding-inline: 16px;      /* 左右の余白（左右均等） */
     grid-template-columns: 1fr;/* 念のため1カラム固定 */
     gap: 20px;
+  }
+
+  .home .grid-item h2 {
+    width: 90%;
   }
 
 }

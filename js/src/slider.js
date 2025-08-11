@@ -46,11 +46,13 @@ class Integlight_SlideSlider extends Integlight_Slider {
 
         //ループが一周したとき
         if (this.currentIndex === this.slideCount) {
-            this.currentIndex = 0;
-            //スライド期間の秒数待ってから開始状態に瞬間移動させる。WAIT機能
-            setTimeout(() => {
+
+            this.$slides.one('transitionend', () => {
+                // transitionを切ってジャンプ
+                this.currentIndex = 0;
                 this.helperSlide(this.currentIndex, false);
-            }, this.changingDuration * 1000);
+
+            });
         }
     }
 }
@@ -106,23 +108,6 @@ class Integlight_SlideSlider2 extends Integlight_Slider {
         this.currentIndex = 2; // 左に2枚クローン追加した分の開始位置
         this.helperSlide(this.currentIndex, false);
 
-
-        // トランジション終了時のループ処理
-        this.$slides.on('transitionend', () => {
-            // 右端のクローンを越えたら本物の開始位置へジャンプ
-            if (this.currentIndex >= this.slideCount + 2) {
-                this.$slides.css('transition', 'none');
-                this.currentIndex = 2;
-                this.helperSlide(this.currentIndex, false);
-                // 再描画強制してからtransition復帰
-                requestAnimationFrame(() => {
-                    this.$slides[0].offsetHeight;
-                    this.$slides.css('transition', `transform ${this.changingDuration}s ease-in-out`);
-                });
-            }
-
-        });
-
         setInterval(() => this.showSlide(), this.displayDuration * 1000);
     }
 
@@ -147,6 +132,16 @@ class Integlight_SlideSlider2 extends Integlight_Slider {
 
     showSlide() {
         this.currentIndex++;
+
+        // 右端クローンを越えたら次の transitionend でジャンプ処理を行う準備
+        if (this.currentIndex == this.slideCount + 2) {
+            this.$slides.one('transitionend', () => {
+                // transitionを切ってジャンプ
+                this.currentIndex = 2;
+                this.helperSlide(this.currentIndex, false);
+
+            });
+        }
         this.helperSlide(this.currentIndex, true);
     }
 }
