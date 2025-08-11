@@ -173,25 +173,15 @@ class Integlight_FadeSlider2 extends Integlight_Slider {
         const roles = ['left', 'center', 'right'];
 
         for (let i = 0; i < 3; i++) {
-            const $s = this.$('<div/>', { class: 'slide slide-' + roles[i] }).css({
-                flex: '0 0 ' + widths[i],
-                position: 'relative',
-                overflow: 'hidden',
-                boxSizing: 'border-box'
-            });
-            const $img = this.$('<img/>').attr('src', this.images[(this.baseIndex + i) % this.images.length]).css({
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                display: 'block'
-            });
+            const $s = this.$('<div/>', { class: 'slide slide-' + roles[i] });
+            const $img = this.$('<img/>').attr('src', this.images[(this.baseIndex + i) % this.images.length]);
             $s.append($img);
             this.$slides.append($s);
             this.$visible.push($s);
         }
 
         // 高さを揃える（CSSの .slider 高さを尊重）
-        console.log('@@@3');
+        console.log('@@@5');
 
         // opacity 用トランジションを適用
         this.$visible.forEach($s => $s.css('transition', `opacity ${this.changingDuration}s ease-out`));

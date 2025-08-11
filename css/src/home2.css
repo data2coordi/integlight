@@ -7,19 +7,61 @@
   height: 35vh;
 }
 
-/*3分割スライダー用　一時的
-/* スライド式エフェクト */
+.slider .slide img {
+  height: 100%;
+  object-fit: contain;
+}
+
+/* スライド式エフェクトs */
 .slider.slide-effect .slide {
   min-width: 50vw;
 
 }
 
+/* スライド式エフェクトe */
 
-.slider .slide img {
-  height: auto;
-  object-fit: contain;
-  /* 縦横比を維持しながら、収まらない部分をカット */
+/* フェード式エフェクトs */
+.slider.fade-effect .slides {
+  transition: none;
+  transform: none;
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 0;
 }
+
+.slider.fade-effect .slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+.slider.fade-effect .slide.slide-left {
+  flex: 0 0 25%;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.slider.fade-effect .slide.slide-center {
+  flex: 0 0 50%;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.slider.fade-effect .slide.slide-right {
+  flex: 0 0 25%;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* フェード式エフェクトe */
+
 
 /*************スライダー用e*********/
 /*************スライダー用*********/
@@ -135,6 +177,18 @@
 /*************コピーの帯e*********/
 /*************コピーの帯*********/
 
+.integlight_pt button {
+  margin-left: auto;
+  margin-right: auto;
+  width: 350px;
+  padding: 15px;
+  border: 1px solid #555;
+  background: #fff;
+  color: #555;
+}
+
+
+
 
 /* =========================================================
    新着カード（左：画像 / 右：情報）＋ワイド画面の中央寄せ
@@ -159,20 +213,25 @@
 
 /* 抜粋がテーマ側で非表示でも出す */
 .blog .post-excerpt,
-.home .post-excerpt { display: block; }
+.home .post-excerpt {
+  display: block;
+}
 
 /* カード本体 */
 .post-grid .grid-item {
   position: relative;
-  height: 250px;                 /* 必要なら 270–300 に調整 */
+  height: 250px;
+  /* 必要なら 270–300 に調整 */
   border-radius: 20px;
 }
 
 /* a要素内を「左=画像 / 右=テキスト3段」に */
-.post-grid .grid-item > a {
+.post-grid .grid-item>a {
   display: grid;
-  grid-template-columns: minmax(260px, 65%) 1fr; /* 左右比率 */
-  grid-template-rows: auto 1fr auto;             /* 上:タイトル / 中:抜粋 / 下:日付 */
+  grid-template-columns: minmax(260px, 65%) 1fr;
+  /* 左右比率 */
+  grid-template-rows: auto 1fr auto;
+  /* 上:タイトル / 中:抜粋 / 下:日付 */
   align-items: stretch;
   row-gap: 6px;
   height: 100%;
@@ -187,6 +246,7 @@
   height: 100%;
   overflow: hidden;
 }
+
 .post-grid .grid-item .post-thumbnail img {
   width: 100%;
   height: 100%;
@@ -196,9 +256,9 @@
 }
 
 /* 右カラム共通（左右余白＆はみ出し防止） */
-.post-grid .grid-item > a > h2,
-.post-grid .grid-item > a > .post-excerpt,
-.post-grid .grid-item > a > .post-meta {
+.post-grid .grid-item>a>h2,
+.post-grid .grid-item>a>.post-excerpt,
+.post-grid .grid-item>a>.post-meta {
   grid-column: 2 / 3;
   padding: 0 18px;
   max-width: 100%;
@@ -210,7 +270,7 @@
 }
 
 /* タイトル（上段） */
-.post-grid .grid-item > a > h2 {
+.post-grid .grid-item>a>h2 {
   grid-row: 1;
   margin: .2rem 0 6px;
   padding-top: 10px;
@@ -219,7 +279,7 @@
   line-height: 1.35;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-   /* 2行で省略-webkit-line-clamp: 2;  */
+  /* 2行で省略-webkit-line-clamp: 2;  */
   overflow: hidden;
   word-break: break-word;
   overflow-wrap: anywhere;
@@ -227,7 +287,7 @@
 }
 
 /* 抜粋（中段） */
-.post-grid .grid-item > a > .post-excerpt {
+.post-grid .grid-item>a>.post-excerpt {
   grid-row: 2;
   margin: 0;
   font-size: 14px;
@@ -241,13 +301,16 @@
 }
 
 /* 日付（下段） */
-.post-grid .grid-item > a > .post-meta {
+.post-grid .grid-item>a>.post-meta {
   grid-row: 3;
   margin-top: 0;
   font-size: 13px;
   color: #555;
 }
-.post-date { font-size: .8rem; }
+
+.post-date {
+  font-size: .8rem;
+}
 
 /* カテゴリバッジ（画像左上） */
 .post-grid .grid-item .post-category {
@@ -261,7 +324,8 @@
 /* ========== 2) ワイド画面：中央 1200px に揃える ========== */
 
 /* 親の#pageが横並びを作らないよう、トップでは“縦積み”に */
-body.home #page.site {            /* Devツールで効いた修正の恒久化 */
+body.home #page.site {
+  /* Devツールで効いた修正の恒久化 */
   display: flex;
   flex-direction: column;
 }
@@ -273,29 +337,43 @@ body.home2 .latest-posts,
 body.home2 .top-categories-posts {
   width: min(1200px, 100%);
   margin-inline: auto;
-  padding-inline: 24px;          /* 端の余白（任意） */
+  padding-inline: 24px;
+  /* 端の余白（任意） */
   box-sizing: border-box;
 }
 
 /* セクション内のグリッドも中央1200pxに収めて左起点で並べる */
-body.home  .latest-posts .post-grid,
-body.home  .top-categories-posts .post-grid,
+body.home .latest-posts .post-grid,
+body.home .top-categories-posts .post-grid,
 body.home2 .latest-posts .post-grid,
 body.home2 .top-categories-posts .post-grid {
   max-width: 1200px;
   margin-inline: auto;
-  justify-content: start;        /* 中央起点だとズレるため左から */
+  justify-content: start;
+  /* 中央起点だとズレるため左から */
 }
 
 
 /* ========== 3) モバイルは縦積み（見やすさ優先） ========== */
 @media (max-width: 780px) {
-  .post-grid .grid-item { height: auto; }
-  .post-grid .grid-item > a { display: block; }
-  .post-grid .grid-item .post-thumbnail { height: 200px; border-radius: 16px; }
-  .post-grid .grid-item > a > h2,
-  .post-grid .grid-item > a > .post-excerpt,
-  .post-grid .grid-item > a > .post-meta { padding: 8px 0; }
+  .post-grid .grid-item {
+    height: auto;
+  }
+
+  .post-grid .grid-item>a {
+    display: block;
+  }
+
+  .post-grid .grid-item .post-thumbnail {
+    height: 200px;
+    border-radius: 16px;
+  }
+
+  .post-grid .grid-item>a>h2,
+  .post-grid .grid-item>a>.post-excerpt,
+  .post-grid .grid-item>a>.post-meta {
+    padding: 8px 0;
+  }
 
   /* 一覧自体も1列に */
   .blog .post-grid,
@@ -307,14 +385,19 @@ body.home2 .top-categories-posts .post-grid {
 }
 
 /* --- カード崩れ対策：画像上のオーバーレイを無効化し、右カラムへ戻す --- */
-.post-grid .grid-item > a > h2,
-.post-grid .grid-item > a > .post-excerpt,
-.post-grid .grid-item > a > .post-meta {
-  position: static;   /* テーマの absolute を打ち消す */
-  inset: auto;        /* top/right/bottom/left を解除 */
-  transform: none;    /* 位置補正があれば無効化 */
-  z-index: 1;         /* 画像より前面でOK（重ならない） */
-  color: inherit;     /* 画像上の白文字指定などを解除 */
+.post-grid .grid-item>a>h2,
+.post-grid .grid-item>a>.post-excerpt,
+.post-grid .grid-item>a>.post-meta {
+  position: static;
+  /* テーマの absolute を打ち消す */
+  inset: auto;
+  /* top/right/bottom/left を解除 */
+  transform: none;
+  /* 位置補正があれば無効化 */
+  z-index: 1;
+  /* 画像より前面でOK（重ならない） */
+  color: inherit;
+  /* 画像上の白文字指定などを解除 */
 }
 
 /* === 画像が全面に被る不具合の修正 ===========================
@@ -325,13 +408,17 @@ body.home2 .top-categories-posts .post-grid {
 .post-grid .grid-item .post-thumbnail,
 .post-grid .grid-item a.post-thumbnail,
 .post-grid .grid-item figure.post-thumbnail {
-  position: static;          /* ← absolute を無効化して通常フローへ */
-  grid-column: 1 / 2;        /* 左カラム */
-  grid-row: 1 / -1;          /* タイトル/抜粋/日付の3行を縦断 */
+  position: static;
+  /* ← absolute を無効化して通常フローへ */
+  grid-column: 1 / 2;
+  /* 左カラム */
+  grid-row: 1 / -1;
+  /* タイトル/抜粋/日付の3行を縦断 */
   height: 100%;
   align-self: stretch;
   overflow: hidden;
-  z-index: 0;                /* テキストより背面 */
+  z-index: 0;
+  /* テキストより背面 */
 }
 
 /* 画像はボックスいっぱいにトリミング */
@@ -343,9 +430,9 @@ body.home2 .top-categories-posts .post-grid {
 }
 
 /* テキスト群は右カラム＆通常配置（保険） */
-.post-grid .grid-item > a > h2,
-.post-grid .grid-item > a > .post-excerpt,
-.post-grid .grid-item > a > .post-meta {
+.post-grid .grid-item>a>h2,
+.post-grid .grid-item>a>.post-excerpt,
+.post-grid .grid-item>a>.post-meta {
   grid-column: 2 / 3;
   position: static;
   inset: auto;
@@ -372,8 +459,10 @@ body.home2 .top-categories-posts .post-grid {
   .home .post-grid.post-grid,
   .blog .post-grid.post-grid {
     display: grid;
-    grid-template-columns: 1fr;    /* ← 1カラム固定 */
-    grid-auto-flow: row;           /* 横への自動配置を無効化 */
+    grid-template-columns: 1fr;
+    /* ← 1カラム固定 */
+    grid-auto-flow: row;
+    /* 横への自動配置を無効化 */
     gap: 20px;
   }
 
@@ -384,23 +473,28 @@ body.home2 .top-categories-posts .post-grid {
     max-width: 100%;
     height: auto;
   }
-  .home .post-grid .grid-item > a,
-  .blog .post-grid .grid-item > a {
-    display: block;                /* 内部グリッド/横並びを解除 */
+
+  .home .post-grid .grid-item>a,
+  .blog .post-grid .grid-item>a {
+    display: block;
+    /* 内部グリッド/横並びを解除 */
   }
 
   /* 3) 画像の回り込みを完全に止める */
   .home .post-grid .grid-item .post-thumbnail,
   .blog .post-grid .grid-item .post-thumbnail {
-    float: none;                   /* ← 右回り込みの犯人ケア */
+    float: none;
+    /* ← 右回り込みの犯人ケア */
     clear: both;
     position: static;
     width: 100%;
     height: auto;
     margin: 0 0 8px;
-    border-radius: 16px 16px 0 0;  /* お好みで */
+    border-radius: 16px 16px 0 0;
+    /* お好みで */
     overflow: hidden;
   }
+
   .home .post-grid .grid-item .post-thumbnail img,
   .blog .post-grid .grid-item .post-thumbnail img {
     width: 100%;
@@ -410,28 +504,30 @@ body.home2 .top-categories-posts .post-grid {
   }
 
   /* 4) テキスト側も回り込みを受けないようにする */
-  .home .post-grid .grid-item > a > h2,
-  .home .post-grid .grid-item > a > .post-excerpt,
-  .home .post-grid .grid-item > a > .post-meta,
-  .blog .post-grid .grid-item > a > h2,
-  .blog .post-grid .grid-item > a > .post-excerpt,
-  .blog .post-grid .grid-item > a > .post-meta {
-    clear: both;                   /* ← 画像の横に回らない */
+  .home .post-grid .grid-item>a>h2,
+  .home .post-grid .grid-item>a>.post-excerpt,
+  .home .post-grid .grid-item>a>.post-meta,
+  .blog .post-grid .grid-item>a>h2,
+  .blog .post-grid .grid-item>a>.post-excerpt,
+  .blog .post-grid .grid-item>a>.post-meta {
+    clear: both;
+    /* ← 画像の横に回らない */
     display: block;
     margin-left: 16px;
     margin-right: 16px;
   }
 
   /* 5) WP標準の回り込みクラスも念のため潰す */
-  .alignleft, .alignright {
+  .alignleft,
+  .alignright {
     float: none;
     margin: 0 0 8px;
     display: block;
   }
 
   /* 6) タイトル少し抑えて2行で省略（仕上げ） */
-  .home .post-grid .grid-item > a > h2,
-  .blog .post-grid .grid-item > a > h2 {
+  .home .post-grid .grid-item>a>h2,
+  .blog .post-grid .grid-item>a>h2 {
     margin-top: 10px;
     margin-bottom: 6px;
     font-weight: 800;
@@ -443,8 +539,8 @@ body.home2 .top-categories-posts .post-grid {
     overflow: hidden;
   }
 
-  .home .post-grid .grid-item > a > .post-excerpt,
-  .blog .post-grid .grid-item > a > .post-excerpt {
+  .home .post-grid .grid-item>a>.post-excerpt,
+  .blog .post-grid .grid-item>a>.post-excerpt {
     margin: 0 0 10px;
     padding: 0 16px;
     font-size: 14px;
@@ -456,8 +552,8 @@ body.home2 .top-categories-posts .post-grid {
     overflow: hidden;
   }
 
-  .home .post-grid .grid-item > a > .post-meta,
-  .blog .post-grid .grid-item > a > .post-meta {
+  .home .post-grid .grid-item>a>.post-meta,
+  .blog .post-grid .grid-item>a>.post-meta {
     margin: 6px 0 14px;
     font-size: 13px;
     color: #666;
@@ -468,10 +564,14 @@ body.home2 .top-categories-posts .post-grid {
 
   .home .post-grid,
   .blog .post-grid {
-    max-width: 680px;          /* 好きな上限幅。600〜720でお好み */
-    margin-inline: auto;       /* ← 左右オートで中央 */
-    padding-inline: 16px;      /* 左右の余白（左右均等） */
-    grid-template-columns: 1fr;/* 念のため1カラム固定 */
+    max-width: 680px;
+    /* 好きな上限幅。600〜720でお好み */
+    margin-inline: auto;
+    /* ← 左右オートで中央 */
+    padding-inline: 16px;
+    /* 左右の余白（左右均等） */
+    grid-template-columns: 1fr;
+    /* 念のため1カラム固定 */
     gap: 20px;
   }
 
