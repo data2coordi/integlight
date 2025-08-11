@@ -6,7 +6,7 @@ jQuery(function ($) {
         if (button.prop('disabled')) return;
         var page = parseInt(button.data('page') || 2, 10);
 
-        button.prop('disabled', true).text('読み込み中...');
+        button.prop('disabled', true).text(integlightLoadMore.loadingText);
 
         $.ajax({
             url: integlightLoadMore.ajax_url,
@@ -20,12 +20,12 @@ jQuery(function ($) {
         }).done(function (response) {
             if (response && response.success) {
                 $('#latest-posts-grid').append(response.data);
-                button.data('page', page + 1).prop('disabled', false).text('もっと見る');
+                button.data('page', page + 1).prop('disabled', false).text(integlightLoadMore.loadMoreText);
             } else {
                 button.remove();
             }
         }).fail(function () {
-            button.prop('disabled', false).text('もっと見る');
+            button.prop('disabled', false).text(integlightLoadMore.loadMoreText);
         });
     });
 
@@ -38,7 +38,7 @@ jQuery(function ($) {
         var cat = parseInt(button.data('cat') || 0, 10);
         if (!cat) return;
 
-        button.prop('disabled', true).text('読み込み中...');
+        button.prop('disabled', true).text(integlightLoadMore.loadingText);
 
         $.ajax({
             url: integlightLoadMore.ajax_url,
@@ -58,12 +58,12 @@ jQuery(function ($) {
                 } else {
                     button.prev('.post-grid').append(response.data);
                 }
-                button.data('page', page + 1).prop('disabled', false).text('もっと見る');
+                button.data('page', page + 1).prop('disabled', false).text(integlightLoadMore.loadMoreText);
             } else {
                 button.remove();
             }
         }).fail(function () {
-            button.prop('disabled', false).text('もっと見る');
+            button.prop('disabled', false).text(integlightLoadMore.loadMoreText);
         });
     });
 });

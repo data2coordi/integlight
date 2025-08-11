@@ -25,6 +25,8 @@ class Integlight_Load_More
     {
 
         wp_localize_script('integlight-loadmore', 'integlightLoadMore', [
+            'loadMoreText'      => __('もっと見る', 'integlight'),
+            'loadingText'       => __('読み込み中...', 'integlight'),
             'ajax_url' => admin_url('admin-ajax.php'),
             'nonce'    => wp_create_nonce('integlight_load_more_nonce'),
         ]);

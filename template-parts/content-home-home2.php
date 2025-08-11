@@ -8,7 +8,7 @@ $latest_query = new WP_Query($args_latest);
 
 if ($latest_query->have_posts()) :
     echo '<section class="latest-posts">';
-    echo '<h2>新着情報</h2>';
+    echo '<h2>' . __('Latest News', 'integlight') . '</h2>';
     echo '<div id="latest-posts-grid" class="post-grid">';
 
     while ($latest_query->have_posts()) : $latest_query->the_post();
@@ -16,14 +16,14 @@ if ($latest_query->have_posts()) :
     endwhile;
 
     echo '</div>'; // .post-grid
-    echo '<button id="load-more" data-page="2">' . __('もっと見る', 'integlight') . '</button>';
+    echo '<button id="load-more" data-page="2">' . __('Load More', 'integlight') . '</button>';
     echo '</section>';
     wp_reset_postdata();
 endif;
 
 // カテゴリー別
 echo '<section class="top-categories-posts">';
-echo '<h2>トップカテゴリー毎の記事</h2>';
+echo '<h2>' . __('Category Latest List', 'integlight') . '</h2>';
 
 $categories = get_categories([
     'parent'     => 0, //最上位カテゴリのみ
@@ -48,12 +48,12 @@ foreach ($categories as $cat) :
         endwhile;
         wp_reset_postdata();
     else :
-        echo '<p>投稿がありません。</p>';
+        echo '<p>' . __('No Posts', 'integlight') . '</p>';
     endif;
 
     echo '</div>';
     echo '<button class="load-more-cat" data-page="2" data-cat="' . esc_attr($cat->term_id) . '">'
-        . __('もっと見る', 'integlight') . '</button>';
+        . __('Load More', 'integlight') . '</button>';
     echo '</section>';
 endforeach;
 
