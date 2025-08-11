@@ -69,13 +69,13 @@ class integlight_customizer_slider_outerAssets
 		wp_localize_script('integlight_slider-script', 'integlight_sliderSettings', array(
 			'changeDuration' => get_theme_mod('integlight_slider_change_duration', 3),
 			'effect' => get_theme_mod('integlight_slider_effect', $this->pInteglight_slider_settings->effectName_fade),
-			'homeType' => get_theme_mod('integlight_hometype_setting', $this->pInteglight_slider_settings->homeType1),
-			'fade' => $this->pInteglight_slider_settings->effectName_fade,
-			'slide' => $this->pInteglight_slider_settings->effectName_slide,
-			'home1' => $this->pInteglight_slider_settings->homeType1,
-			'home2' => $this->pInteglight_slider_settings->homeType2,
-			'home3' => $this->pInteglight_slider_settings->homeType3,
-			'home4' => $this->pInteglight_slider_settings->homeType4,
+			'homeType' => get_theme_mod('integlight_hometype_setting', $this->pInteglight_slider_settings->homeType1Name),
+			'fadeName' => $this->pInteglight_slider_settings->effectName_fade,
+			'slideName' => $this->pInteglight_slider_settings->effectName_slide,
+			'home1Name' => $this->pInteglight_slider_settings->homeType1Name,
+			'home2Name' => $this->pInteglight_slider_settings->homeType2Name,
+			'home3Name' => $this->pInteglight_slider_settings->homeType3Name,
+			'home4Name' => $this->pInteglight_slider_settings->homeType4Name,
 
 			'headerTypeNameSlider' => $this->pInteglight_slider_settings->headerTypeName_slider
 		));

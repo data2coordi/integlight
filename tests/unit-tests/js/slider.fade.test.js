@@ -51,7 +51,16 @@ describe('Integlight_FadeSlider', () => {
             addClass: jest.fn()
         };
 
-        mock$ = jest.fn(() => {
+
+        mock$ = jest.fn((selector) => {
+            if (selector === window) {
+                return {
+                    on: jest.fn((event, callback) => {
+                        // 必要ならコールバックをすぐ呼ぶか、テストで制御
+                        return this; // チェーン可能に
+                    }),
+                };
+            }
             return mockSliderElement;
         });
 

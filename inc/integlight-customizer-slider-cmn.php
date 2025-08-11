@@ -5,10 +5,10 @@ class InteglightSliderSettings
     public $effectName_slide = 'slide';
     public $headerTypeName_slider = 'slider';
     public $headerTypeName_image = 'image';
-    public $homeType1 = 'home1';
-    public $homeType2 = 'home2';
-    public $homeType3 = 'home3';
-    public $homeType4 = 'home4';
+    public $homeType1Name = 'home1';
+    public $homeType2Name = 'home2';
+    public $homeType3Name = 'home3';
+    public $homeType4Name = 'home4';
 
     public static function init()
     {

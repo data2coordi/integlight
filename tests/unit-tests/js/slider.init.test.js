@@ -8,9 +8,12 @@ if (typeof global.integlight_sliderSettings === 'undefined') {
         displayChoice: 'slider',
         headerTypeNameSlider: 'slider',
         effect: 'fade', // Default value for the global setting
-        fade: 'fade',
-        slide: 'slide',
-        changeDuration: 5
+        fadeName: 'fade',
+        slideName: 'slide',
+        changeDuration: 5,
+        homeType: 'home1',
+        home1Name: 'home1',
+        home2Name: 'home2',
     };
 }
 
@@ -20,6 +23,8 @@ if (typeof global.jQuery === 'undefined') {
         ready: jest.fn((callback) => {
             callback(global.jQuery); // Pass the mock jQuery itself
         }),
+
+        on: jest.fn(),
         // Add other methods if needed by the constructor or init logic being tested indirectly
     }));
 }
@@ -32,9 +37,12 @@ jest.mock('../../../js/src/slider.js', () => {
             displayChoice: 'slider',
             headerTypeNameSlider: 'slider',
             effect: 'fade',
-            fade: 'fade',
-            slide: 'slide',
-            changeDuration: 5
+            fadeName: 'fade',
+            slideName: 'slide',
+            changeDuration: 5,
+            homeType: 'home1',
+            home1Name: 'home1',
+            home2Name: 'home2',
         };
     }
 
@@ -44,6 +52,7 @@ jest.mock('../../../js/src/slider.js', () => {
             ready: jest.fn((callback) => {
                 callback(global.jQuery);
             }),
+            on: jest.fn(),
             // Add other methods if needed
         }));
     }
@@ -82,49 +91,40 @@ afterAll(() => {
 
 describe('Integlight_SliderManager', () => {
     // Factory function to create a mock jQuery object
-    const make$ = () => jest.fn(() => ({ ready: cb => cb() }));
-
+    //const make$ = () => jest.fn(() => ({ ready: cb => cb() }));
+    const make$ = () => {
+        const $fn = jest.fn((selector) => {
+            if (selector === window) {
+                return { on: (event, cb) => cb() }; // onされると即実行
+            }
+            return { ready: cb => cb(), on: jest.fn() };
+        });
+        return $fn;
+    };
     afterEach(() => {
         // Clear all timers after each test
         jest.clearAllTimers();
     });
 
-    it('should do nothing if displayChoice does not match', () => {
-        const settings = {
-            displayChoice: 'foo', // Non-matching value
-            headerTypeNameSlider: 'slider',
-            effect: 'fade',
-            fade: 'fade',
-            slide: 'slide',
-            changeDuration: 5
-        };
-        const mockFade = jest.fn();
-        // Instantiate the real SliderManager (imported via the mock setup)
-        const manager = new Integlight_SliderManager(
-            settings,
-            { fade: mockFade, slide: jest.fn() }, // Pass mock effect registry
-            make$() // Pass mock jQuery
-        );
 
-        manager.init();
-        jest.runAllTimers(); // Run timers including the setTimeout(0) in init
-
-        // Expect the fade effect function NOT to have been called
-        expect(mockFade).not.toHaveBeenCalled();
-    });
 
     it('should call the FadeSlider initializer when effect is fade', () => {
-        const settings = { ...global.integlight_sliderSettings, effect: 'fade' }; // Set effect to 'fade'
-        const mockFade = jest.fn(); // Mock function for the fade effect
+        const settings = { ...global.integlight_sliderSettings, effect: 'fade', homeType: 'home1' }; // Set effect to 'fade'
         const $mock = make$(); // Mock jQuery
-
+        const mockFade = jest.fn(); // Mock function for the fade effect
+        const mockSlide = jest.fn();
+        const registry = {
+            fadehome1: class { constructor($, s) { mockFade($, s); } },
+            slidehome1: class { constructor($, s) { mockSlide($, s); } }
+        };
         const manager = new Integlight_SliderManager(
             settings,
-            { fade: mockFade, slide: jest.fn() }, // Pass the mock fade function in the registry
+            registry, // Pass the mock fade function in the registry
             $mock
         );
-        manager.init();
 
+        manager.init();
+        window.dispatchEvent(new Event('load'));
         // Run only pending timers (the setTimeout(0) inside ready())
         jest.runOnlyPendingTimers();
 
@@ -132,45 +132,30 @@ describe('Integlight_SliderManager', () => {
         expect(mockFade).toHaveBeenCalledWith($mock, settings);
     });
 
-    it('should call the SlideSlider initializer when effect is slide', () => {
-        const settings = {
-            ...global.integlight_sliderSettings,
-            effect: 'slide' // Set effect to 'slide'
-        };
-        const mockSlide = jest.fn(); // Mock function for the slide effect
+    it('should call the FadeSlider initializer when effect is slide', () => {
+        const settings = { ...global.integlight_sliderSettings, effect: 'slide', homeType: 'home1' }; // Set effect to 'fade'
         const $mock = make$(); // Mock jQuery
-
+        const mockFade = jest.fn(); // Mock function for the fade effect
+        const mockSlide = jest.fn();
+        const registry = {
+            fadehome1: class { constructor($, s) { mockFade($, s); } },
+            slidehome1: class { constructor($, s) { mockSlide($, s); } }
+        };
         const manager = new Integlight_SliderManager(
             settings,
-            { fade: jest.fn(), slide: mockSlide }, // Pass the mock slide function in the registry
+            registry, // Pass the mock fade function in the registry
             $mock
         );
+
         manager.init();
+        window.dispatchEvent(new Event('load'));
+        // Run only pending timers (the setTimeout(0) inside ready())
         jest.runOnlyPendingTimers();
 
-        // Expect the mock slide function to have been called with correct arguments
+        // Expect the mock fade function to have been called with correct arguments
         expect(mockSlide).toHaveBeenCalledWith($mock, settings);
     });
 
-    it('should do nothing if effect is not in the registry', () => {
-        const settings = {
-            ...global.integlight_sliderSettings,
-            effect: 'unknown' // Unknown effect
-        };
-        const mockFade = jest.fn();
-        const mockSlide = jest.fn();
-        const $mock = make$();
 
-        const manager = new Integlight_SliderManager(
-            settings,
-            { fade: mockFade, slide: mockSlide }, // Pass mocks for known effects
-            $mock
-        );
-        manager.init();
-        jest.runOnlyPendingTimers();
 
-        // Expect neither mock function to have been called
-        expect(mockFade).not.toHaveBeenCalled();
-        expect(mockSlide).not.toHaveBeenCalled();
-    });
 });

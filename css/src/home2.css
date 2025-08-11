@@ -202,7 +202,7 @@ p.site-description {
 #load-more,
 .load-more-cat {
   display:flex;
-  margin: 40px auto 0;      /* 左右オートで中央 */
+  margin: 40px auto ;      /* 左右オートで中央 */
   align-items:center;
   gap:28px;
   justify-content:center;
@@ -239,8 +239,12 @@ p.site-description {
 .load-more-cat:hover{
   color:#111;                 /* 矢印も一緒に変わる */
 }
+
+
 @media (max-width: 780px) {
-  .integlight_pt button {
+  #load-more,
+  .load-more-cat,
+  .integlight_pt button#load-more {
     width: 300px;
   }
 }
@@ -423,10 +427,6 @@ body.home2 .top-categories-posts .post-grid {
     height: auto;
   }
 
-  .post-grid .grid-item>a {
-    display: block;
-  }
-
   .post-grid .grid-item .post-thumbnail {
     height: 200px;
     border-radius: 16px;
@@ -493,7 +493,7 @@ body.home2 .top-categories-posts .post-grid {
 }
 
 /* テキスト群は右カラム＆通常配置（保険） */
-.post-grid .grid-item>a>h2,
+/* .post-grid .grid-item>a>h2,
 .post-grid .grid-item>a>.post-excerpt,
 .post-grid .grid-item>a>.post-meta {
   grid-column: 2 / 3;
@@ -501,7 +501,7 @@ body.home2 .top-categories-posts .post-grid {
   inset: auto;
   transform: none;
   z-index: 1;
-}
+} */
 
 
 
@@ -661,8 +661,12 @@ body.home2 .top-categories-posts .post-grid {
   header .menuToggle-label::after{
       background:#222;
       height: 1px ;
-      left: 10px;
+      left: -15px;
   }
+
+  .menuToggle-checkbox:checked+.menuToggle-label:before {
+    transform: translateY(15px) rotate(45deg);
+}
   
   #masthead.ly_site_content, #masthead.ly_site_header {
     flex-direction: row;

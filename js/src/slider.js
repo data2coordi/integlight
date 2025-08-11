@@ -239,10 +239,10 @@ class Integlight_SliderManager {
         this.$ = $;
         // デフォルトレジストリ生成
         this.effectRegistry = effectRegistry || {
-            [settings.fade + settings.home1]: Integlight_FadeSlider,
-            [settings.fade + settings.home2]: Integlight_FadeSlider2,
-            [settings.slide + settings.home1]: Integlight_SlideSlider,
-            [settings.slide + settings.home2]: Integlight_SlideSlider2
+            [settings.fadeName + settings.home1Name]: Integlight_FadeSlider,
+            [settings.fadeName + settings.home2Name]: Integlight_FadeSlider2,
+            [settings.slideName + settings.home1Name]: Integlight_SlideSlider,
+            [settings.slideName + settings.home2Name]: Integlight_SlideSlider2
         };
     }
 
