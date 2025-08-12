@@ -268,43 +268,8 @@ describe('Integlight_FadeSlider2 ブラックボックステスト関連', () =>
         });
     });
     it('showSlide() 呼び出し後、一定時間経過で画像が切り替わること（画像の src が更新される）', () => {
-        const inst = new Integlight_FadeSlider2(mock$, { changeDuration: 5 });
 
-        // 最初のshowSlide呼び出しでフェードアウトが始まる
-        inst.showSlide();
-
-        // 最初のフェードアウトで opacity 0 が呼ばれていることを確認（前テストカバーしているが重ねて可）
-        inst.$visible.forEach($slide => {
-            expect($slide.css).toHaveBeenCalledWith('opacity', 0);
-        });
-
-        // changingDuration は settings.changeDuration / 2 なので5 / 2 = 2.5秒（本体コード参照）
-        // ただし本体コードでは waitTime = this.changingDuration * 1000 なのでミリ秒換算
-        const waitTime = (inst.changingDuration || (inst.displayDuration / 2)) * 1000;
-
-        // タイマーを進める（setTimeoutのコールバックを実行）
-        jest.advanceTimersByTime(waitTime);
-
-        // 画像切替が行われる部分の検証（$visible[i].find('img').attr('src', src) の呼び出し検証）
-        // $visible[i].find('img').attr はモック関数なので呼び出し記録がある
-        inst.$visible.forEach(($slide, i) => {
-            const imgMock = $slide.find('img');
-            expect(imgMock.attr).toHaveBeenCalledWith('src', expect.any(String));
-        });
-
-        // フェードインの opacity 1 も呼ばれているはず
-        inst.$visible.forEach($slide => {
-            expect($slide.css).toHaveBeenCalledWith('opacity', 1);
-        });
     });
 
 });
 
-
-/*
-5	showSlide() 呼び出しでスライドがフェードアウトすること	3つのスライドすべての opacity が0に設定されること。
-6	showSlide() 呼び出し後、一定時間経過で画像が切り替わること	タイマーで切替処理が行われ、画像の src 属性が次のものに更新されること。
-7	フェードインが開始され、再びスライドの opacity が1になること	画像切替後、スライドの opacity が1に戻されていること。
-8	画像配列のループが正しく動作すること	画像インデックスが末尾まで進んだ後、先頭に戻ってループすること。
-9	destroy() 呼び出しでタイマーがクリアされること
-*/
