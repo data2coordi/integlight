@@ -15,9 +15,7 @@
 /* スライド式エフェクトs */
 .slider.slide-effect .slide {
   min-width: 50vw;
-
 }
-
 /* スライド式エフェクトe */
 
 /* フェード式エフェクトs */
@@ -38,28 +36,20 @@
   display: block;
 }
 
-
-.slider.fade-effect .slide.slide-left {
-  flex: 0 0 25%;
+.slider.fade-effect .slide {
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
+}
+
+.slider.fade-effect .slide.slide-left,
+.slider.fade-effect .slide.slide-right {
+  flex: 0 0 25%;
 }
 
 .slider.fade-effect .slide.slide-center {
   flex: 0 0 50%;
-  position: relative;
-  overflow: hidden;
-  box-sizing: border-box;
 }
-
-.slider.fade-effect .slide.slide-right {
-  flex: 0 0 25%;
-  position: relative;
-  overflow: hidden;
-  box-sizing: border-box;
-}
-
 /* フェード式エフェクトe */
 
 
@@ -82,7 +72,7 @@
       left: -15px;
   }
 
-  .menuToggle-checkbox:checked+.menuToggle-label:before {
+  .menuToggle-checkbox:checked+.menuToggle-label::before {
     transform: translateY(15px) rotate(45deg);
 }
   
@@ -108,14 +98,12 @@
 /***********ロゴ**************/
 /***********ロゴ**************/
 /***********ロゴs**************/
-
 @media (max-width:768px){
   img { height:auto; max-width:100%; }
 
   /* ロゴは例外にする */
   .custom-logo { max-width:none; }
 }
-
 /***********ロゴe**************/
 /***********ロゴ**************/
 /***********ロゴ**************/
@@ -169,7 +157,6 @@ section.latest-posts .grid-item h2 {
   padding: 0 16px;
 }
 }
-
 /*************hタグe*********/
 /*************hタグ*********/
 
@@ -205,11 +192,16 @@ ul.menu>li.menu-item-has-children>ul.sub-menu {
 }
 
 .main-navigation li.menu-item-has-children>a::after {
-
   background-image: url('data:image/svg+xml;utf8,<svg  fill="%23222222" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M64 320C64 461.4 178.6 576 320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320zM305 441C295.6 450.4 280.4 450.4 271.1 441C261.8 431.6 261.7 416.4 271.1 407.1L358.1 320.1L271.1 233.1C261.7 223.7 261.7 208.5 271.1 199.2C280.5 189.9 295.7 189.8 305 199.2L409 303C418.4 312.4 418.4 327.6 409 336.9L305 441z"/></svg>');
-
+  /* テーマ側に content/サイズが無い場合の保険（既にあれば上書きされない） */
+  content: "";
+  display: inline-block;
+  width: .75em;
+  height: .75em;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
-
 /*************ヘッダーe*********/
 /*************ヘッダー*********/
 
@@ -248,6 +240,10 @@ h1.site-title {
   z-index: 10;
 }
 
+@supports (width: 100dvw) {
+  h1.site-title { width: 100dvw; }
+}
+
 .site-title a {
   font-size: 1rem;
   color: inherit;
@@ -259,7 +255,6 @@ p.site-description {
   font-weight: 600;
   font-size: 0.8rem;
 }
-
 /*************コピーの帯e*********/
 /*************コピーの帯*********/
 
@@ -279,7 +274,7 @@ p.site-description {
 #load-more,
 .load-more-cat {
   display:flex;
-  margin: 40px auto ;      /* 左右オートで中央 */
+  margin: 40px auto;
   align-items:center;
   gap:28px;
   justify-content:center;
@@ -299,8 +294,6 @@ p.site-description {
   width:80px;
   height:10px;
   background-color: currentColor;
-
-  /* ← 長書きで確実に */
   -webkit-mask-image: url("/wp-content/themes/integlight/assets/yajirushi.svg");
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
@@ -318,7 +311,6 @@ p.site-description {
   color: #fff;                 /* 矢印も一緒に変わる */
 }
 
-
 @media (max-width: 780px) {
   #load-more,
   .load-more-cat,
@@ -326,8 +318,6 @@ p.site-description {
     width: 300px;
   }
 }
-
-
 /*************ボタンe*********/
 /*************ボタン*********/
 
@@ -513,8 +503,6 @@ body.home .top-categories-posts .post-grid {
   }
 
   /* 一覧自体も1列に */
-  .blog .post-grid,
-  .home .post-grid,
   .home2 .post-grid {
     grid-template-columns: 1fr;
     gap: 18px;
@@ -558,27 +546,6 @@ body.home .top-categories-posts .post-grid {
   /* テキストより背面 */
 }
 
-/* 画像はボックスいっぱいにトリミング */
-.post-grid .grid-item .post-thumbnail img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* テキスト群は右カラム＆通常配置（保険） */
-/* .post-grid .grid-item>a>h2,
-.post-grid .grid-item>a>.post-excerpt,
-.post-grid .grid-item>a>.post-meta {
-  grid-column: 2 / 3;
-  position: static;
-  inset: auto;
-  transform: none;
-  z-index: 1;
-} */
-
-
-
 
 
 
@@ -596,10 +563,8 @@ body.home .top-categories-posts .post-grid {
   .home .post-grid.post-grid,
   .blog .post-grid.post-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    /* ← 1カラム固定 */
-    grid-auto-flow: row;
-    /* 横への自動配置を無効化 */
+    grid-template-columns: 1fr; /* ← 1カラム固定 */
+    grid-auto-flow: row;        /* 横への自動配置を無効化 */
     gap: 20px;
   }
 
@@ -613,22 +578,19 @@ body.home .top-categories-posts .post-grid {
 
   .home .post-grid .grid-item>a,
   .blog .post-grid .grid-item>a {
-    display: block;
-    /* 内部グリッド/横並びを解除 */
+    display: block; /* 内部グリッド/横並びを解除 */
   }
 
   /* 3) 画像の回り込みを完全に止める */
   .home .post-grid .grid-item .post-thumbnail,
   .blog .post-grid .grid-item .post-thumbnail {
-    float: none;
-    /* ← 右回り込みの犯人ケア */
+    float: none; /* ← 右回り込みの犯人ケア */
     clear: both;
     position: static;
     width: 100%;
     height: auto;
     margin: 0 0 8px;
-    border-radius: 16px 16px 0 0;
-    /* お好みで */
+    border-radius: 16px 16px 0 0; /* お好みで */
     overflow: hidden;
   }
 
@@ -647,8 +609,7 @@ body.home .top-categories-posts .post-grid {
   .blog .post-grid .grid-item>a>h2,
   .blog .post-grid .grid-item>a>.post-excerpt,
   .blog .post-grid .grid-item>a>.post-meta {
-    clear: both;
-    /* ← 画像の横に回らない */
+    clear: both; /* ← 画像の横に回らない */
     display: block;
     margin-left: 16px;
     margin-right: 16px;
@@ -701,14 +662,10 @@ body.home .top-categories-posts .post-grid {
 
   .home .post-grid,
   .blog .post-grid {
-    max-width: 680px;
-    /* 好きな上限幅。600〜720でお好み */
-    margin-inline: auto;
-    /* ← 左右オートで中央 */
-    padding-inline: 16px;
-    /* 左右の余白（左右均等） */
-    grid-template-columns: 1fr;
-    /* 念のため1カラム固定 */
+    max-width: 680px; /* 好きな上限幅。600〜720でお好み */
+    margin-inline: auto; /* ← 左右オートで中央 */
+    padding-inline: 16px; /* 左右の余白（左右均等） */
+    grid-template-columns: 1fr; /* 念のため1カラム固定 */
     gap: 20px;
   }
 
@@ -720,7 +677,4 @@ body.home .top-categories-posts .post-grid {
     padding-left: 16px;
     padding-right: 16px;
   }
-
 }
-
-
