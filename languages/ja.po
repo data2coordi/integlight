@@ -587,11 +587,11 @@ msgstr "サイトタイプ設定"
 msgid "Select favorite site type"
 msgstr "好きなサイトタイプを選択してください"
 
-msgid "orthodox"
-msgstr "オーソドックス"
+msgid "Elegant"
+msgstr "エレガント"
 
-msgid "lively"
-msgstr "にぎやか"
+msgid "Pop"
+msgstr "ポップ"
 
 
 msgid "Latest News"

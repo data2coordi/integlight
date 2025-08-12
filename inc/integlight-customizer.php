@@ -155,8 +155,8 @@ class integlight_customizer_HomeType
 			'description' => __('Select favorite site type', 'integlight'),
 			'type'        => 'radio',
 			'choices'     => array(
-				'home1' => __('orthodox', 'integlight'),
-				'home2' => __('lively', 'integlight'),
+				'home1' => __('Elegant', 'integlight'),
+				'home2' => __('Pop', 'integlight'),
 				//'home3' => __('home3', 'integlight'),
 				//'home4' => __('home4', 'integlight'),
 			),

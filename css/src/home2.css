@@ -15,7 +15,7 @@
 
 .slider .slide img {
   height: 100%;     /* スライド内の画像を、スライドの縦サイズにフィットさせる */
-  object-fit: contain; /* 画像の全体を収める（黒帯が出てもトリミングはしない）。サムネ比率がバラつく時に安全 */
+  object-fit: cover; /* 画像を切り取る（黒帯が出てもトリミングする）。サムネ比率がバラつく時に安全 */
 }
 
 /* スライド式エフェクトs */
@@ -59,6 +59,22 @@
 }
 /*------------PCのみs--------*/
 /*------------PCのみs--------*/
+@media (max-width: 1023px){
+  .slider {
+    height: 33vh;
+  }
+  
+  .slider .slide img {
+    height: 33vh;
+    object-fit: cover;
+    width: 100vw;
+}
+.site-header {
+   border-bottom:none;
+    box-shadow:none; 
+  }
+}
+
 /* フェード式エフェクトe */
 
 
@@ -132,6 +148,15 @@ section.latest-posts .grid-item h2 {
 .home h5,
 .home h6 {
   padding: 0 16px;
+}
+
+.category-posts>h3, .top-categories-posts>h2, section.latest-posts>h2 {
+  margin-bottom: 2rem;
+}
+
+.category-posts>h3 {
+  margin-top: 2.5rem;
+  margin-bottom: 0.5rem;
 }
 }
 /*************hタグe*********/
@@ -207,6 +232,7 @@ ul.menu>li.menu-item-has-children>ul.sub-menu {
 
   button#menuToggle-button {
     border: none;
+    top: -28px;
   }
 
   ul.menu {
