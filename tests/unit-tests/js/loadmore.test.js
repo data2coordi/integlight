@@ -227,4 +227,28 @@ describe('Category Load More Button', () => {
         $('.load-more-cat').trigger('click');
         expect($.ajax).not.toHaveBeenCalled();
     });
+
+    it('クリック時にcat情報を含むAjaxリクエストが送信される', () => {
+        $.ajax = jest.fn((options) => {
+            // 送信データを検証
+            expect(options.data).toBeDefined();
+            expect(options.data.cat).toBe(123);       // data-cat="123" の値がセットされているか
+            expect(options.data.page).toBe(1);        // 初期ページ番号も確認
+            expect(options.type).toBe('POST');        // HTTPメソッドの確認
+            expect(options.url).toBe(global.integlightLoadMore.ajax_url);
+
+            return {
+                done(callback) {
+                    setTimeout(() => callback({ success: true, data: '<p>Test Post</p>' }), 0);
+                    return this;
+                },
+                fail() {
+                    return this;
+                },
+            };
+        });
+
+        $('.load-more-cat').trigger('click');
+        jest.runAllTimers();
+    });
 });
