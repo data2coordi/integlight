@@ -4,58 +4,91 @@
 /*************スライダー用*********/
 /*************スライダー用s*********/
 .slider {
-  height: 35vh;
+  height: 35vh; /* スライダー全体の高さを“画面高の35%”に固定（レスポンシブで高さが自然に可変） */
 }
 
 .slider .slide img {
-  height: 100%;
-  object-fit: contain;
+  height: 100%;     /* スライド内の画像を、スライドの縦サイズにフィットさせる */
+  object-fit: contain; /* 画像の全体を収める（黒帯が出てもトリミングはしない）。サムネ比率がバラつく時に安全 */
 }
 
 /* スライド式エフェクトs */
 .slider.slide-effect .slide {
-  min-width: 50vw;
+  min-width: 50vw; /* 1枚のスライド幅＝画面幅の50%。横に2枚見せる/送りの“スライド”感を作る */
 }
 /* スライド式エフェクトe */
 
 /* フェード式エフェクトs */
 .slider.fade-effect .slides {
-  transition: none;
-  transform: none;
-  width: 100%;
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  gap: 0;
+  transition: none; /* フェード演出は opacity 切替を想定：translate系のスライド遷移は無効化 */
+  transform: none;  /* JSや他CSSで付与されがちな transform を打ち消し、位置のズレを防止 */
+  width: 100%;      /* スライダー領域いっぱいを使うベース幅 */
+  display: flex;    /* サムネを横並びにし、左右の“脇役スライド”を見せる土台にする */
+  align-items: stretch;  /* 各スライドの高さを揃えて段差をなくす */
+  justify-content: center; /* センター起点に配置（左右の“脇役”が均等に見える） */
+  gap: 0;           /* スライド間の余白をゼロ（デザインで隙間を出したくない前提） */
 }
 
 .slider.fade-effect .slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+  width: 100%;      /* 画像をスライドの幅いっぱいに */
+  height: 100%;     /* 画像をスライドの高さいっぱいに */
+  object-fit: cover; /* 余白を作らず“面で見せる”。一部トリミングされても迫力重視 */
+  display: block;   /* 画像周囲の余白/行間（inline要素の挙動）を消す */
 }
 
 .slider.fade-effect .slide {
-  position: relative;
-  overflow: hidden;
-  box-sizing: border-box;
+  position: relative;  /* キャプションやオーバーレイをこの中で相対配置できるようにする */
+  overflow: hidden;    /* はみ出した画像や装飾を見切る（角丸やズーム演出に必須） */
+  box-sizing: border-box; /* padding/borderをサイズ計算に含めてレイアウト崩れを防ぐ */
 }
 
 .slider.fade-effect .slide.slide-left,
 .slider.fade-effect .slide.slide-right {
-  flex: 0 0 25%;
+  flex: 0 0 25%;   /* 左右の“脇役”スライドは幅25%で小さく見せ、中央を引き立てる */
 }
 
 .slider.fade-effect .slide.slide-center {
-  flex: 0 0 50%;
+  flex: 0 0 50%;   /* 中央の“主役”スライドは幅50%。左右の合計と合わせて100%でバランス良く中央寄せ */
 }
 /* フェード式エフェクトe */
+
+
+/* スマホだけ：1枚ずつ全幅／はみ出しは隠す／画像はトリミングしない */
+/* スマホでは1枚=100%幅。トラックの transform は残す！ */
+@media (max-width: 768px) {
+  .slider { overflow: hidden; }
+
+  .slider .slides,
+  .slider .track,
+  .slider .inner {
+    display: flex !important;
+    gap: 0;
+    width: 100%;
+    /* ← transform/left/margin-left は触らない */
+  }
+
+  .slider .slide {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .slider .slide img {
+    width: 100%;
+    height: auto !important;
+    object-fit: contain !important;  /* 画像を全部見せる */
+    object-position: center;
+    display: block;
+  }
+} 
+
 
 
 /*************スライダー用e*********/
 /*************スライダー用*********/
 /*************スライダー用*********/
+
 
 
 
@@ -342,119 +375,119 @@ p.site-description {
 .blog .post-grid,
 .home .post-grid,
 .home2 .post-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
-  padding: 15px 0;
+  display: grid;                       /* 一覧をCSSグリッドで並べる土台 */
+  grid-template-columns: repeat(2, 1fr); /* 2列レイアウト（等幅） */
+  gap: 30px;                           /* カード同士の間隔 */
+  padding: 15px 0;                     /* セクション上下の余白（左右は親に任せる） */
 }
 
 /* 抜粋がテーマ側で非表示でも出す */
 .blog .post-excerpt,
 .home .post-excerpt {
-  display: block;
+  display: block;                      /* 抜粋を強制的に表示（テーマ側の非表示指定を打ち消し） */
 }
 
 /* カード本体 */
 .post-grid .grid-item {
-  position: relative;
-  height: 250px;
+  position: relative;                  /* バッジ等をabsolute配置するための基準に */
+  height: 250px;                       /* カードの高さ（見出し/抜粋/日付が収まる基準値） */
   /* 必要なら 270–300 に調整 */
-  border-radius: 20px;
+  border-radius: 20px;                 /* 角丸でカード感を出す */
 }
 
 /* a要素内を「左=画像 / 右=テキスト3段」に */
 .post-grid .grid-item>a {
-  display: grid;
-  grid-template-columns: minmax(260px, 65%) 1fr;
+  display: grid;                       /* リンク全体をさらに内部グリッド化 */
+  grid-template-columns: minmax(260px, 65%) 1fr; /* 左=画像(最小260px〜最大65%) / 右=テキスト */
   /* 左右比率 */
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto 1fr auto;   /* 上=タイトル / 中=抜粋(伸縮) / 下=日付 */
   /* 上:タイトル / 中:抜粋 / 下:日付 */
-  align-items: stretch;
-  row-gap: 6px;
-  height: 100%;
-  text-decoration: none;
-  min-height: 0;
+  align-items: stretch;                /* 行の高さを揃えて段差をなくす */
+  row-gap: 6px;                        /* テキスト縦要素の間隔 */
+  height: 100%;                        /* 親カードの高さにフィット */
+  text-decoration: none;               /* リンクの下線を消す（カード全体をクリック領域に） */
+  min-height: 0;                       /* グリッド内で高さ計算が破綻しないように保険 */
 }
 
 /* 画像（左カラム全体） */
 .post-grid .grid-item .post-thumbnail {
-  grid-column: 1 / 2;
-  grid-row: 1 / -1;
-  height: 100%;
-  overflow: hidden;
+  grid-column: 1 / 2;                  /* 左カラムに配置 */
+  grid-row: 1 / -1;                    /* タイトル〜日付の3行すべてにまたがる（縦いっぱい） */
+  height: 100%;                        /* カードの高さに合わせる */
+  overflow: hidden;                    /* 画像のはみ出しを見切る（トリミング前提） */
 }
 
 .post-grid .grid-item .post-thumbnail img {
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  object-fit: cover;
-  display: block;
+  width: 100%;                         /* 画像を横いっぱいに */
+  height: 100%;                        /* 画像を縦いっぱいに */
+  padding: 0;                          /* 画像周りの余白をゼロに */
+  object-fit: cover;                   /* 画像をトリミングして“面で見せる” */
+  display: block;                      /* 画像の行間由来の余白を消す */
 }
 
 /* 右カラム共通（左右余白＆はみ出し防止） */
 .post-grid .grid-item>a>h2,
 .post-grid .grid-item>a>.post-excerpt,
 .post-grid .grid-item>a>.post-meta {
-  grid-column: 2 / 3;
-  padding: 0 18px;
-  max-width: 100%;
-  min-width: 0;
+  grid-column: 2 / 3;                  /* 右カラムにまとめる */
+  padding: 0 18px;                     /* 右カラム内の左右余白（読みやすさ） */
+  max-width: 100%;                     /* 親の幅を超えないように制限 */
+  min-width: 0;                        /* グリッド内のはみ出し防止（長い単語対策） */
 }
 
 .home .post-date {
-  padding-bottom: 12px;
+  padding-bottom: 12px;                /* 日付の下に少し余白（詰まり防止） */
 }
 
 /* タイトル（上段） */
 .post-grid .grid-item>a>h2 {
-  grid-row: 1;
-  margin: .2rem 0 6px;
-  padding-top: 10px;
-  font-weight: 800;
-  font-size: clamp(17px, 1.8vw, 20px);
-  line-height: 1.35;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  /* 2行で省略-webkit-line-clamp: 2;  */
-  overflow: hidden;
-  word-break: break-word;
-  overflow-wrap: anywhere;
-  align-self: start;
+  grid-row: 1;                         /* 1行目：タイトル */
+  margin: .2rem 0 6px;                 /* タイトル上下のマージン（上は控えめ） */
+  padding-top: 10px;                   /* 画像との視覚的距離を確保 */
+  font-weight: 800;                    /* 見出しとして強めのウェイト */
+  font-size: clamp(17px, 1.8vw, 20px); /* 画面幅に応じて可変（最小17/最大20px） */
+  line-height: 1.35;                   /* 見出し向けのややタイトな行間 */
+  display: -webkit-box;                /* マルチライン省略の土台（WebKit系） */
+  -webkit-box-orient: vertical;        /* 縦方向での行数制御を有効に */
+  /* 2行で省略-webkit-line-clamp: 2;  */ /* 必要ならコメント解除で2行省略 */
+  overflow: hidden;                    /* はみ出したテキストを隠す */
+  word-break: break-word;              /* 長い単語での折返し許可（日本語/英数字混在対策） */
+  overflow-wrap: anywhere;             /* どこでも折返し可（より強力な保険） */
+  align-self: start;                   /* 上寄せで安定配置 */
 }
 
 /* 抜粋（中段） */
 .post-grid .grid-item>a>.post-excerpt {
-  grid-row: 2;
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.6;
-  color: #444;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  /* -webkit-line-clamp: 1;          情報量優先は 3 に */
-  overflow: hidden;
-  min-height: 0;
+  grid-row: 2;                         /* 2行目：抜粋 */
+  margin: 0;                           /* 余白リセット（右カラムの余白に任せる） */
+  font-size: 14px;                     /* 本文よりやや小さめで要約感を出す */
+  line-height: 1.6;                    /* 読みやすい行間 */
+  color: #444;                         /* 見出しとの差を付ける落ち着いた色 */
+  display: -webkit-box;                /* マルチライン省略の土台 */
+  -webkit-box-orient: vertical;        /* 縦方向での行数制御を有効に */
+  /* -webkit-line-clamp: 1;          情報量優先は 3 に */ /* 行数は運用で調整 */
+  overflow: hidden;                    /* はみ出しを隠す */
+  min-height: 0;                       /* はみ出し防止の保険 */
 }
 
 /* 日付（下段） */
 .post-grid .grid-item>a>.post-meta {
-  grid-row: 3;
-  margin-top: 0;
-  font-size: 13px;
-  color: #555;
+  grid-row: 3;                         /* 3行目：日付やメタ情報 */
+  margin-top: 0;                       /* 上マージン不要（行レイアウトで吸収済） */
+  font-size: 13px;                     /* 小さめ表示で情報階層を明確化 */
+  color: #555;                         /* 補助情報のトーンダウン */
 }
 
 .post-date {
-  font-size: .8rem;
+  font-size: .8rem;                    /* 日付の相対サイズ（テーマ依存のため相対指定） */
 }
 
 /* カテゴリバッジ（画像左上） */
 .post-grid .grid-item .post-category {
-  position: absolute;
-  left: -10px;
+  position: absolute;                  /* カード内で自由配置 */
+  left: -10px;                         /* 画像から少しはみ出させて“ラベル感”を演出 */
   top: -10px;
-  z-index: 2;
+  z-index: 2;                          /* 画像より前面に（被せる） */
 }
 
 
@@ -463,26 +496,26 @@ p.site-description {
 /* 親の#pageが横並びを作らないよう、トップでは“縦積み”に */
 body.home #page.site {
   /* Devツールで効いた修正の恒久化 */
-  display: flex;
-  flex-direction: column;
+  display: flex;                       /* フレックス化して縦積み制御を安定化 */
+  flex-direction: column;              /* 子要素を縦方向に並べる（横2カラム化の事故防止） */
 }
 
 /* セクション（新着 / トップカテゴリ）の“器”を中央1200pxで統一 */
 body.home .latest-posts,
 body.home .top-categories-posts {
-  width: min(1200px, 100%);
-  margin-inline: auto;
+  width: min(1200px, 100%);            /* 画面が広くても最大1200pxで止める（読みやすさ） */
+  margin-inline: auto;                 /* 中央寄せ（左右auto） */
   /* padding-inline: 24px; */
   /* 端の余白（任意） */
-  box-sizing: border-box;
+  box-sizing: border-box;              /* パディングを幅計算に含めてズレ防止 */
 }
 
 /* セクション内のグリッドも中央1200pxに収めて左起点で並べる */
 body.home .latest-posts .post-grid,
 body.home .top-categories-posts .post-grid {
-  max-width: 1200px;
-  margin-inline: auto;
-  justify-content: start;
+  max-width: 1200px;                   /* 子グリッドも1200pxで揃える */
+  margin-inline: auto;                 /* セクション内でも中央寄せ */
+  justify-content: start;              /* 左起点で自然な読み順に（中央起点だとズレやすい） */
   /* 中央起点だとズレるため左から */
 }
 
@@ -490,24 +523,24 @@ body.home .top-categories-posts .post-grid {
 /* ========== 3) モバイルは縦積み（見やすさ優先） ========== */
 @media (max-width: 780px) {
   .post-grid .grid-item {
-    height: auto;
+    height: auto;                      /* カードの高さを可変にして窮屈さを解消 */
   }
 
   .post-grid .grid-item .post-thumbnail {
-    height: 200px;
-    border-radius: 16px;
+    height: 200px;                     /* サムネの見栄え基準（縦長/横長の暴れを抑える） */
+    border-radius: 16px;               /* 角丸でモバイルの視覚密度を下げる */
   }
 
   .post-grid .grid-item>a>h2,
   .post-grid .grid-item>a>.post-excerpt,
   .post-grid .grid-item>a>.post-meta {
-    padding: 8px 0;
+    padding: 8px 0;                    /* モバイルでのタップ/視線移動を最適化 */
   }
 
   /* 一覧自体も1列に */
   .home2 .post-grid {
-    grid-template-columns: 1fr;
-    gap: 18px;
+    grid-template-columns: 1fr;        /* ホーム2専用：1カラム化 */
+    gap: 18px;                         /* モバイルの視覚密度に合わせて間隔を微調整 */
   }
 }
 
@@ -515,15 +548,15 @@ body.home .top-categories-posts .post-grid {
 .post-grid .grid-item>a>h2,
 .post-grid .grid-item>a>.post-excerpt,
 .post-grid .grid-item>a>.post-meta {
-  position: static;
+  position: static;                    /* テーマ側のabsolute指定を打ち消し、通常フローに戻す */
   /* テーマの absolute を打ち消す */
-  inset: auto;
+  inset: auto;                         /* top/right/bottom/left を一括解除 */
   /* top/right/bottom/left を解除 */
-  transform: none;
+  transform: none;                     /* 位置の補正やアニメ起因のズレを無効化 */
   /* 位置補正があれば無効化 */
-  z-index: 1;
+  z-index: 1;                          /* 画像より前面だが、重なり事故を避けるため最低限 */
   /* 画像より前面でOK（重ならない） */
-  color: inherit;
+  color: inherit;                      /* 画像上の白文字指定などテーマ依存の色を解除 */
   /* 画像上の白文字指定などを解除 */
 }
 
@@ -535,22 +568,18 @@ body.home .top-categories-posts .post-grid {
 .post-grid .grid-item .post-thumbnail,
 .post-grid .grid-item a.post-thumbnail,
 .post-grid .grid-item figure.post-thumbnail {
-  position: static;
+  position: static;                    /* absolute指定を解除して通常フローに */
   /* ← absolute を無効化して通常フローへ */
-  grid-column: 1 / 2;
+  grid-column: 1 / 2;                  /* 左カラムに固定 */
   /* 左カラム */
-  grid-row: 1 / -1;
+  grid-row: 1 / -1;                    /* タイトル〜日付の3行を縦断 */
   /* タイトル/抜粋/日付の3行を縦断 */
-  height: 100%;
-  align-self: stretch;
-  overflow: hidden;
-  z-index: 0;
+  height: 100%;                        /* カードの高さに合わせる */
+  align-self: stretch;                  /* 行の高さにぴったり合わせる */
+  overflow: hidden;                    /* 画像はみ出しを見切る */
+  z-index: 0;                          /* テキストより背面にする（クリック妨害を防止） */
   /* テキストより背面 */
 }
-
-
-
-
 
 
 
@@ -564,44 +593,48 @@ body.home .top-categories-posts .post-grid {
   /* 1) グリッドを必ず1列に（列の残りを消す） */
   .home .post-grid.post-grid,
   .blog .post-grid.post-grid {
-    display: grid;
-    grid-template-columns: 1fr; /* ← 1カラム固定 */
-    grid-auto-flow: row;        /* 横への自動配置を無効化 */
-    gap: 20px;
+    display: grid;                     /* 念のためdisplayを明示（テーマ上書き対策） */
+    grid-template-columns: 1fr;        /* ← 1カラム固定 */
+    grid-auto-flow: row;               /* 横方向への自動配置を禁止（縦に流す） */
+    /* 横への自動配置を無効化 */
+    gap: 20px;                         /* モバイルの読みやすい間隔 */
   }
 
   /* 2) カードの中は“縦積み”に（横並び・回り込みを解除） */
   .home .post-grid .grid-item,
   .blog .post-grid .grid-item {
-    width: auto;
-    max-width: 100%;
-    height: auto;
+    width: auto;                       /* 親幅にフィット */
+    max-width: 100%;                   /* 画面外にはみ出さない */
+    height: auto;                      /* コンテンツ量で高さ可変に */
   }
 
   .home .post-grid .grid-item>a,
   .blog .post-grid .grid-item>a {
-    display: block; /* 内部グリッド/横並びを解除 */
+    display: block;                    /* 内部グリッドを解除して縦積みへ */
+    /* 内部グリッド/横並びを解除 */
   }
 
   /* 3) 画像の回り込みを完全に止める */
   .home .post-grid .grid-item .post-thumbnail,
   .blog .post-grid .grid-item .post-thumbnail {
-    float: none; /* ← 右回り込みの犯人ケア */
-    clear: both;
-    position: static;
-    width: 100%;
-    height: auto;
-    margin: 0 0 8px;
-    border-radius: 16px 16px 0 0; /* お好みで */
-    overflow: hidden;
+    float: none;                       /* 回り込みを完全オフ */
+    /* ← 右回り込みの犯人ケア */
+    clear: both;                       /* 前要素の回り込み影響をリセット */
+    position: static;                  /* 通常フローに戻す */
+    width: 100%;                       /* 横いっぱいに表示 */
+    height: auto;                      /* 画像の自然比率で高さ可変 */
+    margin: 0 0 8px;                   /* 画像とテキストの間隔 */
+    border-radius: 16px 16px 0 0;      /* 上だけ角丸（カード感を演出） */
+    /* お好みで */
+    overflow: hidden;                  /* はみ出しを見切る */
   }
 
   .home .post-grid .grid-item .post-thumbnail img,
   .blog .post-grid .grid-item .post-thumbnail img {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
+    width: 100%;                       /* 画像を横いっぱいに */
+    height: auto;                      /* 比率を維持して縮小 */
+    display: block;                    /* 余計な隙間をなくす */
+    object-fit: cover;                 /* 小さなはみ出しを吸収（安全側） */
   }
 
   /* 4) テキスト側も回り込みを受けないようにする */
@@ -611,72 +644,77 @@ body.home .top-categories-posts .post-grid {
   .blog .post-grid .grid-item>a>h2,
   .blog .post-grid .grid-item>a>.post-excerpt,
   .blog .post-grid .grid-item>a>.post-meta {
-    clear: both; /* ← 画像の横に回らない */
-    display: block;
-    margin-left: 16px;
-    margin-right: 16px;
+    clear: both;                       /* 画像の横に回り込まないよう明示 */
+    /* ← 画像の横に回らない */
+    display: block;                    /* ブロック表示で縦積み */
+    margin-left: 16px;                 /* 画面端から少し内側に */
+    margin-right: 16px;                /* 左右均等の余白 */
   }
 
   /* 5) WP標準の回り込みクラスも念のため潰す */
   .alignleft,
   .alignright {
-    float: none;
-    margin: 0 0 8px;
-    display: block;
+    float: none;                       /* どの要素も回り込ませない */
+    margin: 0 0 8px;                   /* 下だけ余白を残す */
+    display: block;                    /* ブロック化で縦順に並べる */
   }
 
   /* 6) タイトル少し抑えて2行で省略（仕上げ） */
   .home .post-grid .grid-item>a>h2,
   .blog .post-grid .grid-item>a>h2 {
-    margin-top: 10px;
-    margin-bottom: 6px;
-    font-weight: 800;
-    font-size: clamp(16px, 4.6vw, 19px);
-    line-height: 1.35;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    /* -webkit-line-clamp: 2; */
-    overflow: hidden;
+    margin-top: 10px;                  /* 画像との距離 */
+    margin-bottom: 6px;                /* 抜粋との距離 */
+    font-weight: 800;                  /* 見出しの強さ */
+    font-size: clamp(16px, 4.6vw, 19px); /* モバイルで視認性を保つ可変サイズ */
+    line-height: 1.35;                 /* 見出し向けの行間 */
+    display: -webkit-box;              /* マルチライン省略の土台 */
+    -webkit-box-orient: vertical;      /* 縦方向の行数制御 */
+    /* -webkit-line-clamp: 2; */       /* 必要なら2行省略を有効化 */
+    overflow: hidden;                  /* はみ出しを隠す */
   }
 
   .home .post-grid .grid-item>a>.post-excerpt,
   .blog .post-grid .grid-item>a>.post-excerpt {
-    margin: 0 0 10px;
-    padding: 0 16px;
-    font-size: 14px;
-    line-height: 1.7;
-    color: #444;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    /* -webkit-line-clamp: 2; 情報量重視なら3に */
-    overflow: hidden;
+    margin: 0 0 10px;                  /* タイトルとの間隔 */
+    padding: 0 16px;                   /* 読みやすい左右余白（行頭がそろう） */
+    font-size: 14px;                   /* 読みやすさ基準の本文サイズ */
+    line-height: 1.7;                  /* モバイルでの快適な行間 */
+    color: #444;                       /* 本文色（コントラスト確保） */
+    display: -webkit-box;              /* マルチライン省略の土台 */
+    -webkit-box-orient: vertical;      /* 縦方向の行数制御 */
+    /* -webkit-line-clamp: 2; 情報量重視なら3に */ /* 内容量で行数調整 */
+    overflow: hidden;                  /* はみ出しを隠す */
   }
 
   .home .post-grid .grid-item>a>.post-meta,
   .blog .post-grid .grid-item>a>.post-meta {
-    margin: 6px 0 14px;
-    font-size: 13px;
-    color: #666;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    margin: 6px 0 14px;                /* 抜粋との間隔とカード下の余白 */
+    font-size: 13px;                   /* 補助情報サイズ */
+    color: #666;                       /* 補助情報のトーンダウン */
+    white-space: nowrap;               /* 途中改行を防ぐ */
+    overflow: hidden;                  /* はみ出し時に省略 */
+    text-overflow: ellipsis;           /* 省略記号…で切る */
   }
 
   .home .post-grid,
   .blog .post-grid {
-    max-width: 680px; /* 好きな上限幅。600〜720でお好み */
-    margin-inline: auto; /* ← 左右オートで中央 */
-    padding-inline: 16px; /* 左右の余白（左右均等） */
-    grid-template-columns: 1fr; /* 念のため1カラム固定 */
-    gap: 20px;
+    max-width: 680px;                  /* 1行の読み幅を最適化（可読性の黄金域） */
+    /* 好きな上限幅。600〜720でお好み */
+    margin-inline: auto;               /* 画面中央に配置 */
+    /* ← 左右オートで中央 */
+    padding-inline: 16px;              /* 端のベタ付きを防止 */
+    /* 左右の余白（左右均等） */
+    grid-template-columns: 1fr;        /* 念のため1カラム固定（上書きの保険） */
+    /* 念のため1カラム固定 */
+    gap: 20px;                         /* カード間隔 */
   }
 
   .home .grid-item h2 {
-    width: 90%;
+    width: 90%;                        /* タイトル行の可読幅を少し絞る（視線の跳ね返り防止） */
   }
 
   .home .post-date {
-    padding-left: 16px;
+    padding-left: 16px;                /* テキスト群と揃えるための左右余白 */
     padding-right: 16px;
   }
 }

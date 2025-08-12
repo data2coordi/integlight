@@ -168,7 +168,6 @@ class Integlight_FadeSlider2 extends Integlight_Slider {
         this.$slides.empty();
         this.$visible = []; // jQuery 要素配列
 
-        const widths = ['25%', '50%', '25%'];
         const roles = ['left', 'center', 'right'];
 
         for (let i = 0; i < 3; i++) {
