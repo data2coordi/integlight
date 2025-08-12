@@ -111,6 +111,7 @@ a:focus-visible,
   left: 0;
 }
 
+
 #page-top:hover {
   background: #c14f7e;
   border: #c14f7e;
@@ -172,7 +173,20 @@ ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
 }
 /**************アイコンのホバーした時の色を変えているe***************/
 
+/************ home2ボタン **************/
+/************ home2ボタン **************/
+/************ home2ボタン **************/
+/************ home2ボタン **************/
+/************ home2ボタンs **************/
+#load-more:focus-visible, #load-more:hover, .load-more-cat:focus-visible, .load-more-cat:hover {
+  background: #0000ff;
+  border: #0000ff;
+  color: #fff;
+}
 
+/************ home2ボタンe **************/
+/************ home2ボタン **************/
+/************ home2ボタン **************/
 
 /* ボタングラデーション */
 /* background:linear-gradient(90deg, #0c62eb 20%, #607aec 40%, #6fb1fc 70%); */

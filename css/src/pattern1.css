@@ -114,6 +114,12 @@ a:focus-visible,
   left: 0;
 }
 
+/* home2ボタン */
+#load-more:focus-visible, #load-more:hover, .load-more-cat:focus-visible, .load-more-cat:hover {
+  background: #555;
+  color: #fff;
+}
+
 #page-top:hover {
   background: #555;
   border: #555;

@@ -173,7 +173,20 @@ ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
 
 }
 /**************アイコンのホバーした時の色を変えているe***************/
+/************ home2ボタン **************/
+/************ home2ボタン **************/
+/************ home2ボタン **************/
+/************ home2ボタン **************/
+/************ home2ボタンs **************/
+#load-more:focus-visible, #load-more:hover, .load-more-cat:focus-visible, .load-more-cat:hover {
+  background: #008554;
+  border: #008554;
+  color: #fff;
+}
 
+/************ home2ボタンe **************/
+/************ home2ボタン **************/
+/************ home2ボタン **************/
 @media screen and (max-width: 768px) {
   .main-navigation li.menu-item-has-children > a::after {
     right: 15px;
