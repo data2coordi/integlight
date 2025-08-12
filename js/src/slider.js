@@ -214,11 +214,6 @@ class Integlight_FadeSlider2 extends Integlight_Slider {
         }, waitTime);
     }
 
-
-    destroy() {
-        clearInterval(this._intervalId);
-        this.$(window).off('resize.fadeSlider2', this._onResize);
-    }
 }
 
 

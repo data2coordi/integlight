@@ -2,10 +2,6 @@
  * @jest-environment jsdom
  */
 
-/**
- * @jest-environment jsdom
- */
-
 beforeAll(() => {
     global.integlight_sliderSettings = {
         fadeName: 'fade',
@@ -170,13 +166,13 @@ describe('Integlight_FadeSlider2 ブラックボックステスト関連', () =>
         inst.$visible.forEach($slide => expect($slide.css).toHaveBeenCalledWith('opacity', 0));
     });
 
-    it('showSlide() 呼び出し後、一定時間経過で画像が切り替わること（画像の src が更新される）', () => {
+    it('showSlide() 呼び出し後、一定時間経過で画像が切り替わること（画像の src が更新され、opacity が1に戻されている）', () => {
         const inst = new Integlight_FadeSlider2(mock$, { changeDuration: 5 });
 
         // 変更前の画像srcを取得（最初の3つだけ）
         const beforeSrcs = inst.$visible.map($slide => $slide.find('img').attr('src'));
 
-        // showSlide() 呼び出し（opacity 0 設定などは他のテストで確認済み）
+        // showSlide() 呼び出し（opacity 0 設定は他テストで確認済み）
         inst.showSlide();
 
         // タイマーを進めて画像切替が完了するまで待つ
@@ -185,7 +181,7 @@ describe('Integlight_FadeSlider2 ブラックボックステスト関連', () =>
         // 変更後の画像srcを取得
         const afterSrcs = inst.$visible.map($slide => $slide.find('img').attr('src'));
 
-        // before と after は同じ長さなので差異があるかだけ見る
+        // 画像が切り替わっていることを確認
         let changed = false;
         for (let i = 0; i < beforeSrcs.length; i++) {
             if (beforeSrcs[i] !== afterSrcs[i]) {
@@ -193,9 +189,50 @@ describe('Integlight_FadeSlider2 ブラックボックステスト関連', () =>
                 break;
             }
         }
-
         expect(changed).toBe(true);
+
+        // 画像切替後に opacity が 1 に戻されていることを確認
+        inst.$visible.forEach($slide => {
+            expect($slide.css).toHaveBeenCalledWith('opacity', 1);
+        });
     });
+
+    it('画像インデックスが末尾まで進んだ後、先頭に戻ってループすること', () => {
+        const inst = new Integlight_FadeSlider2(mock$, { changeDuration: 5 });
+
+        // 画像数
+        const length = inst.images.length;
+
+        // baseIndexを末尾にセット
+        inst.baseIndex = length - 1;
+
+        // $visibleの各要素のfind('img').attr('src')をsrc文字列を返すモックに書き換え
+        inst.$visible.forEach(($slide, i) => {
+            $slide.find = jest.fn(() => ({
+                attr: jest.fn(() => inst.images[(inst.baseIndex + i) % length])
+            }));
+            $slide.css = jest.fn();
+        });
+
+        // showSlide() 呼び出し（opacity 0設定は他テストで確認済み）
+        inst.showSlide();
+
+        // タイマーを進めて画像切替待ち
+        jest.advanceTimersByTime(inst.changingDuration * 1000);
+
+        // baseIndexが0に戻ること
+        expect(inst.baseIndex).toBe(0);
+
+        // 画像srcが正しく先頭に戻っていること
+        const firstVisibleSrc = inst.$visible[0].find('img').attr('src');
+        expect(firstVisibleSrc).toBe(inst.images[inst.baseIndex]);
+
+        // opacity が1に戻っていることだけ確認
+        inst.$visible.forEach($slide => {
+            expect($slide.css).toHaveBeenCalledWith('opacity', 1);
+        });
+    });
+
 
 
 });

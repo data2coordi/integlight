@@ -229,36 +229,41 @@ ul.menu>li.menu-item-has-children>ul.sub-menu {
 
 /* 帯：ヘッダーの“上”へ + 余白ぶんさらに上へ */
 h1.site-title {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, calc(-100% - var(--titlebar-gap)));
-  width: 100vw;
-  max-width: 100vw;
-  height: var(--titlebar-h);
-  line-height: var(--titlebar-h);
-  margin: 0;
-  background: #000;
-  color: #fff;
-  text-align: center;
-  z-index: 10;
+  position: absolute;                 /* 通常フローから外して好きな位置に固定 */
+  top: 0;                              /* 親の上端を基準に */
+  left: 50%;                           /* 左端を親の中央に置く */
+  transform: translate(-50%,           /* X方向：自身の幅の50%左へ→中央寄せ */
+                       calc(-100% - var(--titlebar-gap))); 
+                                       /* Y方向：自身の高さぶん(= -100%)＋
+                                          追加の余白(--titlebar-gap)だけさらに上へ押し上げる */
+  width: 100vw;                        /* ビューポート幅いっぱい（スクロールバー含む） */
+  max-width: 100vw;                    /* 100vw以上にならない保険 */
+  height: var(--titlebar-h);           /* 帯の高さをCSS変数で一元管理 */
+  line-height: var(--titlebar-h);      /* テキストを縦中央に見せる（1行想定） */
+  margin: 0;                           /* ブラウザのH1デフォルト余白を消す */
+  background: #000;                    /* 帯の背景色（黒） */
+  color: #fff;                         /* テキスト色（白） */
+  text-align: center;                  /* テキストを中央寄せ */
+  z-index: 10;                         /* ヘッダーより前面に重ねる（値は環境に合わせ調整） */
 }
 
+/* モバイルUIの表示/非表示でvwが揺れる問題対策：対応環境ではdvwを優先 */
 @supports (width: 100dvw) {
-  h1.site-title { width: 100dvw; }
+  h1.site-title { width: 100dvw; }     /* 動的ビューポート幅で横ブレ/はみ出しを減らす */
 }
 
 .site-title a {
-  font-size: 1rem;
-  color: inherit;
-  text-decoration: none;
+  font-size: 1rem;                     /* 見出しリンクの文字サイズ */
+  color: inherit;                      /* 親(h1)の色(白)を継承 */
+  text-decoration: none;               /* 下線を消す */
 }
 
 p.site-description {
-  color: #222;
-  font-weight: 600;
-  font-size: 0.8rem;
+  color: #222;                         /* キャッチコピーの文字色 */
+  font-weight: 600;                    /* 少し太めに */
+  font-size: 0.8rem;                   /* 小さめサイズ */
 }
+
 /*************コピーの帯e*********/
 /*************コピーの帯*********/
 
@@ -310,7 +315,9 @@ p.site-description {
 
 /* 例：ホバーで色を変える */
 #load-more:hover,
-.load-more-cat:hover{
+.load-more-cat:hover,
+#load-more:focus-visible,
+.load-more-cat:focus-visible {
   background: #555;
   color: #fff;                 /* 矢印も一緒に変わる */
 }
