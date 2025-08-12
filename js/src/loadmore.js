@@ -1,36 +1,41 @@
-jQuery(function ($) {
-    // 新着
-    $(document).on('click', '#load-more', function (e) {
+// load-more.js
+import $ from 'jquery';
+
+// グローバル変数 integlightLoadMore は外部でセットされている想定です
+
+export function setupLoadMoreHandlers() {
+    // 新着投稿のロードモアボタン
+    $(document).off('click', '#load-more').on('click', '#load-more', function (e) {
         e.preventDefault();
         var button = $(this);
         if (button.prop('disabled')) return;
         var page = parseInt(button.data('page') || 2, 10);
 
-        button.prop('disabled', true).text(integlightLoadMore.loadingText);
+        button.prop('disabled', true).text(window.integlightLoadMore.loadingText);
 
         $.ajax({
-            url: integlightLoadMore.ajax_url,
+            url: window.integlightLoadMore.ajax_url,
             type: 'POST',
             dataType: 'json',
             data: {
-                action: 'integlight_load_more_posts',   // ← PHP と一致
+                action: 'integlight_load_more_posts',
                 page: page,
-                nonce: integlightLoadMore.nonce
+                nonce: window.integlightLoadMore.nonce
             }
         }).done(function (response) {
             if (response && response.success) {
                 $('#latest-posts-grid').append(response.data);
-                button.data('page', page + 1).prop('disabled', false).text(integlightLoadMore.loadMoreText);
+                button.data('page', page + 1).prop('disabled', false).text(window.integlightLoadMore.loadMoreText);
             } else {
                 button.remove();
             }
         }).fail(function () {
-            button.prop('disabled', false).text(integlightLoadMore.loadMoreText);
+            button.prop('disabled', false).text(window.integlightLoadMore.loadMoreText);
         });
     });
 
-    // カテゴリ別
-    $(document).on('click', '.load-more-cat', function (e) {
+    // カテゴリ別投稿のロードモアボタン
+    $(document).off('click', '.load-more-cat').on('click', '.load-more-cat', function (e) {
         e.preventDefault();
         var button = $(this);
         if (button.prop('disabled')) return;
@@ -38,17 +43,17 @@ jQuery(function ($) {
         var cat = parseInt(button.data('cat') || 0, 10);
         if (!cat) return;
 
-        button.prop('disabled', true).text(integlightLoadMore.loadingText);
+        button.prop('disabled', true).text(window.integlightLoadMore.loadingText);
 
         $.ajax({
-            url: integlightLoadMore.ajax_url,
+            url: window.integlightLoadMore.ajax_url,
             type: 'POST',
             dataType: 'json',
             data: {
-                action: 'integlight_load_more_category_posts', // ← PHP と一致
+                action: 'integlight_load_more_category_posts',
                 page: page,
                 cat: cat,
-                nonce: integlightLoadMore.nonce
+                nonce: window.integlightLoadMore.nonce
             }
         }).done(function (response) {
             if (response && response.success) {
@@ -58,12 +63,17 @@ jQuery(function ($) {
                 } else {
                     button.prev('.post-grid').append(response.data);
                 }
-                button.data('page', page + 1).prop('disabled', false).text(integlightLoadMore.loadMoreText);
+                button.data('page', page + 1).prop('disabled', false).text(window.integlightLoadMore.loadMoreText);
             } else {
                 button.remove();
             }
         }).fail(function () {
-            button.prop('disabled', false).text(integlightLoadMore.loadMoreText);
+            button.prop('disabled', false).text(window.integlightLoadMore.loadMoreText);
         });
     });
+}
+
+// ページロード時に自動初期化する場合はコメントを外す
+$(function () {
+    setupLoadMoreHandlers();
 });
