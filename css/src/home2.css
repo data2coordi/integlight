@@ -53,37 +53,6 @@
 /* フェード式エフェクトe */
 
 
-/* スマホだけ：1枚ずつ全幅／はみ出しは隠す／画像はトリミングしない */
-/* スマホでは1枚=100%幅。トラックの transform は残す！ */
-@media (max-width: 768px) {
-  .slider { overflow: hidden; }
-
-  .slider .slides,
-  .slider .track,
-  .slider .inner {
-    display: flex !important;
-    gap: 0;
-    width: 100%;
-    /* ← transform/left/margin-left は触らない */
-  }
-
-  .slider .slide {
-    flex: 0 0 100% !important;
-    max-width: 100% !important;
-    width: 100% !important;
-    margin: 0 !important;
-  }
-
-  .slider .slide img {
-    width: 100%;
-    height: auto !important;
-    object-fit: contain !important;  /* 画像を全部見せる */
-    object-position: center;
-    display: block;
-  }
-} 
-
-
 
 /*************スライダー用e*********/
 /*************スライダー用*********/

@@ -2,6 +2,10 @@
  * @jest-environment jsdom
  */
 
+/**
+ * @jest-environment jsdom
+ */
+
 beforeAll(() => {
     global.integlight_sliderSettings = {
         fadeName: 'fade',
@@ -12,28 +16,19 @@ beforeAll(() => {
         effect: 'fade',
         homeType: 'home2',
     };
-
-    // 最低限の jQuery グローバル（副作用回避）
-    global.jQuery = jest.fn(() => ({
-        on: jest.fn(),
-    }));
+    // jQueryグローバルの簡易モック（副作用回避）
+    global.jQuery = jest.fn(() => ({ on: jest.fn() }));
 });
 
 let Integlight_FadeSlider2;
-let mock$,
-    mockSliderElement,
-    mockSlidesWrapper,
-    mockSlideElements,
-    slideMocks;
+let mock$;
+let mockSliderElement;
+let mockSlidesWrapper;
+let mockSlideElements;
+let slideMocks;
 
-/**
- * slideMocks を使った map のモックを外に出して分かりやすく
- */
 function createMockSlideElementsMap(cb) {
-    const results = [];
-    for (let i = 0; i < slideMocks.length; i++) {
-        results.push(cb(i, slideMocks[i]));
-    }
+    const results = slideMocks.map((slideMock, i) => cb(i, slideMock));
     return {
         get: () => results,
     };
@@ -42,112 +37,60 @@ function createMockSlideElementsMap(cb) {
 beforeEach(async () => {
     jest.useFakeTimers();
 
-    // 動的import（非同期）だがbeforeEachなので問題なし
     const module = await import('../../../js/src/slider.js');
     Integlight_FadeSlider2 = module.Integlight_FadeSlider2;
 
-    // slideMocks 初期化
     slideMocks = [
         { find: jest.fn(() => ({ attr: jest.fn(() => 'img1.jpg') })) },
         { find: jest.fn(() => ({ attr: jest.fn(() => 'img2.jpg') })) },
         { find: jest.fn(() => ({ attr: jest.fn(() => 'img3.jpg') })) },
     ];
 
-    // mockSliderElement の定義
     mockSliderElement = {
-        find: jest.fn((selector) => {
-            if (selector === '.slides') return mockSlidesWrapper;
-            return null;
-        }),
+        find: jest.fn((selector) => (selector === '.slides' ? mockSlidesWrapper : null)),
         addClass: jest.fn(),
     };
 
-    // mockSlidesWrapper の定義
     mockSlidesWrapper = {
-        find: jest.fn((selector) => {
-            if (selector === '.slide') return mockSlideElements;
-            return null;
-        }),
+        find: jest.fn((selector) => (selector === '.slide' ? mockSlideElements : null)),
         empty: jest.fn(),
         append: jest.fn(),
     };
 
-    // mockSlideElements の定義
     mockSlideElements = {
         length: slideMocks.length,
         width: jest.fn(() => 100),
-        first: jest.fn(() => ({
-            clone: jest.fn(() => 'cloned-first'),
-        })),
+        first: jest.fn(() => ({ clone: jest.fn(() => 'cloned-first') })),
         css: jest.fn(),
         append: jest.fn(),
         one: jest.fn(),
         map: jest.fn(createMockSlideElementsMap),
     };
 
-
-
-
-
-
-    /**
-     * mock$のモックは分岐が多いのでコメントと処理を明確に
-     */
-    mock$ = jest.fn((selectorOrEl, attributes) => {  // ← attributesを第二引数で受け取る
+    mock$ = jest.fn((selectorOrEl, attributes) => {
         if (typeof selectorOrEl === 'string' && selectorOrEl.startsWith('<')) {
-            let props = attributes || {};
+            const props = attributes || {};
             return {
-                _props: { ...props },
+                _props: { ...props }, // propsの保存（テスト用途で保持するなら残す）
                 append: jest.fn().mockReturnThis(),
                 css: jest.fn().mockReturnThis(),
-                attr: jest.fn((key, val) => {
-                    if (val === undefined) {
-                        if (key === 'class') return props.class || '';
-                        return props[key];
-                    } else {
-                        props[key] = val;
-                        return this;
-                    }
-                }),
-                find: jest.fn(() => ({
-                    attr: jest.fn().mockReturnThis(),
-                })),
+                attr: jest.fn((k, v) => v === undefined ? (props[k] ?? '') : (props[k] = v, this)),
+                find: jest.fn(() => ({ attr: jest.fn().mockReturnThis() })),
             };
         }
-        // セレクタ文字列に対応したモック返し
         if (selectorOrEl === '.slider') return mockSliderElement;
         if (selectorOrEl === '.slides') return mockSlidesWrapper;
         if (selectorOrEl === '.slide') return mockSlideElements;
 
-
-
-        function mockAttrFunction(mockSrc) {
-            return jest.fn(() => mockSrc);
-        }
-
-        function mockFindFunction(selectorOrEl) {
-            return jest.fn(sel => {
-                if (sel === 'img') {
-                    return {
-                        attr: mockAttrFunction(selectorOrEl.mockSrc),
-                    };
-                }
-                return null;
-            });
-        }
-
-        // オブジェクトが渡された場合のネストされたモック返し
         if (typeof selectorOrEl === 'object' && selectorOrEl !== null) {
             return {
-                find: mockFindFunction(selectorOrEl),
+                find: jest.fn(sel => (sel === 'img' ? { attr: jest.fn(() => selectorOrEl.mockSrc) } : null)),
             };
         }
 
-        // デフォルトは sliderElement を返す
         return mockSliderElement;
     });
 
-    // append の呼び出しモックをリセット
     mockSlidesWrapper.append.mockClear();
 });
 
@@ -163,14 +106,8 @@ describe('Integlight_FadeSlider2 初期化関連', () => {
     });
 
     it('画像リストが3枚未満なら複製して3枚にすること', () => {
-        // 2枚に減らした slideMocks に差し替え
-        slideMocks = [
-            { mockSrc: 'img1.jpg' },
-            { mockSrc: 'img2.jpg' },
-        ];
+        slideMocks = [{ mockSrc: 'img1.jpg' }, { mockSrc: 'img2.jpg' }];
         mockSlideElements.length = slideMocks.length;
-
-        // map, eq も新しい slideMocks に合わせて差し替え
         mockSlideElements.map = jest.fn(createMockSlideElementsMap);
 
         const inst = new Integlight_FadeSlider2(mock$, { changeDuration: 5 });
@@ -179,19 +116,14 @@ describe('Integlight_FadeSlider2 初期化関連', () => {
         expect(inst.images).toEqual(expect.arrayContaining(['img1.jpg', 'img2.jpg']));
     });
 
-
     it('初期化時にスライドDOMが3つだけ作成されること', () => {
         const expectedClasses = ['slide-left', 'slide-center', 'slide-right'];
-
         const inst = new Integlight_FadeSlider2(mock$, { changeDuration: 5 });
 
         expect(mockSlidesWrapper.empty).toHaveBeenCalled();
         expect(mockSlidesWrapper.append).toHaveBeenCalledTimes(3);
 
-        // append に渡されたjQueryモックを取得
-        const appendedArgs = mockSlidesWrapper.append.mock.calls.map(call => call[0]);
-
-        // attr('class') を呼んでクラス名を取得
+        const appendedArgs = mockSlidesWrapper.append.mock.calls.map(c => c[0]);
         const classNames = appendedArgs.map(el => el.attr('class'));
 
         expectedClasses.forEach(expectedClass => {
@@ -199,77 +131,71 @@ describe('Integlight_FadeSlider2 初期化関連', () => {
         });
     });
 
-
-
     it('初期表示の3つスライドはopacity 1で表示されること', () => {
         const inst = new Integlight_FadeSlider2(mock$, { changeDuration: 5 });
-
         expect(inst.$visible.length).toBe(3);
-
-        inst.$visible.forEach(($s) => {
-            expect($s.css).toHaveBeenCalledWith('opacity', 1);
-        });
+        inst.$visible.forEach($s => expect($s.css).toHaveBeenCalledWith('opacity', 1));
     });
 
     it('showSlide() 呼び出しでスライドがフェードアウトすること（opacityが0に設定される）', () => {
         const inst = new Integlight_FadeSlider2(mock$, { changeDuration: 5 });
-
-        // showSlide() を呼ぶと最初に3つのスライドの opacity を0にするはず
         inst.showSlide();
-
-        // 全てのスライドに opacity 0 が設定されているかチェック
-        inst.$visible.forEach($slide => {
-            expect($slide.css).toHaveBeenCalledWith('opacity', 0);
-        });
+        inst.$visible.forEach($slide => expect($slide.css).toHaveBeenCalledWith('opacity', 0));
     });
 });
-describe('Integlight_FadeSlider2 ブラックボックステスト関連', () => {
 
-    // 書き込みもできるattrモック（内部props保持）
+describe('Integlight_FadeSlider2 ブラックボックステスト関連', () => {
+    // attr の読み書きを可能にするモック関数
     function createAttrMock(initialSrc) {
         let src = initialSrc;
         const fn = jest.fn((key, val) => {
-            if (val === undefined) {
-                return src;
-            }
+            if (val === undefined) return src;
             src = val;
-            return fn; // チェーン用
+            return fn;
         });
         return fn;
     }
 
-    // slideMocks の初期化を下記のように修正
-    slideMocks = [
-        {
-            find: jest.fn(() => ({
-                attr: createAttrMock('img1.jpg')
-            }))
-        },
-        {
-            find: jest.fn(() => ({
-                attr: createAttrMock('img2.jpg')
-            }))
-        },
-        {
-            find: jest.fn(() => ({
-                attr: createAttrMock('img3.jpg')
-            }))
-        },
-    ];
+    beforeEach(() => {
+        slideMocks = [
+            { find: jest.fn(() => ({ attr: createAttrMock('img1.jpg') })) },
+            { find: jest.fn(() => ({ attr: createAttrMock('img2.jpg') })) },
+            { find: jest.fn(() => ({ attr: createAttrMock('img3.jpg') })) },
+        ];
+    });
+
     it('showSlide() 呼び出しでスライドがフェードアウトすること（opacityが0に設定される）', () => {
         const inst = new Integlight_FadeSlider2(mock$, { changeDuration: 5 });
+        inst.showSlide();
+        inst.$visible.forEach($slide => expect($slide.css).toHaveBeenCalledWith('opacity', 0));
+    });
 
-        // showSlide() を呼ぶと最初に3つのスライドの opacity を0にするはず
+    it('showSlide() 呼び出し後、一定時間経過で画像が切り替わること（画像の src が更新される）', () => {
+        const inst = new Integlight_FadeSlider2(mock$, { changeDuration: 5 });
+
+        // 変更前の画像srcを取得（最初の3つだけ）
+        const beforeSrcs = inst.$visible.map($slide => $slide.find('img').attr('src'));
+
+        // showSlide() 呼び出し（opacity 0 設定などは他のテストで確認済み）
         inst.showSlide();
 
-        // 全てのスライドに opacity 0 が設定されているかチェック
-        inst.$visible.forEach($slide => {
-            expect($slide.css).toHaveBeenCalledWith('opacity', 0);
-        });
-    });
-    it('showSlide() 呼び出し後、一定時間経過で画像が切り替わること（画像の src が更新される）', () => {
+        // タイマーを進めて画像切替が完了するまで待つ
+        jest.advanceTimersByTime(inst.changingDuration * 1000);
 
+        // 変更後の画像srcを取得
+        const afterSrcs = inst.$visible.map($slide => $slide.find('img').attr('src'));
+
+        // before と after は同じ長さなので差異があるかだけ見る
+        let changed = false;
+        for (let i = 0; i < beforeSrcs.length; i++) {
+            if (beforeSrcs[i] !== afterSrcs[i]) {
+                changed = true;
+                break;
+            }
+        }
+
+        expect(changed).toBe(true);
     });
+
 
 });
-
