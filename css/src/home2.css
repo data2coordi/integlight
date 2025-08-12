@@ -3,6 +3,12 @@
 /*************スライダー用*********/
 /*************スライダー用*********/
 /*************スライダー用s*********/
+
+
+/*------------PCのみs--------*/
+/*------------PCのみs--------*/
+/*------------PCのみs--------*/
+@media (min-width: 1024px) {
 .slider {
   height: 35vh; /* スライダー全体の高さを“画面高の35%”に固定（レスポンシブで高さが自然に可変） */
 }
@@ -50,6 +56,9 @@
 .slider.fade-effect .slide.slide-center {
   flex: 0 0 50%;   /* 中央の“主役”スライドは幅50%。左右の合計と合わせて100%でバランス良く中央寄せ */
 }
+}
+/*------------PCのみs--------*/
+/*------------PCのみs--------*/
 /* フェード式エフェクトe */
 
 
@@ -314,14 +323,14 @@ p.site-description {
 }
 
 /* 例：ホバーで色を変える */
-#load-more:hover,
+/* #load-more:hover,
 .load-more-cat:hover,
 #load-more:focus-visible,
 .load-more-cat:focus-visible {
   background: #555;
   border: 1px solid #555;
-  color: #fff;                 /* 矢印も一緒に変わる */
-}
+  color: #fff;                
+} */
 
 @media (max-width: 780px) {
   #load-more,
