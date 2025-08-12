@@ -119,3 +119,112 @@ describe('Load More Button', () => {
         expect($.ajax).not.toHaveBeenCalled();
     });
 });
+
+describe('Category Load More Button', () => {
+    beforeEach(() => {
+        // カテゴリ用ボタンと投稿グリッドのDOMをセット
+        jest.useFakeTimers();  // ← これを追加
+
+        document.body.innerHTML = `
+      <div class="category-posts">
+        <div class="post-grid"></div>
+        <button class="load-more-cat" data-page="1" data-cat="123">Load More Category</button>
+      </div>
+    `;
+
+        global.integlightLoadMore = {
+            ajax_url: 'http://example.com/ajax',
+            nonce: 'dummy_nonce',
+            loadingText: 'Loading...',
+            loadMoreText: 'Load More',
+        };
+
+        setupLoadMoreHandlers();
+    });
+
+    it('クリック時にボタンを無効化しAjax送信される', () => {
+        $.ajax = jest.fn(() => ({
+            done(callback) {
+                setTimeout(() => callback({ success: true, data: '<p>New Cat Post A</p>' }), 0);
+                return this;
+            },
+            fail() {
+                return this;
+            },
+        }));
+
+        $('.load-more-cat').prop('disabled', false);
+
+        $('.load-more-cat').trigger('click');
+
+        expect($('.load-more-cat').prop('disabled')).toBe(true);
+        expect($('.load-more-cat').text()).toBe('Loading...');
+        expect($.ajax).toHaveBeenCalledTimes(1);
+
+        jest.runAllTimers();
+    });
+
+    it('Ajax成功時に投稿が追加されボタンが再度有効になる', (done) => {
+        $.ajax = jest.fn(() => ({
+            done(callback) {
+                setTimeout(() => callback({ success: true, data: '<p>New Cat Post B</p>' }), 0);
+                return this;
+            },
+            fail() {
+                return this;
+            },
+        }));
+
+        $('.load-more-cat').trigger('click');
+        jest.runAllTimers();
+
+        setTimeout(() => {
+            expect($('.category-posts .post-grid').html()).toBe('<p>New Cat Post B</p>');
+            expect($('.load-more-cat').prop('disabled')).toBe(false);
+            expect($('.load-more-cat').text()).toBe('Load More');
+            expect($('.load-more-cat').data('page')).toBe(2);
+            done();
+        }, 0);
+
+        jest.runAllTimers();
+    });
+
+    it('Ajax失敗時にボタンが再度有効になる', (done) => {
+        $.ajax = jest.fn(() => ({
+            done() {
+                return this;
+            },
+            fail(callback) {
+                setTimeout(() => callback(), 0);
+                return this;
+            },
+        }));
+
+        $('.load-more-cat').trigger('click');
+        jest.runAllTimers();
+
+        setTimeout(() => {
+            expect($('.load-more-cat').prop('disabled')).toBe(false);
+            expect($('.load-more-cat').text()).toBe('Load More');
+            done();
+        }, 0);
+
+        jest.runAllTimers();
+    });
+
+    it('ボタンがdisabledならクリックしても何もしない', () => {
+        $.ajax = jest.fn();
+
+        $('.load-more-cat').prop('disabled', true);
+        $('.load-more-cat').trigger('click');
+
+        expect($.ajax).not.toHaveBeenCalled();
+    });
+
+    it('data-cat が無効なら何もしない', () => {
+        $.ajax = jest.fn();
+        $('.load-more-cat').removeAttr('data-cat');
+        $('.load-more-cat').trigger('click');
+        expect($.ajax).not.toHaveBeenCalled();
+    });
+});
