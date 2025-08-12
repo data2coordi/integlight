@@ -68,9 +68,9 @@
 /*************スライダー用*********/
 
 
-/*************hタグの下線を消してる*********/
-/*************hタグの下線を消してる*********/
-/*************hタグの下線を消してるs*********/
+/*************hタグ*********/
+/*************hタグ*********/
+/*************hタグs*********/
 .home h1,
 .home h2,
 .home h3,
@@ -80,6 +80,10 @@
   border-bottom: none;
   /* font-family: 'RocknRoll One', sans-serif;
   font-weight: 500; */
+}
+
+.integlight_pt h2:after, .integlight_pt h3:after {
+  background: none;
 }
 
 @media (max-width: 780px) {
@@ -93,8 +97,8 @@
 }
 }
 
-/*************hタグの下線を消してるe*********/
-/*************hタグの下線を消してる*********/
+/*************hタグe*********/
+/*************hタグ*********/
 
 /*************ヘッダー*********/
 /*************ヘッダー*********/
@@ -210,7 +214,7 @@ p.site-description {
   box-sizing: border-box;
   color:#555;                 /* ← これが矢印の色になる */
   background:#fff;
-  border:1px solid currentColor;
+  border:1px solid #555;
   padding:15px 28px;
 }
 
@@ -237,7 +241,8 @@ p.site-description {
 /* 例：ホバーで色を変える */
 #load-more:hover,
 .load-more-cat:hover{
-  color:#111;                 /* 矢印も一緒に変わる */
+  background: #555;
+  color: #fff;                 /* 矢印も一緒に変わる */
 }
 
 
@@ -399,21 +404,17 @@ body.home #page.site {
 
 /* セクション（新着 / トップカテゴリ）の“器”を中央1200pxで統一 */
 body.home .latest-posts,
-body.home .top-categories-posts,
-body.home2 .latest-posts,
-body.home2 .top-categories-posts {
+body.home .top-categories-posts {
   width: min(1200px, 100%);
   margin-inline: auto;
-  padding-inline: 24px;
+  /* padding-inline: 24px; */
   /* 端の余白（任意） */
   box-sizing: border-box;
 }
 
 /* セクション内のグリッドも中央1200pxに収めて左起点で並べる */
 body.home .latest-posts .post-grid,
-body.home .top-categories-posts .post-grid,
-body.home2 .latest-posts .post-grid,
-body.home2 .top-categories-posts .post-grid {
+body.home .top-categories-posts .post-grid {
   max-width: 1200px;
   margin-inline: auto;
   justify-content: start;
