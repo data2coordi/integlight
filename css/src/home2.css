@@ -68,6 +68,60 @@
 /*************スライダー用*********/
 
 
+/***********ハンバーガーメニュー**************/
+/***********ハンバーガーメニュー**************/
+/***********ハンバーガーメニュー**************/
+/***********ハンバーガーメニュー**************/
+/***********ハンバーガーメニューs**************/
+@media (max-width: 780px) {
+  header .menuToggle-label span,
+  header .menuToggle-label::before,
+  header .menuToggle-label::after{
+      background:#222;
+      height: 1px ;
+      left: -15px;
+  }
+
+  .menuToggle-checkbox:checked+.menuToggle-label:before {
+    transform: translateY(15px) rotate(45deg);
+}
+  
+  #masthead.ly_site_content, #masthead.ly_site_header {
+    flex-direction: row;
+  }
+
+  button#menuToggle-button {
+    border: none;
+  }
+
+  ul.menu {
+    margin-top: 5rem;
+  }
+}
+/***********ハンバーガーメニューe**************/
+/***********ハンバーガーメニュー**************/
+/***********ハンバーガーメニュー**************/
+
+
+/***********ロゴ**************/
+/***********ロゴ**************/
+/***********ロゴ**************/
+/***********ロゴ**************/
+/***********ロゴs**************/
+
+@media (max-width:768px){
+  img { height:auto; max-width:100%; }
+
+  /* ロゴは例外にする */
+  .custom-logo { max-width:none; }
+}
+
+/***********ロゴe**************/
+/***********ロゴ**************/
+/***********ロゴ**************/
+
+
+
 /*************hタグ*********/
 /*************hタグ*********/
 /*************hタグs*********/
@@ -80,6 +134,25 @@
   border-bottom: none;
   /* font-family: 'RocknRoll One', sans-serif;
   font-weight: 500; */
+}
+
+/* ① セクション見出しだけ中央 */
+section.latest-posts > h2,
+.top-categories-posts > h2,
+.category-posts > h3 {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+/* ② カード内の h2 は左寄せのまま */
+section.latest-posts .post-grid h2,
+section.latest-posts .grid-item h2 {
+  text-align: left;
+}
+
+.category-posts>h3 {
+  margin-top: 5rem;
+  color: #777;
 }
 
 .integlight_pt h2:after, .integlight_pt h3:after {
@@ -651,54 +724,3 @@ body.home .top-categories-posts .post-grid {
 }
 
 
-/***********ハンバーガーメニュー**************/
-/***********ハンバーガーメニュー**************/
-/***********ハンバーガーメニュー**************/
-/***********ハンバーガーメニュー**************/
-/***********ハンバーガーメニューs**************/
-@media (max-width: 780px) {
-  header .menuToggle-label span,
-  header .menuToggle-label::before,
-  header .menuToggle-label::after{
-      background:#222;
-      height: 1px ;
-      left: -15px;
-  }
-
-  .menuToggle-checkbox:checked+.menuToggle-label:before {
-    transform: translateY(15px) rotate(45deg);
-}
-  
-  #masthead.ly_site_content, #masthead.ly_site_header {
-    flex-direction: row;
-  }
-
-  button#menuToggle-button {
-    border: none;
-  }
-
-  ul.menu {
-    margin-top: 5rem;
-  }
-}
-/***********ハンバーガーメニューe**************/
-/***********ハンバーガーメニュー**************/
-/***********ハンバーガーメニュー**************/
-
-
-/***********ロゴ**************/
-/***********ロゴ**************/
-/***********ロゴ**************/
-/***********ロゴ**************/
-/***********ロゴs**************/
-
-@media (max-width:768px){
-  img { height:auto; max-width:100%; }
-
-  /* ロゴは例外にする */
-  .custom-logo { max-width:none; }
-}
-
-/***********ロゴe**************/
-/***********ロゴ**************/
-/***********ロゴ**************/
