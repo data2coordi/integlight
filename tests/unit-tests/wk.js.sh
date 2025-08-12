@@ -2,6 +2,7 @@ clear
 
 
 npm run test:unit:js  tests/unit-tests/js/loadmore.test.js
+#npm run test:unit:js  tests/unit-tests/js/slider.fadehome2.test.js
 
 #npm run test:unit:js  tests/unit-tests/js
 
