@@ -231,17 +231,26 @@ class Integlight_SliderManager {
         this.settings = settings;
         this.$ = $;
         // デフォルトレジストリ生成
+
+
+
         this.effectRegistry = effectRegistry || {
-            [settings.fadeName + settings.home1Name]: Integlight_FadeSlider,
-            [settings.fadeName + settings.home2Name]: Integlight_FadeSlider2,
-            [settings.slideName + settings.home1Name]: Integlight_SlideSlider,
-            [settings.slideName + settings.home2Name]: Integlight_SlideSlider2
+            [settings.fadeName + settings.home1Name + 'pc']: Integlight_FadeSlider,
+            [settings.fadeName + settings.home2Name + 'pc']: Integlight_FadeSlider2,
+            [settings.slideName + settings.home1Name + 'pc']: Integlight_SlideSlider,
+            [settings.slideName + settings.home2Name + 'pc']: Integlight_SlideSlider2,
+            [settings.fadeName + settings.home1Name + 'sp']: Integlight_FadeSlider,
+            [settings.fadeName + settings.home2Name + 'sp']: Integlight_FadeSlider,
+            [settings.slideName + settings.home1Name + 'sp']: Integlight_SlideSlider,
+            [settings.slideName + settings.home2Name + 'sp']: Integlight_SlideSlider
         };
     }
 
     init() {
+        const isMobile = window.matchMedia("(max-width: 768px)").matches;
+        let device = isMobile ? 'sp' : 'pc';
 
-        const SliderClass = this.effectRegistry[this.settings.effect + this.settings.homeType];
+        const SliderClass = this.effectRegistry[this.settings.effect + this.settings.homeType + device];
 
 
         this.$(window).on('load', () => {

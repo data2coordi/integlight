@@ -117,6 +117,7 @@ a:focus-visible,
 /* home2ボタン */
 #load-more:focus-visible, #load-more:hover, .load-more-cat:focus-visible, .load-more-cat:hover {
   background: #555;
+  border: 1px solid #555;
   color: #fff;
 }
 

@@ -241,7 +241,7 @@ h1.site-title {
   height: var(--titlebar-h);           /* 帯の高さをCSS変数で一元管理 */
   line-height: var(--titlebar-h);      /* テキストを縦中央に見せる（1行想定） */
   margin: 0;                           /* ブラウザのH1デフォルト余白を消す */
-  background: #000;                    /* 帯の背景色（黒） */
+  background: #222;                    /* 帯の背景色（黒） */
   color: #fff;                         /* テキスト色（白） */
   text-align: center;                  /* テキストを中央寄せ */
   z-index: 10;                         /* ヘッダーより前面に重ねる（値は環境に合わせ調整） */
@@ -319,6 +319,7 @@ p.site-description {
 #load-more:focus-visible,
 .load-more-cat:focus-visible {
   background: #555;
+  border: 1px solid #555;
   color: #fff;                 /* 矢印も一緒に変わる */
 }
 

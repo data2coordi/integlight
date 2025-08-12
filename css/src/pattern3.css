@@ -180,7 +180,7 @@ ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
 /************ home2ボタンs **************/
 #load-more:focus-visible, #load-more:hover, .load-more-cat:focus-visible, .load-more-cat:hover {
   background: #008554;
-  border: #008554;
+  border: 1px solid #008554;
   color: #fff;
 }
 

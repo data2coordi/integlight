@@ -207,7 +207,7 @@ ul.menu li ul.sub-menu li.menu-item-has-children>ul.sub-menu {
 /************ home2ボタンs **************/
 #load-more:focus-visible, #load-more:hover, .load-more-cat:focus-visible, .load-more-cat:hover {
   background: #fa9301;
-  border: #fa9301;
+  border: 1px solid #fa9301;
   color: #fff;
 }
 
