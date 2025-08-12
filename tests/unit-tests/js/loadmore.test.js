@@ -44,6 +44,7 @@ describe('Load More Button', () => {
         }));
 
         $('#load-more').prop('disabled', false);
+
         $('#load-more').trigger('click');
 
         expect($('#load-more').prop('disabled')).toBe(true);
@@ -66,9 +67,7 @@ describe('Load More Button', () => {
             },
         }));
 
-        // 初期化
-        $('#latest-posts-grid').empty();
-        $('#load-more').data('page', 1);
+
 
         $('#load-more').trigger('click');
 
