@@ -58,40 +58,6 @@
 /*************スライダー用*********/
 
 
-/***********ハンバーガーメニュー**************/
-/***********ハンバーガーメニュー**************/
-/***********ハンバーガーメニュー**************/
-/***********ハンバーガーメニュー**************/
-/***********ハンバーガーメニューs**************/
-@media (max-width: 780px) {
-  header .menuToggle-label span,
-  header .menuToggle-label::before,
-  header .menuToggle-label::after{
-      background:#222;
-      height: 1px ;
-      left: -15px;
-  }
-
-  .menuToggle-checkbox:checked+.menuToggle-label::before {
-    transform: translateY(15px) rotate(45deg);
-}
-  
-  #masthead.ly_site_content, #masthead.ly_site_header {
-    flex-direction: row;
-  }
-
-  button#menuToggle-button {
-    border: none;
-  }
-
-  ul.menu {
-    margin-top: 5rem;
-  }
-}
-/***********ハンバーガーメニューe**************/
-/***********ハンバーガーメニュー**************/
-/***********ハンバーガーメニュー**************/
-
 
 /***********ロゴ**************/
 /***********ロゴ**************/
@@ -204,6 +170,42 @@ ul.menu>li.menu-item-has-children>ul.sub-menu {
 }
 /*************ヘッダーe*********/
 /*************ヘッダー*********/
+
+
+/***********ハンバーガーメニュー**************/
+/***********ハンバーガーメニュー**************/
+/***********ハンバーガーメニュー**************/
+/***********ハンバーガーメニュー**************/
+/***********ハンバーガーメニューs**************/
+@media (max-width: 780px) {
+  header .menuToggle-label span,
+  header .menuToggle-label::before,
+  header .menuToggle-label::after{
+      background:#222;
+      height: 1px ;
+      left: -15px;
+  }
+
+  .menuToggle-checkbox:checked+.menuToggle-label::before {
+    transform: translateY(15px) rotate(45deg);
+}
+  
+  #masthead.ly_site_content, #masthead.ly_site_header {
+    flex-direction: row;
+  }
+
+  button#menuToggle-button {
+    border: none;
+  }
+
+  ul.menu {
+    margin-top: 5rem;
+  }
+}
+/***********ハンバーガーメニューe**************/
+/***********ハンバーガーメニュー**************/
+/***********ハンバーガーメニュー**************/
+
 
 
 /*************コピーの帯*********/
