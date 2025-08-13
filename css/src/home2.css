@@ -61,11 +61,11 @@
 /*------------PCのみs--------*/
 @media (max-width: 1023px){
   .slider {
-    height: 33vh;
+    height: 35vh;
   }
   
   .slider .slide img {
-    height: 33vh;
+    height: 35vh;
     object-fit: cover;
     width: 100vw;
 }
@@ -138,6 +138,10 @@ section.latest-posts .grid-item h2 {
 
 .integlight_pt h2:after, .integlight_pt h3:after {
   background: none;
+}
+
+.category-posts>h3, .top-categories-posts>h2, section.latest-posts>h2 {
+  font-weight: 600;
 }
 
 @media (max-width: 780px) {
@@ -456,7 +460,7 @@ p.site-description {
   grid-row: 1;                         /* 1行目：タイトル */
   margin: .2rem 0 6px;                 /* タイトル上下のマージン（上は控えめ） */
   padding-top: 10px;                   /* 画像との視覚的距離を確保 */
-  font-weight: 800;                    /* 見出しとして強めのウェイト */
+  font-weight: 600;                    /* 見出しとして強めのウェイト */
   font-size: clamp(17px, 1.8vw, 20px); /* 画面幅に応じて可変（最小17/最大20px） */
   line-height: 1.35;                   /* 見出し向けのややタイトな行間 */
   display: -webkit-box;                /* マルチライン省略の土台（WebKit系） */
