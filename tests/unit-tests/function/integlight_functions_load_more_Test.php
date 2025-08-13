@@ -29,6 +29,53 @@ class integlight_functions_load_more_Test extends WP_Ajax_UnitTestCase
         parent::tearDown();
     }
 
+
+    /**
+     * Reflection を使用して静的プロパティをリセットするヘルパーメソッド
+     */
+    private function reset_static_property(string $className, string $propertyName, $defaultValue = []): void
+    {
+        try {
+            // クラスが存在するか確認
+            if (!class_exists($className)) {
+                $this->markTestSkipped("Dependency class {$className} not found.");
+                return;
+            }
+            $reflection = new ReflectionProperty($className, $propertyName);
+            if (method_exists($reflection, 'setAccessible')) {
+                $reflection->setAccessible(true);
+            }
+            $reflection->setValue(null, $defaultValue);
+        } catch (ReflectionException $e) {
+            $this->fail("Failed to reset static property {$className}::{$propertyName}: " . $e->getMessage());
+        }
+    }
+
+    /**
+     * Reflection を使用して静的プロパティの値を取得するヘルパーメソッド
+     */
+    private function get_static_property_value(string $className, string $propertyName)
+    {
+        try {
+            // クラスが存在するか確認
+            if (!class_exists($className)) {
+                $this->markTestSkipped("Dependency class {$className} not found.");
+                return null;
+            }
+            $reflectionClass = new ReflectionClass($className);
+            $property = $reflectionClass->getProperty($propertyName);
+            if (method_exists($property, 'setAccessible')) {
+                $property->setAccessible(true);
+            }
+            return $property->getValue();
+        } catch (ReflectionException $e) {
+            $this->fail("Failed to get static property {$className}::{$propertyName}: " . $e->getMessage());
+        }
+    }
+
+
+
+
     private function pre_post()
     {
 
@@ -273,46 +320,156 @@ class integlight_functions_load_more_Test extends WP_Ajax_UnitTestCase
         $this->assertEmpty($response, '無効 nonce の場合、レスポンスは空であるはずです');
     }
 
-    public function test_constructor_registers_template_redirect_hook(): void
+
+
+
+    /**
+     * @test
+     * @covers ::__construct
+     * コンストラクタがフックを正しく登録するかテスト（スクリプト系 + Ajax系）
+     */
+    public function constructor_should_add_all_hooks(): void
     {
-        $instance = new Integlight_Load_More();
+        // setUpで $this->instance が Integlight_Load_More のインスタンスとして作成されている前提
+        $this->instance = new Integlight_Load_More();
 
-        $hook_priority = has_action('template_redirect', [$instance, 'pre_enqueue_scripts']);
 
-        $this->assertNotFalse(
-            $hook_priority,
-            'Constructor should add template_redirect hook for pre_enqueue_scripts.'
-        );
+        // --- スクリプト関連フック ---
+        $hook_priority_pre = has_action('template_redirect', [$this->instance, 'pre_enqueue_scripts']);
+        $this->assertNotFalse($hook_priority_pre, 'Constructor should add template_redirect hook for pre_enqueue_scripts.');
+        $this->assertEquals(10, $hook_priority_pre, 'template_redirect hook priority should be 10 for pre_enqueue_scripts.');
+
+        $hook_priority_enqueue = has_action('wp_enqueue_scripts', [$this->instance, 'enqueue_scripts']);
+        $this->assertNotFalse($hook_priority_enqueue, 'Constructor should add wp_enqueue_scripts hook for enqueue_scripts.');
+        $this->assertEquals(10, $hook_priority_enqueue, 'wp_enqueue_scripts hook priority should be 10 for enqueue_scripts.');
+
+        // --- Ajax関連フック ---
+        $hook_ajax_posts = has_action('wp_ajax_integlight_load_more_posts', [$this->instance, 'ajax_load_more_posts']);
+        $this->assertNotFalse($hook_ajax_posts, 'Constructor should add wp_ajax_integlight_load_more_posts hook.');
+        $this->assertEquals(10, $hook_ajax_posts, 'wp_ajax_integlight_load_more_posts hook priority should be 10.');
+
+        $hook_ajax_posts_nopriv = has_action('wp_ajax_nopriv_integlight_load_more_posts', [$this->instance, 'ajax_load_more_posts']);
+        $this->assertNotFalse($hook_ajax_posts_nopriv, 'Constructor should add wp_ajax_nopriv_integlight_load_more_posts hook.');
+        $this->assertEquals(10, $hook_ajax_posts_nopriv, 'wp_ajax_nopriv_integlight_load_more_posts hook priority should be 10.');
+
+        $hook_ajax_cat = has_action('wp_ajax_integlight_load_more_category_posts', [$this->instance, 'ajax_load_more_category_posts']);
+        $this->assertNotFalse($hook_ajax_cat, 'Constructor should add wp_ajax_integlight_load_more_category_posts hook.');
+        $this->assertEquals(10, $hook_ajax_cat, 'wp_ajax_integlight_load_more_category_posts hook priority should be 10.');
+
+        $hook_ajax_cat_nopriv = has_action('wp_ajax_nopriv_integlight_load_more_category_posts', [$this->instance, 'ajax_load_more_category_posts']);
+        $this->assertNotFalse($hook_ajax_cat_nopriv, 'Constructor should add wp_ajax_nopriv_integlight_load_more_category_posts hook.');
+        $this->assertEquals(10, $hook_ajax_cat_nopriv, 'wp_ajax_nopriv_integlight_load_more_category_posts hook priority should be 10.');
+    }
+
+
+
+    /**
+     * @test
+     * @covers ::pre_enqueue_scripts
+     * home1 または非ホームページではスクリプトが登録されないことをテスト
+     */
+    public function pre_enqueue_scripts_should_not_add_scripts_when_condition_not_met(): void
+    {
+        // Arrange: 条件を満たさないテーマ設定にする
+        $this->instance = new Integlight_Load_More();
+
+
+        // Act
+        //$this->reset_static_property_value(InteglightFrontendScripts::class, 'scripts')
+        $this->instance->pre_enqueue_scripts();
+
+        // Assert: InteglightFrontendScripts に追加されていない
+        $frontend_scripts = $this->get_static_property_value(InteglightFrontendScripts::class, 'scripts');
+        $this->assertArrayNotHasKey('integlight-loadmore', $frontend_scripts, 'FrontendScripts should not contain "integlight-loadmore".');
+
+        // Assert: InteglightDeferJs にも追加されていない
+        $deferred_scripts = $this->get_static_property_value(InteglightDeferJs::class, 'deferred_scripts');
+        $this->assertNotContains('integlight-loadmore', $deferred_scripts, 'Deferred scripts should not contain "integlight-loadmore".');
+    }
+    /**
+     * @test
+     * @covers ::pre_enqueue_scripts
+     * home2 設定時にスクリプトが登録され、遅延スクリプトにも追加されることをテスト
+     */
+    public function pre_enqueue_scripts_should_add_scripts_and_defer(): void
+    {
+        // Arrange: 条件を満たすテーマ設定にする
+        set_theme_mod('integlight_hometype_setting', 'home2');
+
+        global $wp_query;
+        $wp_query = new WP_Query();
+        $wp_query->is_home = true;
+        $wp_query->is_main_query = true;
+
+
+        $this->instance = new Integlight_Load_More();
+
+        // Act: メソッドを直接呼び出し
+        $this->instance->pre_enqueue_scripts();
+
+        // Assert: InteglightFrontendScripts にスクリプトが追加されたか
+        $frontend_scripts = $this->get_static_property_value(InteglightFrontendScripts::class, 'scripts');
+        $this->assertArrayHasKey('integlight-loadmore', $frontend_scripts, 'FrontendScripts should have "integlight-loadmore" key.');
         $this->assertEquals(
-            10,
-            $hook_priority,
-            'template_redirect hook priority should be 10 by default.'
+            '/js/build/loadmore.js',
+            $frontend_scripts['integlight-loadmore']['path'],
+            'FrontendScripts path should be correct.'
+        );
+        var_dump($frontend_scripts);
+
+        // Assert: InteglightDeferJs に遅延スクリプトが追加されたか
+        $deferred_scripts = $this->get_static_property_value(InteglightDeferJs::class, 'deferred_scripts');
+        $this->assertContains(
+            'integlight-loadmore',
+            $deferred_scripts,
+            'Script "integlight-loadmore" should be added for deferring.'
         );
     }
 
-    public function test_pre_enqueue_scripts_registers_when_condition_met(): void
+    public function test_enqueue_scripts_localizes_loadmore_script(): void
     {
-        // モッククラスを作って静的呼び出しを記録
-        InteglightFrontendScripts::$called_scripts = [];
-        InteglightDeferJs::$called_scripts = [];
+        // Arrange: $wp_query をホームページとして設定
+        global $wp_query;
+        $wp_query = new WP_Query();
+        $wp_query->is_home = true;
+        $wp_query->is_main_query = true;
 
-        // 条件を満たすようにモック化
-        add_filter('pre_option_theme_mods_' . get_option('stylesheet'), function () {
-            return ['integlight_hometype_setting' => 'home2'];
-        });
-        add_filter('home_url', '__return_true'); // is_home() を true にするため
+        // Arrange: テーマ設定 home2
+        set_theme_mod('integlight_hometype_setting', 'home2');
 
-        $instance = new Integlight_Load_More();
-        $instance->pre_enqueue_scripts();
+        $this->instance = new Integlight_Load_More();
 
-        $this->assertNotEmpty(
-            InteglightFrontendScripts::$called_scripts,
-            'pre_enqueue_scripts should call add_scripts() when condition met.'
+        wp_register_script(
+            'integlight-loadmore',
+            '/js/build/loadmore.js',
+            ['jquery'],
+            '1.0',
+            true
         );
-        $this->assertNotEmpty(
-            InteglightDeferJs::$called_scripts,
-            'pre_enqueue_scripts should call add_deferred_scripts() when condition met.'
-        );
+        // Act: enqueue_scripts() を直接呼ぶ
+        $this->instance->enqueue_scripts();
+
+        // Assert: wp_localize_script の結果を確認
+        global $wp_scripts;
+
+        $localized = $wp_scripts->get_data('integlight-loadmore', 'data');
+        $this->assertNotEmpty($localized, 'wp_localize_script のデータが空です');
+
+        // JSON 部分だけ抽出
+        preg_match('/var integlightLoadMore = (.*?);$/m', $localized, $matches);
+        $this->assertNotEmpty($matches, 'integlightLoadMore JS オブジェクトが見つかりません');
+
+        $data = json_decode($matches[1], true);
+
+        $this->assertIsArray($data);
+        $this->assertArrayHasKey('loadMoreText', $data);
+        $this->assertArrayHasKey('loadingText', $data);
+        $this->assertArrayHasKey('ajax_url', $data);
+        $this->assertArrayHasKey('nonce', $data);
+
+        $this->assertEquals(__('もっと見る', 'integlight'), $data['loadMoreText']);
+        $this->assertEquals(__('読み込み中...', 'integlight'), $data['loadingText']);
+        $this->assertStringContainsString('admin-ajax.php', $data['ajax_url']);
     }
 }
 
