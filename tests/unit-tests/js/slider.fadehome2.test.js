@@ -2,154 +2,133 @@
  * @jest-environment jsdom
  */
 
-import $ from 'jquery';
-
-let Integlight_FadeSlider2;
-
-beforeAll(() => {
-    // グローバルに jQuery セット
-    global.jQuery = $;
-    global.$ = $;
-
-    // 本体コードが参照するグローバル設定をセット
+// slider.js のインポート時に`integlight_sliderSettings`が必要なため、モックで先に定義します。
+jest.mock('../../../js/src/slider.js', () => {
     global.integlight_sliderSettings = {
         fadeName: 'fade',
         slideName: 'slide',
         home1Name: 'home1',
         home2Name: 'home2',
-        changeDuration: 1,  // テスト用に1秒に設定
+        changeDuration: 1,
         effect: 'fade',
         homeType: 'home2',
     };
+    return jest.requireActual('../../../js/src/slider.js');
 });
 
-beforeEach(async () => {
-    jest.useFakeTimers();
+import { Integlight_FadeSlider2 } from '../../../js/src/slider.js';
 
-    // モジュールを動的にimport。import時点でinteglight_sliderSettingsがあることを保証するため。
-    jest.resetModules(); // キャッシュリセット（必要に応じて）
-    const module = await import('../../../js/src/slider.js');
-    Integlight_FadeSlider2 = module.Integlight_FadeSlider2;
+describe('Integlight_FadeSlider2', () => {
+    let instance;
+    const settings = { changeDuration: 1 }; // 1s display, 0.5s transition
 
-    // DOMセット（最低限、.slider > .slides > .slide > img 構造）
-    document.body.innerHTML = `
-    <div class="slider">
-      <div class="slides">
-        <div class="slide"><img src="img1.jpg" /></div>
-        <div class="slide"><img src="img2.jpg" /></div>
-        <div class="slide"><img src="img3.jpg" /></div>
-      </div>
-    </div>
-  `;
+    beforeEach(() => {
+        jest.useFakeTimers();
 
-    // window.load イベント発火して自動初期化も行う
-    window.dispatchEvent(new Event('load'));
-});
-
-afterEach(() => {
-    jest.useRealTimers();
-    jest.clearAllTimers();
-    document.body.innerHTML = '';
-});
-
-describe('Integlight_FadeSlider2 初期化関連', () => {
-    it('初期化時に .fade-effect クラスが付与されること', () => {
-        const inst = new Integlight_FadeSlider2($, { changeDuration: 1 });
-        expect(inst.$slider.hasClass('fade-effect')).toBe(true);
-    });
-
-    it('画像リストが3枚未満なら複製して3枚にすること', () => {
-        // 2枚しかないDOMでテスト
+        // Set up a standard DOM for most tests
         document.body.innerHTML = `
-      <div class="slider">
-        <div class="slides">
-          <div class="slide"><img src="img1.jpg"></div>
-          <div class="slide"><img src="img2.jpg"></div>
-        </div>
-      </div>
-    `;
-        const inst = new Integlight_FadeSlider2($, { changeDuration: 1 });
-        expect(inst.images.length).toBeGreaterThanOrEqual(3);
-        expect(inst.images).toEqual(expect.arrayContaining(['img1.jpg', 'img2.jpg']));
+            <div class="slider">
+                <div class="slides">
+                    <div class="slide"><img src="img1.jpg" /></div>
+                    <div class="slide"><img src="img2.jpg" /></div>
+                    <div class="slide"><img src="img3.jpg" /></div>
+                </div>
+            </div>
+        `;
+        // Create an instance for tests to use
+        instance = new Integlight_FadeSlider2(settings);
     });
 
-    it('初期化時にスライドDOMが3つだけ作成されること', () => {
-        document.body.innerHTML = `
-      <div class="slider">
-        <div class="slides">
-          <div class="slide"><img src="img1.jpg"></div>
-          <div class="slide"><img src="img2.jpg"></div>
-          <div class="slide"><img src="img3.jpg"></div>
-        </div>
-      </div>
-    `;
-        const inst = new Integlight_FadeSlider2($, { changeDuration: 1 });
-        expect(inst.$slides.children('.slide').length).toBe(3);
-        ['slide-left', 'slide-center', 'slide-right'].forEach(cls => {
-            expect(inst.$slides.children(`.${cls}`).length).toBe(1);
+    afterEach(() => {
+        jest.useRealTimers();
+        jest.clearAllTimers();
+        document.body.innerHTML = '';
+    });
+
+    describe('Initialization', () => {
+        it('should add .fade-effect class on initialization', () => {
+            expect(instance.slider.classList.contains('fade-effect')).toBe(true);
+        });
+
+        it('should duplicate images to have at least 3 if initial count is less', () => {
+            // This test needs a specific DOM setup
+            document.body.innerHTML = `
+                <div class="slider">
+                    <div class="slides">
+                        <div class="slide"><img src="img1.jpg"></div>
+                        <div class="slide"><img src="img2.jpg"></div>
+                    </div>
+                </div>
+            `;
+            const testInstance = new Integlight_FadeSlider2(settings);
+            expect(testInstance.images.length).toBe(3);
+            expect(testInstance.images).toEqual(['img1.jpg', 'img2.jpg', 'img1.jpg']);
+        });
+
+        it('should create exactly 3 slide elements in the container', () => {
+            const slideElements = instance.slidesContainer.querySelectorAll('.slide');
+            expect(slideElements.length).toBe(3);
+            ['slide-left', 'slide-center', 'slide-right'].forEach(cls => {
+                expect(instance.slidesContainer.querySelector(`.${cls}`)).not.toBeNull();
+            });
+        });
+
+        it('should display the initial 3 slides with opacity 1', () => {
+            instance.visibleSlides.forEach(slide => {
+                expect(slide.style.opacity).toBe('1');
+            });
         });
     });
 
-    it('初期表示の3つスライドはopacity 1で表示されること', () => {
-        const inst = new Integlight_FadeSlider2($, { changeDuration: 1 });
-        inst.$visible.forEach($slide => {
-            expect($slide.css('opacity')).toBe('1');
+    describe('Slide Transition', () => {
+        it('should fade out all visible slides when showSlide() is called', () => {
+            instance.showSlide();
+            instance.visibleSlides.forEach(slide => {
+                expect(slide.style.opacity).toBe('0');
+            });
         });
-    });
 
-    it('showSlide() 呼び出しでスライドがフェードアウトすること（opacityが0に設定される）', () => {
-        const inst = new Integlight_FadeSlider2($, { changeDuration: 1 });
-        inst.showSlide();
-        inst.$visible.forEach($slide => {
-            expect($slide.css('opacity')).toBe('0');
+        it('should change image sources and fade in after the transition duration', () => {
+            const initialImageSources = instance.visibleSlides.map(slide => slide.querySelector('img').getAttribute('src'));
+            expect(initialImageSources).toEqual(['img1.jpg', 'img2.jpg', 'img3.jpg']);
+
+            instance.showSlide();
+
+            // changingDuration is displayDuration / 2 = 1 / 2 = 0.5s. Timeout is 500ms.
+            jest.advanceTimersByTime(500);
+
+            const newImageSources = instance.visibleSlides.map(slide => slide.querySelector('img').getAttribute('src'));
+
+            expect(instance.baseIndex).toBe(1);
+            expect(newImageSources).toEqual(['img2.jpg', 'img3.jpg', 'img1.jpg']);
+
+            instance.visibleSlides.forEach(slide => {
+                expect(slide.style.opacity).toBe('1');
+            });
         });
-    });
-});
 
-describe('Integlight_FadeSlider2 画像切替関連', () => {
+        it('should loop back to the start after reaching the end of the image list', () => {
+            instance.baseIndex = instance.images.length - 1; // index 2
 
+            instance.showSlide();
+            jest.advanceTimersByTime(500);
 
-    it('showSlide() 呼び出し後、一定時間経過で画像が切り替わり opacity が1に戻ること', () => {
-        const inst = new Integlight_FadeSlider2($, { changeDuration: 1 });
-        const beforeSrcs = inst.$visible.map($slide => $slide.find('img').attr('src'));
-
-        inst.showSlide();
-
-        jest.advanceTimersByTime(600); // 適宜changingDurationに合わせる
-
-        const afterSrcs = inst.$visible.map($slide => $slide.find('img').attr('src'));
-
-        const changed = beforeSrcs.some((src, i) => src !== afterSrcs[i]);
-        expect(changed).toBe(true);
-
-        inst.$visible.forEach($slide => {
-            expect($slide.css('opacity')).toBe('1');
+            expect(instance.baseIndex).toBe(0);
+            const newImageSources = instance.visibleSlides.map(slide => slide.querySelector('img').getAttribute('src'));
+            expect(newImageSources).toEqual(['img1.jpg', 'img2.jpg', 'img3.jpg']);
         });
-    });
 
-    it('画像インデックスが末尾まで進んだ後、先頭に戻ってループすること', () => {
-        const inst = new Integlight_FadeSlider2($, { changeDuration: 1 });
-        const length = inst.images.length;
-        inst.baseIndex = length - 1;
+        it('should be called repeatedly by setInterval', () => {
+            // Arrange: コンストラクタで setInterval が呼ばれるため、showSlide をスパイする
+            const showSlideSpy = jest.spyOn(instance, 'showSlide');
 
-        inst.showSlide();
-
-        jest.advanceTimersByTime(600);
-
-        expect(inst.baseIndex).toBe(0);
-        const firstSrc = inst.$visible[0].find('img').attr('src');
-        expect(firstSrc).toBe(inst.images[0]);
-
-        inst.$visible.forEach($slide => {
-            expect($slide.css('opacity')).toBe('1');
-        });
-    });
-
-    it('showSlide() 呼び出しでスライドがフェードアウトすること（opacityが0に設定される）', () => {
-        const inst = new Integlight_FadeSlider2($, { changeDuration: 1 });
-        inst.showSlide();
-        inst.$visible.forEach($slide => {
-            expect($slide.css('opacity')).toBe('0');
+            // Act & Assert: 1回目のインターバル
+            // settings.changeDuration は 1 なので、1000ms 進める
+            jest.advanceTimersByTime(1000);
+            expect(showSlideSpy).toHaveBeenCalledTimes(1);
+            // Act & Assert: 2回目のインターバル
+            jest.advanceTimersByTime(1000);
+            expect(showSlideSpy).toHaveBeenCalledTimes(2);
         });
     });
 });

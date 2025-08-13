@@ -2,183 +2,114 @@
  * @jest-environment jsdom
  */
 
-
-// Mock the slider module BEFORE imports
+// slider.js のインポート時に`integlight_sliderSettings`が必要なため、モックで先に定義します。
+// これにより、モジュールレベルの副作用（グローバルなsliderManagerの初期化）がエラーなく実行されます。
 jest.mock('../../../js/src/slider.js', () => {
-    // ★★★ Ensure the global variable exists within the mock factory's scope ★★★
-    if (typeof global.integlight_sliderSettings === 'undefined') {
+    // このモックはテストの実行前に処理されるため、グローバル変数を先行して定義できます。
+    global.integlight_sliderSettings = {
+        fadeName: 'fade',
+        slideName: 'slide',
+        home1Name: 'home1',
+        home2Name: 'home2',
+    };
+    // モック内で実際のモジュールを返し、テストでは必要なクラスのみをインポートして使用します。
+    return jest.requireActual('../../../js/src/slider.js');
+});
+import { Integlight_SliderManager } from '../../../js/src/slider.js';
+
+describe('Integlight_SliderManager Initialization', () => {
+    let addEventListenerSpy;
+    let loadCallback;
+
+    // 各テストの前にグローバル設定とスパイをセットアップ
+    beforeEach(() => {
         global.integlight_sliderSettings = {
             fadeName: 'fade',
             slideName: 'slide',
             home1Name: 'home1',
             home2Name: 'home2',
         };
-    }
 
-    // ★★★ Ensure jQuery exists within the mock factory's scope ★★★
-    if (typeof global.jQuery === 'undefined') {
-        global.jQuery = jest.fn(() => ({
-            on: jest.fn(),
-            // Add other methods if needed
-        }));
-    }
+        // window.addEventListenerをスパイし、コールバックをキャプチャ
+        addEventListenerSpy = jest.spyOn(window, 'addEventListener').mockImplementation((event, callback) => {
+            if (event === 'load') {
+                loadCallback = callback;
+            }
+        });
 
-    // Now, require the actual module. The global should be defined.
-    const actualSliderModule = jest.requireActual('../../../js/src/slider.js');
-
-    // Export only the necessary class, excluding the bottom initialization code's effects
-    return {
-        __esModule: true, // Indicate this is an ES module mock
-        Integlight_SliderManager: actualSliderModule.Integlight_SliderManager,
-    };
-});
-
-
-// Import the mocked module (which exports the real class definition)
-import { Integlight_SliderManager } from '../../../js/src/slider.js';
-
-
-// Factory function to create a mock jQuery object
-//const make$ = () => jest.fn(() => ({ ready: cb => cb() }));
-const make$ = () => {
-    const $fn = jest.fn((selector) => {
-        return { on: (event, cb) => cb() }; // onされると即実行
+        jest.clearAllMocks();
     });
-    return $fn;
-};
 
-const $mock = make$(); // Mock jQuery
+    // テスト後にスパイをリストア
+    afterEach(() => {
+        addEventListenerSpy.mockRestore();
+    });
 
+    // test.each を使用して、エフェクトごとのテストを共通化
+    test.each([
+        ['fade', 'fadehome1pc'],
+        ['slide', 'slidehome1pc'],
+    ])('effectが "%s" の場合、対応するスライダークラスが初期化される', (effect, registryKey) => {
+        // Arrange
+        const mockSliderClass = jest.fn();
+        const registry = {
+            [registryKey]: class { constructor(s) { mockSliderClass(s); } }
+        };
+        const settings = { ...global.integlight_sliderSettings, effect, homeType: 'home1' };
 
-describe('Integlight_SliderManager', () => {
-
-    const mockFade = jest.fn(); // Mock function for the fade effect
-    const mockSlide = jest.fn();
-    const registry = {
-        fadehome1pc: class { constructor($, s) { mockFade($, s); } },
-        slidehome1pc: class { constructor($, s) { mockSlide($, s); } }
-    };
-
-    it('should call the FadeSlider initializer when effect is fade', () => {
-        const settings = { ...global.integlight_sliderSettings, effect: 'fade', homeType: 'home1' }; // Set effect to 'fade'
-
-        const manager = new Integlight_SliderManager(
-            settings,
-            registry, // Pass the mock fade function in the registry
-            $mock
-        );
-
+        // Act
+        const manager = new Integlight_SliderManager(settings, registry);
         manager.init();
-        window.dispatchEvent(new Event('load'));
-        // Run only pending timers (the setTimeout(0) inside ready())
+        loadCallback(); // 'load' イベントのコールバックを直接実行
 
-        // Expect the mock fade function to have been called with correct arguments
-        expect(mockFade).toHaveBeenCalledWith($mock, settings);
+        // Assert
+        expect(mockSliderClass).toHaveBeenCalledWith(settings);
     });
-
-    it('should call the FadeSlider initializer when effect is slide', () => {
-        const settings = { ...global.integlight_sliderSettings, effect: 'slide', homeType: 'home1' }; // Set effect to 'fade'
-
-        const manager = new Integlight_SliderManager(
-            settings,
-            registry, // Pass the mock fade function in the registry
-            $mock
-        );
-
-        manager.init();
-        window.dispatchEvent(new Event('load'));
-        // Run only pending timers (the setTimeout(0) inside ready())
-
-        // Expect the mock fade function to have been called with correct arguments
-        expect(mockSlide).toHaveBeenCalledWith($mock, settings);
-    });
-
-
-
 });
 
 describe('Integlight_SliderManager device-specific registry', () => {
     let originalMatchMedia;
+    let addEventListenerSpy;
+    let loadCallback;
 
     beforeEach(() => {
-        // 元の matchMedia を退避
         originalMatchMedia = window.matchMedia;
+        addEventListenerSpy = jest.spyOn(window, 'addEventListener').mockImplementation((event, callback) => {
+            if (event === 'load') {
+                loadCallback = callback;
+            }
+        });
+        jest.clearAllMocks();
     });
 
     afterEach(() => {
-        // matchMedia を元に戻す
         window.matchMedia = originalMatchMedia;
-        jest.clearAllMocks();
+        addEventListenerSpy.mockRestore();
     });
 
-    it('matches=false（PC）時に pc 用のスライダーが選択される', () => {
-        // PC判定（matches: false）
-        window.matchMedia = jest.fn().mockReturnValue({ matches: false });
+    // test.each を使用して、デバイスごとのテストを共通化
+    test.each([
+        ['PC', false, 'slidehome2pc', 'slidehome2sp'],
+        ['SP', true, 'slidehome2sp', 'slidehome2pc'],
+    ])('%s用のクラスが選択される', (deviceName, matches, expectedKey, otherKey) => {
+        // Arrange
+        window.matchMedia = jest.fn().mockReturnValue({ matches });
 
         const mockPcClass = jest.fn();
-        const registry = {
-            // PC用のキーを持つクラスをモック化
-            fadehome1pc: class { constructor($, s) { mockPcClass($, s); } }
-        };
-
-        const settings = { ...global.integlight_sliderSettings, effect: 'fade', homeType: 'home1' };
-        const manager = new Integlight_SliderManager(settings, registry, $mock);
-
-        // 初期化＋loadイベント発火
-        manager.init();
-        window.dispatchEvent(new Event('load'));
-
-        // PC用クラスが呼ばれていること
-        expect(mockPcClass).toHaveBeenCalledWith($mock, settings);
-    });
-
-    it('matches=true（SP）時に sp 用のスライダーが選択される', () => {
-        // SP判定（matches: true）
-        window.matchMedia = jest.fn().mockReturnValue({ matches: true });
-
         const mockSpClass = jest.fn();
         const registry = {
-            // SP用のキーを持つクラスをモック化
-            fadehome1sp: class { constructor($, s) { mockSpClass($, s); } }
+            slidehome2pc: class { constructor(s) { mockPcClass(s); } },
+            slidehome2sp: class { constructor(s) { mockSpClass(s); } }
         };
-
-        const settings = { ...global.integlight_sliderSettings, effect: 'fade', homeType: 'home1' };
-        const manager = new Integlight_SliderManager(settings, registry, $mock);
-
-        // 初期化＋loadイベント発火
-        manager.init();
-        window.dispatchEvent(new Event('load'));
-
-        // SP用クラスが呼ばれていること
-        expect(mockSpClass).toHaveBeenCalledWith($mock, settings);
-    });
-
-    it('PC と SP で異なるクラスが選択されることを確認', () => {
-        const mockPcClass = jest.fn();
-        const mockSpClass = jest.fn();
-
-        const registry = {
-            // PC用とSP用で別クラスを設定
-            slidehome2pc: class { constructor($, s) { mockPcClass($, s); } },
-            slidehome2sp: class { constructor($, s) { mockSpClass($, s); } }
-        };
-
         const settings = { ...global.integlight_sliderSettings, effect: 'slide', homeType: 'home2' };
+        const mocks = { slidehome2pc: mockPcClass, slidehome2sp: mockSpClass };
 
-        // --- PCケース ---
-        window.matchMedia = jest.fn().mockReturnValue({ matches: false });
-        let manager = new Integlight_SliderManager(settings, registry, $mock);
-        manager.init();
-        window.dispatchEvent(new Event('load'));
-        expect(mockPcClass).toHaveBeenCalled();
+        // Act
+        new Integlight_SliderManager(settings, registry).init();
+        loadCallback(); // 'load' イベントのコールバックを直接実行
 
-        jest.clearAllMocks();
-
-        // --- SPケース ---
-        window.matchMedia = jest.fn().mockReturnValue({ matches: true });
-        manager = new Integlight_SliderManager(settings, registry, $mock);
-        manager.init();
-        window.dispatchEvent(new Event('load'));
-        expect(mockSpClass).toHaveBeenCalled();
+        // Assert
+        expect(mocks[expectedKey]).toHaveBeenCalledWith(settings);
+        expect(mocks[otherKey]).not.toHaveBeenCalled();
     });
 });
