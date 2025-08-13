@@ -63,6 +63,25 @@ class integlight_customizer_integlight_customizer_homeTypeTest extends WP_UnitTe
             $this->fail("Failed to get static property {$className}::{$propertyName}: " . $e->getMessage());
         }
     }
+
+    private function reset_static_property(string $className, string $propertyName, $defaultValue = []): void
+    {
+        try {
+            // クラスが存在するか確認
+            if (!class_exists($className)) {
+                $this->markTestSkipped("Dependency class {$className} not found.");
+                return;
+            }
+            $reflection = new ReflectionProperty($className, $propertyName);
+            if (method_exists($reflection, 'setAccessible')) {
+                $reflection->setAccessible(true);
+            }
+            $reflection->setValue(null, $defaultValue);
+        } catch (ReflectionException $e) {
+            $this->fail("Failed to reset static property {$className}::{$propertyName}: " . $e->getMessage());
+        }
+    }
+
     /**
      * @test
      * カスタマイザーにセクション 'integlight_hometype_section' が追加されているか検証
@@ -205,9 +224,7 @@ class integlight_customizer_integlight_customizer_homeTypeTest extends WP_UnitTe
 2	enqueue_hometype_css が正しく動作するか	get_theme_mod('integlight_hometype_setting') の値をもとにCSSパスが組み立てられ、3つのスタイル管理クラスに正しく渡されているか検証
 3	テーマ設定が未設定の場合のデフォルトCSS適用	get_theme_mod が値を返さない場合に 'home1' を使ってCSSが組み立てられていること
 4	複数の設定値に対して正しくパスが生成されるか	例えば 'home1'、'home2' の場合それぞれ /css/build/home1.css、/css/build/home2.css になること
-5	InteglightFrontendStyles::add_styles 呼び出し確認	上記のスタイル配列が引数に渡されて1回呼ばれていること
-6	InteglightEditorStyles::add_styles 呼び出し確認	上記のスタイル配列が引数に渡されて1回呼ばれていること
-7	InteglightDeferCss::add_deferred_styles 呼び出し確認	['home-type'] が引数に渡されて1回呼ばれていること
+
 */
 
     /**
@@ -280,5 +297,40 @@ class integlight_customizer_integlight_customizer_homeTypeTest extends WP_UnitTe
         // InteglightDeferCss::add_deferred_styles に 'home-type' が含まれているか
         //$deferred_styles = $this->get_static_property_value(InteglightDeferCss::class, 'deferred_styles');
         //$this->assertContains('home-type', $deferred_styles);
+    }
+    /**
+     * @test
+     * @covers InteglightHomeTypeLoader::enqueue_hometype_css
+     */
+    public function enqueue_hometype_css_should_generate_correct_path_for_each_setting(): void
+    {
+        $test_values = [
+            'home1' => '/css/build/home1.css',
+            'home2' => '/css/build/home2.css',
+            // 他のパターンがあれば追加可能
+        ];
+
+        foreach ($test_values as $setting_value => $expected_path) {
+            // 設定値をセット
+            set_theme_mod('integlight_hometype_setting', $setting_value);
+
+            // スタイル管理クラスの静的プロパティを初期化（リセット）
+            $this->reset_static_property(InteglightFrontendStyles::class, 'styles');
+            $this->reset_static_property(InteglightEditorStyles::class, 'styles');
+            $this->reset_static_property(InteglightDeferCss::class, 'deferred_styles');
+
+            // enqueue_hometype_cssを実行
+            $this->homeTypeLoader->enqueue_hometype_css();
+
+            // フロントエンド用スタイルを取得し検証
+            $frontend_styles = $this->get_static_property_value(InteglightFrontendStyles::class, 'styles');
+            $this->assertArrayHasKey('home-type', $frontend_styles, "FrontendStyles should have 'home-type' for {$setting_value}");
+            $this->assertSame($expected_path, $frontend_styles['home-type'], "FrontendStyles path should be correct for {$setting_value}");
+
+            // エディタ用スタイルを取得し検証
+            $editor_styles = $this->get_static_property_value(InteglightEditorStyles::class, 'styles');
+            $this->assertArrayHasKey('home-type', $editor_styles, "EditorStyles should have 'home-type' for {$setting_value}");
+            $this->assertSame($expected_path, $editor_styles['home-type'], "EditorStyles path should be correct for {$setting_value}");
+        }
     }
 }
