@@ -1,14 +1,5 @@
 <?php
 
-
-
-
-
-
-
-
-
-
 /***************************************** */
 /**css,js読み込み s************************ */
 /***************************************** */
@@ -24,8 +15,9 @@ add_action('wp_enqueue_scripts', function () {
 */
 
 
-
-
+/****************************************************** */
+/* ccsの登録                                              */
+/****************************************************** */
 class InteglightPreDetermineCssAssets
 {
     private static $styles = [
@@ -95,21 +87,46 @@ add_action('wp', ['InteglightPreDetermineCssAssets', 'init']);
 
 
 
-
+/****************************************************** */
+/* JSの登録                                              */
+/****************************************************** */
 
 //js 移動　PF対応!!!
 class InteglightPreDetermineJsAssets
 {
 
+    private static $scripts = [
+        'integlight-navigation' =>  ['path' => '/js/build/navigation.js', 'deps' => []],
+    ];
+
 
     public static function init()
     {
 
-        //js 読み込み
-        $scripts = [
-            'integlight-navigation' =>  ['path' => '/js/build/navigation.js', 'deps' => []],
+        // 以下、必要に応じて追加
+        /*
+        if (is_single()) {
+        }
+
+        if (is_page()) {
+        }
+
+        if (is_front_page() && (!is_home())) {
+        }
+
+        if (is_home()) {
+            
+            self::$scripts = array_merge(self::$scripts, [
+                'integlight-loadmore' =>  ['path' => '/js/build/loadmore.js', 'deps' => ['jquery']],
+            ]);
+        }
+        */
+        InteglightFrontendScripts::add_scripts(self::$scripts);
+
+        $deferredScripts = [
+            'integlight-navigation',
         ];
-        InteglightFrontendScripts::add_scripts($scripts);
+        InteglightDeferJs::add_deferred_scripts($deferredScripts); //PF対応!!!
 
         // フッターに移動するスクリプトを登録
         //$footerScripts = [
@@ -131,7 +148,7 @@ class InteglightPreDetermineJsAssets
 }
 
 // 初期化処理
-add_action('after_setup_theme', ['InteglightPreDetermineJsAssets', 'init']);
+add_action('wp', ['InteglightPreDetermineJsAssets', 'init']);
 
 
 /***************************************** */

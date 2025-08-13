@@ -13,7 +13,7 @@ class InteglightThemeColorLoader
         $styles = ['custom-pattern' => '/css/build/' . $base_pattern . '.css'];
         InteglightFrontendStyles::add_styles($styles);
         InteglightEditorStyles::add_styles($styles);
-        InteglightDeferCss::add_deferred_styles(['custom-pattern']);
+        InteglightDeferCss::add_deferred_styles(['custom-pattern']); //PF対応!!!
     }
 }
 new InteglightThemeColorLoader();
@@ -32,7 +32,7 @@ class InteglightHomeTypeLoader
         $styles = ['home-type' => '/css/build/' . $home_type . '.css'];
         InteglightFrontendStyles::add_styles($styles);
         InteglightEditorStyles::add_styles($styles);
-        InteglightDeferCss::add_deferred_styles(['home-type']);
+        //InteglightDeferCss::add_deferred_styles(['home-type']); //PF対応!!!
     }
 }
 new InteglightHomeTypeLoader();

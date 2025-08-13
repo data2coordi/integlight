@@ -6,7 +6,8 @@ class Integlight_Load_More
 
     public function __construct()
     {
-        add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts']);
+        add_action('template_redirect', [$this, 'pre_enqueue_scripts']); //PF対応!!!
+        add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts']); //PF対応!!!
 
         // ← 正しいフック名で登録する（wp_ajax_ / wp_ajax_nopriv_）
         add_action('wp_ajax_integlight_load_more_posts', [$this, 'ajax_load_more_posts']);
@@ -14,22 +15,37 @@ class Integlight_Load_More
 
         add_action('wp_ajax_integlight_load_more_category_posts', [$this, 'ajax_load_more_category_posts']);
         add_action('wp_ajax_nopriv_integlight_load_more_category_posts', [$this, 'ajax_load_more_category_posts']);
+    }
 
-        $scripts = [
-            'integlight-loadmore' =>  ['path' => '/js/build/loadmore.js', 'deps' => ['jquery']],
-        ];
-        InteglightFrontendScripts::add_scripts($scripts);
+    public function pre_enqueue_scripts()
+    {
+
+        if (is_home() && 'home2' === get_theme_mod('integlight_hometype_setting', 'home1')) {
+
+            $scripts = [
+                'integlight-loadmore' =>  ['path' => '/js/build/loadmore.js', 'deps' => ['jquery']],
+            ];
+            InteglightFrontendScripts::add_scripts($scripts);
+
+            $deferredScripts = [
+                'integlight-loadmore',
+            ];
+            InteglightDeferJs::add_deferred_scripts($deferredScripts); //PF対応!!!
+        }
     }
 
     public function enqueue_scripts()
     {
 
-        wp_localize_script('integlight-loadmore', 'integlightLoadMore', [
-            'loadMoreText'      => __('もっと見る', 'integlight'),
-            'loadingText'       => __('読み込み中...', 'integlight'),
-            'ajax_url' => admin_url('admin-ajax.php'),
-            'nonce'    => wp_create_nonce('integlight_load_more_nonce'),
-        ]);
+        if (is_home() && 'home2' === get_theme_mod('integlight_hometype_setting', 'home1')) {
+
+            wp_localize_script('integlight-loadmore', 'integlightLoadMore', [
+                'loadMoreText'      => __('もっと見る', 'integlight'),
+                'loadingText'       => __('読み込み中...', 'integlight'),
+                'ajax_url' => admin_url('admin-ajax.php'),
+                'nonce'    => wp_create_nonce('integlight_load_more_nonce'),
+            ]);
+        }
     }
 
     public function ajax_load_more_posts()
@@ -97,5 +113,6 @@ class Integlight_Load_More
         wp_die();
     }
 }
+
 
 new Integlight_Load_More();
