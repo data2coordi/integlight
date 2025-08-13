@@ -23,7 +23,8 @@ class Integlight_Load_More
         if (is_home() && 'home2' === get_theme_mod('integlight_hometype_setting', 'home1')) {
 
             $scripts = [
-                'integlight-loadmore' =>  ['path' => '/js/build/loadmore.js', 'deps' => ['jquery']],
+                //'integlight-loadmore' =>  ['path' => '/js/build/loadmore.js', 'deps' => ['jquery']],
+                'integlight-loadmore' =>  ['path' => '/js/build/loadmore.js'],
             ];
             InteglightFrontendScripts::add_scripts($scripts);
 

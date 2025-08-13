@@ -49,7 +49,8 @@ class integlight_customizer_slider_outerAssets
 		InteglightFrontendStyles::add_styles($styles);
 
 		$scripts = [
-			'integlight_slider-script' =>  ['path' => '/js/build/slider.js', 'deps' => ['jquery']],
+			'integlight_slider-script' =>  ['path' => '/js/build/slider.js'],
+			//'integlight_slider-script' =>  ['path' => '/js/build/slider.js', 'deps' => ['jquery']],
 		];
 		InteglightFrontendScripts::add_scripts($scripts);
 
