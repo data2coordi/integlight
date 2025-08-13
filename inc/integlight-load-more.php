@@ -73,8 +73,6 @@ class Integlight_Load_More
             wp_reset_postdata();
             wp_send_json_error('no_more_posts');
         }
-
-        wp_die();
     }
 
     public function ajax_load_more_category_posts()
@@ -109,8 +107,6 @@ class Integlight_Load_More
             wp_reset_postdata();
             wp_send_json_error('no_more_posts');
         }
-
-        wp_die();
     }
 }
 
