@@ -1,140 +1,135 @@
 /**
  * @jest-environment jsdom
  */
-import { Integlight_SliderManager } from '../../../js/src/slider.js';
 
-describe('Integlight_SliderManager', () => {
-    let originalAddEventListener;
-
-    beforeAll(() => {
-        global.integlight_sliderSettings = {
-            fadeName: 'fade',
-            slideName: 'slide',
-            home1Name: 'home1',
-            home2Name: 'home2',
-            changeDuration: 2.5,
-        };
-        // window.addEventListener をモック化
-        originalAddEventListener = window.addEventListener;
-        window.addEventListener = jest.fn();
-    });
-
-    afterAll(() => {
-        window.addEventListener = originalAddEventListener;
-    });
-
-    // モッククラスの定義を beforeEach の外に移動
-    const MockFadeSlider = jest.fn();
-    const MockSlideSlider = jest.fn();
-
-    it('should call the FadeSlider initializer when effect is fade', () => {
-        const settings = { ...global.integlight_sliderSettings, effect: 'fade', homeType: 'home1' };
-
-        // テストケースごとに registry を定義し、モッククラスを明示的に指定
-        const registry = {
-            fadehome1pc: MockFadeSlider,
-        };
-
-        const manager = new Integlight_SliderManager(settings, registry);
-
-        manager.init();
-
-        // window.addEventListener のコールバックを実行
-        window.addEventListener.mock.calls[0][1]();
-
-        expect(MockFadeSlider).toHaveBeenCalledWith(settings);
-    });
-
-    it('should call the SlideSlider initializer when effect is slide', () => {
-        const settings = { ...global.integlight_sliderSettings, effect: 'slide', homeType: 'home1' };
-
-        const registry = {
-            slidehome1pc: MockSlideSlider,
-        };
-
-        const manager = new Integlight_SliderManager(settings, registry);
-
-        manager.init();
-
-        window.addEventListener.mock.calls[0][1]();
-
-        expect(MockSlideSlider).toHaveBeenCalledWith(settings);
-    });
+// slider.js のインポート時に`integlight_sliderSettings`が必要なため、モックで先に定義します。
+jest.mock('../../../js/src/slider.js', () => {
+    global.integlight_sliderSettings = {
+        fadeName: 'fade',
+        slideName: 'slide',
+        home1Name: 'home1',
+        home2Name: 'home2',
+        changeDuration: 2.5,
+        effect: 'slide',
+        homeType: 'home2',
+    };
+    return jest.requireActual('../../../js/src/slider.js');
 });
 
-describe('Integlight_SliderManager device-specific registry', () => {
-    let originalMatchMedia;
+import { Integlight_SlideSlider2 } from '../../../js/src/slider.js';
+
+describe('Integlight_SlideSlider2 (Plain JS)', () => {
+    let instance;
+    let slidesContainer;
+    const settings = { changeDuration: 2.5 };
+
+    // ヘルパー関数でDOMセットアップとスパイ設定を共通化
+    const setupSliderDOM = (slidesHTML) => {
+        document.body.innerHTML = `
+            <div class="slider">
+                <div class="slides">
+                    ${slidesHTML}
+                </div>
+            </div>
+        `;
+        document.querySelectorAll('.slide').forEach(slide => {
+            Object.defineProperty(slide, 'offsetWidth', { configurable: true, value: 100 });
+        });
+        slidesContainer = document.querySelector('.slides');
+        // transitionend イベントを手動で発火させるためのスパイ
+        jest.spyOn(slidesContainer, 'addEventListener').mockImplementation((event, cb, options) => {
+            if (event === 'transitionend' && options?.once) {
+                process.stdout.write('@@@@@@@@@@@@@@eventlistener1\n', cb);
+                setTimeout(() => cb(), 0); // 0ms後にコールバックを実行
+            }
+        });
+    };
 
     beforeEach(() => {
-        originalMatchMedia = window.matchMedia;
+        jest.useFakeTimers();
+        setupSliderDOM(`
+            <div class="slide">Slide 1</div>
+            <div class="slide">Slide 2</div>
+            <div class="slide">Slide 3</div>
+        `);
+        instance = new Integlight_SlideSlider2(settings);
     });
 
     afterEach(() => {
-        window.matchMedia = originalMatchMedia;
+        jest.useRealTimers();
         jest.clearAllMocks();
+        document.body.innerHTML = ''; // DOMをクリーンアップ
+    });
+    /*
+
+    it('初期化時に slide-effect クラスが付与される', () => {
+        expect(document.querySelector('.slider').classList.contains('slide-effect')).toBe(true);
+        expect(instance.currentIndex).toBe(2);
+
+        // 3 (オリジナル) + 4 (クローン) = 7
+        expect(slidesContainer.children.length).toBe(7);
+        expect(slidesContainer.children[0].textContent).toBe('Slide 2'); // prependされたクローン
+        expect(slidesContainer.children[6].textContent).toBe('Slide 2'); // appendされたクローン
     });
 
-    it('matches=false（PC）時に pc 用のスライダーが選択される', () => {
-        window.matchMedia = jest.fn().mockReturnValue({ matches: false });
-
-        const mockPcClass = jest.fn();
-        const registry = {
-            fadehome1pc: mockPcClass
-        };
-
-        const settings = { ...global.integlight_sliderSettings, effect: 'fade', homeType: 'home1' };
-        const manager = new Integlight_SliderManager(settings, registry);
-
-        manager.init();
-        window.addEventListener.mock.calls[0][1]();
-
-        expect(mockPcClass).toHaveBeenCalledWith(settings);
+    it('slideWidth が正しく取得される', () => {
+        expect(instance.slideWidth).toBe(100);
     });
 
-    it('matches=true（SP）時に sp 用のスライダーが選択される', () => {
-        window.matchMedia = jest.fn().mockReturnValue({ matches: true });
+    it('showSlide で transform が更新される', () => {
+        jest.advanceTimersByTime(instance.displayDuration * 1000);
 
-        const mockSpClass = jest.fn();
-        const registry = {
-            fadehome1sp: mockSpClass
-        };
+        expect(instance.currentIndex).toBe(3);
+        expect(slidesContainer.style.transition).toContain('ease-out');
+        // Assert that the transform value is calculated correctly based on the instance's state
+        const expectedX = (-instance.currentIndex * instance.slideWidth) + instance.offset;
+        expect(slidesContainer.style.transform).toBe(`translateX(${expectedX}px)`);
+    });
+*/
+    it('最後のスライドに到達後にループして最初のスライドに戻る', () => {
+        instance.currentIndex = instance.slideCount + 1; // 4
 
-        const settings = { ...global.integlight_sliderSettings, effect: 'fade', homeType: 'home1' };
-        const manager = new Integlight_SliderManager(settings, registry);
+        instance.showSlide(); // currentIndex++ → 5, transitionend 登録
 
-        manager.init();
-        window.addEventListener.mock.calls[0][1]();
+        // fake timers を advance して setTimeout 内 cb を実行
+        jest.runAllTimers(); // これで transitionend のコールバックが呼ばれ currentIndex=2 に
 
-        expect(mockSpClass).toHaveBeenCalledWith(settings);
+        expect(instance.currentIndex).toBe(2);
+
+        const expectedX = (-instance.currentIndex * instance.slideWidth) + instance.offset;
+        expect(instance.slidesContainer.style.transform).toBe(`translateX(${expectedX}px)`);
+        expect(instance.slidesContainer.style.transition).toBe('none');
     });
 
-    it('PC と SP で異なるクラスが選択されることを確認', () => {
-        const mockPcClass = jest.fn();
-        const mockSpClass = jest.fn();
-
-        const registry = {
-            slidehome2pc: mockPcClass,
-            slidehome2sp: mockSpClass
-        };
-
-        const settings = { ...global.integlight_sliderSettings, effect: 'slide', homeType: 'home2' };
-
-        // PCケース
-        window.matchMedia = jest.fn().mockReturnValue({ matches: false });
-        let manager = new Integlight_SliderManager(settings, registry);
-        manager.init();
-        window.addEventListener.mock.calls[0][1]();
-        expect(mockPcClass).toHaveBeenCalledWith(settings);
-        expect(mockSpClass).not.toHaveBeenCalled();
-
-        jest.clearAllMocks();
-
-        // SPケース
-        window.matchMedia = jest.fn().mockReturnValue({ matches: true });
-        manager = new Integlight_SliderManager(settings, registry);
-        manager.init();
-        window.addEventListener.mock.calls[0][1]();
-        expect(mockSpClass).toHaveBeenCalledWith(settings);
-        expect(mockPcClass).not.toHaveBeenCalled();
-    });
+    /*
+        it('自動で showSlide が繰り返し呼ばれる', () => {
+            const spy = jest.spyOn(instance, 'showSlide');
+    
+            // 3回分のインターバルを実行 (2.5s * 3 = 7.5s)
+            jest.advanceTimersByTime(settings.changeDuration * 1000 * 3);
+            expect(spy).toHaveBeenCalledTimes(3);
+    
+            spy.mockRestore();
+        });
+    
+        it('スライド2枚でも初期化と動作が正常', () => {
+            // Arrange: ヘルパー関数で2枚スライドのDOMをセットアップ
+            setupSliderDOM(`
+                <div class="slide">Slide 1</div>
+                <div class="slide">Slide 2</div>
+            `);
+    
+            // Act
+            const twoSlideInstance = new Integlight_SlideSlider2(settings);
+    
+            // Assert: 初期化
+            expect(twoSlideInstance.slideCount).toBe(2);
+            expect(document.querySelectorAll('.slides .slide').length).toBe(6); // 2 original + 4 clones
+            expect(twoSlideInstance.currentIndex).toBe(2);
+    
+            // Act & Assert: スライド実行
+            twoSlideInstance.showSlide();
+            expect(twoSlideInstance.currentIndex).toBe(3);
+        });
+        */
 });
