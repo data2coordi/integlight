@@ -900,7 +900,7 @@ nav.post-navigation {
 /************************************************************/
 
 /* tag s */
-.wp-block-tag-cloud {
+/* .wp-block-tag-cloud {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -913,7 +913,57 @@ nav.post-navigation {
 
 section.widget_block {
   margin-top: 0;
+} */
+
+/* =========================================
+   タグクラウドを“統一デザインのバッジ”に揃える
+   対象：標準ウィジェット(.tagcloud) とブロック(.wp-block-tag-cloud)
+   ========================================= */
+
+/* 行の並び・余白を統一：横並びで折り返し、均一な間隔 */
+.tagcloud,
+.wp-block-tag-cloud {
+  display: flex;           /* 横並び */
+  flex-wrap: wrap;         /* はみ出したら次の行へ */
+  gap: 10px 12px;          /* 行間/列間の隙間 */
+  margin: 0;               /* 余白リセット（テーマ差吸収） */
+  padding: 0;
 }
+
+/* バッジ本体：サイズ固定＆見た目統一 */
+.tagcloud a,
+.wp-block-tag-cloud a {
+  /* ← まず“人気度でサイズが変わる”のを止める */
+  font-size: 0.9rem !important;   /* 全部同じ文字サイズに固定 */
+  line-height: 1;                 /* バッジ内の高さをきっちり */
+
+  /* バッジの外観（丸み・背景・枠） */
+  display: inline-flex;           /* 中央揃えしやすい */
+  align-items: center;
+  padding: 8px 12px;              /* 内側の余白 */
+  border-radius: 9999px;          /* ピル型 */
+  background: #f5f6f7;
+  border: 1px solid #e1e3e6;
+  color: #333;
+  text-decoration: none;          /* 下線オフ */
+
+  /* 細かな気持ちよさ */
+  white-space: nowrap;            /* 1タグは折り返さない */
+  transition: background .2s ease, border-color .2s ease, color .2s ease;
+}
+
+/* ホバー／フォーカス（アクセント色は好みで） */
+.tagcloud a:hover,
+.tagcloud a:focus,
+.wp-block-tag-cloud a:hover,
+.wp-block-tag-cloud a:focus {
+  background: #555;
+  border-color: #555;
+  color: #fff;
+  outline: none;
+}
+
+
 
 /* tag e */
 
