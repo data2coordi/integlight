@@ -4,5 +4,3 @@ bk/
 node_modules/
 tests/e2e-tests/test-results/
 tests/e2e-tests/e2e_backups/
-integlight_backup.sh
-integlight_restore.sh
