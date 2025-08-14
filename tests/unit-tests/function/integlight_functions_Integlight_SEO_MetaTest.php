@@ -198,4 +198,59 @@ class integlight_functions_Integlight_SEO_MetaTest extends WP_UnitTestCase
 
         delete_post_meta($this->post_id, $meta_key_description);
     }
+
+    public function test_home_meta_description()
+    {
+        $this->go_to(home_url('/'));
+        ob_start();
+        $this->instance->output_meta_description();
+        $output = ob_get_clean();
+        $this->assertStringContainsString(get_bloginfo('description'), $output);
+    }
+    public function test_category_meta_description()
+    {
+        $cat_id = self::factory()->category->create(['name' => 'Test Cat']);
+        $this->go_to(get_category_link($cat_id));
+        ob_start();
+        $this->instance->output_meta_description();
+        $output = ob_get_clean();
+        $this->assertStringContainsString('Test Cat', $output);
+        $this->assertStringContainsString(get_bloginfo('description'), $output);
+    }
+
+    public function test_tag_meta_description()
+    {
+        // タグ作成
+        $tag_id = self::factory()->tag->create(['name' => 'Test Tag']);
+
+        // タグページに移動
+        $this->go_to(get_tag_link($tag_id));
+
+        ob_start();
+        $this->instance->output_meta_description();
+        $output = ob_get_clean();
+
+        $this->assertStringContainsString('Test Tag', $output);
+        $this->assertStringContainsString(get_bloginfo('description'), $output);
+    }
+    public function test_else_archive_meta_description()
+    {
+        // 投稿者アーカイブを作る
+        $author_id = self::factory()->user->create(['role' => 'author']);
+        wp_set_current_user($author_id);
+
+        // そのユーザーの投稿を作る
+        $post_id = self::factory()->post->create(['post_author' => $author_id]);
+
+        // 投稿者アーカイブページに移動
+        $this->go_to(get_author_posts_url($author_id));
+
+        ob_start();
+        $this->instance->output_meta_description();
+        $output = ob_get_clean();
+
+        // else 分岐なのでサイトキャッチフレーズが入る
+        $this->assertStringContainsString(get_bloginfo('description'), $output);
+        $this->assertStringNotContainsString('_custom_meta_description', $output); // 投稿メタは使われない
+    }
 }
