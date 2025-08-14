@@ -46,20 +46,28 @@ async function saveCustomizer(page) {
     await expect(saveBtn).toBeDisabled();
 }
 
+
+
 async function verifyLoadMore(page: any, baseUrl: string) {
     // ページに移動
     await page.goto(baseUrl, { waitUntil: 'networkidle' });
 
     const grid = page.locator('#latest-posts-grid');
-    const loadMoreBtn = page.locator('#load-more').first();
+    const loadMoreBtn = page.locator('#load-more');
 
     // クリック前のカード数
     const firstCount = await grid.locator('.grid-item').count();
-    await expect(firstCount).toHaveCount(4);
+    await expect(firstCount).toBe(4);
 
 
     // 1つ目の「もっと見る」をクリック
+
     await loadMoreBtn.click();
+    let expectedCount = 8;
+    await expect(grid.locator('.grid-item')).toHaveCount(expectedCount);
+
+
+
 
     // DOM更新待機
     //await page.waitForTimeout(3000);
@@ -73,14 +81,108 @@ async function verifyLoadMore(page: any, baseUrl: string) {
         .innerText();
 
     const firstNewTitleTrimmed = firstNewTitle.trim();
-    console.log('追加1件目のタイトル:', firstNewTitleTrimmed);
 
     // 期待タイトル
     const expectedTitle = 'サイドFIRE｜【体験談】筆者が資産7500万・';
     expect(firstNewTitleTrimmed).toContain(expectedTitle);
+
+    // 1つ目の「もっと見る」をクリック
+    await loadMoreBtn.click();
+    expectedCount = 12;
+    await expect(grid.locator('.grid-item')).toHaveCount(expectedCount);
+
 }
 
 
+async function verifyLoadMoreCat(page: any, baseUrl: string) {
+    // ページに移動
+    await page.goto(baseUrl, { waitUntil: 'networkidle' });
+
+    const grid = page.locator('.category-posts').first();
+    const loadMoreBtn = page.locator('.load-more-cat').first();
+
+    // クリック前のカード数
+    const firstCount = await grid.locator('.grid-item').count();
+    await expect(firstCount).toBe(2);
+
+
+    // 1つ目の「もっと見る」をクリック
+
+    await loadMoreBtn.click();
+    let expectedCount = 4;
+    await expect(grid.locator('.grid-item')).toHaveCount(expectedCount);
+
+
+
+
+    // DOM更新待機
+    //await page.waitForTimeout(3000);
+
+    // 追加分の1件目タイトル取得
+    const nextTopIndex = firstCount;
+    const firstNewTitle = await grid
+        .locator('.grid-item')
+        .nth(nextTopIndex)
+        .locator('h2')
+        .innerText();
+
+    const firstNewTitleTrimmed = firstNewTitle.trim();
+
+    // 期待タイトル
+    const expectedTitle = 'プラグインテスト';
+    expect(firstNewTitleTrimmed).toContain(expectedTitle);
+
+    // 1つ目の「もっと見る」をクリック
+    await loadMoreBtn.click();
+    expectedCount = 6;
+    await expect(grid.locator('.grid-item')).toHaveCount(expectedCount);
+
+}
+
+async function verifyLoadMoreCat3(page: any, baseUrl: string) {
+    // ページに移動
+    await page.goto(baseUrl, { waitUntil: 'networkidle' });
+
+    const grid = page.locator('.category-posts').nth(2);
+    const loadMoreBtn = page.locator('.load-more-cat').nth(2);
+
+    // クリック前のカード数
+    const firstCount = await grid.locator('.grid-item').count();
+    await expect(firstCount).toBe(2);
+
+
+    // 1つ目の「もっと見る」をクリック
+
+    await loadMoreBtn.click();
+    let expectedCount = 4;
+    await expect(grid.locator('.grid-item')).toHaveCount(expectedCount);
+
+
+
+
+    // DOM更新待機
+    //await page.waitForTimeout(3000);
+
+    // 追加分の1件目タイトル取得
+    const nextTopIndex = firstCount;
+    const firstNewTitle = await grid
+        .locator('.grid-item')
+        .nth(nextTopIndex)
+        .locator('h2')
+        .innerText();
+
+    const firstNewTitleTrimmed = firstNewTitle.trim();
+
+    // 期待タイトル
+    const expectedTitle = '節約｜【夫婦実録】月35万円';
+    expect(firstNewTitleTrimmed).toContain(expectedTitle);
+
+    // 1つ目の「もっと見る」をクリック
+    await loadMoreBtn.click();
+    expectedCount = 6;
+    await expect(grid.locator('.grid-item')).toHaveCount(expectedCount);
+
+}
 
 
 /*
@@ -184,10 +286,15 @@ test.describe('PC環境', () => {
         await test.step('1. 管理画面にログイン', () => login(page, baseUrl));
         await test.step('2. カスタマイザー画面を開く', () => openCustomizer(page, baseUrl));
         await test.step('3. ホームタイプ設定を開く', () => setSiteType(page));
-        await test.step('6. 公開ボタンをクリックして変更を保存', () =>
+        await test.step('4. 公開ボタンをクリックして変更を保存', () =>
             saveCustomizer(page));
 
-        await test.step('7〜9. フロントページで表示確認', () =>
-            verifyLoadMore(page, baseUrl, imagePartialName, mainText, subText, textPositionTop, textPositionLeft));
+        await test.step('5. 新着情報の確認', () =>
+            verifyLoadMore(page, baseUrl));
+        await test.step('6. カテゴリ情報の確認', () =>
+            verifyLoadMoreCat(page, baseUrl));
+        await test.step('7. カテゴリ情報の3つ目の確認', () =>
+            verifyLoadMoreCat3(page, baseUrl));
+
     });
 });
