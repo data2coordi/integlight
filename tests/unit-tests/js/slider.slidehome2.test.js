@@ -39,7 +39,6 @@ describe('Integlight_SlideSlider2 (Plain JS)', () => {
         // transitionend イベントを手動で発火させるためのスパイ
         jest.spyOn(slidesContainer, 'addEventListener').mockImplementation((event, cb, options) => {
             if (event === 'transitionend' && options?.once) {
-                process.stdout.write('@@@@@@@@@@@@@@eventlistener1\n', cb);
                 setTimeout(() => cb(), 0); // 0ms後にコールバックを実行
             }
         });
@@ -60,7 +59,7 @@ describe('Integlight_SlideSlider2 (Plain JS)', () => {
         jest.clearAllMocks();
         document.body.innerHTML = ''; // DOMをクリーンアップ
     });
-    /*
+
 
     it('初期化時に slide-effect クラスが付与される', () => {
         expect(document.querySelector('.slider').classList.contains('slide-effect')).toBe(true);
@@ -85,51 +84,54 @@ describe('Integlight_SlideSlider2 (Plain JS)', () => {
         const expectedX = (-instance.currentIndex * instance.slideWidth) + instance.offset;
         expect(slidesContainer.style.transform).toBe(`translateX(${expectedX}px)`);
     });
-*/
+
     it('最後のスライドに到達後にループして最初のスライドに戻る', () => {
         instance.currentIndex = instance.slideCount + 1; // 4
 
         instance.showSlide(); // currentIndex++ → 5, transitionend 登録
 
-        // fake timers を advance して setTimeout 内 cb を実行
-        jest.runAllTimers(); // これで transitionend のコールバックが呼ばれ currentIndex=2 に
+        // イベントを発火非常に小さい値にすることでtransitionendイベントのみ発火させる。timerによる次のshowSlideは実行させない。    
+        jest.advanceTimersByTime(instance.displayDuration * 1);
+
 
         expect(instance.currentIndex).toBe(2);
 
         const expectedX = (-instance.currentIndex * instance.slideWidth) + instance.offset;
         expect(instance.slidesContainer.style.transform).toBe(`translateX(${expectedX}px)`);
         expect(instance.slidesContainer.style.transition).toBe('none');
+
+
     });
 
-    /*
-        it('自動で showSlide が繰り返し呼ばれる', () => {
-            const spy = jest.spyOn(instance, 'showSlide');
-    
-            // 3回分のインターバルを実行 (2.5s * 3 = 7.5s)
-            jest.advanceTimersByTime(settings.changeDuration * 1000 * 3);
-            expect(spy).toHaveBeenCalledTimes(3);
-    
-            spy.mockRestore();
-        });
-    
-        it('スライド2枚でも初期化と動作が正常', () => {
-            // Arrange: ヘルパー関数で2枚スライドのDOMをセットアップ
-            setupSliderDOM(`
+
+    it('自動で showSlide が繰り返し呼ばれる', () => {
+        const spy = jest.spyOn(instance, 'showSlide');
+
+        // 3回分のインターバルを実行 (2.5s * 3 = 7.5s)
+        jest.advanceTimersByTime(settings.changeDuration * 1000 * 3);
+        expect(spy).toHaveBeenCalledTimes(3);
+
+        spy.mockRestore();
+    });
+
+    it('スライド2枚でも初期化と動作が正常', () => {
+        // Arrange: ヘルパー関数で2枚スライドのDOMをセットアップ
+        setupSliderDOM(`
                 <div class="slide">Slide 1</div>
                 <div class="slide">Slide 2</div>
             `);
-    
-            // Act
-            const twoSlideInstance = new Integlight_SlideSlider2(settings);
-    
-            // Assert: 初期化
-            expect(twoSlideInstance.slideCount).toBe(2);
-            expect(document.querySelectorAll('.slides .slide').length).toBe(6); // 2 original + 4 clones
-            expect(twoSlideInstance.currentIndex).toBe(2);
-    
-            // Act & Assert: スライド実行
-            twoSlideInstance.showSlide();
-            expect(twoSlideInstance.currentIndex).toBe(3);
-        });
-        */
+
+        // Act
+        const twoSlideInstance = new Integlight_SlideSlider2(settings);
+
+        // Assert: 初期化
+        expect(twoSlideInstance.slideCount).toBe(2);
+        expect(document.querySelectorAll('.slides .slide').length).toBe(6); // 2 original + 4 clones
+        expect(twoSlideInstance.currentIndex).toBe(2);
+
+        // Act & Assert: スライド実行
+        twoSlideInstance.showSlide();
+        expect(twoSlideInstance.currentIndex).toBe(3);
+    });
+
 });

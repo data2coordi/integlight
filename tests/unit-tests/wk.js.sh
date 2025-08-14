@@ -1,16 +1,15 @@
 clear
 
 
-#npm run test:unit:js tests/unit-tests/js/loadmore.test.js 
 
-npm run test:unit:js  tests/unit-tests/js/slider.fadehome2.test.js
 
-#npm run test:unit:js  tests/unit-tests/js
+
+npm run test:unit:js  tests/unit-tests/js
 
 exit
 #npm run test:unit:js  tests/unit-tests/js/slider.fadehome2.test.js
 #npm run test:unit:js  tests/unit-tests/js/slider.init.test.js
-
+#npm run test:unit:js   tests/unit-tests/js/slider.slidehome2.test.js
 npm run test:unit:js  tests/unit-tests/js
 npm run test:unit:js  tests/unit-tests/js/navigation.test.js
 
