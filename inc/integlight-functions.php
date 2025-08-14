@@ -330,27 +330,32 @@ class Integlight_SEO_Meta
 	 */
 	public function output_meta_description()
 	{
+		$meta_description = '';
+
 		if (is_singular()) {
 			global $post;
-			if (! $post) { // Ensure $post is available
-				return;
+			if ($post) {
+				$custom_description = get_post_meta($post->ID, $this->meta_key_description, true);
+				if (!empty($custom_description)) {
+					$meta_description = $custom_description;
+				} else {
+					$meta_description = get_the_excerpt($post->ID);
+				}
 			}
+		} elseif (is_front_page() || is_home()) {
+			$meta_description = get_bloginfo('description');
+		} elseif (is_category()) {
+			$meta_description = single_cat_title('', false) . 'の記事一覧｜' . get_bloginfo('description');
+		} elseif (is_tag()) {
+			$meta_description = single_tag_title('', false) . 'の記事一覧｜' . get_bloginfo('description');
+		} elseif (is_post_type_archive()) {
+			$meta_description = post_type_archive_title('', false) . '一覧｜' . get_bloginfo('description');
+		} else {
+			$meta_description = get_bloginfo('description');
+		}
 
-			$meta_description = '';
-			// Get custom meta description
-			$custom_description = get_post_meta($post->ID, $this->meta_key_description, true);
-
-			if (! empty($custom_description)) {
-				$meta_description = $custom_description;
-			} else {
-				// Fallback to excerpt if custom description is empty
-				$meta_description = get_the_excerpt($post->ID);
-			}
-
-			// Output the meta tag only if we have a description
-			if (! empty($meta_description)) {
-				echo '<meta name="description" content="' . esc_attr($meta_description) . '">' . "\n";
-			}
+		if (!empty($meta_description)) {
+			echo '<meta name="description" content="' . esc_attr($meta_description) . '">' . "\n";
 		}
 	}
 }
