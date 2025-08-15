@@ -320,17 +320,53 @@ async function verifySliderOnHome2Fade(page, baseUrl, imagePartialName) {
 // });
 
 
-test.describe('PC環境-home2', () => {
+// test.describe('PC環境-home2', () => {
 
+//     // テスト本体
+//     test('フェード: 画像が切り替わることを確認', async ({ page }) => {
+
+//         const CONFIG = {
+//             baseUrl: 'https://wpdev.toshidayurika.com',
+//             imagePartialName: 'Firefly-51159-1.webp',
+//         };
+
+//         const { baseUrl, imagePartialName } = CONFIG;
+
+//         await test.step('1. 管理画面にログイン', () => login(page, baseUrl));
+//         await test.step('2. カスタマイザー画面を開く', () => openCustomizer(page, baseUrl));
+//         await test.step('ホームタイプの変更', async () => {
+//             await setSiteType(page, 'ポップ');
+//         });
+//         await test.step('トップページで表示確認', async () => {
+//             await verifySliderOnHome2Fade(page, baseUrl, imagePartialName);
+//         });
+
+//     });
+// });
+
+
+test.describe('モバイル環境-home2', () => {
+
+    test.use({
+        viewport: { width: 375, height: 800 },
+        userAgent:
+            'Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1',
+        extraHTTPHeaders: {
+            'sec-ch-ua-mobile': '?1',
+        },
+    });
     // テスト本体
     test('フェード: 画像が切り替わることを確認', async ({ page }) => {
 
         const CONFIG = {
             baseUrl: 'https://wpdev.toshidayurika.com',
-            imagePartialName: 'Firefly-51159-1.webp',
+            imagePartialName: 'Firefly-260521.webp',
         };
 
-        const { baseUrl, imagePartialName } = CONFIG;
+        const {
+            baseUrl,
+            imagePartialName,
+        } = CONFIG;
 
         await test.step('1. 管理画面にログイン', () => login(page, baseUrl));
         await test.step('2. カスタマイザー画面を開く', () => openCustomizer(page, baseUrl));
@@ -338,38 +374,8 @@ test.describe('PC環境-home2', () => {
             await setSiteType(page, 'ポップ');
         });
 
-        await test.step('トップページで表示確認', async () => {
-            await verifySliderOnHome2Fade(page, baseUrl, imagePartialName);
-        });
 
+        await test.step('トップページで表示確認', () =>
+            verifySliderOnHome2FadeSp(page, baseUrl, imagePartialName));
     });
 });
-
-
-// test.describe('モバイル環境-home2', () => {
-
-//     test.use({
-//         viewport: { width: 375, height: 800 },
-//         userAgent:
-//             'Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1',
-//         extraHTTPHeaders: {
-//             'sec-ch-ua-mobile': '?1',
-//         },
-//     });
-//     // テスト本体
-//     test('フェード: 画像が切り替わることを確認', async ({ page }) => {
-
-//         const CONFIG = {
-//             baseUrl: 'https://wpdev.toshidayurika.com',
-//             imagePartialName: 'Firefly-260521.webp',
-//         };
-
-//         const {
-//             baseUrl,
-//             imagePartialName,
-//         } = CONFIG;
-
-//         await test.step('トップページで表示確認', () =>
-//             verifySliderOnHome2FadeSp(page, baseUrl, imagePartialName));
-//     });
-// });
