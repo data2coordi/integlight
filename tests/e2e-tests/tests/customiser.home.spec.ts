@@ -4,7 +4,7 @@ import { test, expect } from '@playwright/test';
 
 // 共通関数
 async function login(page, baseUrl) {
-    await page.goto(`${baseUrl}/wp-login.php`, { waitUntil: 'networkidle' });
+    await page.goto(`${baseUrl}/wp-login.php`, { waitUntil: 'domcontentloaded' });
     const adminUser = process.env.WP_ADMIN_USER;
     const adminPass = process.env.WP_ADMIN_PASSWORD;
     if (!adminUser || !adminPass)
@@ -12,16 +12,16 @@ async function login(page, baseUrl) {
     await page.fill('#user_login', adminUser);
     await page.fill('#user_pass', adminPass);
     await page.click('#wp-submit');
-    await page.waitForNavigation({ waitUntil: 'networkidle' });
+    await page.waitForNavigation({ waitUntil: 'domcontentloaded' });
+    await expect(page.locator('#wpadminbar')).toBeVisible(); // ログイン後の管理バーを確認
 }
 
 async function openCustomizer(page, baseUrl) {
     await page.goto(`${baseUrl}/wp-admin/customize.php?url=${encodeURIComponent(baseUrl)}`, {
-        waitUntil: 'networkidle',
+        waitUntil: 'domcontentloaded',
     });
     await expect(page.locator('.wp-full-overlay-main')).toBeVisible();
 }
-
 async function setSiteType(page, siteType = 'エレガント') {
     await page.getByRole('button', { name: 'サイトタイプ設定' }).click();
 
@@ -47,7 +47,78 @@ async function saveCustomizer(page) {
     await expect(saveBtn).toBeDisabled();
 }
 
-// 共通化関数（もっと見るボタン）
+
+// 共通化関数（home1ページナビゲーション）
+async function verifyPageNavigation(
+    page: any,
+    baseUrl: string,
+    gridSelector: string,
+    pagenaviSelector: string,
+    ExpectedCount: number,
+    expectedTitle: string,
+    expectedTitle2: string,
+    buttonIndex = 0
+) {
+
+    await page.goto(baseUrl, { waitUntil: 'domcontentloaded' });
+
+    let grid = page.locator(gridSelector);
+    await expect(grid).toBeVisible();
+    let count = await grid.locator('.grid-item').count();
+    await expect(count).toBe(ExpectedCount);
+    let firstTitle = await grid.locator('.grid-item').nth(buttonIndex).locator('h2').innerText();
+    expect(firstTitle.trim()).toContain(expectedTitle);
+
+    const secondPageBtn = page.locator(pagenaviSelector).nth(1);
+    await secondPageBtn.click();
+    await expect(grid).toBeVisible();
+    count = await grid.locator('.grid-item').count();
+    await expect(count).toBe(ExpectedCount);
+    firstTitle = await grid.locator('.grid-item').nth(buttonIndex).locator('h2').innerText();
+    expect(firstTitle.trim()).toContain(expectedTitle2);
+
+}
+
+// 共通化関数（home1カテゴリナビゲーション）
+async function verifyCategoryNavi(
+    page: any,
+    baseUrl: string,
+    gridSelector: string,
+    pagenaviSelector: string,
+    ExpectedCount: number,
+    expectedTitle: string,
+    expectedTitle2: string,
+    buttonIndex = 0
+) {
+
+    await page.goto(baseUrl, { waitUntil: 'domcontentloaded' });
+
+    let grid = page.locator(gridSelector);
+    await expect(grid).toBeVisible();
+    let count = await grid.locator('.grid-item').count();
+    await expect(count).toBe(ExpectedCount);
+    let firstTitle = await grid.locator('.grid-item').nth(buttonIndex).locator('h2').innerText();
+    expect(firstTitle.trim()).toContain(expectedTitle);
+
+    const secondPageBtn = page.locator(pagenaviSelector).nth(1);
+    await secondPageBtn.click();
+    await expect(grid).toBeVisible();
+    count = await grid.locator('.grid-item').count();
+    await expect(count).toBe(ExpectedCount);
+    firstTitle = await grid.locator('.grid-item').nth(buttonIndex).locator('h2').innerText();
+    expect(firstTitle.trim()).toContain(expectedTitle2);
+
+}
+
+
+
+
+
+
+
+
+
+// 共通化関数（home2もっと見るボタン）
 async function verifyLoadMoreGeneric(
     page: any,
     baseUrl: string,
@@ -78,45 +149,37 @@ async function verifyLoadMoreGeneric(
     await expect(grid.locator('.grid-item')).toHaveCount(secondClickExpectedCount);
 }
 
-// 共通化関数（ページナビゲーション）
-async function verifyPageNavigation(
-    page: any,
-    baseUrl: string,
-    gridSelector: string,
-    loadMoreSelector: string,
-    initialCount: number,
-    firstClickExpectedCount: number,
-    secondClickExpectedCount: number,
-    expectedTitle: string,
-    buttonIndex = 0
-) {
-    console.log('@@@@@@@@@@@@@@@@@@@@@1');
-    await page.goto(baseUrl, { waitUntil: 'networkidle' });
-    console.log('@@@@@@@@@@@@@@@@@@@@@2');
-    const grid = page.locator(gridSelector)
-    //const loadMoreBtn = page.locator(loadMoreSelector).nth(buttonIndex);
-    console.log('@@@@@@@@@@@@@@@@@@@@@3');
 
-    const firstCount = await grid.locator('.grid-item').count();
-    console.log('Initial count:', firstCount);
-    await expect(firstCount).toBe(initialCount);
+// test.describe('e2e-home1-PC:', () => {
 
-    /*
-    await loadMoreBtn.click();
-    await expect(grid.locator('.grid-item')).toHaveCount(firstClickExpectedCount);
+//     // テスト本体
+//     test('ナビゲーションで次のページに遷移できること', async ({ page }) => {
 
-    const firstNewTitle = await grid.locator('.grid-item').nth(firstCount).locator('h2').innerText();
-    expect(firstNewTitle.trim()).toContain(expectedTitle);
+//         const CONFIG = {
+//             baseUrl: 'https://wpdev.toshidayurika.com',
 
-    await loadMoreBtn.click();
-    await expect(grid.locator('.grid-item')).toHaveCount(secondClickExpectedCount);
-    */
-}
+//         };
+
+//         const {
+//             baseUrl,
+//         } = CONFIG;
+
+//         await test.step('1. 管理画面にログイン', () => login(page, baseUrl));
+//         await test.step('2. カスタマイザー画面を開く', () => openCustomizer(page, baseUrl));
+//         await test.step('3. ホームタイプ設定を開く', () => setSiteType(page, 'エレガント'));
+
+//         // 既存の呼び出し部分はこう書き換え可能
+//         await test.step('4. 新着情報の確認', () =>
+//             verifyPageNavigation(page, baseUrl, '.post-grid', '.page-numbers', 10, 'TEST1', 'サイドFIRE｜【体験談】夫婦でサイドFIRE'));
+
+
+//     });
+// });
 
 test.describe('e2e-home1-PC:', () => {
 
     // テスト本体
-    test('ナビゲーションで次のページに遷移できること', async ({ page }) => {
+    test('カテゴリーナビゲーションでカテゴリーページに遷移できること', async ({ page }) => {
 
         const CONFIG = {
             baseUrl: 'https://wpdev.toshidayurika.com',
@@ -132,8 +195,8 @@ test.describe('e2e-home1-PC:', () => {
         await test.step('3. ホームタイプ設定を開く', () => setSiteType(page, 'エレガント'));
 
         // 既存の呼び出し部分はこう書き換え可能
-        await test.step('5. 新着情報の確認', () =>
-            verifyPageNavigation(page, baseUrl, '.posts-grid', '#load-more', 10, 10, 10, 'TEST1'));
+        await test.step('4. カテゴリーナビゲーションの確認', () =>
+            verifyCategoryNavi(page, baseUrl, '.post-grid', '.page-numbers', 10, 'TEST1', 'サイドFIRE｜【体験談】夫婦でサイドFIRE'));
 
 
     });
@@ -156,7 +219,7 @@ test.describe('e2e-home1-PC:', () => {
 
 //         await test.step('1. 管理画面にログイン', () => login(page, baseUrl));
 //         await test.step('2. カスタマイザー画面を開く', () => openCustomizer(page, baseUrl));
-//         await test.step('3. ホームタイプ設定を開く', () => setSiteType(page,'ポップ'));
+//         await test.step('3. ホームタイプ設定を開く', () => setSiteType(page, 'ポップ'));
 //         await test.step('4. 公開ボタンをクリックして変更を保存', () =>
 //             saveCustomizer(page));
 

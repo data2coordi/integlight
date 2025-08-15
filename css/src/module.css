@@ -103,6 +103,7 @@ h1.site-title {
 .footer-menu li {
   position: relative;
   padding: 0 0.5em;
+  line-height: 1.8;
 }
 
 .footer-menu li::before {
@@ -129,6 +130,12 @@ h1.site-title {
   width: 1px;
   height: 1rem;
   background-color: #000;
+}
+
+@media screen and (max-width: 768px) {
+  .footer-menu a {
+    font-size: 0.9rem;
+  }
 }
 
 
