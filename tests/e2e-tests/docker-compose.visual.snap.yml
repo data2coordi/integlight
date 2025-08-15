@@ -7,6 +7,9 @@ services:
       - .:/app # ホストのソースコードを /app にマウント
       - node_modules:/app/node_modules # 名前付きボリュームとして node_modules を確保
     command: [ "tests/visual.spec.js", "--update-snapshots" ]
+    environment:
+      WP_ADMIN_USER: ${WP_ADMIN_USER}
+      WP_ADMIN_PASSWORD: ${WP_ADMIN_PASSWORD}
 
 volumes:
   node_modules:

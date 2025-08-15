@@ -28,9 +28,13 @@ restore_db() {
     mysql -u root -p"$MYSQL_ROOT_PW" "$MYSQL_DB" < "$BACKUP_DIR/wp_db.sql"
 }
 
+
+
 restore_uploads() {
   echo "[+] Restoring uploads..."
-  rsync -a --delete "$BACKUP_DIR/uploads/" "$UPLOADS_SRC/"
+  sudo chmod -R g+w /home/h95mori/dev_wp_env/html/wp-content/uploads
+
+  rsync -a --no-perms --no-owner --no-group  --delete "$BACKUP_DIR/uploads/" "$UPLOADS_SRC/"
 }
 
 case "${1:-}" in

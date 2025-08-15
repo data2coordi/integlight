@@ -3,7 +3,8 @@
 
 
 clear
-sudo docker compose -f docker-compose.visual.yml up
+./integlight_backup.sh restore
+sudo -E docker compose -f docker-compose.visual.yml up
 
 
 
