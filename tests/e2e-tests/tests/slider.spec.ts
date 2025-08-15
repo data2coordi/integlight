@@ -72,6 +72,49 @@ async function saveCustomizer(page) {
     await expect(saveBtn).toBeDisabled();
 }
 
+async function setSiteType(page, siteType = 'エレガント') {
+    await page.getByRole('button', { name: 'サイトタイプ設定' }).click();
+
+
+    // エレガントのチェックボックスをクリック
+    // labelのテキストで取得する場合
+    // 渡された siteType のチェックボックスを取得
+    const checkbox = page.getByLabel(siteType);
+
+    // すでにチェックされていれば何もしない
+    if (!(await checkbox.isChecked())) {
+        await checkbox.check(); // チェックされていなければチェック
+        saveCustomizer(page); // 変更を保存
+    }
+
+}
+
+
+
+async function verifySliderOnHome2FadeSp(page, baseUrl, imagePartialName) {
+    await page.goto(baseUrl, { waitUntil: 'networkidle' });
+    await expect(page.locator('.slider.fade-effect')).toBeVisible();
+
+    // 画像が1秒で切り替わる
+    const getActiveImageSrc = async () =>
+        await page.locator('.slider.fade-effect .slide.active img').getAttribute('src');
+    const firstSrc = await getActiveImageSrc();
+    await expect
+        .poll(async () => {
+            const currentSrc = await getActiveImageSrc();
+            return currentSrc !== firstSrc;
+        }, {
+            timeout: 3000,
+            message: 'スライド画像が切り替わりませんでした',
+        })
+        .toBe(true);
+
+    await expect(
+        page.locator(`.slider.fade-effect .slide img[src*="${imagePartialName}"]`)
+    ).toHaveCount(1);
+
+}
+
 async function verifySliderOnFront(page, baseUrl, imagePartialName, mainText, subText, top, left) {
     await page.goto(baseUrl, { waitUntil: 'networkidle' });
     await expect(page.locator('.slider.fade-effect')).toBeVisible();
@@ -113,7 +156,7 @@ async function verifySliderOnFront(page, baseUrl, imagePartialName, mainText, su
 }
 
 
-async function verifySliderOnHome2(page, baseUrl, imagePartialName) {
+async function verifySliderOnHome2Fade(page, baseUrl, imagePartialName) {
     await page.goto(baseUrl, { waitUntil: 'networkidle' });
     await expect(page.locator('.slider.fade-effect')).toBeVisible();
 
@@ -126,9 +169,11 @@ async function verifySliderOnHome2(page, baseUrl, imagePartialName) {
         await page.locator('.slider.fade-effect .slide-center img').getAttribute('src');
 
     const firstSrc = await getActiveImageSrc();
+    console.log('firstSrc', firstSrc);
     await expect
         .poll(async () => {
             const currentSrc = await getActiveImageSrc();
+            console.log('currentSrc', firstSrc);
             return currentSrc !== firstSrc;
         }, {
             timeout: 3000,
@@ -274,6 +319,7 @@ async function verifySliderOnHome2(page, baseUrl, imagePartialName) {
 //     });
 // });
 
+
 test.describe('PC環境-home2', () => {
 
     // テスト本体
@@ -284,12 +330,46 @@ test.describe('PC環境-home2', () => {
             imagePartialName: 'Firefly-51159-1.webp',
         };
 
-        const {
-            baseUrl,
-            imagePartialName,
-        } = CONFIG;
+        const { baseUrl, imagePartialName } = CONFIG;
 
-        await test.step('トップページで表示確認', () =>
-            verifySliderOnHome2(page, baseUrl, imagePartialName));
+        //await test.step('1. 管理画面にログイン', () => login(page, baseUrl));
+        //await test.step('2. カスタマイザー画面を開く', () => openCustomizer(page, baseUrl));
+        //await test.step('ホームタイプの変更', async () => {
+        //    await setSiteType(page, 'ポップ');
+        //});
+
+        await test.step('トップページで表示確認', async () => {
+            await verifySliderOnHome2Fade(page, baseUrl, imagePartialName);
+        });
+
     });
 });
+
+
+// test.describe('モバイル環境-home2', () => {
+
+//     test.use({
+//         viewport: { width: 375, height: 800 },
+//         userAgent:
+//             'Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1',
+//         extraHTTPHeaders: {
+//             'sec-ch-ua-mobile': '?1',
+//         },
+//     });
+//     // テスト本体
+//     test('フェード: 画像が切り替わることを確認', async ({ page }) => {
+
+//         const CONFIG = {
+//             baseUrl: 'https://wpdev.toshidayurika.com',
+//             imagePartialName: 'Firefly-260521.webp',
+//         };
+
+//         const {
+//             baseUrl,
+//             imagePartialName,
+//         } = CONFIG;
+
+//         await test.step('トップページで表示確認', () =>
+//             verifySliderOnHome2FadeSp(page, baseUrl, imagePartialName));
+//     });
+// });

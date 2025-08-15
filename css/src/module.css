@@ -900,6 +900,82 @@ nav.post-navigation {
   border-width: 1px;
 }
 
+/************ボタンアニメーション**********/
+.wp-block-button__link,
+.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 10px 20px;
+  border: 1px solid #555;
+  background-color: #fff; /* 非ホバー時は白背景 */
+  color: #555; /* 非ホバー時は濃いテキスト色 */
+  /* border-radius: inherit; */
+  box-shadow: 0 4px #000;
+  cursor: pointer;
+  text-align: center;
+  transition: color 0.3s ease-in-out;
+}
+
+.wp-block-button__link:hover,
+.wp-block-button__link:active,
+.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link:hover,
+.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link:active {
+  color: #fff !important; /* ホバー時は白テキスト */
+  box-shadow: none;
+  transform: translateY(4px);
+}
+
+.wp-block-button__link::before,
+.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: #555;
+  transition: left 0.3s ease-in-out;
+  z-index: -1;
+}
+
+.wp-block-button__link:hover::before,
+.wp-block-button__link:active::before,
+.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link:hover::before,
+.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link:active::before {
+  left: 0;
+}
+
+/* キーボード操作でも状態が見えるように */
+.wp-block-button__link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* 動きが苦手なユーザー配慮（揺れ/移動を止める） */
+@media (prefers-reduced-motion: reduce) {
+  .wp-block-button__link { transition: none; transform: none !important; }
+  .wp-block-button__link::before { transition: none; }
+}
+
+/* アクセシビリティ：キーボード操作でフォーカスが「見える」ようにする */
+.wp-block-button__link:focus-visible {
+  outline: 2px solid currentColor; /* フォーカス輪郭を表示。currentColor=現在の文字色を再利用 */
+  outline-offset: 2px;             /* 輪郭を要素から2px外側へずらして、潰れや滲みを防ぐ */
+}
+
+/* アクセシビリティ：動きが苦手なユーザーのOS設定を尊重してアニメを止める */
+@media (prefers-reduced-motion: reduce) {
+  .wp-block-button__link {
+    transition: none;           /* 色変化などのトランジションを無効化（フェードを止める） */
+    transform: none !important; /* 押し込みの translateY を無効化（位置が動かないように） */
+  }
+  .wp-block-button__link::before {
+    transition: none;           /* 背景スライドのアニメーションも停止 */
+  }
+}
+
 /*** ボタン e ***/
 
 /************************************************************/
