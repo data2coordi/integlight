@@ -1,6 +1,51 @@
 import { test, expect } from '@playwright/test';
 
+// 共通設定
+const BASE_URL = 'https://wpdev.toshidayurika.com';
 
+// テスト用設定一覧
+const TEST_CONFIGS = {
+    spHome1: {
+        viewport: { width: 375, height: 800 },
+        userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1',
+        effectLabel: 'フェード',
+        interval: '1',
+        imagePartialName: 'Firefly-260521',
+        mainText: 'テストタイトルsp',
+        subText: 'これはPlaywrightテストによって入力された説明文です。sp',
+        textPositionTop: '10',
+        textPositionLeft: '15',
+        image_delBtnNo: 3,
+        image_selBtnNo: 0,
+        text_positionLavel_top: 'スライダーテキスト位置（モバイル、上）（px）',
+        text_positionLavel_left: 'スライダーテキスト位置（モバイル、左）（px）',
+        siteType: 'エレガント',
+    },
+    pcHome1: {
+        effectLabel: 'フェード',
+        interval: '1',
+        imagePartialName: 'Firefly-203280',
+        mainText: 'テストタイトルpc',
+        subText: 'これはPlaywrightテストによって入力された説明文です。pc',
+        textPositionTop: '100',
+        textPositionLeft: '150',
+        image_delBtnNo: 0,
+        image_selBtnNo: 0,
+        text_positionLavel_top: 'スライダーテキスト位置（上）（px）',
+        text_positionLavel_left: 'スライダーテキスト位置（左）（px）',
+        siteType: 'エレガント',
+    },
+    spHome2: {
+        viewport: { width: 375, height: 800 },
+        userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1',
+        imagePartialName: 'Firefly-260521.webp',
+        siteType: 'ポップ',
+    },
+    pcHome2: {
+        imagePartialName: 'Firefly-51159-1.webp',
+        siteType: 'ポップ',
+    },
+};
 
 // 共通関数
 async function login(page, baseUrl) {
@@ -202,187 +247,80 @@ async function verifySliderOnHome2Fade(page, baseUrl, imagePartialName) {
 
 
 
-test.describe('モバイル環境', () => {
-    // 共通設定
-    test.use({
-        viewport: { width: 375, height: 800 },
-        userAgent:
-            'Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1',
-        extraHTTPHeaders: {
-            'sec-ch-ua-mobile': '?1',
-        },
+// 共通テストフロー
+async function runCustomizerFlow(page, config) {
+    await test.step('1. 管理画面にログイン', () => login(page, BASE_URL));
+    await test.step('2. カスタマイザー画面を開く', () => openCustomizer(page, BASE_URL));
+    await test.step('3. スライダー設定を開く', () => openSliderSetting(page));
+    await test.step('4. スライダーのエフェクトと変更間隔を設定', () =>
+        setSliderEffectAndInterval(page, config.effectLabel, config.interval));
+    await test.step('5.1 スライダー画像を設定', () =>
+        setSliderImage(page, config.imagePartialName, config.image_delBtnNo, config.image_selBtnNo));
+    await test.step('5.2 スライダーテキストを入力', () =>
+        setSliderText(page, config.mainText, config.subText));
+    await test.step('5.3 テキストの表示位置を設定', () =>
+        setTextPosition(page, config.textPositionTop, config.textPositionLeft, config.text_positionLavel_top, config.text_positionLavel_left));
+    await test.step('6. 公開ボタンをクリックして変更を保存', () => saveCustomizer(page));
+    await test.step('7. カスタマイザー画面を開く', () => openCustomizer(page, BASE_URL));
+    await test.step('8.ホームタイプの変更', async () => {
+        await setSiteType(page, config.siteType);
     });
-    // テスト本体
-    test('SP環境-home1: カスタマイザーで画像、テキストを選択...', async ({ page }) => {
+}
 
-        const CONFIG = {
-            baseUrl: 'https://wpdev.toshidayurika.com',
-            effectLabel: 'フェード',
-            interval: '1',
-            imagePartialName: 'Firefly-260521',
-            mainText: 'テストタイトルsp',
-            subText: 'これはPlaywrightテストによって入力された説明文です。sp',
-            textPositionTop: '10',
-            textPositionLeft: '15',
-            image_delBtnNo: 3,
-            image_selBtnNo: 0,
-            text_positionLavel_top: 'スライダーテキスト位置（モバイル、上）（px）',
-            text_positionLavel_left: 'スライダーテキスト位置（モバイル、左）（px）',
-        };
+// テスト本体
+test.describe('モバイル環境-home1', () => {
+    test.use({
+        viewport: TEST_CONFIGS.spHome1.viewport,
+        userAgent: TEST_CONFIGS.spHome1.userAgent,
+        extraHTTPHeaders: { 'sec-ch-ua-mobile': '?1' },
+    });
 
-        const {
-            baseUrl,
-            effectLabel,
-            interval,
-            imagePartialName,
-            mainText,
-            subText,
-            textPositionTop,
-            textPositionLeft,
-            image_delBtnNo,
-            image_selBtnNo,
-            text_positionLavel_top,
-            text_positionLavel_left,
-        } = CONFIG;
-
-        await test.step('1. 管理画面にログイン', () => login(page, baseUrl));
-        await test.step('2. カスタマイザー画面を開く', () => openCustomizer(page, baseUrl));
-        await test.step('3. スライダー設定を開く', () => openSliderSetting(page));
-        await test.step('4. スライダーのエフェクトと変更間隔を設定', () =>
-            setSliderEffectAndInterval(page, effectLabel, interval));
-        await test.step('5.1 スライダー画像を設定', () =>
-            setSliderImage(page, imagePartialName, image_delBtnNo, image_selBtnNo));
-        await test.step('5.2 スライダーテキストを入力', () =>
-            setSliderText(page, mainText, subText));
-        await test.step('5.3 テキストの表示位置を設定', () =>
-            setTextPosition(page, textPositionTop, textPositionLeft, text_positionLavel_top, text_positionLavel_left));
-        await test.step('6. 公開ボタンをクリックして変更を保存', () =>
-            saveCustomizer(page));
-        await test.step('7. カスタマイザー画面を開く', () => openCustomizer(page, baseUrl));
-        await test.step('8.ホームタイプの変更', async () => {
-            await setSiteType(page, 'エレガント');
-        });
-        await test.step('7〜9. フロントページで表示確認', () =>
-            verifySliderOnFront(page, baseUrl, imagePartialName, mainText, subText, textPositionTop, textPositionLeft));
+    test('SP-home1: カスタマイザーで画像、テキストを選択...', async ({ page }) => {
+        const config = TEST_CONFIGS.spHome1;
+        await runCustomizerFlow(page, config);
+        await test.step('フロントページで表示確認', () =>
+            verifySliderOnFront(page, BASE_URL, config.imagePartialName, config.mainText, config.subText, config.textPositionTop, config.textPositionLeft));
     });
 });
-
 
 test.describe('PC環境-home1', () => {
-
-    // テスト本体
-    test('E2E-slide-PC: カスタマイザーで画像、テキストを選択...', async ({ page }) => {
-
-        const CONFIG = {
-            baseUrl: 'https://wpdev.toshidayurika.com',
-            effectLabel: 'フェード',
-            interval: '1',
-            imagePartialName: 'Firefly-203280',
-            mainText: 'テストタイトルpc',
-            subText: 'これはPlaywrightテストによって入力された説明文です。pc',
-            textPositionTop: '100',
-            textPositionLeft: '150',
-            image_delBtnNo: 0,
-            image_selBtnNo: 0,
-            text_positionLavel_top: 'スライダーテキスト位置（上）（px）',
-            text_positionLavel_left: 'スライダーテキスト位置（左）（px）',
-        };
-
-        const {
-            baseUrl,
-            effectLabel,
-            interval,
-            imagePartialName,
-            mainText,
-            subText,
-            textPositionTop,
-            textPositionLeft,
-            image_delBtnNo,
-            image_selBtnNo,
-            text_positionLavel_top,
-            text_positionLavel_left,
-        } = CONFIG;
-
-        await test.step('1. 管理画面にログイン', () => login(page, baseUrl));
-        await test.step('2. カスタマイザー画面を開く', () => openCustomizer(page, baseUrl));
-        await test.step('3. スライダー設定を開く', () => openSliderSetting(page));
-        await test.step('4. スライダーのエフェクトと変更間隔を設定', () =>
-            setSliderEffectAndInterval(page, effectLabel, interval));
-        await test.step('5.1 スライダー画像を設定', () =>
-            setSliderImage(page, imagePartialName, image_delBtnNo, image_selBtnNo));
-        await test.step('5.2 スライダーテキストを入力', () =>
-            setSliderText(page, mainText, subText));
-        await test.step('5.3 テキストの表示位置を設定', () =>
-            setTextPosition(page, textPositionTop, textPositionLeft, text_positionLavel_top, text_positionLavel_left));
-        await test.step('6. 公開ボタンをクリックして変更を保存', () =>
-            saveCustomizer(page));
-        await test.step('7. カスタマイザー画面を開く', () => openCustomizer(page, baseUrl));
-        await test.step('8.ホームタイプの変更', async () => {
-            await setSiteType(page, 'エレガント');
-        });
-        await test.step('9. フロントページで表示確認', () =>
-            verifySliderOnFront(page, baseUrl, imagePartialName, mainText, subText, textPositionTop, textPositionLeft));
+    test('PC-home1: カスタマイザーで画像、テキストを選択...', async ({ page }) => {
+        const config = TEST_CONFIGS.pcHome1;
+        await runCustomizerFlow(page, config);
+        await test.step('フロントページで表示確認', () =>
+            verifySliderOnFront(page, BASE_URL, config.imagePartialName, config.mainText, config.subText, config.textPositionTop, config.textPositionLeft));
     });
 });
 
-
-
-
 test.describe('SP環境-home2', () => {
-
     test.use({
-        viewport: { width: 375, height: 800 },
-        userAgent:
-            'Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1',
-        extraHTTPHeaders: {
-            'sec-ch-ua-mobile': '?1',
-        },
+        viewport: TEST_CONFIGS.spHome2.viewport,
+        userAgent: TEST_CONFIGS.spHome2.userAgent,
+        extraHTTPHeaders: { 'sec-ch-ua-mobile': '?1' },
     });
-    // テスト本体
-    test('フェード: 画像が切り替わることを確認', async ({ page }) => {
 
-        const CONFIG = {
-            baseUrl: 'https://wpdev.toshidayurika.com',
-            imagePartialName: 'Firefly-260521.webp',
-        };
-
-        const {
-            baseUrl,
-            imagePartialName,
-        } = CONFIG;
-
-        await test.step('1. 管理画面にログイン', () => login(page, baseUrl));
-        await test.step('2. カスタマイザー画面を開く', () => openCustomizer(page, baseUrl));
+    test('SP-home2: フェード画像切り替え確認', async ({ page }) => {
+        const config = TEST_CONFIGS.spHome2;
+        await test.step('1. 管理画面にログイン', () => login(page, BASE_URL));
+        await test.step('2. カスタマイザー画面を開く', () => openCustomizer(page, BASE_URL));
         await test.step('ホームタイプの変更', async () => {
-            await setSiteType(page, 'ポップ');
+            await setSiteType(page, config.siteType);
         });
-
-
         await test.step('トップページで表示確認', () =>
-            verifySliderOnHome2FadeSp(page, baseUrl, imagePartialName));
+            verifySliderOnHome2FadeSp(page, BASE_URL, config.imagePartialName));
     });
 });
 
 test.describe('PC環境-home2', () => {
-
-    // テスト本体
-    test('フェード: 画像が切り替わることを確認', async ({ page }) => {
-
-        const CONFIG = {
-            baseUrl: 'https://wpdev.toshidayurika.com',
-            imagePartialName: 'Firefly-51159-1.webp',
-        };
-
-        const { baseUrl, imagePartialName } = CONFIG;
-
-        await test.step('1. 管理画面にログイン', () => login(page, baseUrl));
-        await test.step('2. カスタマイザー画面を開く', () => openCustomizer(page, baseUrl));
+    test('PC-home2: フェード画像切り替え確認', async ({ page }) => {
+        const config = TEST_CONFIGS.pcHome2;
+        await test.step('1. 管理画面にログイン', () => login(page, BASE_URL));
+        await test.step('2. カスタマイザー画面を開く', () => openCustomizer(page, BASE_URL));
         await test.step('ホームタイプの変更', async () => {
-            await setSiteType(page, 'ポップ');
+            await setSiteType(page, config.siteType);
         });
         await test.step('トップページで表示確認', async () => {
-            await verifySliderOnHome2Fade(page, baseUrl, imagePartialName);
+            await verifySliderOnHome2Fade(page, BASE_URL, config.imagePartialName);
         });
-
     });
 });

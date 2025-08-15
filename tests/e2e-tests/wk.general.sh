@@ -3,13 +3,13 @@
 
 #sudo docker compose up --build
 clear
-./integlight_backup.sh restore
+##./integlight_backup.sh restore
 
 #sudo -E docker compose -f docker-compose.customiser.home.yml up
 #sudo -E docker compose -f docker-compose.all.yml up
 
 #sudo docker compose -f docker-compose.menu.yml up
-#sudo -E docker compose -f docker-compose.slider.yml up
+sudo -E docker compose -f docker-compose.slider.yml up
 #sudo -E docker compose -f docker-compose.customiser.yml up
 
 

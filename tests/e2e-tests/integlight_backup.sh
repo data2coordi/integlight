@@ -32,9 +32,12 @@ restore_db() {
 
 restore_uploads() {
   echo "[+] Restoring uploads..."
-  sudo chmod -R g+w /home/h95mori/dev_wp_env/html/wp-content/uploads
 
-  rsync -a --no-perms --no-owner --no-group  --delete "$BACKUP_DIR/uploads/" "$UPLOADS_SRC/"
+  sudo rsync -a --no-perms --no-owner --no-group  --delete "$BACKUP_DIR/uploads/" "$UPLOADS_SRC/"
+
+  sudo chown -R 33:tape "$UPLOADS_SRC/"
+  sudo chmod -R g+w "$UPLOADS_SRC/"
+
 }
 
 case "${1:-}" in
