@@ -84,7 +84,7 @@ async function setSiteType(page, siteType = 'エレガント') {
     // すでにチェックされていれば何もしない
     if (!(await checkbox.isChecked())) {
         await checkbox.check(); // チェックされていなければチェック
-        saveCustomizer(page); // 変更を保存
+        await saveCustomizer(page); // 変更を保存
     }
 
 }
@@ -332,11 +332,11 @@ test.describe('PC環境-home2', () => {
 
         const { baseUrl, imagePartialName } = CONFIG;
 
-        //await test.step('1. 管理画面にログイン', () => login(page, baseUrl));
-        //await test.step('2. カスタマイザー画面を開く', () => openCustomizer(page, baseUrl));
-        //await test.step('ホームタイプの変更', async () => {
-        //    await setSiteType(page, 'ポップ');
-        //});
+        await test.step('1. 管理画面にログイン', () => login(page, baseUrl));
+        await test.step('2. カスタマイザー画面を開く', () => openCustomizer(page, baseUrl));
+        await test.step('ホームタイプの変更', async () => {
+            await setSiteType(page, 'ポップ');
+        });
 
         await test.step('トップページで表示確認', async () => {
             await verifySliderOnHome2Fade(page, baseUrl, imagePartialName);

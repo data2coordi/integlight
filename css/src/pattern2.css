@@ -6,9 +6,6 @@
 a:focus,
 .wp-block-button__link:focus {
   outline: 2px solid #c14f7e;
-  outline-offset: 2px;
-  border-radius: 4px;
-  transition: outline 0.2s ease;
 }
 
 a:focus:not(:focus-visible),
@@ -19,15 +16,12 @@ a:focus:not(:focus-visible),
 a:focus-visible,
 .wp-block-button__link:focus-visible {
   outline: 2px solid #c14f7e;
-  outline-offset: 2px;
-  transition: outline 0.2s ease;
 }
 
 .easyLink-info-name a:focus-visible,
 .easyLink-info-btn-amazon:focus-visible,
 .easyLink-info-btn-rakuten:focus-visible {
   outline: 2px solid #c14f7e;
-  transition: outline 0.2s ease;
 }
 
 .integlight_pt button {
@@ -86,30 +80,13 @@ a:focus-visible,
 .wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link:hover,
 .wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link:active {
   color: #fff !important; /* ホバー時は白テキスト */
-  box-shadow: none;
-  transform: translateY(4px);
 }
 
 .wp-block-button__link::before,
 .wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link::before {
-  content: "";
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
   background: #0000ff;
-  transition: left 0.3s ease-in-out;
-  z-index: -1;
 }
 
-.wp-block-button__link:hover::before,
-.wp-block-button__link:active::before,
-.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link:hover::before,
-.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link:active:before {
-  left: 0;
-}
 
 
 #page-top:hover {
@@ -192,10 +169,6 @@ ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
 /* background:linear-gradient(90deg, #0c62eb 20%, #607aec 40%, #6fb1fc 70%); */
 
 @media screen and (max-width: 768px) {
-  .main-navigation li.menu-item-has-children > a::after {
-    right: 15px;
-  }
-
   .menuToggle-containerForMenu {
     background: #1e1d1d;
   }
