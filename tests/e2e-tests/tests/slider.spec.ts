@@ -246,28 +246,30 @@ async function verifySliderOnHome2Fade(page, baseUrl, imagePartialName) {
         await page.locator('.slider.fade-effect .slide-center img').getAttribute('src');
 
     const firstSrc = await getActiveImageSrc();
+
+    let secondSrc;
     await expect
         .poll(async () => {
-            const currentSrc = await getActiveImageSrc();
-            return currentSrc !== firstSrc;
+            secondSrc = await getActiveImageSrc();
+            return secondSrc !== firstSrc;
         }, {
             timeout: 3000,
             message: 'スライド画像が切り替わりませんでした',
         })
         .toBe(true);
 
-    const secondSrc = await getActiveImageSrc();
+    let thirdSrc;
+
     await expect
         .poll(async () => {
-            const currentSrc = await getActiveImageSrc();
-            return currentSrc !== secondSrc;
+            thirdSrc = await getActiveImageSrc();
+            return thirdSrc !== secondSrc;
         }, {
             timeout: 3000,
             message: 'スライド画像が切り替わりませんでした',
         })
         .toBe(true);
 
-    const thirdSrc = await getActiveImageSrc();
 
     expect(firstSrc).not.toBe(secondSrc);
     expect(secondSrc).not.toBe(thirdSrc);
