@@ -212,6 +212,12 @@ ul.menu>li.menu-item-has-children>ul.sub-menu {
   background-repeat: no-repeat;
   background-position: center;
 }
+
+@media (max-width: 780px) {
+  .menuToggle-containerForMenu {
+    background: #fff !important;
+  }
+}
 /*************ヘッダーe*********/
 /*************ヘッダー*********/
 
@@ -240,7 +246,7 @@ ul.menu>li.menu-item-has-children>ul.sub-menu {
 
   button#menuToggle-button {
     border: none;
-    top: -28px;
+    /* top: -28px; */
   }
 
   ul.menu {

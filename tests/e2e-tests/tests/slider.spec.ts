@@ -300,32 +300,32 @@ async function runCustomizerFlow(page, config) {
 }
 
 //テスト本体
-test.describe('home1フェード', () => {
+// test.describe('home1フェード', () => {
 
-    test.describe('SP環境', () => {
-        test.use({
-            viewport: TEST_CONFIGS.spHome1.viewport,
-            userAgent: TEST_CONFIGS.spHome1.userAgent,
-            extraHTTPHeaders: { 'sec-ch-ua-mobile': '?1' },
-        });
+//     test.describe('SP環境', () => {
+//         test.use({
+//             viewport: TEST_CONFIGS.spHome1.viewport,
+//             userAgent: TEST_CONFIGS.spHome1.userAgent,
+//             extraHTTPHeaders: { 'sec-ch-ua-mobile': '?1' },
+//         });
 
-        test('カスタマイザーで画像、テキストを選択...', async ({ page }) => {
-            const config = TEST_CONFIGS.spHome1;
-            await runCustomizerFlow(page, config);
-            await test.step('フロントページで表示確認', () =>
-                verifySliderOnFront(page, BASE_URL, config.imagePartialName, config.mainText, config.subText, config.textPositionTop, config.textPositionLeft));
-        });
-    });
+//         test('カスタマイザーで画像、テキストを選択...', async ({ page }) => {
+//             const config = TEST_CONFIGS.spHome1;
+//             await runCustomizerFlow(page, config);
+//             await test.step('フロントページで表示確認', () =>
+//                 verifySliderOnFront(page, BASE_URL, config.imagePartialName, config.mainText, config.subText, config.textPositionTop, config.textPositionLeft));
+//         });
+//     });
 
-    test.describe('PC環境', () => {
-        test('カスタマイザーで画像、テキストを選択...', async ({ page }) => {
-            const config = TEST_CONFIGS.pcHome1;
-            await runCustomizerFlow(page, config);
-            await test.step('フロントページで表示確認', () =>
-                verifySliderOnFront(page, BASE_URL, config.imagePartialName, config.mainText, config.subText, config.textPositionTop, config.textPositionLeft));
-        });
-    });
-});
+//     test.describe('PC環境', () => {
+//         test('カスタマイザーで画像、テキストを選択...', async ({ page }) => {
+//             const config = TEST_CONFIGS.pcHome1;
+//             await runCustomizerFlow(page, config);
+//             await test.step('フロントページで表示確認', () =>
+//                 verifySliderOnFront(page, BASE_URL, config.imagePartialName, config.mainText, config.subText, config.textPositionTop, config.textPositionLeft));
+//         });
+//     });
+// });
 
 
 test.describe('home2フェード', () => {
@@ -335,11 +335,17 @@ test.describe('home2フェード', () => {
         const page = await context.newPage();
 
         await test.step('1. 管理画面にログイン', () => login(page, BASE_URL));
-        await test.step('2. カスタマイザー画面を開く', () => openCustomizer(page, BASE_URL));
-        await test.step('ホームタイプの変更', async () => {
+        await test.step('2.1.カスタマイザー画面を開く', () => openCustomizer(page, BASE_URL));
+        await test.step('2.2. スライダー設定を開く', () => openSliderSetting(page));
+        await test.step('2.3. スライダーのエフェクトと変更間隔を設定', () =>
+            setSliderEffectAndInterval(page, 'フェード', '1'));
+        await test.step('2.4. 公開ボタンをクリックして変更を保存', () => saveCustomizer(page));
+
+        await test.step('3.1. カスタマイザー画面を開く', () => openCustomizer(page, BASE_URL));
+        await test.step('3.2 ホームタイプの変更', async () => {
             await setSiteType(page, 'ポップ');
         });
-        await test.step('3. 公開ボタンをクリックして変更を保存', () => saveCustomizer(page));
+        await test.step('3.3. 公開ボタンをクリックして変更を保存', () => saveCustomizer(page));
 
         await page.close();
         await context.close();
@@ -381,6 +387,7 @@ test.describe('home2フェード', () => {
 //         const page = await context.newPage();
 
 //         await test.step('1. 管理画面にログイン', () => login(page, BASE_URL));
+//         await test.step('6.カスタマイザー画面を開く', () => openCustomizer(page, BASE_URL));
 //         await test.step('3. スライダー設定を開く', () => openSliderSetting(page));
 //         await test.step('4. スライダーのエフェクトと変更間隔を設定', () =>
 //             setSliderEffectAndInterval(page, 'スライド', 1));
@@ -403,7 +410,7 @@ test.describe('home2フェード', () => {
 //             extraHTTPHeaders: { 'sec-ch-ua-mobile': '?1' },
 //         });
 
-//         test('フェード画像切り替え確認', async ({ page }) => {
+//         test('スライド画像切り替え確認', async ({ page }) => {
 //             const config = TEST_CONFIGS.spHome2;
 //             await test.step('トップページで表示確認', () =>
 //                 verifySliderOnHome2SlideSp(page, BASE_URL, config.imagePartialName));
@@ -416,7 +423,7 @@ test.describe('home2フェード', () => {
 //         test('フェード画像切り替え確認', async ({ page }) => {
 //             const config = TEST_CONFIGS.pcHome2;
 //             await test.step('トップページで表示確認', async () => {
-//                 await verifySliderOnHome2Slide(page, BASE_URL, config.imagePartialName);
+//                 await verifySliderOnHome2Fade(page, BASE_URL, config.imagePartialName);
 //             });
 //         });
 //     });

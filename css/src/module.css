@@ -10,7 +10,7 @@
 }
 
 .site-header .custom-logo {
-  width: 295.21px;
+  width: 250px;
   height: auto;
   padding-top: 0.5em;
 }
@@ -609,7 +609,7 @@ nav.post-navigation {
 /* カード全体のデザインs*/
 .bl_card_container {
   display: grid;
-  gap: 1vw;
+  gap: 1vw 3vw;
   padding: var(--ly-elementPadding);
   margin-top: calc(var(--ly-elementTopMargin) / 2);
   /* 半分にしている */
