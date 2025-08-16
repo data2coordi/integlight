@@ -131,6 +131,11 @@ section.latest-posts .grid-item h2 {
   text-align: left;
 }
 
+/* カード内のh2文字を小さく */
+#primary .post-grid .grid-item h2 {
+  font-size: 1.25rem;
+}
+
 .category-posts>h3 {
   margin-top: 5rem;
   color: #555;

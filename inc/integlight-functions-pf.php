@@ -1,5 +1,33 @@
 <?php
 
+
+
+/*
+add_action('wp_footer', function () {
+
+	global $wpdb;
+
+	$queries = $wpdb->queries;
+
+	// 全クエリの合計時間
+	$total_time = array_sum(array_column($queries, 1));
+
+	// 個別クエリを実行時間で降順ソート
+	usort($queries, function ($a, $b) {
+		return $b[1] <=> $a[1]; // $query[1] = 実行時間（秒）
+	});
+
+	echo '<pre>';
+	echo "=== 全クエリ合計時間: " . number_format($total_time, 6) . " sec ===\n\n";
+
+	foreach ($queries as $query) {
+		echo $query[0] . " — " . number_format($query[1], 6) . " sec — " . $query[2] . "\n\n";
+	}
+	echo '</pre>';
+});
+*/
+
+
 /***************************************** */
 /**css,js読み込み s************************ */
 /***************************************** */
