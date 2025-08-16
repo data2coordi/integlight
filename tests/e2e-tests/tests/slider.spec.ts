@@ -475,7 +475,7 @@ test.describe('スライド', () => {
         test.describe('PC環境', () => {
 
 
-            test('未完了スライド画像切り替え確認', async ({ page }) => {
+            test('スライド画像切り替え確認', async ({ page }) => {
                 const config = TEST_CONFIGS.pcHome2;
                 await test.step('トップページで表示確認', async () => {
                     await verifySliderOnSlide(page, BASE_URL, config.imagePartialName, 3);
