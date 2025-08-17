@@ -51,7 +51,7 @@ if (!empty($slider_image_1) || !empty($slider_image_2) || !empty($slider_image_3
 			<!-- slide 1 -->
 			<?php if (!empty($slider_image_1)) : ?>
 				<div class="slide">
-					<?php echo wp_get_attachment_image($slider_image_1, 'full'); ?>
+					<?php echo wp_get_attachment_image($slider_image_1, 'full',  'falses', ['fetchpriority' => 'high']); ?>
 				</div>
 			<?php endif; ?>
 

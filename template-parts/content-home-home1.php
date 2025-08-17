@@ -44,7 +44,22 @@
 
                     <a href="<?php the_permalink(); ?>">
                         <div class="post-thumbnail">
-                            <?php Integlight_PostThumbnail::render(); ?>
+                            <?php
+
+                            $ctPerlineForPc_withHeader = 0;
+                            $ctPerlineForPc_noHeader = 3;
+                            $ctPerlineForSp_withHeader = 0;
+                            $ctPerlineForSp_noHeader = 1;
+                            $attr = integlight_getAttr_byImageCount(
+                                $wp_query->current_post,
+                                $ctPerlineForPc_withHeader,
+                                $ctPerlineForPc_noHeader,
+                                $ctPerlineForSp_withHeader,
+                                $ctPerlineForSp_noHeader
+                            );
+                            Integlight_PostThumbnail::render(null, 'medium', '', $attr);
+
+                            ?>
                         </div>
                         <!-- タイトルをタイルの左上に大きく表示 -->
 

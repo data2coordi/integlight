@@ -208,3 +208,167 @@ function add_label_to_wp_block_search($block_content, $block)
 /********************************************************************/
 /* 検索ボックスにラベル追加 ユーザビリティ対応e	*/
 /********************************************************************/
+
+/********************************************************************/
+/* アイキャッチ画像取得(存在しなければ、本文の画像、デフォルト画像を取得) s	*/
+/********************************************************************/
+
+
+/**
+ * integlight_post_thumbnail
+ * サムネイルを付与
+ * @package Integlight
+ */
+if (! function_exists('integlight_post_thumbnail')) :
+    function integlight_post_thumbnail()
+    {
+        if (post_password_required() || is_attachment() || ! has_post_thumbnail()) {
+            return;
+        }
+
+        if (is_singular()) :
+?>
+
+            <div class="post-thumbnail">
+                <?php the_post_thumbnail(
+                    'full',
+                    [
+                        'class' => 'responsive-img',
+                        'loading' => 'eager',
+                        'decoding' => 'async',
+                        'sizes' => '(max-width: 480px) 20vw, 800px', //PF対応!!!：20vwとすることで、srcsetで低解像度を選択させる。
+                        'fetchpriority' => 'high'  // PF対応!!!
+
+                    ]
+                );
+                /*
+				PF対応!!!の前提：20vwとすることで下記のsrcsetの300w用画像を選択させる。
+				sizes="(max-width: 850px) 20vw, 900px"
+				srcset="
+					https://.../Firefly_882369-300x171.webp 300w,
+					https://.../Firefly_882369-768x439.webp 768w,
+					https://.../Firefly_882369.webp 900w
+
+				*/
+
+                ?>
+            </div><!-- .post-thumbnail -->
+
+
+
+
+        <?php else : ?>
+
+            <a class="post-thumbnail" href="<?php the_permalink(); ?>" aria-hidden="true" tabindex="-1">
+                <?php
+                the_post_thumbnail(
+                    'post-thumbnail',
+                    [
+                        'alt' => the_title_attribute(['echo' => false]),
+                        'fetchpriority' => 'high', // PF対応!!!
+                    ]
+                );
+                ?>
+            </a>
+
+<?php
+        endif; // End is_singular().
+    }
+endif;
+
+
+/**
+ * wp_body_open
+ * @package Integlight
+ */
+if (! function_exists('integlight_wp_body_open')) :
+    function integlight_wp_body_open()
+    {
+        do_action('wp_body_open');
+    }
+endif;
+
+/********************************************************************/
+/* アイキャッチ画像取得(存在しなければ、本文の画像、デフォルト画像を取得) e	*/
+/********************************************************************/
+
+
+/********************************************************************/
+/* サムネイル取得(存在しなければ、本文の画像、デフォルト画像を取得) s	*/
+/********************************************************************/
+
+class Integlight_PostThumbnail
+{
+
+    private static function get_thumbnail_url($post_id = null, $size = 'medium', $default_url = '')
+    {
+
+
+        if (is_null($post_id)) {
+            $post_id = get_the_ID();
+        }
+
+        // アイキャッチ画像がある場合
+        if (has_post_thumbnail($post_id)) {
+            $thumbnail_url = get_the_post_thumbnail_url($post_id, $size);
+            return esc_url($thumbnail_url);
+        };
+
+        // 本文から最初の画像を抽出
+        $content = get_post_field('post_content', $post_id);
+        preg_match('/<img.+src=[\'"](?P<src>.+?)[\'"].*>/i', $content, $image);
+
+        if (!empty($image['src'])) {
+            return esc_url($image['src']);
+        }
+
+        // デフォルト画像（未指定時は /assets/default.webp）
+        if (empty($default_url)) {
+            $default_url = get_template_directory_uri() . '/assets/default.webp';
+            return esc_url($default_url);
+        }
+    }
+
+    /**
+     * 指定投稿の表示用サムネイルHTMLを出力する。
+     * @param int|null $post_id 投稿ID（省略時は現在の投稿）
+     * @param string $size アイキャッチ画像のサイズ（デフォルト: 'medium'）
+     * @param string $default_url デフォルト画像のURL（空なら /assets/default.webp）
+     */
+
+    public static function render($post_id = null, $size = 'medium', $default_url = '', $attr = '')
+    {
+        $url = self::get_thumbnail_url($post_id, $size, $default_url);
+        echo '<img src="' . $url . '" alt=""' . $attr . '>';
+    }
+}
+/********************************************************************/
+/* サムネイル取得(存在しなければ、本文の画像、デフォルト画像を取得) e	*/
+/********************************************************************/
+
+
+
+/********************************************************************/
+/* fetchpriorityにする上位画像数を計算s	*/
+/********************************************************************/
+function integlight_getAttr_byImageCount(
+    int $current_post,
+    int $ctPerlineForPc_withHeader,
+    int $ctPerlineForPc_noHeader,
+    int $ctPerlineForSp_withHeader,
+    int $ctPerlineForSp_noHeader
+): string {
+    $hasHeader = (get_theme_mod('integlight_display_choice', 'none') !== 'none');
+
+    if (wp_is_mobile()) {
+        $ct = $hasHeader ? $ctPerlineForSp_withHeader : $ctPerlineForSp_noHeader;
+    } else {
+        $ct = $hasHeader ? $ctPerlineForPc_withHeader : $ctPerlineForPc_noHeader;
+    }
+
+    return ($current_post < $ct) ? ' fetchpriority="high"' : '';
+}
+
+/********************************************************************/
+/* fetchprioryにする上位画像数を計算e	*/
+/********************************************************************/
