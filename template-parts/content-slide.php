@@ -20,8 +20,10 @@ if ($display_choice != $Integlight_slider_settings->headerTypeName_slider) retur
 
 
 
-
 if (wp_is_mobile()) {
+	//PF対応!!!
+	$attrkey = 'loading';
+	$attr = 'lazy';
 	$slider_image_1 = get_theme_mod('integlight_slider_image_mobile_1');
 	if (empty($slider_image_1)) {
 		$slider_image_1 = get_theme_mod('integlight_slider_image_1'); // PCの画像
@@ -37,6 +39,16 @@ if (wp_is_mobile()) {
 		$slider_image_3 = get_theme_mod('integlight_slider_image_3'); // PCの画像
 	}
 } else {
+	//PF対応!!!
+	if (get_theme_mod('integlight_hometype_setting', 'home1') == $Integlight_slider_settings->$homeType2Name) {
+		$attrkey = 'fetchpriority';
+		$attr = 'high';
+	} else {
+		$attrkey = 'loading';
+		$attr = 'lazy';
+	}
+
+
 	$slider_image_1 = get_theme_mod('integlight_slider_image_1');
 	$slider_image_2 = get_theme_mod('integlight_slider_image_2');
 	$slider_image_3 = get_theme_mod('integlight_slider_image_3');
@@ -51,14 +63,14 @@ if (!empty($slider_image_1) || !empty($slider_image_2) || !empty($slider_image_3
 			<!-- slide 1 -->
 			<?php if (!empty($slider_image_1)) : ?>
 				<div class="slide">
-					<?php echo wp_get_attachment_image($slider_image_1, 'full',  'falses', ['fetchpriority' => 'high']); ?>
+					<?php echo wp_get_attachment_image($slider_image_1, 'full',  false, ['fetchpriority' => 'high']); ?>
 				</div>
 			<?php endif; ?>
 
 			<!-- slide 2 -->
 			<?php if (!empty($slider_image_2)) : ?>
 				<div class="slide">
-					<?php echo wp_get_attachment_image($slider_image_2, 'full'); ?>
+					<?php echo wp_get_attachment_image($slider_image_2, 'full', false, [$attrkey => $attr]); ?>
 
 				</div>
 			<?php endif; ?>
@@ -66,7 +78,7 @@ if (!empty($slider_image_1) || !empty($slider_image_2) || !empty($slider_image_3
 			<!-- slide 3 -->
 			<?php if (!empty($slider_image_3)) : ?>
 				<div class="slide">
-					<?php echo wp_get_attachment_image($slider_image_3, 'full'); ?>
+					<?php echo wp_get_attachment_image($slider_image_3, 'full', false, [$attrkey => $attr]); ?>
 				</div>
 			<?php endif; ?>
 

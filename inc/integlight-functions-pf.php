@@ -366,7 +366,7 @@ function integlight_getAttr_byImageCount(
         $ct = $hasHeader ? $ctPerlineForPc_withHeader : $ctPerlineForPc_noHeader;
     }
 
-    return ($current_post < $ct) ? ' fetchpriority="high"' : '';
+    return ($current_post < $ct) ? ' fetchpriority="high" decoding="async" ' : ' loading="lazy" decoding="async" ';
 }
 
 /********************************************************************/
