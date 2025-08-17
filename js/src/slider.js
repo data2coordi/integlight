@@ -122,18 +122,19 @@ class Integlight_SlideSlider2 extends Integlight_Slider {
 }
 
 // Fade Effect 2
+// 元のクラス名をそのまま使えるようにしています
 class Integlight_FadeSlider2 extends Integlight_Slider {
     constructor(settings) {
         super(settings);
         this.settings = settings || {};
         this.slider.classList.add('fade-effect');
 
-        // 画像リスト作成
+        // --- 画像リスト（文字列）を作成（元コードと同じ） ---
         this.images = this.slides.map(slide =>
             slide.querySelector('img')?.getAttribute('src')
         );
 
-        // 3未満なら複製
+        // 3未満なら複製（元コードと同じ）
         while (this.images.length < 3) {
             this.images = this.images.concat(
                 this.images.slice(0, 3 - this.images.length)
@@ -142,7 +143,11 @@ class Integlight_FadeSlider2 extends Integlight_Slider {
 
         this.baseIndex = 0;
 
-        // スライド要素差し替え
+        // --- 重要: 元の <img> 要素を保存しておく（再利用する） ---
+        // 元スライドDOMから <img> 要素の参照を取得しておく（これらは既にロード済みである想定）
+        this.imgPool = this.slides.map(slide => slide.querySelector('img'));
+
+        // スライド要素差し替え（元と同様に container を初期化する）
         this.slidesContainer.innerHTML = '';
         this.visibleSlides = [];
 
@@ -151,15 +156,16 @@ class Integlight_FadeSlider2 extends Integlight_Slider {
             const slideDiv = document.createElement('div');
             slideDiv.className = `slide slide-${roles[i]}`;
 
-            const img = document.createElement('img');
-            img.setAttribute('src', this.images[(this.baseIndex + i) % this.images.length]);
+            // 初期表示時は imgPool の該当要素を「移動して」追加する（src は変更しない）
+            const imgEl = this.imgPool[(this.baseIndex + i) % this.imgPool.length];
+            // appendChild は既存の親から自動的に移動する（再作成しない）
+            slideDiv.appendChild(imgEl);
 
-            slideDiv.appendChild(img);
             this.slidesContainer.appendChild(slideDiv);
             this.visibleSlides.push(slideDiv);
         }
 
-        // トランジション設定
+        // トランジション設定（元コードとまったく同じ）
         this.visibleSlides.forEach(slide => {
             slide.style.transition = `opacity ${this.changingDuration}s ease-out`;
             slide.style.opacity = 1;
@@ -169,18 +175,39 @@ class Integlight_FadeSlider2 extends Integlight_Slider {
     }
 
     showSlide() {
+        // フェードアウト（元コードと同じ）
         this.visibleSlides.forEach(slide => slide.style.opacity = 0);
 
         setTimeout(() => {
+            // baseIndex を順送り（元コードと同じ）
             this.baseIndex = (this.baseIndex + 1) % this.images.length;
+
+            // --- ここが肝 ---
+            // 各 wrapper 内の <img> を一旦すべて取り外してから、
+            // desired order（元コードの src 割当と同じ）で imgPool から再配置する。
+            // これにより「src を書き換えずに」表示内容だけを入れ替えられる。
+            // 取り外し（removeChild）→ 再付与（appendChild）なので、既存の img ノードを移動するだけ。
+            const removedImgs = this.visibleSlides.map(wrapper => {
+                const img = wrapper.querySelector('img');
+                return img ? wrapper.removeChild(img) : null;
+            });
+
             for (let i = 0; i < 3; i++) {
-                const src = this.images[(this.baseIndex + i) % this.images.length];
-                this.visibleSlides[i].querySelector('img').setAttribute('src', src);
+                const desiredImgIndex = (this.baseIndex + i) % this.imgPool.length;
+                const desiredImgEl = this.imgPool[desiredImgIndex];
+                const wrapper = this.visibleSlides[i];
+
+                // 既に同じ要素が入っていればそのまま（remove-append の結果で null になっている可能性を考慮）
+                // ここでは確実に append することで元コードと同じ「左・中央・右に該当画像を割り当てる」動作を再現
+                wrapper.appendChild(desiredImgEl);
             }
+
+            // フェードイン（元コードと同じ）
             this.visibleSlides.forEach(slide => slide.style.opacity = 1);
         }, this.changingDuration * 1000);
     }
 }
+
 
 // Manager ////////////////////////////////////////////////////////////////
 class Integlight_SliderManager {
