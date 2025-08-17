@@ -17,7 +17,7 @@ if ($latest_query->have_posts()) :
         $ctPerlineForSp_withHeader = 1;
         $ctPerlineForSp_noHeader = 2;
         $attr = integlight_getAttr_byImageCount(
-            $wp_query->current_post,
+            $latest_query->current_post,
             $ctPerlineForPc_withHeader,
             $ctPerlineForPc_noHeader,
             $ctPerlineForSp_withHeader,
