@@ -336,7 +336,7 @@ class Integlight_PostThumbnail
      * @param string $default_url デフォルト画像のURL（空なら /assets/default.webp）
      */
 
-    public static function render($post_id = null, $size = 'medium', $default_url = '', $attr = '')
+    public static function render($post_id = null, $size = 'medium', $default_url = '', $attr = ' loading="lazy" decoding="async" ')
     {
         $url = self::get_thumbnail_url($post_id, $size, $default_url);
         echo '<img src="' . $url . '" alt=""' . $attr . '>';

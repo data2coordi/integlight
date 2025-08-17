@@ -40,7 +40,7 @@ if (wp_is_mobile()) {
 	}
 } else {
 	//PF対応!!!
-	if (get_theme_mod('integlight_hometype_setting', 'home1') == $Integlight_slider_settings->$homeType2Name) {
+	if (get_theme_mod('integlight_hometype_setting', 'home1') == $Integlight_slider_settings->homeType2Name) {
 		$attrkey = 'fetchpriority';
 		$attr = 'high';
 	} else {
