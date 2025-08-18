@@ -188,6 +188,88 @@ async function runCustomizerFlow(page, config) {
 
 //テスト本体
 
+test.describe('ヘッダースライダー無し', () => {
+
+    test.describe('home1', () => {
+
+        let page: Page;
+
+        test.beforeAll(async ({ browser }) => {
+            const context = await browser.newContext();
+            page = await context.newPage();
+            const config = TEST_CONFIGS_NO_HEAD.spHome1;
+            await runCustomizerFlow(page, config);
+        });
+
+        test.afterAll(async () => {
+            await page.close();
+        });
+
+        test.describe('SP環境', () => {
+            test.use({
+                viewport: TEST_CONFIGS_NO_HEAD.spHome1.viewport,
+                userAgent: TEST_CONFIGS_NO_HEAD.spHome1.userAgent,
+                extraHTTPHeaders: { 'sec-ch-ua-mobile': '?1' },
+            });
+
+
+            test('画像ロード属性を確認', async ({ page }) => {
+                await test.step('ホームページでボディ画像の属性チェック', () =>
+                    verifyImageAttributes(page, BASE_URL, '.post-grid .grid-item .post-thumbnail img', TEST_CONFIGS_NO_HEAD.spHome1.bodyCt));
+            });
+        });
+
+        test.describe('PC環境', () => {
+            test('画像ロード属性を確認', async ({ page }) => {
+                await test.step('ホームページでボディ画像の属性チェック', () =>
+                    verifyImageAttributes(page, BASE_URL, '.post-grid .grid-item .post-thumbnail img', TEST_CONFIGS_NO_HEAD.pcHome1.bodyCt));
+
+            });
+        });
+    });
+
+
+    test.describe('home2', () => {
+
+        let page: Page;
+
+        test.beforeAll(async ({ browser }) => {
+            const context = await browser.newContext();
+            page = await context.newPage();
+            const config = TEST_CONFIGS_NO_HEAD.spHome2;
+            await runCustomizerFlow(page, config);
+        });
+
+        test.afterAll(async () => {
+            await page.close();
+        });
+
+        test.describe('SP環境', () => {
+            test.use({
+                viewport: TEST_CONFIGS_NO_HEAD.spHome1.viewport,
+                userAgent: TEST_CONFIGS_NO_HEAD.spHome1.userAgent,
+                extraHTTPHeaders: { 'sec-ch-ua-mobile': '?1' },
+            });
+
+
+            test('画像ロード属性を確認', async ({ page }) => {
+
+                await test.step('ホームページでボディ画像の属性チェック', () =>
+                    verifyImageAttributes(page, BASE_URL, '.post-grid .grid-item .post-thumbnail img', TEST_CONFIGS_NO_HEAD.spHome2.bodyCt));
+            });
+        });
+
+        test.describe('PC環境', () => {
+            test('画像ロード属性を確認', async ({ page }) => {
+                await test.step('ホームページでボディ画像の属性チェック', () =>
+                    verifyImageAttributes(page, BASE_URL, '.post-grid .grid-item .post-thumbnail img', TEST_CONFIGS_NO_HEAD.pcHome2.bodyCt));
+
+            });
+        });
+    });
+
+});
+
 test.describe('ヘッダースライダー有り', () => {
 
     test.describe('home1', () => {
@@ -277,85 +359,3 @@ test.describe('ヘッダースライダー有り', () => {
 
 });
 
-
-test.describe('ヘッダースライダー無し', () => {
-
-    test.describe('home1', () => {
-
-        let page: Page;
-
-        test.beforeAll(async ({ browser }) => {
-            const context = await browser.newContext();
-            page = await context.newPage();
-            const config = TEST_CONFIGS_NO_HEAD.spHome1;
-            await runCustomizerFlow(page, config);
-        });
-
-        test.afterAll(async () => {
-            await page.close();
-        });
-
-        test.describe('SP環境', () => {
-            test.use({
-                viewport: TEST_CONFIGS_NO_HEAD.spHome1.viewport,
-                userAgent: TEST_CONFIGS_NO_HEAD.spHome1.userAgent,
-                extraHTTPHeaders: { 'sec-ch-ua-mobile': '?1' },
-            });
-
-
-            test('画像ロード属性を確認', async ({ page }) => {
-                await test.step('ホームページでボディ画像の属性チェック', () =>
-                    verifyImageAttributes(page, BASE_URL, '.post-grid .grid-item .post-thumbnail img', TEST_CONFIGS_NO_HEAD.spHome1.bodyCt));
-            });
-        });
-
-        test.describe('PC環境', () => {
-            test('画像ロード属性を確認', async ({ page }) => {
-                await test.step('ホームページでボディ画像の属性チェック', () =>
-                    verifyImageAttributes(page, BASE_URL, '.post-grid .grid-item .post-thumbnail img', TEST_CONFIGS_NO_HEAD.pcHome1.bodyCt));
-
-            });
-        });
-    });
-
-
-    test.describe('home2', () => {
-
-        let page: Page;
-
-        test.beforeAll(async ({ browser }) => {
-            const context = await browser.newContext();
-            page = await context.newPage();
-            const config = TEST_CONFIGS_NO_HEAD.spHome2;
-            await runCustomizerFlow(page, config);
-        });
-
-        test.afterAll(async () => {
-            await page.close();
-        });
-
-        test.describe('SP環境', () => {
-            test.use({
-                viewport: TEST_CONFIGS_NO_HEAD.spHome1.viewport,
-                userAgent: TEST_CONFIGS_NO_HEAD.spHome1.userAgent,
-                extraHTTPHeaders: { 'sec-ch-ua-mobile': '?1' },
-            });
-
-
-            test('画像ロード属性を確認', async ({ page }) => {
-
-                await test.step('ホームページでボディ画像の属性チェック', () =>
-                    verifyImageAttributes(page, BASE_URL, '.post-grid .grid-item .post-thumbnail img', TEST_CONFIGS_NO_HEAD.spHome2.bodyCt));
-            });
-        });
-
-        test.describe('PC環境', () => {
-            test('画像ロード属性を確認', async ({ page }) => {
-                await test.step('ホームページでボディ画像の属性チェック', () =>
-                    verifyImageAttributes(page, BASE_URL, '.post-grid .grid-item .post-thumbnail img', TEST_CONFIGS_NO_HEAD.pcHome2.bodyCt));
-
-            });
-        });
-    });
-
-});
