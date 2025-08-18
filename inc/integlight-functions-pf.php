@@ -331,6 +331,11 @@ class Integlight_PostThumbnail
         $url = self::get_thumbnail_url($post_id, $size, $default_url);
         echo '<img src="' . $url . '" alt=""' . $attr . '>';
     }
+
+    public static function getUrl($post_id = null, $size = 'thumbnail', $default_url = '')
+    {
+        return self::get_thumbnail_url($post_id, $size, $default_url);
+    }
 }
 /********************************************************************/
 /* サムネイル取得(存在しなければ、本文の画像、デフォルト画像を取得) e	*/
