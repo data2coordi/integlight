@@ -91,6 +91,13 @@ async function openHeaderSetting(page, setting) {
 
 }
 
+async function selSliderFad(page) {
+    await page.getByRole('button', { name: 'トップヘッダー設定' }).click();
+    await page.getByRole('button', { name: 'スライダー設定' }).click();
+    const effectSelect = page.getByRole('combobox', { name: 'エフェクト' });
+    await effectSelect.selectOption({ label: 'フェード' });
+}
+
 
 
 
@@ -180,10 +187,11 @@ async function runCustomizerFlow(page, config) {
     await test.step('3. ヘッダー有無を設定', () => openHeaderSetting(page, config.headerType));
     await test.step('4. 公開ボタンをクリックして変更を保存', () => saveCustomizer(page));
     await test.step('5.カスタマイザー画面を開く', () => openCustomizer(page, BASE_URL));
-    await test.step('6.ホームタイプの変更', async () => {
-        await setSiteType(page, config.siteType);
-    });
+    await test.step('6.ホームタイプの変更', () => setSiteType(page, config.siteType));
     await test.step('8. 公開ボタンをクリックして変更を保存', () => saveCustomizer(page));
+    await test.step('9. カスタマイザー画面を開く', () => openCustomizer(page, BASE_URL));
+    await test.step('10. スライダーでフェード設定', () => selSliderFad(page));
+    await test.step('11. 公開ボタンをクリックして変更を保存', () => saveCustomizer(page));
 }
 
 //テスト本体
