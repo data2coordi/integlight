@@ -10,20 +10,28 @@ const TEST_CONFIGS = {
         userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1',
         siteType: 'エレガント',
         headerType: 'スライダー',
+        headCt: 1,
+        bodyCt: 0,
     },
     pcHome1: {
         siteType: 'エレガント',
         headerType: 'スライダー',
+        headCt: 1,
+        bodyCt: 0,
     },
     spHome2: {
         viewport: { width: 375, height: 800 },
         userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1',
         siteType: 'ポップ',
         headerType: 'スライダー',
+        headCt: 1,
+        bodyCt: 1,
     },
     pcHome2: {
         siteType: 'ポップ',
         headerType: 'スライダー',
+        headCt: 3,
+        bodyCt: 2,
     },
 };
 
@@ -33,20 +41,24 @@ const TEST_CONFIGS_NO_HEAD = {
         userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1',
         siteType: 'エレガント',
         headerType: 'なし',
+        bodyCt: 1,
     },
     pcHome1: {
         siteType: 'エレガント',
         headerType: 'なし',
+        bodyCt: 3,
     },
     spHome2: {
         viewport: { width: 375, height: 800 },
         userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1',
         siteType: 'ポップ',
         headerType: 'なし',
+        bodyCt: 2,
     },
     pcHome2: {
         siteType: 'ポップ',
         headerType: 'なし',
+        bodyCt: 4,
     },
 };
 
@@ -119,11 +131,14 @@ async function verifyImageAttributes(page, baseUrl, selector, priorityCount = 1)
     const images = page.locator(selector);
     const count = await images.count();
 
+    //console.log('@@@@@@@@start@@@@@@@@@');
     for (let i = 0; i < count; i++) {
         const img = images.nth(i);
         const src = await img.getAttribute('src') || '(no src)';
         const fetchpriority = await img.getAttribute('fetchpriority');
         const loading = await img.getAttribute('loading');
+
+        //console.log(`[${i + 1}枚目:${src}] ct:${priorityCount} fetchpriority="${fetchpriority}" loading="${loading}`);
 
         if (i < priorityCount) {
             // 優先読み込み対象
@@ -202,7 +217,7 @@ test.describe('ヘッダースライダー有り', () => {
                 await test.step('ホームページでヘッダー画像の属性チェック', () =>
                     verifyImageAttributes(page, BASE_URL, '.slider img', 1));
                 await test.step('ホームページでボディ画像の属性チェック', () =>
-                    verifyImageAttributes(page, BASE_URL, '.post-grid .grid-item .post-thumbnail img', 0));
+                    verifyImageAttributes(page, BASE_URL, '.post-grid .grid-item .post-thumbnail img', TEST_CONFIGS.spHome1.bodyCt));
             });
         });
 
@@ -211,7 +226,7 @@ test.describe('ヘッダースライダー有り', () => {
                 await test.step('ホームページでヘッダー画像の属性チェック', () =>
                     verifyImageAttributes(page, BASE_URL, '.slider img', 1));
                 await test.step('ホームページでボディ画像の属性チェック', () =>
-                    verifyImageAttributes(page, BASE_URL, '.post-grid .grid-item .post-thumbnail img', 0));
+                    verifyImageAttributes(page, BASE_URL, '.post-grid .grid-item .post-thumbnail img', TEST_CONFIGS.pcHome1.bodyCt));
 
             });
         });
@@ -243,21 +258,20 @@ test.describe('ヘッダースライダー有り', () => {
 
             test('画像ロード属性を確認', async ({ page }) => {
                 await test.step('ホームページでヘッダー画像の属性チェック', () =>
-                    verifyImageAttributes(page, BASE_URL, '.slider img', 1));
+                    verifyImageAttributes(page, BASE_URL, '.slider img', TEST_CONFIGS.spHome2.headCt));
                 await test.step('ホームページでボディ画像の属性チェック', () =>
-                    verifyImageAttributes(page, BASE_URL, '.post-grid .grid-item .post-thumbnail img', 1));
+                    verifyImageAttributes(page, BASE_URL, '.post-grid .grid-item .post-thumbnail img', TEST_CONFIGS.spHome2.bodyCt));
             });
         });
 
         test.describe('PC環境', () => {
-            test
-                ('画像ロード属性を確認', async ({ page }) => {
-                    await test.step('ホームページでヘッダー画像の属性チェック', () =>
-                        verifyImageAttributes(page, BASE_URL, '.slider img', 1));
-                    await test.step('ホームページでボディ画像の属性チェック', () =>
-                        verifyImageAttributes(page, BASE_URL, '.post-grid .grid-item .post-thumbnail img', 0));
+            test('画像ロード属性を確認', async ({ page }) => {
+                await test.step('ホームページでヘッダー画像の属性チェック', () =>
+                    verifyImageAttributes(page, BASE_URL, '.slider img', TEST_CONFIGS.pcHome2.headCt));
+                await test.step('ホームページでボディ画像の属性チェック', () =>
+                    verifyImageAttributes(page, BASE_URL, '.post-grid .grid-item .post-thumbnail img', TEST_CONFIGS.pcHome2.bodyCt));
 
-                });
+            });
         });
     });
 
@@ -266,7 +280,7 @@ test.describe('ヘッダースライダー有り', () => {
 
 test.describe('ヘッダースライダー無し', () => {
 
-    test.describe.only('home1', () => {
+    test.describe('home1', () => {
 
         let page: Page;
 
@@ -291,14 +305,14 @@ test.describe('ヘッダースライダー無し', () => {
 
             test('画像ロード属性を確認', async ({ page }) => {
                 await test.step('ホームページでボディ画像の属性チェック', () =>
-                    verifyImageAttributes(page, BASE_URL, '.post-grid .grid-item .post-thumbnail img', 1));
+                    verifyImageAttributes(page, BASE_URL, '.post-grid .grid-item .post-thumbnail img', TEST_CONFIGS_NO_HEAD.spHome1.bodyCt));
             });
         });
 
         test.describe('PC環境', () => {
             test('画像ロード属性を確認', async ({ page }) => {
                 await test.step('ホームページでボディ画像の属性チェック', () =>
-                    verifyImageAttributes(page, BASE_URL, '.post-grid .grid-item .post-thumbnail img', 3));
+                    verifyImageAttributes(page, BASE_URL, '.post-grid .grid-item .post-thumbnail img', TEST_CONFIGS_NO_HEAD.pcHome1.bodyCt));
 
             });
         });
@@ -331,17 +345,16 @@ test.describe('ヘッダースライダー無し', () => {
             test('画像ロード属性を確認', async ({ page }) => {
 
                 await test.step('ホームページでボディ画像の属性チェック', () =>
-                    verifyImageAttributes(page, BASE_URL, '.post-grid .grid-item .post-thumbnail img', 1));
+                    verifyImageAttributes(page, BASE_URL, '.post-grid .grid-item .post-thumbnail img', TEST_CONFIGS_NO_HEAD.spHome2.bodyCt));
             });
         });
 
         test.describe('PC環境', () => {
-            test
-                ('画像ロード属性を確認', async ({ page }) => {
-                    await test.step('ホームページでボディ画像の属性チェック', () =>
-                        verifyImageAttributes(page, BASE_URL, '.post-grid .grid-item .post-thumbnail img', 4));
+            test('画像ロード属性を確認', async ({ page }) => {
+                await test.step('ホームページでボディ画像の属性チェック', () =>
+                    verifyImageAttributes(page, BASE_URL, '.post-grid .grid-item .post-thumbnail img', TEST_CONFIGS_NO_HEAD.pcHome2.bodyCt));
 
-                });
+            });
         });
     });
 

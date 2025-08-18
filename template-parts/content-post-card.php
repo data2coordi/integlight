@@ -7,7 +7,11 @@
         <div class="post-thumbnail">
             <?php
             // 上位から渡された fetchpriority をそのまま使用
-            Integlight_PostThumbnail::render(null, 'medium', '', $args['attr'] ?? '');
+            if (!empty($args['attr'])) {
+                Integlight_PostThumbnail::render(null, 'medium', '', $args['attr']);
+            } else {
+                Integlight_PostThumbnail::render(null, 'medium', '');
+            }
 
             ?>
         </div>
