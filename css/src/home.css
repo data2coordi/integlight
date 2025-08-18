@@ -30,12 +30,12 @@
 .home .grid-item {
   position: relative;
   display: flex;
-  flex-direction: column;                   /* 上=サムネ / 中=タイトル / 下=メタ */
+  flex-direction: column;                   
   justify-content: flex-start;
   background-color: #fff;
   border: 1px solid #d7d7d7;
   overflow: hidden;
-  aspect-ratio: 1 / 1;                      /* ★だいたい正方形にするコア設定 */
+  aspect-ratio: 1 / 1;                      
   transition: transform .3s ease, box-shadow .3s ease;
 }
 
@@ -96,7 +96,7 @@
 }
 
 /* homeのh2はやや小さめ（従来要望を維持） */
-#primary .post-grid .grid-item h2 {
+.home #primary .post-grid .grid-item h2 {
   line-height: 1.5;
   font-size: clamp(1.1rem, 1.2vw + 0.6rem, 1.5rem);
 }
@@ -256,10 +256,8 @@
   .home .post-grid {
     grid-template-columns: 1fr;              /* 1列 */
     width: 100%;                              /* 端まで使う */
-    padding: 1.5rem;
   }
 }
-
 
 
 
