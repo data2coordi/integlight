@@ -64,6 +64,7 @@ class template_parts_ContentSlideTemplateTest extends WP_UnitTestCase
         self::$mock_slider_settings = new stdClass();
         // 重要: 'slider' の値が実際のテーマの $Integlight_slider_settings->headerTypeName_slider と一致しているか確認してください。
         self::$mock_slider_settings->headerTypeName_slider = 'slider';
+        self::$mock_slider_settings->homeType2Name = 'home2';
     }
 
     /**
