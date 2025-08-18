@@ -1,43 +1,61 @@
-/* ========== グリッド：横3列・中央寄せ・最大幅指定 ========== */
-.blog .post-grid,
-.home .post-grid {
-  display: grid;                             /* CSS Gridで一覧を作る */
-  grid-template-columns: repeat(3, 1fr);     /* 3等分（3列） */
-  gap: 20px;                                 /* カード同士の間隔 */
-  padding: 20px;                             /* 一覧の外側余白 */
-  max-width: 1200px;                         /* 一覧の最大幅（固定幅ではなく上限） */
-  margin: 0 auto;                            /* 画面中央に配置 */
+/************************************************************
+  Integlight 一覧カード｜幅を太く & 大体正方形（コメント付き）
+  目的：
+  - カード幅が“細すぎる”のを解消（最小幅UPで列数を抑制）
+  - カード全体を 1:1 に近い比率に（aspect-ratio）
+  - 文字あふれを防ぎ、デザイン崩れを回避（2行省略）
+************************************************************/
+
+/* 一覧配下のボックスサイズ計算を安定化（余白でのはみ出し防止） */
+.blog .post-grid, .home .post-grid,
+.blog .post-grid * , .home .post-grid * {
+  box-sizing: border-box;
 }
 
-/* ========== カード本体：縦フレックス構造＋ホバー効果 ========== */
+/* ========== 1) 一覧グリッド：最小幅を上げて“細すぎ”回避 + リキッド ========== */
+/* 360px 以上ないと列を増やさない→広い画面でも最大3列くらいをキープしやすい */
+.blog .post-grid,
+.home .post-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); /* ★幅が細くなりにくい */
+  gap: clamp(12px, 2vw, 24px);
+  padding: clamp(12px, 2vw, 24px);
+  width: min(100%, 1200px); /* 1200pxで止めて中央寄せ */
+  margin: 0 auto;
+}
+
+/* ========== 2) カード本体：正方形化 ＆ ホバー ========== */
+/* 高さ固定はやめ、幅から自動計算（1:1）。中身は縦フレックスで配分 */
 .blog .grid-item,
 .home .grid-item {
-  position: relative;                        /* 子の絶対配置（カテゴリバッジ）の基準にする */
+  position: relative;
   display: flex;
-  flex-direction: column;                    /* 上=サムネ / 中=タイトル / 下=メタ の縦積み */
+  flex-direction: column;                   /* 上=サムネ / 中=タイトル / 下=メタ */
   justify-content: flex-start;
   background-color: #fff;
   border: 1px solid #d7d7d7;
-  overflow: hidden;                          /* はみ出しカット（角のはみ出し防止） */
-  height: 350px;                             /* カードの縦サイズ（固定） */
-  transition: transform .3s ease, box-shadow .3s ease; /* ホバーのアニメ */
+  overflow: hidden;
+  aspect-ratio: 1 / 1;                      /* ★だいたい正方形にするコア設定 */
+  transition: transform .3s ease, box-shadow .3s ease;
 }
 
 .blog .grid-item:hover,
 .home .grid-item:hover {
-  transform: translateY(-10px);              /* 少しだけ浮かす */
-  box-shadow: 0 8px 16px rgba(0,0,0,.2);     /* 影を強くして浮遊感 */
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0,0,0,.2);
 }
 
-/* ========== サムネ領域：カード高の60%を割り当て ========== */
+/* ========== 3) サムネイル：カード高の60%を写真に割当 ========== */
+/* 正方形になった“カード高”の60%をサムネ領域として確保 */
 .blog .post-thumbnail,
 .home .post-thumbnail {
-  position: relative;                        /* もうabsoluteは使わない（通常フロー化） */
-  flex: 0 0 60%;                             /* カード縦の60%をサムネ枠に確保 */
+  position: relative;
+  flex: 0 0 60%;                           /* ★全体高の6割を画像枠に */
   width: 100%;
-  overflow: hidden;                          /* 画像切り抜き時のはみ出し防止 */
+  overflow: hidden;
 }
 
+/* 画像は枠いっぱいにカバー。フチ感を出すため少し内側に余白 */
 .blog .post-thumbnail a,
 .home .post-thumbnail a {
   display: block;
@@ -49,39 +67,48 @@
 .home .post-thumbnail img {
   width: 100%;
   height: 100%;
-  object-fit: cover;                         /* 枠いっぱいにトリミング表示 */
-  object-position: center;                   /* 中央を基準に切り取り */
-  padding: 14px 12px 0;                      /* ★デザイン要件：内側に余白を作って“フチあり”に見せる */
-  /* 注意：paddingを入れるとcoverの見え方は“少し内側に縮む”。フチあり意図がある時だけ使う。 */
+  object-fit: cover;                        /* はみ出た分はトリミング */
+  object-position: center;
+  padding: clamp(8px, 1.2vw, 14px)         /* 上 */
+           clamp(8px, 1vw, 12px)           /* 右 */
+           0                                /* 下 */
+           clamp(8px, 1vw, 12px);          /* 左 */
 }
 
-/* ========== タイトル：通常フローで安定配置 ========== */
+/* ========== 4) タイトル：通常フロー＋2行で省略 ========== */
 .blog .grid-item h2,
 .blog .grid-item h3,
 .home .grid-item h2,
 .home .grid-item h3 {
-  position: static;                          /* absolute撤廃で流れに戻す */
-  z-index: auto;
+  position: static;
   color: #222;
-  margin: 12px 0 0;                          /* サムネ下に適度な余白 */
-  padding: 0 5%;                             /* 横はカード内で5%インセット */
+  margin: 12px 0 0;
+  padding: 0 5%;
   line-height: 1.4;
   border-bottom: none;
+
+  /* ★長文でも崩れないよう2行で省略（だいたい正方形でも安定） */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;                   /* 2行でカット */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
 }
 
-/* homeのh2だけ小さく：デザイン差分反映 */
+/* homeのh2はやや小さめ（従来要望を維持） */
 #primary .post-grid .grid-item h2 {
   line-height: 1.5;
-  font-size: 1.5rem;
+  font-size: clamp(1.1rem, 1.2vw + 0.6rem, 1.5rem);
 }
 
-/* 抜粋は非表示のまま（仕様維持） */
+/* 抜粋は非表示（仕様維持） */
 .blog .post-excerpt,
 .home .post-excerpt {
   display: none;
 }
 
-/* ========== メタ：カード下に押し下げ（固定風） ========== */
+/* ========== 5) メタ情報：カード下に吸着 ========== */
+/* タイトルの下に並べ、残り高さに応じて下側に寄せる */
 .blog .grid-item .post-meta,
 .home .grid-item .post-meta {
   position: relative;
@@ -89,9 +116,10 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0 5% 5%;                          /* 横はタイトルと揃え、下に余白 */
-  margin-top: auto;                           /* ★ここがミソ：縦フレックスで下に押し下げる */
+  padding: 0 5% 5%;
+  margin-top: auto;                         /* ★下にピタッと寄せる鍵 */
   color: #222;
+  gap: 4px;
 }
 
 .blog .post-date,
@@ -102,16 +130,18 @@
 .home .post-tags {
   margin: 0;
   padding: 0;
+  white-space: nowrap;                      /* メタは1行でコンパクトに */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* ========== カテゴリ・バッジ：カード左上に重ねる ========== */
-/* post-categoryを本文フローから切り離して“バッジ表示” */
+/* ========== 6) カテゴリ・バッジ：画像左上に重ねる（意図的にabsolute） ========== */
 .blog .grid-item .post-category,
 .home .grid-item .post-category {
   position: absolute;
   top: 12px;
   left: 12px;
-  z-index: 2;                                 /* 画像より前面 */
+  z-index: 2;                               /* 画像より前面 */
 }
 
 .blog .post-category p,
@@ -122,15 +152,16 @@
   background-color: #323232;
   padding: 4px 15px;
   margin: 0;
+  border-radius: 2px;
 }
 
-/* タグは非表示のまま（要件維持） */
+/* タグは非表示（仕様維持） */
 .blog .post-tags,
 .home .post-tags {
   display: none;
 }
 
-/* リンクの装飾は継承（下線なし・文字色は親継承） */
+/* リンクの見た目は継承（下線なし・色継承） */
 .blog .grid-item a,
 .home .grid-item a {
   text-decoration: none;
@@ -138,57 +169,29 @@
   font-size: 0.8rem;
 }
 
-/* ========== レスポンシブ：768px以下で1列・余白最適化 ========== */
-@media screen and (max-width: 768px) {
-
+/* ========== 7) レスポンシブ補助（任意） ========== */
+/* auto-fitが面倒見るので原則不要。どうしてもスマホ1列固定なら下を解除して使う */
+/*
+@media (max-width: 768px){
   .blog .post-grid,
-  .home .post-grid {
-    grid-template-columns: repeat(1, 1fr);   /* 1列化 */
-    gap: 10px;                                /* カード間隔を少し詰める */
-    /* paddingは親のまま。必要なら有効化して縮める */
-    /* padding: 10px; */
-  }
-
-  .blog .grid-item,
-  .home .grid-item {
-    width: 90vw;                              /* ビューポート基準の横幅（はみ出し防止） */
-  }
-
-  .blog .post-grid,
-  .home .post-grid {
-    width: 90vw;                              /* 一覧自体も狭めて左右の余白を作る */
-  }
-
-  .blog .post-excerpt,
-  .home .post-excerpt {
-    width: 95%;                               /* もし表示する場合の横幅調整 */
-  }
-
-  .blog .grid-item h2,
-  .blog .grid-item h3,
-  .home .grid-item h2,
-  .home .grid-item h3 {
-    width: 100%;                              /* テキストは横幅いっぱい */
-  }
+  .home .post-grid { grid-template-columns: 1fr; }
 }
+*/
 
-/***********************************************/
-/* 先頭のカテゴリ一覧：丸いボタン群（ニューモーフィズム寄り） */
-/***********************************************/
+/* ========== 8) トップの丸いカテゴリ（そのまま流用OK：任意） ========== */
 .home .category-list {
   display: flex;
-  justify-content: space-between;             /* 均等配置（要素数に関わらず広がる） */
-  /* space-evenly も可：左右の余白バランスをより均等化 */
-  flex-wrap: wrap;                            /* 折り返し可 */
-  gap: 1rem;                                  /* アイテム間の間隔 */
-  margin: 4rem auto;
-  padding: 0 2rem;
-  max-width: 900px;                           /* 並びの読みやすさを担保する上限幅 */
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: clamp(8px, 1.5vw, 16px);
+  margin: clamp(24px, 6vw, 64px) auto;
+  padding: 0 clamp(8px, 2vw, 32px);
+  max-width: 900px;
 }
 
 .home .category-item {
-  flex: 1;                                    /* 余白を均等に配分（等幅化のベース） */
-  max-width: 300px;                           /* 1つが大きくなり過ぎない上限 */
+  flex: 1;
+  max-width: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -198,18 +201,17 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 150px;
-  height: 150px;                              /* 正円のサイズ */
-  background-color: #f0f0f0;                  /* 台座色（薄グレー） */
+  width: clamp(96px, 11vw, 150px);
+  height: clamp(96px, 11vw, 150px);
+  background-color: #f0f0f0;
   color: #000;
   text-align: center;
-  border-radius: 50%;                          /* 丸くする */
+  border-radius: 50%;
   font-weight: bold;
-  font-size: 0.9rem;
+  font-size: clamp(0.8rem, 0.6vw + 0.6rem, 0.95rem);
   margin: 0 8px 8px 0;
   padding: 10px;
   text-decoration: none;
-  /* ほんのりニューモーフィズム感（内側の光/影＋外側の影） */
   box-shadow:
     inset 2px 2px 6px rgba(255, 255, 255, 0.6),
     inset -2px -2px 6px rgba(0, 0, 0, 0.05),
@@ -217,9 +219,49 @@
 }
 
 .home .category-link:hover {
-  opacity: 0.7;                               /* ホバーで薄く */
+  opacity: 0.7;
   transition: all 0.3s ease;
 }
+
+/************************************************************
+  固定3列レイアウト（デスクトップ）に上書き
+  ねらい：
+  - 画面が広くても“3列”で止める
+  - 一覧の最大幅を 1080px に下げてカードを少し小さく
+  - タブレット2列／スマホ1列の自然な切替も用意
+************************************************************/
+
+/* ===== デスクトップ：常に3列 ===== */
+.blog .post-grid,
+.home .post-grid {
+  grid-template-columns: repeat(3, 1fr);  /* ★ 3列固定 */
+  width: min(100%, 1080px);               /* ★ 1200px→1080pxにしてカードを小ぶりに */
+  margin: 0 auto;                         /* 中央寄せ（念のため明示） */
+  /* gap / padding は前のまま clamp でOK。必要ならここで上書きも可 */
+  /* gap: 20px; padding: 20px; など */
+}
+
+/* ===== タブレット：2列に落とす（目安 1024px以下） ===== */
+@media (max-width: 1024px){
+  .blog .post-grid,
+  .home .post-grid {
+    grid-template-columns: repeat(2, 1fr);   /* 2列 */
+    width: min(100%, 820px);                 /* 列幅が太くなりすぎないよう微調整 */
+  }
+}
+
+/* ===== スマホ：1列（目安 600px以下） ===== */
+@media (max-width: 600px){
+  .blog .post-grid,
+  .home .post-grid {
+    grid-template-columns: 1fr;              /* 1列 */
+    width: 100%;                              /* 端まで使う */
+    padding: 1.5rem;
+  }
+}
+
+
+
 
 
 @media screen and (max-width: 768px) {
