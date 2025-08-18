@@ -1,123 +1,96 @@
+/* ========== グリッド：横3列・中央寄せ・最大幅指定 ========== */
 .blog .post-grid,
 .home .post-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  /* 4列レイアウト */
-  gap: 20px;
-  padding: 20px;
-  width: 1200px;
+  display: grid;                             /* CSS Gridで一覧を作る */
+  grid-template-columns: repeat(3, 1fr);     /* 3等分（3列） */
+  gap: 20px;                                 /* カード同士の間隔 */
+  padding: 20px;                             /* 一覧の外側余白 */
+  max-width: 1200px;                         /* 一覧の最大幅（固定幅ではなく上限） */
+  margin: 0 auto;                            /* 画面中央に配置 */
 }
 
+/* ========== カード本体：縦フレックス構造＋ホバー効果 ========== */
 .blog .grid-item,
 .home .grid-item {
-  position: relative;
+  position: relative;                        /* 子の絶対配置（カテゴリバッジ）の基準にする */
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  /* コンテンツを上部と下部に配置 */
+  flex-direction: column;                    /* 上=サムネ / 中=タイトル / 下=メタ の縦積み */
+  justify-content: flex-start;
   background-color: #fff;
   border: 1px solid #d7d7d7;
-  overflow: hidden;
-  height: 350px;
-  /* タイルの高さ */
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  overflow: hidden;                          /* はみ出しカット（角のはみ出し防止） */
+  height: 350px;                             /* カードの縦サイズ（固定） */
+  transition: transform .3s ease, box-shadow .3s ease; /* ホバーのアニメ */
 }
 
 .blog .grid-item:hover,
 .home .grid-item:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-10px);              /* 少しだけ浮かす */
+  box-shadow: 0 8px 16px rgba(0,0,0,.2);     /* 影を強くして浮遊感 */
 }
 
+/* ========== サムネ領域：カード高の60%を割り当て ========== */
 .blog .post-thumbnail,
 .home .post-thumbnail {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative;                        /* もうabsoluteは使わない（通常フロー化） */
+  flex: 0 0 60%;                             /* カード縦の60%をサムネ枠に確保 */
+  width: 100%;
+  overflow: hidden;                          /* 画像切り抜き時のはみ出し防止 */
+}
+
+.blog .post-thumbnail a,
+.home .post-thumbnail a {
+  display: block;
   width: 100%;
   height: 100%;
-  /* カバー画像として全体に表示 */
-  z-index: 0;
 }
 
 .blog .post-thumbnail img,
 .home .post-thumbnail img {
-  width: 90%;
-  height: 60%;
-  object-fit: cover;
-  /* カバー画像として表示 */
-  object-position: center;
-  padding-top: 5%;
-
-}
-
-/* オーバーレイを追加 */
-
-/* .blog .grid-item::before,
-.home .grid-item::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 1;
-  pointer-events: none;
-} */
+  object-fit: cover;                         /* 枠いっぱいにトリミング表示 */
+  object-position: center;                   /* 中央を基準に切り取り */
+  padding: 14px 12px 0;                      /* ★デザイン要件：内側に余白を作って“フチあり”に見せる */
+  /* 注意：paddingを入れるとcoverの見え方は“少し内側に縮む”。フチあり意図がある時だけ使う。 */
+}
 
-
+/* ========== タイトル：通常フローで安定配置 ========== */
 .blog .grid-item h2,
 .blog .grid-item h3,
 .home .grid-item h2,
 .home .grid-item h3 {
-  position: absolute;
-  top: 215px;
-  /* タイトルの位置を調整 */
-  z-index: 2;
-  /* タイトルを大きくする */
+  position: static;                          /* absolute撤廃で流れに戻す */
+  z-index: auto;
   color: #222;
-  /* 白色の文字 */
-  margin: 0;
-  /* マージンをリセット */
-  border-bottom: none;
-  width: 100%;
-  padding: 0 5%;
+  margin: 12px 0 0;                          /* サムネ下に適度な余白 */
+  padding: 0 5%;                             /* 横はカード内で5%インセット */
   line-height: 1.4;
-  /* 行間を狭くする */
-  /* pointer-events: none; */
-  /* クリックやホバーを無効化（下の要素が反応する） */
+  border-bottom: none;
 }
 
+/* homeのh2だけ小さく：デザイン差分反映 */
+#primary .post-grid .grid-item h2 {
+  line-height: 1.5;
+  font-size: 1.5rem;
+}
+
+/* 抜粋は非表示のまま（仕様維持） */
 .blog .post-excerpt,
 .home .post-excerpt {
   display: none;
 }
 
-/* .blog .post-excerpt,
-.home .post-excerpt {
-  position: absolute;
-  top: 130px;
-  left: 15px;
-  z-index: 2;
-  color: #222;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-  margin: 5px 0;
-  padding: 0 5%;
-  width: 350px;
-} */
-
+/* ========== メタ：カード下に押し下げ（固定風） ========== */
 .blog .grid-item .post-meta,
 .home .grid-item .post-meta {
   position: relative;
-  z-index: 2;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  /* 左寄せ */
-  padding: 5%;
+  padding: 0 5% 5%;                          /* 横はタイトルと揃え、下に余白 */
+  margin-top: auto;                           /* ★ここがミソ：縦フレックスで下に押し下げる */
   color: #222;
 }
 
@@ -131,21 +104,33 @@
   padding: 0;
 }
 
-/* カテゴリーを表示している */
-.blog .post-category p,
-.home .post-category p {
-  position: relative;
-  color: #fff;
-  display: inline-block;
-  font-size: 13px;
-  background-color: #323232;
-  padding: 4px 15px;
-  top: 19px;
-  left: 19px;
-  margin: 0;
-  z-index: 999;
+/* ========== カテゴリ・バッジ：カード左上に重ねる ========== */
+/* post-categoryを本文フローから切り離して“バッジ表示” */
+.blog .grid-item .post-category,
+.home .grid-item .post-category {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;                                 /* 画像より前面 */
 }
 
+.blog .post-category p,
+.home .post-category p {
+  display: inline-block;
+  font-size: 13px;
+  color: #fff;
+  background-color: #323232;
+  padding: 4px 15px;
+  margin: 0;
+}
+
+/* タグは非表示のまま（要件維持） */
+.blog .post-tags,
+.home .post-tags {
+  display: none;
+}
+
+/* リンクの装飾は継承（下線なし・文字色は親継承） */
 .blog .grid-item a,
 .home .grid-item a {
   text-decoration: none;
@@ -153,75 +138,57 @@
   font-size: 0.8rem;
 }
 
-
-/* homeのh2が小さくしたいから修正している */
-#primary .post-grid .grid-item h2 {
-  line-height: 1.5;
-  font-size: 1.5rem;
-}
-
-.blog .post-tags,
-.home .post-tags {
-  display: none;
-}
-
+/* ========== レスポンシブ：768px以下で1列・余白最適化 ========== */
 @media screen and (max-width: 768px) {
 
   .blog .post-grid,
   .home .post-grid {
-    grid-template-columns: repeat(1, 1fr);
-    /* 1列レイアウト */
-    gap: 10px;
-    /* ギャップを狭く */
+    grid-template-columns: repeat(1, 1fr);   /* 1列化 */
+    gap: 10px;                                /* カード間隔を少し詰める */
+    /* paddingは親のまま。必要なら有効化して縮める */
     /* padding: 10px; */
-    /* パディングを縮小 */
   }
 
   .blog .grid-item,
   .home .grid-item {
-    width: 90vw;
+    width: 90vw;                              /* ビューポート基準の横幅（はみ出し防止） */
   }
-
 
   .blog .post-grid,
   .home .post-grid {
-    width: 90vw;
+    width: 90vw;                              /* 一覧自体も狭めて左右の余白を作る */
   }
 
   .blog .post-excerpt,
   .home .post-excerpt {
-    width: 95%;
+    width: 95%;                               /* もし表示する場合の横幅調整 */
   }
 
   .blog .grid-item h2,
   .blog .grid-item h3,
   .home .grid-item h2,
   .home .grid-item h3 {
-    width: 100%;
+    width: 100%;                              /* テキストは横幅いっぱい */
   }
 }
 
-
 /***********************************************/
-/*先頭のカテゴリ一覧s*/
+/* 先頭のカテゴリ一覧：丸いボタン群（ニューモーフィズム寄り） */
 /***********************************************/
-
 .home .category-list {
   display: flex;
-  justify-content: space-between;
-  /* or space-evenly も可 */
-  flex-wrap: wrap;
-  gap: 1rem;
+  justify-content: space-between;             /* 均等配置（要素数に関わらず広がる） */
+  /* space-evenly も可：左右の余白バランスをより均等化 */
+  flex-wrap: wrap;                            /* 折り返し可 */
+  gap: 1rem;                                  /* アイテム間の間隔 */
   margin: 4rem auto;
   padding: 0 2rem;
-  max-width: 900px;
+  max-width: 900px;                           /* 並びの読みやすさを担保する上限幅 */
 }
 
 .home .category-item {
-  flex: 1;
-  /* ←等幅にする */
-  max-width: 300px;
-  /* ←横に並べたい最大幅 */
+  flex: 1;                                    /* 余白を均等に配分（等幅化のベース） */
+  max-width: 300px;                           /* 1つが大きくなり過ぎない上限 */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -232,24 +199,25 @@
   justify-content: center;
   align-items: center;
   width: 150px;
-  height: 150px;
-  background-color: #f0f0f0;
-  /* グレー背景 */
+  height: 150px;                              /* 正円のサイズ */
+  background-color: #f0f0f0;                  /* 台座色（薄グレー） */
   color: #000;
   text-align: center;
-  border-radius: 50%;
+  border-radius: 50%;                          /* 丸くする */
   font-weight: bold;
   font-size: 0.9rem;
   margin: 0 8px 8px 0;
   padding: 10px;
   text-decoration: none;
-  box-shadow: inset 2px 2px 6px rgba(255, 255, 255, 0.6),
+  /* ほんのりニューモーフィズム感（内側の光/影＋外側の影） */
+  box-shadow:
+    inset 2px 2px 6px rgba(255, 255, 255, 0.6),
     inset -2px -2px 6px rgba(0, 0, 0, 0.05),
     0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
 .home .category-link:hover {
-  opacity: 0.7;
+  opacity: 0.7;                               /* ホバーで薄く */
   transition: all 0.3s ease;
 }
 
