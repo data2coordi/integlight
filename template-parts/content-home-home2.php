@@ -13,7 +13,7 @@ if ($latest_query->have_posts()) :
 
     while ($latest_query->have_posts()) : $latest_query->the_post();
 
-        $attr = Integlight_getAttr_byImageCount::getImageAttr($latest_query->current_post);
+        $attr = Integlight_getAttr_byImageCount::getBodyImageAttr($latest_query->current_post);
         get_template_part('template-parts/content', 'post-card', ['attr' => $attr]);
     endwhile;
 

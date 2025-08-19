@@ -379,7 +379,7 @@ class Integlight_getAttr_byImageCount
         return null;
     }
 
-    public static function getImageAttr(int $current_post): string
+    public static function getBodyImageAttr(int $current_post): string
     {
         $pattern = self::getCurrentPattern();
         if (!$pattern) {

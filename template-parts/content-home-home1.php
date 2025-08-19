@@ -46,7 +46,7 @@
                         <div class="post-thumbnail">
                             <?php
 
-                            $attr = Integlight_getAttr_byImageCount::getImageAttr($wp_query->current_post);
+                            $attr = Integlight_getAttr_byImageCount::getBodyImageAttr($wp_query->current_post);
                             Integlight_PostThumbnail::render(null, 'medium', '', $attr);
 
                             ?>
