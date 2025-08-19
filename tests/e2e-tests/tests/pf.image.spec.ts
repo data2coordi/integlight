@@ -1,5 +1,14 @@
 import { test, expect, type Page } from '@playwright/test';
-
+import {
+    timeStart,
+    logStepTime,
+    openCustomizer,
+    openHeaderSetting,
+    selSliderFad,
+    saveCustomizer,
+    setSiteType,
+    ensureCustomizerRoot,
+} from '../utils/common';
 
 
 // テスト設定を統合し、階層的な構造にする
@@ -78,81 +87,8 @@ const TEST_SCENARIOS = {
     },
 };
 
-// 時間計測用のMap
-const stepTimers = new Map<string, number>();
 
-function timeStart(stepName: string) {
-    stepTimers.set(stepName, Date.now());
-}
-
-function logStepTime(stepName: string) {
-    const startTime = stepTimers.get(stepName);
-    if (startTime) {
-        const duration = Date.now() - startTime;
-        console.log(`[Timer] Step "${stepName}" took ${duration}ms`);
-    }
-}
-
-
-async function openCustomizer(page: Page) {
-    await page.goto(`/wp-admin/customize.php?url=${encodeURIComponent('/')}`, {
-        waitUntil: 'networkidle',
-    });
-    await expect(page.locator('.wp-full-overlay-main')).toBeVisible();
-}
-
-async function openHeaderSetting(page: Page, setting: string) {
-    await page.getByRole('button', { name: 'トップヘッダー設定' }).click();
-    await page.getByRole('button', { name: 'スライダーまたは画像を選択' }).click();
-    const effectSelect = page.getByRole('combobox', { name: 'スライダーまたは画像を表示' });
-    await effectSelect.selectOption({ label: setting });
-}
-
-async function selSliderFad(page: Page) {
-    await page.getByRole('button', { name: 'トップヘッダー設定' }).click();
-    await page.getByRole('button', { name: 'スライダー設定' }).click();
-    const effectSelect = page.getByRole('combobox', { name: 'エフェクト' });
-    await effectSelect.selectOption({ label: 'フェード' });
-}
-
-async function saveCustomizer(page: Page) {
-    const saveBtn = page.locator('#save');
-    if (!(await saveBtn.isEnabled())) {
-        return;
-    }
-    await saveBtn.click();
-    await expect(saveBtn).toHaveAttribute('value', '公開済み');
-    await expect(saveBtn).toBeDisabled();
-}
-
-async function setSiteType(page: Page, siteType: string) {
-    await page.getByRole('button', { name: 'サイトタイプ設定' }).click();
-    const checkbox = page.getByLabel(siteType);
-    if (!(await checkbox.isChecked())) {
-        await checkbox.check();
-    }
-}
-// カスタマイザーのルート状態に戻す（ページ遷移しない）
-async function ensureCustomizerRoot(page: Page) {
-    await page.evaluate(() => {
-        if (window.wp && window.wp.customize) {
-            try {
-                // collapse all panels and sections
-                window.wp.customize.panel.each(panel => {
-                    if (typeof panel.collapse === 'function') panel.collapse();
-                });
-                window.wp.customize.section.each(section => {
-                    if (typeof section.collapse === 'function') section.collapse();
-                });
-            } catch (e) {
-                // worst-case: ignore JS error and let test fallback to selector-based nav
-                // console.error(e);
-            }
-        }
-    });
-    // UI 更新を少し待つ
-    await page.waitForTimeout(200);
-}
+//////////////////////////////外出し候補end
 
 async function verifyImageAttributes(page: Page, selector: string, priorityCount = 0) {
     // timeStart('verifyImageAttributes');
