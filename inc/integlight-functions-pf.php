@@ -392,6 +392,26 @@ class Integlight_getAttr_byImageCount
             ? ' fetchpriority="high" decoding="async" '
             : ' loading="lazy" decoding="async" ';
     }
+
+    /**
+     * ヘッダー画像用の属性を返す
+     *
+     * @param int $current_post 現在のヘッダー画像の順番（0スタート）
+     * @return string HTML属性
+     */
+    public static function getHeaderImageAttr(int $current_post): array
+    {
+        $pattern = self::getCurrentPattern();
+        if (!$pattern) {
+            return ['loading' => 'lazy', 'decoding' => 'async'];
+        }
+
+        $priorityCount = $pattern['headCt']; // header用の優先読み込み数
+
+        return ($current_post < $priorityCount)
+            ? ['fetchpriority' => 'high', 'decoding' => 'async']
+            : ['loading' => 'lazy', 'decoding' => 'async'];
+    }
 }
 
 
