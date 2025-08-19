@@ -390,7 +390,7 @@ class Integlight_getAttr_byImageCount
 
         return ($current_post < $priorityCount)
             ? ' fetchpriority="high"  loading="eager" decoding="async" '
-            : ' loading="lazy" decoding="async" ';
+            : ' fetchpriority="low"  loading="lazy" decoding="async" ';
     }
 
     /**
@@ -409,8 +409,8 @@ class Integlight_getAttr_byImageCount
         $priorityCount = $pattern['headCt']; // header用の優先読み込み数
 
         return ($current_post < $priorityCount)
-            ? ['fetchpriority' => 'high',  'loading' => 'eager', 'decoding' => 'async']
-            : ['loading' => 'lazy', 'decoding' => 'async'];
+            ? ['fetchpriority' => 'high', 'loading' => 'eager', 'decoding' => 'async']
+            : ['fetchpriority' => 'low', 'loading' => 'lazy', 'decoding' => 'async'];
     }
 }
 
