@@ -1,5 +1,14 @@
 import { test, expect } from '@playwright/test';
 
+import {
+    timeStart,
+    logStepTime,
+    openCustomizer,
+    selSliderEffect,
+    saveCustomizer,
+    setSiteType,
+    ensureCustomizerRoot,
+} from '../utils/common';
 // 共通設定
 const BASE_URL = 'https://wpdev.toshidayurika.com';
 
@@ -48,38 +57,23 @@ const TEST_CONFIGS = {
 };
 
 // 共通関数
-async function login(page, baseUrl) {
-    await page.goto(`${baseUrl}/wp-login.php`, { waitUntil: 'networkidle' });
-    const adminUser = process.env.WP_ADMIN_USER;
-    const adminPass = process.env.WP_ADMIN_PASSWORD;
-    if (!adminUser || !adminPass)
-        throw new Error('環境変数 WP_ADMIN_USER または WP_ADMIN_PASSWORD が未定義');
-    await page.fill('#user_login', adminUser);
-    await page.fill('#user_pass', adminPass);
-    await page.click('#wp-submit');
-    await page.waitForNavigation({ waitUntil: 'networkidle' });
-}
 
-async function openCustomizer(page, baseUrl) {
-    await page.goto(`${baseUrl}/wp-admin/customize.php?url=${encodeURIComponent(baseUrl)}`, {
-        waitUntil: 'networkidle',
-    });
-    await expect(page.locator('.wp-full-overlay-main')).toBeVisible();
-}
+
+
 
 async function openSliderSetting(page) {
     await page.getByRole('button', { name: 'トップヘッダー設定' }).click();
     await page.getByRole('button', { name: 'スライダー設定' }).click();
 }
 
-async function setSliderEffectAndInterval(page, effectLabel, interval) {
-    const effectSelect = page.getByRole('combobox', { name: 'エフェクト' });
-    await effectSelect.selectOption({ label: effectLabel });
-    await expect(effectSelect).toBeVisible();
+
+async function setSliderInterval(page, interval) {
+
     const intervalInput = page.getByLabel('変更時間間隔（秒）');
     await intervalInput.fill('999999');
     await intervalInput.fill(interval);
 }
+
 
 async function setSliderImage(page, imagePartialName, image_delBtnNo, image_selBtnNo) {
     await page.getByRole('button', { name: '削除' }).nth(image_delBtnNo).click();
@@ -110,34 +104,8 @@ async function setTextPosition(page, top, left, text_positionLavel_top, text_pos
     await page.getByLabel(text_positionLavel_left).fill(left);
 }
 
-async function saveCustomizer(page) {
-    const saveBtn = page.locator('#save');
-
-    if (!(await saveBtn.isEnabled())) {
-        return;
-
-    }
-    await saveBtn.click();
-    await expect(saveBtn).toHaveAttribute('value', '公開済み');
-    await expect(saveBtn).toBeDisabled();
-
-}
-
-async function setSiteType(page, siteType = 'エレガント') {
-    await page.getByRole('button', { name: 'サイトタイプ設定' }).click();
 
 
-    // エレガントのチェックボックスをクリック
-    // labelのテキストで取得する場合
-    // 渡された siteType のチェックボックスを取得
-    const checkbox = page.getByLabel(siteType);
-
-    // すでにチェックされていれば何もしない
-    if (!(await checkbox.isChecked())) {
-        await checkbox.check(); // チェックされていなければチェック
-    }
-
-}
 
 
 async function verifySliderOnSlide(page, baseUrl, imagePartialName, expectedCount = 2) {
@@ -283,19 +251,19 @@ async function verifySliderOnHome2Fade(page, baseUrl, imagePartialName) {
 
 // 共通テストフロー
 async function runCustomizerFlow(page, config) {
-    await test.step('1. 管理画面にログイン', () => login(page, BASE_URL));
-    await test.step('2. カスタマイザー画面を開く', () => openCustomizer(page, BASE_URL));
-    await test.step('3. スライダー設定を開く', () => openSliderSetting(page));
-    await test.step('4. スライダーのエフェクトと変更間隔を設定', () =>
-        setSliderEffectAndInterval(page, config.effectLabel, config.interval));
+    await test.step('2. カスタマイザー画面を開く', () => openCustomizer(page));
+    //await test.step('3. スライダー設定を開く', () => openSliderSetting(page));
+    await test.step('4. スライダーのエフェクト設定', () =>
+        selSliderEffect(page, config.effectLabel));
+    await test.step('4. スライダーの変更間隔を設定', () =>
+        setSliderInterval(page, config.interval));
     await test.step('5.1 スライダー画像を設定', () =>
         setSliderImage(page, config.imagePartialName, config.image_delBtnNo, config.image_selBtnNo));
     await test.step('5.2 スライダーテキストを入力', () =>
         setSliderText(page, config.mainText, config.subText));
     await test.step('5.3 テキストの表示位置を設定', () =>
         setTextPosition(page, config.textPositionTop, config.textPositionLeft, config.text_positionLavel_top, config.text_positionLavel_left));
-    await test.step('5.4. 公開ボタンをクリックして変更を保存', () => saveCustomizer(page));
-    await test.step('6.カスタマイザー画面を開く', () => openCustomizer(page, BASE_URL));
+    await ensureCustomizerRoot(page);
     await test.step('7.ホームタイプの変更', async () => {
         await setSiteType(page, config.siteType);
     });
@@ -339,14 +307,14 @@ test.describe('フェード', () => {
             const context = await browser.newContext();
             const page = await context.newPage();
 
-            await test.step('1. 管理画面にログイン', () => login(page, BASE_URL));
-            await test.step('2.1.カスタマイザー画面を開く', () => openCustomizer(page, BASE_URL));
-            await test.step('2.2. スライダー設定を開く', () => openSliderSetting(page));
-            await test.step('2.3. スライダーのエフェクトと変更間隔を設定', () =>
-                setSliderEffectAndInterval(page, 'フェード', '1'));
-            await test.step('2.4. 公開ボタンをクリックして変更を保存', () => saveCustomizer(page));
+            await test.step('2.1.カスタマイザー画面を開く', () => openCustomizer(page));
+            // await test.step('2.2. スライダー設定を開く', () => openSliderSetting(page));
+            await test.step('2.3. スライダーのエフェクト設定', () =>
+                selSliderEffect(page, 'フェード'));
+            await test.step('2.3. スライダーの変更間隔を設定', () =>
+                setSliderInterval(page, '1'));
 
-            await test.step('3.1. カスタマイザー画面を開く', () => openCustomizer(page, BASE_URL));
+            await ensureCustomizerRoot(page);
             await test.step('3.2 ホームタイプの変更', async () => {
                 await setSiteType(page, 'ポップ');
             });
@@ -392,13 +360,13 @@ test.describe('スライド', () => {
             const context = await browser.newContext();
             const page = await context.newPage();
 
-            await test.step('1. 管理画面にログイン', () => login(page, BASE_URL));
-            await test.step('2.1.カスタマイザー画面を開く', () => openCustomizer(page, BASE_URL));
-            await test.step('2.2. スライダー設定を開く', () => openSliderSetting(page));
-            await test.step('2.3. スライダーのエフェクトと変更間隔を設定', () =>
-                setSliderEffectAndInterval(page, 'スライド', '1'));
-            await test.step('2.4. 公開ボタンをクリックして変更を保存', () => saveCustomizer(page));
-            await test.step('3.1. カスタマイザー画面を開く', () => openCustomizer(page, BASE_URL));
+            await test.step('2.1.カスタマイザー画面を開く', () => openCustomizer(page));
+            //await test.step('2.2. スライダー設定を開く', () => openSliderSetting(page));
+            await test.step('2.3. スライダーのエフェクト設定', () =>
+                selSliderEffect(page, 'スライド'));
+            await test.step('2.3. スライダーの変更間隔を設定', () =>
+                setSliderInterval(page, '1'));
+            await ensureCustomizerRoot(page);
             await test.step('3.2ホームタイプの変更', async () => {
                 await setSiteType(page, 'エレガント');
             });
@@ -443,13 +411,13 @@ test.describe('スライド', () => {
             const context = await browser.newContext();
             const page = await context.newPage();
 
-            await test.step('1. 管理画面にログイン', () => login(page, BASE_URL));
-            await test.step('2.1.カスタマイザー画面を開く', () => openCustomizer(page, BASE_URL));
-            await test.step('2.2. スライダー設定を開く', () => openSliderSetting(page));
-            await test.step('2.3. スライダーのエフェクトと変更間隔を設定', () =>
-                setSliderEffectAndInterval(page, 'スライド', '1'));
-            await test.step('2.4. 公開ボタンをクリックして変更を保存', () => saveCustomizer(page));
-            await test.step('3.1. カスタマイザー画面を開く', () => openCustomizer(page, BASE_URL));
+            await test.step('2.1.カスタマイザー画面を開く', () => openCustomizer(page));
+            //await test.step('2.2. スライダー設定を開く', () => openSliderSetting(page));
+            await test.step('2.3. スライダーのエフェクトを設定', () =>
+                selSliderEffect(page, 'スライド'));
+            await test.step('2.3. スライダーの変更間隔を設定', () =>
+                setSliderInterval(page, '1'));
+            await ensureCustomizerRoot(page);
             await test.step('3.2ホームタイプの変更', async () => {
                 await setSiteType(page, 'ポップ');
             });

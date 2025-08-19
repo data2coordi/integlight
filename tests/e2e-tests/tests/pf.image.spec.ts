@@ -4,7 +4,7 @@ import {
     logStepTime,
     openCustomizer,
     openHeaderSetting,
-    selSliderFad,
+    selSliderEffect,
     saveCustomizer,
     setSiteType,
     ensureCustomizerRoot,
@@ -158,7 +158,7 @@ async function runCustomizerFlow(page: Page, config: any) {
     if (config.headerType === 'スライダー') {
         //timeStart('sliderSettings');
         await test.step('8. スライダー設定', async () => {
-            await selSliderFad(page);
+            await selSliderEffect(page);
         });
         //logStepTime('sliderSettings');
 
