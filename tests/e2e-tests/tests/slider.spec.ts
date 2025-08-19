@@ -9,6 +9,7 @@ import {
     setSiteType,
     ensureCustomizerRoot,
 } from '../utils/common';
+import { useEffect } from 'react';
 // 共通設定
 const BASE_URL = 'https://wpdev.toshidayurika.com';
 
@@ -57,16 +58,6 @@ const TEST_CONFIGS = {
 };
 
 // 共通関数
-
-
-
-
-async function openSliderSetting(page) {
-    await page.getByRole('button', { name: 'トップヘッダー設定' }).click();
-    await page.getByRole('button', { name: 'スライダー設定' }).click();
-}
-
-
 async function setSliderInterval(page, interval) {
 
     const intervalInput = page.getByLabel('変更時間間隔（秒）');
@@ -108,8 +99,8 @@ async function setTextPosition(page, top, left, text_positionLavel_top, text_pos
 
 
 
-async function verifySliderOnSlide(page, baseUrl, imagePartialName, expectedCount = 2) {
-    await page.goto(baseUrl, { waitUntil: 'networkidle' });
+async function verifySliderOnSlide(page, imagePartialName, expectedCount = 2) {
+    await page.goto('/', { waitUntil: 'networkidle' });
     await expect(page.locator('.slider.slide-effect')).toBeVisible();
 
     // 画像が1秒で切り替わる
@@ -136,8 +127,8 @@ async function verifySliderOnSlide(page, baseUrl, imagePartialName, expectedCoun
 
 }
 
-async function verifySliderOnHome2FadeSp(page, baseUrl, imagePartialName) {
-    await page.goto(baseUrl, { waitUntil: 'networkidle' });
+async function verifySliderOnHome2FadeSp(page, imagePartialName) {
+    await page.goto('/', { waitUntil: 'networkidle' });
     await expect(page.locator('.slider.fade-effect')).toBeVisible();
 
     // 画像が1秒で切り替わる
@@ -160,8 +151,8 @@ async function verifySliderOnHome2FadeSp(page, baseUrl, imagePartialName) {
 
 }
 
-async function verifySliderOnFront(page, baseUrl, imagePartialName, mainText, subText, top, left) {
-    await page.goto(baseUrl, { waitUntil: 'networkidle' });
+async function verifySliderOnFront(page, imagePartialName, mainText, subText, top, left) {
+    await page.goto('/', { waitUntil: 'networkidle' });
     await expect(page.locator('.slider.fade-effect')).toBeVisible();
 
     // 画像が1秒で切り替わる
@@ -201,8 +192,8 @@ async function verifySliderOnFront(page, baseUrl, imagePartialName, mainText, su
 }
 
 
-async function verifySliderOnHome2Fade(page, baseUrl, imagePartialName) {
-    await page.goto(baseUrl, { waitUntil: 'networkidle' });
+async function verifySliderOnHome2Fade(page, imagePartialName) {
+    await page.goto('/', { waitUntil: 'networkidle' });
     await expect(page.locator('.slider.fade-effect')).toBeVisible();
 
     await expect(
@@ -251,17 +242,17 @@ async function verifySliderOnHome2Fade(page, baseUrl, imagePartialName) {
 
 // 共通テストフロー
 async function runCustomizerFlow(page, config) {
-    await test.step('2. カスタマイザー画面を開く', () => openCustomizer(page));
+    await test.step('1. カスタマイザー画面を開く', () => openCustomizer(page));
     //await test.step('3. スライダー設定を開く', () => openSliderSetting(page));
-    await test.step('4. スライダーのエフェクト設定', () =>
+    await test.step('2. スライダーのエフェクト設定', () =>
         selSliderEffect(page, config.effectLabel));
-    await test.step('4. スライダーの変更間隔を設定', () =>
+    await test.step('3. スライダーの変更間隔を設定', () =>
         setSliderInterval(page, config.interval));
-    await test.step('5.1 スライダー画像を設定', () =>
+    await test.step('4 スライダー画像を設定', () =>
         setSliderImage(page, config.imagePartialName, config.image_delBtnNo, config.image_selBtnNo));
-    await test.step('5.2 スライダーテキストを入力', () =>
+    await test.step('5 スライダーテキストを入力', () =>
         setSliderText(page, config.mainText, config.subText));
-    await test.step('5.3 テキストの表示位置を設定', () =>
+    await test.step('6 テキストの表示位置を設定', () =>
         setTextPosition(page, config.textPositionTop, config.textPositionLeft, config.text_positionLavel_top, config.text_positionLavel_left));
     await ensureCustomizerRoot(page);
     await test.step('7.ホームタイプの変更', async () => {
@@ -269,6 +260,21 @@ async function runCustomizerFlow(page, config) {
     });
     await test.step('8. 公開ボタンをクリックして変更を保存', () => saveCustomizer(page));
 }
+
+async function runCustomizerFlow2(page, useEffect, homeType) {
+    await test.step('1.カスタマイザー画面を開く', () => openCustomizer(page));
+    //await test.step('2.2. スライダー設定を開く', () => openSliderSetting(page));
+    await test.step('2. スライダーのエフェクトを設定', () =>
+        selSliderEffect(page, useEffect));
+    await ensureCustomizerRoot(page);
+    await test.step('4.ホームタイプの変更', async () => {
+        await setSiteType(page, homeType);
+    });
+    await test.step('5. 公開ボタンをクリックして変更を保存', () => saveCustomizer(page));
+
+
+}
+
 
 //テスト本体
 test.describe('フェード', () => {
@@ -286,7 +292,7 @@ test.describe('フェード', () => {
                 const config = TEST_CONFIGS.spHome1;
                 await runCustomizerFlow(page, config);
                 await test.step('フロントページで表示確認', () =>
-                    verifySliderOnFront(page, BASE_URL, config.imagePartialName, config.mainText, config.subText, config.textPositionTop, config.textPositionLeft));
+                    verifySliderOnFront(page, config.imagePartialName, config.mainText, config.subText, config.textPositionTop, config.textPositionLeft));
             });
         });
 
@@ -295,7 +301,7 @@ test.describe('フェード', () => {
                 const config = TEST_CONFIGS.pcHome1;
                 await runCustomizerFlow(page, config);
                 await test.step('フロントページで表示確認', () =>
-                    verifySliderOnFront(page, BASE_URL, config.imagePartialName, config.mainText, config.subText, config.textPositionTop, config.textPositionLeft));
+                    verifySliderOnFront(page, config.imagePartialName, config.mainText, config.subText, config.textPositionTop, config.textPositionLeft));
             });
         });
     });
@@ -307,18 +313,7 @@ test.describe('フェード', () => {
             const context = await browser.newContext();
             const page = await context.newPage();
 
-            await test.step('2.1.カスタマイザー画面を開く', () => openCustomizer(page));
-            // await test.step('2.2. スライダー設定を開く', () => openSliderSetting(page));
-            await test.step('2.3. スライダーのエフェクト設定', () =>
-                selSliderEffect(page, 'フェード'));
-            await test.step('2.3. スライダーの変更間隔を設定', () =>
-                setSliderInterval(page, '1'));
-
-            await ensureCustomizerRoot(page);
-            await test.step('3.2 ホームタイプの変更', async () => {
-                await setSiteType(page, 'ポップ');
-            });
-            await test.step('3.3. 公開ボタンをクリックして変更を保存', () => saveCustomizer(page));
+            await runCustomizerFlow2(page, 'フェード', 'ポップ');
 
             await page.close();
             await context.close();
@@ -335,7 +330,7 @@ test.describe('フェード', () => {
             test('フェード画像切り替え確認', async ({ page }) => {
                 const config = TEST_CONFIGS.spHome2;
                 await test.step('トップページで表示確認', () =>
-                    verifySliderOnHome2FadeSp(page, BASE_URL, config.imagePartialName));
+                    verifySliderOnHome2FadeSp(page, config.imagePartialName));
             });
         });
 
@@ -345,7 +340,7 @@ test.describe('フェード', () => {
             test('フェード画像切り替え確認', async ({ page }) => {
                 const config = TEST_CONFIGS.pcHome2;
                 await test.step('トップページで表示確認', async () => {
-                    await verifySliderOnHome2Fade(page, BASE_URL, config.imagePartialName);
+                    await verifySliderOnHome2Fade(page, config.imagePartialName);
                 });
             });
         });
@@ -360,17 +355,8 @@ test.describe('スライド', () => {
             const context = await browser.newContext();
             const page = await context.newPage();
 
-            await test.step('2.1.カスタマイザー画面を開く', () => openCustomizer(page));
-            //await test.step('2.2. スライダー設定を開く', () => openSliderSetting(page));
-            await test.step('2.3. スライダーのエフェクト設定', () =>
-                selSliderEffect(page, 'スライド'));
-            await test.step('2.3. スライダーの変更間隔を設定', () =>
-                setSliderInterval(page, '1'));
-            await ensureCustomizerRoot(page);
-            await test.step('3.2ホームタイプの変更', async () => {
-                await setSiteType(page, 'エレガント');
-            });
-            await test.step('4. 公開ボタンをクリックして変更を保存', () => saveCustomizer(page));
+            await runCustomizerFlow2(page, 'スライド', 'エレガント');
+
 
             await page.close();
             await context.close();
@@ -387,7 +373,7 @@ test.describe('スライド', () => {
             test('スライド画像切り替え確認', async ({ page }) => {
                 const config = TEST_CONFIGS.spHome1;
                 await test.step('トップページで表示確認', () =>
-                    verifySliderOnSlide(page, BASE_URL, config.imagePartialName));
+                    verifySliderOnSlide(page, config.imagePartialName));
             });
         });
 
@@ -397,7 +383,7 @@ test.describe('スライド', () => {
             test('スライド画像切り替え確認', async ({ page }) => {
                 const config = TEST_CONFIGS.pcHome1;
                 await test.step('トップページで表示確認', async () => {
-                    await verifySliderOnSlide(page, BASE_URL, config.imagePartialName);
+                    await verifySliderOnSlide(page, config.imagePartialName);
                 });
             });
         });
@@ -411,18 +397,7 @@ test.describe('スライド', () => {
             const context = await browser.newContext();
             const page = await context.newPage();
 
-            await test.step('2.1.カスタマイザー画面を開く', () => openCustomizer(page));
-            //await test.step('2.2. スライダー設定を開く', () => openSliderSetting(page));
-            await test.step('2.3. スライダーのエフェクトを設定', () =>
-                selSliderEffect(page, 'スライド'));
-            await test.step('2.3. スライダーの変更間隔を設定', () =>
-                setSliderInterval(page, '1'));
-            await ensureCustomizerRoot(page);
-            await test.step('3.2ホームタイプの変更', async () => {
-                await setSiteType(page, 'ポップ');
-            });
-            await test.step('3.3. 公開ボタンをクリックして変更を保存', () => saveCustomizer(page));
-
+            await runCustomizerFlow2(page, 'スライド', 'ポップ');
             await page.close();
             await context.close();
         });
@@ -438,7 +413,7 @@ test.describe('スライド', () => {
             test('スライド画像切り替え確認', async ({ page }) => {
                 const config = TEST_CONFIGS.spHome2;
                 await test.step('トップページで表示確認', () =>
-                    verifySliderOnSlide(page, BASE_URL, config.imagePartialName));
+                    verifySliderOnSlide(page, config.imagePartialName));
             });
         });
 
@@ -448,7 +423,7 @@ test.describe('スライド', () => {
             test('スライド画像切り替え確認', async ({ page }) => {
                 const config = TEST_CONFIGS.pcHome2;
                 await test.step('トップページで表示確認', async () => {
-                    await verifySliderOnSlide(page, BASE_URL, config.imagePartialName, 3);
+                    await verifySliderOnSlide(page, config.imagePartialName, 3);
                 });
             });
         });

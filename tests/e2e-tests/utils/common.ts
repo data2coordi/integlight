@@ -31,11 +31,11 @@ export async function openHeaderSetting(page: Page, setting: string) {
     await effectSelect.selectOption({ label: setting });
 }
 
-export async function selSliderFad(page: Page) {
+export async function selSliderEffect(page: Page, effect: string = 'フェード') {
     await page.getByRole('button', { name: 'トップヘッダー設定' }).click();
     await page.getByRole('button', { name: 'スライダー設定' }).click();
     const effectSelect = page.getByRole('combobox', { name: 'エフェクト' });
-    await effectSelect.selectOption({ label: 'フェード' });
+    await effectSelect.selectOption({ label: effect });
 }
 
 export async function saveCustomizer(page: Page) {
