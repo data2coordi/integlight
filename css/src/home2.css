@@ -717,8 +717,10 @@
       display: block;
       width: 100%;
       height: auto;                /* ★100%→auto にしてノークロップ */
-      object-fit: contain;         /* ★ぜったい切らない（余白は出る） */                 /* 面で見せる */
+      object-fit: cover;         /* ★ぜったい切らない（余白は出る） */                 /* 面で見せる */
     }
+
+    .post-thumbnail picture { display: block; width: 100%; }
   
     /* ========== 4) テキストは通常フローで縦積み & 長文でも崩さない ========== */
     .home .post-grid .grid-item > a > h2,
