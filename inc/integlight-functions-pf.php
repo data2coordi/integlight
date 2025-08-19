@@ -346,23 +346,6 @@ class Integlight_PostThumbnail
 /********************************************************************/
 /* fetchpriorityにする上位画像数を計算s	*/
 /********************************************************************/
-function integlight_getAttr_byImageCount(
-    int $current_post,
-    int $ctPerlineForPc_withHeader,
-    int $ctPerlineForPc_noHeader,
-    int $ctPerlineForSp_withHeader,
-    int $ctPerlineForSp_noHeader
-): string {
-    $hasHeader = (get_theme_mod('integlight_display_choice', 'none') !== 'none');
-
-    if (wp_is_mobile()) {
-        $ct = $hasHeader ? $ctPerlineForSp_withHeader : $ctPerlineForSp_noHeader;
-    } else {
-        $ct = $hasHeader ? $ctPerlineForPc_withHeader : $ctPerlineForPc_noHeader;
-    }
-
-    return ($current_post < $ct) ? ' fetchpriority="high" decoding="async" ' : ' loading="lazy" decoding="async" ';
-}
 
 
 

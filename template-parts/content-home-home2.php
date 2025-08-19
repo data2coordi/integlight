@@ -12,19 +12,6 @@ if ($latest_query->have_posts()) :
     echo '<div id="latest-posts-grid" class="post-grid">';
 
     while ($latest_query->have_posts()) : $latest_query->the_post();
-        /*
-        $ctPerlineForPc_withHeader = 2;
-        $ctPerlineForPc_noHeader = 4;
-        $ctPerlineForSp_withHeader = 1;
-        $ctPerlineForSp_noHeader = 2;
-        $attr = integlight_getAttr_byImageCount(
-            $latest_query->current_post,
-            $ctPerlineForPc_withHeader,
-            $ctPerlineForPc_noHeader,
-            $ctPerlineForSp_withHeader,
-            $ctPerlineForSp_noHeader
-        );
-*/
 
         $attr = Integlight_getAttr_byImageCount::getImageAttr($latest_query->current_post);
         get_template_part('template-parts/content', 'post-card', ['attr' => $attr]);
