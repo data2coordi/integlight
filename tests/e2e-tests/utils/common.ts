@@ -48,7 +48,7 @@ export async function saveCustomizer(page: Page) {
     await expect(saveBtn).toBeDisabled();
 }
 
-export async function setSiteType(page: Page, siteType: string) {
+export async function setSiteType(page: Page, siteType: string = 'エレガント') {
     await page.getByRole('button', { name: 'サイトタイプ設定' }).click();
     const checkbox = page.getByLabel(siteType);
     if (!(await checkbox.isChecked())) {
