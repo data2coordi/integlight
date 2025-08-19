@@ -68,7 +68,6 @@ a:focus-visible,
   color: #555;
   /* 非ホバー時は濃いテキスト色 */
   /* border-radius: inherit; */
-  box-shadow: 0 4px #000;
 }
 
 .wp-block-button__link:hover,

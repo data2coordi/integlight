@@ -70,8 +70,8 @@
       width: 100vw;
   }
   .site-header {
-     border-bottom:none;
-      box-shadow:none; 
+    border-bottom:none;
+    box-shadow:none; 
     }
   }
   
@@ -92,10 +92,15 @@
   /***********ロゴ**************/
   /***********ロゴs**************/
   @media (max-width:768px){
-    img { height:auto; max-width:100%; }
+    img { 
+      height:auto; 
+      max-width:100%; 
+    }
   
     /* ロゴは例外にする */
-    .custom-logo { max-width:none; }
+    .custom-logo { 
+      max-width:none; 
+    }
   }
   /***********ロゴe**************/
   /***********ロゴ**************/
@@ -133,7 +138,7 @@
   
   /* カード内のh2文字を小さく */
   #primary .post-grid .grid-item h2 {
-    font-size: 1.25rem;
+    font-size: 1.3rem;
   }
   
   .category-posts>h3 {
@@ -141,6 +146,7 @@
     color: #555;
   }
   
+  /* 下線を消している */
   .integlight_pt h2:after, .integlight_pt h3:after {
     background: none;
   }
@@ -159,7 +165,7 @@
     padding: 0 16px;
   }
   
-  .category-posts>h3, .top-categories-posts>h2, section.latest-posts>h2 {
+  .top-categories-posts>h2, section.latest-posts>h2 {
     margin-bottom: 2rem;
   }
   
@@ -720,7 +726,9 @@
       object-fit: cover;         /* ★ぜったい切らない（余白は出る） */                 /* 面で見せる */
     }
 
-    .post-thumbnail picture { display: block; width: 100%; }
+    .post-thumbnail picture { 
+      display: block; width: 100%; 
+    }              /*えいみさん対策（EWWW）*/
   
     /* ========== 4) テキストは通常フローで縦積み & 長文でも崩さない ========== */
     .home .post-grid .grid-item > a > h2,

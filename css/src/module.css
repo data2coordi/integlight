@@ -926,7 +926,7 @@ nav.post-navigation {
   background-color: #fff; /* 非ホバー時は白背景 */
   color: #555; /* 非ホバー時は濃いテキスト色 */
   /* border-radius: inherit; */
-  box-shadow: 0 4px #000;
+  box-shadow: 2px 4px #000;
   cursor: pointer;
   text-align: center;
   transition: color 0.3s ease-in-out;

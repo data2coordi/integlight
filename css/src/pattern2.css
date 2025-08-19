@@ -61,18 +61,10 @@ a:focus-visible,
 /************ボタンアニメーション**********/
 .wp-block-button__link,
 .wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  padding: 10px 20px;
   border: 1px solid #555;
   background-color: #fff; /* 非ホバー時は白背景 */
   color: #555; /* 非ホバー時は濃いテキスト色 */
   /* border-radius: inherit; */
-  box-shadow: 0 4px #000;
-  cursor: pointer;
-  text-align: center;
-  transition: color 0.3s ease-in-out;
 }
 
 .wp-block-button__link:hover,
