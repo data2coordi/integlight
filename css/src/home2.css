@@ -714,10 +714,10 @@
   
     .home .post-grid .grid-item .post-thumbnail img,
     .blog .post-grid .grid-item .post-thumbnail img {
-      width: 100%;
-      height: 100%;
       display: block;
-      object-fit: cover;                 /* 面で見せる */
+      width: 100%;
+      height: auto;                /* ★100%→auto にしてノークロップ */
+      object-fit: contain;         /* ★ぜったい切らない（余白は出る） */                 /* 面で見せる */
     }
   
     /* ========== 4) テキストは通常フローで縦積み & 長文でも崩さない ========== */
