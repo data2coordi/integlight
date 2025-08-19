@@ -46,17 +46,7 @@
                         <div class="post-thumbnail">
                             <?php
 
-                            $ctPerlineForPc_withHeader = 0;
-                            $ctPerlineForPc_noHeader = 3;
-                            $ctPerlineForSp_withHeader = 0;
-                            $ctPerlineForSp_noHeader = 1;
-                            $attr = integlight_getAttr_byImageCount(
-                                $wp_query->current_post,
-                                $ctPerlineForPc_withHeader,
-                                $ctPerlineForPc_noHeader,
-                                $ctPerlineForSp_withHeader,
-                                $ctPerlineForSp_noHeader
-                            );
+                            $attr = Integlight_getAttr_byImageCount::getImageAttr($wp_query->current_post);
                             Integlight_PostThumbnail::render(null, 'medium', '', $attr);
 
                             ?>

@@ -12,6 +12,7 @@ if ($latest_query->have_posts()) :
     echo '<div id="latest-posts-grid" class="post-grid">';
 
     while ($latest_query->have_posts()) : $latest_query->the_post();
+        /*
         $ctPerlineForPc_withHeader = 2;
         $ctPerlineForPc_noHeader = 4;
         $ctPerlineForSp_withHeader = 1;
@@ -23,6 +24,9 @@ if ($latest_query->have_posts()) :
             $ctPerlineForSp_withHeader,
             $ctPerlineForSp_noHeader
         );
+*/
+
+        $attr = Integlight_getAttr_byImageCount::getImageAttr($latest_query->current_post);
         get_template_part('template-parts/content', 'post-card', ['attr' => $attr]);
     endwhile;
 

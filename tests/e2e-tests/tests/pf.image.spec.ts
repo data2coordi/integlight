@@ -1,7 +1,6 @@
 import { test, expect, type Page } from '@playwright/test';
 
-// 共通設定
-const BASE_URL = 'https://wpdev.toshidayurika.com';
+
 
 // テスト設定を統合し、階層的な構造にする
 const TEST_SCENARIOS = {
@@ -79,22 +78,24 @@ const TEST_SCENARIOS = {
     },
 };
 
-// 共通関数
-async function login(page: Page, baseUrl: string) {
-    await page.goto(`${baseUrl}/wp-login.php`, { waitUntil: 'networkidle' });
-    const adminUser = process.env.WP_ADMIN_USER;
-    const adminPass = process.env.WP_ADMIN_PASSWORD;
-    if (!adminUser || !adminPass) {
-        throw new Error('環境変数 WP_ADMIN_USER または WP_ADMIN_PASSWORD が未定義');
-    }
-    await page.fill('#user_login', adminUser);
-    await page.fill('#user_pass', adminPass);
-    await page.click('#wp-submit');
-    await page.waitForNavigation({ waitUntil: 'networkidle' });
+// 時間計測用のMap
+const stepTimers = new Map<string, number>();
+
+function timeStart(stepName: string) {
+    stepTimers.set(stepName, Date.now());
 }
 
-async function openCustomizer(page: Page, baseUrl: string) {
-    await page.goto(`${baseUrl}/wp-admin/customize.php?url=${encodeURIComponent(baseUrl)}`, {
+function logStepTime(stepName: string) {
+    const startTime = stepTimers.get(stepName);
+    if (startTime) {
+        const duration = Date.now() - startTime;
+        console.log(`[Timer] Step "${stepName}" took ${duration}ms`);
+    }
+}
+
+
+async function openCustomizer(page: Page) {
+    await page.goto(`/wp-admin/customize.php?url=${encodeURIComponent('/')}`, {
         waitUntil: 'networkidle',
     });
     await expect(page.locator('.wp-full-overlay-main')).toBeVisible();
@@ -131,13 +132,37 @@ async function setSiteType(page: Page, siteType: string) {
         await checkbox.check();
     }
 }
+// カスタマイザーのルート状態に戻す（ページ遷移しない）
+async function ensureCustomizerRoot(page: Page) {
+    await page.evaluate(() => {
+        if (window.wp && window.wp.customize) {
+            try {
+                // collapse all panels and sections
+                window.wp.customize.panel.each(panel => {
+                    if (typeof panel.collapse === 'function') panel.collapse();
+                });
+                window.wp.customize.section.each(section => {
+                    if (typeof section.collapse === 'function') section.collapse();
+                });
+            } catch (e) {
+                // worst-case: ignore JS error and let test fallback to selector-based nav
+                // console.error(e);
+            }
+        }
+    });
+    // UI 更新を少し待つ
+    await page.waitForTimeout(200);
+}
 
-async function verifyImageAttributes(page: Page, baseUrl: string, selector: string, priorityCount = 0) {
-    await page.goto(baseUrl, { waitUntil: 'networkidle' });
+async function verifyImageAttributes(page: Page, selector: string, priorityCount = 0) {
+    // timeStart('verifyImageAttributes');
+
+    await page.goto('/', { waitUntil: 'networkidle' });
     const images = page.locator(selector);
     const count = await images.count();
 
-    console.log(`画像の総数: ${count}`);
+    console.log(`画像の総数: ${count} 優先読み込みの画像数：${priorityCount}`);
+
 
     for (let i = 0; i < count; i++) {
         const img = images.nth(i);
@@ -145,7 +170,10 @@ async function verifyImageAttributes(page: Page, baseUrl: string, selector: stri
         const fetchpriority = await img.getAttribute('fetchpriority');
         const loading = await img.getAttribute('loading');
 
-        console.log(`[${i + 1}枚目:${src}] ct:${priorityCount} fetchpriority="${fetchpriority}" loading="${loading}`);
+        const filename = src
+            ? src.split('/').pop()!.split('?')[0].replace(/-\d+x\d+(?=\.[^.]+$)/, '')
+            : '(no src)';
+        console.log(`[${i + 1}枚目:] fetchpriority="${fetchpriority}" | loading="${loading} | src:${filename}`);
 
         if (i < priorityCount) {
             if (fetchpriority !== 'high') {
@@ -171,27 +199,49 @@ async function verifyImageAttributes(page: Page, baseUrl: string, selector: stri
             }
         }
     }
+
+    //logStepTime('verifyImageAttributes');
 }
 
 // 共通テストフロー
 async function runCustomizerFlow(page: Page, config: any) {
-    await test.step('1. 管理画面にログイン', () => login(page, BASE_URL));
+    // ログイン処理はauth.setup.tsで完了済み
 
-    await test.step('2. カスタマイザー画面を開く', () => openCustomizer(page, BASE_URL));
+    //timeStart('openCustomizer_1');
+    await test.step('2. カスタマイザー画面を開く', () => openCustomizer(page));
+    //logStepTime('openCustomizer_1');
+
+    //timeStart('openHeaderSetting');
     await test.step('3. ヘッダー有無を設定', () => openHeaderSetting(page, config.headerType));
-    await test.step('4. 変更を保存', () => saveCustomizer(page));
+    //logStepTime('openHeaderSetting');
 
-    await test.step('5. カスタマイザー画面を再度開く', () => openCustomizer(page, BASE_URL));
-    await test.step('6. ホームタイプの変更', () => setSiteType(page, config.siteType));
-    await test.step('7. 変更を保存', () => saveCustomizer(page));
+    //timeStart('CustomizerRoot_1');
+    await ensureCustomizerRoot(page);
+    //logStepTime('CustomizerRoot_1');
 
     if (config.headerType === 'スライダー') {
+        //timeStart('sliderSettings');
         await test.step('8. スライダー設定', async () => {
-            await openCustomizer(page, BASE_URL);
             await selSliderFad(page);
         });
-        await test.step('9. 変更を保存', () => saveCustomizer(page));
+        //logStepTime('sliderSettings');
+
+        //timeStart('CustomizerRoot_2');
+        await ensureCustomizerRoot(page);
+        //logStepTime('CustomizerRoot_2');
     }
+
+
+
+    //timeStart('setSiteType');
+    await test.step('6. ホームタイプの変更', () => setSiteType(page, config.siteType));
+    //logStepTime('setSiteType');
+
+    //timeStart('saveCustomizer');
+    await test.step('7. 変更を保存', () => saveCustomizer(page));
+    //logStepTime('saveCustomizer');
+
+
 }
 
 // データ駆動型テストの実行
@@ -203,15 +253,20 @@ for (const [headerGroup, scenarios] of Object.entries(TEST_SCENARIOS)) {
 
             test.describe(`${testCaseName} (${deviceDesc})`, () => {
                 let page: Page;
+                let context;
 
                 test.beforeAll(async ({ browser }) => {
-                    const context = await browser.newContext();
+
+                    context = await browser.newContext();
                     page = await context.newPage();
-                    await runCustomizerFlow(page, config);
+                    if (isSP) {
+                        await runCustomizerFlow(page, config);
+                    }
                 });
 
                 test.afterAll(async () => {
                     await page.close();
+                    await context.close();
                 });
 
                 if (isSP) {
@@ -226,16 +281,16 @@ for (const [headerGroup, scenarios] of Object.entries(TEST_SCENARIOS)) {
                     if (config.headCt > 0 && config.headSelector) {
                         console.log(`@@@@@@@@@@ヘッダー画像のチェック: ${config.headSelector}`);
                         await test.step('ヘッダー画像の属性チェック', () =>
-                            verifyImageAttributes(page, BASE_URL, config.headSelector, config.headCt));
+                            verifyImageAttributes(page, config.headSelector, config.headCt));
                     }
-                    // bodySelectorが存在する場合、bodyCtの値に関わらずチェックを実行
                     if (config.bodySelector) {
-                        console.log(`@@@@@@@@@@body画像のチェック: ${config.bodySelector}`);
+                        console.log(`@@@@@@@@@@ボディ画像のチェック: ${config.bodySelector}`);
                         await test.step('ボディ画像の属性チェック', () =>
-                            verifyImageAttributes(page, BASE_URL, config.bodySelector, config.bodyCt));
+                            verifyImageAttributes(page, config.bodySelector, config.bodyCt));
                     }
                 });
             });
+
         }
     });
 }

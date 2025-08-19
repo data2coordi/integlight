@@ -364,6 +364,54 @@ function integlight_getAttr_byImageCount(
     return ($current_post < $ct) ? ' fetchpriority="high" decoding="async" ' : ' loading="lazy" decoding="async" ';
 }
 
+
+
+
+class Integlight_getAttr_byImageCount
+{
+    private static array $patterns = [
+        ['env' => 'SP', 'homeType' => 'home1', 'header' => 'none', 'headCt' => 0, 'bodyCt' => 1],
+        ['env' => 'PC', 'homeType' => 'home1', 'header' => 'none', 'headCt' => 0, 'bodyCt' => 3],
+        ['env' => 'SP', 'homeType' => 'home2', 'header' => 'none', 'headCt' => 0, 'bodyCt' => 2],
+        ['env' => 'PC', 'homeType' => 'home2', 'header' => 'none', 'headCt' => 0, 'bodyCt' => 4],
+        ['env' => 'SP', 'homeType' => 'home1', 'header' => 'exist', 'headCt' => 1, 'bodyCt' => 0],
+        ['env' => 'PC', 'homeType' => 'home1', 'header' => 'exist', 'headCt' => 1, 'bodyCt' => 0],
+        ['env' => 'SP', 'homeType' => 'home2', 'header' => 'exist', 'headCt' => 1, 'bodyCt' => 1],
+        ['env' => 'PC', 'homeType' => 'home2', 'header' => 'exist', 'headCt' => 3, 'bodyCt' => 2],
+    ];
+
+    public static function getCurrentPattern(): ?array
+    {
+        $env = wp_is_mobile() ? 'SP' : 'PC';
+        $homeType = get_theme_mod('integlight_hometype_setting', 'home1');
+        $display_choice = get_theme_mod('integlight_display_choice');
+        $header = ($display_choice === 'none') ? 'none' : 'exist';
+
+        foreach (self::$patterns as $pattern) {
+            if ($pattern['env'] === $env && $pattern['homeType'] === $homeType && $pattern['header'] === $header) {
+                return $pattern;
+            }
+        }
+
+        return null;
+    }
+
+    public static function getImageAttr(int $current_post): string
+    {
+        $pattern = self::getCurrentPattern();
+        if (!$pattern) {
+            return ' loading="lazy" decoding="async" ';
+        }
+
+        $priorityCount = $pattern['bodyCt'];
+
+        return ($current_post < $priorityCount)
+            ? ' fetchpriority="high" decoding="async" '
+            : ' loading="lazy" decoding="async" ';
+    }
+}
+
+
 /********************************************************************/
 /* fetchprioryにする上位画像数を計算e	*/
 /********************************************************************/

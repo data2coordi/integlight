@@ -1,0 +1,65 @@
+{
+  "cookies": [
+    {
+      "name": "wordpress_sec_da5bec4a4c0d7514ecd6ae730119ce05",
+      "value": "tech%7C1755740833%7CUtcLkFXJbHqN0jeFOegc2NbWiMOS0ir45Q4yUlqSPGu%7C8800f42c86a5b47e37d9c97c0a9b8e0c6a20a7a88c7b2d2bcb58ab3354e410ab",
+      "domain": "wpdev.toshidayurika.com",
+      "path": "/wp-content/plugins",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "wordpress_sec_da5bec4a4c0d7514ecd6ae730119ce05",
+      "value": "tech%7C1755740833%7CUtcLkFXJbHqN0jeFOegc2NbWiMOS0ir45Q4yUlqSPGu%7C8800f42c86a5b47e37d9c97c0a9b8e0c6a20a7a88c7b2d2bcb58ab3354e410ab",
+      "domain": "wpdev.toshidayurika.com",
+      "path": "/wp-admin",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "wordpress_test_cookie",
+      "value": "WP%20Cookie%20check",
+      "domain": "wpdev.toshidayurika.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "wordpress_logged_in_da5bec4a4c0d7514ecd6ae730119ce05",
+      "value": "tech%7C1755740833%7CUtcLkFXJbHqN0jeFOegc2NbWiMOS0ir45Q4yUlqSPGu%7C6dc1dc22166958060298ce69b913f9639d3ee66ebd425c25b9834665ac80af2c",
+      "domain": "wpdev.toshidayurika.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "wp-settings-6",
+      "value": "libraryContent%3Dbrowse%26mfold%3Do",
+      "domain": "wpdev.toshidayurika.com",
+      "path": "/",
+      "expires": 1787104034.132071,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "wp-settings-time-6",
+      "value": "1755568034",
+      "domain": "wpdev.toshidayurika.com",
+      "path": "/",
+      "expires": 1787104034.132244,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": []
+}
