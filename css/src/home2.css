@@ -743,13 +743,17 @@
     .blog .post-grid .grid-item > a > h2 {
       margin-top: 10px;
       margin-bottom: 6px;
-      font-weight: 800;
+      font-weight: 600;
       font-size: clamp(16px, 4.6vw, 19px);
       line-height: 1.35;
       display: -webkit-box;             /* マルチライン省略の土台 */
       -webkit-box-orient: vertical;
       /* -webkit-line-clamp: 2; */      /* ←2行で切りたい時だけコメント解除 */
       overflow: hidden;
+    }
+
+    .home #primary .post-grid .grid-item h2 {
+      font-size: 1.3rem;
     }
   
     /* 抜粋：行間広め、必要なら行数制限 */
