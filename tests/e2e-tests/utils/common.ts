@@ -4,6 +4,41 @@ import { expect, type Page } from '@playwright/test';
 // -------------------- 計測系 --------------------
 const stepTimers = new Map<string, number>();
 
+
+
+// -------------------- デバッグ系 --------------------
+
+/**
+ * 画面上にコード内容を可視表示する（動画出力やデバッグ用）
+ * @param page PlaywrightのPageオブジェクト
+ * @param code 表示したいコード文字列
+ */
+export async function showCodeOverlay(page: Page, code: string) {
+    await page.evaluate((code) => {
+        const existing = document.getElementById('visible-script-code');
+        if (existing) existing.remove();
+
+        const el = document.createElement('pre');
+        el.textContent = code;
+        el.style.position = 'fixed';
+        el.style.top = '0';
+        el.style.left = '0';
+        el.style.padding = '10px';
+        el.style.background = 'white';
+        el.style.color = 'black';
+        el.style.fontSize = '14px';
+        el.style.zIndex = '99999';
+        el.id = 'visible-script-code';
+        document.body.appendChild(el);
+    }, code);
+
+    // デバッグ確認用の一時待機
+    await page.waitForTimeout(3000);
+}
+
+
+
+
 export function timeStart(stepName: string) {
     stepTimers.set(stepName, Date.now());
 }
@@ -73,3 +108,24 @@ export async function ensureCustomizerRoot(page: Page) {
     });
     await page.waitForTimeout(200);
 }
+
+// -------------------- 管理画面操作系 --------------------
+/**
+ * 指定したテーマに切り替える
+ * @param page PlaywrightのPageオブジェクト
+ * @param themeSlug テーマのスラッグ名
+ */
+export async function activateTheme(page: Page, themeSlug: string) {
+    await page.goto(`/wp-admin/themes.php`, { waitUntil: 'networkidle' });
+
+    const themeSelector = `.theme[data-slug="${themeSlug}"]`;
+    const activateButton = page.locator(`${themeSelector} .theme-actions .activate`);
+    const isActive = await page.locator(`${themeSelector}.active`).count();
+
+    if (isActive === 0) {
+        await activateButton.click();
+        await page.waitForSelector(`${themeSelector}.active`, { timeout: 5000 });
+    }
+}
+
+

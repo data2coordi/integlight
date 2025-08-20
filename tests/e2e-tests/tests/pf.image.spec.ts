@@ -97,7 +97,7 @@ async function verifyImageAttributes(page: Page, selector: string, priorityCount
     const images = page.locator(selector);
     const count = await images.count();
 
-    console.log(`画像の総数: ${count} 優先読み込みの画像数：${priorityCount}`);
+    //console.log(`画像の総数: ${count} 優先読み込みの画像数：${priorityCount}`);
 
 
     for (let i = 0; i < count; i++) {
@@ -109,7 +109,7 @@ async function verifyImageAttributes(page: Page, selector: string, priorityCount
         const filename = src
             ? src.split('/').pop()!.split('?')[0].replace(/-\d+x\d+(?=\.[^.]+$)/, '')
             : '(no src)';
-        console.log(`[${i + 1}枚目:] fetchpriority="${fetchpriority}" | loading="${loading} | src:${filename}`);
+        // console.log(`[${i + 1}枚目:] fetchpriority="${fetchpriority}" | loading="${loading} | src:${filename}`);
 
         if (i < priorityCount) {
             if (fetchpriority !== 'high') {
