@@ -1,47 +1,16 @@
 import { test, expect } from '@playwright/test';
-
+import {
+  openCustomizer,
+  saveCustomizer,
+  setSiteType,
+  ensureCustomizerRoot,
+} from '../utils/common';
 // ======= 共通関数 =======
-async function login(page, baseUrl) {
-  await page.goto(`${baseUrl}/wp-login.php`, { waitUntil: 'domcontentloaded' });
-  const adminUser = process.env.WP_ADMIN_USER;
-  const adminPass = process.env.WP_ADMIN_PASSWORD;
-  if (!adminUser || !adminPass)
-    throw new Error('環境変数 WP_ADMIN_USER または WP_ADMIN_PASSWORD が未定義');
-  await page.fill('#user_login', adminUser);
-  await page.fill('#user_pass', adminPass);
-  await page.click('#wp-submit');
-  await page.waitForNavigation({ waitUntil: 'domcontentloaded' });
-  await expect(page.locator('#wpadminbar')).toBeVisible();
-}
 
-async function openCustomizer(page, baseUrl) {
-  await page.goto(`${baseUrl}/wp-admin/customize.php?url=${encodeURIComponent(baseUrl)}`, {
-    waitUntil: 'domcontentloaded',
-  });
-  await expect(page.locator('.wp-full-overlay-main')).toBeVisible();
-}
 
-async function setSiteType(page, siteType = 'エレガント') {
-  await page.getByRole('button', { name: 'サイトタイプ設定' }).click();
-  const checkbox = page.getByLabel(siteType);
-  if (!(await checkbox.isChecked())) {
-    await checkbox.check();
-    await saveCustomizer(page);
-  }
-}
 
-async function saveCustomizer(page) {
-  const saveBtn = page.locator('#save');
-  await expect(saveBtn).toBeVisible();
-  if (await saveBtn.isEnabled()) {
-    await saveBtn.click();
-    await expect(saveBtn).toHaveAttribute('value', '公開済み');
-    await expect(saveBtn).toBeDisabled();
-  } else {
-    await expect(saveBtn).toHaveAttribute('value', '公開済み');
-    await expect(saveBtn).toBeDisabled();
-  }
-}
+
+
 
 // ======= 設定 =======
 const baseUrl = 'https://wpdev.toshidayurika.com';
@@ -84,9 +53,10 @@ for (const device of devices) {
 
       test.beforeAll(async ({ browser }) => {
         const page = await browser.newPage();
-        await login(page, baseUrl);
-        await openCustomizer(page, baseUrl);
+        await openCustomizer(page);
         await setSiteType(page, siteType);
+        await saveCustomizer(page);
+
         await page.close();
       });
 

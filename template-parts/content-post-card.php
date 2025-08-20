@@ -26,7 +26,7 @@
         </h2>
 
         <p class="post-excerpt">
-            <?php echo esc_html(wp_trim_words(wp_strip_all_tags(get_the_content()), 78, ' ...')); ?>
+            <?php echo integlight_get_trimmed_excerpt(); ?>
         </p>
 
         <div class="post-meta">

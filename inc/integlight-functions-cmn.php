@@ -131,3 +131,37 @@ if (! function_exists('integlight_entry_footer')) :
 		);
 	}
 endif;
+
+
+
+/**
+ * 投稿の抜粋を取得する共通関数
+ * 抜粋があればそれを使用し、なければ本文から生成
+ * HTMLタグやショートコードを除去し、日本語向けに文字幅で切り詰める
+ *
+ * @param int|null $post_id 投稿ID（省略時はグローバル $post）
+ * @param int $length 文字幅の最大長（デフォルト150）
+ * @param string $more 省略文字（デフォルト '…'）
+ * @return string 安全に整形された抜粋文字列
+ */
+function integlight_get_trimmed_excerpt($post_id = null, $length = 150, $more = '…')
+{
+	if (! $post_id) {
+		global $post;
+		$post_id = $post->ID;
+	}
+
+	// 抜粋があれば使用
+	if (has_excerpt($post_id)) {
+		$excerpt = get_post_field('post_excerpt', $post_id);
+	} else {
+		// 本文から生成
+		$raw     = get_post_field('post_content', $post_id); // フィルタ前の本文
+		$excerpt = wp_strip_all_tags(strip_shortcodes($raw)); // ショートコードとHTMLを除去
+	}
+
+	// 日本語向けに文字幅で切り詰め
+	$excerpt_trimmed = mb_strimwidth($excerpt, 0, $length, $more);
+
+	return $excerpt_trimmed;
+}
