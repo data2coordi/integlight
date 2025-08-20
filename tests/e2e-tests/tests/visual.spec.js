@@ -46,29 +46,32 @@ const devices = [
 const siteTypes = ['エレガント', 'ポップ'];
 
 // ======= テスト展開 =======
-for (const device of devices) {
-  for (const siteType of siteTypes) {
-    test.describe(`${device.name} - サイトタイプ: ${siteType}`, () => {
+for (const siteType of siteTypes) {
+  test.beforeAll(async ({ browser }) => {
+    const page = await browser.newPage();
+    await openCustomizer(page);
+    await setSiteType(page, siteType);
+    await saveCustomizer(page);
+
+    await page.close();
+
+  });
+
+  for (const device of devices) {
+
+    test.describe(`${device.name} : ${siteType}`, () => {
       test.use(device.use);
 
-      test.beforeAll(async ({ browser }) => {
-        const page = await browser.newPage();
-        await openCustomizer(page);
-        await setSiteType(page, siteType);
-        await saveCustomizer(page);
-
-        await page.close();
-      });
 
       for (const { name, url, options } of pages) {
-        test(`${device.name} - ${siteType} - ${name}`, async ({ page }) => {
+        test(`： ${name}`, async ({ page }) => {
           await page.goto(url, { waitUntil: 'networkidle' });
 
           // 安全待機: ページ全体が見える状態を確認
-          await page.locator('body').waitFor({ state: 'visible', timeout: 10000 });
+          //await page.locator('body').waitFor({ state: 'visible', timeout: 10000 });
 
           // 任意で、LazyLoad画像の読み込みやフォント描画を待つ場合
-          await page.waitForTimeout(500); // 0.5秒程度の余裕待機
+          //await page.waitForTimeout(500); // 0.5秒程度の余裕待機
 
           const options = {
             maxDiffPixelRatio: 0.02, // 人間の目でわからないレベル
@@ -76,7 +79,9 @@ for (const device of devices) {
           };
           await expect(page).toHaveScreenshot({ fullPage: true, timeout: 100000, ...options });
         });
+
       }
     });
+
   }
 }
