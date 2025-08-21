@@ -33,20 +33,50 @@
 
 	<div class="entry-content">
 		<?php
-		the_content(
-			sprintf(
-				wp_kses(
-					/* translators: %s: Name of current post. Only visible to screen readers */
-					__('Continue reading<span class="screen-reader-text"> "%s"</span>', 'integlight'),
-					array(
-						'span' => array(
-							'class' => array(),
+		// the_content(
+		// 	sprintf(
+		// 		wp_kses(
+		// 			/* translators: %s: Name of current post. Only visible to screen readers */
+		// 			__('Continue reading<span class="screen-reader-text"> "%s"</span>', 'integlight'),
+		// 			array(
+		// 				'span' => array(
+		// 					'class' => array(),
+		// 				),
+		// 			)
+		// 		),
+		// 		wp_kses_post(get_the_title())
+		// 	)
+		// );
+		global $post;
+
+		if ($post) {
+			$transient_key = 'post_content_' . $post->ID;
+
+			$content_callback = function () {
+				ob_start();
+				the_content(
+					sprintf(
+						wp_kses(
+							__('Continue reading<span class="screen-reader-text"> "%s"</span>', 'integlight'),
+							array('span' => array('class' => array()))
 						),
+						wp_kses_post(get_the_title())
 					)
-				),
-				wp_kses_post(get_the_title())
-			)
-		);
+				);
+				return ob_get_clean();
+			};
+
+			integlight_display_cached_maincontent(
+				$content_callback,
+				$transient_key,
+				[]
+			);
+		}
+
+
+
+
+
 
 		wp_link_pages(
 			array(

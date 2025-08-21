@@ -215,12 +215,12 @@ for (const [headerGroup, scenarios] of Object.entries(TEST_SCENARIOS)) {
 
                 test('画像ロード属性を確認', async () => {
                     if (config.headCt > 0 && config.headSelector) {
-                        console.log(`@@@@@@@@@@ヘッダー画像のチェック: ${config.headSelector}`);
+                        //console.log(`@@@@@@@@@@ヘッダー画像のチェック: ${config.headSelector}`);
                         await test.step('ヘッダー画像の属性チェック', () =>
                             verifyImageAttributes(page, config.headSelector, config.headCt));
                     }
                     if (config.bodySelector) {
-                        console.log(`@@@@@@@@@@ボディ画像のチェック: ${config.bodySelector}`);
+                        //console.log(`@@@@@@@@@@ボディ画像のチェック: ${config.bodySelector}`);
                         await test.step('ボディ画像の属性チェック', () =>
                             verifyImageAttributes(page, config.bodySelector, config.bodyCt));
                     }

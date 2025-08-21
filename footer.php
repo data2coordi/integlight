@@ -20,18 +20,43 @@
 
 	<?php if (is_active_sidebar('footer-1')) : ?>
 		<div id="footer-widget-area" class="footer-widgets-wrapper">
-			<?php dynamic_sidebar('footer-1'); ?>
+			<?php
+			//dynamic_sidebar('footer-1');
+			$sidebar_args = array('footer-1');
+			// 共通関数を呼び出し、引数として関数名と引数配列を渡す
+			integlight_display_cached_content(
+				'dynamic_sidebar',
+				'dynamic_sidebar_footer-1',
+				$sidebar_args, // wp_nav_menuの引数を配列でラップ
+			);
+			?>
 		</div>
 	<?php endif; ?>
 	<?php
-	wp_nav_menu(array(
+	// wp_nav_menu(array(
+	// 	'theme_location'  => 'footer',
+	// 	'menu_id'      => 'footer-menu',
+	// 	'menu_class'      => 'footer-menu',
+	// 	'container'       => 'nav',
+	// 	'container_class' => 'footer-nav',
+	// 	'fallback_cb'     => false, // メニューが設定されていない場合に何も出さない
+	// ));
+
+	$menu_args = array(
 		'theme_location'  => 'footer',
 		'menu_id'      => 'footer-menu',
 		'menu_class'      => 'footer-menu',
 		'container'       => 'nav',
 		'container_class' => 'footer-nav',
 		'fallback_cb'     => false, // メニューが設定されていない場合に何も出さない
-	));
+	);
+
+	// 共通関数を呼び出し、引数として関数名と引数配列を渡す
+	integlight_display_cached_content(
+		'wp_nav_menu',
+		'wp_nav_menu_footer',
+		array($menu_args), // wp_nav_menuの引数を配列でラップ
+	);
 	?>
 
 	<div class="site-info">

@@ -101,15 +101,31 @@ if (!is_home() && is_front_page()) {
 					<span></span>
 				</button>
 				<?php
-				wp_nav_menu(
-					array(
-						'theme_location' => 'header',
-						'menu_id'        => 'header-menu',
-						'container_class' => 'menuToggle-containerForMenu',
-						'container_id'    => 'primary-menu-container', // ここにIDを追加
-						'fallback_cb'     => 'integlight_custom_fallback_menu_simple',
-					)
+				// wp_nav_menu(
+				// 	array(
+				// 		'theme_location' => 'header',
+				// 		'menu_id'        => 'header-menu',
+				// 		'container_class' => 'menuToggle-containerForMenu',
+				// 		'container_id'    => 'primary-menu-container', // ここにIDを追加
+				// 		'fallback_cb'     => 'integlight_custom_fallback_menu_simple',
+				// 	)
+				// );
+				// wp_nav_menu()用の引数
+				$menu_args = array(
+					'theme_location'  => 'header',
+					'menu_id'         => 'header-menu',
+					'container_class' => 'menuToggle-containerForMenu',
+					'container_id'    => 'primary-menu-container',
+					'fallback_cb'     => 'integlight_custom_fallback_menu_simple'
 				);
+
+				// 共通関数を呼び出し、引数として関数名と引数配列を渡す
+				integlight_display_cached_content(
+					'wp_nav_menu',
+					'wp_nav_menu_main',
+					array($menu_args), // wp_nav_menuの引数を配列でラップ
+				);
+
 				?>
 			</nav><!-- #site-navigation -->
 		</header><!-- #masthead -->

@@ -209,6 +209,33 @@ function add_label_to_wp_block_search($block_content, $block)
 /* 検索ボックスにラベル追加 ユーザビリティ対応e	*/
 /********************************************************************/
 
+
+/********************************************************************/
+/* カスタムロゴ画像取得 s	*/
+/********************************************************************/
+
+/**
+ * カスタムロゴのsizes属性を変更するフィルター
+ *
+ * @param string $sizes 生成されたsizes属性の文字列。
+ * @return string 変更後のsizes属性の文字列。
+ */
+function integlight_custom_logo_sizes($attr, $attachment_id, $size)
+{
+    // sizes 属性を上書き
+    $attr['sizes'] = '(max-width: 450px) 20vw, 700px';
+
+    return $attr;
+}
+add_filter('get_custom_logo_image_attributes', 'integlight_custom_logo_sizes', 10, 3);
+
+
+/********************************************************************/
+/* カスタムロゴ画像取得 e	*/
+/*******************************************************************
+
+
+
 /********************************************************************/
 /* アイキャッチ画像取得(存在しなければ、本文の画像、デフォルト画像を取得) s	*/
 /********************************************************************/
@@ -418,3 +445,62 @@ class Integlight_getAttr_byImageCount
 /********************************************************************/
 /* fetchprioryにする上位画像数を計算e	*/
 /********************************************************************/
+
+/********************************************************************/
+/* 周辺コンテンツのキャッシュ機能s	*/
+/********************************************************************/
+
+/**
+ * 指定されたコールバック関数を実行し、結果をキャッシュする汎用関数
+ *
+ * @param string|array $callback 実行する関数名またはコールバック配列。
+ * @param array $args コールバック関数に渡す引数の配列。
+ * @param string $transient_key キャッシュ用のユニークなキー。
+ * @param int $expiration キャッシュの有効期限（秒）。
+ */
+function integlight_display_cached_content($callback, $transient_key, $args,  $expiration = 5 * MINUTE_IN_SECONDS)
+{
+    // 管理者ユーザーかどうかの判定
+    $is_admin = current_user_can('administrator');
+    $transient_key = 'integlight_' . $transient_key;
+    // 管理者でなければ、キャッシュの取得を試みる
+    if (!$is_admin) {
+        $cached_content = get_transient($transient_key);
+    }
+
+    // キャッシュが存在しない、または管理者の場合にコールバックを実行
+    if (empty($cached_content)) {
+        ob_start();
+        call_user_func_array($callback, $args); // 関数を実行
+        $cached_content = ob_get_clean();
+
+        // 管理者でなければ、生成したコンテンツをキャッシュに保存
+        if (!$is_admin) {
+            set_transient($transient_key, $cached_content, $expiration);
+        }
+    }
+
+    // 最終的なコンテンツを出力
+    echo $cached_content;
+}
+
+function integlight_display_cached_maincontent($callback, $transient_key, $args = [], $expiration = 5 * MINUTE_IN_SECONDS)
+{
+    $is_admin = current_user_can('administrator');
+    $transient_key = 'integlight_' . $transient_key;
+
+    // 管理者はキャッシュを使わず毎回生成
+    $cached_content = (!$is_admin) ? get_transient($transient_key) : false;
+
+    if ($cached_content === false) {
+        // ★ コールバックの戻り値を直接受け取る
+        $cached_content = call_user_func_array($callback, $args);
+
+        if (!$is_admin) {
+            set_transient($transient_key, $cached_content, $expiration);
+        }
+    }
+
+    echo $cached_content;
+}
+?>
