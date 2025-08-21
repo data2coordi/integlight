@@ -101,16 +101,7 @@ if (!is_home() && is_front_page()) {
 					<span></span>
 				</button>
 				<?php
-				// wp_nav_menu(
-				// 	array(
-				// 		'theme_location' => 'header',
-				// 		'menu_id'        => 'header-menu',
-				// 		'container_class' => 'menuToggle-containerForMenu',
-				// 		'container_id'    => 'primary-menu-container', // ここにIDを追加
-				// 		'fallback_cb'     => 'integlight_custom_fallback_menu_simple',
-				// 	)
-				// );
-				// wp_nav_menu()用の引数
+
 				$menu_args = array(
 					'theme_location'  => 'header',
 					'menu_id'         => 'header-menu',

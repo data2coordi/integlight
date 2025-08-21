@@ -33,14 +33,7 @@
 		</div>
 	<?php endif; ?>
 	<?php
-	// wp_nav_menu(array(
-	// 	'theme_location'  => 'footer',
-	// 	'menu_id'      => 'footer-menu',
-	// 	'menu_class'      => 'footer-menu',
-	// 	'container'       => 'nav',
-	// 	'container_class' => 'footer-nav',
-	// 	'fallback_cb'     => false, // メニューが設定されていない場合に何も出さない
-	// ));
+
 
 	$menu_args = array(
 		'theme_location'  => 'footer',
