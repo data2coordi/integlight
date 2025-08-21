@@ -119,12 +119,10 @@ if (!is_home() && is_front_page()) {
 					'fallback_cb'     => 'integlight_custom_fallback_menu_simple'
 				);
 
-				// 共通関数を呼び出し、引数として関数名と引数配列を渡す
-				integlight_display_cached_content(
-					'wp_nav_menu',
-					'wp_nav_menu_main',
-					array($menu_args), // wp_nav_menuの引数を配列でラップ
-				);
+				$cache_menu    = new Integlight_Cache_Menu();
+				// メニュー
+				$cache_menu->displayMenu('main_menu', $menu_args);
+
 
 				?>
 			</nav><!-- #site-navigation -->

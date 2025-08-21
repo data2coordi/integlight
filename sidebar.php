@@ -23,15 +23,10 @@ if (is_active_sidebar('sidebar-1')) {
 
 
 			<?php
-			//dynamic_sidebar('sidebar-1');
-			$sidebar_args = array('sidebar-1');
-			// 共通関数を呼び出し、引数として関数名と引数配列を渡す
-			integlight_display_cached_content(
-				'dynamic_sidebar',
-				'dynamic_sidebar_sidebar-1',
-				$sidebar_args, // wp_nav_menuの引数を配列でラップ
-			);
 
+			//サイドバー出力
+			$cache_sidebar = new Integlight_Cache_Sidebar();
+			$cache_sidebar->displaySidebar('sidebar-1', 'sidebar-1');
 
 			?>
 		</aside><!-- #secondary -->
@@ -48,14 +43,10 @@ if (is_active_sidebar('sidebar-2')) {
 
 
 			<?php
-			//dynamic_sidebar('sidebar-2'); 
-			$sidebar_args = array('sidebar-2');
-			// 共通関数を呼び出し、引数として関数名と引数配列を渡す
-			integlight_display_cached_content(
-				'dynamic_sidebar',
-				'dynamic_sidebar_sidebar-2',
-				$sidebar_args, // wp_nav_menuの引数を配列でラップ
-			);
+			//サイドバー出力
+			$cache_sidebar = new Integlight_Cache_Sidebar();
+			$cache_sidebar->displaySidebar('sidebar-2', 'sidebar-2');
+
 			?>
 
 		</aside><!-- #secondary -->

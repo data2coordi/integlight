@@ -48,30 +48,9 @@
 		// 	)
 		// );
 		global $post;
-
-		if ($post) {
-			$transient_key = 'post_content_' . $post->ID;
-
-			$content_callback = function () {
-				ob_start();
-				the_content(
-					sprintf(
-						wp_kses(
-							__('Continue reading<span class="screen-reader-text"> "%s"</span>', 'integlight'),
-							array('span' => array('class' => array()))
-						),
-						wp_kses_post(get_the_title())
-					)
-				);
-				return ob_get_clean();
-			};
-
-			integlight_display_cached_maincontent(
-				$content_callback,
-				$transient_key,
-				[]
-			);
-		}
+		$cache_main    = new Integlight_Cache_MainContent();
+		$tkey = 'post_content_' . (int) $post->ID; // 必ずIDを含める
+		$cache_main->displayPostContent($tkey, $post->ID);
 
 
 
