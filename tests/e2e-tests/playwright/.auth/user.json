@@ -2,7 +2,7 @@
   "cookies": [
     {
       "name": "wordpress_sec_da5bec4a4c0d7514ecd6ae730119ce05",
-      "value": "tech%7C1755830640%7CHl7Fre4yScyGXitTjTlXRtW1WvQR1SyH8nLARnSHyR6%7C8a64fdae0e814ce805e991f213e4807f82ddf0aeacce491a507be6b3914bb540",
+      "value": "tech%7C1755946941%7Cbd2FzAVc01eZwebsiNdYm9R8JV2vtjDuXwI5rWQdIb6%7C9c4c891bcd28b4a87f55437a535c51720862cc774f359d4404e2d62aeb33c85c",
       "domain": "wpdev.toshidayurika.com",
       "path": "/wp-content/plugins",
       "expires": -1,
@@ -12,7 +12,7 @@
     },
     {
       "name": "wordpress_sec_da5bec4a4c0d7514ecd6ae730119ce05",
-      "value": "tech%7C1755830640%7CHl7Fre4yScyGXitTjTlXRtW1WvQR1SyH8nLARnSHyR6%7C8a64fdae0e814ce805e991f213e4807f82ddf0aeacce491a507be6b3914bb540",
+      "value": "tech%7C1755946941%7Cbd2FzAVc01eZwebsiNdYm9R8JV2vtjDuXwI5rWQdIb6%7C9c4c891bcd28b4a87f55437a535c51720862cc774f359d4404e2d62aeb33c85c",
       "domain": "wpdev.toshidayurika.com",
       "path": "/wp-admin",
       "expires": -1,
@@ -32,7 +32,17 @@
     },
     {
       "name": "wordpress_logged_in_da5bec4a4c0d7514ecd6ae730119ce05",
-      "value": "tech%7C1755830640%7CHl7Fre4yScyGXitTjTlXRtW1WvQR1SyH8nLARnSHyR6%7C52e71963952dd9669d0f8abb136a1101b93f9c0168e72431cd5fe7f41fa225d8",
+      "value": "tech%7C1755946941%7Cbd2FzAVc01eZwebsiNdYm9R8JV2vtjDuXwI5rWQdIb6%7C0245e476c678ac42eb3b3f47823a0638bfc3b2bf378c193781719d98ec7cfa50",
+      "domain": "wpdev.toshidayurika.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "wp_lang",
+      "value": "ja",
       "domain": "wpdev.toshidayurika.com",
       "path": "/",
       "expires": -1,
@@ -45,17 +55,17 @@
       "value": "libraryContent%3Dbrowse%26mfold%3Do",
       "domain": "wpdev.toshidayurika.com",
       "path": "/",
-      "expires": 1787193841.117136,
+      "expires": 1787310142.639557,
       "httpOnly": false,
       "secure": true,
       "sameSite": "Lax"
     },
     {
       "name": "wp-settings-time-6",
-      "value": "1755657840",
+      "value": "1755774142",
       "domain": "wpdev.toshidayurika.com",
       "path": "/",
-      "expires": 1787193841.117304,
+      "expires": 1787310142.639826,
       "httpOnly": false,
       "secure": true,
       "sameSite": "Lax"
