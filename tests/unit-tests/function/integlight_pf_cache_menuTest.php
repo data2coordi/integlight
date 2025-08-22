@@ -70,7 +70,7 @@ class integlight_pf_cache_menuTest extends WP_UnitTestCase
         // --- 実行 ---
         ob_start();
         // displayMenu は第二引数に wp_nav_menu の引数配列を受け取る
-        $this->cache_menu->displayMenu($key, ['theme_location' => 'primary', 'echo' => false]);
+        $this->cache_menu->displayMenu($key, ['theme_location' => 'primary', 'echo' => true]);
         $out = ob_get_clean();
 
         // output にメニュー項目のタイトルが含まれることを確認

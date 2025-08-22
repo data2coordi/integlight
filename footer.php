@@ -44,12 +44,10 @@
 		'fallback_cb'     => false, // メニューが設定されていない場合に何も出さない
 	);
 
-	// 共通関数を呼び出し、引数として関数名と引数配列を渡す
-	integlight_display_cached_content(
-		'wp_nav_menu',
-		'wp_nav_menu_footer',
-		array($menu_args), // wp_nav_menuの引数を配列でラップ
-	);
+	// 共通関数を呼び出し、引数として引数配列を渡す
+	$cache_menu    = new Integlight_Cache_Menu();
+	// メニュー
+	$cache_menu->displayMenu('footer_menu', $menu_args);
 	?>
 
 	<div class="site-info">

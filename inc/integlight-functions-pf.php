@@ -446,83 +446,22 @@ class Integlight_getAttr_byImageCount
 /* fetchprioryにする上位画像数を計算e	*/
 /********************************************************************/
 
+
 /********************************************************************/
 /* コンテンツのキャッシュ機能s	*/
 /********************************************************************/
 
-/**
- * 指定されたコールバック関数を実行し、結果をキャッシュする汎用関数
- *
- * @param string|array $callback 実行する関数名またはコールバック配列。
- * @param array $args コールバック関数に渡す引数の配列。
- * @param string $transient_key キャッシュ用のユニークなキー。
- * @param int $expiration キャッシュの有効期限（秒）。
- */
-function integlight_display_cached_content($callback, $transient_key, $args,  $expiration = 5 * MINUTE_IN_SECONDS)
-{
-    // 管理者ユーザーかどうかの判定
-    $is_admin = current_user_can('administrator');
-    $transient_key = 'integlight_' . $transient_key;
-    // 管理者でなければ、キャッシュの取得を試みる
-    if (!$is_admin) {
-        $cached_content = get_transient($transient_key);
-    }
-
-    // キャッシュが存在しない、または管理者の場合にコールバックを実行
-    if (empty($cached_content)) {
-        ob_start();
-        call_user_func_array($callback, $args); // 関数を実行
-        $cached_content = ob_get_clean();
-
-        // 管理者でなければ、生成したコンテンツをキャッシュに保存
-        if (!$is_admin) {
-            set_transient($transient_key, $cached_content, $expiration);
-        }
-    }
-
-    // 最終的なコンテンツを出力
-    echo $cached_content;
-}
-
-function integlight_display_cached_maincontent($callback, $transient_key, $args = [], $expiration = 5 * MINUTE_IN_SECONDS)
-{
-    $is_admin = current_user_can('administrator');
-    $transient_key = 'integlight_' . $transient_key;
-
-    // 管理者はキャッシュを使わず毎回生成
-    $cached_content = (!$is_admin) ? get_transient($transient_key) : false;
-
-    if ($cached_content === false) {
-        // ★ コールバックの戻り値を直接受け取る
-        $cached_content = call_user_func_array($callback, $args);
-
-        if (!$is_admin) {
-            set_transient($transient_key, $cached_content, $expiration);
-        }
-    }
-
-    echo $cached_content;
-}
-
-
-
 // ==============================
 // 親クラス（共通処理）
 // ==============================
-
-/**
- * 親クラス：共通処理（キャッシュ取得/保存/削除・管理者判定等）
- */
 abstract class Integlight_Cache_Base
 {
     protected $prefix = 'integlight_';
-    protected $default_expiration = 300;
+    protected $default_expiration;
 
-    public function __construct($default_expiration = null)
+    public function __construct($default_expiration = 300)
     {
-        if ($default_expiration !== null) {
-            $this->default_expiration = (int) $default_expiration;
-        }
+        $this->default_expiration = (int) $default_expiration;
     }
 
     protected function transientKey($key)
@@ -541,8 +480,8 @@ abstract class Integlight_Cache_Base
     }
 
     /**
-     * 汎用：コールバックの戻り値をキャッシュして出力する
-     * コールバックは戻り値を返す（ob_start() をコールバック側で使う）
+     * 汎用：コールバックを実行して出力をキャッシュ
+     * サブクラスはコールバックと引数だけを渡せばOK
      */
     public function display($callback, $key, $args = [], $expiration = null)
     {
@@ -553,13 +492,12 @@ abstract class Integlight_Cache_Base
         $cached = (!$is_admin) ? get_transient($tkey) : false;
 
         if ($cached === false) {
-            if (!is_callable($callback)) {
-                $cached = '';
-            } else {
-                $cached = call_user_func_array($callback, $args);
-                if (!$is_admin) {
-                    set_transient($tkey, $cached, $expiration);
-                }
+            ob_start();
+            call_user_func_array($callback, $args); // 出力をコールバックで生成
+            $cached = ob_get_clean();
+
+            if (!$is_admin) {
+                set_transient($tkey, $cached, $expiration);
             }
         }
 
@@ -572,94 +510,31 @@ abstract class Integlight_Cache_Base
     }
 }
 
-/**
- * サイドバー用サブクラス（簡易ラッパー）
- */
+
 class Integlight_Cache_Sidebar extends Integlight_Cache_Base
 {
     public function displaySidebar($key, $sidebar_id = 'sidebar-1', $expiration = null)
     {
-        $callback = function () use ($sidebar_id) {
-            ob_start();
-            dynamic_sidebar($sidebar_id);
-            return ob_get_clean();
-        };
-        $this->display($callback, $key, [], $expiration);
+        $this->display('dynamic_sidebar', $key, [$sidebar_id], $expiration);
     }
 }
 
-/**
- * メニュー用サブクラス（簡易ラッパー）
- */
 class Integlight_Cache_Menu extends Integlight_Cache_Base
 {
     public function displayMenu($key, $wp_nav_args = [], $expiration = null)
     {
-        $callback = function () use ($wp_nav_args) {
-            ob_start();
-            wp_nav_menu($wp_nav_args);
-            return ob_get_clean();
-        };
-        $this->display($callback, $key, [], $expiration);
+        $this->display('wp_nav_menu', $key, [$wp_nav_args], $expiration);
     }
 }
 
-/**
- * メインコンテンツ用サブクラス（コールバック不要）
- *
- * 注意：キャッシュキーには必ず投稿IDなどユニークな識別子を含めてください。
- */
 class Integlight_Cache_MainContent extends Integlight_Cache_Base
 {
-    /**
-     * @param string $key キャッシュキー（例: "post_content_123"）
-     * @param int|null $post_id 表示する投稿ID（nullなら現在の $post を使用）
-     * @param string|null $more_link_text the_content に渡す $more_link_text
-     * @param bool $strip_teaser the_content に渡す $strip_teaser
-     * @param int|null $expiration
-     */
-    public function displayPostContent($key, $post_id = null, $more_link_text = null, $strip_teaser = false, $expiration = null)
+    public function displayPostContent($key, $expiration = null)
     {
-        $is_admin = $this->isAdmin();
-        $tkey = $this->transientKey($key);
-        $expiration = $this->getExpiration($expiration);
-
-        $cached = (!$is_admin) ? get_transient($tkey) : false;
-
-        if ($cached === false) {
-            // 投稿切り替え（必要なら setup_postdata）
-            $post_obj = null;
-            if ($post_id) {
-                $post_obj = get_post((int) $post_id);
-            } else {
-                global $post;
-                $post_obj = isset($post) ? $post : null;
-            }
-
-            if ($post_obj) {
-                global $post;
-                $backup = $post ?? null;
-                $post = $post_obj;
-                setup_postdata($post);
-            }
-
-            ob_start();
-            // the_content はフックやショートコードを適用する（柔軟）
-            the_content($more_link_text, $strip_teaser);
-            $cached = ob_get_clean();
-
-            if (!empty($post_obj)) {
-                wp_reset_postdata();
-            }
-
-            if (!$is_admin) {
-                set_transient($tkey, $cached, $expiration);
-            }
-        }
-
-        echo $cached;
+        $this->display('the_content', $key, [], $expiration);
     }
 }
+
 
 /********************************************************************/
 /* コンテンツのキャッシュ機能e	*/
