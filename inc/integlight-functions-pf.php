@@ -480,16 +480,28 @@ abstract class Integlight_Cache_Base
     }
 
     /**
+     * カスタマイザでキャッシュが有効か確認
+     */
+    protected function isCacheEnabled()
+    {
+        // カスタマイザ設定 'integlight_cache_enable' を想定
+        // デフォルトは true（有効）
+        return get_theme_mod('integlight_cache_enable', true);
+    }
+
+    /**
      * 汎用：コールバックを実行して出力をキャッシュ
      * サブクラスはコールバックと引数だけを渡せばOK
      */
     public function display($callback, $key, $args = [], $expiration = null)
     {
         $is_admin = $this->isAdmin();
+        $cache_enabled = $this->isCacheEnabled(); // ここでカスタマイザ設定を確認
+
         $tkey = $this->transientKey($key);
         $expiration = $this->getExpiration($expiration);
 
-        $cached = (!$is_admin) ? get_transient($tkey) : false;
+        $cached = (!$is_admin && $cache_enabled) ? get_transient($tkey) : false;
 
         if ($cached === false) {
             ob_start();

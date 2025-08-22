@@ -40,6 +40,7 @@ require get_template_directory() . '/inc/integlight-customizer-front.php';
 require get_template_directory() . '/inc/integlight-customizer-slider-cmn.php';
 require get_template_directory() . '/inc/integlight-customizer-slider-front.php';
 require get_template_directory() . '/inc/integlight-customizer-slider.php';
+require get_template_directory() . '/inc/integlight-customizer-pf.php';
 
 
 /***************************************** */
