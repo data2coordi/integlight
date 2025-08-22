@@ -335,7 +335,7 @@ class integlight_pf_cache_menuTest extends WP_UnitTestCase
 
 
     /**
-     * header.php を実際にロードしてメニューキャッシュを検証する統合テスト
+     * header.php を実際にロードしてメニューキャッシュが保存されることを検証する統合テスト
      * @group integration
      * @group header-full-load
      */
@@ -371,6 +371,7 @@ class integlight_pf_cache_menuTest extends WP_UnitTestCase
         $locations = get_theme_mod('nav_menu_locations') ?: [];
         $locations['header'] = $menu_id;
         set_theme_mod('nav_menu_locations', $locations);
+
 
         // --- 【テスト対象の実行】 ---
         // Integlight_Cache_Menu クラスをインスタンス化
@@ -426,10 +427,26 @@ class integlight_pf_cache_menuTest extends WP_UnitTestCase
         $key  = 'main_menu';
         $tkey = 'integlight_' . $key;
 
+
         // --- 【外部システムの状態設定】 ---
         // キャッシュをテストするために、事前にダミーのキャッシュを保存する
         $dummy_cached_html = '<nav class="integlight-menu"><a>Cached Dummy Item</a></nav>';
         set_transient($tkey, $dummy_cached_html, 300); // 有効期限は5分
+
+
+
+        // テスト用メニューを作成
+        $menu_id = wp_create_nav_menu('Header Test Menu');
+        wp_update_nav_menu_item($menu_id, 0, [
+            'menu-item-title'  => 'Header Test Item',
+            'menu-item-url'    => 'https://example.com/header-test',
+            'menu-item-status' => 'publish',
+        ]);
+
+        // 'header' ロケーションにテストメニューを割り当て
+        $locations = get_theme_mod('nav_menu_locations') ?: [];
+        $locations['header'] = $menu_id;
+        set_theme_mod('nav_menu_locations', $locations);
 
         // 以下のコードは、キャッシュヒットのテストでは実行する必要がない
         // 新しいメニューを作成したり、ロケーションに割り当てたりする必要はないため、コメントアウト
@@ -442,15 +459,17 @@ class integlight_pf_cache_menuTest extends WP_UnitTestCase
         // get_header() が呼び出される前に、キャッシュが有効な状態であることを確認
         $this->assertNotFalse(get_transient($tkey), 'テスト開始前にキャッシュが保存されていません。');
 
+
         // header.php をロードし、出力をバッファリング
         ob_start();
         get_header();
         $output_html = ob_get_clean();
 
+
         // --- 【検証】外部から見える結果のみをアサート ---
 
         // 1. 出力されたHTMLが、事前に保存したダミーのキャッシュと完全に一致することを確認
-        $this->assertSame($dummy_cached_html, $output_html, '出力がキャッシュの内容と一致しません。');
+        $this->assertStringContainsString($dummy_cached_html, $output_html, '出力にキャッシュされたメニューが含まれていません。');
 
         // 2. キャッシュが上書きされていないことを確認
         $cached_after = get_transient($tkey);
