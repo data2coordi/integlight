@@ -605,7 +605,7 @@ nav.post-navigation {
 @media (min-width: 769px) {
   .bl_card_container {
     grid-template-columns: 1fr 2fr;
-    grid-template-rows: auto auto;
+    grid-template-rows: 1fr 1fr;
   }
 
   .bl_card_img {
@@ -625,6 +625,13 @@ nav.post-navigation {
   color: #444;
 }
 
+.post-grid .grid-item > a .post-thumbnail{
+  grid-column: 1 / 2;
+  grid-row: 1 / -1;    /* ←ここが本丸：1行目〜最終行まで使用 */
+  align-self: stretch;
+  height: 100%;
+}
+
 .bl_card_container a {
   color: #444;
   text-decoration: none;
@@ -634,11 +641,11 @@ nav.post-navigation {
   text-decoration: none;
 }
 
+/* 画像下の隙間をなくす */
 .bl_card_container img {
-  height: 167px;
   width: 100%;
-  /* または固定値 */
-  object-fit: cover;
+  height: 100%;
+  object-fit: cover;   /* 切りたくないなら contain に変更 */
 }
 
 /* カード全体e*/
