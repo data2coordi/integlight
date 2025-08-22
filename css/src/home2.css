@@ -754,6 +754,7 @@
 
     .home #primary .post-grid .grid-item h2 {
       font-size: 1.3rem;
+      padding: 0;
     }
   
     /* 抜粋：行間広め、必要なら行数制限 */
@@ -795,9 +796,6 @@
       width: 90%;                       /* 行幅をやや絞って読みやすく */
     }
 
-    .home .post-date {
-      padding: 0 16px;
-    }
     
   }
   
