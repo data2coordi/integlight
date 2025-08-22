@@ -532,8 +532,22 @@
   /* カテゴリバッジ（画像左上） */
   .post-grid .grid-item .post-category {
     position: absolute;                  /* カード内で自由配置 */
+    max-width: calc(48% - 16px); /* 左列=48%想定。余白ぶん差し引き */ 
     z-index: 2;                          /* 画像より前面に（被せる） */
   }
+
+  /* 2行クランプを“確実に”適用（特に .home/.blog の既存ルールを上書き） */
+.home .post-category p,
+.blog .post-category p{
+  display: -webkit-box;           /* ← inline-block を上書き */
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+
+  white-space: normal;            /* 折り返し許可 */
+  overflow-wrap: anywhere;        /* 長い語の保険 */
+  margin: 0; padding: 4px 12px;
+}
 
   /* === homeだけ：grid-auto-rows の行高に中身をきっちり合わせる === */
 
