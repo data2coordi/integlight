@@ -18,7 +18,10 @@
 
 	<div class="entry-content">
 		<?php
-		the_content();
+		global $post;
+		$cache_main    = new Integlight_Cache_MainContent();
+		$tkey = 'post_content_' . (int) $post->ID; // 必ずIDを含める
+		$cache_main->displayPostContent($tkey);
 
 		wp_link_pages(
 			array(
