@@ -10,11 +10,9 @@ if (is_front_page() != false) {
     <?php
     $home_type = get_theme_mod('integlight_hometype_setting', 'home1');
 
-    get_template_part('template-parts/content-home', $home_type);
-
-
-
-
+    $cache = new Integlight_Cache_TemplatePart();
+    $key = 'home_content_' . $home_type;
+    $cache->displayTemplatePart($key, 'template-parts/content-home', $home_type);
 
 
     ?>

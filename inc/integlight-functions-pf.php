@@ -456,7 +456,7 @@ class Integlight_getAttr_byImageCount
 // ==============================
 abstract class Integlight_Cache_Base
 {
-    protected $prefix = 'integlight_';
+    protected static $prefix = 'integlight_';
     protected $default_expiration;
 
     public function __construct($default_expiration = 300)
@@ -466,12 +466,14 @@ abstract class Integlight_Cache_Base
 
     protected function transientKey($key)
     {
-        return $this->prefix . (string) $key;
+        return static::$prefix . (string) $key;
     }
 
-    protected function isAdmin()
+
+
+    protected function isLoggedInUser()
     {
-        return current_user_can('administrator');
+        return is_user_logged_in();
     }
 
     protected function getExpiration($expiration)
@@ -495,20 +497,20 @@ abstract class Integlight_Cache_Base
      */
     public function display($callback, $key, $args = [], $expiration = null)
     {
-        $is_admin = $this->isAdmin();
+        $is_logged_in = $this->isLoggedInUser();
         $cache_enabled = $this->isCacheEnabled(); // ここでカスタマイザ設定を確認
 
         $tkey = $this->transientKey($key);
         $expiration = $this->getExpiration($expiration);
 
-        $cached = (!$is_admin && $cache_enabled) ? get_transient($tkey) : false;
+        $cached = (!$is_logged_in && $cache_enabled) ? get_transient($tkey) : false;
 
         if ($cached === false) {
             ob_start();
             call_user_func_array($callback, $args); // 出力をコールバックで生成
             $cached = ob_get_clean();
 
-            if (!$is_admin) {
+            if (!$is_logged_in) {
                 set_transient($tkey, $cached, $expiration);
             }
         }
@@ -516,9 +518,55 @@ abstract class Integlight_Cache_Base
         echo $cached;
     }
 
+
+
     public function delete($key)
     {
         delete_transient($this->transientKey($key));
+    }
+
+
+    /**
+     * すべてのキャッシュを効率的に削除（静的メソッド）
+     */
+    public static function clearAll($post_id = null)
+    {
+
+
+        global $wpdb;
+        $prefix = static::$prefix;
+
+        $sql = $wpdb->prepare(
+            "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s",
+            $wpdb->esc_like('_transient_' . $prefix) . '%'
+        );
+
+        $wpdb->query($sql);
+    }
+
+    /**
+     * キャッシュクリアのためのフックをすべて登録
+     */
+    public static function registerHooks()
+    {
+        // 投稿・カテゴリの変更
+        add_action('save_post', [static::class, 'clearAll'], 10, 1);
+        add_action('edited_term', [static::class, 'clearAll']);
+
+        // プラグイン・テーマの変更
+        add_action('upgrader_process_complete', [static::class, 'clearAll']);
+        add_action('activate_plugin', [static::class, 'clearAll']);
+        add_action('deactivate_plugin', [static::class, 'clearAll']);
+
+        // カスタマイザーの変更
+        add_action('customize_save_after', [static::class, 'clearAll']);
+
+        // メニューの変更
+        add_action('wp_update_nav_menu', [static::class, 'clearAll']);
+        add_action('wp_delete_nav_menu', [static::class, 'clearAll']);
+
+        // ウィジェットの変更
+        add_action('widget_update_callback', [static::class, 'clearAll']);
     }
 }
 
@@ -547,7 +595,23 @@ class Integlight_Cache_MainContent extends Integlight_Cache_Base
     }
 }
 
+class Integlight_Cache_TemplatePart extends Integlight_Cache_Base
+{
+    public function displayTemplatePart($key, $slug, $name = null, $expiration = null)
+    {
+        $this->display(
+            'get_template_part',  // コールバックは文字列で渡す
+            $key,
+            [$slug, $name],       // 引数は配列で渡す
+            $expiration
+        );
+    }
+}
 
+
+if (class_exists('Integlight_Cache_Base')) {
+    Integlight_Cache_Base::registerHooks();
+}
 /********************************************************************/
 /* コンテンツのキャッシュ機能e	*/
 /********************************************************************/
