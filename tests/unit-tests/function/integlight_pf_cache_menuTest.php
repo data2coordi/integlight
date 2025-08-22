@@ -126,9 +126,10 @@ class integlight_pf_cache_menuTest extends WP_UnitTestCase
 
         // 既存キャッシュを用意して短時間で期限切れにする（確実に期限切れさせるため TTL=1 + sleep）
         $expired_html = '<nav class="integlight-menu"><a>Expired Item</a></nav>';
-        set_transient($tkey, $expired_html, 1); // 1秒で失効
+        set_transient($tkey, $expired_html, 1); // 失効
         // 確実に期限切れさせる
-        sleep(2);
+        delete_transient($tkey); // <-- 意図的に削除して「期限切れ」の状態を再現
+
 
         // --- テスト用メニュー作成 ---
         $menu_name = 'integlight_test_menu_expired_' . rand(1000, 9999);
@@ -151,19 +152,13 @@ class integlight_pf_cache_menuTest extends WP_UnitTestCase
         $out = ob_get_clean();
 
         // 新しいメニューの出力が返ること。
-        // 環境差で href が出ない場合があるため、"Expired" 単語か URL のどちらかが含まれていれば OK とする
-        $this->assertTrue(
-            (strpos($out, 'Expired') !== false) || (strpos($out, 'https://example.com/expired') !== false),
-            '出力に "Expired" か URL が含まれるはずです'
-        );
+        $this->assertStringContainsString('Item Expired', $out);
+
 
         // トランジェントが更新されていること（更新後のキャッシュに "Expired" または URL が含まれることを確認）
         $cached_after = get_transient($tkey);
         $this->assertNotFalse($cached_after);
-        $this->assertTrue(
-            (strpos($cached_after, 'Expired') !== false) || (strpos($cached_after, 'https://example.com/expired') !== false),
-            'キャッシュに "Expired" か URL が含まれるはずです'
-        );
+        $this->assertStringContainsString('Item Expired', $cached_after);
 
         // 後片付け
         delete_transient($tkey);
@@ -335,6 +330,134 @@ class integlight_pf_cache_menuTest extends WP_UnitTestCase
         $this->assertSame($existing_html, $out);
         $this->assertSame($existing_html, get_transient($tkey));
 
+        delete_transient($tkey);
+    }
+
+
+    /**
+     * header.php を実際にロードしてメニューキャッシュを検証する統合テスト
+     * @group integration
+     * @group header-full-load
+     */
+    public function test_header_menu_full_integration()
+    {
+        // --- 【前提条件】テスト環境の準備 ---
+        // 非ログインユーザーとしてテストを実行
+        wp_logout();
+
+        // カスタマイザーでキャッシュを有効にする
+        set_theme_mod('integlight_cache_enable', true);
+
+        // テストで使用するメニューのキーとトランジェントキーを定義
+        $key  = 'main_menu';
+        $tkey = 'integlight_' . $key;
+
+        // テスト前に、既存のキャッシュを確実に削除
+        delete_transient($tkey);
+
+        // --- 【外部システムの状態設定】 ---
+        // 'header' テーマロケーションを登録
+        //register_nav_menu('header', 'Header Menu');
+
+        // テスト用のメニューを作成
+        $menu_id = wp_create_nav_menu('Header Test Menu');
+        wp_update_nav_menu_item($menu_id, 0, [
+            'menu-item-title'  => 'Header Test Item',
+            'menu-item-url'    => 'https://example.com/header-test',
+            'menu-item-status' => 'publish',
+        ]);
+
+        // 'header' ロケーションにテストメニューを割り当て
+        $locations = get_theme_mod('nav_menu_locations') ?: [];
+        $locations['header'] = $menu_id;
+        set_theme_mod('nav_menu_locations', $locations);
+
+        // --- 【テスト対象の実行】 ---
+        // Integlight_Cache_Menu クラスをインスタンス化
+        //$cache_menu = new Integlight_Cache_Menu();
+        // get_header() がこのテストクラスのメソッドを呼び出せるように、
+        // グローバルスコープにインスタンスをセットアップ
+        // (これはあくまで例です。より洗練された方法としては、フックでインスタンスをセットアップする方法もあります。)
+        //$GLOBALS['cache_menu_instance'] = $cache_menu;
+
+        // header.php をロードして出力をバッファリング
+        ob_start();
+        // 実際に get_header() を呼び出すことで header.php がロードされる
+        get_header();
+        $output_html = ob_get_clean();
+
+        // --- 【検証】外部から見える結果のみをアサート ---
+
+        // 1. 出力されたHTMLが期待通りであるか
+        $this->assertStringContainsString('Header Test Item', $output_html, 'メニュー項目がHTMLに出力されていません。');
+        $this->assertStringContainsString('id="header-menu"', $output_html, 'header.phpで指定した menu_id がHTMLに出力されていません。');
+        $this->assertStringContainsString('class="menuToggle-containerForMenu"', $output_html, 'header.phpで指定した container_class がHTMLに出力されていません。');
+
+        // 2. キャッシュが正しく生成されたか
+        $cached = get_transient($tkey);
+        $this->assertNotFalse($cached, 'メニューキャッシュがトランジェントに保存されていません。');
+
+        // 3. 保存されたキャッシュの内容が期待通りであるか
+        $this->assertStringContainsString('Header Test Item', $cached, '保存されたキャッシュにメニュー項目が含まれていません。');
+        $this->assertStringContainsString('id="header-menu"', $cached, '保存されたキャッシュに menu_id が含まれていません。');
+
+        // --- 【後片付け】 ---
+        // テストで使用したリソースを削除
+        delete_transient($tkey);
+        wp_delete_nav_menu($menu_id);
+        unregister_nav_menu('header');
+    }
+
+    /**
+     * header.phpを実際にロードし、キャッシュが利用されることを検証する統合テスト
+     * @group integration
+     * @group header-cache-hit
+     */
+    public function test_header_menu_full_integration_cache_hit()
+    {
+        // --- 【前提条件】テスト環境の準備 ---
+        // 非ログインユーザーとしてテストを実行
+        wp_logout();
+
+        // カスタマイザーでキャッシュを有効にする
+        set_theme_mod('integlight_cache_enable', true);
+
+        // テストで使用するメニューのキーとトランジェントキーを定義
+        $key  = 'main_menu';
+        $tkey = 'integlight_' . $key;
+
+        // --- 【外部システムの状態設定】 ---
+        // キャッシュをテストするために、事前にダミーのキャッシュを保存する
+        $dummy_cached_html = '<nav class="integlight-menu"><a>Cached Dummy Item</a></nav>';
+        set_transient($tkey, $dummy_cached_html, 300); // 有効期限は5分
+
+        // 以下のコードは、キャッシュヒットのテストでは実行する必要がない
+        // 新しいメニューを作成したり、ロケーションに割り当てたりする必要はないため、コメントアウト
+        // register_nav_menu('header', 'Header Menu');
+        // $menu_id = wp_create_nav_menu('Header Test Menu');
+        // ...
+        // set_theme_mod('nav_menu_locations', $locations);
+
+        // --- 【テスト対象の実行】 ---
+        // get_header() が呼び出される前に、キャッシュが有効な状態であることを確認
+        $this->assertNotFalse(get_transient($tkey), 'テスト開始前にキャッシュが保存されていません。');
+
+        // header.php をロードし、出力をバッファリング
+        ob_start();
+        get_header();
+        $output_html = ob_get_clean();
+
+        // --- 【検証】外部から見える結果のみをアサート ---
+
+        // 1. 出力されたHTMLが、事前に保存したダミーのキャッシュと完全に一致することを確認
+        $this->assertSame($dummy_cached_html, $output_html, '出力がキャッシュの内容と一致しません。');
+
+        // 2. キャッシュが上書きされていないことを確認
+        $cached_after = get_transient($tkey);
+        $this->assertSame($dummy_cached_html, $cached_after, 'キャッシュが上書きされました。');
+
+        // --- 【後片付け】 ---
+        // テストで使用したリソースを削除
         delete_transient($tkey);
     }
 }
