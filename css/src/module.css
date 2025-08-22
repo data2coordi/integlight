@@ -625,13 +625,6 @@ nav.post-navigation {
   color: #444;
 }
 
-.post-grid .grid-item > a .post-thumbnail{
-  grid-column: 1 / 2;
-  grid-row: 1 / -1;    /* ←ここが本丸：1行目〜最終行まで使用 */
-  align-self: stretch;
-  height: 100%;
-}
-
 .bl_card_container a {
   color: #444;
   text-decoration: none;
