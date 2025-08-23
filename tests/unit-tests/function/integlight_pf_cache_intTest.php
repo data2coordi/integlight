@@ -506,4 +506,137 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
 
         delete_transient($ttkey);
     }
+
+    /**
+     * save_post 発火時に clearAll が呼ばれ、キャッシュが削除されることを検証する統合テスト
+     */
+    public function xtest_clearAll_on_save_post()
+    {
+        // --- 前提条件 ---
+        wp_logout();
+        set_theme_mod('integlight_cache_enable', true);
+
+        // ダミーキャッシュを作成
+        $ttkeys = ['home_content_home1', 'post_content_1', 'sidebar-1', 'main_menu'];
+        foreach ($ttkeys as $ttkey) {
+            set_transient('integlight_' . $ttkey, 'dummy_cache', 300);
+            $this->assertNotFalse(get_transient('integlight_' . $ttkey), "キャッシュ $ttkey がセットされていることを確認");
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // --- save_post をトリガー ---
+        $post_id = $this->factory->post->create([
+            'post_title'   => 'Trigger ClearAll Post',
+            'post_content' => 'This post triggers clearAll.',
+            'post_status'  => 'publish',
+        ]);
+        do_action('save_post', $post_id);
+
+        global $wpdb;
+
+        // --- 検証: 全キャッシュが削除されていること ---
+        foreach ($ttkeys as $ttkey) {
+            $option_name = '_transient_integlight_' . $ttkey;
+            $exists = $wpdb->get_var(
+                $wpdb->prepare("SELECT option_id FROM {$wpdb->options} WHERE option_name = %s", $option_name)
+            );
+            $this->assertNull($exists, "DBに $option_name が残っていないこと");
+        }
+    }
+
+    public function test_clearAll_on_various_hooks()
+    {
+        global $wpdb;
+
+        // --- 前提条件 ---
+        wp_logout();
+        set_theme_mod('integlight_cache_enable', true);
+
+        // ダミーキャッシュキー
+        $ttkeys = ['home_content_home1', 'post_content_1', 'sidebar-1', 'main_menu'];
+
+        // フック一覧（upgrader_process_complete は除外済）
+        $hooks = [
+            'save_post'              => [$this->factory->post->create(['post_title' => 'Post', 'post_status' => 'publish'])],
+            'edited_term'            => [1, 'category'],
+            'activate_plugin'        => ['dummy-plugin/dummy.php'],
+            'deactivate_plugin'      => ['dummy-plugin/dummy.php'],
+            'customize_save_after'   => [],
+            'wp_update_nav_menu'     => [1],
+            'wp_delete_nav_menu'     => [1],
+            'widget_update_callback' => [[]],
+        ];
+
+        foreach ($hooks as $hook => $args) {
+            // --- キャッシュを再作成（DBに確実に書き込むため update_option を使う） ---
+            foreach ($ttkeys as $ttkey) {
+                // データ本体
+                update_option('_transient_integlight_' . $ttkey, 'dummy_cache');
+                // timeout 値（UNIXタイム）
+                update_option('_transient_timeout_integlight_' . $ttkey, time() + 300);
+            }
+
+            // オブジェクトキャッシュをクリアして DB と同期させる
+            wp_cache_flush();
+
+            // --- before デバッグ: transient一覧を出力（DB直読み） ---
+            $results = $wpdb->get_results("
+            SELECT option_id, option_name, option_value
+            FROM {$wpdb->options}
+            WHERE option_name LIKE '_transient_integlight_%'
+               OR option_name LIKE '_transient_timeout_integlight_%'
+        ");
+            error_log("=== BEFORE hook {$hook} ===");
+            foreach ($results as $row) {
+                error_log("ID: {$row->option_id}, Name: {$row->option_name}, Value: {$row->option_value}");
+            }
+            error_log("keys:");
+            error_log(print_r($ttkeys, true));
+            error_log("=== BEFORE hook END ===");
+
+            // --- フックを発火 ---
+            do_action_ref_array($hook, $args);
+
+            // --- after: オブジェクトキャッシュをフラッシュして DB を確認 ---
+            wp_cache_flush();
+
+            $results = $wpdb->get_results("
+            SELECT option_id, option_name, option_value
+            FROM {$wpdb->options}
+            WHERE option_name LIKE '_transient_integlight_%'
+               OR option_name LIKE '_transient_timeout_integlight_%'
+        ");
+            error_log("=== AFTER hook {$hook} ===");
+            foreach ($results as $row) {
+                error_log("ID: {$row->option_id}, Name: {$row->option_name}, Value: {$row->option_value}");
+            }
+            error_log("=== AFTER hook END ===");
+
+            // --- 検証: SQLベースで transient が削除されていること ---
+            foreach ($ttkeys as $ttkey) {
+                $option_name = '_transient_integlight_' . $ttkey;
+                $exists = $wpdb->get_var(
+                    $wpdb->prepare("SELECT option_id FROM {$wpdb->options} WHERE option_name = %s", $option_name)
+                );
+                $this->assertNull($exists, "フック {$hook} で {$option_name} がDBから削除されていること");
+
+                $timeout_name = '_transient_timeout_integlight_' . $ttkey;
+                $exists = $wpdb->get_var(
+                    $wpdb->prepare("SELECT option_id FROM {$wpdb->options} WHERE option_name = %s", $timeout_name)
+                );
+                $this->assertNull($exists, "フック {$hook} で {$timeout_name} がDBから削除されていること");
+            }
+        }
+    }
 }
