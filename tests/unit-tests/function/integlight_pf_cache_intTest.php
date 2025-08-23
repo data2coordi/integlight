@@ -435,4 +435,75 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
         delete_transient($ttkey);
         wp_delete_post($post_id, true);
     }
+
+
+    public function test_sidebar_saveCache()
+    {
+        $post_id = $this->factory->post->create([
+            'post_type' => 'post',
+        ]);
+        $GLOBALS['post'] = get_post($post_id);
+        setup_postdata($GLOBALS['post']);
+
+        add_filter('is_active_sidebar', function ($active, $index) {
+            if ($index === 'sidebar-1') return true;
+            return $active;
+        }, 10, 2);
+
+        set_theme_mod('integlight_sidebar1_position', 'right');
+
+        $key = 'sidebar-1';
+        $ttkey = 'integlight_' . $key;
+        delete_transient($ttkey);
+
+        ob_start();
+        include get_template_directory() . '/sidebar.php';
+        $output = ob_get_clean();
+
+        // <aside> は出力されるけど、キャッシュは <section> のみ
+        $this->assertStringContainsString('secondary', $output);
+
+        $cached = get_transient($ttkey);
+        $this->assertNotFalse($cached);
+
+        // キャッシュにはウィジェットの <section> が含まれていること
+        $this->assertStringContainsString('widget_search', $cached);
+        $this->assertStringContainsString('widget_block', $cached);
+
+        delete_transient($ttkey);
+    }
+    public function test_sidebar_uses_cache_if_exists()
+    {
+        $post_id = $this->factory->post->create([
+            'post_type' => 'post',
+        ]);
+        $GLOBALS['post'] = get_post($post_id);
+        setup_postdata($GLOBALS['post']);
+
+        add_filter('is_active_sidebar', function ($active, $index) {
+            if ($index === 'sidebar-1') return true;
+            return $active;
+        }, 10, 2);
+
+        set_theme_mod('integlight_sidebar1_position', 'right');
+
+        $key = 'sidebar-1';
+        $ttkey = 'integlight_' . $key;
+
+        // キャッシュをあらかじめセット
+        $dummy_cache = '<section class="cached-widget">Dummy Cached Widget</section>';
+        set_transient($ttkey, $dummy_cache);
+
+        ob_start();
+        include get_template_directory() . '/sidebar.php';
+        $output = ob_get_clean();
+
+        // キャッシュがそのまま出力されているか確認
+        $this->assertStringContainsString('Dummy Cached Widget', $output);
+
+        // キャッシュはまだ残っていること
+        $this->assertSame($dummy_cache, get_transient($ttkey));
+
+        delete_transient($ttkey);
+    }
 }
