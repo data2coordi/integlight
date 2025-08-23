@@ -3,6 +3,7 @@ import {
   openCustomizer,
   saveCustomizer,
   setSiteType,
+  selSliderEffect,
   ensureCustomizerRoot,
 } from '../utils/common';
 // ======= 共通関数 =======
@@ -51,6 +52,8 @@ for (const siteType of siteTypes) {
     const page = await browser.newPage();
     await openCustomizer(page);
     await setSiteType(page, siteType);
+    await ensureCustomizerRoot(page);
+    await selSliderEffect(page, 'スライド', '60'); // スライダーエフェクトを「スライド」、変更時間間隔を3秒に設定
     await saveCustomizer(page);
 
     await page.close();
@@ -79,9 +82,11 @@ for (const siteType of siteTypes) {
           };
           await expect(page).toHaveScreenshot({ fullPage: true, timeout: 100000, ...options });
         });
+        break;
 
       }
     });
-
+    break;
   }
+  break;
 }

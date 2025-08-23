@@ -66,11 +66,13 @@ export async function openHeaderSetting(page: Page, setting: string) {
     await effectSelect.selectOption({ label: setting });
 }
 
-export async function selSliderEffect(page: Page, effect: string = 'フェード') {
+export async function selSliderEffect(page: Page, effect: string = 'フェード', interval = '5') {
     await page.getByRole('button', { name: 'トップヘッダー設定' }).click();
     await page.getByRole('button', { name: 'スライダー設定' }).click();
     const effectSelect = page.getByRole('combobox', { name: 'エフェクト' });
     await effectSelect.selectOption({ label: effect });
+    const intervalInput = page.getByLabel('変更時間間隔（秒）');
+    await intervalInput.fill(interval);
 }
 
 export async function saveCustomizer(page: Page) {
@@ -89,6 +91,8 @@ export async function setSiteType(page: Page, siteType: string = 'エレガン�
     if (!(await checkbox.isChecked())) {
         await checkbox.check();
     }
+    await expect(checkbox).toBeChecked();
+
 }
 
 export async function ensureCustomizerRoot(page: Page) {

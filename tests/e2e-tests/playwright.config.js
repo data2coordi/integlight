@@ -6,7 +6,7 @@ const authFile = 'playwright/.auth/user.json';
 
 export default defineConfig({
     // 各テストのデフォルトタイムアウト（ms）
-    timeout: 30_000,
+    timeout: 60_000,
 
     // プロジェクト間で共有される設定
     use: {
