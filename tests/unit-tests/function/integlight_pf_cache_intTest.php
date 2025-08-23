@@ -1,5 +1,7 @@
 <?php
 
+use function cli\err;
+
 /**
  * @package Integlight
  * @group cache
@@ -189,7 +191,7 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
      * postのコンテンツキャッシュが利用されることを検証する統合テスト
      * @group post-content-cache-hit
      */
-    public function xtest_display_post_content_cache_hit()
+    public function test_postContent_useCache()
     {
         // --- 【前提条件】テスト環境の準備 ---
         // 1. 非ログインユーザーとしてテストを実行
@@ -211,38 +213,108 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
         setup_postdata($post);
 
         // 5. テストで使用するキャッシュキーを定義
-        $tkey = 'post_content_' . $post->ID;
+        $key = 'post_content_' . $post->ID;
+        $ttkey = 'integlight_' . $key;
 
 
         // --- 【外部システムの状態設定】 ---
         // 6. キャッシュをテストするために、事前にダミーのキャッシュを保存
         $dummy_cached_html = '<div class="cached-content">This is a cached dummy post content.</div>';
-        set_transient($tkey, $dummy_cached_html, 300); // 有効期限は5分
+        set_transient($ttkey, $dummy_cached_html, 300); // 有効期限は5分
+        set_transient($ttkey . 'plus', $dummy_cached_html . 'plus', 300); // 有効期限は5分
+
+
+        $cached_after = get_transient($ttkey);
+        var_dump('@@@@@@@@@@@@@@@@@@@@@2$tkey:', $ttkey);
+        var_dump('@@@@@@@@@@@@@@@@@@@@@1$dummy_cached_html:', $dummy_cached_html);
+        var_dump('@@@@@@@@@@@@@@@@@@@@@1$cached_after:', $cached_after);
+        // テスト内：テンプレ読み込みの直前に入れる
+        add_action('delete_option', function ($option) {
+            if (strpos($option, '_transient_integlight') === 0) {
+                error_log("[integlight-debug] delete_option: {$option}");
+                var_dump('[integlight-debug] delete_option', $option);
+            }
+        });
+        add_action('updated_option', function ($option) {
+            if (strpos($option, '_transient_integlight') === 0) {
+                error_log("[integlight-debug] updated_option: {$option}");
+                var_dump('[integlight-debug] updated_option', $option);
+            }
+        });
+
+        add_action('deleted_transient_integlight_post_content_6', function () {
+            error_log('[integlight-debug] deleted_transient_integlight_post_content_6 fired');
+            var_dump('[integlight-debug] deleted_transient_integlight_post_content_6');
+        });
 
 
         // --- 【テスト対象の実行】 ---
         // 7. displayPostContent()が呼び出される前に、キャッシュが有効な状態であることを確認
-        $this->assertNotFalse(get_transient($tkey), 'テスト開始前にキャッシュが保存されていません。');
+        $this->assertNotFalse(get_transient($ttkey), 'テスト開始前にキャッシュが保存されていません。');
+
+
+        var_dump('@@@@@@@@@@@@@@@@@@@@@2$tkey5:', $ttkey);
+
+
+
+
+
+
+        global $wpdb;
+
+
+        $prefix = '_transient_integlight';
+        $sql = $wpdb->prepare(
+            "SELECT option_name, option_value 
+     FROM {$wpdb->options} 
+     WHERE option_name LIKE %s",
+            $wpdb->esc_like($prefix) . '%'
+        );
+        var_dump('@@@@@@@@@@@@@@@@@@@@@2$tkey5:', $ttkey);
+        $results = $wpdb->get_results($sql, ARRAY_A); // 配列で取得
+        var_dump('TRANSIENT_before', $results);
 
         // 8. ob_start()で出力バッファリングを開始し、テスト対象のメソッドを呼び出す
+        var_dump('@@@@@@@@@@@@@@@@@@@@@2$tkey6:', $ttkey);
         ob_start();
-        $cache_main = new Integlight_Cache_MainContent();
-        $cache_main->displayPostContent($tkey);
+        var_dump('@@@@@@@@@@@@@@@@@@@@@2$tkey7:', $ttkey);
+        require get_stylesheet_directory() . '/template-parts/content.php';
         $output_html = ob_get_clean();
+        var_dump('@@@@@@@@@@@@@@@@@@@@@2$tkey8:', $ttkey);
+        $after = $wpdb->get_col($wpdb->prepare(
+            "SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s",
+            $wpdb->esc_like($prefix) . '%'
+        ));
+
+        $prefix = '_transient_integlight';
+        $sql = $wpdb->prepare(
+            "SELECT option_name, option_value 
+     FROM {$wpdb->options} 
+     WHERE option_name LIKE %s",
+            $wpdb->esc_like($prefix) . '%'
+        );
+        var_dump('@@@@@@@@@@@@@@@@@@@@@2$tkey9:', $ttkey);
+        $results = $wpdb->get_results($sql, ARRAY_A); // 配列で取得
+        var_dump('TRANSIENT_AFTER', $results);
+
+        // 10. キャッシュが上書きされていないことを確認
+        $cached_after = get_transient($ttkey);
+        var_dump('@@@@@@@@@@@@@@@@@@@@@2$tkey10:', $ttkey);
+        var_dump('@@@@@@@@@@@@@@@@@@@@@2$dummy_cached_html:', $dummy_cached_html);
+        var_dump('@@@@@@@@@@@@@@@@@@@@@2$cached_after:', $cached_after);
+
 
 
         // --- 【検証】外部から見える結果のみをアサート ---
         // 9. 出力されたHTMLが、事前に保存したダミーキャッシュと一致することを確認
-        $this->assertSame($dummy_cached_html, $output_html, '出力がキャッシュの内容と一致しません。');
+        $this->assertStringContainsString($dummy_cached_html, $output_html, '出力がキャッシュの内容と一致しません。');
 
-        // 10. キャッシュが上書きされていないことを確認
-        $cached_after = get_transient($tkey);
+
         $this->assertSame($dummy_cached_html, $cached_after, 'キャッシュが上書きされました。');
-
 
         // --- 【後片付け】 ---
         // 11. テストで使用したリソースを削除
-        delete_transient($tkey);
+        delete_transient($ttkey);
         wp_delete_post($post_id, true);
         wp_reset_postdata();
     }
