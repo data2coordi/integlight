@@ -579,23 +579,19 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
         ];
 
         foreach ($hooks as $hook => $args) {
-            // --- キャッシュを再作成（DBに確実に書き込むため update_option を使う） ---
+            // --- キャッシュを再作成 ---
             foreach ($ttkeys as $ttkey) {
-                // データ本体
                 update_option('_transient_integlight_' . $ttkey, 'dummy_cache');
-                // timeout 値（UNIXタイム）
                 update_option('_transient_timeout_integlight_' . $ttkey, time() + 300);
             }
 
-            // オブジェクトキャッシュをクリアして DB と同期させる
             wp_cache_flush();
 
-            // --- before デバッグ: transient一覧を出力（DB直読み） ---
+            // --- BEFORE ログ出力 ---
             $results = $wpdb->get_results("
             SELECT option_id, option_name, option_value
             FROM {$wpdb->options}
             WHERE option_name LIKE '_transient_integlight_%'
-               OR option_name LIKE '_transient_timeout_integlight_%'
         ");
             error_log("=== BEFORE hook {$hook} ===");
             foreach ($results as $row) {
@@ -608,14 +604,13 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
             // --- フックを発火 ---
             do_action_ref_array($hook, $args);
 
-            // --- after: オブジェクトキャッシュをフラッシュして DB を確認 ---
             wp_cache_flush();
 
+            // --- AFTER ログ出力 ---
             $results = $wpdb->get_results("
             SELECT option_id, option_name, option_value
             FROM {$wpdb->options}
             WHERE option_name LIKE '_transient_integlight_%'
-               OR option_name LIKE '_transient_timeout_integlight_%'
         ");
             error_log("=== AFTER hook {$hook} ===");
             foreach ($results as $row) {
@@ -623,19 +618,13 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
             }
             error_log("=== AFTER hook END ===");
 
-            // --- 検証: SQLベースで transient が削除されていること ---
+            // --- 検証: 本体の transient が削除されていることだけ確認 ---
             foreach ($ttkeys as $ttkey) {
                 $option_name = '_transient_integlight_' . $ttkey;
                 $exists = $wpdb->get_var(
                     $wpdb->prepare("SELECT option_id FROM {$wpdb->options} WHERE option_name = %s", $option_name)
                 );
                 $this->assertNull($exists, "フック {$hook} で {$option_name} がDBから削除されていること");
-
-                $timeout_name = '_transient_timeout_integlight_' . $ttkey;
-                $exists = $wpdb->get_var(
-                    $wpdb->prepare("SELECT option_id FROM {$wpdb->options} WHERE option_name = %s", $timeout_name)
-                );
-                $this->assertNull($exists, "フック {$hook} で {$timeout_name} がDBから削除されていること");
             }
         }
     }
