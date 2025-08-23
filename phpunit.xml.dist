@@ -10,6 +10,7 @@
 	<testsuites>
 		<testsuite name="testing">
 	      <directory>./tests/unit-tests/</directory>
+  	      <directory>./tests/pf-tests/</directory>
 		</testsuite>
 	</testsuites>
 </phpunit>
