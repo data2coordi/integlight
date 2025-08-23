@@ -17,6 +17,7 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
     {
         parent::setUp();
 
+        //$this->setExpectedDeprecated([]); // 既知のdeprecatedを無視
 
         // テスト用に 'primary' ロケーションを登録しておく（テーマに依存しないように）
         //register_nav_menu('primary', 'Primary Menu');
@@ -296,8 +297,142 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
         wp_delete_post($post_id, true);
         wp_reset_postdata();
     }
+
     /**
-     * postのコンテンツキャッシュが利用されることを検証する統合テスト
-     * @group post-content-cache-hit
+     * home.php を実際にロードして、キャッシュが保存されることを検証する統合テスト
+     * @group integration
+     * @group home-content-save-cache
+     * @expectedDeprecation the_block_template_skip_link
      */
+    public function test_homeContent_saveCache()
+    {
+
+        $this->setExpectedDeprecated('the_block_template_skip_link');
+
+
+        // --- 【前提条件】テスト環境の準備 ---
+
+        // テスト用の home_type を設定
+        set_theme_mod('integlight_hometype_setting', 'home1');
+        $home_type = get_theme_mod('integlight_hometype_setting', 'home1');
+
+        // テストで使用するキャッシュキーを定義
+        $key  = 'home_content_' . $home_type;
+        $ttkey = 'integlight_' . $key;
+
+        // 既存キャッシュを削除
+        delete_transient($ttkey);
+
+        // カテゴリを作成
+        $cat_id = wp_insert_category([
+            'cat_name' => 'Test Category',
+            'category_nicename' => 'test-category',
+            'category_parent' => 0,
+        ]);
+        // 投稿を作成し、カテゴリを割り当て
+        $post_id = $this->factory->post->create([
+            'post_title'   => 'Home Test Post',
+            'post_content' => 'This is a post for testing home.php output.',
+            'post_status'  => 'publish',
+            'post_category' => [$cat_id],
+        ]);
+        // WP_Query を正しくセットアップ
+        $this->go_to(home_url());
+
+        // --- 【テスト対象の実行】 ---
+        ob_start();
+        require get_stylesheet_directory() . '/home.php';
+        $output_html = ob_get_clean();
+
+        // --- 【検証】外部から見える結果のみをアサート ---
+
+        // 1. 出力されたHTMLにhome1用のコンテンツが含まれていることを確認
+        $this->assertStringContainsString(
+            'This is a post for testing home.php output.',
+            $output_html,
+            'home.php 出力に期待値が含まれていません。'
+        );
+
+        // 2. キャッシュが新しく保存されたことを確認
+        $cached = get_transient($ttkey);
+        $this->assertNotFalse($cached, 'ホームキャッシュがトランジェントに保存されていません。');
+
+        // 3. 保存されたキャッシュ内容が期待通りであることを確認
+        $this->assertStringContainsString(
+            'This is a post for testing home.php output.',
+            $cached,
+            '保存されたキャッシュに期待値が含まれていません。'
+        );
+
+        // --- 【後片付け】 ---
+        delete_transient($ttkey);
+    }
+
+    public function test_homeContent_useCache()
+    {
+        //$this->setExpectedDeprecated('the_block_template_skip_link');
+
+
+
+        // WP_Query をセットアップするため、カテゴリ・投稿を作成（実際にはキャッシュが使われるので出力には影響しない）
+        $cat_id = wp_insert_category([
+            'cat_name' => 'Dummy Category',
+            'category_nicename' => 'dummy-category',
+            'category_parent' => 0,
+        ]);
+        $post_id = $this->factory->post->create([
+            'post_title'   => 'Dummy Post',
+            'post_content' => 'This is a dummy post.',
+            'post_status'  => 'publish',
+            'post_category' => [$cat_id],
+        ]);
+
+
+
+        // --- 【前提条件】テスト環境の準備 ---
+        // テスト用の home_type を設定
+        set_theme_mod('integlight_hometype_setting', 'home1');
+        $home_type = get_theme_mod('integlight_hometype_setting', 'home1');
+
+        // テストで使用するキャッシュキーを定義
+        $key  = 'home_content_' . $home_type;
+        $ttkey = 'integlight_' . $key;
+
+        // --- 【外部システムの状態設定】 ---
+        // キャッシュヒット用のダミーHTMLを保存
+        $dummy_cached_html = '<div class="cached-home-content">Cached home1 content</div>';
+        set_transient($ttkey, $dummy_cached_html, 300); // 有効期限は5分
+
+        // キャッシュが保存されていることを確認
+        $this->assertNotFalse(get_transient($ttkey), 'テスト開始前にキャッシュが存在しません。');
+
+
+        $this->go_to(home_url());
+
+        // --- 【テスト対象の実行】 ---
+        ob_start();
+        require get_stylesheet_directory() . '/home.php';
+        $output_html = ob_get_clean();
+
+        // --- 【検証】外部から見える結果のみをアサート ---
+
+        // 1. 出力に事前に保存したキャッシュ内容が含まれていることを確認
+        $this->assertStringContainsString(
+            $dummy_cached_html,
+            $output_html,
+            'home.php 出力にキャッシュが反映されていません。'
+        );
+
+        // 2. キャッシュが上書きされていないことを確認
+        $cached_after = get_transient($ttkey);
+        $this->assertSame(
+            $dummy_cached_html,
+            $cached_after,
+            'キャッシュが上書きされました。'
+        );
+
+        // --- 【後片付け】 ---
+        delete_transient($ttkey);
+        wp_delete_post($post_id, true);
+    }
 }
