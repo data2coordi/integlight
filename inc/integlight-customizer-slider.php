@@ -185,7 +185,7 @@ class integlight_customizer_slider_applyHeaderTextStyle
 class integlight_customizer_slider_creSection
 {
 
-	const SLIDER_PANEL_ID = 'slider_panel';
+	const SLIDER_PANEL_ID = 'integlight_header_panel';
 	const SLIDER_SECTION_ID = 'slider_section';
 	const SLIDER_OR_IMAGE_SECTION_ID = 'sliderOrImage_section';
 
@@ -198,11 +198,11 @@ class integlight_customizer_slider_creSection
 	{
 
 		// 大セクションを追加
-		$wp_customize->add_panel(self::SLIDER_PANEL_ID, array(
-			'title'    => __('Top Header Setting', 'integlight'),
-			'description' => __('Please select whether to display a slider or an image in the top header. The settings button for the selected option will be displayed.', 'integlight'),
-			'priority' => 29
-		));
+		// $wp_customize->add_panel(self::SLIDER_PANEL_ID, array(
+		// 	'title'    => __('Top Header Setting', 'integlight'),
+		// 	'description' => __('Please select whether to display a slider or an image in the top header. The settings button for the selected option will be displayed.', 'integlight'),
+		// 	'priority' => 29
+		// ));
 
 		// 画像orスライダー選択セクションを追加
 		$wp_customize->add_section(self::SLIDER_OR_IMAGE_SECTION_ID, array(

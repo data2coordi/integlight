@@ -340,7 +340,7 @@ class Integlight_Customizer_Simple
 						$s_obj->panel = $target['panel'];
 					}
 				}
-				if ($core_id === 'widgets') {
+				if ($core_id != 'nav_menus') { //'nav_menus'を削除すると全て消えるため。おそらく不具合
 					$wp_customize->remove_panel($core_id);
 				}
 				continue;
