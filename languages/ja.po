@@ -123,11 +123,11 @@ msgstr "コンテンツへスキップ"
 
 #: inc/integlight-customizer.php:18
 msgid "Select - Slider or Image"
-msgstr "スライダーまたは画像を選択"
+msgstr "1.「スライダー」タイプまたは「静止画像」タイプを選択"
 
 #: inc/integlight-customizer.php:29
 msgid "Display Slider or Image"
-msgstr "スライダーまたは画像を表示"
+msgstr "「スライダー」タイプまたは「静止画像」タイプを選択"
 
 #: inc/integlight-customizer.php:34
 msgid "Slider"
@@ -136,6 +136,9 @@ msgstr "スライダー"
 #: inc/integlight-customizer.php:35
 msgid "Image"
 msgstr "画像"
+
+msgid "Still Image"
+msgstr "静止画像"
 
 #: inc/integlight-customizer.php:190
 msgid "Effect"
@@ -181,7 +184,7 @@ msgstr "トップヘッダーにスライダーまたは画像のどちらを表
 
 #: inc/integlight-customizer.php:336
 msgid "Slider Settings"
-msgstr "スライダー設定"
+msgstr "2.スライダー設定"
 
 
 #: inc/integlight-customizer.php:348

@@ -39,7 +39,7 @@ class integlight_customizer_HeaderTypeSelecter
 			'type'     => 'select',
 			'choices'  => array(
 				$this->pInteglight_slider_settings->headerTypeName_slider => __('Slider', 'integlight'),
-				$this->pInteglight_slider_settings->headerTypeName_image => __('Image', 'integlight'),
+				$this->pInteglight_slider_settings->headerTypeName_image => __('Still Image', 'integlight'),
 				'none' => __('None', 'integlight'),
 			),
 		));
@@ -174,13 +174,17 @@ class integlight_customizer_slider_creSection
 			'title'    => __('Select - Slider or Image', 'integlight'),
 			'priority' => 29,
 			'panel' => self::SLIDER_PANEL_ID,
-			'description' => 'ここに表示したい説明文を入力します。',
+			'description' => 'ここで選択したタイプの設定ボタンが１つ前の画面に表示されます。',
 		));
 
-		new Integlight_Customizer_Section_Description(
-			self::SLIDER_SECTION_ID,
-			'ここに説明文を表示しますあああ。HTMLや<br>改行も可能です。'
-		);
+		$msg1 =
+			new Integlight_Customizer_Section_Description(
+				self::SLIDER_OR_IMAGE_SECTION_ID,
+				'<br>上記の1.でホームページ（トップページ）のヘッダー部分に表示するメディアタイプを選択してください。'
+					. '<br><br>選択したタイプに応じて下記の2.に「スライダー」または「静止画像」の設定ボタンが表示されます。<br><br>'
+					. '<b>◆スライダータイプ</b>：<br>画像がスライドするアニメーション<br><br>'
+					. '<b>◆静止画像タイプ</b>：<br>通常の静止画像<br><br>'
+			);
 
 		// スライダー作成用セクションを追加
 		$wp_customize->add_section(self::SLIDER_SECTION_ID, array(

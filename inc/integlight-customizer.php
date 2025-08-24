@@ -74,7 +74,7 @@ class Integlight_Customizer_Section_Description
 				var section = $('#accordion-section-<?php echo esc_js($this->section_id); ?>');
 				if (section.length && !section.find('.custom-section-description').length) {
 					var descriptionHTML = '<div class="custom-section-description" style="margin-bottom:6px;color:#555;font-size:13px;"><?php echo wp_kses_post($this->description); ?></div>';
-					section.find('h3').first().before(descriptionHTML);
+					section.find('h3').first().after(descriptionHTML);
 				}
 			});
 		</script>
@@ -384,7 +384,7 @@ class Integlight_Customizer_Simple
 			'background_image'   => ['panel' => 'integlight_design_panel',  'title' => __('背景画像', 'integlight')],
 			'custom_css'         => ['panel' => 'integlight_design_panel',  'title' => __('追加CSS', 'integlight')],
 			// nav_menus等はパネル -> それに属するセクションを移動する形で扱う
-			'header_image'       => ['panel' => 'integlight_header_panel', 'title' => __('ヘッダー画像', 'integlight')],
+			'header_image'       => ['panel' => 'integlight_header_panel', 'title' => __('2.静止画像設定', 'integlight')],
 			'nav_menus'          => ['panel' => 'integlight_menu_panel',   'title' => __('メニュー', 'integlight')],
 			'widgets'            => ['panel' => 'integlight_sidebar_panel', 'title' => __('ウィジェット', 'integlight')],
 		];
