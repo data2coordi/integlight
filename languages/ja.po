@@ -303,8 +303,8 @@ msgid "Bottom"
 msgstr "下"
 
 #: inc/integlight-customizer.php:411
-msgid "Sidebar Settings"
-msgstr "サイドバー設定"
+msgid "Sidebar Position Settings"
+msgstr "サイドバー配置設定"
 
 #: inc/integlight-customizer.php:446
 msgid "Accent color setting"

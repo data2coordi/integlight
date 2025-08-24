@@ -47,8 +47,9 @@ class integlight_customizer_sidebar
 
 		// サイドバー位置セクションの追加
 		$wp_customize->add_section('integlight_sidebar_section', array(
-			'title' => __('Sidebar Settings', 'integlight'),
+			'title' => __('Sidebar Position Settings', 'integlight'),
 			'priority' => 30,
+			'panel' => 'integlight_sidebar_panel'
 		));
 
 		$this->helper_setting($wp_customize, '1', 'right');
@@ -138,6 +139,7 @@ class integlight_customizer_HomeType
 		$wp_customize->add_section('integlight_hometype_section', array(
 			'title' => __('Site Type Settings', 'integlight'),
 			'priority' => 29,
+			'panel' => 'integlight_site_panel'
 		));
 
 		// Setting
@@ -252,3 +254,132 @@ class Integlight_Customizer_Footer
 new Integlight_Customizer_Footer();
 
 // ## フッター クレジット設定 _e /////////////////////////////////////////////
+
+//////////////////////////////////////////
+//////////////////////////////////////////
+//////////////////////////////////////////
+//////////////////////////////////////////
+//////////////////////////////////////////
+
+/**
+ * Integlight: Simple customizer rearrange
+ * シンプル化版：コアのセクションを独自パネルに移動する（子テーマ/プラグインは下に追加される前提）
+ */
+
+class Integlight_Customizer_Simple
+{
+	/** @var array */
+	private $panels;
+
+	/** @var array section_id => [ 'panel' => panel_id, 'title' => '任意名' ] */
+	private $map;
+
+	public function __construct()
+	{
+		$this->panels = $this->default_panels();
+		$this->map = $this->default_map();
+
+		add_action('customize_register', [$this, 'register_panels'], 15);
+		add_action('customize_register', [$this, 'apply_mapping'], 20);
+	}
+
+	private function default_panels()
+	{
+		$site_panel_desc = __('サイト全体の設定', 'integlight');
+		return [
+			'integlight_site_panel'   => ['title' => __('サイト設定', 'integlight'), 'priority' => 10, 'description' => $site_panel_desc],
+			'integlight_menu_panel'   => ['title' => __('メニュー設定', 'integlight'), 'priority' => 20],
+			'integlight_header_panel' => ['title' => __('ヘッダー設定', 'integlight'), 'priority' => 30],
+			'integlight_sidebar_panel' => ['title' => __('サイドバー設定', 'integlight'), 'priority' => 40],
+			'integlight_footer_panel' => ['title' => __('フッター設定', 'integlight'), 'priority' => 50],
+			'integlight_design_panel'  => ['title' => __('デザイン設定', 'integlight'), 'priority' => 400],
+			'integlight_perf_panel'   => ['title' => __('パフォーマンス設定', 'integlight'), 'priority' => 500],
+		];
+	}
+
+	private function default_map()
+	{
+		return [
+			// コアの section を独自パネルへ移動（ID は変えない）
+			'title_tagline'      => ['panel' => 'integlight_site_panel',   'title' => __('サイト基本情報', 'integlight')],
+			'static_front_page'  => ['panel' => 'integlight_site_panel',   'title' => __('ホームページ設定', 'integlight')],
+			'colors'             => ['panel' => 'integlight_design_panel',  'title' => __('配色', 'integlight')],
+			'background_image'   => ['panel' => 'integlight_design_panel',  'title' => __('背景画像', 'integlight')],
+			'custom_css'         => ['panel' => 'integlight_design_panel',  'title' => __('追加CSS', 'integlight')],
+			// nav_menus等はパネル -> それに属するセクションを移動する形で扱う
+			'header_image'       => ['panel' => 'integlight_header_panel', 'title' => __('ヘッダー画像', 'integlight')],
+			'nav_menus'          => ['panel' => 'integlight_menu_panel',   'title' => __('メニュー', 'integlight')],
+			'widgets'            => ['panel' => 'integlight_sidebar_panel', 'title' => __('ウィジェット', 'integlight')],
+		];
+	}
+
+	public function register_panels($wp_customize)
+	{
+		foreach ($this->panels as $id => $args) {
+			if (! $wp_customize->get_panel($id)) {
+				$wp_customize->add_panel($id, array_merge(['capability' => 'edit_theme_options'], $args));
+			}
+		}
+	}
+	public function apply_mapping($wp_customize)
+	{
+		foreach ($this->map as $core_id => $target) {
+			// セクションが存在する場合
+			$section = $wp_customize->get_section($core_id);
+			if ($section) {
+				$section->panel = $target['panel'];
+				$section->title = $target['title'];
+				continue;
+			}
+
+			// パネル（メニュー）の場合
+			$panel = $wp_customize->get_panel($core_id);
+			if ($panel) {
+				foreach ($wp_customize->sections() as $s_id => $s_obj) {
+					if (isset($s_obj->panel) && $s_obj->panel === $core_id) {
+						$s_obj->panel = $target['panel'];
+					}
+				}
+				if ($core_id === 'widgets') {
+					$wp_customize->remove_panel($core_id);
+				}
+				continue;
+			}
+		}
+	}
+}
+
+// init
+new Integlight_Customizer_Simple();
+
+// class Integlight_Customizer_Widgets
+// {
+// 	/** @var string 移動先パネルID */
+// 	private $panel_id;
+
+// 	public function __construct($target_panel_id)
+// 	{
+// 		$this->panel_id = $target_panel_id;
+// 		add_action('customize_register', [$this, 'move_widgets_panel'], 20);
+// 	}
+
+// 	public function move_widgets_panel($wp_customize)
+// 	{
+// 		// widgets パネルが存在する場合
+// 		$widgets_panel = $wp_customize->get_panel('widgets');
+// 		if ($widgets_panel) {
+// 			// widgets パネル配下のすべてのセクションを移動
+// 			foreach ($wp_customize->sections() as $section) {
+// 				if (isset($section->panel) && $section->panel === 'widgets') {
+// 					//	$section->panel = $this->panel_id;
+// 				}
+// 			}
+
+// 			// widgets パネル自体を非表示にする
+// 			//$wp_customize->remove_panel('widgets');
+// 		}
+// 	}
+// }
+
+// 使用例
+//new Integlight_Customizer_Widgets('integlight_sidebar_panel');

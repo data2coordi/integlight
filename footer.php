@@ -18,15 +18,7 @@
 
 <footer id="colophon" class="site-footer ly_site_footer">
 
-	<?php if (is_active_sidebar('footer-1')) : ?>
-		<div id="footer-widget-area" class="footer-widgets-wrapper">
-			<?php
-			//サイドバー出力
-			$cache_sidebar = new Integlight_Cache_Sidebar();
-			$cache_sidebar->displaySidebar('footer-1', 'footer-1');
-			?>
-		</div>
-	<?php endif; ?>
+
 	<?php
 
 

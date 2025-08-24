@@ -22,6 +22,7 @@ class Integlight_Customize_Performance
             'priority'    => 200,
             'capability'  => 'edit_theme_options',
             'description' => __('Cache and performance related settings.', 'integlight'),
+            'panel'       => 'integlight_perf_panel',
         ]);
 
         // キャッシュ有効/無効の設定
