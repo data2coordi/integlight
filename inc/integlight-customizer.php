@@ -1,5 +1,94 @@
 <?php
 
+
+// 見出しセクション作成クラス _s ////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * カスタムカスタマイザーコントロールクラスを定義する関数
+ * customize_register フックの早い段階で実行される
+ */
+function integlight_define_custom_controls()
+{
+	// integlight_customizer_creBigTitle クラスがまだ定義されていない場合のみ定義
+	if (! class_exists('integlight_customizer_creBigTitle')) {
+		// この時点では customize_register フック内なので WP_Customize_Control は存在するはず
+		// 念のため存在確認を追加しても良い
+		if (class_exists('WP_Customize_Control')) {
+			class integlight_customizer_creBigTitle extends WP_Customize_Control
+			{
+				public $type = 'heading';
+				public function render_content()
+				{
+					if (! empty($this->label)) {
+						echo '<h3 style="border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 10px;">' . esc_html($this->label) . '</h3>';
+					}
+					if (!empty($this->description)) {
+						echo '<span class="description customize-control-description">' . esc_html($this->description) . '</span>';
+					}
+				}
+			}
+		} else {
+			// WP_Customize_Control が見つからない場合のエラーログ（通常は発生しないはず）
+			trigger_error('WP_Customize_Control not found when trying to define integlight_customizer_creBigTitle.', E_USER_WARNING);
+		}
+	}
+	// 他にもカスタムコントロールがあればここに追加定義できます
+}
+// setting メソッドよりも早い優先度 (例: 9) でクラス定義関数をフック
+add_action('customize_register', 'integlight_define_custom_controls', 9);
+// 見出しセクション作成クラス _e ////////////////////////////////////////////////////////////////////////////////
+
+
+
+// パネル上のセクションボタンに説明追加クラス _s ////////////////////////////////////////////////////////////////////////////////
+
+class Integlight_Customizer_Section_Description
+{
+	private string $section_id;
+	private string $description;
+
+	public function __construct(string $section_id, string $description)
+	{
+		$this->section_id = $section_id;
+		$this->description = $description;
+
+		// PHP 側：既存セクションの description を空にする
+		add_action('customize_register', [$this, 'clear_section_description']);
+
+		// JS 側：タイトル上に説明文を挿入
+		add_action('customize_controls_print_footer_scripts', [$this, 'inject_description_script']);
+	}
+
+	public function clear_section_description($wp_customize)
+	{
+		if ($wp_customize->get_section($this->section_id)) {
+			$wp_customize->get_section($this->section_id)->description = '';
+		}
+	}
+
+	public function inject_description_script()
+	{
+?>
+		<script>
+			jQuery(document).ready(function($) {
+				var section = $('#accordion-section-<?php echo esc_js($this->section_id); ?>');
+				if (section.length && !section.find('.custom-section-description').length) {
+					var descriptionHTML = '<div class="custom-section-description" style="margin-bottom:6px;color:#555;font-size:13px;"><?php echo wp_kses_post($this->description); ?></div>';
+					section.find('h3').first().before(descriptionHTML);
+				}
+			});
+		</script>
+		<style>
+			#accordion-section-<?php echo esc_js($this->section_id); ?>.custom-section-description {
+				line-height: 1.4;
+			}
+		</style>
+<?php
+	}
+}
+// パネル上のセクションボタンに説明追加クラス _e ////////////////////////////////////////////////////////////////////////////////
+
+
 /**
  * Integlight Theme Customizer
  *
