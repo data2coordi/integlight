@@ -21,14 +21,9 @@
 	<?php if (is_active_sidebar('footer-1')) : ?>
 		<div id="footer-widget-area" class="footer-widgets-wrapper">
 			<?php
-			//dynamic_sidebar('footer-1');
-			$sidebar_args = array('footer-1');
-			// 共通関数を呼び出し、引数として関数名と引数配列を渡す
-			integlight_display_cached_content(
-				'dynamic_sidebar',
-				'dynamic_sidebar_footer-1',
-				$sidebar_args, // wp_nav_menuの引数を配列でラップ
-			);
+			//サイドバー出力
+			$cache_sidebar = new Integlight_Cache_Sidebar();
+			$cache_sidebar->displaySidebar('footer-1', 'footer-1');
 			?>
 		</div>
 	<?php endif; ?>
