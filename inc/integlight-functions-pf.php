@@ -459,7 +459,7 @@ abstract class Integlight_Cache_Base
     protected static $prefix = 'integlight_';
     protected $default_expiration;
 
-    public function __construct($default_expiration = 300)
+    public function __construct($default_expiration = 3600)
     {
         $this->default_expiration = (int) $default_expiration;
     }
