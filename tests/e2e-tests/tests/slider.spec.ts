@@ -265,7 +265,7 @@ async function runCustomizerFlow2(page, useEffect, homeType) {
     await test.step('1.カスタマイザー画面を開く', () => openCustomizer(page));
     //await test.step('2.2. スライダー設定を開く', () => openSliderSetting(page));
     await test.step('2. スライダーのエフェクトを設定', () =>
-        selSliderEffect(page, useEffect));
+        selSliderEffect(page, useEffect, '1'));
     await ensureCustomizerRoot(page);
     await test.step('4.ホームタイプの変更', async () => {
         await setSiteType(page, homeType);
