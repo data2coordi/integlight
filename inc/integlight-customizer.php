@@ -191,23 +191,17 @@ class Integlight_Customizer_Footer
 		add_action('customize_register', array($this, 'register'));
 	}
 
-	private function footerMenu($wp_customize)
-	{
 
-		$wp_customize->add_control(new WP_Customize_Control(
-			$wp_customize,
-			'my_description',
-			array(
-				'type'        => 'hidden', // 実際の入力要素は出さない
-				'section'     => 'integlight_footer_section',
-				'description' => __('The footer menu will be displayed once you create a menu specifically for the footer.', 'integlight'),
-				'settings'    => array(), // 設定不要
-			)
-		));
-	}
 
 	private function copy_right($wp_customize)
 	{
+
+		// サイドバー位置セクションの追加
+		$wp_customize->add_section('integlight_copyright_section', array(
+			'title' => __('コピーライト設定', 'integlight'),
+			'priority' => 29,
+			'panel' => 'integlight_footer_panel'
+		));
 		// コピーライト設定
 		$wp_customize->add_setting('integlight_footer_copy_right', array(
 			'default'           => '',
@@ -216,7 +210,7 @@ class Integlight_Customizer_Footer
 
 		$wp_customize->add_control('integlight_footer_copy_right', array(
 			'label'    => __('Copyright Settings', 'integlight'),
-			'section'  => 'integlight_footer_section',
+			'section'  => 'integlight_copyright_section',
 			'type'     => 'text',
 		));
 
@@ -228,20 +222,14 @@ class Integlight_Customizer_Footer
 
 		$wp_customize->add_control('integlight_footer_show_credit', array(
 			'label'    => __("Display 'Powered by WordPress' and theme author credit", 'integlight'),
-			'section'  => 'integlight_footer_section',
+			'section'  => 'integlight_copyright_section',
 			'type'     => 'checkbox',
 		));
 	}
 	public function register($wp_customize)
 	{
-		// セクション追加
-		$wp_customize->add_section('integlight_footer_section', array(
-			'title'    => __('Footer Settings', 'integlight'),
-			'priority' => 160,
-		));
 
 		$this->copy_right($wp_customize);
-		$this->footerMenu($wp_customize);
 	}
 
 	public function sanitize_checkbox($checked)
