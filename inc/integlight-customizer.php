@@ -99,7 +99,7 @@ class integlight_customizer_themeColor
 			'section'     => 'colors', //既存の色セクションに追加
 			'settings'    => 'integlight_base_color_setting',
 			'label'       => __('Accent color setting', 'integlight'),
-			'description' => __('Select favorite accent color', 'integlight'),
+			'description' => __('アクセントカラーは、ロゴやヘッダー画像の色に近い色を選ぶと調和します。ヘッダーやボタンの配色が変わります。是非設定することをおすすめします。', 'integlight'),
 			'type'        => 'radio',
 			'choices'     => array(
 				'pattern8' => __('Navy', 'integlight'),

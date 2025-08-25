@@ -18,10 +18,10 @@ class Integlight_Customize_Performance
 
         // 「高速化」セクション追加
         $wp_customize->add_section('integlight_section_performance', [
-            'title'       => __('Performance', 'integlight'),
+            'title'       => __('キャッシュ設定', 'integlight'),
             'priority'    => 200,
             'capability'  => 'edit_theme_options',
-            'description' => __('Cache and performance related settings.', 'integlight'),
+            'description' => __('高速化のためのキャッシュに関する設定です。', 'integlight'),
             'panel'       => 'integlight_perf_panel',
         ]);
 
@@ -35,7 +35,8 @@ class Integlight_Customize_Performance
             'type'        => 'checkbox',
             'section'     => 'integlight_section_performance',
             'label'       => __('Enable server-side cache', 'integlight'),
-            'description' => __('Uncheck to disable theme output cache.', 'integlight'),
+            'description' => __('チェックを外すとテーマのサーバー側キャッシュが無効になります。通常は有効がお勧めです。'
+                . '※ログインユーザーには本キャッシュは適用されません。', 'integlight'),
         ]);
     }
 
