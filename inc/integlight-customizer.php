@@ -205,7 +205,7 @@ class Integlight_Customizer_Footer
 
 		// サイドバー位置セクションの追加
 		$wp_customize->add_section('integlight_copyright_section', array(
-			'title' => __('コピーライト設定', 'integlight'),
+			'title' => __('Copyright Settings', 'integlight'),
 			'priority' => 29,
 			'panel' => 'integlight_footer_panel'
 		));
