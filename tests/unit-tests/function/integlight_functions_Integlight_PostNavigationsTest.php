@@ -27,7 +27,10 @@ class integlight_functions_Integlight_PostNavigationsTest extends WP_UnitTestCas
         // アイキャッチ画像を prev_post に設定
         $image_path = wp_tempnam('dummy.jpg');
         file_put_contents($image_path, 'dummy');
-        self::$prev_thumb_id = $factory->attachment->create_upload_object($image_path, self::$prev_post_id);
+        self::$prev_thumb_id = $factory->attachment->create_object([
+            'file'        => $image_path,
+            'post_parent' => self::$prev_post_id,
+        ]);
         set_post_thumbnail(self::$prev_post_id, self::$prev_thumb_id);
     }
 
@@ -83,7 +86,7 @@ class integlight_functions_Integlight_PostNavigationsTest extends WP_UnitTestCas
         $output = ob_get_clean();
 
         $this->assertStringContainsString('class="nav-next"', $output);
-        $this->assertStringNotContainsString('<div class="nav-previous"', $output);
+        $this->assertStringNotContainsString('class="nav-previous"', $output);
     }
 
     /**
@@ -98,7 +101,7 @@ class integlight_functions_Integlight_PostNavigationsTest extends WP_UnitTestCas
         $output = ob_get_clean();
 
         $this->assertStringContainsString('class="nav-previous"', $output);
-        $this->assertStringNotContainsString('<div class="nav-next"', $output);
+        $this->assertStringNotContainsString('class="nav-next"', $output);
     }
 
     /**

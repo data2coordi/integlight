@@ -9,7 +9,7 @@
 /**
  * single.php を実際に読み込んでテストするケース
  */
-class SingleTemplateFullTest extends WP_UnitTestCase
+class template_SingleTemplateTest extends WP_UnitTestCase
 {
     private static $post_id;
     private static $user_id;

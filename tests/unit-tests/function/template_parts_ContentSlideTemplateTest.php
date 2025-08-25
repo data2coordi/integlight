@@ -31,19 +31,13 @@ class template_parts_ContentSlideTemplateTest extends WP_UnitTestCase
      */
     public static function wpSetUpBeforeClass($factory)
     {
-        // テスト用のダミー画像ファイルパス (テストファイルからの相対パス)
-        $dummy_image_path = dirname(__FILE__, 2) . '/dummy-image.png';
-        if (! file_exists($dummy_image_path)) {
-            // ダミー画像がない場合は一時ファイルを作成
-            $dummy_image_path = wp_tempnam('dummy-image.png');
-            // 注意: wp_tempnam は空ファイルを作成します。画像処理が必要な場合は別途対応が必要です。
-            //       テストが画像の内容に依存しない場合はこれでOKです。
-        }
+        // WordPress のテストスイートに含まれるサンプル画像を使用します。
+        $file = DIR_TESTDATA . '/images/canola.jpg';
 
         // アタッチメントを作成
-        self::$image_id_1 = $factory->attachment->create_upload_object($dummy_image_path, 0);
-        self::$image_id_2 = $factory->attachment->create_upload_object($dummy_image_path, 0);
-        self::$image_id_3 = $factory->attachment->create_upload_object($dummy_image_path, 0);
+        self::$image_id_1 = $factory->attachment->create_upload_object($file, 0);
+        self::$image_id_2 = $factory->attachment->create_upload_object($file, 0);
+        self::$image_id_3 = $factory->attachment->create_upload_object($file, 0);
 
         // 画像URLを取得して保存 (テストでの比較用)
         // エラーチェックを追加
@@ -52,12 +46,6 @@ class template_parts_ContentSlideTemplateTest extends WP_UnitTestCase
         }
         if (self::$image_id_2 && !is_wp_error(self::$image_id_2)) {
             self::$image_url_2 = wp_get_attachment_url(self::$image_id_2);
-        }
-
-
-        // 一時ファイルとしてダミー画像を作成した場合、削除する
-        if (strpos($dummy_image_path, get_temp_dir()) === 0 && file_exists($dummy_image_path)) {
-            unlink($dummy_image_path);
         }
 
         // $Integlight_slider_settings グローバル変数を模倣
