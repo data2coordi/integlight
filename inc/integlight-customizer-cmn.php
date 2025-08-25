@@ -81,8 +81,8 @@ class Integlight_Customizer_Manager
 
 	public function __construct()
 	{
-		$this->panels = $this->default_panels();
-		$this->map = $this->default_map();
+		// $this->panels = $this->default_panels();
+		// $this->map = $this->default_map();
 
 		add_action('customize_register', [$this, 'register_panels'], 15);
 		add_action('customize_register', [$this, 'apply_mapping'], 20);
@@ -188,6 +188,9 @@ class Integlight_Customizer_Manager
 
 	public function register_panels($wp_customize)
 	{
+		if (!isset($this->panels)) {
+			$this->panels = $this->default_panels();
+		}
 		foreach ($this->panels as $id => $args) {
 			if (! $wp_customize->get_panel($id)) {
 				$wp_customize->add_panel($id, array_merge(['capability' => 'edit_theme_options'], $args));
@@ -196,6 +199,9 @@ class Integlight_Customizer_Manager
 	}
 	public function apply_mapping($wp_customize)
 	{
+		if (!isset($this->map)) {
+			$this->map = $this->default_map();
+		}
 		foreach ($this->map as $core_id => $target) {
 			// セクションが存在する場合
 			$section = $wp_customize->get_section($core_id);
@@ -230,22 +236,25 @@ new Integlight_Customizer_Manager();
 /**
  * セクション上に説明を追加する。
  */
-if (class_exists('WP_Customize_Control')) {
-
-	class integlight_customizer_creBigTitle extends WP_Customize_Control
-	{
-		public $type = 'heading';
-		public function render_content()
+function integlight_define_custom_control_for_customizer()
+{
+	if (class_exists('WP_Customize_Control') && !class_exists('integlight_customizer_creBigTitle')) {
+		class integlight_customizer_creBigTitle extends WP_Customize_Control
 		{
-			if (! empty($this->label)) {
-				echo '<h3 style="border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 10px;">' . esc_html($this->label) . '</h3>';
-			}
-			if (!empty($this->description)) {
-				echo '<span class="description customize-control-description">' . esc_html($this->description) . '</span>';
+			public $type = 'heading';
+			public function render_content()
+			{
+				if (! empty($this->label)) {
+					echo '<h3 style="border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 10px;">' . esc_html($this->label) . '</h3>';
+				}
+				if (!empty($this->description)) {
+					echo '<span class="description customize-control-description">' . esc_html($this->description) . '</span>';
+				}
 			}
 		}
 	}
 }
+add_action('customize_register', 'integlight_define_custom_control_for_customizer', 1);
 
 // セクション上に見出し作成クラス _e ////////////////////////////////////////////////////////////////////////////////
 

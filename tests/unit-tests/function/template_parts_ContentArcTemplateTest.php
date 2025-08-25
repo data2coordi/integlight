@@ -45,15 +45,15 @@ class template_parts_ContentArcTemplateTest extends WP_UnitTestCase
             'tags_input'    => ['Arc Tag'],
         ]);
 
-        // サムネイルを追加 (オプション)
-        $image_path =  dirname(__FILE__, 2) . '/dummy-image.png';
-        if (file_exists($image_path)) {
-            $this->attachment_id = self::factory()->attachment->create_upload_object($image_path, $this->post_id);
-            if (!is_wp_error($this->attachment_id)) {
-                set_post_thumbnail($this->post_id, $this->attachment_id);
-            } else {
-                $this->attachment_id = null;
-            }
+        // Create a dummy image and attach it as a thumbnail
+        $image_path = wp_tempnam('dummy-image.png');
+        file_put_contents($image_path, 'dummy image content');
+        $this->attachment_id = self::factory()->attachment->create_object([
+            'file'        => $image_path,
+            'post_parent' => $this->post_id,
+        ]);
+        if (!is_wp_error($this->attachment_id)) {
+            set_post_thumbnail($this->post_id, $this->attachment_id);
         }
     }
 

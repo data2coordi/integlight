@@ -108,7 +108,7 @@ class integlight_customizer_integlight_customizer_sidebarTest extends WP_UnitTes
         // Assert: セクションが存在し、パラメータが正しいことを確認
         $section = $this->wp_customize->get_section($this->section_id);
         $this->assertInstanceOf(WP_Customize_Section::class, $section, "Section '{$this->section_id}' should be added.");
-        $this->assertEquals(__('Sidebar Settings', 'integlight'), $section->title, 'Section title should be correct.');
+        $this->assertEquals(__('Sidebar Position Settings', 'integlight'), $section->title, 'Section title should be correct.');
         $this->assertEquals(30, $section->priority, 'Section priority should be correct.');
     }
 

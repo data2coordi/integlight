@@ -4,6 +4,7 @@ class integlight_customizer_integlight_customizer_homeTypeTest extends WP_UnitTe
     private $wp_customize;
     private $instance;
     private $setting_id = 'integlight_hometype_setting';
+    private $homeTypeLoader;
 
     public function setUp(): void
     {

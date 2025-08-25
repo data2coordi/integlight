@@ -30,7 +30,7 @@ class integlight_customizer_Integlight_Customizer_FooterTest extends WP_UnitTest
      * テスト用のセクションID
      * @var string
      */
-    private $section_id = 'integlight_footer_section';
+    private $section_id = 'integlight_copyright_section';
 
     /**
      * テスト用の著作権設定ID
@@ -120,8 +120,8 @@ class integlight_customizer_Integlight_Customizer_FooterTest extends WP_UnitTest
         // Assert: セクションが存在し、パラメータが正しいことを確認
         $section = $this->wp_customize->get_section($this->section_id);
         $this->assertInstanceOf(WP_Customize_Section::class, $section, "Section '{$this->section_id}' should be added.");
-        $this->assertEquals(__('Footer Settings', 'integlight'), $section->title, 'Section title should be correct.');
-        $this->assertEquals(160, $section->priority, 'Section priority should be correct.');
+        $this->assertEquals(__('Copyright Settings', 'integlight'), $section->title, 'Section title should be correct.');
+        $this->assertEquals(29, $section->priority, 'Section priority should be correct.');
     }
 
     /**

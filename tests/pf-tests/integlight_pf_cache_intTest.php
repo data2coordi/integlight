@@ -593,13 +593,13 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
             FROM {$wpdb->options}
             WHERE option_name LIKE '_transient_integlight_%'
         ");
-            error_log("=== BEFORE hook {$hook} ===");
-            foreach ($results as $row) {
-                error_log("ID: {$row->option_id}, Name: {$row->option_name}, Value: {$row->option_value}");
-            }
-            error_log("keys:");
-            error_log(print_r($ttkeys, true));
-            error_log("=== BEFORE hook END ===");
+            //error_log("=== BEFORE hook {$hook} ===");
+            //foreach ($results as $row) {
+            //error_log("ID: {$row->option_id}, Name: {$row->option_name}, Value: {$row->option_value}");
+            //}
+            //error_log("keys:");
+            //error_log(print_r($ttkeys, true));
+            //error_log("=== BEFORE hook END ===");
 
             // --- フックを発火 ---
             do_action_ref_array($hook, $args);
@@ -612,11 +612,11 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
             FROM {$wpdb->options}
             WHERE option_name LIKE '_transient_integlight_%'
         ");
-            error_log("=== AFTER hook {$hook} ===");
-            foreach ($results as $row) {
-                error_log("ID: {$row->option_id}, Name: {$row->option_name}, Value: {$row->option_value}");
-            }
-            error_log("=== AFTER hook END ===");
+            //error_log("=== AFTER hook {$hook} ===");
+            //foreach ($results as $row) {
+            //error_log("ID: {$row->option_id}, Name: {$row->option_name}, Value: {$row->option_value}");
+            //}
+            //error_log("=== AFTER hook END ===");
 
             // --- 検証: 本体の transient が削除されていることだけ確認 ---
             foreach ($ttkeys as $ttkey) {

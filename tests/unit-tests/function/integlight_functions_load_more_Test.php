@@ -9,6 +9,7 @@ class integlight_functions_load_more_Test extends WP_Ajax_UnitTestCase
     protected int $admin_id;
     protected $post_ids = [];
 
+    private $instance;
     protected int $cat_id;
     protected array $post_ids_cat_test = [];
     protected string $ajax_action_load_more_cat = 'integlight_load_more_category_posts';
@@ -415,7 +416,6 @@ class integlight_functions_load_more_Test extends WP_Ajax_UnitTestCase
             $frontend_scripts['integlight-loadmore']['path'],
             'FrontendScripts path should be correct.'
         );
-        var_dump($frontend_scripts);
 
         // Assert: InteglightDeferJs に遅延スクリプトが追加されたか
         $deferred_scripts = $this->get_static_property_value(InteglightDeferJs::class, 'deferred_scripts');

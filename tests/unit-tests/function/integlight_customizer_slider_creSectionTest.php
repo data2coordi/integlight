@@ -82,7 +82,7 @@ class integlight_customizer_slider_creSectionTest extends WP_UnitTestCase
      */
     public function testConstants(): void
     {
-        $this->assertSame('slider_panel', $this->instance->getSliderPanelId());
+        $this->assertSame('integlight_header_panel', $this->instance->getSliderPanelId());
         $this->assertSame('slider_section', $this->instance->getSliderSectionId());
         $this->assertSame('sliderOrImage_section', $this->instance->getSliderOrImageSectionId());
     }
@@ -99,14 +99,15 @@ class integlight_customizer_slider_creSectionTest extends WP_UnitTestCase
         // Execute the method under test, passing the real customize manager
         $this->instance->creSection($this->wp_customize);
 
+        $manager = new Integlight_Customizer_Manager();
+        $manager->register_panels($this->wp_customize);
+
         // --- Assertions ---
         // Panel の検証
-        $panel = $this->wp_customize->get_panel(integlight_customizer_slider_creSection::SLIDER_PANEL_ID);
-        $this->assertInstanceOf(WP_Customize_Panel::class, $panel, 'Slider panel should be registered.');
-        $this->assertEquals(__('Top Header Setting', 'integlight'), $panel->title, 'Panel title should match.');
-        $this->assertEquals(29, $panel->priority, 'Panel priority should match.');
-        $this->assertEquals(__('Please select whether to display a slider or an image in the top header. The settings button for the selected option will be displayed.', 'integlight'), $panel->description, 'Panel description should match.');
-
+        $panel = $this->wp_customize->get_panel($this->instance->getSliderPanelId());
+        $this->assertEquals(__('Header Settings', 'integlight'), $panel->title, 'Panel title should match.');
+        $this->assertEquals(30, $panel->priority, 'Panel priority should match.');
+        $this->assertEquals(__('Media settings (slider or static image) for the header area of the homepage (top page).', 'integlight'), $panel->description, 'Panel description should match.');
 
         // Section 1 (sliderOrImage_section) の検証
         $section1 = $this->wp_customize->get_section(integlight_customizer_slider_creSection::SLIDER_OR_IMAGE_SECTION_ID);

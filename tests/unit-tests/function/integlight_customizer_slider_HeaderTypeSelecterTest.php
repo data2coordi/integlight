@@ -133,7 +133,7 @@ class integlight_customizer_HeaderTypeSelecterTest extends WP_UnitTestCase
         // 選択肢 (choices) の検証
         $expected_choices = [
             $this->slider_settings_stub->headerTypeName_slider => __('Slider', 'integlight'),
-            $this->slider_settings_stub->headerTypeName_image => __('Image', 'integlight'),
+            $this->slider_settings_stub->headerTypeName_image => __('Still Image', 'integlight'),
             'none' => __('None', 'integlight'),
         ];
         $this->assertEquals($expected_choices, $control->choices, 'Control choices should match the expected array.');

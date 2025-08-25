@@ -70,14 +70,36 @@ class integlight_customizer_slider_settingTest extends WP_UnitTestCase
             }
             require_once $customize_manager_path;
         }
+
+        // Explicitly load WP_Customize_Control as it's a dependency for integlight-customizer-cmn.php
+        if (!class_exists('WP_Customize_Control')) {
+            $customize_control_path = ABSPATH . WPINC . '/class-wp-customize-control.php';
+            if (!file_exists($customize_control_path)) {
+                $this->fail('WP_Customize_Control class file not found at ' . $customize_control_path);
+            }
+            require_once $customize_control_path;
+        }
+
         // WP_Customize_Manager の実際のインスタンスを作成
         $this->wp_customize = new WP_Customize_Manager();
 
+        // Add core settings that are modified by other hooks called during 'customize_register'
+        // to prevent "Attempt to assign property on null" errors.
+        $this->wp_customize->add_setting('blogname');
+        $this->wp_customize->add_setting('blogdescription');
+        $this->wp_customize->add_setting('header_textcolor');
+
+        // Now that WP_Customize_Control is loaded, we can load our custom control file.
+        require_once dirname(__DIR__, 3) . '/inc/integlight-customizer-cmn.php';
+
+        // Manually call the function that defines the custom control class,
+        // as the 'customize_register' action is not being fired in these tests.
+        integlight_define_custom_control_for_customizer();
+
         // 依存クラスのインスタンスを作成
         $this->slider_section_helper = new integlight_customizer_slider_creSection();
-        // integlight_customizer_slider_creSection がセクションを追加するのを模倣
+        // テスト対象のコントロールが追加されるセクションIDを取得
         $this->test_section_id = $this->slider_section_helper->getSliderSectionId();
-        $this->wp_customize->add_section($this->test_section_id, ['title' => 'Slider Settings Section']);
 
 
         // テスト用のグローバル設定オブジェクトを作成
@@ -185,8 +207,12 @@ class integlight_customizer_slider_settingTest extends WP_UnitTestCase
      */
     public function settings_should_be_added_correctly(): void
     {
-        // Act: フックされたメソッドを手動で呼び出し (メソッド名を修正)
-        $this->instance->setting($this->wp_customize);
+        $manager = new Integlight_Customizer_Manager();
+        $manager->register_panels($this->wp_customize); // パネルの登録
+
+        // Act: テスト対象のメソッドと、その依存先のメソッドを直接呼び出す
+        $this->slider_section_helper->creSection($this->wp_customize); // 依存: セクションを作成
+        $this->instance->setting($this->wp_customize); // テスト対象: 設定とコントロールを作成
 
         // Assert: 各設定が存在し、パラメータが正しいことを確認
         // setting() メソッドで定義されている設定のみをチェック
@@ -309,8 +335,9 @@ class integlight_customizer_slider_settingTest extends WP_UnitTestCase
      */
     public function controls_should_be_added_correctly(): void
     {
-        // Act: フックされたメソッドを手動で呼び出し (メソッド名を修正)
-        $this->instance->setting($this->wp_customize);
+        // Act: テスト対象のメソッドと、その依存先のメソッドを直接呼び出す
+        $this->slider_section_helper->creSection($this->wp_customize); // 依存: セクションを作成
+        $this->instance->setting($this->wp_customize); // テスト対象: コントロールを作成
 
         // Assert: 各コントロールが存在し、パラメータが正しいことを確認
         // setting() メソッドで定義されているコントロールのみをチェック
@@ -509,52 +536,43 @@ class integlight_customizer_slider_settingTest extends WP_UnitTestCase
     /**
      * @test
      * @covers ::setting
-     * コントロールの active_callback がテーマ設定 'integlight_display_choice' に基づいて正しく動作するかテスト
+     * コントロールの表示状態が、属するセクションの active_callback に基づいて正しく決定されるかテスト
+     * 注意: コントロール自体に active_callback は設定されていませんが、セクションの表示状態に依存します。
      * @dataProvider activeCallbackDataProvider
-     * 注意: integlight_customizer_slider_setting クラス自体は active_callback を設定しないため、
-     *       このテストは本来不要ですが、以前のコードの名残として残し、
-     *       active_callback が存在しない (または常に true を返す) ことを確認する形にします。
-     *       もし将来的に active_callback が追加された場合は、このテストを修正してください。
      */
     public function controls_active_callback_should_work_correctly(string $display_choice, bool $expected_result): void
     {
         // Arrange: テーマ設定を設定
         set_theme_mod('integlight_display_choice', $display_choice);
 
-        // Act: フックされたメソッドを手動で呼び出し (メソッド名を修正)
+        // Act: 必要なメソッドを直接呼び出して、セクションとコントロールをセットアップ
+        $this->slider_section_helper->creSection($this->wp_customize);
         $this->instance->setting($this->wp_customize);
 
-        // Assert: いずれかのコントロールを取得し、active_callback の状態を確認
-        $control = $this->wp_customize->get_control('integlight_slider_effect'); // 例として effect コントロールを使用
-        $this->assertInstanceOf(WP_Customize_Control::class, $control, 'Control for active_callback test should exist.');
+        // Assert: コントロールが属するセクションを取得し、その active() メソッドの結果を検証
+        // PHPのテストでは、コントロールの active() はセクションの状態を自動的に反映しないため、
+        // 表示状態のロジックを持つセクションを直接テストします。
+        $section = $this->wp_customize->get_section($this->test_section_id);
+        $this->assertInstanceOf(WP_Customize_Section::class, $section, 'Section for active_callback test should exist.');
 
-        // 現状のコードでは active_callback は設定されていないはず
-        $this->assertTrue(isset($control->active_callback) && is_callable($control->active_callback), 'Control active_callback should NOT be set or callable in this class.');
-
-        // もし active_callback が存在し、常に true を返す仕様であれば以下のようにテストする
-        // if (isset($control->active_callback) && is_callable($control->active_callback)) {
-        //     $actual_result = call_user_func($control->active_callback);
-        //     $this->assertTrue($actual_result, "active_callback should always return true if set.");
-        // } else {
-        //     // active_callback がなければテスト成功とする
-        //     $this->assertTrue(true, "active_callback is not set, which is expected.");
-        // }
-
-        // データプロバイダーの $expected_result は現状では使用しないが、将来的な拡張のために残す
+        $actual_result = $section->active();
+        $this->assertSame(
+            $expected_result,
+            $actual_result,
+            "The section's active state should be " . ($expected_result ? 'true' : 'false') . " when display_choice is '{$display_choice}'."
+        );
     }
 
 
     /**
      * active_callback テスト用のデータプロバイダー
-     * @return array<string, array{string, bool}>
      */
     public function activeCallbackDataProvider(): array
     {
-        // 注意: 現状の integlight_customizer_slider_setting では active_callback を使わないため、
-        //       このデータプロバイダーの bool 値は直接的には使われません。
         return [
-            'Display choice is slider' => ['slider', true], // 本来期待される結果
-            'Display choice is image' => ['image', true],  // 本来期待される結果 (現状は常に表示される想定)
+            'Display choice is slider' => ['slider', true],
+            'Display choice is image' => ['image', false],
+            'Display choice is none' => ['none', false],
         ];
     }
 }

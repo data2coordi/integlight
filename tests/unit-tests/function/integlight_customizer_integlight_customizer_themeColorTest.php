@@ -224,7 +224,7 @@ class integlight_customizer_integlight_customizer_themeColorTest extends WP_Unit
 
 
 
-        $this->assertEquals(__('Select favorite accent color', 'integlight'), $control->description, 'Control description should be correct.');
+        $this->assertEquals(__('Choose an accent color close to the logo or header image color for a harmonious appearance. This will change the colors of the header and buttons. It is highly recommended to set it.', 'integlight'), $control->description, 'Control description should be correct.');
         $this->assertEquals('radio', $control->type, 'Control type should be "radio".');
 
         // 選択肢の確認
