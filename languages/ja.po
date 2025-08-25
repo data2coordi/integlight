@@ -173,13 +173,6 @@ msgstr "游ゴシック"
 msgid "yu mincho"
 msgstr "游明朝"
 
-#: inc/integlight-customizer.php:336
-msgid "Top Header Setting"
-msgstr "トップヘッダー設定"
-
-#: inc/integlight-customizer.php:336
-msgid "Please select whether to display a slider or an image in the top header. The settings button for the selected option will be displayed."
-msgstr "トップヘッダーにスライダーまたは画像のどちらを表示するか選択してください。選択された方の設定ボタンが表示されます。"
 
 
 #: inc/integlight-customizer.php:336
@@ -313,9 +306,7 @@ msgstr "サイドバー配置設定"
 msgid "Accent color setting"
 msgstr "アクセントカラー設定"
 
-#: inc/integlight-customizer.php:448
-msgid "Select favorite accent color"
-msgstr "サイト全体のアクセントカラーとして使用される色を変更できます"
+
 
 #: inc/integlight-customizer.php:448
 msgid "Blue"
@@ -578,14 +569,12 @@ msgstr "ヘッダー"
 
 
 
-msgid "The footer menu will be displayed once you create a menu specifically for the footer."
-msgstr "フッターメニューはメニューでフッター用メニューを作成すると表示されます。"
+
 
 msgid "Site Type Settings"
 msgstr "サイトタイプ設定"
 
-msgid "Select favorite site type"
-msgstr "好きなサイトタイプを選択してください"
+
 
 msgid "Elegant"
 msgstr "エレガント"
@@ -610,17 +599,12 @@ msgid "Loding..."
 msgstr "読み込み中・・・"
 
 
-msgid "Performance"
-msgstr "高速化"
 
-msgid "Cache and performance related settings."
-msgstr "キャッシュ機能やパフォーマンス関連の設定です。"
+
 
 msgid "Enable server-side cache"
 msgstr "サーバー側キャッシュを有効にする"
 
-msgid "Uncheck to disable theme output cache."
-msgstr "チェックを外すとテーマの出力キャッシュが無効になります。"
 
 
 msgid ""
@@ -691,13 +675,9 @@ msgstr "メニュー設定"
 msgid "Header Settings"
 msgstr "ヘッダー設定"
 
-#: inc/customizer.php:XXX
-msgid "Sidebar Settings"
-msgstr "サイドバー設定"
 
-#: inc/customizer.php:XXX
-msgid "Footer Settings"
-msgstr "フッター設定"
+
+
 
 #: inc/customizer.php:XXX
 msgid "Design Settings"
@@ -775,3 +755,9 @@ msgstr "ホーム（トップ）ページに表示するメディアのタイプ
 #: inc/customizer.php:XXX
 msgid "<br>In 1 above, select the media type to display in the header section of the homepage (top page).<br><b>◆ Slider type</b>:<br>Images slide with animation<br><b>◆ Static image type</b>:<br>Normal static image<br><br>According to the type selected in 1 above, the 'Slider' or 'Static Image' settings button will appear in 2 below. Click the button to configure."
 msgstr "<br>上記の1.でホームページ（トップページ）のヘッダー部分に表示するメディアタイプを選択してください。<br><b>◆スライダータイプ</b>：<br>画像がスライドするアニメーション<br><b>◆静止画像タイプ</b>：<br>通常の静止画像<br><br>上記1.で選択したタイプに応じて下記の2.に「スライダー」または「静止画像」の設定ボタンが表示されます。ボタンをクリックして設定してください。<br><br>"
+
+msgid "Sidebar Settings"
+msgstr "サイドバー設定"
+
+msgid "Footer Settings"
+msgstr "フッター設定"
