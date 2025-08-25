@@ -34,6 +34,7 @@ require get_template_directory() . '/inc/starter-content.php';
 /**php読み込み カスタマイザー系 s************* */
 /***************************************** */
 
+require get_template_directory() . '/inc/integlight-customizer-cmn.php';
 require get_template_directory() . '/inc/integlight-customizer-base.php';
 require get_template_directory() . '/inc/integlight-customizer.php';
 require get_template_directory() . '/inc/integlight-customizer-front.php';

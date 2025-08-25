@@ -174,7 +174,10 @@ class integlight_customizer_slider_creSection
 			'title'    => __('Select - Slider or Image', 'integlight'),
 			'priority' => 29,
 			'panel' => self::SLIDER_PANEL_ID,
-			'description' => 'ここで選択したタイプの設定ボタンが１つ前の画面に表示されます。',
+			'description' => __('ホーム（トップ）ページに表示するメディアのタイプを選択します。'
+				. '<br>ここで選択したタイプの設定ボタンが１つ前の画面に表示されます。'
+				. '<br><br><b>＜お勧めの設定＞</b>'
+				. '<br>スライダーがお勧めです', 'integlight')
 		));
 
 		$msg1 =
@@ -229,7 +232,6 @@ class integlight_customizer_slider_setting
 
 	public function setting($wp_customize)
 	{
-		integlight_define_custom_controls();
 		$this->pWp_customize = $wp_customize;
 
 		/* 効果 */
