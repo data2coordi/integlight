@@ -358,9 +358,6 @@ msgstr "ネイビー"
 
 
 
-#: inc/integlight-functions.php:203
-msgid "Footer Settings"
-msgstr "フッター設定"
 
 #: inc/integlight-functions.php:204
 msgid "Footer"
@@ -624,3 +621,157 @@ msgstr "サーバー側キャッシュを有効にする"
 
 msgid "Uncheck to disable theme output cache."
 msgstr "チェックを外すとテーマの出力キャッシュが無効になります。"
+
+
+msgid ""
+"This is a site-wide setting.<br><br><b>Recommended settings</b><br>"
+"The 'Homepage Settings' are usually fine as default. "
+"If you want to use a fixed page as the home (top) page, configure it here."
+"<br><br>It is recommended to set both 'Site Basic Information' and 'Site Type Settings'."
+msgstr ""
+"サイト全体に関連する設定です。<br><br><b>＜お勧めの設定＞</b><br>"
+"「ホームページ設定」は通常は既定のままで問題ありません。※ホーム（トップ）ページを固定ページにしたい場合は設定してください。"
+"<br><br>「サイト基本情報」と「サイトタイプ設定」は設定することをお勧めします。"
+
+msgid ""
+"Menu related settings."
+"<br>You can also configure menus from \"Appearance\" → \"Menus\" in the admin dashboard."
+"<br><br>1. First, create a menu by clicking \"Create a new menu\" below."
+"<br><br>2. Next, assign the created menu to a location from \"Menu locations\" below."
+"<br>(You can choose from two locations: Header and Footer.)"
+"<br><br><b>Recommended settings:</b>"
+"<br>Create two menus. Place frequently used items in the Header menu and less used items in the Footer menu."
+msgstr ""
+"メニュー関連の設定です。"
+"<br>管理画面の「外観」→「メニュー」からも設定可能です。"
+"<br><br>1. まず、下の「新しいメニューを作成」からメニューを作成してください。"
+"<br><br>2. 次に、作成したメニューを「メニューの位置」から割り当ててください。"
+"<br>（ヘッダー、フッターの2種類から選択できます。）"
+"<br><br><b>推奨設定:</b>"
+"<br>メニューは2種類作成し、使用頻度の高いものはヘッダーに、使用頻度の低いものはフッターに配置してください。"
+
+msgid "Media settings (slider or static image) for the header area of the homepage (top page)."
+msgstr "ホームページ（トップページ）のヘッダー部分に表示するメディア（スライダーまたは静止画像）の設定です。"
+
+msgid ""
+"Sidebar settings for posts page. You can configure from \"Appearance → Widgets\".<br><br>"
+"You can place two sidebars: Sidebar 1 and Sidebar 2.<br><br>"
+"When opening this panel in posts page, the setting buttons for the target sidebars will be displayed.<br><br>"
+"<b>Recommended setting:</b><br>"
+"Create widgets in Sidebar 1 and set its position to the right."
+msgstr ""
+"投稿ページに表示するサイドバーに関連する設定です。<br>"
+"※管理画面の「外観」→「ウィジェット」から設定することもできます。<br><br>"
+"サイドバー１、サイドバー２の２つのサイドバーを配置することができます。<br><br>"
+"投稿ページで本パネルをオープンすると対象のサイドバーの設定ボタンが表示されます。<br><br>"
+"<b>＜お勧めの設定＞</b><br>"
+"サイドバー１にウィジェットを作成して、サイドバー１の位置を右に設定"
+
+#: inc/customizer.php:XXX
+msgid "Settings related to the footer area at the bottom of the screen.<br><br>* To set up the footer menu, please use the Menu settings in the Customizer."
+msgstr "画面下部のフッターに関連する設定です。<br><br>※フッターメニュー設定はカスタマイズのメニュー設定から行ってください。"
+
+#: inc/customizer.php:XXX
+msgid "Settings related to the overall site design.<br><br><b>Recommended settings:</b><br>Set the accent color in the color scheme for a consistent site appearance.<br>Background image and Additional CSS can remain unset."
+msgstr "サイト全体のデザインに関連する設定です。<br><br><b>＜お勧めの設定＞</b><br>配色にあるアクセントカラーを設定することで、サイトが調和します。<br>背景画像・追加CSSは未設定のままで問題ありません。"
+
+#: inc/customizer.php:XXX
+msgid "Settings related to performance.<br><br>In most cases, the default values are sufficient."
+msgstr "パフォーマンスに関連する設定です。<br><br>通常は既定のままで問題ありません。"
+
+#: inc/customizer.php:XXX
+msgid "Site Settings"
+msgstr "サイト設定"
+
+#: inc/customizer.php:XXX
+msgid "Menu Settings"
+msgstr "メニュー設定"
+
+#: inc/customizer.php:XXX
+msgid "Header Settings"
+msgstr "ヘッダー設定"
+
+#: inc/customizer.php:XXX
+msgid "Sidebar Settings"
+msgstr "サイドバー設定"
+
+#: inc/customizer.php:XXX
+msgid "Footer Settings"
+msgstr "フッター設定"
+
+#: inc/customizer.php:XXX
+msgid "Design Settings"
+msgstr "デザイン設定"
+
+#: inc/customizer.php:XXX
+msgid "Performance Settings"
+msgstr "パフォーマンス設定"
+
+#: inc/customizer.php:XXX
+msgid "Site Identity"
+msgstr "サイト基本情報"
+
+#: inc/customizer.php:XXX
+msgid "Homepage Settings"
+msgstr "ホームページ設定"
+
+#: inc/customizer.php:XXX
+msgid "Colors"
+msgstr "配色"
+
+#: inc/customizer.php:XXX
+msgid "Background Image"
+msgstr "背景画像"
+
+#: inc/customizer.php:XXX
+msgid "Additional CSS"
+msgstr "追加CSS"
+
+#: inc/customizer.php:XXX
+msgid "2.Static Image Settings"
+msgstr "2.静止画像設定"
+
+#: inc/customizer.php:XXX
+msgid "Menus"
+msgstr "メニュー"
+
+#: inc/customizer.php:XXX
+msgid "Widgets"
+msgstr "ウィジェット"
+
+#: inc/customizer.php:XXX
+msgid "Set the position of the sidebar configured in the previous screen or via 'Appearance → Widgets' in the admin dashboard."
+msgstr "「１つ前の画面」または「管理画面の外観→ウィジェット」で設定したサイドバーの位置を設定します。"
+
+#: inc/customizer.php:XXX
+msgid "Choose an accent color close to the logo or header image color for a harmonious appearance. This will change the colors of the header and buttons. It is highly recommended to set it."
+msgstr "アクセントカラーは、ロゴやヘッダー画像の色に近い色を選ぶと調和します。ヘッダーやボタンの配色が変わります。是非設定することをおすすめします。"
+
+
+#: inc/customizer.php:XXX
+msgid "You can change the overall impression of the site, including the homepage, header, and menus."
+msgstr "ホームページ、ヘッダー、メニュー等のサイト全体の印象を変更できます。"
+
+#: inc/customizer.php:XXX
+msgid "Elegant: a luxurious and refined design<br>Pop: a lively and fun impression design"
+msgstr "エレガント：高級感のある上品なデザイン<br>ポップ：賑やかで楽しい印象のデザイン"
+
+#: inc/customizer.php:XXX
+msgid "Cache Settings"
+msgstr "キャッシュ設定"
+
+#: inc/customizer.php:XXX
+msgid "Settings related to caching for site performance optimization."
+msgstr "高速化のためのキャッシュに関する設定です。"
+
+#: inc/customizer.php:XXX
+msgid "Uncheck to disable the theme's server-side cache. Normally, keeping it enabled is recommended. *This cache does not apply to logged-in users."
+msgstr "チェックを外すとテーマのサーバー側キャッシュが無効になります。通常は有効がお勧めです。※ログインユーザーには本キャッシュは適用されません。"
+
+#: inc/customizer.php:XXX
+msgid "Select the type of media to display on the homepage (top page).<br>The settings button for the selected type will appear on the previous screen.<br><br><b>Recommended setting:</b><br>Slider is recommended."
+msgstr "ホーム（トップ）ページに表示するメディアのタイプを選択します。<br>ここで選択したタイプの設定ボタンが１つ前の画面に表示されます。<br><br><b>＜お勧めの設定＞</b><br>スライダーがお勧めです"
+
+#: inc/customizer.php:XXX
+msgid "<br>In 1 above, select the media type to display in the header section of the homepage (top page).<br><b>◆ Slider type</b>:<br>Images slide with animation<br><b>◆ Static image type</b>:<br>Normal static image<br><br>According to the type selected in 1 above, the 'Slider' or 'Static Image' settings button will appear in 2 below. Click the button to configure."
+msgstr "<br>上記の1.でホームページ（トップページ）のヘッダー部分に表示するメディアタイプを選択してください。<br><b>◆スライダータイプ</b>：<br>画像がスライドするアニメーション<br><b>◆静止画像タイプ</b>：<br>通常の静止画像<br><br>上記1.で選択したタイプに応じて下記の2.に「スライダー」または「静止画像」の設定ボタンが表示されます。ボタンをクリックして設定してください。<br><br>"

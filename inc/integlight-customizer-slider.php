@@ -174,19 +174,13 @@ class integlight_customizer_slider_creSection
 			'title'    => __('Select - Slider or Image', 'integlight'),
 			'priority' => 29,
 			'panel' => self::SLIDER_PANEL_ID,
-			'description' => __('ホーム（トップ）ページに表示するメディアのタイプを選択します。'
-				. '<br>ここで選択したタイプの設定ボタンが１つ前の画面に表示されます。'
-				. '<br><br><b>＜お勧めの設定＞</b>'
-				. '<br>スライダーがお勧めです', 'integlight')
+			'description' => __("Select the type of media to display on the homepage (top page).<br>The settings button for the selected type will appear on the previous screen.<br><br><b>Recommended setting:</b><br>Slider is recommended.", 'integlight')
 		));
 
 		$msg1 =
 			new Integlight_Customizer_Section_Description(
 				self::SLIDER_OR_IMAGE_SECTION_ID,
-				__('<br>上記の1.でホームページ（トップページ）のヘッダー部分に表示するメディアタイプを選択してください。'
-					. '<br><b>◆スライダータイプ</b>：<br>画像がスライドするアニメーション'
-					. '<br><b>◆静止画像タイプ</b>：<br>通常の静止画像'
-					. '<br><br>上記1.で選択したタイプに応じて下記の2.に「スライダー」または「静止画像」の設定ボタンが表示されます。ボタンをクリックして設定してください。<br><br>', 'integlight')
+				__("<br>In 1 above, select the media type to display in the header section of the homepage (top page).<br><b>◆ Slider type</b>:<br>Images slide with animation<br><b>◆ Static image type</b>:<br>Normal static image<br><br>According to the type selected in 1 above, the 'Slider' or 'Static Image' settings button will appear in 2 below. Click the button to configure.", 'integlight')
 
 			);
 

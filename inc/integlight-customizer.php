@@ -53,7 +53,7 @@ class integlight_customizer_sidebar
 			'title' => __('Sidebar Position Settings', 'integlight'),
 			'priority' => 30,
 			'panel' => 'integlight_sidebar_panel',
-			'description' => __('「１つ前の画面」または「管理画面の外観→ウィジェット」で設定したサイドバーの位置を設定します。', 'integlight'),
+			'description' => __("Set the position of the sidebar configured in the previous screen or via 'Appearance → Widgets' in the admin dashboard.", 'integlight'),
 
 		));
 
@@ -99,7 +99,7 @@ class integlight_customizer_themeColor
 			'section'     => 'colors', //既存の色セクションに追加
 			'settings'    => 'integlight_base_color_setting',
 			'label'       => __('Accent color setting', 'integlight'),
-			'description' => __('アクセントカラーは、ロゴやヘッダー画像の色に近い色を選ぶと調和します。ヘッダーやボタンの配色が変わります。是非設定することをおすすめします。', 'integlight'),
+			'description' => __("Choose an accent color close to the logo or header image color for a harmonious appearance. This will change the colors of the header and buttons. It is highly recommended to set it.", 'integlight'),
 			'type'        => 'radio',
 			'choices'     => array(
 				'pattern8' => __('Navy', 'integlight'),
@@ -146,7 +146,7 @@ class integlight_customizer_HomeType
 			'title' => __('Site Type Settings', 'integlight'),
 			'priority' => 29,
 			'panel' => 'integlight_site_panel',
-			'description' => __('ホームページ、ヘッダー、メニュー等のサイト全体の印象を変更できます。', 'integlight'),
+			'description' => __("You can change the overall impression of the site, including the homepage, header, and menus.", 'integlight'),
 		));
 
 		// Setting
@@ -161,8 +161,7 @@ class integlight_customizer_HomeType
 			'section'     => 'integlight_hometype_section',
 			'settings'    => 'integlight_hometype_setting',
 			'label'       => __('Site Type Settings', 'integlight'),
-			'description' => __('エレガント：高級感のある上品なデザイン'
-				. '<br>ポップ：賑やかで楽しい印象のデザイン', 'integlight'),
+			'description' => __("Elegant: a luxurious and refined design<br>Pop: a lively and fun impression design", 'integlight'),
 			'type'        => 'radio',
 			'choices'     => array(
 				'home1' => __('Elegant', 'integlight'),

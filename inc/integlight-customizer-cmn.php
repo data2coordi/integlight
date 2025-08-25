@@ -91,72 +91,98 @@ class Integlight_Customizer_Manager
 	private function default_panels()
 	{
 		$site_desc = __(
-			'サイト全体に関連する設定です。'
-				. '<br><br><b>＜お勧めの設定＞</b>'
-				. '<br>「ホームページ設定」は通常は既定のままで問題ありません。※ホーム（トップ）ページを固定ページにしたい場合は設定してください。'
-				. '<br><br>「サイト基本情報」と「サイトタイプ設定」は設定することをお勧めします。',
+			"This is a site-wide setting.<br><br><b>Recommended settings</b><br>"
+				. "The 'Homepage Settings' are usually fine as default. "
+				. "If you want to use a fixed page as the home (top) page, configure it here."
+				. "<br><br>It is recommended to set both 'Site Basic Information' and 'Site Type Settings'.",
 			'integlight'
 		);
 		$menu_desc = __(
-			'メニューに関連する設定です。'
-				. '<br>※管理画面の「外観」→「メニュー」から設定することもできます。'
-				. '<br><br>１．下記「メニューを新規作成」でメニューを作成してください。'
-				. '<br><br>２．次に、作成したメニューの配置先を下記「メニューの位置」から設定してください。'
-				. '<br>（ヘッダーとフッターの２箇所からメニューの位置を選択できます）'
-				. '<br><br><b>＜お勧めの設定＞</b>'
-				. '<br>2つのメニューを作成し、よく使われるメニュー項目をヘッダーに配置し、あまり使われないメニュー項目はフッターに配置',
+			"Menu related settings."
+				. "<br>You can also configure menus from \"Appearance\" → \"Menus\" in the admin dashboard."
+				. "<br><br>1. First, create a menu by clicking \"Create a new menu\" below."
+				. "<br><br>2. Next, assign the created menu to a location from \"Menu locations\" below."
+				. "<br>(You can choose from two locations: Header and Footer.)"
+				. "<br><br><b>Recommended settings:</b>"
+				. "<br>Create two menus. Place frequently used items in the Header menu and less used items in the Footer menu.",
 			'integlight'
 		);
-		$header_desc = __('ホームページ（トップページ）のヘッダー部分に表示するメディア（スライダーまたは静止画像）の設定です。', 'integlight');
+		$header_desc = __('Media settings (slider or static image) for the header area of the homepage (top page).', 'integlight');
 		$sidebar_desc = __(
-			'投稿ページに表示するサイドバーに関連する設定です。'
-				. '<br>※管理画面の「外観」→「ウィジェット」から設定することもできます。'
-				. '<br><br>サイドバー１、サイドバー２の２つのサイドバーを配置することができます。'
-				. '<br><br>投稿ページで本パネルをオープンすると対象のサイドバーの設定ボタンが表示されます。'
-				. '<br><br><b>＜お勧めの設定＞</b>'
-				. '<br>サイドバー１にウィジェットを作成して、サイドバー１の位置を右に設定',
+			"Sidebar settings for posts page. You can configure from \"Appearance → Widgets\".<br><br>"
+				. "You can place two sidebars: Sidebar 1 and Sidebar 2.<br><br>"
+				. "When opening this panel in posts page, the setting buttons for the target sidebars will be displayed.<br><br>"
+				. "<b>Recommended setting:</b><br>"
+				. "Create widgets in Sidebar 1 and set its position to the right.",
 			'integlight'
 		);
 		$footer_desc = __(
-			'画面下部のフッターに関連する設定です。'
-				. '<br><br>※フッターメニュー設定はカスタマイズのメニュー設定から行ってください。',
+			"Settings related to the footer area at the bottom of the screen.<br><br>* To set up the footer menu, please use the Menu settings in the Customizer.",
 			'integlight'
 		);
 		$design_desc = __(
-			'サイト全体のデザインに関連する設定です。'
-				. '<br><br><b>＜お勧めの設定＞</b>'
-				. '<br>配色にあるアクセントカラーを設定することで、サイトが調和します。'
-				. '<br>背景画像・追加CSSは未設定のままで問題ありません。',
+			"Settings related to the overall site design.<br><br><b>Recommended settings:</b><br>Set the accent color in the color scheme for a consistent site appearance.<br>Background image and Additional CSS can remain unset.",
 			'integlight'
 		);
-		$perf_desc = __('パフォーマンスに関連する設定です。' .
-			'<br><br>通常は既定のままで問題ありません。', 'integlight');
+		$perf_desc = __(
+			"Settings related to performance.<br><br>In most cases, the default values are sufficient.",
+			'integlight'
+		);
 
 
-		return [
-			'integlight_site_panel'   => ['title' => __('サイト設定', 'integlight'), 'priority' => 10, 'description' => $site_desc],
-			'integlight_menu_panel'   => ['title' => __('メニュー設定', 'integlight'), 'priority' => 20, 'description' => $menu_desc],
-			'integlight_header_panel' => ['title' => __('ヘッダー設定', 'integlight'), 'priority' => 30, 'description' => $header_desc],
-			'integlight_sidebar_panel' => ['title' => __('サイドバー設定', 'integlight'), 'priority' => 40, 'description' => $sidebar_desc],
-			'integlight_footer_panel' => ['title' => __('フッター設定', 'integlight'), 'priority' => 50, 'description' => $footer_desc],
-			'integlight_design_panel'  => ['title' => __('デザイン設定', 'integlight'), 'priority' => 400, 'description' => $design_desc],
-			'integlight_perf_panel'   => ['title' => __('パフォーマンス設定', 'integlight'), 'priority' => 500, 'description' => $perf_desc],
+		$panels = [
+			'integlight_site_panel'   => [
+				'title'       => __('Site Settings', 'integlight'),
+				'priority'    => 10,
+				'description' => $site_desc,
+			],
+			'integlight_menu_panel'   => [
+				'title'       => __('Menu Settings', 'integlight'),
+				'priority'    => 20,
+				'description' => $menu_desc,
+			],
+			'integlight_header_panel' => [
+				'title'       => __('Header Settings', 'integlight'),
+				'priority'    => 30,
+				'description' => $header_desc,
+			],
+			'integlight_sidebar_panel' => [
+				'title'       => __('Sidebar Settings', 'integlight'),
+				'priority'    => 40,
+				'description' => $sidebar_desc,
+			],
+			'integlight_footer_panel' => [
+				'title'       => __('Footer Settings', 'integlight'),
+				'priority'    => 50,
+				'description' => $footer_desc,
+			],
+			'integlight_design_panel'  => [
+				'title'       => __('Design Settings', 'integlight'),
+				'priority'    => 400,
+				'description' => $design_desc,
+			],
+			'integlight_perf_panel'   => [
+				'title'       => __('Performance Settings', 'integlight'),
+				'priority'    => 500,
+				'description' => $perf_desc,
+			],
 		];
+		return $panels;
 	}
 
 	private function default_map()
 	{
 		return [
 			// コアの section を独自パネルへ移動（ID は変えない）
-			'title_tagline'      => ['panel' => 'integlight_site_panel',   'title' => __('サイト基本情報', 'integlight')],
-			'static_front_page'  => ['panel' => 'integlight_site_panel',   'title' => __('ホームページ設定', 'integlight')],
-			'colors'             => ['panel' => 'integlight_design_panel',  'title' => __('配色', 'integlight')],
-			'background_image'   => ['panel' => 'integlight_design_panel',  'title' => __('背景画像', 'integlight')],
-			'custom_css'         => ['panel' => 'integlight_design_panel',  'title' => __('追加CSS', 'integlight')],
+			'title_tagline'      => ['panel' => 'integlight_site_panel',   'title' => __('Site Identity', 'integlight')],
+			'static_front_page'  => ['panel' => 'integlight_site_panel',   'title' => __('Homepage Settings', 'integlight')],
+			'colors'             => ['panel' => 'integlight_design_panel',  'title' => __('Colors', 'integlight')],
+			'background_image'   => ['panel' => 'integlight_design_panel',  'title' => __('Background Image', 'integlight')],
+			'custom_css'         => ['panel' => 'integlight_design_panel',  'title' => __('Additional CSS', 'integlight')],
 			// nav_menus等はパネル -> それに属するセクションを移動する形で扱う
-			'header_image'       => ['panel' => 'integlight_header_panel', 'title' => __('2.静止画像設定', 'integlight')],
-			'nav_menus'          => ['panel' => 'integlight_menu_panel',   'title' => __('メニュー', 'integlight')],
-			'widgets'            => ['panel' => 'integlight_sidebar_panel', 'title' => __('ウィジェット', 'integlight')],
+			'header_image'       => ['panel' => 'integlight_header_panel', 'title' => __('2.Static Image Settings', 'integlight')],
+			'nav_menus'          => ['panel' => 'integlight_menu_panel',   'title' => __('Menus', 'integlight')],
+			'widgets'            => ['panel' => 'integlight_sidebar_panel', 'title' => __('Widgets', 'integlight')],
 		];
 	}
 
