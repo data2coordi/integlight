@@ -26,16 +26,26 @@ export default defineConfig({
             testMatch: 'auth.setup.ts',
         },
 
-        // 2. 本テストを実行するプロジェクト
+        // 2. 【新規】認証が不要なテスト用のプロジェクト
+        {
+            name: 'unauthenticated',
+            testMatch: [/menu\.spec\.js/], // 認証不要なテストファイルを指定
+            use: {
+                ...devices['Desktop Chrome'],
+                // storageState を使わないので、ログイン状態にはならない
+            },
+        },
+
+        // 3. 【変更】認証が必要な本テストを実行するプロジェクト
         {
             name: 'main',
             testDir: './tests', // テストファイルのディレクトリを指定
+            testIgnore: [/auth\.setup\.ts/, /menu\.spec\.js/], // setupと認証不要テストを除外
             dependencies: ['setup'], // setupプロジェクトの完了を待機
             use: {
                 ...devices['Desktop Chrome'], // デスクトップChromeを使用
                 // 保存した認証状態をロード
                 storageState: authFile,
-                // テストごとの動画録画設定を上書きすることも可能
             },
         },
     ],
