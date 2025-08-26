@@ -263,7 +263,7 @@ if (! function_exists('integlight_post_thumbnail')) :
                         'class' => 'responsive-img',
                         'loading' => 'eager',
                         'decoding' => 'async',
-                        'sizes' => '(max-width: 480px) 20vw, 800px', //PF対応!!!：20vwとすることで、srcsetで低解像度を選択させる。
+                        'sizes' => '(max-width: 480px) 80vw, 800px', //PF対応!!!：20vwとすることで、srcsetで低解像度を選択させる。
                         'fetchpriority' => 'high'  // PF対応!!!
 
                     ]
@@ -445,6 +445,140 @@ class Integlight_getAttr_byImageCount
 /********************************************************************/
 /* fetchprioryにする上位画像数を計算e	*/
 /********************************************************************/
+
+/********************************************************************/
+/* 本文画像の遅延機能 s	*/
+/********************************************************************/
+
+/*シンプル版*/
+// function add_lazy_and_low_priority_to_content_images_final($content)
+// {
+//     // 投稿本文に画像がなければ処理を終了
+//     if (false === strpos($content, '<img')) {
+//         return $content;
+//     }
+
+//     // 正規表現で<img>タグを検索し、属性を追加・変更する
+//     // これにより、他のHTML構造を壊すことなく、安全に処理を行う
+//     $content = preg_replace_callback('/<img([^>]+?)>/i', function ($matches) {
+//         $img_tag = $matches[0];
+//         $attributes = $matches[1];
+
+
+//         // loading="lazy" を追加
+//         if (strpos($attributes, ' loading=') === false) {
+//             $attributes .= ' loading="lazy"';
+//         }
+
+//         // fetchpriority="low" を追加
+//         if (strpos($attributes, ' fetchpriority=') === false) {
+//             $attributes .= ' fetchpriority="low"';
+//         }
+
+//         return '<img' . $attributes . '>';
+//     }, $content);
+
+//     return $content;
+// }
+
+// the_contentフィルターにフック
+// 優先度を99に設定することで、他のプラグインの後に処理を実行させる
+//add_filter('the_content', 'add_lazy_and_low_priority_to_content_images_final', 99);
+
+/*安全版*/
+// function add_lazy_and_low_priority_to_content_images_safe_fragment($content)
+// {
+//     if (false === strpos($content, '<img')) {
+//         return $content;
+//     }
+
+//     // <img> タグだけを対象にする正規表現（堅牢なワード境界）
+//     $content = preg_replace_callback('/<img\b[^>]*>/i', function ($matches) {
+//         $img_html = $matches[0];
+
+//         // 小さな DOMDocument を作ってこの <img> フラグメントだけを扱う
+//         libxml_use_internal_errors(true);
+//         $dom = new DOMDocument('1.0', 'UTF-8');
+
+//         // フラグメント単位なら wrapper を使う（エンティティの影響が小さい）
+//         $wrapped = '<!DOCTYPE html><html><body>' . $img_html . '</body></html>';
+//         $dom->loadHTML($wrapped, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+//         $imgs = $dom->getElementsByTagName('img');
+//         if ($imgs->length === 0) {
+//             // 予期せぬケース（パースできなかった）→元のまま返す
+//             libxml_clear_errors();
+//             return $img_html;
+//         }
+
+//         $img = $imgs->item(0);
+
+//         // 既存属性は壊さず、なければ追加する
+//         if (!$img->hasAttribute('loading')) {
+//             $img->setAttribute('loading', 'lazy');
+//         }
+//         if (!$img->hasAttribute('fetchpriority')) {
+//             $img->setAttribute('fetchpriority', 'low');
+//         }
+
+//         // 変更した <img> ノードのみをシリアライズして返す
+//         $new_tag = $dom->saveHTML($img);
+
+//         libxml_clear_errors();
+//         return $new_tag !== null ? $new_tag : $img_html;
+//     }, $content);
+
+//     return $content;
+// }
+
+//add_filter('the_content', 'add_lazy_and_low_priority_to_content_images_safe_fragment', 99);
+
+//安全版の高速化対応
+function add_lazy_and_low_priority_to_content_images_static($content)
+{
+    if (false === strpos($content, '<img')) {
+        return $content;
+    }
+
+    // DOMDocument を static で再利用
+    static $dom = null;
+    if ($dom === null) {
+        $dom = new DOMDocument();
+        libxml_use_internal_errors(true);
+    }
+
+    return preg_replace_callback('/<img\b[^>]*>/i', function ($matches) use ($dom) {
+        $img_html = $matches[0];
+
+        // 毎回 DOMDocument をリセットする代わりに loadHTML で wrapper 付きフラグメント読み込み
+        $dom->loadHTML('<html><body>' . $img_html . '</body></html>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+        $imgs = $dom->getElementsByTagName('img');
+        if ($imgs->length === 0) {
+            return $img_html;
+        }
+
+        $img = $imgs->item(0);
+
+        if (!$img->hasAttribute('loading')) {
+            $img->setAttribute('loading', 'lazy');
+        }
+        if (!$img->hasAttribute('fetchpriority')) {
+            $img->setAttribute('fetchpriority', 'low');
+        }
+
+        return $dom->saveHTML($img);
+    }, $content);
+}
+
+add_filter('the_content', 'add_lazy_and_low_priority_to_content_images_static', 99);
+
+
+/********************************************************************/
+/* 本文画像の遅延機能 e	*/
+/********************************************************************/
+
+
 
 
 /********************************************************************/
