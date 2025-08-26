@@ -26,7 +26,7 @@ if (is_active_sidebar('sidebar-1')) {
 
 			//サイドバー出力
 			$cache_sidebar = new Integlight_Cache_Sidebar();
-			$cache_sidebar->displaySidebar('sidebar-1', 'sidebar-1');
+			$cache_sidebar->displaySidebar('sidebar-1', 'sidebar-1', 300);
 
 			?>
 		</aside><!-- #secondary -->
@@ -45,7 +45,7 @@ if (is_active_sidebar('sidebar-2')) {
 			<?php
 			//サイドバー出力
 			$cache_sidebar = new Integlight_Cache_Sidebar();
-			$cache_sidebar->displaySidebar('sidebar-2', 'sidebar-2');
+			$cache_sidebar->displaySidebar('sidebar-2', 'sidebar-2', 300);
 
 			?>
 
