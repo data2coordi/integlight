@@ -60,15 +60,15 @@ export async function openCustomizer(page: Page) {
 }
 
 export async function openHeaderSetting(page: Page, setting: string) {
-    await page.getByRole('button', { name: 'トップヘッダー設定' }).click();
-    await page.getByRole('button', { name: 'スライダーまたは画像を選択' }).click();
-    const effectSelect = page.getByRole('combobox', { name: 'スライダーまたは画像を表示' });
+    await page.getByRole('button', { name: 'ヘッダー設定' }).click();
+    await page.getByRole('button', { name: '1.「スライダー」タイプまたは「静止画像」タイプを選択' }).click();
+    const effectSelect = page.getByRole('combobox', { name: '「スライダー」タイプまたは「静止画像」タイプを選択' });
     await effectSelect.selectOption({ label: setting });
 }
 
 export async function selSliderEffect(page: Page, effect: string = 'フェード', interval = '5') {
-    await page.getByRole('button', { name: 'トップヘッダー設定' }).click();
-    await page.getByRole('button', { name: 'スライダー設定' }).click();
+    await page.getByRole('button', { name: 'ヘッダー設定' }).click();
+    await page.getByRole('button', { name: '2.スライダー設定' }).click();
     const effectSelect = page.getByRole('combobox', { name: 'エフェクト' });
     await effectSelect.selectOption({ label: effect });
     const intervalInput = page.getByLabel('変更時間間隔（秒）');
@@ -86,6 +86,8 @@ export async function saveCustomizer(page: Page) {
 }
 
 export async function setSiteType(page: Page, siteType: string = 'エレガント') {
+    await page.getByRole('button', { name: 'サイト設定' }).click();
+
     await page.getByRole('button', { name: 'サイトタイプ設定' }).click();
     const checkbox = page.getByLabel(siteType);
     if (!(await checkbox.isChecked())) {
