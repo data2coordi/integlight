@@ -91,29 +91,17 @@ class Integlight_Customizer_Manager
 	private function default_panels()
 	{
 		$site_desc = __(
-			"This is a site-wide setting.<br><br><b>Recommended settings</b><br>"
-				. "The 'Homepage Settings' are usually fine as default. "
-				. "If you want to use a fixed page as the home (top) page, configure it here."
-				. "<br><br>It is recommended to set both 'Site Basic Information' and 'Site Type Settings'.",
+			'This is a site-wide setting.<br><br><b>Recommended settings</b><br>The \'Homepage Settings\' are usually fine as default. If you want to use a fixed page as the home (top) page, configure it here.<br><br>It is recommended to set both \'Site Basic Information\' and \'Site Type Settings\'.',
 			'integlight'
 		);
+
 		$menu_desc = __(
-			"Menu related settings."
-				. "<br>You can also configure menus from \"Appearance\" → \"Menus\" in the admin dashboard."
-				. "<br><br>1. First, create a menu by clicking \"Create a new menu\" below."
-				. "<br><br>2. Next, assign the created menu to a location from \"Menu locations\" below."
-				. "<br>(You can choose from two locations: Header and Footer.)"
-				. "<br><br><b>Recommended settings:</b>"
-				. "<br>Create two menus. Place frequently used items in the Header menu and less used items in the Footer menu.",
+			'Menu related settings.<br>You can also configure menus from "Appearance" → "Menus" in the admin dashboard.<br><br>1. First, create a menu by clicking "Create a new menu" below.<br><br>2. Next, assign the created menu to a location from "Menu locations" below.<br>(You can choose from two locations: Header and Footer.)<br><br><b>Recommended settings:</b><br>Create two menus. Place frequently used items in the Header menu and less used items in the Footer menu.',
 			'integlight'
 		);
 		$header_desc = __('Media settings (slider or static image) for the header area of the homepage (top page).', 'integlight');
 		$sidebar_desc = __(
-			"Sidebar settings for posts page. You can configure from \"Appearance → Widgets\".<br><br>"
-				. "You can place two sidebars: Sidebar 1 and Sidebar 2.<br><br>"
-				. "When opening this panel in posts page, the setting buttons for the target sidebars will be displayed.<br><br>"
-				. "<b>Recommended setting:</b><br>"
-				. "Create widgets in Sidebar 1 and set its position to the right.",
+			'Sidebar settings for posts page. You can configure from "Appearance → Widgets".<br><br>You can place two sidebars: Sidebar 1 and Sidebar 2.<br><br>When opening this panel in posts page, the setting buttons for the target sidebars will be displayed.<br><br><b>Recommended setting:</b><br>Create widgets in Sidebar 1 and set its position to the right.',
 			'integlight'
 		);
 		$footer_desc = __(
