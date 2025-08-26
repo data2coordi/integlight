@@ -631,7 +631,7 @@ msgstr ""
 "<br><br>1. まず、下の「新しいメニューを作成」からメニューを作成してください。"
 "<br><br>2. 次に、作成したメニューを「メニューの位置」から割り当ててください。"
 "<br>（ヘッダー、フッターの2種類から選択できます。）"
-"<br><br><b>推奨設定:</b>"
+"<br><br><b>＜お勧めの設定＞</b>"
 "<br>メニューは2種類作成し、使用頻度の高いものはヘッダーに、使用頻度の低いものはフッターに配置してください。"
 
 msgid "Media settings (slider or static image) for the header area of the homepage (top page)."
