@@ -675,7 +675,7 @@ abstract class Integlight_Cache_Base
     /**
      * すべてのキャッシュを効率的に削除（静的メソッド）
      */
-    public static function clearAll($post_id = null)
+    public static function clearAll($dummy = null)
     {
         global $wpdb;
         $prefix = static::$prefix;
@@ -695,7 +695,7 @@ abstract class Integlight_Cache_Base
     public static function registerHooks()
     {
         // 投稿・カテゴリの変更
-        add_action('save_post', [static::class, 'clearAll'], 10, 1);
+        add_action('save_post', [static::class, 'clearAll']);
         add_action('edited_term', [static::class, 'clearAll']);
 
         // プラグイン・テーマの変更
@@ -710,8 +710,15 @@ abstract class Integlight_Cache_Base
         add_action('wp_update_nav_menu', [static::class, 'clearAll']);
         add_action('wp_delete_nav_menu', [static::class, 'clearAll']);
 
-        // ウィジェットの変更
-        add_action('widget_update_callback', [static::class, 'clearAll']);
+        // ウィジェット内容の変更
+        add_action('updated_option', function ($option) {
+            if (strpos($option, 'widget_') === 0) {
+                static::clearAll();
+            }
+        }, 10, 1);
+
+        // ウィジェット配置の変更
+        add_action('update_option_sidebars_widgets', [static::class, 'clearAll']);
     }
 }
 
