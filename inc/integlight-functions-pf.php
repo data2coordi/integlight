@@ -677,18 +677,10 @@ abstract class Integlight_Cache_Base
      */
     public static function clearAll($post_id = null)
     {
-
-
         global $wpdb;
         $prefix = static::$prefix;
 
         $sql = "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_{$prefix}%'";
-        $wpdb->query($sql);
-
-
-        error_log('sql:@@@@@@@@@@');
-        error_log($sql);
-
         $wpdb->query($sql);
     }
 
