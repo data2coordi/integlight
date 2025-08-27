@@ -403,16 +403,20 @@ class Integlight_PostNavigations
 		$post_url   = get_permalink($post_id);
 
 	?>
-		<a href="<?php echo esc_url($post_url); ?>" class="<?php echo esc_attr($class); ?>" style="display: block; background-image: url('<?php echo Integlight_PostThumbnail::getUrl($post_id); ?>'); background-size: cover; background-position: center;">
-			<span class="nav-label">
-				<?php if ($class === 'nav-previous') : ?>
-					<?php echo $icon; ?>
-				<?php endif; ?>
-				<?php echo esc_html($post_title); ?>
-				<?php if ($class === 'nav-next') : ?>
-					<?php echo $icon; ?>
-				<?php endif; ?>
-			</span>
+		<a href="<?php echo esc_url($post_url); ?>" class="<?php echo esc_attr($class); ?>">
+			<div class="nav-image-wrapper">
+				<img loading="lazy" fetchpriority="high" src="<?php echo esc_url(Integlight_PostThumbnail::getUrl($post_id)); ?>"
+					alt="<?php echo esc_attr($post_title); ?>">
+				<span class="nav-label">
+					<?php if ($class === 'nav-previous') : ?>
+						<?php echo $icon; ?>
+					<?php endif; ?>
+					<?php echo esc_html($post_title); ?>
+					<?php if ($class === 'nav-next') : ?>
+						<?php echo $icon; ?>
+					<?php endif; ?>
+				</span>
+			</div>
 		</a>
 
 	<?php
