@@ -682,10 +682,12 @@ abstract class Integlight_Cache_Base
         global $wpdb;
         $prefix = static::$prefix;
 
-        $sql = $wpdb->prepare(
-            "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s",
-            $wpdb->esc_like('_transient_' . $prefix) . '%'
-        );
+        $sql = "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_{$prefix}%'";
+        $wpdb->query($sql);
+
+
+        error_log('sql:@@@@@@@@@@');
+        error_log($sql);
 
         $wpdb->query($sql);
     }
