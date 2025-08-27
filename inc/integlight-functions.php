@@ -399,7 +399,7 @@ class Integlight_PostNavigations
 
 		$post_id    = $post->ID;
 		$post_title = get_the_title($post_id);
-		$post_title = (strlen($post_title) > 14) ? wp_html_excerpt($post_title, 14) . esc_html__('...', 'integlight') : $post_title;
+		$post_title = (strlen($post_title) > 18) ? wp_html_excerpt($post_title, 18) . esc_html__('...', 'integlight') : $post_title;
 		$post_url   = get_permalink($post_id);
 
 	?>

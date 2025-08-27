@@ -49,8 +49,10 @@ h1.site-title {
 /* スライダーでなく画像を選んだ時 */
 .topImage {
   width: 100%;
-  height: 100%;           /* コンテナの高さに合わせる */
-  object-fit: cover;       /* はみ出しは見切って“つぶさず”に表示 */
+  height: 100%;
+  /* コンテナの高さに合わせる */
+  object-fit: cover;
+  /* はみ出しは見切って“つぶさず”に表示 */
   object-position: center;
 }
 
@@ -95,6 +97,7 @@ h1.site-title {
   font-size: 1rem;
   text-decoration: none;
 }
+
 .ly_site_footer a:hover {
   opacity: 0.5;
 }
@@ -386,6 +389,7 @@ li>ul>.cat-item:last-of-type {
 nav.navigation.pagination {
   text-align: center;
 }
+
 /* 次へ */
 .pagination .nav-links {
   width: 600px;
@@ -399,11 +403,12 @@ nav.navigation.pagination {
   border: 1px solid #555;
   width: 50px;
   height: 50px;
-  line-height: 50px; /* 中央揃え */
+  line-height: 50px;
+  /* 中央揃え */
   text-align: center;
   border-radius: 50%;
   display: inline-block;
-  margin:0.3em;
+  margin: 0.3em;
   text-decoration: none;
 }
 
@@ -425,36 +430,8 @@ nav.navigation.pagination {
   vertical-align: -15%;
 } */
 
-/************************************************************/
-/* ページコントロール 次の記事@@@***************************************************/
-/************************************************************/
-.navigation.post-navigation {}
 
-.navigation.post-navigation .nav-links {
-  display: flex;
-  justify-content: space-between;
-  /* 子要素間のスペースを等しく */
-  width: 100%;
-  /* 幅を広げる */
-  margin-top: 1.5rem;
-}
 
-.wp-block-media-text {
-  gap: 1.2em;
-  /* メディアとテキストのギャップ */
-}
-
-.wp-block-preformatted {
-  padding: 2em;
-  /* 囲みテキストにpadding */
-  margin-bottom: 1em;
-  /* 下に空きを作る */
-}
-
-.wp-block-buttons.is-layout-flex {
-  padding: 0;
-  /* ボタンのパディングを無しに */
-}
 
 /* 検索の時の記事一覧　次へ前へ */
 /* 検索の時の記事一覧　次へ前へ */
@@ -471,9 +448,10 @@ nav.navigation.pagination {
   text-align: right;
 }
 
-.search a{
+.search a {
   text-decoration: none;
 }
+
 /* 検索の時の記事一覧e　次へ前へ */
 /* 検索の時の記事一覧　次へ前へ */
 
@@ -533,9 +511,9 @@ nav.navigation.pagination {
     width: 100vw;
   }
 
-  .custom-logo ~ .site-title,
-  .custom-logo ~ .site-description {
-  margin-top: 0;
+  .custom-logo~.site-title,
+  .custom-logo~.site-description {
+    margin-top: 0;
   }
 
   /* ページネーション */
@@ -551,17 +529,21 @@ nav.navigation.pagination {
     line-height: 45px;
     margin-left: 0;
   }
+
   /* ページネーション */
   /* ページネーション */
   /* ページネーション */
 }
 
-
 /*****前へ次へ画像********/
+/*****前へ次へ画像********/
+/*****前へ次へ画像********/
+/*****前へ次へ画像********/
+/*****前へ次へ画像s********/
 .nav-previous,
 .nav-next {
   width: 300px;
-  height: 170px;
+  height: 180px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -576,7 +558,56 @@ nav.navigation.pagination {
   text-decoration: none;
   width: 300px;
   display: inline-block;
+  font-size: 14px;
 }
+
+/* ページネーションリンク全体 */
+/* .post-navigation a.nav-previous,
+.post-navigation a.nav-next {
+  display: block;
+  position: relative;
+  text-decoration: none;
+  color: #fff;
+  margin-bottom: 1em;
+} */
+
+/* 画像ラッパー */
+.nav-image-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+/* サムネイル画像 */
+.nav-image-wrapper img {
+  display: block;
+  width: 100%;
+  height: 180px;
+  /* デフォルトPCサイズ */
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+/* ホバーで少し拡大する演出 */
+.post-navigation a:hover .nav-image-wrapper img {
+  transform: scale(1.05);
+}
+
+/* 文字ラベル */
+.nav-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 10px;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* アイコンサイズ調整 */
+.nav-label svg {
+  fill: #fff;
+}
+
 
 /* .nav-previous .nav-label:hover,
 .nav-next .nav-label:hover {
@@ -589,13 +620,6 @@ nav.navigation.pagination {
   opacity: 0.8;
 }
 
-.nav-subtitle {
-  display: flex;
-  align-items: center;
-  /* アイコンとテキストの縦方向中央揃え */
-  gap: 0.5em;
-  /* アイコンとタイトルの間のスペース */
-}
 
 nav.post-navigation {
   display: flex;
@@ -608,11 +632,14 @@ nav.post-navigation {
 .nav-previous i,
 .nav-next i {}
 
-
+/*****前へ次へ画像e********/
+/*****前へ次へ画像********/
+/*****前へ次へ画像********/
 
 
 /* リンクに出てくる打ち消し線を消す */
-.broken_link, a.broken_link {
+.broken_link,
+a.broken_link {
   text-decoration: none;
 }
 
@@ -659,7 +686,8 @@ nav.post-navigation {
 .bl_card_container img {
   width: 100%;
   height: 100%;
-  object-fit: cover;     /* 切りたくないなら contain に変更 */
+  object-fit: cover;
+  /* 切りたくないなら contain に変更 */
 }
 
 /* カード全体e*/
@@ -729,6 +757,7 @@ nav.post-navigation {
   .bl_card_container {
     gap: 1vw 3vw;
   }
+
   /* カードの横のギャップ大きく */
 }
 
@@ -938,14 +967,16 @@ nav.post-navigation {
 
 /************ボタンアニメーション**********/
 .wp-block-button__link,
-.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link {
+.wp-block-buttons>.wp-block-button.has-custom-width .wp-block-button__link {
   position: relative;
   isolation: isolate;
   overflow: hidden;
   padding: 10px 20px;
   border: 1px solid #555;
-  background-color: #fff; /* 非ホバー時は白背景 */
-  color: #555; /* 非ホバー時は濃いテキスト色 */
+  background-color: #fff;
+  /* 非ホバー時は白背景 */
+  color: #555;
+  /* 非ホバー時は濃いテキスト色 */
   /* border-radius: inherit; */
   box-shadow: 2px 4px #000;
   cursor: pointer;
@@ -955,15 +986,16 @@ nav.post-navigation {
 
 .wp-block-button__link:hover,
 .wp-block-button__link:active,
-.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link:hover,
-.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link:active {
-  color: #fff !important; /* ホバー時は白テキスト */
+.wp-block-buttons>.wp-block-button.has-custom-width .wp-block-button__link:hover,
+.wp-block-buttons>.wp-block-button.has-custom-width .wp-block-button__link:active {
+  color: #fff !important;
+  /* ホバー時は白テキスト */
   box-shadow: none;
   transform: translateY(4px);
 }
 
 .wp-block-button__link::before,
-.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link::before {
+.wp-block-buttons>.wp-block-button.has-custom-width .wp-block-button__link::before {
   content: "";
   pointer-events: none;
   position: absolute;
@@ -978,8 +1010,8 @@ nav.post-navigation {
 
 .wp-block-button__link:hover::before,
 .wp-block-button__link:active::before,
-.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link:hover::before,
-.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link:active::before {
+.wp-block-buttons>.wp-block-button.has-custom-width .wp-block-button__link:hover::before,
+.wp-block-buttons>.wp-block-button.has-custom-width .wp-block-button__link:active::before {
   left: 0;
 }
 
@@ -991,24 +1023,36 @@ nav.post-navigation {
 
 /* 動きが苦手なユーザー配慮（揺れ/移動を止める） */
 @media (prefers-reduced-motion: reduce) {
-  .wp-block-button__link { transition: none; transform: none !important; }
-  .wp-block-button__link::before { transition: none; }
+  .wp-block-button__link {
+    transition: none;
+    transform: none !important;
+  }
+
+  .wp-block-button__link::before {
+    transition: none;
+  }
 }
 
 /* アクセシビリティ：キーボード操作でフォーカスが「見える」ようにする */
 .wp-block-button__link:focus-visible {
-  outline: 2px solid currentColor; /* フォーカス輪郭を表示。currentColor=現在の文字色を再利用 */
-  outline-offset: 2px;             /* 輪郭を要素から2px外側へずらして、潰れや滲みを防ぐ */
+  outline: 2px solid currentColor;
+  /* フォーカス輪郭を表示。currentColor=現在の文字色を再利用 */
+  outline-offset: 2px;
+  /* 輪郭を要素から2px外側へずらして、潰れや滲みを防ぐ */
 }
 
 /* アクセシビリティ：動きが苦手なユーザーのOS設定を尊重してアニメを止める */
 @media (prefers-reduced-motion: reduce) {
   .wp-block-button__link {
-    transition: none;           /* 色変化などのトランジションを無効化（フェードを止める） */
-    transform: none !important; /* 押し込みの translateY を無効化（位置が動かないように） */
+    transition: none;
+    /* 色変化などのトランジションを無効化（フェードを止める） */
+    transform: none !important;
+    /* 押し込みの translateY を無効化（位置が動かないように） */
   }
+
   .wp-block-button__link::before {
-    transition: none;           /* 背景スライドのアニメーションも停止 */
+    transition: none;
+    /* 背景スライドのアニメーションも停止 */
   }
 }
 
@@ -1042,10 +1086,14 @@ section.widget_block {
 /* 行の並び・余白を統一：横並びで折り返し、均一な間隔 */
 .tagcloud,
 .wp-block-tag-cloud {
-  display: flex;           /* 横並び */
-  flex-wrap: wrap;         /* はみ出したら次の行へ */
-  gap: 10px 12px;          /* 行間/列間の隙間 */
-  margin: 0;               /* 余白リセット（テーマ差吸収） */
+  display: flex;
+  /* 横並び */
+  flex-wrap: wrap;
+  /* はみ出したら次の行へ */
+  gap: 10px 12px;
+  /* 行間/列間の隙間 */
+  margin: 0;
+  /* 余白リセット（テーマ差吸収） */
   padding: 0;
 }
 
@@ -1053,21 +1101,28 @@ section.widget_block {
 .tagcloud a,
 .wp-block-tag-cloud a {
   /* ← まず“人気度でサイズが変わる”のを止める */
-  font-size: 0.9rem !important;   /* 全部同じ文字サイズに固定 */
-  line-height: 1;                 /* バッジ内の高さをきっちり */
+  font-size: 0.9rem !important;
+  /* 全部同じ文字サイズに固定 */
+  line-height: 1;
+  /* バッジ内の高さをきっちり */
 
   /* バッジの外観（丸み・背景・枠） */
-  display: inline-flex;           /* 中央揃えしやすい */
+  display: inline-flex;
+  /* 中央揃えしやすい */
   align-items: center;
-  padding: 8px 12px;              /* 内側の余白 */
-  border-radius: 9999px;          /* ピル型 */
+  padding: 8px 12px;
+  /* 内側の余白 */
+  border-radius: 9999px;
+  /* ピル型 */
   background: #f5f6f7;
   border: 1px solid #e1e3e6;
   color: #333;
-  text-decoration: none;          /* 下線オフ */
+  text-decoration: none;
+  /* 下線オフ */
 
   /* 細かな気持ちよさ */
-  white-space: nowrap;            /* 1タグは折り返さない */
+  white-space: nowrap;
+  /* 1タグは折り返さない */
   transition: background .2s ease, border-color .2s ease, color .2s ease;
 }
 
@@ -1206,21 +1261,30 @@ pre.wp-block-verse {
 /* プロフィールデザイン */
 /* プロフィールデザインs */
 .integlight-author-profile-widget {
-  background: #fff;                     /* カードの背景色（必要なら調整） */
+  background: #fff;
+  /* カードの背景色（必要なら調整） */
   border: 1px solid #eee;
-  padding: 1.5rem;                      /* 内側の余白でゆとりを出す */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);  /* ドロップシャドウ（ふんわり） */
-  max-width: 320px;                    /* 横幅を制限すると整うよ */
-  margin: 2rem auto;                   /* 上下に余白＋中央寄せ */
-  text-align: center;                  /* 中身を中央に揃える */
+  padding: 1.5rem;
+  /* 内側の余白でゆとりを出す */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  /* ドロップシャドウ（ふんわり） */
+  max-width: 320px;
+  /* 横幅を制限すると整うよ */
+  margin: 2rem auto;
+  /* 上下に余白＋中央寄せ */
+  text-align: center;
+  /* 中身を中央に揃える */
 }
 
 .integlight-author-profile-widget p {
   margin: 0.5rem 0;
   line-height: 1.8;
-  height: auto;            /* ← 高さは自動（これがデフォルト） */
-  overflow: visible;       /* ← テキストが切れないように */
-  white-space: normal;     /* ← 改行も自動に（念のため） */
+  height: auto;
+  /* ← 高さは自動（これがデフォルト） */
+  overflow: visible;
+  /* ← テキストが切れないように */
+  white-space: normal;
+  /* ← 改行も自動に（念のため） */
   text-align: left;
 }
 
@@ -1231,7 +1295,8 @@ pre.wp-block-verse {
 
 .integlight-author-profile-widget img {
   max-width: 120px;
-  aspect-ratio: 1 / 1;     /* ← 正円維持：縦横比を固定 */
+  aspect-ratio: 1 / 1;
+  /* ← 正円維持：縦横比を固定 */
   border-radius: 50%;
   object-fit: cover;
   display: block;
@@ -1239,10 +1304,14 @@ pre.wp-block-verse {
 }
 
 .integlight-author-profile-widget a {
-  font-weight: bold;       /* ボールドに */
-  text-decoration: none;   /* 下線を消す */
-  color: #555;          /* リンクの色を親に合わせる（必要に応じて） */
-} 
+  font-weight: bold;
+  /* ボールドに */
+  text-decoration: none;
+  /* 下線を消す */
+  color: #555;
+  /* リンクの色を親に合わせる（必要に応じて） */
+}
+
 /* プロフィールデザインe */
 /* プロフィールデザイン */
 
@@ -1279,3 +1348,12 @@ pre.wp-block-verse {
     margin-right: -3.375em !important;
   }
 }
+
+
+
+/*******************一時保管 s*************************/
+/****************************************************/
+/****************************************************/
+/****************************************************/
+/****************************************************/
+
