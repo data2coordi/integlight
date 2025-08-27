@@ -333,8 +333,9 @@
   }
   
   /* ボタン本体（今の指定をそのまま活かしつつ） */
-  #load-more,
-  .load-more-cat {
+  .home #load-more,
+  .home .load-more-cat,
+  .home .integlight_pt button#load-more {
     display:flex;
     margin: 40px auto;
     align-items:center;
