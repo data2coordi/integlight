@@ -44,7 +44,7 @@ class integlight_pf_cache_unitTest extends WP_UnitTestCase
         wp_logout();
 
         $key  = 'integration_guest_no_cache';
-        $tkey = 'integlight_' . $key;
+        $tkey = 'integlight_pc_' . $key;
 
         // 既存トランジェントは削除
         delete_transient($tkey);
@@ -92,7 +92,7 @@ class integlight_pf_cache_unitTest extends WP_UnitTestCase
         wp_logout();
 
         $key  = 'integration_guest_cache_hit';
-        $tkey = 'integlight_' . $key;
+        $tkey = 'integlight_pc_' . $key;
 
         // 既存トランジェントを事前に用意
         $existing_html = '<nav class="integlight-menu"><a>Cached Item</a></nav>';
@@ -122,7 +122,7 @@ class integlight_pf_cache_unitTest extends WP_UnitTestCase
         wp_logout();
 
         $key  = 'integration_guest_cache_expired';
-        $tkey = 'integlight_' . $key;
+        $tkey = 'integlight_pc_' . $key;
 
         // 既存キャッシュを用意して短時間で期限切れにする（確実に期限切れさせるため TTL=1 + sleep）
         $expired_html = '<nav class="integlight-menu"><a>Expired Item</a></nav>';
@@ -174,7 +174,7 @@ class integlight_pf_cache_unitTest extends WP_UnitTestCase
         wp_logout();
 
         $key  = 'integration_guest_cache_disabled';
-        $tkey = 'integlight_' . $key;
+        $tkey = 'integlight_pc_' . $key;
 
         // 既存トランジェントを用意（期限内）
         $existing_html = '<nav class="integlight-menu"><a>Existing Item</a></nav>';
@@ -222,7 +222,7 @@ class integlight_pf_cache_unitTest extends WP_UnitTestCase
         wp_set_current_user($user_id);
 
         $key  = 'integration_logged_in_no_cache';
-        $tkey = 'integlight_' . $key;
+        $tkey = 'integlight_pc_' . $key;
 
         // 既存トランジェントが残っていた場合は削除
         delete_transient($tkey);
@@ -264,7 +264,7 @@ class integlight_pf_cache_unitTest extends WP_UnitTestCase
         wp_logout();
 
         $key  = 'integration_sidebar_cache_hit';
-        $tkey = 'integlight_' . $key;
+        $tkey = 'integlight_pc_' . $key;
 
         $existing_html = '<aside>Cached Sidebar</aside>';
         set_transient($tkey, $existing_html, 300);
@@ -289,7 +289,7 @@ class integlight_pf_cache_unitTest extends WP_UnitTestCase
         wp_logout();
 
         $key  = 'integration_main_content_cache_hit';
-        $tkey = 'integlight_' . $key;
+        $tkey = 'integlight_pc_' . $key;
 
         $existing_html = '<div>Cached Post Content</div>';
         set_transient($tkey, $existing_html, 300);
@@ -315,7 +315,7 @@ class integlight_pf_cache_unitTest extends WP_UnitTestCase
         wp_logout();
 
         $key  = 'integration_templatepart_cache_hit';
-        $tkey = 'integlight_' . $key;
+        $tkey = 'integlight_pc_' . $key;
 
         $existing_html = '<div class="template-part">Cached TemplatePart</div>';
         set_transient($tkey, $existing_html, 300);
@@ -331,5 +331,49 @@ class integlight_pf_cache_unitTest extends WP_UnitTestCase
         $this->assertSame($existing_html, get_transient($tkey));
 
         delete_transient($tkey);
+    }
+
+    /**
+     * 非ログインでモバイルキャッシュが生成・返ること（runkit不要）
+     */
+    public function test_displayMenu_guest_mobile_cache()
+    {
+        wp_logout();
+        add_filter('wp_is_mobile', '__return_true'); // wp_is_mobile() が常にtrueを返すように設定
+
+
+        $key = 'integration_guest_mobile';
+        $tkey = 'integlight_sp_' . $key; // SPキーを直接指定
+        // 既存キャッシュは削除
+        delete_transient($tkey);
+
+        // --- テスト用メニュー作成 ---
+        $menu_name = 'integlight_test_menu_mobile_' . rand(1000, 9999);
+        $menu_id   = wp_create_nav_menu($menu_name);
+        wp_update_nav_menu_item($menu_id, 0, [
+            'menu-item-title'  => 'Mobile Item',
+            'menu-item-url'    => 'https://example.com/mobile',
+            'menu-item-status' => 'publish',
+        ]);
+        set_theme_mod('nav_menu_locations', ['primary' => $menu_id]);
+
+        // キャッシュ取得・保存を直接呼ぶ
+        $cache_menu = new Integlight_Cache_Menu();
+
+        // 直接 display() の内部で SPキーを指定
+        ob_start();
+        $cache_menu->display('wp_nav_menu',  $key, [['theme_location' => 'primary', 'echo' => true]]);
+        $out = ob_get_clean();
+
+        $this->assertStringContainsString('Mobile Item', $out);
+
+        // SPキャッシュが生成されていること
+        $cached = get_transient($tkey);
+        $this->assertNotFalse($cached);
+        $this->assertStringContainsString('Mobile Item', $cached);
+
+        // 後片付け
+        delete_transient($tkey);
+        wp_delete_nav_menu($menu_id);
     }
 }

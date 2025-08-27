@@ -54,7 +54,7 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
 
         // テストで使用するメニューのキーとトランジェントキーを定義
         $key  = 'main_menu';
-        $ttkey = 'integlight_' . $key;
+        $ttkey = 'integlight_pc_' . $key;
 
         // テスト前に、既存のキャッシュを確実に削除
         delete_transient($ttkey);
@@ -131,7 +131,7 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
 
         // テストで使用するメニューのキーとトランジェントキーを定義
         $key  = 'main_menu';
-        $ttkey = 'integlight_' . $key;
+        $ttkey = 'integlight_pc_' . $key;
 
 
         // --- 【外部システムの状態設定】 ---
@@ -212,7 +212,7 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
 
         // テストで使用するキャッシュキーを定義
         $key  = 'post_content_' . $post->ID;
-        $ttkey = 'integlight_' . $key;
+        $ttkey = 'integlight_pc_' . $key;
 
         // --- 【外部システムの状態設定】 ---
         // 既存のキャッシュを確実に削除
@@ -269,7 +269,7 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
 
         //  テストで使用するキャッシュキーを定義
         $key = 'post_content_' . $post->ID;
-        $ttkey = 'integlight_' . $key;
+        $ttkey = 'integlight_pc_' . $key;
         // --- 【外部システムの状態設定】 ---
         // 6. キャッシュをテストするために、事前にダミーのキャッシュを保存
         $dummy_cached_html = '<div class="cached-content">This is a cached dummy post content.</div>';
@@ -318,7 +318,7 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
 
         // テストで使用するキャッシュキーを定義
         $key  = 'home_content_' . $home_type;
-        $ttkey = 'integlight_' . $key;
+        $ttkey = 'integlight_pc_' . $key;
 
         // 既存キャッシュを削除
         delete_transient($ttkey);
@@ -396,7 +396,7 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
 
         // テストで使用するキャッシュキーを定義
         $key  = 'home_content_' . $home_type;
-        $ttkey = 'integlight_' . $key;
+        $ttkey = 'integlight_pc_' . $key;
 
         // --- 【外部システムの状態設定】 ---
         // キャッシュヒット用のダミーHTMLを保存
@@ -453,7 +453,7 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
         set_theme_mod('integlight_sidebar1_position', 'right');
 
         $key = 'sidebar-1';
-        $ttkey = 'integlight_' . $key;
+        $ttkey = 'integlight_pc_' . $key;
         delete_transient($ttkey);
 
         ob_start();
@@ -488,7 +488,7 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
         set_theme_mod('integlight_sidebar1_position', 'right');
 
         $key = 'sidebar-1';
-        $ttkey = 'integlight_' . $key;
+        $ttkey = 'integlight_pc_' . $key;
 
         // キャッシュをあらかじめセット
         $dummy_cache = '<section class="cached-widget">Dummy Cached Widget</section>';
@@ -519,8 +519,8 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
         // ダミーキャッシュを作成
         $ttkeys = ['home_content_home1', 'post_content_1', 'sidebar-1', 'main_menu'];
         foreach ($ttkeys as $ttkey) {
-            set_transient('integlight_' . $ttkey, 'dummy_cache', 300);
-            $this->assertNotFalse(get_transient('integlight_' . $ttkey), "キャッシュ $ttkey がセットされていることを確認");
+            set_transient('integlight_pc_' . $ttkey, 'dummy_cache', 300);
+            $this->assertNotFalse(get_transient('integlight_pc_' . $ttkey), "キャッシュ $ttkey がセットされていることを確認");
         }
 
 
@@ -547,7 +547,7 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
 
         // --- 検証: 全キャッシュが削除されていること ---
         foreach ($ttkeys as $ttkey) {
-            $option_name = '_transient_integlight_' . $ttkey;
+            $option_name = '_transient_integlight_pc' . $ttkey;
             $exists = $wpdb->get_var(
                 $wpdb->prepare("SELECT option_id FROM {$wpdb->options} WHERE option_name = %s", $option_name)
             );
@@ -581,8 +581,8 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
         foreach ($hooks as $hook => $args) {
             // --- キャッシュを再作成 ---
             foreach ($ttkeys as $ttkey) {
-                update_option('_transient_integlight_' . $ttkey, 'dummy_cache');
-                update_option('_transient_timeout_integlight_' . $ttkey, time() + 300);
+                update_option('_transient_integlight_pc_' . $ttkey, 'dummy_cache');
+                update_option('_transient_timeout_integlight_pc' . $ttkey, time() + 300);
             }
 
             wp_cache_flush();
@@ -591,7 +591,7 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
             $results = $wpdb->get_results("
             SELECT option_id, option_name, option_value
             FROM {$wpdb->options}
-            WHERE option_name LIKE '_transient_integlight_%'
+            WHERE option_name LIKE '_transient_integlight_pc_%'
         ");
             //error_log("=== BEFORE hook {$hook} ===");
             //foreach ($results as $row) {
@@ -610,7 +610,7 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
             $results = $wpdb->get_results("
             SELECT option_id, option_name, option_value
             FROM {$wpdb->options}
-            WHERE option_name LIKE '_transient_integlight_%'
+            WHERE option_name LIKE '_transient_integlight_pc_%'
         ");
             //error_log("=== AFTER hook {$hook} ===");
             //foreach ($results as $row) {
@@ -620,7 +620,7 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
 
             // --- 検証: 本体の transient が削除されていることだけ確認 ---
             foreach ($ttkeys as $ttkey) {
-                $option_name = '_transient_integlight_' . $ttkey;
+                $option_name = '_transient_integlight_pc_' . $ttkey;
                 $exists = $wpdb->get_var(
                     $wpdb->prepare("SELECT option_id FROM {$wpdb->options} WHERE option_name = %s", $option_name)
                 );
