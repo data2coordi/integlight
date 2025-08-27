@@ -609,8 +609,10 @@ abstract class Integlight_Cache_Base
     }
 
     protected function transientKey($key)
+
     {
-        return static::$prefix . (string) $key;
+        $device = wp_is_mobile() ? 'sp' : 'pc';
+        return static::$prefix . $device . '_' . (string) $key;
     }
 
 
