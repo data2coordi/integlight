@@ -29,7 +29,7 @@ export default defineConfig({
         // 2. 【新規】認証が不要なテスト用のプロジェクト
         {
             name: 'unauthenticated',
-            testMatch: [/menu\.spec\.js/], // 認証不要なテストファイルを指定
+            testMatch: [/menu\.spec\.js/, /pf\.image\.post\.spec\.ts/], // 認証不要なテストファイルを指定
             use: {
                 ...devices['Desktop Chrome'],
                 // storageState を使わないので、ログイン状態にはならない
@@ -40,7 +40,7 @@ export default defineConfig({
         {
             name: 'main',
             testDir: './tests', // テストファイルのディレクトリを指定
-            testIgnore: [/auth\.setup\.ts/, /menu\.spec\.js/], // setupと認証不要テストを除外
+            testIgnore: [/auth\.setup\.ts/, /menu\.spec\.js/, /pf\.image\.post\.spec\.ts/], // setupと認証不要テストを除外
             dependencies: ['setup'], // setupプロジェクトの完了を待機
             use: {
                 ...devices['Desktop Chrome'], // デスクトップChromeを使用

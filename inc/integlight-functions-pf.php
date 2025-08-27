@@ -536,6 +536,16 @@ class Integlight_getAttr_byImageCount
 //安全版の高速化対応
 function add_lazy_and_low_priority_to_content_images_static($content)
 {
+
+    // 現在の投稿オブジェクトを取得
+    global $post;
+
+    // キャッチ画像が設定されていなければ処理せずに返す
+    if (empty($post) || !has_post_thumbnail($post->ID)) {
+        return $content;
+    }
+
+
     if (false === strpos($content, '<img')) {
         return $content;
     }
