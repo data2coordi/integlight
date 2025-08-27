@@ -54,8 +54,15 @@ class integlight_functions_Integlight_PostNavigationsTest extends WP_UnitTestCas
         $prev_image_url = Integlight_PostThumbnail::getUrl(self::$prev_post_id);
         $next_image_url = Integlight_PostThumbnail::getUrl(self::$next_post_id);
 
-        $prev_title = wp_html_excerpt(get_the_title(self::$prev_post_id), 14) . '...';
-        $next_title = wp_html_excerpt(get_the_title(self::$next_post_id), 14) . '...';
+        $prev_raw_title = get_the_title(self::$prev_post_id);
+        $prev_title = (strlen($prev_raw_title) > 17)
+            ? wp_html_excerpt($prev_raw_title, 17) . esc_html__('...', 'integlight')
+            : $prev_raw_title;
+
+        $next_raw_title = get_the_title(self::$next_post_id);
+        $next_title = (strlen($next_raw_title) > 17)
+            ? wp_html_excerpt($next_raw_title, 17) . esc_html__('...', 'integlight')
+            : $next_raw_title;
 
         ob_start();
         Integlight_PostNavigations::get_post_navigation();
