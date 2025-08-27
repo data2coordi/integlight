@@ -681,6 +681,11 @@ abstract class Integlight_Cache_Base
         $prefix = static::$prefix;
 
         $sql = "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_{$prefix}%'";
+
+        // 安全装置: SQL に "integlight" が含まれていなければ処理を中止
+        if (strpos($sql, 'integlight') === false) {
+            return;
+        }
         $wpdb->query($sql);
     }
 

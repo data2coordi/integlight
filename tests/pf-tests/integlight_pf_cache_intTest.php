@@ -510,7 +510,7 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
     /**
      * save_post 発火時に clearAll が呼ばれ、キャッシュが削除されることを検証する統合テスト
      */
-    public function xtest_clearAll_on_save_post()
+    public function test_clearAll_on_save_post()
     {
         // --- 前提条件 ---
         wp_logout();
@@ -524,18 +524,7 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-        // --- save_post をトリガー ---
+        //--- save_post をトリガー ---
         $post_id = $this->factory->post->create([
             'post_title'   => 'Trigger ClearAll Post',
             'post_content' => 'This post triggers clearAll.',
@@ -545,14 +534,11 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
 
         global $wpdb;
 
-        // --- 検証: 全キャッシュが削除されていること ---
-        foreach ($ttkeys as $ttkey) {
-            $option_name = '_transient_integlight_pc' . $ttkey;
-            $exists = $wpdb->get_var(
-                $wpdb->prepare("SELECT option_id FROM {$wpdb->options} WHERE option_name = %s", $option_name)
-            );
-            $this->assertNull($exists, "DBに $option_name が残っていないこと");
-        }
+        $results = $wpdb->get_results(
+            "SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE '_transient_integlight_pc_%'"
+        );
+        //var_dump($results);
+        $this->assertEmpty($results, "DBにキャッシュが残っていないこと");
     }
 
     public function test_clearAll_on_various_hooks()
