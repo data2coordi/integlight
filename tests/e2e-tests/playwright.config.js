@@ -48,5 +48,16 @@ export default defineConfig({
                 storageState: authFile,
             },
         },
+        {
+            name: 'visual',
+            testDir: './tests', // テストファイルのディレクトリを指定
+            testMatch: [/visual\.spec\.js/],
+            dependencies: ['setup'], // setupプロジェクトの完了を待機
+            use: {
+                ...devices['Desktop Chrome'], // デスクトップChromeを使用
+                // 保存した認証状態をロード
+                storageState: authFile,
+            },
+        },
     ],
 });
