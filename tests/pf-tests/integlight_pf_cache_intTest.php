@@ -561,7 +561,9 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
             'customize_save_after'   => [],
             'wp_update_nav_menu'     => [1],
             'wp_delete_nav_menu'     => [1],
-            'widget_update_callback' => [[]],
+            'updated_option' => ['widget_example'],
+            // ウィジェット配置
+            'update_option_sidebars_widgets' => [[]],
         ];
 
         foreach ($hooks as $hook => $args) {
@@ -574,11 +576,11 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
             wp_cache_flush();
 
             // --- BEFORE ログ出力 ---
-            $results = $wpdb->get_results("
-            SELECT option_id, option_name, option_value
-            FROM {$wpdb->options}
-            WHERE option_name LIKE '_transient_integlight_pc_%'
-        ");
+            // $results = $wpdb->get_results("
+            // SELECT option_id, option_name, option_value
+            // FROM {$wpdb->options}
+            // WHERE option_name LIKE '_transient_integlight_pc_%'
+            // ");
             //error_log("=== BEFORE hook {$hook} ===");
             //foreach ($results as $row) {
             //error_log("ID: {$row->option_id}, Name: {$row->option_name}, Value: {$row->option_value}");
@@ -593,11 +595,11 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
             wp_cache_flush();
 
             // --- AFTER ログ出力 ---
-            $results = $wpdb->get_results("
-            SELECT option_id, option_name, option_value
-            FROM {$wpdb->options}
-            WHERE option_name LIKE '_transient_integlight_pc_%'
-        ");
+            // $results = $wpdb->get_results("
+            // SELECT option_id, option_name, option_value
+            // FROM {$wpdb->options}
+            // WHERE option_name LIKE '_transient_integlight_pc_%'
+            // ");
             //error_log("=== AFTER hook {$hook} ===");
             //foreach ($results as $row) {
             //error_log("ID: {$row->option_id}, Name: {$row->option_name}, Value: {$row->option_value}");
