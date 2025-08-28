@@ -758,3 +758,20 @@ if (class_exists('Integlight_Cache_Base')) {
 /********************************************************************/
 /* コンテンツのキャッシュ機能e	*/
 /********************************************************************/
+
+
+// functions.php に追加
+
+// 1. カスタム画像サイズを登録
+// add_action('wp_head', function () {
+//     if (is_single() && has_post_thumbnail()) {
+//         $thumb_id = get_post_thumbnail_id();
+
+//         // medium サイズを使用（幅約300px）
+//         $preload_src = wp_get_attachment_image_url($thumb_id, 'medium_large');
+
+//         if ($preload_src) {
+//             echo '<link rel="preload" as="image" href="' . esc_url($preload_src) . '" media="(max-width: 600px)" fetchpriority="high">' . "\n";
+//         }
+//     }
+// }, 1);
