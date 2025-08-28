@@ -406,7 +406,7 @@ class Integlight_PostNavigations
 		<a href="<?php echo esc_url($post_url); ?>" class="<?php echo esc_attr($class); ?>">
 			<div class="nav-image-wrapper">
 				<img loading="lazy" fetchpriority="low" src="<?php echo esc_url(Integlight_PostThumbnail::getUrl($post_id)); ?>"
-					alt="<?php echo esc_attr($post_title); ?>">
+					alt="">
 				<span class="nav-label">
 					<?php if ($class === 'nav-previous') : ?>
 						<?php echo $icon; ?>
