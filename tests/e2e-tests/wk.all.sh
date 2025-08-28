@@ -9,4 +9,3 @@ sudo -E docker compose -f docker-compose.all.yml up
 exit
 
 
-

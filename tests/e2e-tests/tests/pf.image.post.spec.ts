@@ -29,7 +29,7 @@ async function hasEasyLinkParent(img: Locator): Promise<boolean> {
 
 // 画像属性チェック関数
 async function verifyImageAttributes(page: Page, priorityCount: number, thumbnailImage: boolean) {
-    const allImages = page.locator('.site-main img');
+    const allImages = page.locator('.site-main article img');
     const images: any[] = [];
 
     const allCount = await allImages.count();
@@ -51,7 +51,7 @@ async function verifyImageAttributes(page: Page, priorityCount: number, thumbnai
         const fetchpriority = await img.getAttribute('fetchpriority');
 
         const src = await img.getAttribute('src');
-        //    console.log(`[${i + 1}枚目:] thumbnailImage="${thumbnailImage}" | loading="${loading}" | src:${src}`);
+        //  console.log(`[${i + 1}枚目:] fetchpriority="${fetchpriority}" | loading="${loading}" | src:${src}`);
 
         if (thumbnailImage) {
 
