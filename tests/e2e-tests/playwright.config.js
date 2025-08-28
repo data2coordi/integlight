@@ -40,7 +40,7 @@ export default defineConfig({
         {
             name: 'main',
             testDir: './tests', // テストファイルのディレクトリを指定
-            testIgnore: [/auth\.setup\.ts/, /menu\.spec\.js/, /pf\.image\.post\.spec\.ts/], // setupと認証不要テストを除外
+            testIgnore: [/auth\.setup\.ts/, /menu\.spec\.js/, /pf\.image\.post\.spec\.ts/, /visual\.spec\.js/], // setupと認証不要テストを除外
             dependencies: ['setup'], // setupプロジェクトの完了を待機
             use: {
                 ...devices['Desktop Chrome'], // デスクトップChromeを使用
