@@ -536,52 +536,43 @@ class Integlight_getAttr_byImageCount
 //安全版の高速化対応
 function add_lazy_and_low_priority_to_content_images_static($content)
 {
-
-    // 現在の投稿オブジェクトを取得
     global $post;
 
-    // キャッチ画像が設定されていなければ処理せずに返す
     if (empty($post) || !has_post_thumbnail($post->ID)) {
         return $content;
     }
-
 
     if (false === strpos($content, '<img')) {
         return $content;
     }
 
-    // DOMDocument を static で再利用
-    static $dom = null;
-    if ($dom === null) {
-        $dom = new DOMDocument();
-        libxml_use_internal_errors(true);
-    }
-
-    return preg_replace_callback('/<img\b[^>]*>/i', function ($matches) use ($dom) {
+    return preg_replace_callback('/<img\b[^>]*>/i', function ($matches) {
         $img_html = $matches[0];
 
-        // 毎回 DOMDocument をリセットする代わりに loadHTML で wrapper 付きフラグメント読み込み
-        $dom->loadHTML('<html><body>' . $img_html . '</body></html>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $dom = new DOMDocument();
+        $prev = libxml_use_internal_errors(true);
+
+        $dom->loadHTML(
+            '<?xml encoding="UTF-8"><html><body>' . $img_html . '</body></html>',
+            LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
+        );
+
+        libxml_clear_errors();
+        libxml_use_internal_errors($prev);
 
         $imgs = $dom->getElementsByTagName('img');
-        if ($imgs->length === 0) {
-            return $img_html;
-        }
+        if ($imgs->length === 0) return $img_html;
 
         $img = $imgs->item(0);
-
-        if (!$img->hasAttribute('loading')) {
-            $img->setAttribute('loading', 'lazy');
-        }
-        if (!$img->hasAttribute('fetchpriority')) {
-            $img->setAttribute('fetchpriority', 'low');
-        }
+        if (!$img->hasAttribute('loading'))       $img->setAttribute('loading', 'lazy');
+        if (!$img->hasAttribute('fetchpriority')) $img->setAttribute('fetchpriority', 'low');
 
         return $dom->saveHTML($img);
     }, $content);
 }
 
 add_filter('the_content', 'add_lazy_and_low_priority_to_content_images_static', 99);
+
 
 
 /********************************************************************/
