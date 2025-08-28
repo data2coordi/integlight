@@ -141,7 +141,7 @@ test.describe('e2e-home1-PC:', () => {
 
         // 既存の呼び出し部分はこう書き換え可能
         await test.step('4. 新着情報の確認', () =>
-            verifyPageNavigation(page, '.post-grid', '.page-numbers', 10, 'TEST1', 'サイドFIRE｜【体験談】夫婦でサイドFIRE'));
+            verifyPageNavigation(page, '.post-grid', '.page-numbers', 10, '画像テスト', 'サイドFIRE｜サイドFIREに必要な資産額はいく ...'));
 
     });
 
@@ -174,10 +174,10 @@ test.describe('e2e-home2-PC:', () => {
 
         // 既存の呼び出し部分はこう書き換え可能
         await test.step('5. 新着情報の確認', () =>
-            verifyLoadMoreGeneric(page, '#latest-posts-grid', '#load-more', 4, 8, 12, 'サイドFIRE｜【体験談】筆者が資産7500万・'));
+            verifyLoadMoreGeneric(page, '#latest-posts-grid', '#load-more', 4, 8, 12, '節約｜【体験談】36平米の部屋で快適に暮らす方法｜ ...'));
 
         await test.step('6. カテゴリ情報の確認', () =>
-            verifyLoadMoreGeneric(page, '.category-posts', '.load-more-cat', 2, 4, 6, 'プラグインテスト', 0, 0));
+            verifyLoadMoreGeneric(page, '.category-posts', '.load-more-cat', 2, 4, 6, 'プラグインテスト２ ...', 0, 0));
 
         await test.step('7. カテゴリ情報の3つ目の確認', () =>
             verifyLoadMoreGeneric(page, '.category-posts', '.load-more-cat', 2, 4, 6, '節約｜【夫婦実録】月35万円', 2, 2));
