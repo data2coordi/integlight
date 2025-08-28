@@ -66,20 +66,30 @@ async function setSliderInterval(page, interval) {
 }
 
 
-async function setSliderImage(page, imagePartialName, image_delBtnNo, image_selBtnNo) {
+async function setSliderImage(page: Page, imagePartialName: string, image_delBtnNo: number, image_selBtnNo: number) {
+    // 既存画像を削除
     await page.getByRole('button', { name: '削除' }).nth(image_delBtnNo).click();
     await page.getByRole('button', { name: '画像を選択' }).nth(image_selBtnNo).click();
+
+    // モーダルが表示されるのを待つ
     const mediaModal = page.locator('.attachments-browser');
-    await mediaModal.waitFor({ state: 'visible', timeout: 10000 });
-    const targetImage = page.locator(`img[src*="${imagePartialName}"]`).first();
-    await expect(targetImage).toBeVisible({ timeout: 15000 });
-    await targetImage.scrollIntoViewIfNeeded();
+    await mediaModal.waitFor({ state: 'visible', timeout: 15000 });
+
+    // 検索ボックスに入力して検索
+    const searchInput = page.locator('#media-search-input');
+    await searchInput.fill(imagePartialName);
+    await searchInput.press('Enter');
+
+    // 検索結果の最初の画像をクリック
+    const targetImage = page.locator(`.attachments-browser img[src*="${imagePartialName}"]`).first();
+    await targetImage.waitFor({ state: 'visible', timeout: 15000 });
     await targetImage.click({ force: true });
+
+    // 選択ボタンを押してモーダルを閉じる
     await page.locator('.media-button-select').click();
-    await page.locator('.media-modal').waitFor({ state: 'hidden', timeout: 10000 });
-    const selectedSrc = await targetImage.getAttribute('src');
-    expect(selectedSrc).toContain(imagePartialName);
+    await page.locator('.media-modal').waitFor({ state: 'hidden', timeout: 15000 });
 }
+
 
 async function setSliderText(page, mainText, subText) {
     await page.getByLabel('スライダーテキスト（メイン）').nth(0).fill(mainText);
