@@ -54,14 +54,15 @@ class InteglightPreDetermineCssAssets
         'integlight-sp-style' => ['path' =>  '/css/build/integlight-sp-style.css', 'deps' => ['integlight-style-plus']],
         'integlight-layout' =>  ['path' => '/css/build/layout.css', 'deps' => ['integlight-style-plus']],
         'integlight-integlight-menu' =>  ['path' => '/css/build/integlight-menu.css', 'deps' => ['integlight-style-plus']],
-        'integlight-module' =>  ['path' => '/css/build/module.css', 'deps' => ['integlight-style-plus']],
+        'integlight-module' =>  ['path' => '/css/build/module.css', 'deps' => ['wp-block-library']],
         'integlight-helper' =>  ['path' => '/css/build/helper.css', 'deps' => ['integlight-style-plus']],
     ];
 
 
     private static $deferredStyles = [
         'integlight-sp-style',
-        // 'wp-block-library' /*ブロックアイテム用css*/
+        //'wp-block-library',/*ブロックアイテム用css*/
+
     ];
 
 
