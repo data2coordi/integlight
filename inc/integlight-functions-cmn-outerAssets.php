@@ -75,13 +75,13 @@ class InteglightRegStyles
 
 	public static function enqueue_styles()
 	{
-		error_log('@@@@@@@@@@@@@@@@@@enqueue_styles');
+		//error_log('@@@@@@@@@@@@@@@@@@enqueue_styles');
 		foreach (static::$styles as $handle => $data) {
 			$path = $data['path'];
 			$deps = isset($data['deps']) ? $data['deps'] : [];
-			error_log($handle);
-			error_log($path);
-			error_log(print_r($deps, true));
+			//error_log($handle);
+			//error_log($path);
+			//error_log(print_r($deps, true));
 			wp_enqueue_style($handle, get_template_directory_uri() . $path, $deps, _INTEGLIGHT_S_VERSION);
 			//wp_enqueue_style($handle, get_template_directory_uri() . $path, [], _INTEGLIGHT_S_VERSION);
 		}
