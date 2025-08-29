@@ -49,13 +49,13 @@ add_action('wp_enqueue_scripts', function () {
 class InteglightPreDetermineCssAssets
 {
     private static $styles = [
-        'integlight-base-style-plus' => '/css/build/base-style.css',
-        'integlight-style-plus' => '/css/build/integlight-style.css',
-        'integlight-sp-style' => '/css/build/integlight-sp-style.css',
-        'integlight-layout' => '/css/build/layout.css',
-        'integlight-integlight-menu' => '/css/build/integlight-menu.css',
-        'integlight-module' => '/css/build/module.css',
-        'integlight-helper' => '/css/build/helper.css',
+        'integlight-base-style-plus' => ['path' => '/css/build/base-style.css'],
+        'integlight-style-plus' =>  ['path' => '/css/build/integlight-style.css', 'deps' => ['integlight-base-style-plus']],
+        'integlight-sp-style' => ['path' =>  '/css/build/integlight-sp-style.css', 'deps' => ['integlight-style-plus']],
+        'integlight-layout' =>  ['path' => '/css/build/layout.css', 'deps' => ['integlight-style-plus']],
+        'integlight-integlight-menu' =>  ['path' => '/css/build/integlight-menu.css', 'deps' => ['integlight-style-plus']],
+        'integlight-module' =>  ['path' => '/css/build/module.css', 'deps' => ['integlight-style-plus']],
+        'integlight-helper' =>  ['path' => '/css/build/helper.css', 'deps' => ['integlight-style-plus']],
     ];
 
 
@@ -71,25 +71,25 @@ class InteglightPreDetermineCssAssets
         // 以下、必要に応じて追加
         if (is_single()) {
             self::$styles = array_merge(self::$styles, [
-                'integlight-post' => '/css/build/post.css',
+                'integlight-post' => ['path' => '/css/build/post.css', 'deps' => ['integlight-style-plus']],
             ]);
         }
 
         if (is_page()) {
             self::$styles = array_merge(self::$styles, [
-                'integlight-page' => '/css/build/page.css',
+                'integlight-page' => ['path' => '/css/build/page.css', 'deps' => ['integlight-style-plus']],
             ]);
         }
 
         if (is_front_page() && (!is_home())) {
             self::$styles = array_merge(self::$styles, [
-                'integlight-front' => '/css/build/front.css',
+                'integlight-front' => ['path' => '/css/build/front.css', 'deps' => ['integlight-style-plus']],
             ]);
         }
 
         if (is_home()) {
             self::$styles = array_merge(self::$styles, [
-                'integlight-home' => '/css/build/home.css',
+                'integlight-home' => ['path' => '/css/build/home.css', 'deps' => ['integlight-style-plus']],
             ]);
         }
 

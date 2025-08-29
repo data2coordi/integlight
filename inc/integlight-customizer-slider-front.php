@@ -44,7 +44,7 @@ class integlight_customizer_slider_outerAssets
 		add_action('wp_enqueue_scripts', array($this, 'provideTOjs'));
 
 		$styles = [
-			'integlight-slide' => '/css/build/integlight-slide-style.css',
+			'integlight-slide' => ['path' => '/css/build/integlight-slide-style.css', 'deps' => ['integlight-style-plus']],
 		];
 		InteglightFrontendStyles::add_styles($styles);
 
