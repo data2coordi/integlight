@@ -148,15 +148,35 @@ ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
 /************ home2ボタン **************/
 /************ home2ボタン **************/
 /************ home2ボタンs **************/
-#load-more:focus-visible, #load-more:hover, .load-more-cat:focus-visible, .load-more-cat:hover {
+/* .home button#load-more, .home button#load-more, .home button.load-more-cat, .home button.load-more-cat, .home .integlight_pt button#load-more,.home .integlight_pt button#load-more {
+  color:#fa9301;                 
+  background:#fff;
+  border:1px solid #fa9301;
+} */
+
+.home #load-more:focus-visible, .home #load-more:hover, .home .load-more-cat:focus-visible, .home .load-more-cat:hover, .home .integlight_pt button#load-more:focus-visible,.home .integlight_pt button#load-more:hover {
   background: #008554;
   border: 1px solid #008554;
   color: #fff;
 }
-
 /************ home2ボタンe **************/
 /************ home2ボタン **************/
 /************ home2ボタン **************/
+
+
+/************ home2カテゴリタグs **************/
+/************ home2カテゴリタグs **************/
+/************ home2カテゴリタグs **************/
+/************ home2カテゴリタグs **************/
+/************ home2カテゴリタグs **************/
+/* .blog .post-category p, .home .post-category p {
+  background: #75eab0;
+} */
+/************ home2カテゴリタグe **************/
+/************ home2カテゴリタグe **************/
+/************ home2カテゴリタグe **************/
+
+
 @media screen and (max-width: 768px) {
   .menuToggle-containerForMenu {
     background: #1e1b2a;

@@ -186,8 +186,8 @@ class integlight_functions_outerAssets_InteglightEditorStylesTest extends WP_Uni
     {
         // Arrange
         $styles_to_enqueue = [
-            'editor-style-a' => '/css/editor-style-a.css',
-            'editor-style-b' => '/css/editor-style-b.css',
+            'editor-style-a' => ['path' => '/css/editor-style-a.css'],
+            'editor-style-b' => ['path' => '/css/editor-style-b.css'],
         ];
         InteglightEditorStyles::add_styles($styles_to_enqueue);
         InteglightEditorStyles::init(); // フックを登録
