@@ -75,11 +75,15 @@ class InteglightRegStyles
 
 	public static function enqueue_styles()
 	{
+		error_log('@@@@@@@@@@@@@@@@@@enqueue_styles');
 		foreach (static::$styles as $handle => $data) {
 			$path = $data['path'];
 			$deps = isset($data['deps']) ? $data['deps'] : [];
-			//wp_enqueue_style($handle, get_template_directory_uri() . $path, $deps, _INTEGLIGHT_S_VERSION);
-			wp_enqueue_style($handle, get_template_directory_uri() . $path, [], _INTEGLIGHT_S_VERSION);
+			error_log($handle);
+			error_log($path);
+			error_log(print_r($deps, true));
+			wp_enqueue_style($handle, get_template_directory_uri() . $path, $deps, _INTEGLIGHT_S_VERSION);
+			//wp_enqueue_style($handle, get_template_directory_uri() . $path, [], _INTEGLIGHT_S_VERSION);
 		}
 	}
 }
@@ -91,7 +95,7 @@ class InteglightFrontendStyles extends InteglightRegStyles
 
 	public static function init()
 	{
-		add_action('wp_enqueue_scripts', [__CLASS__, 'enqueue_styles'], 20);
+		add_action('wp_enqueue_scripts', [__CLASS__, 'enqueue_styles'], 2);
 	}
 }
 
