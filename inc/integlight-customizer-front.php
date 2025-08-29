@@ -12,10 +12,10 @@ class InteglightThemeColorLoader
 
 
 
-        $styles = ['custom-pattern' => ['path' => '/css/build/' . $base_pattern . '.css', 'deps' => ['integlight-style-plus']]];
+        $styles = ['integlight-custom-color-pattern' => ['path' => '/css/build/' . $base_pattern . '.css', 'deps' => ['integlight-style-plus']]];
         InteglightFrontendStyles::add_styles($styles);
         InteglightEditorStyles::add_styles($styles);
-        InteglightDeferCss::add_deferred_styles(['custom-pattern']); //PF対応!!!
+        InteglightDeferCss::add_deferred_styles(['integlight-custom-color-pattern']); //PF対応!!!
     }
 }
 new InteglightThemeColorLoader();
@@ -32,7 +32,7 @@ class InteglightHomeTypeLoader
     {
         $home_type = get_theme_mod('integlight_hometype_setting', 'home1');
 
-        $tmp_deps = ['integlight-integlight-menu', 'custom-pattern'];
+        $tmp_deps = ['integlight-integlight-menu', 'integlight-custom-color-pattern'];
         // slider かつフロントまたは home の場合に追記
         if (
             'slider' === get_theme_mod('integlight_display_choice', 'none') &&
