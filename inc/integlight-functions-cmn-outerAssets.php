@@ -95,7 +95,7 @@ class InteglightFrontendStyles extends InteglightRegStyles
 
 	public static function init()
 	{
-		add_action('wp_enqueue_scripts', [__CLASS__, 'enqueue_styles'], 2);
+		add_action('wp_enqueue_scripts', [__CLASS__, 'enqueue_styles'], 10);
 	}
 }
 

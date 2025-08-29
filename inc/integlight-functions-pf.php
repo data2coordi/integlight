@@ -49,7 +49,7 @@ add_action('wp_enqueue_scripts', function () {
 class InteglightPreDetermineCssAssets
 {
     private static $styles = [
-        'integlight-base-style-plus' => ['path' => '/css/build/base-style.css'],
+        'integlight-base-style-plus' => ['path' => '/css/build/base-style.css', 'deps' => ['wp-block-library']],
         'integlight-style-plus' =>  ['path' => '/css/build/integlight-style.css', 'deps' => ['integlight-base-style-plus']],
         'integlight-sp-style' => ['path' =>  '/css/build/integlight-sp-style.css', 'deps' => ['integlight-style-plus']],
         'integlight-layout' =>  ['path' => '/css/build/layout.css', 'deps' => ['integlight-style-plus']],
@@ -61,7 +61,7 @@ class InteglightPreDetermineCssAssets
 
     private static $deferredStyles = [
         'integlight-sp-style',
-        'wp-block-library' /*ブロックアイテム用css*/
+        // 'wp-block-library' /*ブロックアイテム用css*/
     ];
 
 

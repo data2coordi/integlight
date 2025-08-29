@@ -90,8 +90,8 @@ class integlight_customizer_slider_outerAssets
 
 
 /*カスタマイザーで設定したスライダー機能をフロントでオープンしたときにロード*/
-add_action('template_redirect', function () {
-	if (is_home() || is_front_page()) {
+add_action('wp', function () {
+	if (is_front_page()) {
 		global $Integlight_slider_settings;
 		if ($Integlight_slider_settings->headerTypeName_slider === get_theme_mod('integlight_display_choice', 'none')) {
 			new integlight_customizer_slider_outerAssets($Integlight_slider_settings);
