@@ -55,11 +55,13 @@ class InteglightPreDetermineCssAssets
         'integlight-layout' =>  ['path' => '/css/build/layout.css', 'deps' => ['integlight-style-plus']],
         'integlight-integlight-menu' =>  ['path' => '/css/build/integlight-menu.css', 'deps' => ['integlight-style-plus']],
         'integlight-helper' =>  ['path' => '/css/build/helper.css', 'deps' => ['integlight-style-plus']],
+        'integlight-svg-non-home' =>  ['path' => '/css/build/svg-non-home.css', 'deps' => []],
     ];
 
 
     private static $deferredStyles = [
         'integlight-sp-style',
+        'integlight-svg-non-home',
     ];
 
 
@@ -96,6 +98,12 @@ class InteglightPreDetermineCssAssets
             self::$deferredStyles = array_merge(self::$deferredStyles, [
                 'wp-block-library',
             ]);
+
+            $excluded_key = 'integlight-svg-non-home';
+            // $styles から $excluded_key を除外してコピー
+            self::$styles = array_filter(self::$styles, function ($key) use ($excluded_key) {
+                return $key !== $excluded_key;
+            }, ARRAY_FILTER_USE_KEY);
         }
 
         // スタイルリストを設定（追記可能）
