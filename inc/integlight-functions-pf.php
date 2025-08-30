@@ -54,15 +54,12 @@ class InteglightPreDetermineCssAssets
         'integlight-sp-style' => ['path' =>  '/css/build/integlight-sp-style.css', 'deps' => ['integlight-style-plus']],
         'integlight-layout' =>  ['path' => '/css/build/layout.css', 'deps' => ['integlight-style-plus']],
         'integlight-integlight-menu' =>  ['path' => '/css/build/integlight-menu.css', 'deps' => ['integlight-style-plus']],
-        'integlight-module' =>  ['path' => '/css/build/module.css', 'deps' => ['wp-block-library']],
         'integlight-helper' =>  ['path' => '/css/build/helper.css', 'deps' => ['integlight-style-plus']],
     ];
 
 
     private static $deferredStyles = [
         'integlight-sp-style',
-        //'wp-block-library',/*ブロックアイテム用css*/
-
     ];
 
 
@@ -73,24 +70,31 @@ class InteglightPreDetermineCssAssets
         if (is_single()) {
             self::$styles = array_merge(self::$styles, [
                 'integlight-post' => ['path' => '/css/build/post.css', 'deps' => ['integlight-style-plus']],
+                'integlight-module' =>  ['path' => '/css/build/module.css', 'deps' => ['wp-block-library']],
             ]);
         }
 
         if (is_page()) {
             self::$styles = array_merge(self::$styles, [
                 'integlight-page' => ['path' => '/css/build/page.css', 'deps' => ['integlight-style-plus']],
+                'integlight-module' =>  ['path' => '/css/build/module.css', 'deps' => ['wp-block-library']],
             ]);
         }
 
         if (is_front_page() && (!is_home())) {
             self::$styles = array_merge(self::$styles, [
                 'integlight-front' => ['path' => '/css/build/front.css', 'deps' => ['integlight-style-plus']],
+                'integlight-module' =>  ['path' => '/css/build/module.css', 'deps' => ['wp-block-library']],
             ]);
         }
 
         if (is_home()) {
             self::$styles = array_merge(self::$styles, [
                 'integlight-home' => ['path' => '/css/build/home.css', 'deps' => ['integlight-style-plus']],
+                'integlight-base-style-plus' => ['path' => '/css/build/base-style.css', 'deps' => []],
+            ]);
+            self::$deferredStyles = array_merge(self::$deferredStyles, [
+                'wp-block-library',
             ]);
         }
 
