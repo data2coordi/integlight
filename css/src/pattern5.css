@@ -96,9 +96,10 @@ a:focus-visible,
   color: #424e5c;
 }
 
-.post-toc {
+/* 目次の色を変えている */
+/* .post-toc {
   background-color: #f3dede;
-}
+} */
 
 /* homeのカテゴリーの色 */
 .blog .category-link,

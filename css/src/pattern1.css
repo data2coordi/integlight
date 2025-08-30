@@ -60,6 +60,10 @@ a:focus-visible,
   color: #fff;
 }
 
+/* 目次の色を変えている */
+/* .post-toc {
+  background-color: #eee;
+} */
 
 /************ボタンアニメーション**********/
 .wp-block-button__link,
