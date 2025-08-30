@@ -234,7 +234,7 @@ class integlight_customizer_integlight_customizer_homeTypeTest extends WP_UnitTe
      */
     public function homeTypeLoader_constructor_should_add_wp_enqueue_scripts_hook(): void
     {
-        $hooked = has_action('wp_enqueue_scripts', [$this->homeTypeLoader, 'enqueue_hometype_css']);
+        $hooked = has_action('wp', [$this->homeTypeLoader, 'enqueue_hometype_css']);
         $this->assertNotFalse($hooked, 'enqueue_hometype_css should be hooked to wp_enqueue_scripts');
         $this->assertEquals(10, $hooked, 'Default hook priority should be 10');
     }
@@ -251,19 +251,27 @@ class integlight_customizer_integlight_customizer_homeTypeTest extends WP_UnitTe
         // enqueue_hometype_cssを呼び出す
         $this->homeTypeLoader->enqueue_hometype_css();
 
-        // スタイルパスの期待値
+        // 実装に合わせた期待値（path + deps の形式）
         $expected_css_path = '/css/build/home2.css';
-        $expected_styles = ['home-type' => $expected_css_path];
+        $expected_styles = [
+            'home-type' => [
+                'path' => $expected_css_path,
+                'deps' => [
+                    'integlight-integlight-menu',
+                    'integlight-custom-color-pattern',
+                ],
+            ],
+        ];
 
         // InteglightFrontendStyles::add_styles が正しいパスで呼ばれているか検証
         $frontend_styles = $this->get_static_property_value(InteglightFrontendStyles::class, 'styles');
         $this->assertArrayHasKey('home-type', $frontend_styles);
-        $this->assertSame($expected_css_path, $frontend_styles['home-type']);
+        $this->assertSame($expected_styles['home-type'], $frontend_styles['home-type']);
 
         // InteglightEditorStyles::add_styles が正しいパスで呼ばれているか検証
         $editor_styles = $this->get_static_property_value(InteglightEditorStyles::class, 'styles');
         $this->assertArrayHasKey('home-type', $editor_styles);
-        $this->assertSame($expected_css_path, $editor_styles['home-type']);
+        $this->assertSame($expected_styles['home-type'], $editor_styles['home-type']);
 
         // InteglightDeferCss::add_deferred_styles に 'home-type' が追加されているか検証
         //$deferred_styles = $this->get_static_property_value(InteglightDeferCss::class, 'deferred_styles');
@@ -283,17 +291,27 @@ class integlight_customizer_integlight_customizer_homeTypeTest extends WP_UnitTe
 
         // 期待されるデフォルトCSSパス
         $expected_css_path = '/css/build/home1.css';
-        $expected_styles = ['home-type' => $expected_css_path];
+        // 実装に合わせた期待値（path + deps の形式）
+
+        $expected_styles = [
+            'home-type' => [
+                'path' => $expected_css_path,
+                'deps' => [
+                    'integlight-integlight-menu',
+                    'integlight-custom-color-pattern',
+                ],
+            ],
+        ];
 
         // InteglightFrontendStyles::add_styles に正しくパスがセットされているか
         $frontend_styles = $this->get_static_property_value(InteglightFrontendStyles::class, 'styles');
         $this->assertArrayHasKey('home-type', $frontend_styles);
-        $this->assertSame($expected_css_path, $frontend_styles['home-type']);
+        $this->assertSame($expected_styles['home-type'], $frontend_styles['home-type']);
 
         // InteglightEditorStyles::add_styles に正しくパスがセットされているか
         $editor_styles = $this->get_static_property_value(InteglightEditorStyles::class, 'styles');
         $this->assertArrayHasKey('home-type', $editor_styles);
-        $this->assertSame($expected_css_path, $editor_styles['home-type']);
+        $this->assertSame($expected_styles['home-type'], $editor_styles['home-type']);
 
         // InteglightDeferCss::add_deferred_styles に 'home-type' が含まれているか
         //$deferred_styles = $this->get_static_property_value(InteglightDeferCss::class, 'deferred_styles');
@@ -306,12 +324,23 @@ class integlight_customizer_integlight_customizer_homeTypeTest extends WP_UnitTe
     public function enqueue_hometype_css_should_generate_correct_path_for_each_setting(): void
     {
         $test_values = [
-            'home1' => '/css/build/home1.css',
-            'home2' => '/css/build/home2.css',
-            // 他のパターンがあれば追加可能
+            'home1' => [
+                'path' => '/css/build/home1.css',
+                'deps' => [
+                    'integlight-integlight-menu',
+                    'integlight-custom-color-pattern',
+                ],
+            ],
+            'home2' => [
+                'path' => '/css/build/home2.css',
+                'deps' => [
+                    'integlight-integlight-menu',
+                    'integlight-custom-color-pattern',
+                ],
+            ],
         ];
 
-        foreach ($test_values as $setting_value => $expected_path) {
+        foreach ($test_values as $setting_value => $expected_data) {
             // 設定値をセット
             set_theme_mod('integlight_hometype_setting', $setting_value);
 
@@ -326,12 +355,12 @@ class integlight_customizer_integlight_customizer_homeTypeTest extends WP_UnitTe
             // フロントエンド用スタイルを取得し検証
             $frontend_styles = $this->get_static_property_value(InteglightFrontendStyles::class, 'styles');
             $this->assertArrayHasKey('home-type', $frontend_styles, "FrontendStyles should have 'home-type' for {$setting_value}");
-            $this->assertSame($expected_path, $frontend_styles['home-type'], "FrontendStyles path should be correct for {$setting_value}");
+            $this->assertSame($expected_data, $frontend_styles['home-type'], "FrontendStyles path should be correct for {$setting_value}");
 
             // エディタ用スタイルを取得し検証
             $editor_styles = $this->get_static_property_value(InteglightEditorStyles::class, 'styles');
             $this->assertArrayHasKey('home-type', $editor_styles, "EditorStyles should have 'home-type' for {$setting_value}");
-            $this->assertSame($expected_path, $editor_styles['home-type'], "EditorStyles path should be correct for {$setting_value}");
+            $this->assertSame($expected_data, $editor_styles['home-type'], "EditorStyles path should be correct for {$setting_value}");
         }
     }
 }

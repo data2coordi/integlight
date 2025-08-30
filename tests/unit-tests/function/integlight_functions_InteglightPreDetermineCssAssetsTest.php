@@ -118,28 +118,86 @@ class integlight_functions_InteglightPreDetermineCssAssetsTest extends WP_UnitTe
         // Assert Deferred styles
         $deferred = self::staticProperty(InteglightDeferCss::class, 'deferred_styles');
         sort($deferred);
-        $expectedDeferred = ['integlight-sp-style', 'wp-block-library'];
+        $expectedDeferred = ['integlight-sp-style', 'integlight-custom-color-pattern'];
         sort($expectedDeferred);
         $this->assertEquals($expectedDeferred, $deferred, "Deferred styles mismatch for {$context}");
     }
 
     public function contextProvider(): array
     {
+        // 共通ベーススタイル
         $base = [
-            'integlight-base-style-plus' => '/css/build/base-style.css',
-            'integlight-style-plus'      => '/css/build/integlight-style.css',
-            'integlight-sp-style'        => '/css/build/integlight-sp-style.css',
-            'integlight-layout'          => '/css/build/layout.css',
-            'integlight-integlight-menu' => '/css/build/integlight-menu.css',
-            'integlight-module'          => '/css/build/module.css',
-            'integlight-helper'          => '/css/build/helper.css',
+            'integlight-base-style-plus' => [
+                'path' => '/css/build/base-style.css',
+                'deps' => ['wp-block-library'],
+            ],
+            'integlight-style-plus' => [
+                'path' => '/css/build/integlight-style.css',
+                'deps' => ['integlight-base-style-plus'],
+            ],
+            'integlight-sp-style' => [
+                'path' => '/css/build/integlight-sp-style.css',
+                'deps' => ['integlight-style-plus'],
+            ],
+            'integlight-layout' => [
+                'path' => '/css/build/layout.css',
+                'deps' => ['integlight-style-plus'],
+            ],
+            'integlight-integlight-menu' => [
+                'path' => '/css/build/integlight-menu.css',
+                'deps' => ['integlight-style-plus'],
+            ],
+            'integlight-module' => [
+                'path' => '/css/build/module.css',
+                'deps' => ['wp-block-library'],
+            ],
+            'integlight-helper' => [
+                'path' => '/css/build/helper.css',
+                'deps' => ['integlight-style-plus'],
+            ],
+        ];
+
+        // 全ページ共通CSS
+        $common = [
+            'integlight-custom-color-pattern' => [
+                'path' => '/css/build/pattern8.css',
+                'deps' => ['integlight-style-plus'],
+            ],
+            'home-type' => [
+                'path' => '/css/build/home1.css',
+                'deps' => ['integlight-integlight-menu', 'integlight-custom-color-pattern'],
+            ],
         ];
 
         return [
-            'post'  => ['post', array_merge($base, ['integlight-post'  => '/css/build/post.css'])],
-            'page'  => ['page', array_merge($base, ['integlight-page'  => '/css/build/page.css'])],
-            'front' => ['front', array_merge($base, ['integlight-page'  => '/css/build/page.css', 'integlight-front' => '/css/build/front.css'])],
-            'home'  => ['home', array_merge($base, ['integlight-home'  => '/css/build/home.css'])],
+            'post'  => ['post', array_merge($base, [
+                'integlight-post' => [
+                    'path' => '/css/build/post.css',
+                    'deps' => ['integlight-style-plus'],
+                ],
+            ], $common)],
+            'page'  => ['page', array_merge($base, [
+                'integlight-page' => [
+                    'path' => '/css/build/page.css',
+                    'deps' => ['integlight-style-plus'],
+                ],
+            ], $common)],
+            'front' => ['front', array_merge($base, [
+                'integlight-page' => [
+                    'path' => '/css/build/page.css',
+                    'deps' => ['integlight-style-plus'],
+                ],
+                'integlight-front' => [
+                    'path' => '/css/build/front.css',
+                    'deps' => ['integlight-style-plus'],
+                ],
+            ], $common)],
+            'home'  => ['home', array_merge($base, [
+                'integlight-home' => [
+                    'path' => '/css/build/home.css',
+                    'deps' => ['integlight-style-plus'],
+                ],
+            ], $common)],
         ];
     }
 }

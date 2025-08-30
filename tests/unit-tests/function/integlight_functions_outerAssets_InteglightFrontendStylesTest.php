@@ -130,13 +130,13 @@ class integlight_functions_outerAssets_InteglightFrontendStylesTest extends WP_U
     public function test_init_adds_wp_enqueue_scripts_action(): void
     {
         // Arrange
-        $this->assertFalse(has_action('wp_enqueue_scripts', [self::TARGET_CLASS, 'enqueue_styles']));
+        $this->assertFalse(has_action('wp', [self::TARGET_CLASS, 'enqueue_styles']));
 
         // Act
         InteglightFrontendStyles::init();
 
         // Assert
-        $this->assertEquals(20, has_action('wp_enqueue_scripts', [self::TARGET_CLASS, 'enqueue_styles']));
+        $this->assertEquals(2, has_action('wp_enqueue_scripts', [self::TARGET_CLASS, 'enqueue_styles']));
     }
 
     /**
@@ -190,8 +190,8 @@ class integlight_functions_outerAssets_InteglightFrontendStylesTest extends WP_U
     {
         // Arrange
         $styles_to_enqueue = [
-            'style-a' => '/css/style-a.css',
-            'style-b' => '/css/style-b.css',
+            'style-a' => ['path' => '/css/style-a.css'],
+            'style-b' => ['path' => '/css/style-b.css'],
         ];
         InteglightFrontendStyles::add_styles($styles_to_enqueue);
         InteglightFrontendStyles::init(); // フックを登録

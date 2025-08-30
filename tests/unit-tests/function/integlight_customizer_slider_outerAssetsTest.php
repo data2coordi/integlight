@@ -166,7 +166,7 @@ class integlight_customizer_slider_outerAssetsTest extends WP_UnitTestCase // �
         $styles = $this->get_static_property_value(InteglightFrontendStyles::class, 'styles');
         $this->assertIsArray($styles, 'InteglightFrontendStyles::$styles should be an array.');
         $this->assertArrayHasKey('integlight-slide', $styles, 'Style "integlight-slide" should be added to InteglightFrontendStyles.');
-        $this->assertEquals('/css/build/integlight-slide-style.css', $styles['integlight-slide'], 'Path for "integlight-slide" style should be correct.');
+        $this->assertEquals('/css/build/integlight-slide-style.css', $styles['integlight-slide']['path'], 'Path for "integlight-slide" style should be correct.');
 
         // Assert: InteglightFrontendScripts にスクリプトが追加されたか
         $scripts = $this->get_static_property_value(InteglightFrontendScripts::class, 'scripts');
