@@ -368,6 +368,12 @@ li>ul>.cat-item:last-of-type {
   padding: 5px 0px;
 }
 
+/* 下線とテキストが中に入るのを防ぐ */
+.widget .wp-block-latest-posts__list li {
+  padding-left: 0;
+  text-indent: 0;
+}
+
 /* 新着記事 e*/
 
 
