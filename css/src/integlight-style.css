@@ -143,6 +143,234 @@ textarea {
 /* 公式プレビューのために書いているcss */
 /* 公式プレビューのために書いているcss */
 
+/************************************************************/
+/* 0. header***************************************************@@@/
+/************************************************************/
+
+.site-header {
+  background-repeat: no-repeat;
+  background-size: 100% 11px;
+  background-position: bottom;
+  padding-bottom: 11px;
+}
+
+.site-header .custom-logo {
+  width: 250px;
+  height: auto;
+  padding-top: 0.5em;
+}
+
+/* ロゴがない時のデザインs */
+.site-branding {
+  width: 25vw;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.site-title a,
+p.site-description {
+  color: #fff;
+  line-height: 1;
+  font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+  font-weight: 500;
+  text-decoration: none;
+  margin-top: 0;
+}
+
+.site-title a {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+p.site-description {
+  line-height: 1.5;
+}
+
+h1.site-title {
+  margin-top: 0;
+  line-height: 1.2;
+}
+
+/* スライダーでなく画像を選んだ時 */
+.topImage {
+  width: 100%;
+  height: 100%;
+  /* コンテナの高さに合わせる */
+  object-fit: cover;
+  /* はみ出しは見切って“つぶさず”に表示 */
+  object-position: center;
+}
+
+/* ロゴがない時のデザインe */
+
+/* 0. header_e***************************************************@@@/
+
+
+/************************************************************/
+/* Widgets @@@ ***************************************************/
+/************************************************************/
+.widget {
+  content: " ";
+  /*ダミー*/
+}
+
+/***************************************/
+
+/* ウィジェット カテゴリー s */
+.wp-block-categories {
+  list-style: none;
+  line-height: 2;
+  padding-left: 0px;
+}
+
+.wp-block-categories a {
+  text-decoration: none;
+  font-size: 0.8rem;
+}
+
+.cat-item {
+  border-bottom: 0.01em solid #e9e8e8;
+  padding: 5px 0px;
+}
+
+li>ul>.cat-item:last-of-type {
+  border-bottom: none;
+  /* カテゴリーの二重線をとっている */
+}
+
+.ly_site_content_widgetArea_right h2,
+.ly_site_content_widgetArea_right h3 {
+  padding-top: 1em;
+  /* hタグの上にpadding */
+}
+
+.ly_site_content_widgetArea_right .is-layout-flex {
+  padding: 0;
+  /* カテゴリーの検索バーのpaddingを消している */
+}
+
+.ly_site_content_widgetArea_right li {
+  font-size: 0.8rem;
+  /* カテゴリーの文字を小さくしている */
+  list-style: none;
+}
+
+.ly_site_content_widgetArea_right li a {
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+/*********カテゴリーのリストにマージン !!!!!!!!!!!****************/
+.wp-block-categories ul.children {
+  /* padding-left: 1.5em; */
+  margin-top: 10px;
+}
+
+/*********最近の投稿のインデントを取る!!!!!!!!!!!****************/
+.wp-block-latest-posts li {
+  text-indent: 0;
+  padding-left: 0;
+}
+
+/*********アーカイブの見た目を整えている!!!!!!!!!!!****************/
+.wp-block-archives li {
+  padding: 5px 0px;
+  border-bottom: 1px solid #eee;
+  text-indent: 0;
+  /* 左に寄るのを防いでいる */
+}
+
+/* プロフィールデザイン */
+/* プロフィールデザイン */
+/* プロフィールデザイン */
+/* プロフィールデザイン */
+/* プロフィールデザインs */
+.integlight-author-profile-widget {
+  background: #fff;
+  /* カードの背景色（必要なら調整） */
+  border: 1px solid #eee;
+  padding: 1.5rem;
+  /* 内側の余白でゆとりを出す */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  /* ドロップシャドウ（ふんわり） */
+  max-width: 320px;
+  /* 横幅を制限すると整うよ */
+  margin: 2rem auto;
+  /* 上下に余白＋中央寄せ */
+  text-align: center;
+  /* 中身を中央に揃える */
+}
+
+.integlight-author-profile-widget p {
+  margin: 0.5rem 0;
+  line-height: 1.8;
+  height: auto;
+  /* ← 高さは自動（これがデフォルト） */
+  overflow: visible;
+  /* ← テキストが切れないように */
+  white-space: normal;
+  /* ← 改行も自動に（念のため） */
+  text-align: left;
+}
+
+/* .integlight-author-profile-widget p:first-of-type {
+  text-align: center;
+} */
+
+
+.integlight-author-profile-widget img {
+  max-width: 120px;
+  aspect-ratio: 1 / 1;
+  /* ← 正円維持：縦横比を固定 */
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+}
+
+.integlight-author-profile-widget a {
+  font-weight: bold;
+  /* ボールドに */
+  text-decoration: none;
+  /* 下線を消す */
+  color: #555;
+  /* リンクの色を親に合わせる（必要に応じて） */
+}
+
+/* プロフィールデザインe */
+/* プロフィールデザイン */
+
+
+/* .widget .wp-block-search__button {
+    color: #fff;
+} */
+
+/* ウィジェット カテゴリー e */
+
+/*************************************/
+/* 新着記事 @@@ s*/
+/*************************************/
+
+.wp-block-latest-posts__list {
+  list-style: none;
+  line-height: 2;
+  padding-left: 0px;
+}
+
+.wp-block-latest-posts__list a {
+  font-size: 0.8rem;
+  text-decoration: none;
+}
+
+.wp-block-latest-posts__post-title {
+  display: block;
+  border-bottom: 0.01em solid #e9e8e8;
+  padding: 5px 0px;
+}
+
+/* 新着記事 e*/
+
+
 /*-------------全幅ブロック----------*/
 /* .wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-colum {
     padding-left: 10px;
@@ -292,6 +520,97 @@ ol, ul {
 <link>   : 外部リソースを参照
 <script> : JavaScriptコードを埋め込む
 */
+/************************************************************/
+/* 11. footer***************************************************@@@/
+/************************************************************/
+/* html, body {
+    height: 100%; 
+    margin: 0;
+  } */
+
+  .site-footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    font-size: 0.8rem;
+    /* padding: 10px; */
+  }
+  
+  .site-footer a {
+    font-size: 1rem;
+  }
+  
+  .site-footer a:focus {
+    outline: none;
+  }
+  
+  .footer-menu {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin-bottom: 0.8rem;
+    flex-wrap: wrap;
+  }
+  
+  .ly_site_footer a {
+    font-size: 1rem;
+    text-decoration: none;
+  }
+  
+  .ly_site_footer a:hover {
+    opacity: 0.5;
+  }
+  
+  .footer-menu a {
+    font-size: 0.8rem;
+  }
+  
+  .site-info {
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  .footer-menu li {
+    position: relative;
+    padding: 0 0.5em;
+    line-height: 1.8;
+  }
+  
+  .footer-menu li::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    width: 1px;
+    height: 1rem;
+    background-color: #000;
+  }
+  
+  /* .footer-menu li:first-child::before {
+    display: none;
+  } */
+  
+  .footer-menu li:last-child::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+    width: 1px;
+    height: 1rem;
+    background-color: #000;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .footer-menu a {
+      font-size: 0.9rem;
+    }
+  }
+  
 
 /*************************************************************************/
 /*************************************************************************/
