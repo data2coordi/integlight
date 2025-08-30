@@ -163,7 +163,7 @@ class integlight_functions_InteglightPreDetermineCssAssetsTest extends WP_UnitTe
                 'path' => '/css/build/pattern8.css',
                 'deps' => ['integlight-style-plus'],
             ],
-            'home-type' => [
+            'integlight-home-type' => [
                 'path' => '/css/build/home1.css',
                 'deps' => ['integlight-integlight-menu', 'integlight-custom-color-pattern'],
             ],

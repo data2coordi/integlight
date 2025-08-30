@@ -41,10 +41,9 @@ class InteglightHomeTypeLoader
             $tmp_deps[] = 'integlight-slide';
         }
 
-        $styles = ['home-type' => ['path' => '/css/build/' . $home_type . '.css', 'deps' => $tmp_deps]];
+        $styles = ['integlight-home-type' => ['path' => '/css/build/' . $home_type . '.css', 'deps' => $tmp_deps]];
         InteglightFrontendStyles::add_styles($styles);
         InteglightEditorStyles::add_styles($styles);
-        //InteglightDeferCss::add_deferred_styles(['home-type']); //PF対応!!!
     }
 }
 new InteglightHomeTypeLoader();
