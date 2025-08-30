@@ -282,3 +282,64 @@
 /***********************************************/
 /*先頭のカテゴリ一覧e*/
 /***********************************************/
+
+
+/************************************************************/
+/* ページネーション @@@***************************************************/
+/************************************************************/
+nav.navigation.pagination {
+  text-align: center;
+}
+
+/* 次へ */
+.pagination .nav-links {
+  width: 600px;
+  display: block;
+  margin: auto;
+  margin-top: 2rem;
+}
+
+/* 次への数字の囲みをコメントアウト */
+.pagination .page-numbers {
+  border: 1px solid #555;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  /* 中央揃え */
+  text-align: center;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0.3em;
+  text-decoration: none;
+}
+
+.pagination .next.page-numbers,
+.pagination .prev.page-numbers {
+  display: none;
+}
+
+.pagination .page-numbers:hover,
+.pagination .next.page-numbers:hover,
+.pagination .prev.page-numbers:hover {
+  background: #f5f4f4;
+}
+
+@media screen and (max-width: 768px) {
+  /* ページネーション */
+  /* ページネーション */
+  /* ページネーション */
+  .pagination .nav-links {
+    width: 90vw;
+  }
+
+  .pagination .page-numbers {
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    margin-left: 0;
+  }
+
+  /* ページネーション */
+  /* ページネーション */
+  /* ページネーション */
+}

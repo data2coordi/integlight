@@ -201,6 +201,61 @@ h1.site-title {
   object-position: center;
 }
 
+/*******************************/
+/* ページトップの設定 s */
+/*******************************/
+#page-top {
+  position: fixed;
+  bottom: calc(20px + env(safe-area-inset-bottom));
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: #fff;
+  color: #333;
+  border: 1px solid #333;
+  text-align: center;
+  line-height: 50px;
+  border-radius: 50%;
+  font-size: 20px;
+  text-decoration: none;
+  opacity: 1;
+  /* 初期は非表示 */
+  transition: opacity 0.3s ease;
+  /* スムーズな表示切替 */
+  z-index: 9999;
+  /* 他の要素に隠れないように最前面 */
+}
+
+#page-top:hover {
+  background: #333;
+  color: #fff;
+}
+
+/* スクロール位置が100pxを越えた場合にボタンを表示 */
+/* @media (min-height: 800px) {
+  #page-top {
+    opacity: 1; 
+  }
+} */
+
+/*-------------ページトップの設定 e----------*/
+
+
+@media screen and (max-width: 768px) {
+  .navigation.post-navigation .nav-links {
+    flex-direction: column;
+  }
+
+  .site-branding {
+    width: 100vw;
+  }
+
+  .custom-logo~.site-title,
+  .custom-logo~.site-description {
+    margin-top: 0;
+  }
+}
+
 /* ロゴがない時のデザインe */
 
 /* 0. header_e***************************************************@@@/
@@ -459,9 +514,11 @@ li>ul>.cat-item:last-of-type {
 <li> : リストの項目
 */
 
-ol, ul {
+ol,
+ul {
   margin-top: 1em;
 }
+
 /* リストの前にスペース */
 
 /* 
@@ -534,94 +591,184 @@ ol, ul {
     margin: 0;
   } */
 
-  .site-footer {
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    background-color: #000;
-    color: #fff;
-    text-align: center;
-    font-size: 0.8rem;
-    /* padding: 10px; */
-  }
-  
-  .site-footer a {
-    font-size: 1rem;
-  }
-  
-  .site-footer a:focus {
-    outline: none;
-  }
-  
-  .footer-menu {
-    display: flex;
-    justify-content: center;
-    list-style: none;
-    margin-bottom: 0.8rem;
-    flex-wrap: wrap;
-  }
-  
-  .ly_site_footer a {
-    font-size: 1rem;
-    text-decoration: none;
-  }
-  
-  .ly_site_footer a:hover {
-    opacity: 0.5;
-  }
-  
-  .footer-menu a {
-    font-size: 0.8rem;
-  }
-  
-  .site-info {
-    font-size: 1rem;
-    margin-bottom: 1.2rem;
-  }
-  
-  .footer-menu li {
-    position: relative;
-    padding: 0 0.5em;
-    line-height: 1.8;
-  }
-  
-  .footer-menu li::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 0;
-    width: 1px;
-    height: 1rem;
-    background-color: #000;
-  }
-  
-  /* .footer-menu li:first-child::before {
+.site-footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  font-size: 0.8rem;
+  /* padding: 10px; */
+}
+
+.site-footer a {
+  font-size: 1rem;
+}
+
+.site-footer a:focus {
+  outline: none;
+}
+
+.footer-menu {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  margin-bottom: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.ly_site_footer a {
+  font-size: 1rem;
+  text-decoration: none;
+}
+
+.ly_site_footer a:hover {
+  opacity: 0.5;
+}
+
+.footer-menu a {
+  font-size: 0.8rem;
+}
+
+.site-info {
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.footer-menu li {
+  position: relative;
+  padding: 0 0.5em;
+  line-height: 1.8;
+}
+
+.footer-menu li::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  width: 1px;
+  height: 1rem;
+  background-color: #000;
+}
+
+/* .footer-menu li:first-child::before {
     display: none;
   } */
-  
-  .footer-menu li:last-child::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 0;
-    width: 1px;
-    height: 1rem;
-    background-color: #000;
+
+.footer-menu li:last-child::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  width: 1px;
+  height: 1rem;
+  background-color: #000;
+}
+
+@media screen and (max-width: 768px) {
+  .footer-menu a {
+    font-size: 0.9rem;
   }
-  
-  @media screen and (max-width: 768px) {
-    .footer-menu a {
-      font-size: 0.9rem;
-    }
-  }
-  
+}
+
 
 /*************************************************************************/
 /*************************************************************************/
 /*************************************************************************/
 /* integlight独自設定 e******************************************/
+/*************************************************************************/
+/*************************************************************************/
+/*************************************************************************/
+
+/*************************************************************************/
+/*************************************************************************/
+/*************************************************************************/
+/* svg icon  s******************************************/
+/*************************************************************************/
+/*************************************************************************/
+/*************************************************************************/
+
+/*home,パンくず用矢印*/
+.icon-home,
+.icon-arrow {
+  display: inline-block;
+  width: 1em;
+  /* 好きなサイズに調整 */
+  height: 1em;
+  background-color: currentColor;
+  /* アイコンの色を文字色と連動 */
+  vertical-align: middle;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+}
+
+.icon-home {
+  -webkit-mask-image: url("/wp-content/themes/integlight/assets/home.svg");
+  mask-image: url("/wp-content/themes/integlight/assets/home.svg");
+}
+
+.icon-arrow {
+  -webkit-mask-image: url("/wp-content/themes/integlight/assets/rightarrow.svg");
+  mask-image: url("/wp-content/themes/integlight/assets/rightarrow.svg");
+}
+
+/* テキスト色に連動させたい場合 */
+.create_bread a {
+  color: #333;
+  /* 通常色 */
+}
+
+.create_bread a:hover {
+  color: #0073aa;
+  /* ホバー時にアイコンも色が変わる */
+}
+
+/*「前へ」と「次へ」ボタン。ページナビ用*/
+.icon-prev,
+.icon-next {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: currentColor;
+  /* アイコンの色を文字色と同期 */
+  vertical-align: middle;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+}
+
+.icon-prev {
+  -webkit-mask-image: url("/wp-content/themes/integlight/assets/prev.svg");
+  mask-image: url("/wp-content/themes/integlight/assets/prev.svg");
+}
+
+.icon-next {
+  -webkit-mask-image: url("/wp-content/themes/integlight/assets/next.svg");
+  mask-image: url("/wp-content/themes/integlight/assets/next.svg");
+}
+
+
+
+
+
+
+
+
+
+/*************************************************************************/
+/*************************************************************************/
+/*************************************************************************/
+/* svg icon  e******************************************/
 /*************************************************************************/
 /*************************************************************************/
 /*************************************************************************/

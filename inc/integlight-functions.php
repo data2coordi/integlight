@@ -66,8 +66,6 @@ add_action('after_setup_theme', 'integlight_setup_plus');
 class InteglightBreadcrumb
 {
 
-	private $awesome_home = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M575.8 255.5c0 18-15 32.1-32 32.1l-32 0 .7 160.2c0 2.7-.2 5.4-.5 8.1l0 16.2c0 22.1-17.9 40-40 40l-16 0c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1L416 512l-24 0c-22.1 0-40-17.9-40-40l0-24 0-64c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32 14.3-32 32l0 64 0 24c0 22.1-17.9 40-40 40l-24 0-31.9 0c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2l-16 0c-22.1 0-40-17.9-40-40l0-112c0-.9 0-1.9 .1-2.8l0-69.7-32 0c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/></svg>';
-	private $awesome_rightArrow = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>';
 
 
 	public function __construct()
@@ -83,17 +81,17 @@ class InteglightBreadcrumb
 		}
 	}
 
-
 	private function helper_addUl($breadcrumbData)
 	{
 		$ul = '<ul class="create_bread">';
 		$ul .= '<li>';
-		$ul .= $this->awesome_home;
+		// CSS mask方式に合わせて<span>でアイコンを表現
+		$ul .= '<span class="icon-home"></span>';
 		$ul .= '<a href="' . esc_url(home_url('/')) . '">' . esc_html__('HOME', 'integlight') . '</a>';
-		$ul .= $this->awesome_rightArrow;
+		$ul .= '<span class="icon-arrow"></span>';
 		$ul .= '</li>';
 
-		return $ul . $breadcrumbData .  '</ul>';
+		return $ul . $breadcrumbData . '</ul>';
 	}
 
 	private function generate_breadcrumb()
@@ -145,7 +143,7 @@ class InteglightBreadcrumb
 			foreach ($categories as $category) {
 				$output .= '<li>';
 				$output .= '<a href="' . esc_url(get_category_link($category->term_id)) . '">' . esc_html($category->name) . '</a>';
-				$output .= $this->awesome_rightArrow;
+				$output .= '<span class="icon-arrow"></span>';
 				$output .= '</li>';
 			}
 		}
@@ -435,17 +433,9 @@ class Integlight_PostNavigations
 			return;
 		}
 
-		$icon_prev = <<<SVG
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="24" height="24" aria-hidden="true" focusable="false">
-  <path d="M144 160C144 151.2 151.2 144 160 144L480 144C488.8 144 496 151.2 496 160L496 480C496 488.8 488.8 496 480 496L160 496C151.2 496 144 488.8 144 480L144 160zM160 96C124.7 96 96 124.7 96 160L96 480C96 515.3 124.7 544 160 544L480 544C515.3 544 544 515.3 544 480L544 160C544 124.7 515.3 96 480 96L160 96zM224 320C224 313.3 226.8 307 231.7 302.4L343.7 198.4C350.7 191.9 360.9 190.2 369.6 194C378.3 197.8 384 206.5 384 216L384 424C384 433.5 378.3 442.2 369.6 446C360.9 449.8 350.7 448.1 343.7 441.6L231.7 337.6C226.8 333.1 224 326.7 224 320z"/>
-</svg>
-SVG;
+		$icon_prev = '<span class="icon-prev"></span>';
 
-		$icon_next = <<<SVG
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="24" height="24" aria-hidden="true" focusable="false">
-  <path d="M496 160C496 151.2 488.8 144 480 144L160 144C151.2 144 144 151.2 144 160L144 480C144 488.8 151.2 496 160 496L480 496C488.8 496 496 488.8 496 480L496 160zM480 96C515.3 96 544 124.7 544 160L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 160C96 124.7 124.7 96 160 96L480 96zM416 320C416 326.7 413.2 333 408.3 337.6L296.3 441.6C289.3 448.1 279.1 449.8 270.4 446C261.7 442.2 256 433.5 256 424L256 216C256 206.5 261.7 197.8 270.4 194C279.1 190.2 289.3 191.9 296.3 198.4L408.3 302.4C413.2 306.9 416 313.3 416 320z"/>
-</svg>
-SVG;
+		$icon_next = '<span class="icon-next"></span>';
 
 
 	?>

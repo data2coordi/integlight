@@ -130,55 +130,6 @@
 
 
 
-/************************************************************/
-/* ページネーション @@@***************************************************/
-/************************************************************/
-nav.navigation.pagination {
-  text-align: center;
-}
-
-/* 次へ */
-.pagination .nav-links {
-  width: 600px;
-  display: block;
-  margin: auto;
-  margin-top: 2rem;
-}
-
-/* 次への数字の囲みをコメントアウト */
-.pagination .page-numbers {
-  border: 1px solid #555;
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
-  /* 中央揃え */
-  text-align: center;
-  border-radius: 50%;
-  display: inline-block;
-  margin: 0.3em;
-  text-decoration: none;
-}
-
-.pagination .next.page-numbers,
-.pagination .prev.page-numbers {
-  display: none;
-}
-
-.pagination .page-numbers:hover,
-.pagination .next.page-numbers:hover,
-.pagination .prev.page-numbers:hover {
-  background: #f5f4f4;
-}
-
-/* .pagination .fa-arrow-alt-circle-right:before,
-.pagination .fa-circle-right:before,
-.pagination .fa-arrow-alt-circle-left:before,
-.pagination .fa-circle-left:before {
-  vertical-align: -15%;
-} */
-
-
-
 
 /* 検索の時の記事一覧　次へ前へ */
 /* 検索の時の記事一覧　次へ前へ */
@@ -202,44 +153,6 @@ nav.navigation.pagination {
 /* 検索の時の記事一覧e　次へ前へ */
 /* 検索の時の記事一覧　次へ前へ */
 
-/*******************************/
-/* ページトップの設定 s */
-/*******************************/
-#page-top {
-  position: fixed;
-  bottom: calc(20px + env(safe-area-inset-bottom));
-  right: 20px;
-  width: 50px;
-  height: 50px;
-  background: #fff;
-  color: #333;
-  border: 1px solid #333;
-  text-align: center;
-  line-height: 50px;
-  border-radius: 50%;
-  font-size: 20px;
-  text-decoration: none;
-  opacity: 1;
-  /* 初期は非表示 */
-  transition: opacity 0.3s ease;
-  /* スムーズな表示切替 */
-  z-index: 9999;
-  /* 他の要素に隠れないように最前面 */
-}
-
-#page-top:hover {
-  background: #333;
-  color: #fff;
-}
-
-/* スクロール位置が100pxを越えた場合にボタンを表示 */
-/* @media (min-height: 800px) {
-  #page-top {
-    opacity: 1; 
-  }
-} */
-
-/*-------------ページトップの設定 e----------*/
 
 /************************************************************/
 /* メタ情報設定@@@***************************************************/
@@ -249,38 +162,6 @@ nav.navigation.pagination {
   font-size: 1.2rem;
 }
 
-@media screen and (max-width: 768px) {
-  .navigation.post-navigation .nav-links {
-    flex-direction: column;
-  }
-
-  .site-branding {
-    width: 100vw;
-  }
-
-  .custom-logo~.site-title,
-  .custom-logo~.site-description {
-    margin-top: 0;
-  }
-
-  /* ページネーション */
-  /* ページネーション */
-  /* ページネーション */
-  .pagination .nav-links {
-    width: 90vw;
-  }
-
-  .pagination .page-numbers {
-    width: 45px;
-    height: 45px;
-    line-height: 45px;
-    margin-left: 0;
-  }
-
-  /* ページネーション */
-  /* ページネーション */
-  /* ページネーション */
-}
 
 /*****前へ次へ画像********/
 /*****前へ次へ画像********/
