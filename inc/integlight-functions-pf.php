@@ -55,7 +55,7 @@ class InteglightPreDetermineCssAssets
         'integlight-layout' =>  ['path' => '/css/build/layout.css', 'deps' => ['integlight-style-plus']],
         'integlight-integlight-menu' =>  ['path' => '/css/build/integlight-menu.css', 'deps' => ['integlight-style-plus']],
         'integlight-helper' =>  ['path' => '/css/build/helper.css', 'deps' => ['integlight-style-plus']],
-        'integlight-svg-non-home' =>  ['path' => '/css/build/svg-non-home.css', 'deps' => []],
+
     ];
 
 
@@ -73,6 +73,7 @@ class InteglightPreDetermineCssAssets
             self::$styles = array_merge(self::$styles, [
                 'integlight-post' => ['path' => '/css/build/post.css', 'deps' => ['integlight-style-plus']],
                 'integlight-module' =>  ['path' => '/css/build/module.css', 'deps' => ['wp-block-library']],
+                'integlight-svg-non-home' =>  ['path' => '/css/build/svg-non-home.css', 'deps' => []],
             ]);
         }
 
@@ -80,6 +81,7 @@ class InteglightPreDetermineCssAssets
             self::$styles = array_merge(self::$styles, [
                 'integlight-page' => ['path' => '/css/build/page.css', 'deps' => ['integlight-style-plus']],
                 'integlight-module' =>  ['path' => '/css/build/module.css', 'deps' => ['wp-block-library']],
+                'integlight-svg-non-home' =>  ['path' => '/css/build/svg-non-home.css', 'deps' => []],
             ]);
         }
 
@@ -87,23 +89,27 @@ class InteglightPreDetermineCssAssets
             self::$styles = array_merge(self::$styles, [
                 'integlight-front' => ['path' => '/css/build/front.css', 'deps' => ['integlight-style-plus']],
                 'integlight-module' =>  ['path' => '/css/build/module.css', 'deps' => ['wp-block-library']],
+                'integlight-svg-non-home' =>  ['path' => '/css/build/svg-non-home.css', 'deps' => []],
+            ]);
+        }
+
+        if (is_archive() || is_search() || is_404()) {
+            // 漏れているページ用の CSS をここで追加
+            self::$styles = array_merge(self::$styles, [
+                'integlight-module' =>  ['path' => '/css/build/module.css', 'deps' => ['wp-block-library']],
+                'integlight-svg-non-home' =>  ['path' => '/css/build/svg-non-home.css', 'deps' => []],
             ]);
         }
 
         if (is_home()) {
             self::$styles = array_merge(self::$styles, [
                 'integlight-home' => ['path' => '/css/build/home.css', 'deps' => ['integlight-style-plus']],
+                //上書き。依存関係をはずす。homeはブロックアイテムはないため依存は不要
                 'integlight-base-style-plus' => ['path' => '/css/build/base-style.css', 'deps' => []],
             ]);
             self::$deferredStyles = array_merge(self::$deferredStyles, [
                 'wp-block-library',
             ]);
-
-            $excluded_key = 'integlight-svg-non-home';
-            // $styles から $excluded_key を除外してコピー
-            self::$styles = array_filter(self::$styles, function ($key) use ($excluded_key) {
-                return $key !== $excluded_key;
-            }, ARRAY_FILTER_USE_KEY);
         }
 
         // スタイルリストを設定（追記可能）

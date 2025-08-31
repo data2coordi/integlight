@@ -127,7 +127,7 @@ class InteglightBreadcrumb
 
 		foreach ($cat_list as $value) {
 			$output .= $value;
-			$output .= $this->awesome_rightArrow;
+			$output .= '<span class="icon-arrow"></span>';;
 		}
 
 		$output .= '<li>' . single_term_title('', false) . '</li>';
