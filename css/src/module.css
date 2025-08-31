@@ -96,6 +96,80 @@
   /* imgにつくパディングを消している */
 }
 
+/*******************************/
+/* パンくずリスト s */
+/*******************************/
+
+.create_bread {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* 一直線に */
+  align-items: center;
+  /* 垂直方向で中央揃え */
+  gap: 10px;
+  /* 項目間の間隔 */
+  list-style: none;
+  /* マーカーを非表示 */
+  font-size: 0.7rem;
+  /* 文字サイズを小さく */
+  padding: 0;
+  /* 不要な余白を削除 */
+  margin: 0;
+  /* 不要な余白を削除 */
+}
+
+.create_bread a {
+  font-size: inherit;
+  /* 親要素のフォントサイズに合わせる */
+  text-decoration: none;
+  /* リンクの下線を消す */
+  color: inherit;
+  /* リンクの色を親要素と一致させる */
+}
+
+.create_bread a:hover {
+  text-decoration: underline;
+  /* ホバー時に下線を表示 */
+  /*color: blue;  ホバー時に色を変える（任意） */
+}
+
+.create_bread a:first-of-type {
+  padding-left: 5px;
+}
+
+
+/* パンくずアイコン */
+.icon-home,
+.icon-arrow {
+  width: 0.7em;
+  height: 0.7em;
+  margin-left: 5px;
+  vertical-align: -0.1em;
+  /* 少し上げてる */
+}
+
+
+/*home,パンくず用矢印*/
+.icon-home,
+.icon-arrow {
+  display: inline-block;
+  width: 1em;
+  /* 好きなサイズに調整 */
+  height: 1em;
+  background-color: currentColor;
+  /* アイコンの色を文字色と連動 */
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+}
+/*******************************/
+/* パンくずリスト e */
+/*******************************/
+
 /************************************************************/
 /* Comments @@@***************************************************/
 /************************************************************/
