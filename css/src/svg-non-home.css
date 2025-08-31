@@ -5,14 +5,33 @@
 /*************************************************************************/
 /*************************************************************************/
 /*************************************************************************/
+/*************************************/
+/* パンくずs @@@*/
+/*************************************/
+
+  /* パンくずアイコン */
+  .icon-home,
+  .icon-arrow {
+    width: 0.7em;
+    height: 0.7em;
+    margin-left: 5px;
+    vertical-align: -0.1em;
+    /* 少し下げてる */
+  }
+  
+  .ly_site_content svg:first-child {
+    width: 1.1em;
+    height: 1.1em;
+    margin-right: 5px;
+  }
 
 /*home,パンくず用矢印*/
 .icon-home,
 .icon-arrow {
     display: inline-block;
-    width: 1em;
+    width: 1.2em;
     /* 好きなサイズに調整 */
-    height: 1em;
+    height: 1.2em;
     background-color: currentColor;
     /* アイコンの色を文字色と連動 */
     vertical-align: middle;
@@ -33,6 +52,10 @@
     -webkit-mask-image: url("/wp-content/themes/integlight/assets/rightarrow.svg");
     mask-image: url("/wp-content/themes/integlight/assets/rightarrow.svg");
 }
+  
+ /* パンくずe */
+ /* パンくずe */
+ /* パンくずe */
 
 
 /*「前へ」と「次へ」ボタン。ページナビ用*/
