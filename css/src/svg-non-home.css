@@ -34,16 +34,6 @@
     mask-image: url("/wp-content/themes/integlight/assets/rightarrow.svg");
 }
 
-/* テキスト色に連動させたい場合 */
-.create_bread a {
-    color: #333;
-    /* 通常色 */
-}
-
-.create_bread a:hover {
-    color: #0073aa;
-    /* ホバー時にアイコンも色が変わる */
-}
 
 /*「前へ」と「次へ」ボタン。ページナビ用*/
 .icon-prev,
@@ -71,6 +61,7 @@
     -webkit-mask-image: url("/wp-content/themes/integlight/assets/next.svg");
     mask-image: url("/wp-content/themes/integlight/assets/next.svg");
 }
+
 
 
 
