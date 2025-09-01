@@ -1,4 +1,4 @@
-#sudo rm test-results/ -rf
+    #sudo rm test-results/ -rf
 #sudo rm tests/visual.spec.js-snapshots/ -rf
 
 
