@@ -117,8 +117,13 @@ class integlight_functions_InteglightPreDetermineCssAssetsTest extends WP_UnitTe
 
         // Assert Deferred styles
         $deferred = self::staticProperty(InteglightDeferCss::class, 'deferred_styles');
+        if ($context === 'home') {
+            $expectedDeferred = ['integlight-sp-style', 'integlight-custom-color-pattern', 'integlight-svg-non-home', 'wp-block-library'];
+        } else {
+            $expectedDeferred = ['integlight-sp-style', 'integlight-custom-color-pattern', 'integlight-svg-non-home'];
+        }
+
         sort($deferred);
-        $expectedDeferred = ['integlight-sp-style', 'integlight-custom-color-pattern'];
         sort($expectedDeferred);
         $this->assertEquals($expectedDeferred, $deferred, "Deferred styles mismatch for {$context}");
     }
@@ -147,10 +152,6 @@ class integlight_functions_InteglightPreDetermineCssAssetsTest extends WP_UnitTe
                 'path' => '/css/build/integlight-menu.css',
                 'deps' => ['integlight-style-plus'],
             ],
-            'integlight-module' => [
-                'path' => '/css/build/module.css',
-                'deps' => ['wp-block-library'],
-            ],
             'integlight-helper' => [
                 'path' => '/css/build/helper.css',
                 'deps' => ['integlight-style-plus'],
@@ -170,18 +171,36 @@ class integlight_functions_InteglightPreDetermineCssAssetsTest extends WP_UnitTe
         ];
 
         return [
-            'post'  => ['post', array_merge($base, [
+            'post' => ['post', array_merge($base, [
                 'integlight-post' => [
                     'path' => '/css/build/post.css',
                     'deps' => ['integlight-style-plus'],
                 ],
+                'integlight-module' => [
+                    'path' => '/css/build/module.css',
+                    'deps' => ['wp-block-library'],
+                ],
+                'integlight-svg-non-home' => [
+                    'path' => '/css/build/svg-non-home.css',
+                    'deps' => [],
+                ],
             ], $common)],
-            'page'  => ['page', array_merge($base, [
+
+            'page' => ['page', array_merge($base, [
                 'integlight-page' => [
                     'path' => '/css/build/page.css',
                     'deps' => ['integlight-style-plus'],
                 ],
+                'integlight-module' => [
+                    'path' => '/css/build/module.css',
+                    'deps' => ['wp-block-library'],
+                ],
+                'integlight-svg-non-home' => [
+                    'path' => '/css/build/svg-non-home.css',
+                    'deps' => [],
+                ],
             ], $common)],
+
             'front' => ['front', array_merge($base, [
                 'integlight-page' => [
                     'path' => '/css/build/page.css',
@@ -191,11 +210,25 @@ class integlight_functions_InteglightPreDetermineCssAssetsTest extends WP_UnitTe
                     'path' => '/css/build/front.css',
                     'deps' => ['integlight-style-plus'],
                 ],
+                'integlight-module' => [
+                    'path' => '/css/build/module.css',
+                    'deps' => ['wp-block-library'],
+                ],
+                'integlight-svg-non-home' => [
+                    'path' => '/css/build/svg-non-home.css',
+                    'deps' => [],
+                ],
             ], $common)],
-            'home'  => ['home', array_merge($base, [
+
+            'home' => ['home', array_merge($base, [
                 'integlight-home' => [
                     'path' => '/css/build/home.css',
                     'deps' => ['integlight-style-plus'],
+                ],
+                // homeでは依存関係を空にする
+                'integlight-base-style-plus' => [
+                    'path' => '/css/build/base-style.css',
+                    'deps' => [],
                 ],
             ], $common)],
         ];
