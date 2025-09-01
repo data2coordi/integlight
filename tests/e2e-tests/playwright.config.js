@@ -11,7 +11,7 @@ export default defineConfig({
     // プロジェクト間で共有される設定
     use: {
         // click や fill など1アクションのタイムアウト
-        actionTimeout: 3_000,
+        actionTimeout: 10_000,
         // 動画録画設定
         video: 'on',
         // ブラウザのベースURL
