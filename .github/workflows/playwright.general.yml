@@ -7,8 +7,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  function-test:
+  general-test:
     runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.message, 'vtest')
     env:
       WP_ADMIN_USER: ${{ secrets.WP_ADMIN_USER }}
       WP_ADMIN_PASSWORD: ${{ secrets.WP_ADMIN_PASSWORD }}
