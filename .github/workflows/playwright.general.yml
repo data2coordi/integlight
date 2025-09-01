@@ -59,12 +59,12 @@ jobs:
 
       # 8. 認証用 setup プロジェクト実行
       - name: Run Playwright auth setup
-        run: npx playwright test tests/e2e-tests/tests/slider.spec.ts --project=main --config=playwright.config.js
+        run: npx playwright test --project=setup --config=playwright.config.js
         working-directory: tests/e2e-tests
 
       # 9. general テスト実行
       - name: Run Playwright general tests
-c
+        run: npx playwright test tests/e2e-tests/tests/slider.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
         working-directory: tests/e2e-tests
 
        # 10. テスト結果・スクリーンショットをアーティファクトとして保存
