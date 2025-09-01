@@ -13,7 +13,7 @@ export default defineConfig({
         // click や fill など1アクションのタイムアウト
         actionTimeout: 10_000,
         // 動画録画設定
-        video: 'on',
+        video: 'off',
         // ブラウザのベースURL
         baseURL: BASE_URL,
     },
@@ -40,7 +40,7 @@ export default defineConfig({
         {
             name: 'main',
             testDir: './tests', // テストファイルのディレクトリを指定
-            testIgnore: [/auth\.setup\.ts/, /menu\.spec\.js/, /pf\.image\.post\.spec\.ts/, /visual\.spec\.js/, /visual\.ci\.spec\.js/], // setupと認証不要テストを除外
+            testIgnore: [/auth\.setup\.ts/, /menu\.spec\.js/, /pf\.image\.post\.spec\.ts/, /visual\.spec\.js/], // setupと認証不要テストを除外
             dependencies: ['setup'], // setupプロジェクトの完了を待機
             use: {
                 ...devices['Desktop Chrome'], // デスクトップChromeを使用
@@ -52,17 +52,6 @@ export default defineConfig({
             name: 'visual',
             testDir: './tests', // テストファイルのディレクトリを指定
             testMatch: [/visual\.spec\.js/],
-            dependencies: ['setup'], // setupプロジェクトの完了を待機
-            use: {
-                ...devices['Desktop Chrome'], // デスクトップChromeを使用
-                // 保存した認証状態をロード
-                storageState: authFile,
-            },
-        },
-        {
-            name: 'visualci',
-            testDir: './tests', // テストファイルのディレクトリを指定
-            testMatch: [/visual\.ci\.spec\.js/],
             dependencies: ['setup'], // setupプロジェクトの完了を待機
             use: {
                 ...devices['Desktop Chrome'], // デスクトップChromeを使用
