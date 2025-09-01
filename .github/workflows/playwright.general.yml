@@ -1,4 +1,4 @@
-name: Playwright function Test
+name: Playwright general Test
 
 on:
   push:
@@ -8,7 +8,6 @@ on:
 
 jobs:
   function-test:
-    if: false
     runs-on: ubuntu-latest
     env:
       WP_ADMIN_USER: ${{ secrets.WP_ADMIN_USER }}
@@ -60,12 +59,12 @@ jobs:
 
       # 8. 認証用 setup プロジェクト実行
       - name: Run Playwright auth setup
-        run: npx playwright test --project=setup --config=playwright.config.js
+        run: npx playwright test tests/e2e-tests/tests/slider.spec.ts --project=main --config=playwright.config.js
         working-directory: tests/e2e-tests
 
-      # 9. function テスト実行
-      - name: Run Playwright function tests
-        run: npx playwright test --project=main --project=unauthenticated --config=playwright.config.js
+      # 9. general テスト実行
+      - name: Run Playwright general tests
+c
         working-directory: tests/e2e-tests
 
        # 10. テスト結果・スクリーンショットをアーティファクトとして保存
