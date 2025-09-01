@@ -3,7 +3,7 @@ name: Playwright Visual Test
 # main ブランチへの push と PR に対して実行
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
 
 jobs:
