@@ -15,17 +15,14 @@ jobs:
       WP_ADMIN_PASSWORD: ${{ secrets.WP_ADMIN_PASSWORD }}
 
     steps:
-      # 1. リポジトリチェックアウト
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2. Node.js セットアップ
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 20
 
-      # 3. Node モジュールキャッシュ
       - name: Cache node_modules
         uses: actions/cache@v3
         with:
@@ -36,11 +33,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      # 4. 依存パッケージインストール（キャッシュがなければ）
       - name: Install dependencies
         run: npm ci
 
-      # 5. Playwright ブラウザキャッシュ
       - name: Cache Playwright browsers
         uses: actions/cache@v3
         with:
@@ -49,28 +44,28 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-playwright-
 
-      # 6. Playwright ブラウザインストール（キャッシュがなければ）
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-      # 7. storage state 保存用ディレクトリ作成
-      - name: Create auth directory
+      # ここからカレントディレクトリを tests/e2e-tests に変更
+      - name: Prepare auth directory
         run: mkdir -p playwright/.auth
+        working-directory: tests/e2e-tests
 
-      # 8. 認証用 setup プロジェクト実行
       - name: Run Playwright auth setup
-        run: npx playwright test --project=setup --config=tests/e2e-tests/playwright.config.js
+        run: npx playwright test --project=setup --config=playwright.config.js
+        working-directory: tests/e2e-tests
 
-      # 9. visual テスト実行
       - name: Run Playwright visual tests
-        run: npx playwright test --project=visual --config=tests/e2e-tests/playwright.config.js
+        run: npx playwright test --project=visual --config=playwright.config.js
+        working-directory: tests/e2e-tests
 
-      # 10. テスト結果・スクリーンショットをアーティファクトとして保存
       - name: Upload test artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-artifacts
           path: |
-            tests/e2e-tests/tests/screenshots
-            tests/e2e-tests/tests/playwright-report
+            tests/screenshots
+            tests/playwright-report
+        working-directory: tests/e2e-tests
