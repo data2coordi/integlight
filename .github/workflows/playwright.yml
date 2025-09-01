@@ -1,7 +1,8 @@
 name: Playwright Visual Test
 
-# main ブランチへの push と PR に対して実行
+# main ブランチへの push と PR に対して実行a
 on:
+  workflow_dispatch:
   push:
     branches: [ master ]
   pull_request:
@@ -27,7 +28,7 @@ jobs:
 
       # 3. 依存パッケージインストール
       - name: Install dependencies
-        run: npm ci
+        run: npm ci 
 
       # 4. Playwright ブラウザ依存関係インストール
       - name: Install Playwright browsers
@@ -40,7 +41,7 @@ jobs:
       # 6. スクリーンショット・テスト結果をアーティファクトとして保存
       - name: Upload screenshots and test results
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: playwright-artifacts
           path: |
