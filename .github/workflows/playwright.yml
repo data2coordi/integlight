@@ -68,12 +68,11 @@ jobs:
         run: npx playwright test --project=visual --config=playwright.config.js
         working-directory: tests/e2e-tests
 
-      # 10. テスト結果・スクリーンショットをアーティファクトとして保存
+       # 10. テスト結果・スクリーンショットをアーティファクトとして保存
       - name: Upload test artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-artifacts
           path: |
-            tests/e2e-tests/tests/screenshots
-            tests/e2e-tests/tests/playwright-report
+            tests/e2e-tests/test-results/
