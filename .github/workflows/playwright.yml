@@ -4,7 +4,7 @@ name: Playwright Visual Test
 on:
   workflow_dispatch:
   push:
-    branches: [ master ]
+    branches: [ githubでplaywright ]
   pull_request:
 
 jobs:
