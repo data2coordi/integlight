@@ -62,8 +62,8 @@ jobs:
         run: npx playwright test --project=setup --config=playwright.config.js
         working-directory: tests/e2e-tests
 
-      # 9. visual テスト実行
-      - name: Run Playwright visual tests
+      # 9. function テスト実行
+      - name: Run Playwright function tests
         run: npx playwright test --project=main --project=unauthenticated --config=playwright.config.js
         working-directory: tests/e2e-tests
 
