@@ -1,0 +1,48 @@
+name: Playwright Visual Test
+
+# main ブランチへの push と PR に対して実行
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  visual-test:
+    runs-on: ubuntu-latest
+
+    env:
+      WP_ADMIN_USER: ${{ secrets.WP_ADMIN_USER }}
+      WP_ADMIN_PASSWORD: ${{ secrets.WP_ADMIN_PASSWORD }}
+
+    steps:
+      # 1. リポジトリチェックアウト
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Node.js セットアップ
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      # 3. 依存パッケージインストール
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. Playwright ブラウザ依存関係インストール
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      # 5. Playwright テスト実行（config パス指定）
+      - name: Run Playwright visual tests
+        run: npx playwright test --project=visual --config=tests/e2e-tests/playwright.config.js
+
+      # 6. スクリーンショット・テスト結果をアーティファクトとして保存
+      - name: Upload screenshots and test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-artifacts
+          path: |
+            tests/e2e-tests/tests/screenshots
+            tests/e2e-tests/tests/playwright-report
