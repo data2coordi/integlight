@@ -1,6 +1,6 @@
 name: Playwright Visual Test
 
-# main ブランチへの push と PR に対して実行b
+# main ブランチへの push と PR に対して実行e
 on:
   workflow_dispatch:
   push:
