@@ -25,27 +25,47 @@ jobs:
         with:
           node-version: 20
 
-      # 3. 依存パッケージインストール
+      # 3. Node モジュールキャッシュ
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.npm
+            node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      # 4. 依存パッケージインストール（キャッシュがなければ）
       - name: Install dependencies
         run: npm ci
 
-      # 4. Playwright ブラウザインストール
+      # 5. Playwright ブラウザキャッシュ
+      - name: Cache Playwright browsers
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-
+
+      # 6. Playwright ブラウザインストール（キャッシュがなければ）
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-      # 5. storage state 保存用ディレクトリ作成
+      # 7. storage state 保存用ディレクトリ作成
       - name: Create auth directory
         run: mkdir -p playwright/.auth
 
-      # 6. 認証用 setup プロジェクト実行
+      # 8. 認証用 setup プロジェクト実行
       - name: Run Playwright auth setup
         run: npx playwright test --project=setup --config=tests/e2e-tests/playwright.config.js
 
-      # 7. visual テスト実行
+      # 9. visual テスト実行
       - name: Run Playwright visual tests
         run: npx playwright test --project=visual --config=tests/e2e-tests/playwright.config.js
 
-      # 8. テスト結果・スクリーンショットをアーティファクトとして保存
+      # 10. テスト結果・スクリーンショットをアーティファクトとして保存
       - name: Upload test artifacts
         if: always()
         uses: actions/upload-artifact@v4
