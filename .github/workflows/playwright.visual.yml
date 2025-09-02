@@ -39,7 +39,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: tests/e2e-tests/.playwright-browsers
-          key: ${{ runner.os }}-playwright-browsers-${{ hashFiles('tests/e2e-tests/package-lock.json') }}
+          key: ${{ runner.os }}-playwright-browsers
           restore-keys: |
             ${{ runner.os }}-playwright-browsers-
 
