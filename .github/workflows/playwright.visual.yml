@@ -1,5 +1,5 @@
 name: Playwright Compare Visual Test
-#test14
+#test15
 on:
   push:
     branches: [ githubでplaywright ]
@@ -41,19 +41,7 @@ jobs:
       # 2. 依存関係のインストール（tests/e2e-tests用）
       - name: Install e2e-test dependencies
         if: steps.cache-e2e.outputs.cache-hit != 'true'
-        run: np
-      # 3. Playwrightブラウザキャッシュ
-      - name: Cache Playwright browsers
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ hashFiles('tests/e2e-tests/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-playwright-
-
-      # 4. Playwrightブラウザインストール
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps
+        run: npm ci
         working-directory: tests/e2e-tests
 
       # 3. Playwrightブラウザキャッシュ
@@ -67,7 +55,7 @@ jobs:
 
       # 4. Playwrightブラウザインストール
       - name: Install Playwright browsers
-        run: npx playwright install 
+        run: npx playwright install
         working-directory: tests/e2e-tests
 
       # ---
