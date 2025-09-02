@@ -37,7 +37,7 @@ jobs:
 
       # 4. Playwrightブラウザインストール
       - name: Install Playwright browsers
-        run: npx playwright install
+        run: npx playwright install  --with-deps
         working-directory: tests/e2e-tests
 
       # ---
