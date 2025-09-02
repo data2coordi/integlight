@@ -41,7 +41,7 @@ jobs:
           path: tests/e2e-tests/.playwright-browsers
           key: ${{ runner.os }}-playwright-browsers
           restore-keys: |
-            ${{ runner.os }}-playwright-browsers-
+            ${{ runner.os }}-playwright-browsers
 
       - name: Install Playwright browsers (skip if cache hit)
         if: steps.cache-playwright.outputs.cache-hit != 'true'
