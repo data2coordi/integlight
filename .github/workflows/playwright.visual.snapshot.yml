@@ -58,7 +58,7 @@ jobs:
           du -sh tests/e2e-tests/.playwright-browsers || true
 
       - name: Install Japanese fonts
-        run: sudo apt-get update && sudo apt-get install -y fonts-noto-cjks
+        run: sudo apt-get update && sudo apt-get install -y fonts-noto-cjk
 
       # 7. storage state 保存用ディレクトリ作成
       - name: Prepare auth directory
