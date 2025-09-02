@@ -1,5 +1,5 @@
 name: Playwright Compare Visual Test
-#test2
+#test３
 on:
   push:
     branches: [ githubでplaywright ]
@@ -14,7 +14,6 @@ jobs:
     env:
       WP_ADMIN_USER: ${{ secrets.WP_ADMIN_USER }}
       WP_ADMIN_PASSWORD: ${{ secrets.WP_ADMIN_PASSWORD }}
-      # Playwright ブラウザをプロジェクト配下に配置（キャッシュ対象）
       PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/tests/e2e-tests/.playwright-browsers
 
     steps:
@@ -26,10 +25,14 @@ jobs:
         with:
           node-version: 20
 
-      # --- Playwright ブラウザのキャッシュ（追加箇所） ---
-      - name: Ensure playwright browsers dir exists
-        run: mkdir -p .playwright-browsers
+      # 1. 依存関係のインストール
+      - name: Install e2e-test dependencies
+        run: npm ci
         working-directory: tests/e2e-tests
+
+      # 2. Playwright ブラウザのキャッシュ
+      - name: Ensure playwright browsers dir exists
+        run: mkdir -p tests/e2e-tests/.playwright-browsers
 
       - name: Cache Playwright browsers
         id: cache-playwright
@@ -42,47 +45,34 @@ jobs:
 
       - name: Install Playwright browsers (skip if cache hit)
         if: steps.cache-playwright.outputs.cache-hit != 'true'
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/tests/e2e-tests/.playwright-browsers
         run: npx playwright install --with-deps
         working-directory: tests/e2e-tests
-      # --- /追加箇所 ---
 
-      # ---
+      # デバッグ（初回だけ有効化推奨、確認後は削除可）
+      - name: Debug: list playwright browsers dir
+        run: |
+          echo "PLAYWRIGHT_BROWSERS_PATH=$PLAYWRIGHT_BROWSERS_PATH"
+          ls -la tests/e2e-tests/.playwright-browsers || true
+          du -sh tests/e2e-tests/.playwright-browsers || true
 
-      ## NodeモジュールとPlaywrightブラウザのキャッシュとインストール
-
-
-      # 2. 依存関係のインストール（tests/e2e-tests用）
-      - name: Install e2e-test dependencies
-        run: npm ci
-        working-directory: tests/e2e-tests
-
-
-      # 4. Playwrightブラウザインストール
-      # （上でキャッシュの有無に応じて実行済み／スキップされるため、ここは不要のままコメントアウトしています）
-      # - name: Install Playwright browsers
-      #   run: npx playwright install  --with-deps
-      #   working-directory: tests/e2e-tests
-
-      # ---
-
-      ## テストの実行と結果の処理
-
-      # 5. storage state 保存用ディレクトリ作成
+      # 3. auth ディレクトリ作成
       - name: Prepare auth directory
         run: mkdir -p playwright/.auth
         working-directory: tests/e2e-tests
 
-      # 6. 認証用セットアッププロジェクト実行
+      # 4. 認証セットアップ
       - name: Run Playwright auth setup
         run: npx playwright test --project=setup --config=playwright.config.js
         working-directory: tests/e2e-tests
 
-      # 7. visualテスト実行
+      # 5. Visual テスト
       - name: Run Playwright visual tests
         run: npx playwright test --project=visual --config=playwright.config.js
         working-directory: tests/e2e-tests
 
-      # 8. テスト結果・スクリーンショットをアーティファクトとして保存
+      # 6. テスト結果保存
       - name: Upload test artifacts
         if: always()
         uses: actions/upload-artifact@v4
@@ -91,7 +81,7 @@ jobs:
           path: |
             tests/e2e-tests/test-results/
 
-      # 9. テスト結果をコミット
+      # 7. テスト結果コミット
       - name: Commit updated test result
         if: always()
         run: |
