@@ -36,7 +36,7 @@ jobs:
 
       # 9. function テスト実行
       - name: Run Playwright function tests
-        run: npx playwright test --project=main --project=unauthenticated --config=playwright.config.js
+        run: npx playwright test --project=main --project=unauthenticated --config=playwright.config.js --workers=1
         working-directory: tests/e2e-tests
 
        # 10. テスト結果・スクリーンショットをアーティファクトとして保存
