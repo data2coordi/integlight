@@ -11,48 +11,52 @@ jobs:
     if: contains(github.event.head_commit.message, 'vstest')
     runs-on: ubuntu-latest
 
+ 
     env:
       WP_ADMIN_USER: ${{ secrets.WP_ADMIN_USER }}
       WP_ADMIN_PASSWORD: ${{ secrets.WP_ADMIN_PASSWORD }}
+      PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/tests/e2e-tests/.playwright-browsers
 
     steps:
-      # 1. リポジトリチェックアウト
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2. Node.js セットアップ
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 20
 
-      # 3. Node モジュールキャッシュ
-      - name: Cache node_modules
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.npm
-            node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      # 4. 依存パッケージインストール（キャッシュがなければ）
-      - name: Install dependencies
+      # 1. 依存関係のインストール
+      - name: Install e2e-test dependencies
         run: npm ci
+        working-directory: tests/e2e-tests
 
-      # 5. Playwright ブラウザキャッシュ
+      # 2. Playwright ブラウザのキャッシュ
+      - name: Ensure playwright browsers dir exists
+        run: mkdir -p tests/e2e-tests/.playwright-browsers
+
       - name: Cache Playwright browsers
-        uses: actions/cache@v3
+        id: cache-playwright
+        uses: actions/cache@v4
         with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
+          path: tests/e2e-tests/.playwright-browsers
+          key: ${{ runner.os }}-playwright-browsers-${{ hashFiles('tests/e2e-tests/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-playwright-
+            ${{ runner.os }}-playwright-browsers-
 
-      # 6. Playwright ブラウザインストール（キャッシュがなければ）
-      - name: Install Playwright browsers
+      - name: Install Playwright browsers (skip if cache hit)
+        if: steps.cache-playwright.outputs.cache-hit != 'true'
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/tests/e2e-tests/.playwright-browsers
         run: npx playwright install --with-deps
+        working-directory: tests/e2e-tests
+
+      - name: Debug cache
+        run: |
+          echo "Cache hit: ${{ steps.cache-playwright.outputs.cache-hit }}"
+          ls -la tests/e2e-tests/.playwright-browsers || true
+          du -sh tests/e2e-tests/.playwright-browsers || tru
+
 
       # 7. storage state 保存用ディレクトリ作成
       - name: Prepare auth directory
