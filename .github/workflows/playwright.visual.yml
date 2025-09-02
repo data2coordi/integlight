@@ -20,47 +20,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-
-      # 1. 依存関係のインストール
-      - name: Install e2e-test dependencies
-        run: npm ci
-        working-directory: tests/e2e-tests
-
-      # 2. Playwright ブラウザのキャッシュ
-      - name: Ensure playwright browsers dir exists
-        run: mkdir -p tests/e2e-tests/.playwright-browsers
-
-      - name: Cache Playwright browsers
-        id: cache-playwright
-        uses: actions/cache@v4
-        with:
-          path: tests/e2e-tests/.playwright-browsers
-          key: ${{ runner.os }}-playwright-browsers-${{ hashFiles('tests/e2e-tests/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-playwright-browsers-
-
-      - name: Install Playwright browsers (skip if cache hit)
-        if: steps.cache-playwright.outputs.cache-hit != 'true'
-        env:
-          PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/tests/e2e-tests/.playwright-browsers
-        run: npx playwright install --with-deps
-        working-directory: tests/e2e-tests
-
-      - name: Debug cache
-        run: |
-          echo "Cache hit: ${{ steps.cache-playwright.outputs.cache-hit }}"
-          ls -la tests/e2e-tests/.playwright-browsers || true
-          du -sh tests/e2e-tests/.playwright-browsers || true
-
-      # 3. auth ディレクトリ作成
-      - name: Prepare auth directory
-        run: mkdir -p playwright/.auth
-        working-directory: tests/e2e-tests
-
+      - name: Setup Playwright Environment
+        uses: ./.github/actions/setup-playwright
+ 
       # 4. 認証セットアップ
       - name: Run Playwright auth setup
         run: npx playwright test --project=setup --config=playwright.config.js
