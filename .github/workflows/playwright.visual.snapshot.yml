@@ -64,8 +64,7 @@ jobs:
         with:
           path: /var/cache/apt/archives
           key: ${{ runner.os }}-apt-fonts-noto-cjk
-          restore-keys: |
-            ${{ runner.os }}-apt-
+
 
       # 2b. Install Japanese fonts (skip if cache hit)
       - name: Install Japanese fonts
