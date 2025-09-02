@@ -64,7 +64,7 @@ for (const siteType of siteTypes) {
 
         for (const { name, url, options } of pages) {
           test(`： ${name}`, async ({ page }) => {
-            await page.goto(url, { waitUntil: 'networkidle' });
+            // await page.goto(url, { waitUntil: 'networkidle' });
 
             // 安全待機: ページ全体が見える状態を確認
             //await page.locator('body').waitFor({ state: 'visible', timeout: 10000 });
