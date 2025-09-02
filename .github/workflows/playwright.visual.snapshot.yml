@@ -77,3 +77,14 @@ jobs:
           name: playwright-artifacts
           path: |
             tests/e2e-tests/test-results/
+
+      # 11. スナップショットをコミット
+      - name: Commit updated snapshots
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add tests/e2e-tests/tests/visual.spec.js-snapshots/
+          git commit -m "Update visual snapshots [ci skip]" || echo "No changes to commit"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
