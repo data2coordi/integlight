@@ -1,0 +1,59 @@
+name: Playwright Compare Visual Test
+#testab
+on:
+  push:
+    branches: [ githubでplaywright ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  visual-test:
+    if: contains(github.event.head_commit.message, 'vtest')
+    runs-on: ubuntu-latest
+
+    env:
+      WP_ADMIN_USER: ${{ secrets.WP_ADMIN_USER }}
+      WP_ADMIN_PASSWORD: ${{ secrets.WP_ADMIN_PASSWORD }}
+      PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/tests/e2e-tests/.playwright-browsers
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Playwright Environment
+        uses: ./.github/actions/setup-playwright
+
+      - name: Prepare auth directory
+        run: mkdir -p playwright/.auth
+        working-directory: tests/e2e-tests 
+
+      # 4. 認証セットアップ
+      - name: Run Playwright auth setup
+        run: npx playwright test --project=setup --config=playwright.config.js
+        working-directory: tests/e2e-tests
+
+      # 5. Visual テスト
+      - name: Run Playwright visual tests
+        run: npx playwright test --project=visual --config=playwright.config.js
+        working-directory: tests/e2e-tests
+
+      # 6. テスト結果保存
+      - name: Upload test artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-artifacts
+          path: |
+            tests/e2e-tests/test-results/
+
+      # 7. テスト結果コミット
+      - name: Commit updated test result
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add tests/e2e-tests/test-results/
+          git commit -m "Update test result [ci skip]" || echo "No changes to commit"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

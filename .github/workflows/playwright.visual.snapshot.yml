@@ -1,0 +1,54 @@
+name: Playwright Visual Snapshot Test
+#testabｃda
+on:
+  push:
+    branches: [ githubでplaywright ]
+  pull_request:
+  workflow_dispatch:
+
+env:
+  WP_ADMIN_USER: ${{ secrets.WP_ADMIN_USER }}
+  WP_ADMIN_PASSWORD: ${{ secrets.WP_ADMIN_PASSWORD }}
+  PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/tests/e2e-tests/.playwright-browsers
+
+jobs:
+  visual-snapshot-test:
+    if: contains(github.event.head_commit.message, 'vstest')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Playwright Environment
+        uses: ./.github/actions/setup-playwright
+
+      - name: Prepare auth directory
+        run: mkdir -p playwright/.auth
+        working-directory: tests/e2e-tests
+
+      - name: Run Playwright auth setup
+        run: npx playwright test --project=setup --config=playwright.config.js
+        working-directory: tests/e2e-tests
+
+      - name: Run Playwright visual tests
+        run: npx playwright test --project=visual --config=playwright.config.js --update-snapshots
+        working-directory: tests/e2e-tests
+
+      - name: Upload test artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-artifacts
+          path: tests/e2e-tests/test-results/
+
+      - name: Commit updated snapshots
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add tests/e2e-tests/tests/visual.spec.js-snapshots/
+          git commit -m "Update visual snapshots [ci skip]" || echo "No changes to commit"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
