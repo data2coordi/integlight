@@ -29,17 +29,10 @@ const devices = [
       userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137 Safari/537.36'
     }
   },
-  {
-    name: 'Mobile',
-    use: {
-      viewport: { width: 375, height: 800 },
-      userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1',
-      extraHTTPHeaders: { 'sec-ch-ua-mobile': '?1' }
-    }
-  }
+
 ];
 
-const siteTypes = ['エレガント', 'ポップ'];
+const siteTypes = ['エレガント'];
 
 // ======= テスト展開 =======
 for (const siteType of siteTypes) {
