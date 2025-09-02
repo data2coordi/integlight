@@ -50,7 +50,12 @@ jobs:
         run: npx playwright install --with-deps
         working-directory: tests/e2e-tests
 
-      
+      - name: Debug cache
+        run: |
+          echo "Cache hit: ${{ steps.cache-playwright.outputs.cache-hit }}"
+          ls -la tests/e2e-tests/.playwright-browsers || true
+          du -sh tests/e2e-tests/.playwright-browsers || true
+
       # 3. auth ディレクトリ作成
       - name: Prepare auth directory
         run: mkdir -p playwright/.auth
