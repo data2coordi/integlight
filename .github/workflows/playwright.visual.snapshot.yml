@@ -7,6 +7,8 @@ on:
   workflow_dispatch:
 
 env:
+  WP_ADMIN_USER: ${{ secrets.WP_ADMIN_USER }}
+  WP_ADMIN_PASSWORD: ${{ secrets.WP_ADMIN_PASSWORD }}
   PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/tests/e2e-tests/.playwright-browsers
 
 jobs:
