@@ -1,5 +1,5 @@
 name: Playwright Compare Visual Test
-#test5
+#test6
 on:
   push:
     branches: [ githubã§playwright ]
