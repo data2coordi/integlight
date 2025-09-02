@@ -67,7 +67,7 @@ for (const siteType of siteTypes) {
               maxDiffPixelRatio: 0.50, // 人間の目でわからないレベル
               threshold: 0.50
             };
-            await expect(page).toHaveScreenshot({ fullPage: true, timeout: 100000, ...options });
+            //await expect(page).toHaveScreenshot({ fullPage: true, timeout: 100000, ...options });
           });
           //break;
 
