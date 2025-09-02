@@ -1,92 +1,34 @@
-name: Playwright Visual Snapshot Test
-#testabｃ
-on:
-  push:
-    branches: [ githubでplaywright ]
-  pull_request:
-  workflow_dispatch:
-
 jobs:
   visual-snapshot-test:
     if: contains(github.event.head_commit.message, 'vstest')
     runs-on: ubuntu-latest
 
- 
-    env:
-      WP_ADMIN_USER: ${{ secrets.WP_ADMIN_USER }}
-      WP_ADMIN_PASSWORD: ${{ secrets.WP_ADMIN_PASSWORD }}
-      PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/tests/e2e-tests/.playwright-browsers
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
+      - name: Setup Playwright Environment
+        uses: ./.github/actions/setup-playwright
 
-      # 1. 依存関係のインストール
-      - name: Install e2e-test dependencies
-        run: npm ci
-        working-directory: tests/e2e-tests
-
-      # 2. Playwright ブラウザのキャッシュ
-      - name: Ensure playwright browsers dir exists
-        run: mkdir -p tests/e2e-tests/.playwright-browsers
-
-      - name: Cache Playwright browsers
-        id: cache-playwright
-        uses: actions/cache@v4
-        with:
-          path: tests/e2e-tests/.playwright-browsers
-          key: ${{ runner.os }}-playwright-browsers-${{ hashFiles('tests/e2e-tests/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-playwright-browsers-
-
-      - name: Install Playwright browsers (skip if cache hit)
-        if: steps.cache-playwright.outputs.cache-hit != 'true'
-        env:
-          PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/tests/e2e-tests/.playwright-browsers
-        run: npx playwright install --with-deps
-        working-directory: tests/e2e-tests
-
-      - name: Debug cache
-        run: |
-          echo "Cache hit: ${{ steps.cache-playwright.outputs.cache-hit }}"
-          ls -la tests/e2e-tests/.playwright-browsers || true
-          du -sh tests/e2e-tests/.playwright-browsers || true
-
-
-      # 2b. Install Japanese fonts (skip if cache hit)
-      - name: Install Japanese fonts
-        run: sudo apt-get update && sudo apt-get install -y fonts-noto-cjk
-
-      # 7. storage state 保存用ディレクトリ作成
       - name: Prepare auth directory
         run: mkdir -p playwright/.auth
         working-directory: tests/e2e-tests
 
-      # 8. 認証用 setup プロジェクト実行
       - name: Run Playwright auth setup
         run: npx playwright test --project=setup --config=playwright.config.js
         working-directory: tests/e2e-tests
 
-      # 9. visual テスト実行
       - name: Run Playwright visual tests
         run: npx playwright test --project=visual --config=playwright.config.js --update-snapshots
         working-directory: tests/e2e-tests
 
-       # 10. テスト結果・スクリーンショットをアーティファクトとして保存
       - name: Upload test artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-artifacts
-          path: |
-            tests/e2e-tests/test-results/
+          path: tests/e2e-tests/test-results/
 
-      # 11. スナップショットをコミット
       - name: Commit updated snapshots
         if: always()
         run: |
