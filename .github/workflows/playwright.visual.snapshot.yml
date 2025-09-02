@@ -1,5 +1,5 @@
 name: Playwright Visual Snapshot Test
-#testabｃda
+#vstest
 on:
   push:
     branches: [ master ]
