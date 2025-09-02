@@ -1,8 +1,8 @@
 name: Playwright Compare Visual Test
-#test6
+#test7
 on:
   push:
-    branches: [ githubã§playwright ]
+    branches: [ githubでplaywright ]
   pull_request:
   workflow_dispatch:
 
@@ -24,8 +24,9 @@ jobs:
         with:
           node-version: 20
 
-      # ここから変更点
-      # Playwrightテストディレクトリに移動して依存関係をインストール
+      # ---
+
+      ## NodeモジュールとPlaywrightブラウザのキャッシュとインストール
 
       # 1. Nodeモジュールキャッシュ（tests/e2e-tests用）
       - name: Cache e2e-tests node_modules
@@ -55,6 +56,10 @@ jobs:
       # 4. Playwrightブラウザインストール
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
+
+      # ---
+
+      ## テストの実行と結果の処理
 
       # 5. storage state 保存用ディレクトリ作成
       - name: Prepare auth directory
