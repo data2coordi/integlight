@@ -34,8 +34,6 @@ runs:
 
     - name: Install Playwright browsers (skip if cache hit)
       if: steps.cache-playwright.outputs.cache-hit != 'true'
-      env:
-        PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/tests/e2e-tests/.playwright-browsers
       run: npx playwright install --with-deps
       working-directory: tests/e2e-tests
       shell: bash
