@@ -50,13 +50,7 @@ jobs:
         run: npx playwright install --with-deps
         working-directory: tests/e2e-tests
 
-      # デバッグ（ 初回だけ有効化推奨、確認後は削除可）
-      - name: Debug: list playwright browsers dir
-        run: |
-          echo "PLAYWRIGHT_BROWSERS_PATH=$PLAYWRIGHT_BROWSERS_PATH"
-          ls -la tests/e2e-tests/.playwright-browsers || true
-          du -sh tests/e2e-tests/.playwright-browsers || true
-
+      
       # 3. auth ディレクトリ作成
       - name: Prepare auth directory
         run: mkdir -p playwright/.auth
