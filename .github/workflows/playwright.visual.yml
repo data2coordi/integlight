@@ -54,7 +54,6 @@ jobs:
       # 4. Playwrightブラウザインストール
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
-        working-directory: tests/e2e-testsm ci
         working-directory: tests/e2e-tests
 
       # 3. Playwrightブラウザキャッシュ
