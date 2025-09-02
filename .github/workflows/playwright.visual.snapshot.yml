@@ -63,7 +63,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /var/cache/apt/archives
-          key: ${{ runner.os }}-apt-${{ hashFiles('tests/e2e-tests/package-lock.json') }}
+          key: ${{ runner.os }}-apt-fonts-noto-cjk
           restore-keys: |
             ${{ runner.os }}-apt-
 
