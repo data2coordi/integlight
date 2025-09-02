@@ -2,7 +2,7 @@ name: Playwright Visual Snapshot Test
 #testabｃda
 on:
   push:
-    branches: [ githubでplaywright ]
+    branches: [ master ]
   pull_request:
   workflow_dispatch:
 
