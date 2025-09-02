@@ -1,4 +1,4 @@
-name: Playwright Visual Test
+name: Playwright Compare Visual Test
 
 on:
   push:
@@ -77,3 +77,14 @@ jobs:
           name: playwright-artifacts
           path: |
             tests/e2e-tests/test-results/
+
+      # 11. テスト結果をコミット
+      - name: Commit updated test result
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add tests/e2e-tests/test-results
+          git commit -m "Update test result [ci skip]" || echo "No changes to commit"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

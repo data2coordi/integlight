@@ -2,7 +2,6 @@ vendor/
 from_other/
 bk/
 node_modules/
-tests/e2e-tests/test-results/
 tests/e2e-tests/e2e_backups/
 tests/e2e-tests/e2e_backups_pf/
 tests/e2e-tests/playwright/.auth/
