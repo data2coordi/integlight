@@ -1,8 +1,8 @@
 name: Playwright Compare Visual Test
-#test4
+#test5
 on:
   push:
-    branches: [ githubでplaywright ]
+    branches: [ githubã§playwright ]
   pull_request:
   workflow_dispatch:
 
@@ -16,60 +16,62 @@ jobs:
       WP_ADMIN_PASSWORD: ${{ secrets.WP_ADMIN_PASSWORD }}
 
     steps:
-      # 1. リポジトリチェックアウト
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2. Node.js セットアップ
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 20
 
-      # 3. Node モジュールキャッシュ
-      - name: Cache node_modules
+      # ここから変更点
+      # Playwrightテストディレクトリに移動して依存関係をインストール
+
+      # 1. Nodeモジュールキャッシュ（tests/e2e-tests用）
+      - name: Cache e2e-tests node_modules
+        id: cache-e2e
         uses: actions/cache@v3
         with:
-          path: |
-            ~/.npm
-            node_modules
-          key: ${{ runner.os }}-node}
+          path: tests/e2e-tests/node_modules
+          key: ${{ runner.os }}-e2e-node-${{ hashFiles('tests/e2e-tests/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-e2e-node-
 
-      # 4. 依存パッケージインストール（キャッシュがなければ）
-      - name: Install dependencies
+      # 2. 依存関係のインストール（tests/e2e-tests用）
+      - name: Install e2e-test dependencies
+        if: steps.cache-e2e.outputs.cache-hit != 'true'
         run: npm ci
+        working-directory: tests/e2e-tests
 
-      # 5. Playwright ブラウザキャッシュ
+      # 3. Playwrightブラウザキャッシュ
       - name: Cache Playwright browsers
         uses: actions/cache@v3
         with:
           path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright}
+          key: ${{ runner.os }}-playwright-${{ hashFiles('tests/e2e-tests/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-playwright-
 
-      # 6. Playwright ブラウザインストール（キャッシュがなければ）
+      # 4. Playwrightブラウザインストール
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-      # 7. storage state 保存用ディレクトリ作成
+      # 5. storage state 保存用ディレクトリ作成
       - name: Prepare auth directory
         run: mkdir -p playwright/.auth
         working-directory: tests/e2e-tests
 
-      # 8. 認証用 setup プロジェクト実行
+      # 6. 認証用セットアッププロジェクト実行
       - name: Run Playwright auth setup
         run: npx playwright test --project=setup --config=playwright.config.js
         working-directory: tests/e2e-tests
 
-      # 9. visual テスト実行
+      # 7. visualテスト実行
       - name: Run Playwright visual tests
         run: npx playwright test --project=visual --config=playwright.config.js
         working-directory: tests/e2e-tests
 
-       # 10. テスト結果・スクリーンショットをアーティファクトとして保存
+      # 8. テスト結果・スクリーンショットをアーティファクトとして保存
       - name: Upload test artifacts
         if: always()
         uses: actions/upload-artifact@v4
@@ -78,7 +80,7 @@ jobs:
           path: |
             tests/e2e-tests/test-results/
 
-      # 11. テスト結果をコミット
+      # 9. テスト結果をコミット
       - name: Commit updated test result
         if: always()
         run: |
