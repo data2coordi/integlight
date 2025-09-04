@@ -12,7 +12,7 @@ MAX_RETRY=200   # 最大リトライ回数
 COMMIT_MSG="${1:-vtest}"
 
 # ===== 1. コミット =====
-git add .
+
 git commit -m "$COMMIT_MSG  $(date '+%Y-%m-%d %H:%M:%S')" --allow-empty
 
 # ===== 2. プッシュ =====
