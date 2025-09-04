@@ -12,7 +12,7 @@ MAX_RETRY=200   # 最大リトライ回数
 
 # ===== 1. コミット =====
 git add .
-git commit -m "vtest $(date '+%Y-%m-%d %H:%M:%S')"
+git commit -m "vtest $(date '+%Y-%m-%d %H:%M:%S')" --allow-empty
 
 # ===== 2. プッシュ =====
 git push origin $BRANCH
