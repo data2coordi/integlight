@@ -213,7 +213,7 @@ function add_label_to_wp_block_search($block_content, $block)
         return $block_content;
     }
 
-    $label = '<label for="wp-block-search__input-1" class="screen-reader-text">検索</label>';
+    $label = '<label for="wp-block-search__input-1" class="screen-reader-text">search</label>';
 
     $block_content = preg_replace(
         '/(<input[^>]*id="wp-block-search__input-1"[^>]*>)/',
