@@ -9,10 +9,11 @@ clear
 BRANCH="master"  # ブランチ名
 WAIT_SEC=6     # リトライ間隔（秒）
 MAX_RETRY=200   # 最大リトライ回数
+COMMIT_MSG="${1:-vtest}"
 
 # ===== 1. コミット =====
 git add .
-git commit -m "vtest $(date '+%Y-%m-%d %H:%M:%S')" --allow-empty
+git commit -m "$COMMIT_MSG  $(date '+%Y-%m-%d %H:%M:%S')" --allow-empty
 
 # ===== 2. プッシュ =====
 git push origin $BRANCH
