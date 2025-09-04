@@ -34,7 +34,7 @@ jobs:
 
       # 5. Visual テスト
       - name: Run Playwright visual tests
-        run: npx playwright test --project=visual --config=playwright.config.js | tee tests/e2e-tests/test-results/test_log.txt
+        run: npx playwright test --project=visual --config=playwright.config.js 2>&1 | tee tests/e2e-tests/test-results/test_log.txt
         working-directory: tests/e2e-tests
 
       # 6. テスト結果保存
