@@ -1,29 +1,43 @@
-    #sudo rm test-results/ -rf
-#sudo rm tests/visual.spec.js-snapshots/ -rf
+#!/bin/bash
 
 
 clear
 ./integlight_backup.sh restore
-sudo -E docker compose -f docker-compose.visual.yml up
 
 
+# ===== ユーザー設定 =====
+BRANCH="master"  # ブランチ名
+WAIT_SEC=6     # リトライ間隔（秒）
+MAX_RETRY=200   # 最大リトライ回数
 
+# ===== 1. コミット =====
+git add .
+git commit -m "vtest $(date '+%Y-%m-%d %H:%M:%S')"
 
-exit
+# ===== 2. プッシュ =====
+git push origin $BRANCH
 
+# ===== 3. アクションの commit を待つ =====
+echo "GitHub Actions の commit を待っています..."
 
+LOCAL_HASH=$(git rev-parse $BRANCH)
+RETRY=0
 
+while [ $RETRY -lt $MAX_RETRY ]; do
+    git fetch origin $BRANCH
+    REMOTE_HASH=$(git rev-parse origin/$BRANCH)
 
-## 削除
-sudo rm test-results/ -rf
-sudo rm test.spec.js-snapshots/ -rf
+    if [ "$LOCAL_HASH" != "$REMOTE_HASH" ]; then
+        echo "新しい commit が検出されました"
+        # ===== 4. pull =====
+        git pull origin $BRANCH
+        exit 0
+    fi
 
-## build
+    echo "まだ更新なし... ($((RETRY+1))/$MAX_RETRY)"
+    sleep $WAIT_SEC
+    RETRY=$((RETRY+1))
+done
 
-#npm install とRUN npx playwright install でインストールしたものを削除する。これが、ないとdocker-composeでボリュームを指定しているため、installが上書きされる。
-#削除すると、インストールされたものでボリューム側を初期化するのがdocker-composeの仕様
-sudo docker compose -f docker-compose.visual.yml down --volumes --remove-orphans
-#
-sudo docker compose -f docker-compose.visual.yml up --build
-
-
+echo "タイムアウトしました"
+exit 1
