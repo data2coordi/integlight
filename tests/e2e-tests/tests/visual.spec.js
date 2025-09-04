@@ -14,7 +14,7 @@ import {
 
 
 // ======= 設定 =======
-const baseUrl = 'https://wpdev.toshidayurika.com';
+const baseUrl = 'https://wpdev.auroralab-design.com';
 
 const pages = [
   { name: 'home top', url: `${baseUrl}/` },

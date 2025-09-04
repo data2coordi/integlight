@@ -7,8 +7,8 @@ type ScenarioConfig = {
 };
 
 const SCENARIOS: ScenarioConfig[] = [
-    { url: 'https://wpdev.toshidayurika.com/portfolio-all-seasons-improved/', priorityCount: 1, thumbnailImage: true },
-    { url: 'https://wpdev.toshidayurika.com/%e7%94%bb%e5%83%8f%e3%83%86%e3%82%b9%e3%83%88/', priorityCount: 3, thumbnailImage: false },
+    { url: 'https://wpdev.auroralab-design.com/portfolio-all-seasons-improved/', priorityCount: 1, thumbnailImage: true },
+    { url: 'https://wpdev.auroralab-design.com/%e7%94%bb%e5%83%8f%e3%83%86%e3%82%b9%e3%83%88/', priorityCount: 3, thumbnailImage: false },
 ];
 
 // SP / PC の環境定義

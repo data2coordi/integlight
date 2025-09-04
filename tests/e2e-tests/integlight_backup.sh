@@ -3,18 +3,34 @@ set -euo pipefail
 
 # バックアップ格納ディレクトリ
 BACKUP_DIR=./e2e_backups
-UPLOADS_SRC=/home/h95mori/dev_wp_env/html/wp-content/uploads
+# WordPressのuploadsディレクトリのパス
+UPLOADS_SRC=/home/xsaurora/auroralab-design.com/public_html/wpdev.auroralab-design.com/wp-content/uploads
 
-# MySQL 環境変数をコンテナから取得
-MYSQL_ROOT_PW=$(docker compose exec -T db_wpdev printenv MYSQL_ROOT_PASSWORD)
-MYSQL_DB=$(docker compose exec -T db_wpdev printenv MYSQL_DATABASE)
+# MySQL 接続情報
+# Xserverの場合、ホスト名は通常localhost
+MYSQL_HOST="localhost"
+# MySQLの標準ポート
+MYSQL_PORT="3306"
+MYSQL_USER="xsaurora_gdar9"
+MYSQL_ROOT_PW="r9n623ofvv" 
+MYSQL_DB="xsaurora_0kepc"
 
+# uploadsディレクトリの所有者とグループ
+# Xserverのウェブサーバーユーザーは通常`www-data`ですが、
+# 環境によっては異なる場合があります。
+UPLOADS_OWNER="xsaurora" 
+UPLOADS_GROUP="members" 
+
+# バックアップディレクトリを作成
 mkdir -p "$BACKUP_DIR/uploads"
+
+#---
+## バックアップ
+#---
 
 backup_db() {
   echo "[+] Backing up DB ($MYSQL_DB)..."
-  docker compose exec -T db_wpdev \
-    mysqldump -u root -p"$MYSQL_ROOT_PW" "$MYSQL_DB" > "$BACKUP_DIR/wp_db.sql"
+  mysqldump -h "$MYSQL_HOST" -P "$MYSQL_PORT" -u "$MYSQL_USER" -p"$MYSQL_ROOT_PW" "$MYSQL_DB" > "$BACKUP_DIR/wp_db.sql"
 }
 
 backup_uploads() {
@@ -22,22 +38,22 @@ backup_uploads() {
   rsync -a "$UPLOADS_SRC/" "$BACKUP_DIR/uploads/"
 }
 
+#---
+## リストア
+#---
+
 restore_db() {
   echo "[+] Restoring DB ($MYSQL_DB)..."
-  docker compose exec -T db_wpdev \
-    mysql -u root -p"$MYSQL_ROOT_PW" "$MYSQL_DB" < "$BACKUP_DIR/wp_db.sql"
+  mysql -h "$MYSQL_HOST" -P "$MYSQL_PORT" -u "$MYSQL_USER" -p"$MYSQL_ROOT_PW" "$MYSQL_DB" < "$BACKUP_DIR/wp_db.sql"
 }
-
-
 
 restore_uploads() {
   echo "[+] Restoring uploads..."
+  rsync -a --delete "$BACKUP_DIR/uploads/" "$UPLOADS_SRC/"
 
-  sudo rsync -a --no-perms --no-owner --no-group  --delete "$BACKUP_DIR/uploads/" "$UPLOADS_SRC/"
-
-  sudo chown -R 33:tape "$UPLOADS_SRC/"
-  sudo chmod -R g+w "$UPLOADS_SRC/"
-
+  echo "[+] Fixing permissions..."
+  chown -R "$UPLOADS_OWNER":"$UPLOADS_GROUP" "$UPLOADS_SRC/"
+  chmod -R g+w "$UPLOADS_SRC/"
 }
 
 case "${1:-}" in

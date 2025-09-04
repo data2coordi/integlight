@@ -11,7 +11,7 @@ import {
 } from '../utils/common';
 import { useEffect } from 'react';
 // 共通設定
-const BASE_URL = 'https://wpdev.toshidayurika.com';
+const BASE_URL = 'https://wpdev.auroralab-design.com';
 
 // テスト用設定一覧
 const TEST_CONFIGS = {
