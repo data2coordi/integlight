@@ -145,7 +145,7 @@ class template_FooterTemplateTest extends WP_UnitTestCase
         // --- Assert ---
         $this->assertStringContainsString('https://wordpress.org/', $output, 'WordPress credit link not found.');
         $this->assertStringContainsString('Proudly powered by', $output, 'WordPress credit text not found.');
-        $this->assertStringContainsString('https://color.toshidayurika.com/', $output, 'Theme author credit link not found.');
+        $this->assertStringContainsString('https://auroralab-design.com/', $output, 'Theme author credit link not found.');
         $this->assertStringContainsString('Theme: Integlight by', $output, 'Theme credit text not found.');
     }
 
@@ -167,7 +167,7 @@ class template_FooterTemplateTest extends WP_UnitTestCase
         // --- Assert ---
         $this->assertStringNotContainsString('https://wordpress.org/', $output, 'WordPress credit link should not be present.');
         $this->assertStringNotContainsString('Proudly powered by', $output, 'WordPress credit text should not be present.');
-        $this->assertStringNotContainsString('https://color.toshidayurika.com/', $output, 'Theme author credit link should not be present.');
+        $this->assertStringNotContainsString('https://auroralab-design.com/', $output, 'Theme author credit link should not be present.');
         $this->assertStringNotContainsString('Theme: Integlight by', $output, 'Theme credit text should not be present.');
     }
 }

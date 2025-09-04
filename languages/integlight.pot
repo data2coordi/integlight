@@ -22,7 +22,7 @@ msgstr ""
 #. Theme URI of the theme
 #. Author URI of the theme
 #: style.css
-msgid "http://color.toshidayurika.com/"
+msgid "http://auroralab-design.com/"
 msgstr ""
 
 #. Description of the theme

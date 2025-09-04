@@ -24,6 +24,7 @@ jobs:
               "tests/" "tests/*" \
               "tmp/" "tmp/*" \
               "bin/" "bin/*" \
+              "util/" "util/*" \
               "node_modules/" "node_modules/*" \
               "package.json" \
               "package-lock.json" \

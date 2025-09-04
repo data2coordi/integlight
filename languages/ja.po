@@ -32,8 +32,8 @@ msgstr "インテグライト"
 #. Theme URI of the theme
 #. Author URI of the theme
 #: style.css
-msgid "http://color.toshidayurika.com/"
-msgstr "http://color.toshidayurika.com/"
+msgid "http://auroralab-design.com/"
+msgstr "http://auroralab-design.com/"
 
 #. Description of the theme
 #: style.css
