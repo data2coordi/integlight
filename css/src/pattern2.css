@@ -156,6 +156,7 @@ ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
   border:1px solid #fa9301;
 } */
 body .home2 {
+  min-height: 100vh; /* 画面の高さ全体に広げる */
   background: linear-gradient(to right, #e2e2f8 0%, #eeeef9 60%, #eadbe2 100%);
 }
 

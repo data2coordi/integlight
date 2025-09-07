@@ -37,13 +37,13 @@ html,
 body {
   margin: 0;
   /* スクロール抑止防止 */
+  height: 100%;
 }
 
 html {
   height: 100%;
   /* スクロール抑止防止 */
 }
-
 
 h1,
 h2,
@@ -53,9 +53,6 @@ h5,
 h6 {
   clear: both;
 }
-
-
-
 
 /*******************************/
 /* 基本的なフォントサイズの設定 s */
@@ -201,8 +198,6 @@ h1.site-title {
   object-position: center;
 }
 
-
-
 /*******************************/
 /* ページトップの設定 s */
 /*******************************/
@@ -242,7 +237,6 @@ h1.site-title {
 
 /*-------------ページトップの設定 e----------*/
 
-
 @media screen and (max-width: 768px) {
   .navigation.post-navigation .nav-links {
     flex-direction: column;
@@ -252,8 +246,8 @@ h1.site-title {
     width: 100vw;
   }
 
-  .custom-logo~.site-title,
-  .custom-logo~.site-description {
+  .custom-logo ~ .site-title,
+  .custom-logo ~ .site-description {
     margin-top: 0;
   }
 }
@@ -290,7 +284,7 @@ h1.site-title {
   padding: 5px 0px;
 }
 
-li>ul>.cat-item:last-of-type {
+li > ul > .cat-item:last-of-type {
   border-bottom: none;
   /* カテゴリーの二重線をとっている */
 }
@@ -374,7 +368,6 @@ li>ul>.cat-item:last-of-type {
   text-align: center;
 } */
 
-
 .integlight-author-profile-widget img {
   max-width: 120px;
   aspect-ratio: 1 / 1;
@@ -396,7 +389,6 @@ li>ul>.cat-item:last-of-type {
 
 /* プロフィールデザインe */
 /* プロフィールデザイン */
-
 
 /* .widget .wp-block-search__button {
     color: #fff;
@@ -432,7 +424,6 @@ li>ul>.cat-item:last-of-type {
 }
 
 /* 新着記事 e*/
-
 
 /*-------------全幅ブロック----------*/
 /* .wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-colum {
@@ -675,7 +666,6 @@ ul {
     font-size: 0.9rem;
   }
 }
-
 
 /*************************************************************************/
 /*************************************************************************/

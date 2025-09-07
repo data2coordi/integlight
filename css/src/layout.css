@@ -35,7 +35,7 @@
 }
 
 /******メディアとテキスト********/
-.wp-block-media-text>.wp-block-media-text__content {
+.wp-block-media-text > .wp-block-media-text__content {
   padding: 0;
 }
 
@@ -47,8 +47,8 @@
 
 /******テキストに背景色をつけてまとめたとき********/
 .wp-block-group.has-background {
-    padding: 1.25em 2.375em;
-  }
+  padding: 1.25em 2.375em;
+}
 
 /****************************************/
 /**********フッターの調整をしている**********/
@@ -99,7 +99,7 @@
 
 .site-footer {
   width: 100%;
-  margin-top: var(--ly-topMerge);
+  /* margin-top: var(--ly-topMerge); */
   padding-left: var(--ly-widthPadding);
   padding-right: var(--ly-widthPadding);
 }
@@ -193,7 +193,7 @@ label {
   /*
     padding: 1em;
     */
-    line-height: 1.5;
+  line-height: 1.5;
 }
 
 /*************************************************************************/
@@ -246,7 +246,14 @@ label {
     /* スマホで左右にpadding */
   }
 
-  h1, h2, h3, h4, h5, h6, section, article {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  section,
+  article {
     margin-top: calc(var(--ly-elementTopMargin) * 3);
     line-height: 1.5;
   }
@@ -254,17 +261,22 @@ label {
   /******2カラムブロック********/
   .ly_site_content_main .wp-block-columns {
     padding: 15px;
+  }
+
+  /******スマホで行間と改行のスペース********/
+  p,
+  ul,
+  input,
+  textarea,
+  button {
+    margin-top: calc(var(--ly-elementTopMargin) * 2);
+  }
+
+  .entry-content p,
+  .entry-content ul,
+  .entry-content input,
+  .entry-content textarea,
+  .entry-content button {
+    line-height: 2;
+  }
 }
-
-
-/******スマホで行間と改行のスペース********/
-p, ul, input, textarea, button {
-  margin-top: calc(var(--ly-elementTopMargin) * 2);
-}
-
-.entry-content p, .entry-content ul, .entry-content input, .entry-content textarea, .entry-content button {
-  line-height: 2;
-}
-}
-
-
