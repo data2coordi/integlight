@@ -7,8 +7,10 @@
 ************************************************************/
 
 /* 一覧配下のボックスサイズ計算を安定化（余白でのはみ出し防止） */
-.blog .post-grid, .home .post-grid,
-.blog .post-grid * , .home .post-grid * {
+.blog .post-grid,
+.home .post-grid,
+.blog .post-grid *,
+.home .post-grid * {
   box-sizing: border-box;
 }
 
@@ -17,7 +19,10 @@
 .blog .post-grid,
 .home .post-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); /* ★幅が細くなりにくい */
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(360px, 1fr)
+  ); /* ★幅が細くなりにくい */
   gap: clamp(12px, 2vw, 24px);
   padding: clamp(12px, 2vw, 24px);
   width: min(100%, 1200px); /* 1200pxで止めて中央寄せ */
@@ -30,19 +35,21 @@
 .home .grid-item {
   position: relative;
   display: flex;
-  flex-direction: column;                   
+  flex-direction: column;
   justify-content: flex-start;
   background-color: #fff;
   border: 1px solid #d7d7d7;
   overflow: hidden;
-  aspect-ratio: 1 / 1;                      
-  transition: transform .3s ease, box-shadow .3s ease;
+  aspect-ratio: 1 / 1;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .blog .grid-item:hover,
 .home .grid-item:hover {
   transform: translateY(-10px);
-  box-shadow: 0 8px 16px rgba(0,0,0,.2);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 /* ========== 3) サムネイル：カード高の60%を写真に割当 ========== */
@@ -50,7 +57,7 @@
 .blog .post-thumbnail,
 .home .post-thumbnail {
   position: relative;
-  flex: 0 0 60%;                           /* ★全体高の6割を画像枠に */
+  flex: 0 0 60%; /* ★全体高の6割を画像枠に */
   width: 100%;
   overflow: hidden;
 }
@@ -66,14 +73,13 @@
 .blog .post-thumbnail img,
 .home .post-thumbnail img {
   width: 100%;
-  height: auto;              /* ← これで縦方向に伸びすぎ防止 */
-  aspect-ratio: 16 / 9;      /* ← 好きな比率に固定（例: 16:9） */
-  object-fit: cover;         /* ← トリミングして枠に収める */
-  object-position: center;   /* ← 中央を基準に表示 */
-  padding: 13px 12px 0 12px;                /* ← 余分なpaddingは削除 */
-  display: block;            /* ← 隙間防止 */
+  height: auto; /* ← これで縦方向に伸びすぎ防止 */
+  aspect-ratio: 16 / 9; /* ← 好きな比率に固定（例: 16:9） */
+  object-fit: cover; /* ← トリミングして枠に収める */
+  object-position: center; /* ← 中央を基準に表示 */
+  padding: 13px 12px 0 12px; /* ← 余分なpaddingは削除 */
+  display: block; /* ← 隙間防止 */
 }
-
 
 /* ========== 4) タイトル：通常フロー＋2行で省略 ========== */
 .blog .grid-item h2,
@@ -89,7 +95,7 @@
 
   /* ★長文でも崩れないよう2行で省略（だいたい正方形でも安定） */
   display: -webkit-box;
-  -webkit-line-clamp: 2;                   /* 2行でカット */
+  -webkit-line-clamp: 2; /* 2行でカット */
   -webkit-box-orient: vertical;
   overflow: hidden;
   word-break: break-word;
@@ -117,7 +123,7 @@
   flex-direction: column;
   align-items: flex-start;
   padding: 0 5% 5%;
-  margin-top: auto;                         /* ★下にピタッと寄せる鍵 */
+  margin-top: auto; /* ★下にピタッと寄せる鍵 */
   color: #222;
   gap: 4px;
 }
@@ -130,7 +136,7 @@
 .home .post-tags {
   margin: 0;
   padding: 0;
-  white-space: nowrap;                      /* メタは1行でコンパクトに */
+  white-space: nowrap; /* メタは1行でコンパクトに */
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -141,7 +147,7 @@
   position: absolute;
   top: 12px;
   left: 12px;
-  z-index: 2;                               /* 画像より前面 */
+  z-index: 2; /* 画像より前面 */
 }
 
 .blog .post-category p,
@@ -213,9 +219,9 @@
   padding: 10px;
   text-decoration: none;
   box-shadow:
-    inset 2px 2px 6px rgba(255, 255, 255, 0.6),
-    inset -2px -2px 6px rgba(0, 0, 0, 0.05),
-    0 2px 6px rgba(0, 0, 0, 0.08);
+    inset 2px 2px 6px hsla(0, 0%, 100%, 0.6),
+    inset -2px -2px 6px rgba(0, 0, 0, 0.2),
+    0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .home .category-link:hover {
@@ -234,33 +240,30 @@
 /* ===== デスクトップ：常に3列 ===== */
 .blog .post-grid,
 .home .post-grid {
-  grid-template-columns: repeat(3, 1fr);  /* ★ 3列固定 */
-  width: min(100%, 1080px);               /* ★ 1200px→1080pxにしてカードを小ぶりに */
-  margin: 0 auto;                         /* 中央寄せ（念のため明示） */
+  grid-template-columns: repeat(3, 1fr); /* ★ 3列固定 */
+  width: min(100%, 1080px); /* ★ 1200px→1080pxにしてカードを小ぶりに */
+  margin: 0 auto; /* 中央寄せ（念のため明示） */
   /* gap / padding は前のまま clamp でOK。必要ならここで上書きも可 */
   /* gap: 20px; padding: 20px; など */
 }
 
 /* ===== タブレット：2列に落とす（目安 1024px以下） ===== */
-@media (max-width: 1024px){
+@media (max-width: 1024px) {
   .blog .post-grid,
   .home .post-grid {
-    grid-template-columns: repeat(2, 1fr);   /* 2列 */
-    width: min(100%, 820px);                 /* 列幅が太くなりすぎないよう微調整 */
+    grid-template-columns: repeat(2, 1fr); /* 2列 */
+    width: min(100%, 820px); /* 列幅が太くなりすぎないよう微調整 */
   }
 }
 
 /* ===== スマホ：1列（目安 600px以下） ===== */
-@media (max-width: 600px){
+@media (max-width: 600px) {
   .blog .post-grid,
   .home .post-grid {
-    grid-template-columns: 1fr;              /* 1列 */
-    width: 100%;                              /* 端まで使う */
+    grid-template-columns: 1fr; /* 1列 */
+    width: 100%; /* 端まで使う */
   }
 }
-
-
-
 
 @media screen and (max-width: 768px) {
   .home .category-list {
@@ -277,12 +280,9 @@
   }
 }
 
-
-
 /***********************************************/
 /*先頭のカテゴリ一覧e*/
 /***********************************************/
-
 
 /************************************************************/
 /* ページネーション @@@***************************************************/

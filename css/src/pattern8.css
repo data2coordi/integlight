@@ -26,20 +26,19 @@ a:focus-visible,
 }
 
 .integlight_pt button {
-  background: #1D4B69;
+  background: #1d4b69;
 }
 
-
 .integlight_pt .pagetop {
-  background: #1D4B69;
+  background: #1d4b69;
 }
 
 .integlight_pt p.head {
-  background: #1D4B69;
+  background: #1d4b69;
 }
 
 .integlight_pt h2::after {
-  background: #1D4B69;
+  background: #1d4b69;
 }
 
 .integlight_pt h3::after {
@@ -55,7 +54,7 @@ a:focus-visible,
 .integlight_pt input[type="button"],
 .integlight_pt input[type="reset"],
 .integlight_pt input[type="submit"] {
-  background: #1D4B69;
+  background: #1d4b69;
   color: #fff;
 }
 
@@ -63,7 +62,7 @@ a:focus-visible,
 
 /************ボタンアニメーション**********/
 .wp-block-button__link,
-.wp-block-buttons>.wp-block-button.has-custom-width .wp-block-button__link {
+.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link {
   border: 1px solid #555;
   background-color: #fff;
   /* 非ホバー時は白背景 */
@@ -74,15 +73,21 @@ a:focus-visible,
 
 .wp-block-button__link:hover,
 .wp-block-button__link:active,
-.wp-block-buttons>.wp-block-button.has-custom-width .wp-block-button__link:hover,
-.wp-block-buttons>.wp-block-button.has-custom-width .wp-block-button__link:active {
+.wp-block-buttons
+  > .wp-block-button.has-custom-width
+  .wp-block-button__link:hover,
+.wp-block-buttons
+  > .wp-block-button.has-custom-width
+  .wp-block-button__link:active {
   color: #fff !important;
   /* ホバー時は白テキスト */
 }
 
 .wp-block-button__link::before,
-.wp-block-buttons>.wp-block-button.has-custom-width .wp-block-button__link::before {
-  background: #1D4B69;
+.wp-block-buttons
+  > .wp-block-button.has-custom-width
+  .wp-block-button__link::before {
+  background: #1d4b69;
 }
 
 #page-top:hover {
@@ -115,9 +120,8 @@ a:focus-visible,
   background: #f4faca;
 }
 
-
 .site-footer {
-  background-color: #94A1A9;
+  background-color: #94a1a9;
   color: #000;
 }
 
@@ -127,31 +131,23 @@ a:focus-visible,
 }
 
 .site-header {
-  background-color: #94A1A9;
-  background-image: linear-gradient(to bottom,
-      #1D4B69 0 8px,
-      #f4faca 8px 11px);
+  background-color: #94a1a9;
+  background-image: linear-gradient(to bottom, #1d4b69 0 8px, #f4faca 8px 11px);
 }
 
-
-
-ul.menu>li.menu-item-has-children>ul.sub-menu,
-ul.menu li ul.sub-menu li.menu-item-has-children>ul.sub-menu {
-  background-color: #94A1A9;
+ul.menu > li.menu-item-has-children > ul.sub-menu,
+ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
+  background-color: #94a1a9;
 }
 
 /**************フォントオーサムのホバーした時の色を変えているs***************/
 /**************フォントオーサムのホバーした時の色を変えているs***************/
 /**************フォントオーサムのホバーした時の色を変えているs***************/
-.main-navigation li.menu-item-has-children>a:hover::after {
-
-  background-color: #1D4B69;
-
-
+.main-navigation li.menu-item-has-children > a:hover::after {
+  background-color: #1d4b69;
 }
 
 /**************アイコンのホバーした時の色を変えているe***************/
-
 
 /************ home2ボタン **************/
 /************ home2ボタン **************/
@@ -164,14 +160,18 @@ ul.menu li ul.sub-menu li.menu-item-has-children>ul.sub-menu {
   border:1px solid #fa9301;
 } */
 
+body.home {
+  background: linear-gradient(to right, #bccfdc 0%, #cfd5dc 50%, #f7f9eb 100%);
+}
+
 .home #load-more:focus-visible,
 .home #load-more:hover,
 .home .load-more-cat:focus-visible,
 .home .load-more-cat:hover,
 .home .integlight_pt button#load-more:focus-visible,
 .home .integlight_pt button#load-more:hover {
-  background: #1D4B69;
-  border: 1px solid #1D4B69;
+  background: #1d4b69;
+  border: 1px solid #1d4b69;
   color: #fff;
 }
 
@@ -179,20 +179,20 @@ ul.menu li ul.sub-menu li.menu-item-has-children>ul.sub-menu {
 /************ home2ボタン **************/
 /************ home2ボタン **************/
 
-
 /************ home2カテゴリタグs **************/
 /************ home2カテゴリタグs **************/
 /************ home2カテゴリタグs **************/
 /************ home2カテゴリタグs **************/
 /************ home2カテゴリタグs **************/
-/* .blog .post-category p, .home .post-category p {
-  background: #75eab0;
-} */
+.blog .post-category p,
+.home .post-category p {
+  background: #1d4b69;
+}
 /************ home2カテゴリタグe **************/
 /************ home2カテゴリタグe **************/
 /************ home2カテゴリタグe **************/
 @media screen and (max-width: 768px) {
   .menuToggle-containerForMenu {
-    background: #94A1A9;
+    background: #94a1a9;
   }
 }

@@ -28,7 +28,6 @@ a:focus-visible,
   background-color: #008554;
 }
 
-
 .integlight_pt .pagetop {
   background-color: #008554;
 }
@@ -64,22 +63,26 @@ a:focus-visible,
   border: 1px solid #555;
   background-color: #fff; /* 非ホバー時は白背景 */
   color: #555; /* 非ホバー時は濃いテキスト色 */
-  /* border-radius: inherit; */ 
+  /* border-radius: inherit; */
 }
 
 .wp-block-button__link:hover,
 .wp-block-button__link:active,
-.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link:hover,
-.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link:active {
+.wp-block-buttons
+  > .wp-block-button.has-custom-width
+  .wp-block-button__link:hover,
+.wp-block-buttons
+  > .wp-block-button.has-custom-width
+  .wp-block-button__link:active {
   color: #fff !important; /* ホバー時は白テキスト */
 }
 
 .wp-block-button__link::before,
-.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link::before {
+.wp-block-buttons
+  > .wp-block-button.has-custom-width
+  .wp-block-button__link::before {
   background-color: #008554;
-  
 }
-
 
 #page-top:hover {
   background: #ea5404;
@@ -89,10 +92,14 @@ a:focus-visible,
 
 #page-top {
   border: 1px solid #ea5404;
-  color: #ea5404; 
+  color: #ea5404;
 }
 
-.posted-on a, .byline a, .cat-links a, .edit-link a, .tags-links a {
+.posted-on a,
+.byline a,
+.cat-links a,
+.edit-link a,
+.tags-links a {
   color: #b84405;
 }
 
@@ -106,7 +113,6 @@ a:focus-visible,
 .home .category-link {
   background: #c5dcd4;
 }
-
 
 .site-footer {
   background-color: #1e1b2a;
@@ -123,14 +129,8 @@ a:focus-visible,
 
 .site-header {
   background-color: #1e1b2a;
-  background-image: linear-gradient(to bottom,
-  #008554 0 8px,
-  #ea5404 8px 11px
-  );
+  background-image: linear-gradient(to bottom, #008554 0 8px, #ea5404 8px 11px);
 }
-
-
-
 
 ul.menu > li.menu-item-has-children > ul.sub-menu,
 ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
@@ -140,10 +140,8 @@ ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
 /**************フォントオーサムのホバーした時の色を変えているs***************/
 /**************フォントオーサムのホバーした時の色を変えているs***************/
 /**************フォントオーサムのホバーした時の色を変えているs***************/
-.main-navigation li.menu-item-has-children>a:hover::after {
-
+.main-navigation li.menu-item-has-children > a:hover::after {
   background-color: #ea5404;
-
 }
 /**************フォントオーサムのホバーした時の色を変えているe***************/
 /************ home2ボタン **************/
@@ -157,7 +155,16 @@ ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
   border:1px solid #fa9301;
 } */
 
-.home #load-more:focus-visible, .home #load-more:hover, .home .load-more-cat:focus-visible, .home .load-more-cat:hover, .home .integlight_pt button#load-more:focus-visible,.home .integlight_pt button#load-more:hover {
+body.home {
+  background: linear-gradient(to right, #7ca999 0%, #a6c9bd 60%, #f3bda0 100%);
+}
+
+.home #load-more:focus-visible,
+.home #load-more:hover,
+.home .load-more-cat:focus-visible,
+.home .load-more-cat:hover,
+.home .integlight_pt button#load-more:focus-visible,
+.home .integlight_pt button#load-more:hover {
   background: #008554;
   border: 1px solid #008554;
   color: #fff;
@@ -166,19 +173,18 @@ ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
 /************ home2ボタン **************/
 /************ home2ボタン **************/
 
-
 /************ home2カテゴリタグs **************/
 /************ home2カテゴリタグs **************/
 /************ home2カテゴリタグs **************/
 /************ home2カテゴリタグs **************/
 /************ home2カテゴリタグs **************/
-/* .blog .post-category p, .home .post-category p {
-  background: #75eab0;
-} */
+.blog .post-category p,
+.home .post-category p {
+  background: #008554;
+}
 /************ home2カテゴリタグe **************/
 /************ home2カテゴリタグe **************/
 /************ home2カテゴリタグe **************/
-
 
 @media screen and (max-width: 768px) {
   .menuToggle-containerForMenu {
