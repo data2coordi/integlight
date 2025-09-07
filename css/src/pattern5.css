@@ -111,7 +111,7 @@ a:focus-visible,
 
 /* homeのカテゴリーの色 */
 .blog .category-link,
-.home .category-link {
+.home1 .category-link {
   background: #f3dede;
 }
 
@@ -155,16 +155,16 @@ ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
   border:1px solid #fa9301;
 } */
 
-body.home {
+body .home2 {
   background: linear-gradient(to right, #d3adcf 0%, #c3bac1 60%, #8b97a4 100%);
 }
 
-.home #load-more:focus-visible,
-.home #load-more:hover,
-.home .load-more-cat:focus-visible,
-.home .load-more-cat:hover,
-.home .integlight_pt button#load-more:focus-visible,
-.home .integlight_pt button#load-more:hover {
+.home2 #load-more:focus-visible,
+.home2 #load-more:hover,
+.home2 .load-more-cat:focus-visible,
+.home2 .load-more-cat:hover,
+.home2 .integlight_pt button#load-more:focus-visible,
+.home2 .integlight_pt button#load-more:hover {
   background: #ba85a7;
   border: 1px solid #ba85a7;
   color: #fff;
@@ -179,7 +179,7 @@ body.home {
 /************ home2カテゴリタグs **************/
 /************ home2カテゴリタグs **************/
 .blog .post-category p,
-.home .post-category p {
+.home2 .post-category p {
   background: #9b7091;
 }
 /************ home2カテゴリタグe **************/

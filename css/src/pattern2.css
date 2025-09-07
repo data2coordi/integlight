@@ -150,21 +150,21 @@ ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
 /************ home2ボタン **************/
 /************ home2ボタン **************/
 /************ home2ボタンs **************/
-/* .home button#load-more, .home button#load-more, .home button.load-more-cat, .home button.load-more-cat, .home .integlight_pt button#load-more,.home .integlight_pt button#load-more {
+/* .home2 button#load-more, .home2 button#load-more, .home2 button.load-more-cat, .home2 button.load-more-cat, .home2 .integlight_pt button#load-more,.home2 .integlight_pt button#load-more {
   color:#fa9301;                 
   background:#fff;
   border:1px solid #fa9301;
 } */
-body.home {
+body .home2 {
   background: linear-gradient(to right, #e2e2f8 0%, #eeeef9 60%, #eadbe2 100%);
 }
 
-.home #load-more:focus-visible,
-.home #load-more:hover,
-.home .load-more-cat:focus-visible,
-.home .load-more-cat:hover,
-.home .integlight_pt button#load-more:focus-visible,
-.home .integlight_pt button#load-more:hover {
+.home2 #load-more:focus-visible,
+.home2 #load-more:hover,
+.home2 .load-more-cat:focus-visible,
+.home2 .load-more-cat:hover,
+.home2 .integlight_pt button#load-more:focus-visible,
+.home2 .integlight_pt button#load-more:hover {
   background: #0000ff;
   border: 1px solid #0000ff;
   color: #fff;
@@ -178,8 +178,8 @@ body.home {
 /************ home2カテゴリタグs **************/
 /************ home2カテゴリタグs **************/
 /************ home2カテゴリタグs **************/
-.blog .post-category p,
-.home .post-category p {
+
+.home2 .post-category p {
   background: #0000ff;
 }
 /************ home2カテゴリタグe **************/

@@ -2,7 +2,6 @@
   background-color: #555;
 } */
 
-
 /* タブフォーカスのスタイル */
 a:focus,
 .wp-block-button__link:focus {
@@ -26,11 +25,9 @@ a:focus-visible,
   outline: 2px solid #c9c9c9;
 }
 
-
 .integlight_pt button {
   background-color: #555;
 }
-
 
 .integlight_pt .pagetop {
   background-color: #555;
@@ -68,7 +65,7 @@ a:focus-visible,
 
 /************ボタンアニメーション**********/
 .wp-block-button__link,
-.wp-block-buttons>.wp-block-button.has-custom-width .wp-block-button__link {
+.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link {
   border: 1px solid #555;
   background-color: #fff;
   /* 非ホバー時は白背景 */
@@ -79,18 +76,22 @@ a:focus-visible,
 
 .wp-block-button__link:hover,
 .wp-block-button__link:active,
-.wp-block-buttons>.wp-block-button.has-custom-width .wp-block-button__link:hover,
-.wp-block-buttons>.wp-block-button.has-custom-width .wp-block-button__link:active {
+.wp-block-buttons
+  > .wp-block-button.has-custom-width
+  .wp-block-button__link:hover,
+.wp-block-buttons
+  > .wp-block-button.has-custom-width
+  .wp-block-button__link:active {
   color: #fff !important;
   /* ホバー時は白テキスト */
 }
 
 .wp-block-button__link::before,
-.wp-block-buttons>.wp-block-button.has-custom-width .wp-block-button__link::before {
-
+.wp-block-buttons
+  > .wp-block-button.has-custom-width
+  .wp-block-button__link::before {
   background-color: #555;
 }
-
 
 #page-top:hover {
   background: #555;
@@ -121,9 +122,7 @@ a:focus-visible,
 
 .site-header {
   background-color: #000;
-  background-image: linear-gradient(to bottom,
-      #555 0 8px,
-      #eee 8px 11px);
+  background-image: linear-gradient(to bottom, #555 0 8px, #eee 8px 11px);
 }
 
 /************ home2ボタン **************/
@@ -131,18 +130,18 @@ a:focus-visible,
 /************ home2ボタン **************/
 /************ home2ボタン **************/
 /************ home2ボタンs **************/
-/* .home button#load-more, .home button#load-more, .home button.load-more-cat, .home button.load-more-cat, .home .integlight_pt button#load-more,.home .integlight_pt button#load-more {
+/* .home2 button#load-more, .home2 button#load-more, .home2 button.load-more-cat, .home2 button.load-more-cat, .home2 .integlight_pt button#load-more,.home2 .integlight_pt button#load-more {
   color:#fa9301;                 
   background:#fff;
   border:1px solid #fa9301;
 } */
 
-.home #load-more:focus-visible,
-.home #load-more:hover,
-.home .load-more-cat:focus-visible,
-.home .load-more-cat:hover,
-.home .integlight_pt button#load-more:focus-visible,
-.home .integlight_pt button#load-more:hover {
+.home2 #load-more:focus-visible,
+.home2 #load-more:hover,
+.home2 .load-more-cat:focus-visible,
+.home2 .load-more-cat:hover,
+.home2 .integlight_pt button#load-more:focus-visible,
+.home2 .integlight_pt button#load-more:hover {
   background: #555;
   border: 1px solid #555;
   color: #fff;
@@ -152,15 +151,15 @@ a:focus-visible,
 /************ home2ボタン **************/
 /************ home2ボタン **************/
 
+/************ home2カテゴリタグs **************/
+/************ home2カテゴリタグs **************/
+/************ home2カテゴリタグs **************/
+/************ home2カテゴリタグs **************/
+/************ home2カテゴリタグs **************/
 
-/************ home2カテゴリタグs **************/
-/************ home2カテゴリタグs **************/
-/************ home2カテゴリタグs **************/
-/************ home2カテゴリタグs **************/
-/************ home2カテゴリタグs **************/
-/* .blog .post-category p, .home .post-category p {
-  background: #75eab0;
-} */
+.home2 .post-category p {
+  background: #555;
+}
 /************ home2カテゴリタグe **************/
 /************ home2カテゴリタグe **************/
 /************ home2カテゴリタグe **************/
@@ -169,11 +168,8 @@ a:focus-visible,
 /**************フォントオーサムのホバーした時の色を変えているs***************/
 /**************フォントオーサムのホバーした時の色を変えているs***************/
 
-
-.main-navigation li.menu-item-has-children>a:hover::after {
-
+.main-navigation li.menu-item-has-children > a:hover::after {
   background-color: #555;
-
 }
 
 /**************フォントオーサムのホバーした時の色を変えているe***************/

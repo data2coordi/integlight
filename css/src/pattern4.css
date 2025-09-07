@@ -114,7 +114,7 @@ a:focus-visible,
 
 /* homeのカテゴリーの色 */
 .blog .category-link,
-.home2 .category-link {
+.home1 .category-link {
   background: #fcf0de;
 }
 
@@ -177,7 +177,7 @@ ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
   border:1px solid #fa9301;
 } */
 
-body.home2 {
+body .home2 {
   background: linear-gradient(to right, #f7cf96 0%, #f6ebbf 60%, #b2efd1 100%);
 }
 
