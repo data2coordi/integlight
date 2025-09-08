@@ -9,7 +9,6 @@ $home_type = get_theme_mod('integlight_hometype_setting', 'home1');
 
 <main id="primary" class=<?php echo $home_type; ?>>
 
-    >
     <?php
 
     $cache = new Integlight_Cache_TemplatePart();
