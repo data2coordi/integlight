@@ -84,6 +84,12 @@ a:focus-visible,
   background: #0000ff;
 }
 
+/************ページトップ*************/
+/************ページトップ*************/
+/************ページトップ*************/
+/************ページトップ*************/
+/************ページトップs*************/
+
 #page-top:hover {
   background: #c14f7e;
   border: #c14f7e;
@@ -92,8 +98,22 @@ a:focus-visible,
 
 #page-top {
   border: 1px solid #c14f7e;
+  background-color: #fff;
   color: #c14f7e;
 }
+
+#page-top::before {
+  background-image: none !important;
+  background-color: #c14f7e !important; /* 通常時の色 */
+}
+
+#page-top:hover::before {
+  background-image: none !important;
+  background-color: #fff !important; /* ホバー時は白に */
+}
+/************ページトップe*************/
+/************ページトップ*************/
+/************ページトップ*************/
 
 .posted-on a,
 .byline a,
@@ -157,7 +177,7 @@ ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
 } */
 body .home2 {
   min-height: 100vh; /* 画面の高さ全体に広げる */
-  background: linear-gradient(to right, #e2e2f8 0%, #eeeef9 60%, #eadbe2 100%);
+  background: linear-gradient(to right, #f6f6fd 0%, #f8f8fb 60%, #f0ebed 100%);
 }
 
 .home2 #load-more:focus-visible,

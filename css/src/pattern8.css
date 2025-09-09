@@ -101,6 +101,37 @@ a:focus-visible,
   color: #cfce7e;
 }
 
+/************ページトップ*************/
+/************ページトップ*************/
+/************ページトップ*************/
+/************ページトップ*************/
+/************ページトップs*************/
+
+#page-top:hover {
+  background: #cfce7e;
+  border: #cfce7e;
+  color: #fff;
+}
+
+#page-top {
+  border: 1px solid #cfce7e;
+  background-color: #fff;
+  color: #cfce7e;
+}
+
+#page-top::before {
+  background-image: none !important;
+  background-color: #cfce7e !important; /* 通常時の色 */
+}
+
+#page-top:hover::before {
+  background-image: none !important;
+  background-color: #fff !important; /* ホバー時は白に */
+}
+/************ページトップe*************/
+/************ページトップ*************/
+/************ページトップ*************/
+
 .posted-on a,
 .byline a,
 .cat-links a,

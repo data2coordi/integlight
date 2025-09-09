@@ -86,6 +86,12 @@ a:focus-visible,
   background: #f936a8;
 }
 
+/************ページトップ*************/
+/************ページトップ*************/
+/************ページトップ*************/
+/************ページトップ*************/
+/************ページトップs*************/
+
 #page-top:hover {
   background: #49c1d1;
   border: #49c1d1;
@@ -94,8 +100,22 @@ a:focus-visible,
 
 #page-top {
   border: 1px solid #49c1d1;
+  background-color: #fff;
   color: #49c1d1;
 }
+
+#page-top::before {
+  background-image: none !important;
+  background-color: #49c1d1 !important; /* 通常時の色 */
+}
+
+#page-top:hover::before {
+  background-image: none !important;
+  background-color: #fff !important; /* ホバー時は白に */
+}
+/************ページトップe*************/
+/************ページトップ*************/
+/************ページトップ*************/
 
 .posted-on a,
 .byline a,
@@ -159,7 +179,7 @@ ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
 } */
 
 body .home2 {
-  background: linear-gradient(to right, #fde7f3 0%, #fbeefb 60%, #bcbac5 100%);
+  background: linear-gradient(to right, #fcf2f8 0%, #fef8fe 60%, #e2f0f2 100%);
 }
 
 .home2 #load-more:focus-visible,
@@ -183,7 +203,7 @@ body .home2 {
 /************ home2カテゴリタグs **************/
 
 .home2 .post-category p {
-  background: #75eab0;
+  background: #f936a8;
 }
 /************ home2カテゴリタグe **************/
 /************ home2カテゴリタグe **************/

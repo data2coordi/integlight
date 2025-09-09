@@ -208,19 +208,39 @@ h1.site-title {
   width: 50px;
   height: 50px;
   background: #fff;
-  color: #333;
   border: 1px solid #333;
-  text-align: center;
-  line-height: 50px;
   border-radius: 50%;
-  font-size: 20px;
-  text-decoration: none;
-  opacity: 1;
-  /* 初期は非表示 */
-  transition: opacity 0.3s ease;
-  /* スムーズな表示切替 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
   z-index: 9999;
-  /* 他の要素に隠れないように最前面 */
+  transition: opacity 0.3s ease;
+}
+
+/* 矢印（通常は黒） */
+#page-top::before {
+  content: "";
+  width: 15px;
+  height: 15px;
+
+  /* 旧ルールの背景画像を無効化（ここがポイント） */
+  background: none !important;
+  background-image: none !important;
+
+  /* マスクで色を塗る */
+  background-color: #111; /* 矢印の色（通常） */
+  -webkit-mask: url("/wp-content/themes/integlight/assets/rightarrow.svg")
+    no-repeat center / contain;
+  mask: url("/wp-content/themes/integlight/assets/rightarrow.svg") no-repeat
+    center / contain;
+
+  transform: rotate(-90deg); /* 上向きに */
+  display: block;
+}
+
+#page-top:hover::before {
+  color: #fff; /* ホバーしたとき矢印の色 */
 }
 
 #page-top:hover {

@@ -85,6 +85,12 @@ a:focus-visible,
   background-color: #9b7091;
 }
 
+/************ページトップ*************/
+/************ページトップ*************/
+/************ページトップ*************/
+/************ページトップ*************/
+/************ページトップs*************/
+
 #page-top:hover {
   background: #424e5c;
   border: #424e5c;
@@ -93,8 +99,22 @@ a:focus-visible,
 
 #page-top {
   border: 1px solid #424e5c;
+  background-color: #fff;
   color: #424e5c;
 }
+
+#page-top::before {
+  background-image: none !important;
+  background-color: #424e5c !important; /* 通常時の色 */
+}
+
+#page-top:hover::before {
+  background-image: none !important;
+  background-color: #fff !important; /* ホバー時は白に */
+}
+/************ページトップe*************/
+/************ページトップ*************/
+/************ページトップ*************/
 
 .posted-on a,
 .byline a,
