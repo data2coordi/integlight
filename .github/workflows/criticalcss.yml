@@ -53,6 +53,8 @@ jobs:
               css/src/page.css \
               css/src/post.css \
               css/src/svg-non-home.css \
+              ../../plugins/aurora-design-blocks/css/src/aurora-design.css
+              ../../plugins/aurora-design-blocks/css/src/module.css
               https://wpdev.auroralab-design.com/wp-includes/css/dist/block-library/style.min.css
 
       - name: Commit and Push changes
