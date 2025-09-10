@@ -176,12 +176,12 @@ ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
 } */
 
 body .home2 {
-  background: linear-gradient(
-    to right,
-    rgb(151, 153, 150) 0%,
-    #f1eedb 60%,
-    #c2bbb4 100%
-  );
+  background: /* 上から白に近づくグラデーション */ linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0) 30%
+    ),
+    linear-gradient(to right, rgb(151, 153, 150) 0%, #f1eedb 60%, #c2bbb4 100%);
 }
 
 .home2 #load-more:focus-visible,
