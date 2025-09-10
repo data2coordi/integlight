@@ -46,16 +46,69 @@ class InteglightDeferCss
 	 * @param string $handle スタイルのハンドル名
 	 * @return string 修正後のタグ
 	 */
+	// public static function defer_css($tag, $handle)
+	// {
+	// 	if (in_array($handle, self::$deferred_styles, true)) {
+	// 		$tag = str_replace("media='all'", "", $tag);
+	// 		return str_replace(
+	// 			"rel='stylesheet'",
+	// 			"rel='stylesheet' media='print' onload=\"this.onload=null;this.media='all';\"",
+	// 			$tag
+	// 		);
+	// 	}
+	// 	return $tag;
+	// }
+
+
+	// public static function defer_css($tag, $handle)
+	// {
+	// 	if (in_array($handle, self::$deferred_styles, true)) {
+	// 		// media='all' を削除
+	// 		$tag = str_replace("media='all'", "", $tag);
+
+	// 		// rel='preload' + onload に変更
+	// 		$tag = str_replace(
+	// 			"rel='stylesheet'",
+	// 			"rel='preload' as='style' onload=\"this.onload=null;this.rel='stylesheet';\"",
+	// 			$tag
+	// 		);
+
+
+	// 		// CSS の URL を取得
+	// 		// $style_url = wp_styles()->registered[$handle]->src ?? '';
+	// 		// if ($style_url) {
+	// 		// 	$tag .= '<noscript><link rel="stylesheet" href="' . esc_url($style_url) . '"></noscript>';
+	// 		// }
+
+	// 		return $tag;
+	// 	}
+	// 	return $tag;
+	// }
+
 	public static function defer_css($tag, $handle)
 	{
 		if (in_array($handle, self::$deferred_styles, true)) {
-			$tag = str_replace("media='all'", "", $tag);
-			return str_replace(
-				"rel='stylesheet'",
-				"rel='stylesheet' media='print' onload=\"this.onload=null;this.media='all';\"",
-				$tag
-			);
+			// スタイルシートのURLを取得
+			$style_url = wp_styles()->registered[$handle]->src ?? '';
+
+			// もしURLが存在すれば、JavaScriptで遅延ロードするスクリプトを生成
+			if ($style_url) {
+				// style-handle には、元のスタイルシートのハンドル名を使用
+				$js_script = "
+<script>
+    (function() {
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = '" . esc_url($style_url) . "';
+        document.head.appendChild(link);
+    })();
+</script>";
+
+				// 元のHTMLタグは出力しない
+				return $js_script;
+			}
 		}
+		// 遅延ロード対象外、またはURLが取得できなかった場合は、元のタグを返す
 		return $tag;
 	}
 }
@@ -85,7 +138,9 @@ class InteglightRegStyles
 			wp_enqueue_style($handle, get_template_directory_uri() . $path, $deps, _INTEGLIGHT_S_VERSION);
 
 			//すべてのcssを遅延にする（クリティカルcss対応）
-			InteglightDeferCss::add_deferred_styles([$handle]);
+			if ($handle != 'integlight-layout') {
+				InteglightDeferCss::add_deferred_styles([$handle]);
+			}
 		}
 	}
 }
