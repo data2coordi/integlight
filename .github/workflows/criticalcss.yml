@@ -3,7 +3,7 @@ name: Generate Critical CSS
 on:
   # push トリガーにする場合はブランチを制御してください
   push:
-    branches: [master]
+    branches: [CSSロード順変更検証用]
 
 jobs:
   build:

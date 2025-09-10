@@ -812,7 +812,7 @@ if (class_exists('Integlight_Cache_Base')) {
         //echo "<style id='critical-css'>{$critical_css}</style>";
     }
 }
-add_action('wp_head', 'aurora_add_critical_css', 1); // 優先度1で早く出 */力
+add_action('wp_head', 'aurora_add_critical_css', 1); // 優先度1で早く出 */
 /********************************************************************/
 /* critical css のロード e 	*/
 /********************************************************************/
