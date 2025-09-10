@@ -9,6 +9,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     if: contains(github.event.head_commit.message, 'criticalcss')
+    strategy:
+      matrix:
+        page:
+          - { url: "/", target: "home2.css" }
+          - { url: "/sidefire-7500man-life-cost/", target: "post.css" }
 
     steps:
       - name: Checkout repository
@@ -24,13 +29,14 @@ jobs:
 
       - name: Generate critical CSS
         run: |
-          base_url="https://wpdev.auroralab-design.com/"
-          npx critical ${base_url} \
+          base_url="https://wpdev.auroralab-design.com${{ matrix.page.url }}"
+          mkdir -p css/critical
+          npx critical $base_url \
             --width 412 \
             --height 823 \
             --inline false \
             --extract false \
-            --target css/critical/home2.css \
+            --target css/critical/${{ matrix.page.target }} \
             --css \
               css/src/base-style.css \
               css/src/front.css \
