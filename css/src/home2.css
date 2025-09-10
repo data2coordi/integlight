@@ -93,12 +93,12 @@
 /*************hタグ*********/
 /*************hタグ*********/
 /*************hタグs*********/
-.home h1,
-.home h2,
-.home h3,
-.home h4,
-.home h5,
-.home h6 {
+.home2 h1,
+.home2 h2,
+.home2 h3,
+.home2 h4,
+.home2 h5,
+.home2 h6 {
   border-bottom: none;
   /* font-family: 'RocknRoll One', sans-serif;
     font-weight: 500; */
@@ -119,7 +119,7 @@ section.latest-posts .grid-item h2 {
 }
 
 /* カード内のh2文字を小さく */
-.home #primary .post-grid .grid-item h2 {
+.home2 #primary .post-grid .grid-item h2 {
   font-size: 1.3rem;
 }
 
@@ -141,12 +141,12 @@ section.latest-posts > h2 {
 }
 
 @media (max-width: 780px) {
-  .home h1,
-  .home h2,
-  .home h3,
-  .home h4,
-  .home h5,
-  .home h6 {
+  .home2 h1,
+  .home2 h2,
+  .home2 h3,
+  .home2 h4,
+  .home2 h5,
+  .home2 h6 {
     padding: 0 16px;
   }
 
@@ -328,9 +328,9 @@ p.site-description {
 }
 
 /* ボタン本体（今の指定をそのまま活かしつつ） */
-.home #load-more,
-.home .load-more-cat,
-.home .integlight_pt button#load-more {
+.home2 #load-more,
+.home2 .load-more-cat,
+.home2 .integlight_pt button#load-more {
   display: flex;
   margin: 40px auto;
   align-items: center;
@@ -397,7 +397,7 @@ p.site-description {
 
 /* ========== 1) カードの基本レイアウト ========== */
 .blog .grid-item,
-.home .grid-item {
+.home2 .grid-item {
   background-color: #fff;
   border: 1px solid #b5b4b4;
   height: clamp(240px, 22vw, 280px);
@@ -408,13 +408,13 @@ p.site-description {
 }
 
 .blog .grid-item:hover,
-.home .grid-item:hover {
+.home2 .grid-item:hover {
   transform: translateY(-10px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .blog .post-grid,
-.home .post-grid,
+.home2 .post-grid,
 .home2 .post-grid {
   display: grid; /* 一覧をCSSグリッドで並べる土台 */
   grid-template-columns: repeat(2, 1fr); /* 2列レイアウト（等幅） */
@@ -425,12 +425,12 @@ p.site-description {
 
 /* 抜粋がテーマ側で非表示でも出す */
 .blog .post-excerpt,
-.home .post-excerpt {
+.home2 .post-excerpt {
   display: block; /* 抜粋を強制的に表示（テーマ側の非表示指定を打ち消し） */
 }
 
 /* カード本体 */
-.home .post-grid .grid-item {
+.home2 .post-grid .grid-item {
   position: relative; /* バッジ等をabsolute配置するための基準に */
   height: 50%; /* カードの高さ（見出し/抜粋/日付が収まる基準値） */
   width: 100%;
@@ -439,7 +439,7 @@ p.site-description {
 }
 
 /* a要素内を「左=画像 / 右=テキスト3段」に */
-.home .post-grid .grid-item > a {
+.home2 .post-grid .grid-item > a {
   display: grid; /* リンク全体をさらに内部グリッド化 */
   grid-template-columns: minmax(220px, 50%) 1fr; /* 左=画像(最小260px〜最大50%) / 右=テキスト */
   /* 左右比率 */
@@ -453,14 +453,14 @@ p.site-description {
 }
 
 /* 画像（左カラム全体） */
-.home .post-grid .grid-item .post-thumbnail {
+.home2 .post-grid .grid-item .post-thumbnail {
   grid-column: 1 / 2; /* 左カラムに配置 */
   grid-row: 1 / -1; /* タイトル〜日付の3行すべてにまたがる（縦いっぱい） */
   height: 100%; /* カードの高さに合わせる */
   overflow: hidden; /* 画像のはみ出しを見切る（トリミング前提） */
 }
 
-.home .post-grid .grid-item .post-thumbnail img {
+.home2 .post-grid .grid-item .post-thumbnail img {
   width: 100%; /* 画像を横いっぱいに */
   height: 100%; /* 画像を縦いっぱいに */
   padding: 0; /* 画像周りの余白をゼロに */
@@ -469,21 +469,21 @@ p.site-description {
 }
 
 /* 右カラム共通（左右余白＆はみ出し防止） */
-.home .post-grid .grid-item > a > h2,
-.home .post-grid .grid-item > a > .post-excerpt,
-.home .post-grid .grid-item > a > .post-meta {
+.home2 .post-grid .grid-item > a > h2,
+.home2 .post-grid .grid-item > a > .post-excerpt,
+.home2 .post-grid .grid-item > a > .post-meta {
   grid-column: 2 / 3; /* 右カラムにまとめる */
   padding: 0 18px; /* 右カラム内の左右余白（読みやすさ） */
   max-width: 100%; /* 親の幅を超えないように制限 */
   min-width: 0; /* グリッド内のはみ出し防止（長い単語対策） */
 }
 
-.home .post-date {
+.home2 .post-date {
   padding-bottom: 12px; /* 日付の下に少し余白（詰まり防止） */
 }
 
 /* タイトル（上段） */
-.home .post-grid .grid-item > a > h2 {
+.home2 .post-grid .grid-item > a > h2 {
   grid-row: 1; /* 1行目：タイトル */
   margin: 0.2rem 0 6px; /* タイトル上下のマージン（上は控えめ） */
   padding-top: 10px; /* 画像との視覚的距離を確保 */
@@ -504,7 +504,7 @@ p.site-description {
 }
 
 /* 抜粋（中段） */
-.home .post-grid .grid-item > a > .post-excerpt {
+.home2 .post-grid .grid-item > a > .post-excerpt {
   grid-row: 2; /* 2行目：抜粋 */
   margin: 0; /* 余白リセット（右カラムの余白に任せる） */
   font-size: 14px; /* 本文よりやや小さめで要約感を出す */
@@ -536,8 +536,8 @@ p.site-description {
   z-index: 2; /* 画像より前面に（被せる） */
 }
 
-/* 2行クランプを“確実に”適用（特に .home/.blog の既存ルールを上書き） */
-.home .post-category p,
+/* 2行クランプを“確実に”適用（特に .home2/.blog の既存ルールを上書き） */
+.home2 .post-category p,
 .blog .post-category p {
   display: -webkit-box; /* ← inline-block を上書き */
   -webkit-box-orient: vertical;
@@ -552,21 +552,21 @@ p.site-description {
 
 /* === homeだけ：grid-auto-rows の行高に中身をきっちり合わせる === */
 
-.home .post-grid .grid-item {
+.home2 .post-grid .grid-item {
   height: 100%; /* マス目（行高）＝カード高 !重要 */
 }
 
 /* プラグインとかでどんな画像が来ても100% */
-.home .post-thumbnail :is(picture, a, figure, div, span) {
+.home2 .post-thumbnail :is(picture, a, figure, div, span) {
   display: block;
   width: 100%;
   height: 100%;
 }
 
 /* テーマが文字をabsoluteにしてた場合の保険（通常フローへ戻す） */
-.home .post-grid .grid-item > a > h2,
-.home .post-grid .grid-item > a > .post-excerpt,
-.home .post-grid .grid-item > a > .post-meta {
+.home2 .post-grid .grid-item > a > h2,
+.home2 .post-grid .grid-item > a > .post-excerpt,
+.home2 .post-grid .grid-item > a > .post-meta {
   position: static;
   inset: auto;
   transform: none;
@@ -575,15 +575,15 @@ p.site-description {
 /* ========== 2) ワイド画面：中央 1200px に揃える ========== */
 
 /* 親の#pageが横並びを作らないよう、トップでは“縦積み”に */
-body.home #page.site {
+body.home2 #page.site {
   /* Devツールで効いた修正の恒久化 */
   display: flex; /* フレックス化して縦積み制御を安定化 */
   flex-direction: column; /* 子要素を縦方向に並べる（横2カラム化の事故防止） */
 }
 
 /* セクション（新着 / トップカテゴリ）の“器”を中央1200pxで統一 */
-body.home .latest-posts,
-body.home .top-categories-posts {
+body.home2 .latest-posts,
+body.home2 .top-categories-posts {
   width: min(1200px, 100%); /* 画面が広くても最大1200pxで止める（読みやすさ） */
   margin-inline: auto; /* 中央寄せ（左右auto） */
   /* padding-inline: 24px; */
@@ -592,8 +592,8 @@ body.home .top-categories-posts {
 }
 
 /* セクション内のグリッドも中央1200pxに収めて左起点で並べる */
-body.home .latest-posts .post-grid,
-body.home .top-categories-posts .post-grid {
+body.home2 .latest-posts .post-grid,
+body.home2 .top-categories-posts .post-grid {
   max-width: 1200px; /* 子グリッドも1200pxで揃える */
   margin-inline: auto; /* セクション内でも中央寄せ */
   justify-content: start; /* 左起点で自然な読み順に（中央起点だとズレやすい） */
@@ -667,7 +667,7 @@ body.home .top-categories-posts .post-grid {
   ========================================================= */
 @media (max-width: 780px) {
   /* ========== 1) 一覧は必ず1カラム ========== */
-  .home .post-grid.post-grid,
+  .home2 .post-grid.post-grid,
   .blog .post-grid.post-grid {
     display: grid; /* 念のためdisplayを明示（テーマ上書き対策） */
     grid-template-columns: 1fr; /* ← 1カラム固定 */
@@ -676,7 +676,7 @@ body.home .top-categories-posts .post-grid {
   }
 
   /* ========== 2) カードは可変高（中身に合わせる） ========== */
-  .home .post-grid .grid-item,
+  .home2 .post-grid .grid-item,
   .blog .post-grid .grid-item {
     width: auto; /* 親幅にフィット */
     max-width: 100%; /* 画面外にはみ出さない */
@@ -684,13 +684,13 @@ body.home .top-categories-posts .post-grid {
   }
 
   /* 内部グリッドを解除して縦積みへ（横レイアウト由来の崩れを防ぐ） */
-  .home .post-grid .grid-item > a,
+  .home2 .post-grid .grid-item > a,
   .blog .post-grid .grid-item > a {
     display: block; /* ★縦に順番通り流す */
   }
 
   /* ========== 3) 画像は回り込み＆固定高を解除、見栄え基準だけ設定 ========== */
-  .home .post-grid .grid-item .post-thumbnail,
+  .home2 .post-grid .grid-item .post-thumbnail,
   .blog .post-grid .grid-item .post-thumbnail {
     float: none; /* 回り込みを完全オフ */
     clear: both; /* 影響をリセット */
@@ -702,7 +702,7 @@ body.home .top-categories-posts .post-grid {
     overflow: hidden;
   }
 
-  .home .post-grid .grid-item .post-thumbnail img,
+  .home2 .post-grid .grid-item .post-thumbnail img,
   .blog .post-grid .grid-item .post-thumbnail img {
     display: block;
     width: 100%;
@@ -711,9 +711,9 @@ body.home .top-categories-posts .post-grid {
   }
 
   /* ========== 4) テキストは通常フローで縦積み & 長文でも崩さない ========== */
-  .home .post-grid .grid-item > a > h2,
-  .home .post-grid .grid-item > a > .post-excerpt,
-  .home .post-grid .grid-item > a > .post-meta,
+  .home2 .post-grid .grid-item > a > h2,
+  .home2 .post-grid .grid-item > a > .post-excerpt,
+  .home2 .post-grid .grid-item > a > .post-meta,
   .blog .post-grid .grid-item > a > h2,
   .blog .post-grid .grid-item > a > .post-excerpt,
   .blog .post-grid .grid-item > a > .post-meta {
@@ -729,7 +729,7 @@ body.home .top-categories-posts .post-grid {
   }
 
   /* タイトル：視認性と省略の下地（必要なら line-clamp をONに） */
-  .home .post-grid .grid-item > a > h2,
+  .home2 .post-grid .grid-item > a > h2,
   .blog .post-grid .grid-item > a > h2 {
     margin-top: 10px;
     margin-bottom: 6px;
@@ -742,13 +742,13 @@ body.home .top-categories-posts .post-grid {
     overflow: hidden;
   }
 
-  .home #primary .post-grid .grid-item h2 {
+  .home2 #primary .post-grid .grid-item h2 {
     font-size: 1.3rem;
     padding: 0;
   }
 
   /* 抜粋：行間広め、必要なら行数制限 */
-  .home .post-grid .grid-item > a > .post-excerpt,
+  .home2 .post-grid .grid-item > a > .post-excerpt,
   .blog .post-grid .grid-item > a > .post-excerpt {
     margin: 0 0 10px;
     padding: 0 16px; /* 行頭をそろえる */
@@ -761,7 +761,7 @@ body.home .top-categories-posts .post-grid {
     overflow: hidden;
   }
 
-  .home .post-grid .grid-item > a > .post-meta,
+  .home2 .post-grid .grid-item > a > .post-meta,
   .blog .post-grid .grid-item > a > .post-meta {
     margin: 6px 0 14px;
     font-size: 13px;
@@ -772,7 +772,7 @@ body.home .top-categories-posts .post-grid {
   }
 
   /* ========== 5) 一覧コンテナの見やすい幅 & 行高の固定は解除 ========== */
-  .home .post-grid,
+  .home2 .post-grid,
   .blog .post-grid {
     max-width: 680px; /* 可読幅の上限 */
     margin-inline: auto; /* 中央寄せ */
@@ -782,7 +782,7 @@ body.home .top-categories-posts .post-grid {
     grid-auto-rows: auto !important; /* ★PCの行固定を解除（テキストが切れない） */
   }
 
-  .home .grid-item h2 {
+  .home2 .grid-item h2 {
     width: 90%; /* 行幅をやや絞って読みやすく */
   }
 }
