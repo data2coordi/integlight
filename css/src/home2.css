@@ -414,13 +414,11 @@ p.site-description {
 }
 
 .blog .post-grid,
-.home2 .post-grid,
 .home2 .post-grid {
-  display: grid; /* 一覧をCSSグリッドで並べる土台 */
-  grid-template-columns: repeat(2, 1fr); /* 2列レイアウト（等幅） */
-  grid-auto-rows: clamp(220px, 22vw, 260px);
-  gap: 30px; /* カード同士の間隔 */
-  padding: 15px 0; /* セクション上下の余白（左右は親に任せる） */
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  padding: 15px 0;
 }
 
 /* 抜粋がテーマ側で非表示でも出す */
