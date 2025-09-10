@@ -8,16 +8,16 @@
 
 /* 一覧配下のボックスサイズ計算を安定化（余白でのはみ出し防止） */
 .blog .post-grid,
-.home .post-grid,
+.home1 .post-grid,
 .blog .post-grid *,
-.home .post-grid * {
+.home1 .post-grid * {
   box-sizing: border-box;
 }
 
 /* ========== 1) 一覧グリッド：最小幅を上げて“細すぎ”回避 + リキッド ========== */
 /* 360px 以上ないと列を増やさない→広い画面でも最大3列くらいをキープしやすい */
 .blog .post-grid,
-.home .post-grid {
+.home1 .post-grid {
   display: grid;
   grid-template-columns: repeat(
     auto-fit,
@@ -32,7 +32,7 @@
 /* ========== 2) カード本体：正方形化 ＆ ホバー ========== */
 /* 高さ固定はやめ、幅から自動計算（1:1）。中身は縦フレックスで配分 */
 .blog .grid-item,
-.home .grid-item {
+.home1 .grid-item {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -47,7 +47,7 @@
 }
 
 .blog .grid-item:hover,
-.home .grid-item:hover {
+.home1 .grid-item:hover {
   transform: translateY(-10px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
@@ -55,7 +55,7 @@
 /* ========== 3) サムネイル：カード高の60%を写真に割当 ========== */
 /* 正方形になった“カード高”の60%をサムネ領域として確保 */
 .blog .post-thumbnail,
-.home .post-thumbnail {
+.home1 .post-thumbnail {
   position: relative;
   flex: 0 0 60%; /* ★全体高の6割を画像枠に */
   width: 100%;
@@ -64,14 +64,14 @@
 
 /* 画像は枠いっぱいにカバー。フチ感を出すため少し内側に余白 */
 .blog .post-thumbnail a,
-.home .post-thumbnail a {
+.home1 .post-thumbnail a {
   display: block;
   width: 100%;
   height: 100%;
 }
 
 .blog .post-thumbnail img,
-.home .post-thumbnail img {
+.home1 .post-thumbnail img {
   width: 100%;
   height: auto; /* ← これで縦方向に伸びすぎ防止 */
   aspect-ratio: 16 / 9; /* ← 好きな比率に固定（例: 16:9） */
@@ -84,8 +84,8 @@
 /* ========== 4) タイトル：通常フロー＋2行で省略 ========== */
 .blog .grid-item h2,
 .blog .grid-item h3,
-.home .grid-item h2,
-.home .grid-item h3 {
+.home1 .grid-item h2,
+.home1 .grid-item h3 {
   position: static;
   color: #222;
   margin: 12px 0 0;
@@ -102,21 +102,21 @@
 }
 
 /* homeのh2はやや小さめ（従来要望を維持） */
-.home #primary .post-grid .grid-item h2 {
+.home1 #primary .post-grid .grid-item h2 {
   line-height: 1.5;
   font-size: clamp(1.1rem, 1.2vw + 0.6rem, 1.5rem);
 }
 
 /* 抜粋は非表示（仕様維持） */
 .blog .post-excerpt,
-.home .post-excerpt {
+.home1 .post-excerpt {
   display: none;
 }
 
 /* ========== 5) メタ情報：カード下に吸着 ========== */
 /* タイトルの下に並べ、残り高さに応じて下側に寄せる */
 .blog .grid-item .post-meta,
-.home .grid-item .post-meta {
+.home1 .grid-item .post-meta {
   position: relative;
   z-index: 1;
   display: flex;
@@ -131,9 +131,9 @@
 .blog .post-date,
 .blog .post-category,
 .blog .post-tags,
-.home .post-date,
-.home .post-category,
-.home .post-tags {
+.home1 .post-date,
+.home1 .post-category,
+.home1 .post-tags {
   margin: 0;
   padding: 0;
   white-space: nowrap; /* メタは1行でコンパクトに */
@@ -143,7 +143,7 @@
 
 /* ========== 6) カテゴリ・バッジ：画像左上に重ねる（意図的にabsolute） ========== */
 .blog .grid-item .post-category,
-.home .grid-item .post-category {
+.home1 .grid-item .post-category {
   position: absolute;
   top: 12px;
   left: 12px;
@@ -151,7 +151,7 @@
 }
 
 .blog .post-category p,
-.home .post-category p {
+.home1 .post-category p {
   display: inline-block;
   font-size: 13px;
   color: #fff;
@@ -163,13 +163,13 @@
 
 /* タグは非表示（仕様維持） */
 .blog .post-tags,
-.home .post-tags {
+.home1 .post-tags {
   display: none;
 }
 
 /* リンクの見た目は継承（下線なし・色継承） */
 .blog .grid-item a,
-.home .grid-item a {
+.home1 .grid-item a {
   text-decoration: none;
   color: inherit;
   font-size: 0.8rem;
@@ -180,12 +180,12 @@
 /*
 @media (max-width: 768px){
   .blog .post-grid,
-  .home .post-grid { grid-template-columns: 1fr; }
+  .home1 .post-grid { grid-template-columns: 1fr; }
 }
 */
 
 /* ========== 8) トップの丸いカテゴリ（そのまま流用OK：任意） ========== */
-.home .category-list {
+.home1 .category-list {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -195,7 +195,7 @@
   max-width: 900px;
 }
 
-.home .category-item {
+.home1 .category-item {
   flex: 1;
   max-width: 300px;
   display: flex;
@@ -203,7 +203,7 @@
   align-items: center;
 }
 
-.home .category-link {
+.home1 .category-link {
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -224,7 +224,7 @@
     0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-.home .category-link:hover {
+.home1 .category-link:hover {
   opacity: 0.7;
   transition: all 0.3s ease;
 }
@@ -239,7 +239,7 @@
 
 /* ===== デスクトップ：常に3列 ===== */
 .blog .post-grid,
-.home .post-grid {
+.home1 .post-grid {
   grid-template-columns: repeat(3, 1fr); /* ★ 3列固定 */
   width: min(100%, 1080px); /* ★ 1200px→1080pxにしてカードを小ぶりに */
   margin: 0 auto; /* 中央寄せ（念のため明示） */
@@ -250,7 +250,7 @@
 /* ===== タブレット：2列に落とす（目安 1024px以下） ===== */
 @media (max-width: 1024px) {
   .blog .post-grid,
-  .home .post-grid {
+  .home1 .post-grid {
     grid-template-columns: repeat(2, 1fr); /* 2列 */
     width: min(100%, 820px); /* 列幅が太くなりすぎないよう微調整 */
   }
@@ -259,21 +259,21 @@
 /* ===== スマホ：1列（目安 600px以下） ===== */
 @media (max-width: 600px) {
   .blog .post-grid,
-  .home .post-grid {
+  .home1 .post-grid {
     grid-template-columns: 1fr; /* 1列 */
     width: 100%; /* 端まで使う */
   }
 }
 
 @media screen and (max-width: 768px) {
-  .home .category-list {
+  .home1 .category-list {
     padding: 0;
     justify-content: center;
     gap: 0.5rem;
     /* スマホで隙間を狭める */
   }
 
-  .home .category-link {
+  .home1 .category-link {
     width: 100px;
     height: 100px;
     font-size: 0.75rem;

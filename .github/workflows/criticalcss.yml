@@ -13,7 +13,7 @@ jobs:
       matrix:
         page:
           - { url: "/", target: "home2.css" }
-          - { url: "/sidefire-7500man-life-cost/", target: "post.css" }
+          - { url: "/lunch_box/", target: "post.css" }
 
     steps:
       - name: Checkout repository
