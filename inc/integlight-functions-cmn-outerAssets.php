@@ -85,7 +85,7 @@ class InteglightRegStyles
 			wp_enqueue_style($handle, get_template_directory_uri() . $path, $deps, _INTEGLIGHT_S_VERSION);
 
 			//すべてのcssを遅延にする（クリティカルcss対応）
-			//InteglightDeferCss::add_deferred_styles([$handle]);
+			InteglightDeferCss::add_deferred_styles([$handle]);
 		}
 	}
 }
