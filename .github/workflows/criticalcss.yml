@@ -63,4 +63,4 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add css/critical
           git commit -m "chore: update critical.css [skip ci]" || echo "No changes to commit"
-          git push
+          git push -f
