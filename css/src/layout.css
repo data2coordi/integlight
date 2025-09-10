@@ -245,6 +245,7 @@ label {
   .ly_site_content {
     padding: 0 2em;
     /* スマホで左右にpadding */
+    padding-bottom: 6em;
   }
 
   h1,
