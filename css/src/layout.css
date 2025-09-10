@@ -55,6 +55,7 @@
 .ly_site_content {
   /* flex-direction: column; */
   min-height: 100vh; /* ビューポートの高さを最低限確保 */
+  padding-bottom: 80px; /*コンテンツの下にスペース*/
 }
 
 .ly_site_content_widgetArea_left {

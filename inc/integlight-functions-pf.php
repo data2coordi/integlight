@@ -62,6 +62,7 @@ class InteglightPreDetermineCssAssets
     private static $deferredStyles = [
         'integlight-sp-style',
         'integlight-svg-non-home',
+        'wp-block-library'
     ];
 
 
@@ -794,3 +795,24 @@ if (class_exists('Integlight_Cache_Base')) {
 //         }
 //     }
 // }, 1);
+
+/********************************************************************/
+/* critical css のロード s 	*/
+/********************************************************************/
+
+function aurora_add_critical_css()
+{
+    if (is_singular()) {
+        $targetCss = 'post.css';
+    } else {
+        $targetCss = 'home2.css';
+    }
+    $critical_css = file_get_contents(get_template_directory() . '/css/critical/' . $targetCss);
+    if ($critical_css) {
+        echo "<style id='critical-css'>{$critical_css}</style>";
+    }
+}
+add_action('wp_head', 'aurora_add_critical_css', 1); // 優先度1で早く出力
+/********************************************************************/
+/* critical css のロード e 	*/
+/********************************************************************/
