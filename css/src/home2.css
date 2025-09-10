@@ -170,6 +170,8 @@ section.latest-posts > h2 {
 /*************home2のコンテンツ下にスペース*********/
 body .home2 {
   padding-bottom: 80px;
+  min-width: 100%; /*これ後で消すかも！！！！！！！！！！！！！！！！！！！！！！！！！！！！*/
+  background-size: cover; /*これ後で消すかも！！！！！！！！！！！！！！！！！！！！！！！！！！！！*/
 }
 /*************home2のコンテンツ下にスペース*********/
 /*************home2のコンテンツ下にスペース*********/
@@ -394,13 +396,22 @@ p.site-description {
      2) 画面が広い時も“中央1200px”で気持ちよく止める
      3) 親の #page が左右2カラム化しないように縦積みに修正
   ========================================================= */
+/* 追加：カードの共通高さ（必要に応じて数値だけ変えれば全体反映） */
+:root {
+  --card-h: 260px;
+} /* PCの見え方に合わせて 300–360px で調整 */
+@media (max-width: 780px) {
+  :root {
+    --card-h: 360px;
+  } /* モバイルは少し高めに（任意） */
+}
 
 /* ========== 1) カードの基本レイアウト ========== */
 .blog .grid-item,
 .home2 .grid-item {
   background-color: #fff;
   border: 1px solid #b5b4b4;
-  height: clamp(240px, 22vw, 280px);
+  height: var(--card-h); /* ← ここだけで常に同一高さにする */
   overflow: hidden;
   transition:
     transform 0.3s ease,
@@ -417,7 +428,7 @@ p.site-description {
 .home2 .post-grid {
   display: grid;
   gap: 30px;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(2, 1fr); /* PCは常に2カラム */
   padding: 15px 0;
 }
 
@@ -430,7 +441,7 @@ p.site-description {
 /* カード本体 */
 .home2 .post-grid .grid-item {
   position: relative; /* バッジ等をabsolute配置するための基準に */
-  height: 50%; /* カードの高さ（見出し/抜粋/日付が収まる基準値） */
+  height: var(--card-h); /* 固定高にそろえる（上と同じ） */
   width: 100%;
   /* 必要なら 270–300 に調整 */
   border-radius: 20px; /* 角丸でカード感を出す */
@@ -445,7 +456,7 @@ p.site-description {
   /* 上:タイトル / 中:抜粋 / 下:日付 */
   align-items: stretch; /* 行の高さを揃えて段差をなくす */
   row-gap: 6px; /* テキスト縦要素の間隔 */
-  height: 100%; /* 親カードの高さにフィット */
+  height: 100%; /* ← これが重要 */
   text-decoration: none; /* リンクの下線を消す（カード全体をクリック領域に） */
   min-height: 0; /* グリッド内で高さ計算が破綻しないように保険 */
 }
@@ -550,9 +561,10 @@ p.site-description {
 
 /* === homeだけ：grid-auto-rows の行高に中身をきっちり合わせる === */
 
-.home2 .post-grid .grid-item {
-  height: 100%; /* マス目（行高）＝カード高 !重要 */
-}
+/* .home2 .post-grid .grid-item {
+  height: auto;
+  min-height: 260px; 
+} */
 
 /* プラグインとかでどんな画像が来ても100% */
 .home2 .post-thumbnail :is(picture, a, figure, div, span) {
@@ -596,6 +608,20 @@ body.home2 .top-categories-posts .post-grid {
   margin-inline: auto; /* セクション内でも中央寄せ */
   justify-content: start; /* 左起点で自然な読み順に（中央起点だとズレやすい） */
   /* 中央起点だとズレるため左から */
+}
+
+/* 追加：中身が途中で止まらないよう、カード高いっぱいまで伸ばす */
+.post-grid .grid-item > a {
+  height: 100%;
+} /* 内部グリッドでもOK */
+.post-grid .grid-item .post-thumbnail {
+  height: 100%;
+} /* 左のサムネを全高に */
+.post-grid .grid-item .post-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* ========== 3) モバイルは縦積み（見やすさ優先） ========== */
