@@ -168,23 +168,39 @@ section.latest-posts > h2 {
 /*************home2のコンテンツ下にスペース*********/
 /*************home2のコンテンツ下にスペース*********/
 /*************home2のコンテンツ下にスペース*********/
-body .home2 {
-  padding-bottom: 80px;
-  min-width: 100%; /*これ後で消すかも！！！！！！！！！！！！！！！！！！！！！！！！！！！！*/
-  background-size: cover; /*これ後で消すかも！！！！！！！！！！！！！！！！！！！！！！！！！！！！*/
+/* ルートを塗れるように */
+html,
+body {
+  min-height: 100%;
 }
 
-body .home2 {
+/* 同じ条件で、body の“塗りつぶし色”だけ透明化（画像はそのまま前面） */
+body:has(.home2) {
+  background-color: transparent !important;
+  /* background-image は WP が出力するので触らない */
+}
+
+html:has(body .home2) {
   position: relative;
-  min-height: 100vh;
 }
 
-body .home2::before {
+html:has(body .home2)::before {
   content: "";
   position: absolute;
-  inset: 0;
-  z-index: -1; /* 背景画像の下 */
+  top: 0;
+  left: 0;
+  right: 0;
+  inset: 0; /* 全画面カバー */
+  /* height: 60vh; ← フェードをかけたい高さだけ */
+  pointer-events: none;
 }
+
+/* home2のコンテンツ幅が小さくなるのを解除 */
+#primary.home2 {
+  max-width: none;
+  width: 100%;
+}
+
 /*************home2のコンテンツ下にスペース*********/
 /*************home2のコンテンツ下にスペース*********/
 /*************home2のコンテンツ下にスペース*********/
@@ -419,6 +435,7 @@ p.site-description {
 }
 
 /* ========== 1) カードの基本レイアウト ========== */
+
 .blog .grid-item,
 .home2 .grid-item {
   background-color: #fff;

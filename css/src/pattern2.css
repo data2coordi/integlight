@@ -175,14 +175,28 @@ ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
   background:#fff;
   border:1px solid #fa9301;
 } */
-body .home2::before {
-  background: /* 上から白に近づくグラデーション */ linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(255, 255, 255, 0) 30%
-    ),
-    linear-gradient(to right, #f1f1fc 0%, #f8f8fb 60%, #f8f0f2 100%);
+
+/**************背景のグラデーションの設定s***************/
+/**************背景のグラデーションの設定s***************/
+/**************背景のグラデーションの設定s***************/
+/**************背景のグラデーションの設定s***************/
+/**************背景のグラデーションの設定s***************/
+html:has(body .home2) {
+  background: linear-gradient(to right, #f1f1fc 0%, #f8f8fb 60%, #f8f0f2 100%);
 }
+
+html:has(body .home2)::before {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    /* 透明で開始 */ rgba(255, 255, 255, 1) 45vh,
+    /* 35vhまでは透明のまま */ rgba(255, 255, 255, 0) 100%
+      /* そこから白にフェード */
+  );
+}
+/**************背景のグラデーションの設定e***************/
+/**************背景のグラデーションの設定e***************/
+/**************背景のグラデーションの設定e***************/
 
 .home2 #load-more:focus-visible,
 .home2 #load-more:hover,
