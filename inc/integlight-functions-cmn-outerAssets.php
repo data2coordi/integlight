@@ -85,6 +85,34 @@ class InteglightDeferCss
 	// 	return $tag;
 	// }
 
+	// 	public static function defer_css($tag, $handle)
+	// 	{
+	// 		if (in_array($handle, self::$deferred_styles, true)) {
+	// 			// スタイルシートのURLを取得
+	// 			$style_url = wp_styles()->registered[$handle]->src ?? '';
+
+	// 			// もしURLが存在すれば、JavaScriptで遅延ロードするスクリプトを生成
+	// 			if ($style_url) {
+	// 				// style-handle には、元のスタイルシートのハンドル名を使用
+	// 				$js_script = "
+	// <script>
+	//     (function() {
+	//         var link = document.createElement('link');
+	//         link.rel = 'stylesheet';
+	//         link.href = '" . esc_url($style_url) . "';
+	//         document.head.appendChild(link);
+	//     })();
+	// </script>";
+
+	// 				// 元のHTMLタグは出力しない
+	// 				return $js_script;
+	// 			}
+	// 		}
+	// 		// 遅延ロード対象外、またはURLが取得できなかった場合は、元のタグを返す
+	// 		return $tag;
+	// 	}
+
+
 	public static function defer_css($tag, $handle)
 	{
 		if (in_array($handle, self::$deferred_styles, true)) {
@@ -96,12 +124,12 @@ class InteglightDeferCss
 				// style-handle には、元のスタイルシートのハンドル名を使用
 				$js_script = "
 <script>
-    (function() {
+    window.addEventListener('load', function() {
         var link = document.createElement('link');
         link.rel = 'stylesheet';
         link.href = '" . esc_url($style_url) . "';
         document.head.appendChild(link);
-    })();
+    });
 </script>";
 
 				// 元のHTMLタグは出力しない
