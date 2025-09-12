@@ -173,6 +173,18 @@ body .home2 {
   min-width: 100%; /*これ後で消すかも！！！！！！！！！！！！！！！！！！！！！！！！！！！！*/
   background-size: cover; /*これ後で消すかも！！！！！！！！！！！！！！！！！！！！！！！！！！！！*/
 }
+
+body .home2 {
+  position: relative;
+  min-height: 100vh;
+}
+
+body .home2::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1; /* 背景画像の下 */
+}
 /*************home2のコンテンツ下にスペース*********/
 /*************home2のコンテンツ下にスペース*********/
 /*************home2のコンテンツ下にスペース*********/
@@ -450,7 +462,7 @@ p.site-description {
 /* a要素内を「左=画像 / 右=テキスト3段」に */
 .home2 .post-grid .grid-item > a {
   display: grid; /* リンク全体をさらに内部グリッド化 */
-  grid-template-columns: minmax(220px, 50%) 1fr; /* 左=画像(最小260px〜最大50%) / 右=テキスト */
+  grid-template-columns: 50% 1fr; /* 画像:テキスト = 50:50（右側を確保） */
   /* 左右比率 */
   grid-template-rows: auto 1fr auto; /* 上=タイトル / 中=抜粋(伸縮) / 下=日付 */
   /* 上:タイトル / 中:抜粋 / 下:日付 */
@@ -559,69 +571,11 @@ p.site-description {
   padding: 4px 12px;
 }
 
-/* === homeだけ：grid-auto-rows の行高に中身をきっちり合わせる === */
-
-/* .home2 .post-grid .grid-item {
-  height: auto;
-  min-height: 260px; 
-} */
-
 /* プラグインとかでどんな画像が来ても100% */
 .home2 .post-thumbnail :is(picture, a, figure, div, span) {
   display: block;
   width: 100%;
   height: 100%;
-}
-
-/* テーマが文字をabsoluteにしてた場合の保険（通常フローへ戻す） */
-.home2 .post-grid .grid-item > a > h2,
-.home2 .post-grid .grid-item > a > .post-excerpt,
-.home2 .post-grid .grid-item > a > .post-meta {
-  position: static;
-  inset: auto;
-  transform: none;
-}
-
-/* ========== 2) ワイド画面：中央 1200px に揃える ========== */
-
-/* 親の#pageが横並びを作らないよう、トップでは“縦積み”に */
-body.home2 #page.site {
-  /* Devツールで効いた修正の恒久化 */
-  display: flex; /* フレックス化して縦積み制御を安定化 */
-  flex-direction: column; /* 子要素を縦方向に並べる（横2カラム化の事故防止） */
-}
-
-/* セクション（新着 / トップカテゴリ）の“器”を中央1200pxで統一 */
-body.home2 .latest-posts,
-body.home2 .top-categories-posts {
-  width: min(1200px, 100%); /* 画面が広くても最大1200pxで止める（読みやすさ） */
-  margin-inline: auto; /* 中央寄せ（左右auto） */
-  /* padding-inline: 24px; */
-  /* 端の余白（任意） */
-  box-sizing: border-box; /* パディングを幅計算に含めてズレ防止 */
-}
-
-/* セクション内のグリッドも中央1200pxに収めて左起点で並べる */
-body.home2 .latest-posts .post-grid,
-body.home2 .top-categories-posts .post-grid {
-  max-width: 1200px; /* 子グリッドも1200pxで揃える */
-  margin-inline: auto; /* セクション内でも中央寄せ */
-  justify-content: start; /* 左起点で自然な読み順に（中央起点だとズレやすい） */
-  /* 中央起点だとズレるため左から */
-}
-
-/* 追加：中身が途中で止まらないよう、カード高いっぱいまで伸ばす */
-.post-grid .grid-item > a {
-  height: 100%;
-} /* 内部グリッドでもOK */
-.post-grid .grid-item .post-thumbnail {
-  height: 100%;
-} /* 左のサムネを全高に */
-.post-grid .grid-item .post-thumbnail img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
 }
 
 /* ========== 3) モバイルは縦積み（見やすさ優先） ========== */
@@ -746,8 +700,6 @@ body.home2 .top-categories-posts .post-grid {
     transform: none;
     clear: both; /* 画像の横に回り込まない */
     display: block; /* ブロックで縦積み */
-    margin-left: 16px; /* 左右の読みやすい余白 */
-    margin-right: 16px;
     word-break: break-word; /* ★長い英数字の折返し */
     overflow-wrap: anywhere; /* ★どこでも折返しの保険 */
   }

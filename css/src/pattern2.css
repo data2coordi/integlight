@@ -175,14 +175,13 @@ ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
   background:#fff;
   border:1px solid #fa9301;
 } */
-body .home2 {
-  min-height: 100vh; /* 画面の高さ全体に広げる */
+body .home2::before {
   background: /* 上から白に近づくグラデーション */ linear-gradient(
       to bottom,
       rgba(255, 255, 255, 1) 0%,
       rgba(255, 255, 255, 0) 30%
     ),
-    linear-gradient(to right, #f6f6fd 0%, #f8f8fb 60%, #f0ebed 100%);
+    linear-gradient(to right, #f1f1fc 0%, #f8f8fb 60%, #f8f0f2 100%);
 }
 
 .home2 #load-more:focus-visible,
