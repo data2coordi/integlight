@@ -195,6 +195,11 @@ html:has(body .home2)::before {
   pointer-events: none;
 }
 
+/* 画像が設定されている home2 ページでは、html のグラデを消す */
+html:has(body.custom-background .home2) {
+  background: none !important;
+}
+
 /* home2のコンテンツ幅が小さくなるのを解除 */
 #primary.home2 {
   max-width: none;
