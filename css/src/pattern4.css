@@ -197,7 +197,7 @@ ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
   border:1px solid #fa9301;
 } */
 
-html:has(body .home2) {
+body .home2::before {
   background: /* 上から白に近づくグラデーション */ linear-gradient(
       to bottom,
       rgba(255, 255, 255, 1) 0%,
