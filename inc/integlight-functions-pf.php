@@ -812,7 +812,7 @@ function aurora_add_critical_css()
         echo "<style id='critical-css'>{$critical_css}</style>";
     }
 }
-add_action('wp_head', 'aurora_add_critical_css', 1); // 優先度1で早く出力
+//add_action('wp_head', 'aurora_add_critical_css', 1); // 優先度1で早く出力
 /********************************************************************/
 /* critical css のロード e 	*/
 /********************************************************************/
