@@ -30,7 +30,7 @@ jobs:
 
           for url in "${!pages[@]}"; do
             target="${pages[$url]}"
-            base_url="https://wpdev.auroralab-design.com${url}"
+            base_url="https://t2.auroralab-design.com${url}"
             npx critical "$base_url" \
               --width 412 \
               --height 823 \
@@ -53,9 +53,9 @@ jobs:
                 css/src/page.css \
                 css/src/post.css \
                 css/src/svg-non-home.css \
-                https://wpdev.auroralab-design.com/wp-content/plugins/aurora-design-blocks/css/src/aurora-design.css \
-                https://wpdev.auroralab-design.com/wp-content/plugins/aurora-design-blocks/css/src/module.css \
-                https://wpdev.auroralab-design.com/wp-includes/css/dist/block-library/style.min.css
+                https://t2.auroralab-design.com/wp-content/plugins/aurora-design-blocks/css/src/aurora-design.css \
+                https://t2.auroralab-design.com/wp-content/plugins/aurora-design-blocks/css/src/module.css \
+                https://t2.auroralab-design.com/wp-includes/css/dist/block-library/style.min.css
           done
 
       - name: Commit and Push changes
