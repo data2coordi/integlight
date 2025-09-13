@@ -10,7 +10,7 @@
 @media (min-width: 1024px) {
   .slider {
     height: 35vh; /* スライダー全体の高さを“画面高の35%”に固定（レスポンシブで高さが自然に可変） */
-    aspect-ratio: 16 / 9; /* 例：画像の本来のアスペクト比 */
+    aspect-ratio: 16 / 9; /* 例：画像の本来のアスペクト比 a*/
   }
 
   .slider .slide img {
@@ -345,7 +345,10 @@ p.site-description {
   background: #fff;
   border: 1px solid #555;
   padding: 15px 28px;
-  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
   /* 変化が滑らか */
 }
 
@@ -411,7 +414,9 @@ p.site-description {
   border: 1px solid #b5b4b4;
   height: var(--card-h); /* ← ここだけで常に同一高さにする */
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .blog .grid-item:hover,
