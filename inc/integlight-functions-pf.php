@@ -49,10 +49,10 @@ add_action('wp_enqueue_scripts', function () {
 class InteglightPreDetermineCssAssets
 {
     private static $styles = [
-        'integlight-base-style-plus' => ['path' => '/css/build/base-style.css', 'deps' => ['wp-block-library']],
+        'integlight-base-style-plus' => ['path' => '/css/build/base-style.css', 'deps' => ['integlight-layout']],
         'integlight-style-plus' =>  ['path' => '/css/build/integlight-style.css', 'deps' => ['integlight-base-style-plus']],
         'integlight-sp-style' => ['path' =>  '/css/build/integlight-sp-style.css', 'deps' => ['integlight-style-plus']],
-        'integlight-layout' =>  ['path' => '/css/build/layout.css', 'deps' => ['integlight-style-plus']],
+        'integlight-layout' =>  ['path' => '/css/build/layout.css', 'deps' => []],
         'integlight-integlight-menu' =>  ['path' => '/css/build/integlight-menu.css', 'deps' => ['integlight-style-plus']],
         'integlight-helper' =>  ['path' => '/css/build/helper.css', 'deps' => ['integlight-style-plus']],
 
