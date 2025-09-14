@@ -1,57 +1,57 @@
 /***************************************/
 /* ライン　アニメーション　s */
 /***************************************/
-h2,
-h3 {
-    /*color: #222;*/
-    border-bottom: 0.005em solid #e3e3e3;
-    width: 100%;
-    position: relative;
-    /*::afterにabsoluteをかけるので設定*/
+/* .wp-block-heading←このクラスのhタグにだけかける */
+.wp-block-heading {
+  /*color: #222;*/
+  border-bottom: 0.01em solid #e3e3e3;
+  width: 100%;
+  position: relative;
+  /*::afterにabsoluteをかけるので設定*/
 }
 
-h2::after,
-h3::after {
-    content: "";
-    /* コンテンツを追加 */
-    width: 50%;
-    /* 線の幅 */
-    height: 3px;
-    /* 線の高さ */
-    background: #555;
-    /* 線の色 */
-    position: absolute;
-    /* position: relative;からの線の絶対位置 */
-    bottom: 0;
-    /* 線の位置 */
-    left: 0;
-    /* 線の位置 */
-    transform: scale(0, 1);
-    /* 線のx軸の長さを0 */
-    transition: 0.5s;
-    /* 要素の変形する時間*/
-    transform-origin: left top;
-    /* 要素の座標の原点を設定*/
+/* .wp-block-heading←このクラスのhタグにだけかける */
+.wp-block-heading::after {
+  content: "";
+  /* コンテンツを追加 */
+  width: 50%;
+  /* 線の幅 */
+  height: 3px;
+  /* 線の高さ */
+  background: #555;
+  /* 線の色 */
+  position: absolute;
+  /* position: relative;からの線の絶対位置 */
+  bottom: 0;
+  /* 線の位置 */
+  left: 0;
+  /* 線の位置 */
+  transform: scale(0, 1);
+  /* 線のx軸の長さを0 */
+  transition: 0.5s;
+  /* 要素の変形する時間*/
+  transform-origin: left top;
+  /* 要素の座標の原点を設定*/
 }
 
-h2:hover::after,
-h3:hover::after,
-h2:focus:after,
-h3:focus:after,
-h2:active::after,
-h3:active::after {
-    transform: scale(1, 1);
-    /* 線のx軸の長さを1 */
+.wp-block-heading:hover::after,
+.wp-block-heading:focus:after,
+.wp-block-heading:active::after {
+  transform: scale(1, 1);
+  /* 線のx軸の長さを1 */
 }
 
-h3::after {
-    height: 1.5px;
-}
+/* h3::after {
+  height: 1.5px;
+} */
 
 /* home投稿一覧のアニメーションを取る */
-.blog .grid-item h2::after, .blog .grid-item h3::after, .home .grid-item h2::after, .home .grid-item h3::after {
-    display: none;
-}
+/* .blog .grid-item h2::after,
+.blog .grid-item h3::after,
+.home .grid-item h2::after,
+.home .grid-item h3::after {
+  display: none;
+} */
 
 /***************************************/
 /* ライン　アニメーション　e */

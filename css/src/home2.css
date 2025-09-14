@@ -129,10 +129,10 @@ section.latest-posts .grid-item h2 {
 }
 
 /* 下線を消している */
-.integlight_pt h2:after,
+/* .integlight_pt h2:after,
 .integlight_pt h3:after {
-  background: none;
-}
+  background: none ;
+} */
 
 .category-posts > h3,
 .top-categories-posts > h2,
