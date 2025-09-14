@@ -36,11 +36,11 @@ a:focus-visible,
   background: #5a7a44;
 }
 
-.integlight_pt h2::after {
+h2.wp-block-heading::after {
   background: #5a7a44;
 }
 
-.integlight_pt h3::after {
+h3.wp-block-heading::after {
   background: #fbb4c0;
 }
 
