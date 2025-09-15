@@ -94,7 +94,17 @@ add_action('wp', function () {
 	if (is_front_page()) {
 		global $Integlight_slider_settings;
 		if ($Integlight_slider_settings->headerTypeName_slider === get_theme_mod('integlight_display_choice', 'none')) {
-			new integlight_customizer_slider_outerAssets($Integlight_slider_settings);
+			if (
+				get_theme_mod('integlight_slider_image_mobile_1') ||
+				get_theme_mod('integlight_slider_image_mobile_2') ||
+				get_theme_mod('integlight_slider_image_mobile_3') ||
+				get_theme_mod('integlight_slider_image_1') ||
+				get_theme_mod('integlight_slider_image_2') ||
+				get_theme_mod('integlight_slider_image_3')
+			) {
+				// いずれかがセットされているときの処理
+				new integlight_customizer_slider_outerAssets($Integlight_slider_settings);
+			}
 		}
 	}
 });

@@ -52,7 +52,7 @@ class template_HomeTemplateTest extends WP_UnitTestCase
         $output = ob_get_clean();
 
         // home.php の main 要素確認
-        $this->assertStringContainsString('<main id="primary">', $output);
+        $this->assertStringContainsString('<main id="primary"', $output);
     }
 
     public function test_post_title_trimmed()
@@ -155,5 +155,34 @@ class template_HomeTemplateTest extends WP_UnitTestCase
 
         // 投稿なしメッセージ確認
         $this->assertStringContainsString('No posts found.', $output);
+    }
+
+    public function test_home_type_class_is_applied()
+    {
+        // カスタマイザー設定を home2 に変更
+        set_theme_mod('integlight_hometype_setting', 'home2');
+
+        $this->go_to(home_url('/'));
+
+        ob_start();
+        include get_template_directory() . '/home.php';
+        $output = ob_get_clean();
+
+        // <main> のクラスが "home2" になっているか確認
+        $this->assertMatchesRegularExpression(
+            '/<main id="primary" class=["\']?home2["\']?>/',
+            $output
+        );
+
+        // デフォルト（設定なし）の場合は "home1" になる
+        remove_theme_mod('integlight_hometype_setting');
+        ob_start();
+        include get_template_directory() . '/home.php';
+        $output = ob_get_clean();
+
+        $this->assertMatchesRegularExpression(
+            '/<main id="primary" class=["\']?home1["\']?>/',
+            $output
+        );
     }
 }
