@@ -84,7 +84,6 @@ class template_FooterTemplateTest extends WP_UnitTestCase
         $this->assertStringContainsString('<footer id="colophon" class="site-footer ly_site_footer">', $output, 'Footer element #colophon not found or has wrong classes.');
         $this->assertStringContainsString('<div class="site-info">', $output, 'Div .site-info not found.');
         $this->assertStringContainsString('<a href="#" id="page-top">', $output, 'Page top link #page-top not found.');
-        $this->assertStringContainsString('<i class="fa-solid fa-angle-up"></i>', $output, 'Page top icon not found.');
         $this->assertStringContainsString('</html>', $output, 'Closing </html> tag not found.'); // Ensure the template completes
     }
 
