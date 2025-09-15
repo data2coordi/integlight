@@ -262,4 +262,81 @@ class integlight_customizer_slider_outerAssetsTest extends WP_UnitTestCase // �
         $this->assertArrayHasKey('headerTypeNameSlider', $decoded_data, 'Localized data should have "headerTypeNameSlider" key.');
         $this->assertEquals($this->mock_slider_settings->headerTypeName_slider, $decoded_data['headerTypeNameSlider']);
     }
+
+	/**
+	 * @test
+	 * add_action('wp', ...) 内の条件を通して
+	 * インスタンス生成およびスクリプト登録が行われるかテスト
+	 */
+	public function test_wp_action_creates_instance_and_registers_scripts(): void
+	{
+		// --- Arrange ---
+
+		// フロントページを true にモック
+		update_option('show_on_front', 'posts'); // これだけだと false の場合もあるので
+		$this->mockIsFrontPage(true);
+
+		global $Integlight_slider_settings;
+		$Integlight_slider_settings = $this->mock_slider_settings;
+
+		// いずれかのスライダー画像をセット
+		set_theme_mod('integlight_slider_image_1', 'dummy.jpg');
+		set_theme_mod('integlight_display_choice', $Integlight_slider_settings->headerTypeName_slider);
+
+		$this->reset_static_property(InteglightFrontendScripts::class, 'scripts');
+		// --- Act ---
+		do_action('wp');
+
+		// --- Assert ---
+
+		// スクリプトが静的プロパティに登録されているか確認
+		$scripts = $this->get_static_property_value(InteglightFrontendScripts::class, 'scripts');
+		var_dump('@@@@@@@',$scripts);
+		$this->assertArrayHasKey('integlight_slider-script', $scripts, 'Slider script should be registered via wp action.');
+		$this->assertEquals('/js/build/slider.js', $scripts['integlight_slider-script']['path'], 'Slider script path should be correct.');
+
+		// 遅延スクリプトも確認
+		$deferredScripts = $this->get_static_property_value(InteglightDeferJs::class, 'deferred_scripts');
+		$this->assertContains('integlight_slider-script', $deferredScripts, 'Slider script should be added to deferred scripts.');
+	}
+
+	public function test_wp_action_not_creates_instance_and_registers_scripts(): void
+	{
+		// --- Arrange ---
+
+		// フロントページを true にモック
+		update_option('show_on_front', 'posts'); // これだけだと false の場合もあるので
+		$this->mockIsFrontPage(true);
+
+		global $Integlight_slider_settings;
+		$Integlight_slider_settings = $this->mock_slider_settings;
+		
+		$this->reset_static_property(InteglightFrontendScripts::class, 'scripts');
+
+
+		// いずれかのスライダー画像をセット
+
+		// --- Act ---
+		do_action('wp');
+
+		// --- Assert ---
+
+		// スクリプトが静的プロパティに登録されているか確認
+		$scripts = $this->get_static_property_value(InteglightFrontendScripts::class, 'scripts');
+		$this->assertArrayNotHasKey('integlight_slider-script', $scripts, 'Slider script should be registered via wp action.');
+
+	}
+	/**
+	 * ヘルパー: is_front_page() をモック
+	 */
+	private function mockIsFrontPage(bool $returnValue): void
+	{
+		// WordPress の条件関数は filter で上書き可能
+		add_filter('pre_option_show_on_front', function() use ($returnValue) {
+			return $returnValue ? 'page' : 'posts';
+		});
+	}
+
+
+
 }
