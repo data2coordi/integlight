@@ -5,15 +5,15 @@ clear
 
 
 
-# sudo docker exec -it dev_wp_env-wordpress_wpdev-1 bash \
-#    -c "cd /var/www/html/wp-content/themes/integlight && ./vendor/bin/phpunit tests/pf-tests"
-
-# sudo docker exec -it dev_wp_env-wordpress_wpdev-1 bash \
-#    -c "cd /var/www/html/wp-content/themes/integlight && ./vendor/bin/phpunit tests/unit-tests"
-
+ sudo docker exec -it dev_wp_env-wordpress_wpdev-1 bash \
+    -c "cd /var/www/html/wp-content/themes/integlight && ./vendor/bin/phpunit tests/pf-tests"
 
  sudo docker exec -it dev_wp_env-wordpress_wpdev-1 bash \
-    -c "cd /var/www/html/wp-content/themes/integlight && ./vendor/bin/phpunit tests/unit-tests//function/integlight_customizer_slider_outerAssetsTest.php"
+    -c "cd /var/www/html/wp-content/themes/integlight && ./vendor/bin/phpunit tests/unit-tests"
+
+
+# sudo docker exec -it dev_wp_env-wordpress_wpdev-1 bash \
+#    -c "cd /var/www/html/wp-content/themes/integlight && ./vendor/bin/phpunit tests/unit-tests//function/integlight_customizer_slider_outerAssetsTest.php"
 
 
  
