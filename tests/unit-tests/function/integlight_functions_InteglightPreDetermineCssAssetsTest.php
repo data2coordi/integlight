@@ -134,7 +134,7 @@ class integlight_functions_InteglightPreDetermineCssAssetsTest extends WP_UnitTe
         $base = [
             'integlight-base-style-plus' => [
                 'path' => '/css/build/base-style.css',
-                'deps' => ['wp-block-library'],
+                'deps' => ['integlight-layout'],
             ],
             'integlight-style-plus' => [
                 'path' => '/css/build/integlight-style.css',
@@ -146,7 +146,7 @@ class integlight_functions_InteglightPreDetermineCssAssetsTest extends WP_UnitTe
             ],
             'integlight-layout' => [
                 'path' => '/css/build/layout.css',
-                'deps' => ['integlight-style-plus'],
+                'deps' => [],
             ],
             'integlight-integlight-menu' => [
                 'path' => '/css/build/integlight-menu.css',
