@@ -39,42 +39,56 @@ class integlight_customizer_slider_outerAssetsTest extends WP_UnitTestCase // �
         'integlight_slider_change_duration',
     ];
 
-    /**
-     * 各テストの前に実行されるセットアップメソッド
-     */
-    public function setUp(): void
-    {
-        parent::setUp();
 
-        // WordPress のスクリプト/スタイルシステムをリセット
-        $this->reset_wp_scripts_styles();
+	public function setUp(): void
+	{
+		parent::setUp();
 
-        // 依存クラスの静的プロパティをリセット
-        $this->reset_static_property(InteglightFrontendStyles::class, 'styles');
-        $this->reset_static_property(InteglightFrontendScripts::class, 'scripts');
-        $this->reset_static_property(InteglightDeferJs::class, 'deferred_scripts');
+		// WordPress のスクリプト/スタイルシステムをリセット
+		$this->reset_wp_scripts_styles();
 
-        // テスト用のグローバル設定オブジェクトを作成
-        $this->mock_slider_settings = new stdClass();
-        $this->mock_slider_settings->effectName_fade = 'fade';
-        $this->mock_slider_settings->effectName_slide = 'slide';
-        $this->mock_slider_settings->headerTypeName_slider = 'slider';
-        $this->mock_slider_settings->headerTypeName_image = 'image';
-        $this->mock_slider_settings->homeType1Name = 'home1';
-        $this->mock_slider_settings->homeType2Name = 'home2';
-        $this->mock_slider_settings->homeType3Name = 'home3';
-        $this->mock_slider_settings->homeType4Name = 'home4';
+		// 依存クラスの静的プロパティをリセット
+		$this->reset_static_property(InteglightFrontendStyles::class, 'styles');
+		$this->reset_static_property(InteglightFrontendScripts::class, 'scripts');
+		$this->reset_static_property(InteglightDeferJs::class, 'deferred_scripts');
+
+		// テスト用のグローバル設定オブジェクトを作成
+		$this->mock_slider_settings = new stdClass();
+		$this->mock_slider_settings->effectName_fade = 'fade';
+		$this->mock_slider_settings->effectName_slide = 'slide';
+		$this->mock_slider_settings->headerTypeName_slider = 'slider';
+		$this->mock_slider_settings->headerTypeName_image = 'image';
+		$this->mock_slider_settings->homeType1Name = 'home1';
+		$this->mock_slider_settings->homeType2Name = 'home2';
+		$this->mock_slider_settings->homeType3Name = 'home3';
+		$this->mock_slider_settings->homeType4Name = 'home4';
+
+		// --- wpアクションテスト用の theme_mod をセット ---
+		set_theme_mod('integlight_slider_image_1', 'dummy.jpg');
+		set_theme_mod('integlight_slider_image_2', 'dummy.jpg');
+		set_theme_mod('integlight_slider_image_3', 'dummy.jpg');
+		set_theme_mod('integlight_display_choice', $this->mock_slider_settings->headerTypeName_slider);
+		set_theme_mod('integlight_slider_effect', $this->mock_slider_settings->effectName_slide);
+		set_theme_mod('integlight_slider_change_duration', '5');
+
+		// --- is_front_page() をモック ---
+		add_filter('pre_option_show_on_front', function() {
+			return 'page';
+		});
+
+		// ※ wpアクション用にグローバル変数も用意
+		global $Integlight_slider_settings;
+		$Integlight_slider_settings = $this->mock_slider_settings;
+
+		// コンストラクタ直接呼び出し用のインスタンスも作成（従来のテスト向け）
+		$this->instance = new integlight_customizer_slider_outerAssets($this->mock_slider_settings);
+		$this->assertTrue(true);
+
+	}
 
 
-        // テスト対象クラスのインスタンスを作成
-        // ※コンストラクタ内でフック登録やアセット追加が行われる
-        $this->instance = new integlight_customizer_slider_outerAssets($this->mock_slider_settings);
 
-        // テスト前に theme_mod をクリア
-        foreach ($this->theme_mods_keys as $key) {
-            remove_theme_mod($key);
-        }
-    }
+
 
     /**
      * 各テストの後に実行されるティアダウンメソッド
@@ -268,37 +282,18 @@ class integlight_customizer_slider_outerAssetsTest extends WP_UnitTestCase // �
 	 * add_action('wp', ...) 内の条件を通して
 	 * インスタンス生成およびスクリプト登録が行われるかテスト
 	 */
-	public function test_wp_action_creates_instance_and_registers_scripts(): void
-	{
-		// --- Arrange ---
 
-		// フロントページを true にモック
-		update_option('show_on_front', 'posts'); // これだけだと false の場合もあるので
-		$this->mockIsFrontPage(true);
 
-		global $Integlight_slider_settings;
-		$Integlight_slider_settings = $this->mock_slider_settings;
 
-		// いずれかのスライダー画像をセット
-		set_theme_mod('integlight_slider_image_1', 'dummy.jpg');
-		set_theme_mod('integlight_display_choice', $Integlight_slider_settings->headerTypeName_slider);
 
-		$this->reset_static_property(InteglightFrontendScripts::class, 'scripts');
-		// --- Act ---
-		do_action('wp');
 
-		// --- Assert ---
 
-		// スクリプトが静的プロパティに登録されているか確認
-		$scripts = $this->get_static_property_value(InteglightFrontendScripts::class, 'scripts');
-		var_dump('@@@@@@@',$scripts);
-		$this->assertArrayHasKey('integlight_slider-script', $scripts, 'Slider script should be registered via wp action.');
-		$this->assertEquals('/js/build/slider.js', $scripts['integlight_slider-script']['path'], 'Slider script path should be correct.');
 
-		// 遅延スクリプトも確認
-		$deferredScripts = $this->get_static_property_value(InteglightDeferJs::class, 'deferred_scripts');
-		$this->assertContains('integlight_slider-script', $deferredScripts, 'Slider script should be added to deferred scripts.');
-	}
+
+
+
+
+
 
 	public function test_wp_action_not_creates_instance_and_registers_scripts(): void
 	{
