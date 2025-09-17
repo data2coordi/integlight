@@ -282,6 +282,17 @@ label {
     line-height: 2;
   }
 
+  /* 全幅画像のテキストの左右に空きを作っている */
+  .inner-container > .wp-block-heading {
+    width: 90%;
+    margin-inline: auto;
+    margin-top: 30px; /* 見出しだけに上マージン */
+  }
+  .inner-container > p {
+    width: 90%;
+    margin-inline: auto; /* pは左右だけ */
+  }
+
   /* ボタンの左が空いてしまうのを消している */
   .wp-block-buttons.is-layout-flex,
   .wp-block-buttons-is-layout-flex {
