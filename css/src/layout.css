@@ -283,12 +283,12 @@ label {
   }
 
   /* 全幅画像のテキストの左右に空きを作っている */
-  .inner-container > .wp-block-heading {
+  .inner-container.inner-article > .wp-block-heading {
     width: 90%;
     margin-inline: auto;
     margin-top: 30px; /* 見出しだけに上マージン */
   }
-  .inner-container > p {
+  .inner-container.inner-article > p {
     width: 90%;
     margin-inline: auto; /* pは左右だけ */
   }
