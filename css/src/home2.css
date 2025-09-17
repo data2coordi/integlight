@@ -784,3 +784,30 @@ p.site-description {
     width: 90%; /* 行幅をやや絞って読みやすく */
   }
 }
+
+/* スマホ（WP基準 782px以下）で、.home2 があるページだけ htmlの押し下げをゼロに */
+@media screen and (max-width: 782px) {
+  @supports selector(html:has(body .home2)) {
+    /* 既に入れたやつ：html の押し下げを無効化 */
+    html:root:has(body .home2) {
+      margin-top: 0 !important;
+    }
+
+    /* 追加：管理バー高さぶんだけヘッダーを下げる */
+    body.admin-bar:has(.home2)
+      :is(#masthead, .site-header, header[role="banner"]) {
+      margin-top: 46px; /* 初期配置用 */
+    }
+  }
+}
+
+/* home2のとき、グラデのオーバーレイを背面/コンテンツを前面に */
+@supports selector(html:has(body .home2)) {
+  html:has(body .home2)::before {
+    z-index: 0 !important;
+  } /* 上に来ないよう背面へ */
+  body .home2 {
+    position: relative;
+    z-index: 1;
+  } /* 中身を前面へ */
+}

@@ -281,4 +281,11 @@ label {
   .entry-content button {
     line-height: 2;
   }
+
+  /* ボタンの左が空いてしまうのを消している */
+  .wp-block-buttons.is-layout-flex,
+  .wp-block-buttons-is-layout-flex {
+    --ly-widthPadding: 0; /* 両側ゼロ */
+    /* 左だけなら → padding-left: 0 !important; に変更 */
+  }
 }
