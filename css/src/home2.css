@@ -593,10 +593,10 @@ p.site-description {
   padding: 4px 12px;
 }
 
-/* カテゴリバッジhome1では全部グレー */
-.home1 .post-category p {
+/* カテゴリバッジhome1では全部グレーに */
+/* .home1 .post-category p {
   background: #555;
-}
+} */
 
 /* プラグインとかでどんな画像が来ても100% */
 .home2 .post-thumbnail :is(picture, a, figure, div, span) {

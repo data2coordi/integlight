@@ -173,6 +173,12 @@ body .home1 {
   border-radius: 2px;
 }
 
+/* home1だけ、全部この色にする */
+#primary.home1 .post-category p {
+  background: #323232; /* ここにhome1用の色を入れてもOK */
+  border-radius: 0;
+}
+
 /* タグは非表示（仕様維持） */
 .blog .post-tags,
 .home1 .post-tags {
