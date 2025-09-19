@@ -56,14 +56,10 @@
                         <h2><?php
                             $tmpTitle = get_the_title();
                             echo esc_html(
-                                (strlen($tmpTitle) > 25) ? wp_html_excerpt($tmpTitle, 25) . esc_html__(' ...', 'integlight') : $tmpTitle
+                                (strlen($tmpTitle) > 42) ? wp_html_excerpt($tmpTitle, 42) . esc_html__(' ...', 'integlight') : $tmpTitle
                             );
                             ?></h2>
 
-                        <!-- 本文の先頭200文字を表示 -->
-                        <p class="post-excerpt">
-                            <?php echo esc_html(wp_trim_words(wp_strip_all_tags(get_the_content()), 78, esc_html__(' ...', 'integlight'))); ?>
-                        </p>
 
 
                         <!-- 下部に日付、カテゴリ、タグを表示 -->
