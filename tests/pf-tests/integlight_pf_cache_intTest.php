@@ -333,6 +333,7 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
         $post_id = $this->factory->post->create([
             'post_title'   => 'Home Test Post',
             'post_content' => 'This is a post for testing home.php output.',
+		    'post_excerpt' => 'This is a post for testing home.php output.',
             'post_status'  => 'publish',
             'post_category' => [$cat_id],
         ]);
@@ -350,7 +351,7 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
             'This is a post for testing home.php output.',
             $output_html,
             'home.php 出力に期待値が含まれていません。'
-        )
+        );
 
         // 2. キャッシュが新しく保存されたことを確認
         $cached = get_transient($ttkey);
