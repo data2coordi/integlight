@@ -313,8 +313,8 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
         // --- 【前提条件】テスト環境の準備 ---
 
         // テスト用の home_type を設定
-        set_theme_mod('integlight_hometype_setting', 'home1');
-        $home_type = get_theme_mod('integlight_hometype_setting', 'home1');
+        set_theme_mod('integlight_hometype_setting', 'home2');
+        $home_type = get_theme_mod('integlight_hometype_setting', 'home2');
 
         // テストで使用するキャッシュキーを定義
         $key  = 'home_content_' . $home_type;
@@ -345,7 +345,12 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
         $output_html = ob_get_clean();
 
         // --- 【検証】外部から見える結果のみをアサート ---
-
+       // 1. 出力されたHTMLにhome1用のコンテンツが含まれていることを確認
+        $this->assertStringContainsString(
+            'This is a post for testing home.php output.',
+            $output_html,
+            'home.php 出力に期待値が含まれていません。'
+        )
 
         // 2. キャッシュが新しく保存されたことを確認
         $cached = get_transient($ttkey);
