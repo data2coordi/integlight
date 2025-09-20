@@ -11,15 +11,15 @@
   display: flex;
   justify-content: center;
   /* 水平方向の中央揃え */
-  aspect-ratio: 16 / 9;   /* 横長比率に固定（好みで4/3や3/2に変更可） */
-  overflow: hidden;       /* はみ出した部分を隠す */
+  aspect-ratio: 16 / 9; /* 横長比率に固定（好みで4/3や3/2に変更可） */
+  overflow: hidden; /* はみ出した部分を隠す */
   width: 100%;
 }
 
 .post-thumbnail img {
   width: 100%;
   height: 100%;
-  object-fit: cover;      /* 枠いっぱいにカットして表示 */
+  object-fit: cover; /* 枠いっぱいにカットして表示 */
   object-position: center;
   display: block;
 }
@@ -42,7 +42,7 @@
   /* リストのインデント2行目を1行目と揃える */
 }
 
-.wp-block-list li>ul {
+.wp-block-list li > ul {
   padding-left: 1.5em;
   /* リストの下の白ドットにインデント */
 }
@@ -58,7 +58,6 @@
   margin: 0px -15px -10px -25px;
   /* 親を変えずに表のパディングをなくす */
 }
-
 
 /************************************************************/
 /* メディア @@@***************************************************/
@@ -149,7 +148,6 @@
   padding-left: 5px;
 }
 
-
 /* パンくずアイコン */
 .icon-home,
 .icon-arrow {
@@ -159,7 +157,6 @@
   vertical-align: -0.1em;
   /* 少し上げてる */
 }
-
 
 /*home,パンくず用矢印*/
 .icon-home,
@@ -213,9 +210,6 @@
   margin-top: 10px;
 }
 
-
-
-
 /* 検索の時の記事一覧　次へ前へ */
 /* 検索の時の記事一覧　次へ前へ */
 /* 検索の時の記事一覧　次へ前へ */
@@ -238,7 +232,6 @@
 /* 検索の時の記事一覧e　次へ前へ */
 /* 検索の時の記事一覧　次へ前へ */
 
-
 /************************************************************/
 /* メタ情報設定@@@***************************************************/
 /************************************************************/
@@ -246,7 +239,6 @@
 .edit-post-meta-boxes-area #poststuff h2.hndle {
   font-size: 1.2rem;
 }
-
 
 /*****前へ次へ画像********/
 /*****前へ次へ画像********/
@@ -321,7 +313,6 @@
   fill: #fff;
 }
 
-
 /* .nav-previous .nav-label:hover,
 .nav-next .nav-label:hover {
   color: #999;
@@ -333,22 +324,22 @@
   opacity: 0.8;
 }
 
-
 nav.post-navigation {
   display: flex;
   justify-content: space-between;
   margin-top: 3em;
 }
 
-.nav-title {}
+.nav-title {
+}
 
 .nav-previous i,
-.nav-next i {}
+.nav-next i {
+}
 
 /*****前へ次へ画像e********/
 /*****前へ次へ画像********/
 /*****前へ次へ画像********/
-
 
 /* リンクに出てくる打ち消し線を消す */
 .broken_link,
@@ -414,8 +405,6 @@ a.broken_link {
   /* カテゴリーページネーション */
 }
 
-
-
 /************************************************************/
 /* カード @@@***************************************************/
 /************************************************************/
@@ -457,11 +446,11 @@ a.broken_link {
 .bl_card_container img {
   width: 100%;
   height: auto;
-  aspect-ratio: 16 / 11;      /* ← 好きな比率に固定（例: 16:11） */
+  aspect-ratio: 16 / 11; /* ← 好きな比率に固定（例: 16:11） */
   object-fit: cover;
-  object-position: center;   /* ← 中央を基準に表示 */
+  object-position: center; /* ← 中央を基準に表示 */
   /* 切りたくないなら contain に変更 */
-  display: block;            /* ← 隙間防止 */
+  display: block; /* ← 隙間防止 */
 }
 
 /* カード全体e*/
@@ -550,8 +539,6 @@ a.broken_link {
   width: 42px;
 }
 
-
-
 /***********************************************/
 /*先頭のカテゴリ一覧s*/
 /***********************************************/
@@ -593,7 +580,8 @@ a.broken_link {
   margin: 0 8px 8px 0;
   padding: 10px;
   text-decoration: none;
-  box-shadow: inset 2px 2px 6px rgba(255, 255, 255, 0.6),
+  box-shadow:
+    inset 2px 2px 6px rgba(255, 255, 255, 0.6),
     inset -2px -2px 6px rgba(0, 0, 0, 0.05),
     0 2px 6px rgba(0, 0, 0, 0.08);
 }
@@ -602,7 +590,6 @@ a.broken_link {
   opacity: 0.7;
   transition: all 0.3s ease;
 }
-
 
 @media screen and (max-width: 768px) {
   .blog .category-list {
@@ -618,8 +605,6 @@ a.broken_link {
     font-size: 0.75rem;
   }
 }
-
-
 
 /***********************************************/
 /*先頭のカテゴリ一覧e*/
@@ -673,12 +658,14 @@ a.broken_link {
   margin-top: var(--ly-elementTopMarginSmall);
 }
 
-.wp-block-buttons>.wp-block-button.has-custom-font-size .wp-block-button__link {
+.wp-block-buttons
+  > .wp-block-button.has-custom-font-size
+  .wp-block-button__link {
   min-width: 150px;
   color: #fff;
 }
 
-.wp-block-buttons>.wp-block-button.has-custom-width .wp-block-button__link {
+.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link {
   border-width: 1px;
 }
 
@@ -689,7 +676,7 @@ a.broken_link {
 /************ボタンアニメーション**********/
 
 .wp-block-button__link,
-.wp-block-buttons>.wp-block-button.has-custom-width .wp-block-button__link {
+.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link {
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -708,8 +695,12 @@ a.broken_link {
 
 .wp-block-button__link:hover,
 .wp-block-button__link:active,
-.wp-block-buttons>.wp-block-button.has-custom-width .wp-block-button__link:hover,
-.wp-block-buttons>.wp-block-button.has-custom-width .wp-block-button__link:active {
+.wp-block-buttons
+  > .wp-block-button.has-custom-width
+  .wp-block-button__link:hover,
+.wp-block-buttons
+  > .wp-block-button.has-custom-width
+  .wp-block-button__link:active {
   color: #fff !important;
   /* ホバー時は白テキスト */
   box-shadow: none;
@@ -717,7 +708,9 @@ a.broken_link {
 }
 
 .wp-block-button__link::before,
-.wp-block-buttons>.wp-block-button.has-custom-width .wp-block-button__link::before {
+.wp-block-buttons
+  > .wp-block-button.has-custom-width
+  .wp-block-button__link::before {
   content: "";
   pointer-events: none;
   position: absolute;
@@ -732,8 +725,12 @@ a.broken_link {
 
 .wp-block-button__link:hover::before,
 .wp-block-button__link:active::before,
-.wp-block-buttons>.wp-block-button.has-custom-width .wp-block-button__link:hover::before,
-.wp-block-buttons>.wp-block-button.has-custom-width .wp-block-button__link:active::before {
+.wp-block-buttons
+  > .wp-block-button.has-custom-width
+  .wp-block-button__link:hover::before,
+.wp-block-buttons
+  > .wp-block-button.has-custom-width
+  .wp-block-button__link:active::before {
   left: 0;
 }
 
@@ -756,8 +753,6 @@ a.broken_link {
 }
 
 /*** ボタン e ***/
-
-
 
 /************************************************************/
 /* タグ @@@ ***************************************************/
@@ -824,7 +819,10 @@ section.widget_block {
   /* 細かな気持ちよさ */
   white-space: nowrap;
   /* 1タグは折り返さない */
-  transition: background .2s ease, border-color .2s ease, color .2s ease;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
 }
 
 /* ホバー／フォーカス（アクセント色は好みで） */
@@ -837,8 +835,6 @@ section.widget_block {
   color: #fff;
   outline: none;
 }
-
-
 
 /* tag e */
 
@@ -922,7 +918,6 @@ section.widget_block {
 /* SNSシェア @@@ ***************************************************/
 /************************************************************/
 
-
 /************************************************************/
 /* メインコンテンツ @@@ ***************************************************/
 /************************************************************/
@@ -932,14 +927,14 @@ pre.wp-block-verse {
 }
 
 /* 引用のデザイン */
-.wp-block-quote {
+blockquote.wp-block-quote {
   position: relative;
   border-left: 5px solid #dedede;
   padding-left: 5em;
 }
 
 /* 引用にフォントオーサムを表示される */
-.wp-block-quote::after {
+blockquote.wp-block-quote::after {
   font-family: "Font Awesome 6 Free";
   content: "\f10d";
   font-weight: 900;
@@ -979,8 +974,6 @@ pre.wp-block-verse {
   background: #eee;
 }
 
-
-
 /* スマホレイアウト */
 /* スマホレイアウト */
 /* スマホレイアウト */
@@ -988,7 +981,6 @@ pre.wp-block-verse {
 /* スマホレイアウト */
 
 @media (max-width: 768px) {
-
   /* カードレイアウト */
   .bl_card_container {
     padding: 1em;
@@ -1018,11 +1010,8 @@ pre.wp-block-verse {
   }
 }
 
-
-
 /*******************一時保管 s*************************/
 /****************************************************/
 /****************************************************/
 /****************************************************/
 /****************************************************/
-
