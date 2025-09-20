@@ -63,8 +63,8 @@ class template_HomeTemplateTest extends WP_UnitTestCase
         include get_template_directory() . '/home.php';
         $output = ob_get_clean();
 
-        // 長いタイトルは25文字＋「 ...」で切り詰め
-        $expected_trim = mb_substr($this->long_title, 0, 25) . ' ...';
+        // 長いタイトルは42文字＋「 ...」で切り詰め
+        $expected_trim = mb_substr($this->long_title, 0, 42) . ' ...';
         $this->assertStringContainsString($expected_trim, $output);
 
         // 短いタイトルはそのまま

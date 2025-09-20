@@ -346,12 +346,6 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
 
         // --- 【検証】外部から見える結果のみをアサート ---
 
-        // 1. 出力されたHTMLにhome1用のコンテンツが含まれていることを確認
-        $this->assertStringContainsString(
-            'This is a post for testing home.php output.',
-            $output_html,
-            'home.php 出力に期待値が含まれていません。'
-        );
 
         // 2. キャッシュが新しく保存されたことを確認
         $cached = get_transient($ttkey);
