@@ -146,6 +146,11 @@ article {
   margin-top: var(--ly-elementTopMargin);
 }
 
+/* サイドバー内のウィジェット間で空き過ぎを詰める */
+#secondary .widget + .widget {
+  margin-top: 8px;
+}
+
 p,
 ul,
 input,
