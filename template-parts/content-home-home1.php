@@ -56,7 +56,9 @@
                         <h2><?php
                             $tmpTitle = get_the_title();
                             echo esc_html(
-                                (strlen($tmpTitle) > 42) ? wp_html_excerpt($tmpTitle, 42) . esc_html__(' ...', 'integlight') : $tmpTitle
+                                (mb_strlen($tmpTitle) > 42)
+                                    ? wp_html_excerpt($tmpTitle, 42) . esc_html__(' ...', 'integlight')
+                                    : $tmpTitle
                             );
                             ?></h2>
 

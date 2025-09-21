@@ -148,7 +148,7 @@ article {
 
 /* サイドバー内のウィジェット間で空き過ぎを詰める */
 #secondary .widget + .widget {
-  margin-top: 8px;
+  margin-top: 10px;
 }
 
 p,
