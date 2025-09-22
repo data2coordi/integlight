@@ -55,7 +55,11 @@ test.describe("カスタマイザー全パターンまとめテスト", () => {
 
       if (input.optimized) {
         const checkbox = page.getByLabel("高速化オプションを有効にする");
-
+        console.log("デバッグログs"); // 1 になっているか
+        console.log(await checkbox.count()); // 1 になっているか
+        console.log(await checkbox.isVisible()); // true になっているか
+        console.log(await checkbox.isEnabled()); // true になっているか
+        console.log("デバッグログe"); // 1 になっているか
         for (const state of input.optimized) {
           const isChecked = await checkbox.isChecked();
           if (state !== isChecked) {
