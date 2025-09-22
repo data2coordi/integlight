@@ -15,6 +15,7 @@ const CUSTOMIZER_INPUTS = [
     label: "Google Analytics 測定ID",
     code: "UA-12345678-1",
     outputTarget: "body",
+    optimized: [true, false], // ON/OFF 両方をテスト
   },
   {
     name: "GTM-head",
@@ -51,6 +52,27 @@ test.describe("カスタマイザー全パターンまとめテスト", () => {
       const field = page.getByLabel(input.label);
       await field.fill("");
       await field.fill(input.code);
+
+      if (input.optimized) {
+        const checkbox = page.getByLabel("高速化オプションを有効にする");
+
+        for (const state of input.optimized) {
+          const isChecked = await checkbox.isChecked();
+          if (state !== isChecked) {
+            await checkbox.click();
+          }
+
+          // 保存してフロント確認
+          await saveCustomizer(page);
+
+          // 出力ターゲットを切り替え
+          const target = state ? "body" : "head";
+          await page.goto("/", { waitUntil: "networkidle" });
+          const content = await page.locator(target).innerHTML();
+          expect(content).toContain(input.code);
+        }
+      }
+
       await ensureCustomizerRoot(page);
     }
 
