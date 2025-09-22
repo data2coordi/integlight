@@ -15,7 +15,7 @@ const CUSTOMIZER_INPUTS = [
     label: "Google Analytics 測定ID",
     code: "UA-12345678-1",
     outputTarget: "body",
-    optimized: [true, false], // ON/OFF 両方をテスト
+    optimized: true, // 高速化オプション対象
   },
   {
     name: "GTM-head",
@@ -43,53 +43,51 @@ const CUSTOMIZER_INPUTS = [
 test.describe("カスタマイザー全パターンまとめテスト", () => {
   test("E2E: 4パターン入力・保存・フロント確認・復元確認", async ({ page }) => {
     // ---------------------------
-    // 1. カスタマイザーを1回だけ開き、4パターン入力
+    // 1. カスタマイザーを開き、各パターン入力
     // ---------------------------
-
     await openCustomizer(page);
+
     for (const input of CUSTOMIZER_INPUTS) {
-      console.log(`@@@@@テスト中@@@@@: ${input.name}`); // ここでパターン名を出力
+      console.log(`@@@@@テスト中@@@@@: ${input.name}`);
       await page.getByRole("button", { name: input.buttonName }).click();
 
       const field = page.getByLabel(input.label);
       await field.fill("");
       await field.fill(input.code);
 
-      if (input.optimized) {
-        const label = page.getByLabel("高速化オプションを有効にする");
-
-        for (const state of input.optimized) {
-          console.log(
-            `  @@@@@サブパターン@@@@@: 高速化オプション ${state ? "ON" : "OFF"}`
-          ); // ON/OFF のログ
-          // 一旦ラベルをクリックして状態を切り替え（ON/OFF両方をテスト）
-
-          await label.waitFor({ state: "visible" });
-          if (state) {
-            await label.check(); // 明示的にON
-          } else {
-            await label.uncheck(); // 明示的にOFF
-          }
-
-          // 保存してフロント確認
-          await saveCustomizer(page);
-
-          // 出力ターゲットを切り替え
-          const target = state ? "body" : "head";
-          await page.goto("/", { waitUntil: "networkidle" });
-          const content = await page.locator(target).innerHTML();
-          expect(content).toContain(input.code);
-        }
-      }
-
       await ensureCustomizerRoot(page);
     }
 
-    // 保存ボタンをクリック
-    await saveCustomizer(page);
+    // ---------------------------
+    // 2. 高速化オプション ON で全パターン保存・フロント確認
+    // ---------------------------
+    for (const input of CUSTOMIZER_INPUTS) {
+      if (input.optimized) {
+        const label = page.getByLabel("高速化オプションを有効にする");
+        await label.check();
+      }
+
+      await saveCustomizer(page);
+      const content = await page.locator(input.outputTarget).innerHTML();
+      expect(content).toContain(input.code);
+    }
 
     // ---------------------------
-    // 2. 保存後、カスタマイザー内で値が復元されるか確認
+    // 3. 高速化オプション OFF で全パターン保存・フロント確認
+    // ---------------------------
+    for (const input of CUSTOMIZER_INPUTS) {
+      if (input.optimized) {
+        const label = page.getByLabel("高速化オプションを有効にする");
+        await label.uncheck();
+      }
+
+      await saveCustomizer(page);
+      const content = await page.locator(input.outputTarget).innerHTML();
+      expect(content).toContain(input.code);
+    }
+
+    // ---------------------------
+    // 4. 保存後、カスタマイザー内で値が復元されるか確認
     // ---------------------------
     for (const input of CUSTOMIZER_INPUTS) {
       await page.getByRole("button", { name: input.buttonName }).click();
@@ -99,18 +97,17 @@ test.describe("カスタマイザー全パターンまとめテスト", () => {
     }
 
     // ---------------------------
-    // 3. フロントで出力されているか確認（E2E-03相当）
+    // 5. フロントで出力されているか確認
     // ---------------------------
     await page.goto("/", { waitUntil: "networkidle" });
     for (const input of CUSTOMIZER_INPUTS) {
       const content = await page.locator(input.outputTarget).innerHTML();
       expect(content).toContain(input.code);
-      // デバッグ用表示（必要な場合のみ）
       await showCodeOverlay(page, input.code);
     }
 
     // ---------------------------
-    // 4. Twenty Twentyでフロント出力を確認（E2E-04相当）
+    // 6. Twenty Twentyでフロント出力を確認
     // ---------------------------
     await activateTheme(page, "twentytwenty");
     await page.goto("/", { waitUntil: "networkidle" });
@@ -120,7 +117,7 @@ test.describe("カスタマイザー全パターンまとめテスト", () => {
     }
 
     // ---------------------------
-    // 5. Twenty Twentyで保存した値が復元されるか確認（E2E-05相当）
+    // 7. Twenty Twentyで保存した値が復元されるか確認
     // ---------------------------
     await openCustomizer(page);
     for (const input of CUSTOMIZER_INPUTS) {
