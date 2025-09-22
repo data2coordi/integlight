@@ -51,6 +51,13 @@ test.describe("カスタマイザー全パターンまとめテスト", () => {
       const field = page.getByLabel(input.label);
       await field.fill("");
       await field.fill(input.code);
+
+      // 高速化オプションが存在する場合のみ OFF にする
+      const gaLabel = page.getByLabel("高速化オプションを有効にする");
+      if ((await gaLabel.count()) > 0) {
+        await gaLabel.check();
+      }
+
       await ensureCustomizerRoot(page);
     }
 
