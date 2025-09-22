@@ -63,7 +63,12 @@ test.describe("カスタマイザー全パターンまとめテスト", () => {
             `  @@@@@サブパターン@@@@@: 高速化オプション ${state ? "ON" : "OFF"}`
           ); // ON/OFF のログ
           // 一旦ラベルをクリックして状態を切り替え（ON/OFF両方をテスト）
-          await label.click();
+
+          if (state) {
+            await label.check(); // 明示的にON
+          } else {
+            await label.uncheck(); // 明示的にOFF
+          }
 
           // 保存してフロント確認
           await saveCustomizer(page);
