@@ -64,6 +64,7 @@ test.describe("カスタマイザー全パターンまとめテスト", () => {
           ); // ON/OFF のログ
           // 一旦ラベルをクリックして状態を切り替え（ON/OFF両方をテスト）
 
+          await label.waitFor({ state: "visible" });
           if (state) {
             await label.check(); // 明示的にON
           } else {
