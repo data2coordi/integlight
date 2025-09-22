@@ -45,8 +45,10 @@ test.describe("カスタマイザー全パターンまとめテスト", () => {
     // ---------------------------
     // 1. カスタマイザーを1回だけ開き、4パターン入力
     // ---------------------------
+
     await openCustomizer(page);
     for (const input of CUSTOMIZER_INPUTS) {
+      console.log(`テスト中: ${input.name}`); // ここでパターン名を出力
       await page.getByRole("button", { name: input.buttonName }).click();
 
       const field = page.getByLabel(input.label);
@@ -57,6 +59,9 @@ test.describe("カスタマイザー全パターンまとめテスト", () => {
         const label = page.getByLabel("高速化オプションを有効にする");
 
         for (const state of input.optimized) {
+          console.log(
+            `  サブパターン: 高速化オプション ${state ? "ON" : "OFF"}`
+          ); // ON/OFF のログ
           // 一旦ラベルをクリックして状態を切り替え（ON/OFF両方をテスト）
           await label.click();
 
