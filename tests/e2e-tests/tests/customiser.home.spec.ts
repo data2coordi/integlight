@@ -137,7 +137,7 @@ test.describe("e2e-home1-PC:", () => {
         ".page-numbers",
         10,
         "画像テスト",
-        "サイドFIREに必要な資産額はいくら？FIRE実践者が解説 ..."
+        "サイドFIRE｜サイドFIREに必要な資産額はいくら？FIRE実践者が解説"
       ));
   });
 
