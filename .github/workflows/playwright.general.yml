@@ -2,7 +2,7 @@ name: Playwright general Test
 #gtest a
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
   workflow_dispatch:
 
@@ -36,10 +36,10 @@ jobs:
 
       # 9. general(汎用a) テスト実行
       - name: Run Playwright general tests
-        run: npx playwright test tests/e2e-tests/tests/customiser.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
+        run: npx playwright test tests/e2e-tests/tests/customiser.home.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
         working-directory: tests/e2e-tests
 
-       # 10. テスト結果・スクリーンショットをアーティファクトとして保存
+        # 10. テスト結果・スクリーンショットをアーティファクトとして保存
       - name: Upload test artifacts
         if: always()
         uses: actions/upload-artifact@v4
