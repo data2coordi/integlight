@@ -103,6 +103,7 @@ test.describe("カスタマイザー全パターンまとめテスト", () => {
     await activateTheme(page, "integlight");
   });
   test("E2E: GA 高速化オプション OFF でフロント確認", async ({ page }) => {
+    console.log("===== テストパターン: GA 高速化オプション OFF =====");
     // GA入力
     await openCustomizer(page);
     await page.getByRole("button", { name: "Google Analytics 設定" }).click();
@@ -119,7 +120,7 @@ test.describe("カスタマイザー全パターンまとめテスト", () => {
     // 保存してフロント確認
     await saveCustomizer(page);
     await page.goto("/", { waitUntil: "networkidle" });
-    const content = await page.locator("head").innerHTML;
+    const content = await page.locator("head").innerHTML();
     expect(content).toContain("UA-12345678-1");
   });
 });
