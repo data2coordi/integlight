@@ -58,36 +58,6 @@ h3.wp-block-heading::after {
   color: #222;
 }
 
-/************ボタンアニメーション**********/
-.wp-block-button__link,
-.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link {
-  border: 1px solid #555;
-  background-color: #fff;
-  /* 非ホバー時は白背景 */
-  color: #555;
-  /* 非ホバー時は濃いテキスト色 */
-  /* border-radius: inherit; */
-}
-
-.wp-block-button__link:hover,
-.wp-block-button__link:active,
-.wp-block-buttons
-  > .wp-block-button.has-custom-width
-  .wp-block-button__link:hover,
-.wp-block-buttons
-  > .wp-block-button.has-custom-width
-  .wp-block-button__link:active {
-  color: #fff !important;
-  /* ホバー時は白テキスト */
-}
-
-.wp-block-button__link::before,
-.wp-block-buttons
-  > .wp-block-button.has-custom-width
-  .wp-block-button__link::before {
-  background-color: #fa9301;
-}
-
 /************ページトップ*************/
 /************ページトップ*************/
 /************ページトップ*************/
