@@ -678,37 +678,31 @@ a.broken_link {
 .wp-block-button__link,
 .wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link {
   position: relative;
-  isolation: isolate;
-  overflow: hidden;
   padding: 10px 20px;
   border: 1px solid #555;
-  background-color: #fff;
-  /* 非ホバー時は白背景 */
-  color: #555;
-  /* 非ホバー時は濃いテキスト色 */
-  /* border-radius: inherit; */
+  background-color: #fff; /* 常に白背景 */
+  color: #555; /* 常に濃い文字色 */
   box-shadow: 2px 4px #000;
   cursor: pointer;
   text-align: center;
-  transition: color 0.3s ease-in-out;
+}
+
+.wp-block-button__link:hover,
+.wp-block-button__link:active,
+.wp-block-buttons
+  > .wp-block-button.has-custom-width
+  .wp-block-button__link:hover,
+.wp-block-buttons
+  > .wp-block-button.has-custom-width
+  .wp-block-button__link:active {
+  box-shadow: none;
+  transform: translateY(4px); /* ギュッと沈むだけ */
 }
 
 /* キーボード操作でも状態が見えるように */
 .wp-block-button__link:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 2px;
-}
-
-/* 動きが苦手なユーザー配慮（揺れ/移動を止める） */
-@media (prefers-reduced-motion: reduce) {
-  .wp-block-button__link {
-    transition: none;
-    transform: none !important;
-  }
-
-  .wp-block-button__link::before {
-    transition: none;
-  }
 }
 
 /*** ボタン e ***/
