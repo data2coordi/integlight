@@ -693,47 +693,6 @@ a.broken_link {
   transition: color 0.3s ease-in-out;
 }
 
-.wp-block-button__link:hover,
-.wp-block-button__link:active,
-.wp-block-buttons
-  > .wp-block-button.has-custom-width
-  .wp-block-button__link:hover,
-.wp-block-buttons
-  > .wp-block-button.has-custom-width
-  .wp-block-button__link:active {
-  color: #fff !important;
-  /* ホバー時は白テキスト */
-  box-shadow: none;
-  transform: translateY(4px);
-}
-
-.wp-block-button__link::before,
-.wp-block-buttons
-  > .wp-block-button.has-custom-width
-  .wp-block-button__link::before {
-  content: "";
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background-color: #555;
-  transition: left 0.3s ease-in-out;
-  z-index: -1;
-}
-
-.wp-block-button__link:hover::before,
-.wp-block-button__link:active::before,
-.wp-block-buttons
-  > .wp-block-button.has-custom-width
-  .wp-block-button__link:hover::before,
-.wp-block-buttons
-  > .wp-block-button.has-custom-width
-  .wp-block-button__link:active::before {
-  left: 0;
-}
-
 /* キーボード操作でも状態が見えるように */
 .wp-block-button__link:focus-visible {
   outline: 2px solid currentColor;
