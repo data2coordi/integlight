@@ -2,7 +2,7 @@ name: Playwright Compare Visual Test
 #vtest
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
   workflow_dispatch:
 
@@ -10,11 +10,13 @@ jobs:
   visual-test:
     if: contains(github.event.head_commit.message, 'vtest')
     runs-on: ubuntu-latest
+    container:
+      # 公式のPlaywrightイメージを使用x
+      image: mcr.microsoft.com/playwright:v1.51.1-jammy
 
     env:
       WP_ADMIN_USER: ${{ secrets.WP_ADMIN_USER }}
       WP_ADMIN_PASSWORD: ${{ secrets.WP_ADMIN_PASSWORD }}
-      PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/tests/e2e-tests/.playwright-browsers
 
     steps:
       - name: Checkout repository
@@ -25,7 +27,7 @@ jobs:
 
       - name: Prepare auth directory
         run: mkdir -p playwright/.auth
-        working-directory: tests/e2e-tests 
+        working-directory: tests/e2e-tests
 
       # 4. 認証セットアップ
       - name: Run Playwright auth setup
@@ -35,7 +37,7 @@ jobs:
       # 5. Visual テスト
       - name: Run Playwright visual tests
         run: |
-          npx playwright test --project=visual --config=playwright.config.js 2>&1 
+          npx playwright test --project=visual --config=playwright.config.js 2>&1
         working-directory: tests/e2e-tests
 
       # 6. テスト結果保存
@@ -47,10 +49,18 @@ jobs:
           path: |
             tests/e2e-tests/test-results/
 
+      # debug a
+      # - name: Debug Git Environment (Full)
+      #   if: always()
+      #   run: |
+      #     git config --global --add safe.directory $GITHUB_WORKSPACE
+      #   working-directory: ${{ github.workspace }}
+
       # 7. テスト結果コミット
       - name: Commit updated test result
         if: always()
         run: |
+          git config --global --add safe.directory $GITHUB_WORKSPACE
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add tests/e2e-tests/test-results/
@@ -58,3 +68,4 @@ jobs:
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: ${{ github.workspace }}

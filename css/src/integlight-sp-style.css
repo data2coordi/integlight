@@ -5,18 +5,19 @@
 .wp-block-heading {
   /*color: #222;*/
   border-bottom: none; /*下線なくす*/
-  width: 100%;
   position: relative;
   /*::afterにabsoluteをかけるので設定*/
+  display: inline-block; /* テキスト幅に合わせる */
+  padding-bottom: 5px; /* ← 下線の太さ＋余白ぶん確保 */
 }
 
 .wp-block-heading::after {
   content: "";
   position: absolute;
-  bottom: -2px;
+  bottom: 0;
   left: 0;
   height: 3px;
-  width: 20%; /* 下線の長さ（見出し幅の半分なら50%、全幅なら100%） */
+  width: 100%; /* ← テキスト幅に合わせて下線表示 */
   background: #555; /* 下線の色 */
 }
 

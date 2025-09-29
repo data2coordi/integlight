@@ -2,7 +2,7 @@ name: Playwright function Test
 #testfffff
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
   workflow_dispatch:
 
@@ -10,11 +10,13 @@ jobs:
   function-test:
     if: contains(github.event.head_commit.message, 'ftest')
     runs-on: ubuntu-latest
+    container:
+      # 公式のPlaywrightイメージを使用x
+      image: mcr.microsoft.com/playwright:v1.51.1-jammy
 
     env:
       WP_ADMIN_USER: ${{ secrets.WP_ADMIN_USER }}
       WP_ADMIN_PASSWORD: ${{ secrets.WP_ADMIN_PASSWORD }}
-      PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/tests/e2e-tests/.playwright-browsers
 
     steps:
       # 1. リポジトリチェックアウト
@@ -39,7 +41,7 @@ jobs:
         run: npx playwright test --project=main --project=unauthenticated --config=playwright.config.js --workers=1
         working-directory: tests/e2e-tests
 
-       # 10. テスト結果・スクリーンショットをアーティファクトとして保存
+        # 10. テスト結果・スクリーンショットをアーティファクトとして保存
       - name: Upload test artifacts
         if: always()
         uses: actions/upload-artifact@v4

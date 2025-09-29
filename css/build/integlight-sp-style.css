@@ -1,1 +1,1 @@
-.wp-block-heading{border-bottom:none;position:relative;width:100%}.wp-block-heading:after{background:#555;bottom:-2px;content:"";height:3px;left:0;position:absolute;width:20%}
+.wp-block-heading{border-bottom:none;display:inline-block;padding-bottom:5px;position:relative}.wp-block-heading:after{background:#555;bottom:0;content:"";height:3px;left:0;position:absolute;width:100%}
