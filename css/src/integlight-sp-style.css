@@ -4,7 +4,7 @@
 /* .wp-block-heading←このクラスのhタグにだけかける */
 .wp-block-heading {
   /*color: #222;*/
-  border-bottom: none;
+  border-bottom: none; /*下線なくす*/
   width: 100%;
   position: relative;
   /*::afterにabsoluteをかけるので設定*/
