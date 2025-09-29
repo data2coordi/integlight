@@ -4,41 +4,20 @@
 /* .wp-block-heading←このクラスのhタグにだけかける */
 .wp-block-heading {
   /*color: #222;*/
-  border-bottom: 0.01em solid #e3e3e3;
+  border-bottom: none;
   width: 100%;
   position: relative;
   /*::afterにabsoluteをかけるので設定*/
 }
 
-/* .wp-block-heading←このクラスのhタグにだけかける */
 .wp-block-heading::after {
   content: "";
-  /* コンテンツを追加 */
-  width: 50%;
-  /* 線の幅 */
-  height: 3px;
-  /* 線の高さ */
-  background: #555;
-  /* 線の色 */
   position: absolute;
-  /* position: relative;からの線の絶対位置 */
-  bottom: 0;
-  /* 線の位置 */
+  bottom: -2px;
   left: 0;
-  /* 線の位置 */
-  transform: scale(0, 1);
-  /* 線のx軸の長さを0 */
-  transition: 0.5s;
-  /* 要素の変形する時間*/
-  transform-origin: left top;
-  /* 要素の座標の原点を設定*/
-}
-
-.wp-block-heading:hover::after,
-.wp-block-heading:focus:after,
-.wp-block-heading:active::after {
-  transform: scale(1, 1);
-  /* 線のx軸の長さを1 */
+  height: 3px;
+  width: 20%; /* 下線の長さ（見出し幅の半分なら50%、全幅なら100%） */
+  background: #555; /* 下線の色 */
 }
 
 /* h3::after {
