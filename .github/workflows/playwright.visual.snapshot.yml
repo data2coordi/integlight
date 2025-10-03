@@ -25,13 +25,13 @@ jobs:
       - name: Setup Playwright Environment
         uses: ./.github/actions/setup-playwright
 
-      - name: Prepare auth directory
-        run: mkdir -p playwright/.auth
-        working-directory: tests/e2e-tests
+      # - name: Prepare auth directory
+      #   run: mkdir -p playwright/.auth
+      #   working-directory: tests/e2e-tests
 
-      - name: Run Playwright auth setup
-        run: npx playwright test --project=setup --config=playwright.config.js
-        working-directory: tests/e2e-tests
+      # - name: Run Playwright auth setup
+      #   run: npx playwright test --project=setup --config=playwright.config.js
+      #   working-directory: tests/e2e-tests
 
       - name: Run Playwright visual tests
         run: npx playwright test --project=visual --config=playwright.config.js --update-snapshots
