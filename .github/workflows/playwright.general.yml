@@ -27,15 +27,15 @@ jobs:
       - name: Setup Playwright Environment
         uses: ./.github/actions/setup-playwright
 
-      # 7. storage state 保存用ディレクトリ作成
-      - name: Prepare auth directory
-        run: mkdir -p playwright/.auth
-        working-directory: tests/e2e-tests
+      # # 7. storage state 保存用ディレクトリ作成
+      # - name: Prepare auth directory
+      #   run: mkdir -p playwright/.auth
+      #   working-directory: tests/e2e-tests
 
-      # 8. 認証用 setup プロジェクト実行
-      - name: Run Playwright auth setup
-        run: npx playwright test --project=setup --config=playwright.config.js
-        working-directory: tests/e2e-tests
+      # # 8. 認証用 setup プロジェクト実行
+      # - name: Run Playwright auth setup
+      #   run: npx playwright test --project=setup --config=playwright.config.js
+      #   working-directory: tests/e2e-tests
       # #######################################################
       # 9. general(汎用a) テスト実行
       - name: Run Playwright general tests
