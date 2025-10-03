@@ -1,6 +1,6 @@
 
 git rebase -i HEAD~20
-git push --force-with-lease
+#git push --force-with-lease
 
 
 exit
