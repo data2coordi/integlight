@@ -294,7 +294,15 @@ async function verifySliderOnFade_Home2Pc(page, imagePartialName) {
   expect(firstSrc.includes(imagePartialName)).toBe(true);
 }
 
-async function verifyTextDetails(page, mainText, subText, top, left) {
+async function verifyTextDetails(
+  page,
+  mainText,
+  subText,
+  top,
+  left,
+  font,
+  fontColor
+) {
   await page.goto("/", { waitUntil: "networkidle" });
   await expect(page.locator(".slider.fade-effect")).toBeVisible();
 
@@ -314,6 +322,18 @@ async function verifyTextDetails(page, mainText, subText, top, left) {
   });
   expect(position.top).toBe(`${top}px`);
   expect(position.left).toBe(`${left}px`);
+
+  // フォントファミリーチェック
+  const fontFamily = await mainTextLocator.evaluate(
+    (el) => getComputedStyle(el).fontFamily
+  );
+  expect(fontFamily).toContain(font); // 部分一致で確認することも可能
+
+  // カラー（文字色）チェック
+  const color = await mainTextLocator.evaluate(
+    (el) => getComputedStyle(el).color
+  );
+  expect(color).toBe(fontColor); // 文字色をrgbで指定
 }
 
 // 共通テストフロー
@@ -370,7 +390,7 @@ async function set_sliderEffect_and_siteType(page, useEffect, homeType) {
 //初期設定
 ////////////////////////////////////////////////////////
 test.describe("初期設定", () => {
-  test.only("カスタマイザーでのテキストの設定確認", async ({ page }) => {
+  test("カスタマイザーでのテキストの設定確認", async ({ page }) => {
     const inisialSetting = TEST_CONFIGS.inisialCustomiserSetting;
     const configSp = TEST_CONFIGS.spCustomizerSetting;
     await setSliderDetailSettings(page, configSp, inisialSetting);
@@ -398,7 +418,9 @@ test.describe("初期設定とテキスト設定の検証", () => {
           config.mainText,
           config.subText,
           config.textPositionTop,
-          config.textPositionLeft
+          config.textPositionLeft,
+          '"Yu Mincho", 游明朝体, serif',
+          "rgb(255, 0, 0)" // pcではrgbで確認
         ));
     });
   });
@@ -412,7 +434,9 @@ test.describe("初期設定とテキスト設定の検証", () => {
           config.mainText,
           config.subText,
           config.textPositionTop,
-          config.textPositionLeft
+          config.textPositionLeft,
+          '"Yu Mincho", 游明朝体, serif',
+          "rgb(255, 0, 0)" // pcではrgbで確認
         ));
     });
   });

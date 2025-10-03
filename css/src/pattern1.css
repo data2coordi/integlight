@@ -37,14 +37,6 @@ a:focus-visible,
   background-color: #555;
 }
 
-h2.wp-block-heading::after {
-  background-color: #555;
-}
-
-h3.wp-block-heading::after {
-  background-color: #777;
-}
-
 .integlight_pt .entry-footer {
   background: none;
   color: #222;
