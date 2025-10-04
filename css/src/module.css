@@ -71,6 +71,11 @@
 /* カバー画像e */
 
 /*3.4 メディアとテキスト */
+/* 背景なしの場合はpaddingをリセット */
+.wp-block-media-text:not(.has-background) .wp-block-media-text__content {
+  padding: 0;
+}
+
 /*3.5 テーブル */
 
 /* 画像・要素の左右・中央寄せ */
