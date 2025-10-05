@@ -18,13 +18,6 @@ const TEST_SCENARIOS = {
       headerType: "なし",
       selector: "main#primary > section.latest-posts",
     },
-    // pcHome2: {
-    //   siteType: "ポップ",
-    //   headerType: "なし",
-    //   headCt: 0,
-    //   bodyCt: 4,
-    //   bodySelector: ".post-grid .grid-item .post-thumbnail img",
-    // },
   },
   ヘッダーあり: {
     pcHome1: {
@@ -32,14 +25,13 @@ const TEST_SCENARIOS = {
       headerType: "スライダー",
       selector: ".slider",
     },
-    // pcHome2: {
-    //   siteType: "ポップ",
-    //   headerType: "スライダー",
-    //   headCt: 3,
-    //   bodyCt: 2,
-    //   headSelector: ".slider img",
-    //   bodySelector: ".post-grid .grid-item .post-thumbnail img",
-    // },
+  },
+  ヘッダー画像: {
+    pcHome1: {
+      siteType: "エレガント",
+      headerType: "静止画像",
+      selector: "topImage",
+    },
   },
 };
 
