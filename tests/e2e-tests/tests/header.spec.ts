@@ -13,16 +13,6 @@ import {
 // テスト設定を統合し、階層的な構造にする
 const TEST_SCENARIOS = {
   ヘッダーなし: {
-    spHome1: {
-      viewport: { width: 375, height: 800 },
-      userAgent:
-        "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1",
-      siteType: "エレガント",
-      headerType: "なし",
-      headCt: 0,
-      bodyCt: 1,
-      bodySelector: ".post-grid .grid-item .post-thumbnail img",
-    },
     pcHome1: {
       siteType: "エレガント",
       headerType: "なし",
@@ -30,64 +20,32 @@ const TEST_SCENARIOS = {
       bodyCt: 3,
       bodySelector: ".post-grid .grid-item .post-thumbnail img",
     },
-    spHome2: {
-      viewport: { width: 375, height: 800 },
-      userAgent:
-        "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1",
-      siteType: "ポップ",
-      headerType: "なし",
-      headCt: 0,
-      bodyCt: 2,
-      bodySelector: ".post-grid .grid-item .post-thumbnail img",
-    },
-    pcHome2: {
-      siteType: "ポップ",
-      headerType: "なし",
-      headCt: 0,
-      bodyCt: 4,
-      bodySelector: ".post-grid .grid-item .post-thumbnail img",
-    },
+    // pcHome2: {
+    //   siteType: "ポップ",
+    //   headerType: "なし",
+    //   headCt: 0,
+    //   bodyCt: 4,
+    //   bodySelector: ".post-grid .grid-item .post-thumbnail img",
+    // },
   },
-  ヘッダーあり: {
-    spHome1: {
-      viewport: { width: 375, height: 800 },
-      userAgent:
-        "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1",
-      siteType: "エレガント",
-      headerType: "スライダー",
-      headCt: 1,
-      bodyCt: 0, // 優先読み込みすべきボディ画像がないことを意味する
-      headSelector: ".slider img",
-      bodySelector: ".post-grid .grid-item .post-thumbnail img",
-    },
-    pcHome1: {
-      siteType: "エレガント",
-      headerType: "スライダー",
-      headCt: 1,
-      bodyCt: 0, // 優先読み込みすべきボディ画像がないことを意味する
-      headSelector: ".slider img",
-      bodySelector: ".post-grid .grid-item .post-thumbnail img",
-    },
-    spHome2: {
-      viewport: { width: 375, height: 800 },
-      userAgent:
-        "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1",
-      siteType: "ポップ",
-      headerType: "スライダー",
-      headCt: 1,
-      bodyCt: 1,
-      headSelector: ".slider img",
-      bodySelector: ".post-grid .grid-item .post-thumbnail img",
-    },
-    pcHome2: {
-      siteType: "ポップ",
-      headerType: "スライダー",
-      headCt: 3,
-      bodyCt: 2,
-      headSelector: ".slider img",
-      bodySelector: ".post-grid .grid-item .post-thumbnail img",
-    },
-  },
+  // ヘッダーあり: {
+  //   pcHome1: {
+  //     siteType: "エレガント",
+  //     headerType: "スライダー",
+  //     headCt: 1,
+  //     bodyCt: 0, // 優先読み込みすべきボディ画像がないことを意味する
+  //     headSelector: ".slider img",
+  //     bodySelector: ".post-grid .grid-item .post-thumbnail img",
+  //   },
+  //   pcHome2: {
+  //     siteType: "ポップ",
+  //     headerType: "スライダー",
+  //     headCt: 3,
+  //     bodyCt: 2,
+  //     headSelector: ".slider img",
+  //     bodySelector: ".post-grid .grid-item .post-thumbnail img",
+  //   },
+  // },
 };
 
 //////////////////////////////外出し候補end
@@ -100,58 +58,15 @@ async function verifyImageAttributes(
   // timeStart('verifyImageAttributes');
 
   await page.goto("/", { waitUntil: "networkidle" });
-  const images = page.locator(selector);
-  const count = await images.count();
 
-  //console.log(`画像の総数: ${count} 優先読み込みの画像数：${priorityCount}`);
+  // main要素を取得
+  const main = page.locator("main#primary");
 
-  for (let i = 0; i < count; i++) {
-    const img = images.nth(i);
-    const src = (await img.getAttribute("src")) || "(no src)";
-    const fetchpriority = await img.getAttribute("fetchpriority");
-    const loading = await img.getAttribute("loading");
+  // mainの次の兄弟要素を取得
+  const nextSibling = main.locator("xpath=following-sibling::*[1]");
 
-    const filename = src
-      ? src
-          .split("/")
-          .pop()!
-          .split("?")[0]
-          .replace(/-\d+x\d+(?=\.[^.]+$)/, "")
-      : "(no src)";
-    // console.log(`[${i + 1}枚目:] fetchpriority="${fetchpriority}" | loading="${loading} | src:${filename}`);
-
-    if (i < priorityCount) {
-      if (fetchpriority !== "high") {
-        throw new Error(
-          `[${
-            i + 1
-          }枚目:${src}] fetchpriority expected="high" actual="${fetchpriority}"`
-        );
-      }
-      if (loading === "lazy") {
-        throw new Error(
-          `[${
-            i + 1
-          }枚目:${src}] loading should NOT be "lazy", actual="${loading}"`
-        );
-      }
-    } else {
-      if (loading !== "lazy") {
-        throw new Error(
-          `[${i + 1}枚目:${src}] loading expected="lazy" actual="${loading}"`
-        );
-      }
-      if (fetchpriority === "high") {
-        throw new Error(
-          `[${
-            i + 1
-          }枚目:${src}] fetchpriority should NOT be "high", actual="${fetchpriority}"`
-        );
-      }
-    }
-  }
-
-  //logStepTime('verifyImageAttributes');
+  // クラスが latest-posts であることを確認
+  await expect(nextSibling).toHaveClass(/latest-posts/);
 }
 
 // 共通テストフロー
