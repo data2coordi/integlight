@@ -10,7 +10,7 @@ import {
   ensureCustomizerRoot,
 } from "../utils/common";
 
-// テスト設定を統合し、階層的な構造にする
+// テスト設定を統合し、階層的な構造にするa
 const TEST_SCENARIOS = {
   ヘッダーなし: {
     pcHome1: {
@@ -39,8 +39,6 @@ const TEST_SCENARIOS = {
 
 async function verifyHeaderContents(page: Page, selector: string) {
   await page.goto("/", { waitUntil: "networkidle" });
-
-  // main要素を取得
 
   const latestPosts = page.locator(selector);
   await expect(latestPosts).toHaveCount(1);
