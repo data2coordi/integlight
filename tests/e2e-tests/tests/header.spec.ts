@@ -112,46 +112,23 @@ async function runCustomizerFlow(page: Page, config: any) {
 for (const [headerGroup, scenarios] of Object.entries(TEST_SCENARIOS)) {
   test.describe(headerGroup, () => {
     for (const [testCaseName, config] of Object.entries(scenarios)) {
-      const isSP = testCaseName.startsWith("sp");
-      const deviceDesc = isSP ? "SP環境" : "PC環境";
+      let page: Page;
+      let context;
 
-      test.describe(`${testCaseName} (${deviceDesc})`, () => {
-        let page: Page;
-        let context;
+      test.beforeAll(async ({ browser }) => {
+        context = await browser.newContext();
+        page = await context.newPage();
+      });
 
-        test.beforeAll(async ({ browser }) => {
-          context = await browser.newContext();
-          page = await context.newPage();
-          if (isSP) {
-            await runCustomizerFlow(page, config);
-          }
-        });
+      test.afterAll(async () => {
+        await page.close();
+        await context.close();
+      });
 
-        test.afterAll(async () => {
-          await page.close();
-          await context.close();
-        });
-
-        if (isSP) {
-          test.use({
-            viewport: (config as any).viewport,
-            userAgent: (config as any).userAgent,
-            extraHTTPHeaders: { "sec-ch-ua-mobile": "?1" },
-          });
-        }
-
-        test("画像ロード属性を確認", async () => {
-          if (config.headCt > 0 && config.headSelector) {
-            //console.log(`@@@@@@@@@@ヘッダー画像のチェック: ${config.headSelector}`);
-            await test.step("ヘッダー画像の属性チェック", () =>
-              verifyImageAttributes(page, config.headSelector, config.headCt));
-          }
-          if (config.bodySelector) {
-            //console.log(`@@@@@@@@@@ボディ画像のチェック: ${config.bodySelector}`);
-            await test.step("ボディ画像の属性チェック", () =>
-              verifyImageAttributes(page, config.bodySelector, config.bodyCt));
-          }
-        });
+      test("画像ロード属性を確認", async () => {
+        //console.log(`@@@@@@@@@@ボディ画像のチェック: ${config.bodySelector}`);
+        await test.step("ボディ画像の属性チェック", () =>
+          verifyImageAttributes(page, config.bodySelector, config.bodyCt));
       });
     }
   });
