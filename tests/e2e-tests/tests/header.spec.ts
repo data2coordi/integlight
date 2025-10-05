@@ -55,18 +55,12 @@ async function verifyImageAttributes(
   selector: string,
   priorityCount = 0
 ) {
-  // timeStart('verifyImageAttributes');
-
   await page.goto("/", { waitUntil: "networkidle" });
 
   // main要素を取得
-  const main = page.locator("main#primary");
 
-  // mainの次の兄弟要素を取得
-  const nextSibling = main.locator("xpath=following-sibling::*[1]");
-
-  // クラスが latest-posts であることを確認
-  await expect(nextSibling).toHaveClass(/latest-posts/);
+  const latestPosts = page.locator("main#primary > section.latest-posts");
+  await expect(latestPosts).toHaveCount(1);
 }
 
 // 共通テストフロー
