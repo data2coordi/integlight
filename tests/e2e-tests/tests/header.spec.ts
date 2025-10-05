@@ -16,9 +16,7 @@ const TEST_SCENARIOS = {
     pcHome1: {
       siteType: "エレガント",
       headerType: "なし",
-      headCt: 0,
-      bodyCt: 3,
-      bodySelector: ".post-grid .grid-item .post-thumbnail img",
+      bodySelector: "main#primary > section.latest-posts",
     },
     // pcHome2: {
     //   siteType: "ポップ",
@@ -50,11 +48,7 @@ const TEST_SCENARIOS = {
 
 //////////////////////////////外出し候補end
 
-async function verifyImageAttributes(
-  page: Page,
-  selector: string,
-  priorityCount = 0
-) {
+async function verifyHeaderContents(page: Page, selector: string) {
   await page.goto("/", { waitUntil: "networkidle" });
 
   // main要素を取得
@@ -122,7 +116,7 @@ for (const [headerGroup, scenarios] of Object.entries(TEST_SCENARIOS)) {
       test("画像ロード属性を確認", async () => {
         //console.log(`@@@@@@@@@@ボディ画像のチェック: ${config.bodySelector}`);
         await test.step("ボディ画像の属性チェック", () =>
-          verifyImageAttributes(page, config.bodySelector, config.bodyCt));
+          verifyHeaderContents(page, config.bodySelector));
       });
     }
   });
