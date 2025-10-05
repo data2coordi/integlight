@@ -19,7 +19,7 @@ const TEST_SCENARIOS = {
       selector: "main#primary > section.latest-posts",
     },
   },
-  ヘッダーあり: {
+  スライダー: {
     pcHome1: {
       siteType: "エレガント",
       headerType: "スライダー",
@@ -42,7 +42,7 @@ async function verifyHeaderContents(page: Page, selector: string) {
 
   // main要素を取得
 
-  const latestPosts = page.locator("main#primary > section.latest-posts");
+  const latestPosts = page.locator(selector);
   await expect(latestPosts).toHaveCount(1);
 }
 
@@ -102,9 +102,8 @@ for (const [headerGroup, scenarios] of Object.entries(TEST_SCENARIOS)) {
         await context.close();
       });
 
-      test("画像ロード属性を確認", async () => {
-        //console.log(`@@@@@@@@@@ボディ画像のチェック: ${config.bodySelector}`);
-        await test.step("ボディ画像の属性チェック", () =>
+      test("ヘッダーの設定の妥当性を確認", async () => {
+        await test.step("ヘッダーの設定の妥当性を確認", () =>
           verifyHeaderContents(page, config.selector));
       });
     }
