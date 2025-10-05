@@ -10,7 +10,7 @@ import {
   ensureCustomizerRoot,
 } from "../utils/common";
 
-// テスト設定を統合し、階層的な構造にする
+// テスト設定を統合し、階層的な構造にするa
 const TEST_SCENARIOS = {
   ヘッダーなし: {
     pcHome1: {
@@ -101,8 +101,8 @@ for (const [headerGroup, scenarios] of Object.entries(TEST_SCENARIOS)) {
       });
 
       test("ヘッダーの設定の妥当性を確認", async () => {
-        await test.step("ヘッダーの設定の妥当性を確認", () =>
-          verifyHeaderContents(page, config.selector));
+        await runCustomizerFlow(page, config);
+        await verifyHeaderContents(page, config.selector);
       });
     }
   });
