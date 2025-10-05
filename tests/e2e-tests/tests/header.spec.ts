@@ -16,7 +16,7 @@ const TEST_SCENARIOS = {
     pcHome1: {
       siteType: "エレガント",
       headerType: "なし",
-      bodySelector: "main#primary > section.latest-posts",
+      selector: "main#primary > section.latest-posts",
     },
     // pcHome2: {
     //   siteType: "ポップ",
@@ -26,24 +26,21 @@ const TEST_SCENARIOS = {
     //   bodySelector: ".post-grid .grid-item .post-thumbnail img",
     // },
   },
-  // ヘッダーあり: {
-  //   pcHome1: {
-  //     siteType: "エレガント",
-  //     headerType: "スライダー",
-  //     headCt: 1,
-  //     bodyCt: 0, // 優先読み込みすべきボディ画像がないことを意味する
-  //     headSelector: ".slider img",
-  //     bodySelector: ".post-grid .grid-item .post-thumbnail img",
-  //   },
-  //   pcHome2: {
-  //     siteType: "ポップ",
-  //     headerType: "スライダー",
-  //     headCt: 3,
-  //     bodyCt: 2,
-  //     headSelector: ".slider img",
-  //     bodySelector: ".post-grid .grid-item .post-thumbnail img",
-  //   },
-  // },
+  ヘッダーあり: {
+    pcHome1: {
+      siteType: "エレガント",
+      headerType: "スライダー",
+      selector: ".slider",
+    },
+    // pcHome2: {
+    //   siteType: "ポップ",
+    //   headerType: "スライダー",
+    //   headCt: 3,
+    //   bodyCt: 2,
+    //   headSelector: ".slider img",
+    //   bodySelector: ".post-grid .grid-item .post-thumbnail img",
+    // },
+  },
 };
 
 //////////////////////////////外出し候補end
@@ -116,7 +113,7 @@ for (const [headerGroup, scenarios] of Object.entries(TEST_SCENARIOS)) {
       test("画像ロード属性を確認", async () => {
         //console.log(`@@@@@@@@@@ボディ画像のチェック: ${config.bodySelector}`);
         await test.step("ボディ画像の属性チェック", () =>
-          verifyHeaderContents(page, config.bodySelector));
+          verifyHeaderContents(page, config.selector));
       });
     }
   });
