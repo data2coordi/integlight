@@ -42,7 +42,7 @@
 /******2カラムブロック********/
 .ly_site_content_main .wp-block-columns {
   gap: 1em;
-  padding: 0 15px 10px 25px;
+  padding: 0 1em;
 }
 
 /******テキストに背景色をつけてまとめたとき********/
