@@ -10,7 +10,7 @@ import {
   ensureCustomizerRoot,
 } from "../utils/common";
 
-// テスト設定を統合し、階層的な構造にするa
+// テスト設定を統合し、階層的な構造にする
 const TEST_SCENARIOS = {
   ヘッダーなし: {
     pcHome1: {
