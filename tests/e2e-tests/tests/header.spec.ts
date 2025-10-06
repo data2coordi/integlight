@@ -16,7 +16,8 @@ const TEST_SCENARIOS = {
     pcHome1: {
       siteType: "エレガント",
       headerType: "なし",
-      selector: "main#primary > section.latest-posts",
+      selector: "body > .site > a:first-child + header:nth-child(2) + main:nth-child(3)",
+",
     },
   },
   スライダー: {
