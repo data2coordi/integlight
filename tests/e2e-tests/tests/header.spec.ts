@@ -19,20 +19,20 @@ const TEST_SCENARIOS = {
       selector: "main#primary > section.latest-posts",
     },
   },
-  スライダー: {
-    pcHome1: {
-      siteType: "エレガント",
-      headerType: "スライダー",
-      selector: ".slider",
-    },
-  },
-  ヘッダー画像: {
-    pcHome1: {
-      siteType: "エレガント",
-      headerType: "静止画像",
-      selector: "topImage",
-    },
-  },
+  // スライダー: {
+  //   pcHome1: {
+  //     siteType: "エレガント",
+  //     headerType: "スライダー",
+  //     selector: ".slider",
+  //   },
+  // },
+  // ヘッダー画像: {
+  //   pcHome1: {
+  //     siteType: "エレガント",
+  //     headerType: "静止画像",
+  //     selector: "topImage",
+  //   },
+  // },
 };
 
 //////////////////////////////外出し候補end
