@@ -23,7 +23,7 @@ const TEST_SCENARIOS = {
     pcHome1: {
       siteType: "エレガント",
       headerType: "スライダー",
-      selector: "body > .slider",
+      selector: "body > .site >.slider",
     },
   },
   ヘッダー画像: {
