@@ -42,8 +42,8 @@
 }
 
 .slider .text-overlay2 h2 {
-  font-size: clamp(1rem, 2vw, 1.5rem);
-  line-height: 2;
+  font-size: clamp(1rem, 1.5vw, 1.3rem);
+  line-height: 1.7;
   font-weight: 400;
   margin-top: 20px;
   /* スライダーh2上スペース */
