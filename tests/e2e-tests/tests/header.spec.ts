@@ -19,18 +19,18 @@ const TEST_SCENARIOS = {
   //     selector: "main#primary > section.latest-posts",
   //   },
   // },
-  // スライダー: {
-  //   pcHome1: {
-  //     siteType: "エレガント",
-  //     headerType: "スライダー",
-  //     selector: ".slider",
-  //   },
-  // },
+  スライダー: {
+    pcHome1: {
+      siteType: "エレガント",
+      headerType: "スライダー",
+      selector: "header > .slider",
+    },
+  },
   ヘッダー画像: {
     pcHome1: {
       siteType: "エレガント",
       headerType: "静止画像",
-      selector: ".topImage",
+      selector: "header > .topImage",
     },
   },
 };
