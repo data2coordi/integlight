@@ -12,13 +12,13 @@ import {
 
 // テスト設定を統合し、階層的な構造にするa
 const TEST_SCENARIOS = {
-  ヘッダーなし: {
-    pcHome1: {
-      siteType: "エレガント",
-      headerType: "なし",
-      selector: "main#primary > section.latest-posts",
-    },
-  },
+  // ヘッダーなし: {
+  //   pcHome1: {
+  //     siteType: "エレガント",
+  //     headerType: "なし",
+  //     selector: "main#primary > section.latest-posts",
+  //   },
+  // },
   // スライダー: {
   //   pcHome1: {
   //     siteType: "エレガント",
@@ -26,13 +26,13 @@ const TEST_SCENARIOS = {
   //     selector: ".slider",
   //   },
   // },
-  // ヘッダー画像: {
-  //   pcHome1: {
-  //     siteType: "エレガント",
-  //     headerType: "静止画像",
-  //     selector: "topImage",
-  //   },
-  // },
+  ヘッダー画像: {
+    pcHome1: {
+      siteType: "エレガント",
+      headerType: "静止画像",
+      selector: "topImage",
+    },
+  },
 };
 
 //////////////////////////////外出し候補end
