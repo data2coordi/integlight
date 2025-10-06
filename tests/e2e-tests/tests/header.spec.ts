@@ -30,7 +30,7 @@ const TEST_SCENARIOS = {
     pcHome1: {
       siteType: "エレガント",
       headerType: "静止画像",
-      selector: "topImage",
+      selector: ".topImage",
     },
   },
 };
