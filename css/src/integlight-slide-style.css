@@ -35,7 +35,7 @@
 }
 
 .slider .text-overlay1 h1 {
-  font-size: clamp(2rem, 5vw, 4rem);
+  font-size: clamp(1.6rem, 4vw, 3.2rem);
   font-weight: 600;
   /* 細くした */
   line-height: 1.3;
