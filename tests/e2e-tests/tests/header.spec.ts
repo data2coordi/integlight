@@ -13,29 +13,22 @@ import {
 // テスト設定を統合し、階層的な構造にするa
 const TEST_SCENARIOS = {
   ヘッダーなし: {
-    pcHome1: {
-      siteType: "エレガント",
-      headerType: "なし",
-      selector:
-        "body > .site > a:first-child + header:nth-child(2) + main:nth-child(3)",
-    },
+    siteType: "エレガント",
+    headerType: "なし",
+    selector:
+      "body > .site > a:first-child + header:nth-child(2) + main:nth-child(3)",
   },
   スライダー: {
-    pcHome1: {
-      siteType: "エレガント",
-      headerType: "スライダー",
-      selector: "body > .site >.slider",
-    },
+    siteType: "エレガント",
+    headerType: "スライダー",
+    selector: "body > .site > .slider",
   },
   ヘッダー画像: {
-    pcHome1: {
-      siteType: "エレガント",
-      headerType: "静止画像",
-      selector: "body > .site > .topImage",
-    },
+    siteType: "エレガント",
+    headerType: "静止画像",
+    selector: "body > .site > .topImage",
   },
 };
-
 //////////////////////////////外出し候補end
 
 async function verifyHeaderContents(page: Page, selector: string) {
@@ -85,26 +78,24 @@ async function runCustomizerFlow(page: Page, config: any) {
 }
 
 // データ駆動型テストの実行
-for (const [headerGroup, scenarios] of Object.entries(TEST_SCENARIOS)) {
+for (const [headerGroup, config] of Object.entries(TEST_SCENARIOS)) {
   test.describe(headerGroup, () => {
-    for (const [testCaseName, config] of Object.entries(scenarios)) {
-      let page: Page;
-      let context;
+    let page: Page;
+    let context;
 
-      test.beforeAll(async ({ browser }) => {
-        context = await browser.newContext();
-        page = await context.newPage();
-      });
+    test.beforeAll(async ({ browser }) => {
+      context = await browser.newContext();
+      page = await context.newPage();
+    });
 
-      test.afterAll(async () => {
-        await page.close();
-        await context.close();
-      });
+    test.afterAll(async () => {
+      await page.close();
+      await context.close();
+    });
 
-      test("ヘッダーの設定の妥当性を確認", async () => {
-        await runCustomizerFlow(page, config);
-        await verifyHeaderContents(page, config.selector);
-      });
-    }
+    test("ヘッダーの設定の妥当性を確認", async () => {
+      await runCustomizerFlow(page, config);
+      await verifyHeaderContents(page, config.selector);
+    });
   });
 }
