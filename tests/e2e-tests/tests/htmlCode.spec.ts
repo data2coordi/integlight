@@ -11,7 +11,7 @@ import { test, expect } from "@playwright/test";
 test.only("ORP : 投稿ページでOGPメタタグが正しく出力される", async ({
   page,
 }) => {
-  await page.goto("/sample-post"); // テスト投稿のURLに置き換え
+  await page.goto("/sidefire-tax-simulation/"); // テスト投稿のURLに置き換え
 
   // OGPメタタグのリストを取得
   const ogTitle = page.locator('meta[property="og:title"]');
