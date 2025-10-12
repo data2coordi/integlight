@@ -8,9 +8,7 @@ import { test, expect } from "@playwright/test";
 // -------------------------------------------
 // PC-01 投稿ページのOGPメタタグ出力確認
 // -------------------------------------------
-test.only("ORP : 投稿ページでOGPメタタグが正しく出力される", async ({
-  page,
-}) => {
+test("ORP : 投稿ページでOGPメタタグが正しく出力される", async ({ page }) => {
   await page.goto("/sidefire-tax-simulation/"); // テスト投稿のURLに置き換え
 
   // OGPメタタグのリストを取得
@@ -35,7 +33,9 @@ test.only("ORP : 投稿ページでOGPメタタグが正しく出力される", 
 // -------------------------------------------
 // PC-02 トップページのOGPメタタグ出力確認
 // -------------------------------------------
-test("PC-02: トップページでOGPメタタグが正しく出力される", async ({ page }) => {
+test.only("PC-02: トップページでOGPメタタグが正しく出力される", async ({
+  page,
+}) => {
   await page.goto("/");
 
   const ogTitle = page.locator('meta[property="og:title"]');
