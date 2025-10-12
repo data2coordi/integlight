@@ -4,31 +4,6 @@
 
 
 
-//フロントエンドでの表示制御用
-function integlight_display_headerContents()
-{
-	global $Integlight_slider_settings;
-
-	$choice = get_theme_mod('integlight_display_choice', 'none');
-
-
-	switch ($choice) {
-		case $Integlight_slider_settings->headerTypeName_slider:
-			// 値1と一致する場合の処理
-			get_template_part('template-parts/content', 'slide');
-
-			break;
-
-		case $Integlight_slider_settings->headerTypeName_image:
-			if (get_header_image()) {
-				echo '<img src="' . esc_url(get_header_image()) . '" class="topImage" ' .  ' alt="' . esc_attr(get_bloginfo('name')) . '">';
-			}
-			break;
-
-		default:
-			// どのケースにも一致しない場合の処理
-	}
-}
 
 
 
@@ -77,8 +52,6 @@ class integlight_customizer_slider_outerAssets
 			'home2Name' => $this->pInteglight_slider_settings->homeType2Name,
 			'home3Name' => $this->pInteglight_slider_settings->homeType3Name,
 			'home4Name' => $this->pInteglight_slider_settings->homeType4Name,
-
-			'headerTypeNameSlider' => $this->pInteglight_slider_settings->headerTypeName_slider
 		));
 	}
 }
@@ -92,8 +65,7 @@ class integlight_customizer_slider_outerAssets
 /*カスタマイザーで設定したスライダー機能をフロントでオープンしたときにロード*/
 add_action('wp', function () {
 	if (is_front_page()) {
-		global $Integlight_slider_settings;
-		if ($Integlight_slider_settings->headerTypeName_slider === get_theme_mod('integlight_display_choice', 'none')) {
+		if (InteglightHeaderSettings::getSlider() === get_theme_mod('integlight_display_choice', 'none')) {
 			if (
 				get_theme_mod('integlight_slider_image_mobile_1') ||
 				get_theme_mod('integlight_slider_image_mobile_2') ||
@@ -103,6 +75,7 @@ add_action('wp', function () {
 				get_theme_mod('integlight_slider_image_3')
 			) {
 				// いずれかがセットされているときの処理
+				global $Integlight_slider_settings;
 				new integlight_customizer_slider_outerAssets($Integlight_slider_settings);
 			}
 		}

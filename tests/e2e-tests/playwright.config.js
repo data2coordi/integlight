@@ -1,6 +1,6 @@
 import { defineConfig, devices } from "@playwright/test";
 
-// 環境によってURLや認証ファイルパスが変わるため、定数として定義
+// 環境によってURLや認証ファイルパスが変わるため、定数として定義a
 const BASE_URL = "https://wpdev.auroralab-design.com";
 const authFile = "playwright/.auth/user.json";
 
@@ -29,7 +29,11 @@ export default defineConfig({
     // 2. 【新規】認証が不要なテスト用のプロジェクト
     {
       name: "unauthenticated",
-      testMatch: [/menu\.spec\.js/, /pf\.image\.post\.spec\.ts/], // 認証不要なテストファイルを指定
+      testMatch: [
+        /menu\.spec\.js/,
+        /htmlCode\.spec\.ts/,
+        /pf\.image\.post\.spec\.ts/,
+      ], // 認証不要なテストファイルを指定
       use: {
         ...devices["Desktop Chrome"],
         // storageState を使わないので、ログイン状態にはならない
@@ -43,6 +47,7 @@ export default defineConfig({
       testIgnore: [
         /auth\.setup\.ts/,
         /menu\.spec\.js/,
+        /htmlCode\.spec\.ts/,
         /pf\.image\.post\.spec\.ts/,
         /visual\.spec\.js/,
       ], // setupと認証不要テストを除外

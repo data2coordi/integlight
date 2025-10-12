@@ -3,8 +3,6 @@ class InteglightSliderSettings
 {
     public $effectName_fade = 'fade';
     public $effectName_slide = 'slide';
-    public $headerTypeName_slider = 'slider';
-    public $headerTypeName_image = 'image';
     public $homeType1Name = 'home1';
     public $homeType2Name = 'home2';
     public $homeType3Name = 'home3';
