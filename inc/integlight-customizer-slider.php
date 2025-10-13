@@ -116,14 +116,12 @@ class integlight_customizer_slider_creSection
 class integlight_customizer_slider_setting
 {
 
-	private $pInteglight_slider_settings;
 	private $pSectionId;
 	private $pWp_customize;
 
-	public function __construct($slider_settings, $sliderSectionId)
+	public function __construct($sliderSectionId)
 	{
 		$this->pSectionId = $sliderSectionId->getSliderSectionId();
-		$this->pInteglight_slider_settings = $slider_settings;
 		add_action('customize_register', array($this, 'setting'));
 	}
 
@@ -180,8 +178,8 @@ class integlight_customizer_slider_setting
 			'section'  => $this->pSectionId,
 			'type'     => 'select',
 			'choices'  => array(
-				$this->pInteglight_slider_settings->effectName_fade  => __('Fade', 'integlight'),
-				$this->pInteglight_slider_settings->effectName_slide => __('Slide', 'integlight')
+				InteglightSliderSettings::getEffectNameFade()  => __('Fade', 'integlight'),
+				InteglightSliderSettings::getEffectNameSlide() => __('Slide', 'integlight')
 			),
 		));
 	}
@@ -303,11 +301,10 @@ class integlight_customizer_slider
 	{
 
 
-		global $Integlight_slider_settings;
 
 		$creSliderSectionId = new integlight_customizer_slider_creSection();
 
-		new integlight_customizer_slider_setting($Integlight_slider_settings, $creSliderSectionId);
+		new integlight_customizer_slider_setting($creSliderSectionId);
 		new integlight_customizer_slider_applyHeaderTextStyle();
 	}
 }

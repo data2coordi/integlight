@@ -10,85 +10,47 @@
 
 ?>
 
-<!-- slide bar _s //////////////////////////////// -->
 <?php
 
 
-$display_choice = get_theme_mod('integlight_display_choice');
-if ($display_choice != InteglightHeaderSettings::getSlider()) return;
 
 
 
-if (wp_is_mobile()) {
-	$slider_image_1 = get_theme_mod('integlight_slider_image_mobile_1');
-	if (empty($slider_image_1)) {
-		$slider_image_1 = get_theme_mod('integlight_slider_image_1'); // PCの画像
-	}
 
-	$slider_image_2 = get_theme_mod('integlight_slider_image_mobile_2');
-	if (empty($slider_image_2)) {
-		$slider_image_2 = get_theme_mod('integlight_slider_image_2'); // PCの画像
-	}
 
-	$slider_image_3 = get_theme_mod('integlight_slider_image_mobile_3');
-	if (empty($slider_image_3)) {
-		$slider_image_3 = get_theme_mod('integlight_slider_image_3'); // PCの画像
-	}
-} else {
-	//PF対応!!!
-	$slider_image_1 = get_theme_mod('integlight_slider_image_1');
-	$slider_image_2 = get_theme_mod('integlight_slider_image_2');
-	$slider_image_3 = get_theme_mod('integlight_slider_image_3');
+
+
+
+$slides = InteglightSliderContent::getImages();
+$texts  = InteglightSliderContent::getTexts();
+
+
+if (empty(array_filter($slides))) {
+	return;
 }
-
-if (!empty($slider_image_1) || !empty($slider_image_2) || !empty($slider_image_3)) {
-
 ?>
-	<div class="slider">
-		<div class="slides">
 
-			<!-- slide 1 -->
-			<?php if (!empty($slider_image_1)) : ?>
-				<div class="slide">
+<div class="slider">
+	<div class="slides">
+		<?php if (!empty($slides[0])) : ?>
+			<div class="slide"><?= $slides[0] ?></div>
+		<?php endif; ?>
 
-					<?php
-					$attr = Integlight_getAttr_byImageCount::getHeaderImageAttr(0);
-					echo wp_get_attachment_image($slider_image_1, 'full',  false, $attr);
-					?>
-				</div>
-			<?php endif; ?>
+		<?php if (!empty($slides[1])) : ?>
+			<div class="slide"><?= $slides[1] ?></div>
+		<?php endif; ?>
 
-			<!-- slide 2 -->
-			<?php if (!empty($slider_image_2)) : ?>
-				<div class="slide">
-					<?php
-					$attr = Integlight_getAttr_byImageCount::getHeaderImageAttr(1);
-					echo wp_get_attachment_image($slider_image_2, 'full', false, $attr); ?>
+		<?php if (!empty($slides[2])) : ?>
+			<div class="slide"><?= $slides[2] ?></div>
+		<?php endif; ?>
+	</div>
 
-				</div>
-			<?php endif; ?>
-
-			<!-- slide 3 -->
-			<?php if (!empty($slider_image_3)) : ?>
-				<div class="slide">
-
-					<?php
-					$attr = Integlight_getAttr_byImageCount::getHeaderImageAttr(2);
-					echo wp_get_attachment_image($slider_image_3, 'full', false, $attr); ?>
-				</div>
-			<?php endif; ?>
-
+	<div class="text-overlay">
+		<div class="text-overlay1">
+			<h1><?= $texts[0] ?></h1>
 		</div>
-		<div class="text-overlay">
-			<div class="text-overlay1">
-				<h1><?php echo nl2br(wp_kses_post(get_theme_mod('integlight_slider_text_1', ''))); ?></h1>
-			</div>
-			<div class="text-overlay2">
-				<h2><?php echo nl2br(wp_kses_post(get_theme_mod('integlight_slider_text_2', ''))); ?></h2>
-			</div>
+		<div class="text-overlay2">
+			<h2><?= $texts[1] ?></h2>
 		</div>
 	</div>
-<?php
-};
-?>
-<!-- slide bar _e //////////////////////////////// -->
+</div>

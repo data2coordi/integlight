@@ -168,7 +168,7 @@ class integlight_customizer_HeaderTypeSelecter
             'choices'  => array(
                 InteglightHeaderSettings::getSlider() => __('Slider', 'integlight'),
                 InteglightHeaderSettings::getImage() => __('Still Image', 'integlight'),
-                'nonInteglight_header_settingse' => __('None', 'integlight'),
+                'none' => __('None', 'integlight'),
             ),
         ));
     }
