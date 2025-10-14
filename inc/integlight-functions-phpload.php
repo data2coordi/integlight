@@ -16,6 +16,7 @@
 require get_template_directory() . '/inc/custom-header.php';
 require get_template_directory() . '/inc/integlight-functions-cmn.php';
 require get_template_directory() . '/inc/integlight-functions-cmn-outerAssets.php';
+require get_template_directory() . '/inc/integlight-functions-outerAssets.php';
 
 require get_template_directory() . '/inc/integlight-functions.php';
 require get_template_directory() . '/inc/integlight-functions-pf.php';
@@ -37,7 +38,6 @@ require get_template_directory() . '/inc/integlight-customizer-selHeader.php';
 require get_template_directory() . '/inc/integlight-customizer-cmn.php';
 require get_template_directory() . '/inc/integlight-customizer-base.php';
 require get_template_directory() . '/inc/integlight-customizer.php';
-require get_template_directory() . '/inc/integlight-customizer-front.php';
 require get_template_directory() . '/inc/integlight-customizer-slider-cmn.php';
 require get_template_directory() . '/inc/integlight-customizer-slider-front.php';
 require get_template_directory() . '/inc/integlight-customizer-slider.php';

@@ -76,25 +76,7 @@ class integlight_customizer_slider_outerAssets
 	public function __construct()
 	{
 		add_action('wp_enqueue_scripts', array($this, 'provideTOjs'));
-
-		$styles = [
-			'integlight-slide' => ['path' => '/css/build/integlight-slide-style.css', 'deps' => ['integlight-style-plus']],
-		];
-		InteglightFrontendStyles::add_styles($styles);
-
-		$scripts = [
-			'integlight_slider-script' =>  ['path' => '/js/build/slider.js'],
-			//'integlight_slider-script' =>  ['path' => '/js/build/slider.js', 'deps' => ['jquery']],
-		];
-		InteglightFrontendScripts::add_scripts($scripts);
-
-
-		// 遅延対象のスクリプトを登録
-		$deferredScripts = [
-			'integlight_slider-script',
-		];
-		InteglightDeferJs::add_deferred_scripts($deferredScripts);
-		/* レンダリングブロック、layout計算増加の防止のためのチューニング e*/
+		integlight_load_scripts::regSliderScripts();
 	}
 
 	public function provideTOjs()

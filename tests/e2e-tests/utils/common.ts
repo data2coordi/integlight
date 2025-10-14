@@ -105,14 +105,32 @@ export async function setFrontType(
   page: Page,
   frontType: string = "最新の投稿"
 ) {
+  // 「サイト設定」ボタンをクリック
   await page.getByRole("button", { name: "サイト設定" }).click();
 
+  // 「ホームページ設定」ボタンをクリック
   await page.getByRole("button", { name: "ホームページ設定" }).click();
-  const checkbox = page.getByLabel(frontType);
-  if (!(await checkbox.isChecked())) {
-    await checkbox.check();
+
+  // ---- 表示タイプ（最新の投稿／固定ページ）を選択 ----
+  const radio = page.getByRole("radio", { name: frontType });
+
+  // まだチェックされていなければチェック
+  if (!(await radio.isChecked())) {
+    await radio.check();
   }
-  await expect(checkbox).toBeChecked();
+  await expect(radio).toBeChecked();
+
+  // ---- 固定ページを選択した場合、ドロップダウンでページを指定 ----
+  if (frontType === "固定ページ") {
+    const select = page.locator(
+      'select[name="_customize-dropdown-pages-page_on_front"]'
+    );
+
+    await select.selectOption({ label: "FIREで自由と成長を掴む！" });
+
+    // 検証（HTML構造に基づく value 確認）
+    await expect(select).toHaveValue("4210");
+  }
 }
 
 export async function ensureCustomizerRoot(page: Page) {

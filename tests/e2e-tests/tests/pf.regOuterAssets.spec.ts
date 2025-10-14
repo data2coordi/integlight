@@ -5,16 +5,22 @@ import {
   openCustomizer,
   setFrontType,
   saveCustomizer,
+  ensureCustomizerRoot,
+  setSiteType,
 } from "../utils/common";
 
 // 共通関数（カスタマイザーでホームページ表示を設定する）a
-async function setHomeDisplayType(page: Page, type: "fixed" | "latest") {
+async function setHomeDisplayType(page: Page, frontType: string) {
   // 実装例：カスタマイザー画面で選択肢を切り替え
-  console.log(`Setting home display type to 開始: ${type}`);
+  console.log(`Setting home display type to 開始: ${frontType}`);
   await test.step(" カスタマイザー画面を開く", () => openCustomizer(page));
 
-  await test.step("フロントページのタイプを設定", () =>
-    setFrontType(page, "最新の投稿"));
+  await test.step("フロントページのタイプ(最新の投稿or固定ページ）を設定", () =>
+    setFrontType(page, frontType));
+
+  await ensureCustomizerRoot(page);
+
+  await test.step("ホームタイプの変更", () => setSiteType(page, "ポップ"));
 
   await test.step("変更を保存", () => saveCustomizer(page));
   console.log(`Setting home display type to 完了: `);
@@ -43,7 +49,7 @@ export async function verifyCssAssets(
   console.log("読み込まれた CSS:", hrefs);
 
   // 期待配列に存在する CSS だけ結果配列に追加
-  const foundCss: string[] = [];
+  let foundCss: string[] = [];
   for (const expected of expectedFrontCss) {
     for (const href of hrefs) {
       if (href.includes(expected)) {
@@ -55,6 +61,20 @@ export async function verifyCssAssets(
 
   // 最終的に期待配列と結果配列を比較
   expect(foundCss).toEqual(expectedFrontCss);
+
+  // 期待配列に存在する CSS だけ結果配列に追加
+  foundCss = [];
+  for (const expected of expectedEditorCss) {
+    for (const href of hrefs) {
+      if (href.includes(expected)) {
+        foundCss.push(expected);
+        break; // 見つけたら次の expected へ
+      }
+    }
+  }
+
+  // 最終的に期待配列と結果配列を比較
+  expect(foundCss).toEqual(expectedEditorCss);
 
   // 遅延 CSS の確認
   for (const deferred of expectedDeferredCss) {
@@ -73,72 +93,124 @@ const TEST_SCENARIOS = [
     id: "TC01",
     name: "フロントページ（固定ページ表示）",
     url: "/",
-    homeDisplayType: "fixed",
+    homeDisplayType: "固定ページ",
     expectedFrontCss: [
+      "layout.css",
       "base-style.css",
       "integlight-style.css",
+      "integlight-menu.css",
+      "helper.css",
       "front.css",
       "module.css",
+      "pattern8.css",
+      "home2.css",
     ],
     expectedEditorCss: [
+      "layout.css",
       "base-style.css",
       "integlight-style.css",
+      "integlight-menu.css",
+      "helper.css",
       "front.css",
       "module.css",
+      "pattern8.css",
+      "home2.css",
     ],
-    expectedDeferredCss: ["integlight-sp-style"],
+    expectedDeferredCss: ["integlight-sp-style.css", "pattern8.css"],
   },
-  // {
-  //   id: "TC02",
-  //   name: "ホームページ（最新投稿表示）",
-  //   url: "/",
-  //   homeDisplayType: "latest",
-  //   expectedFrontCss: ["base-style.css", "integlight-style.css", "home.css"],
-  //   expectedEditorCss: ["base-style.css", "integlight-style.css", "home.css"],
-  //   expectedDeferredCss: ["integlight-sp-style.css", "style.min.css"],
-  // },
-  // {
-  //   id: "TC03",
-  //   name: "固定ページ",
-  //   url: "/profile/",
-  //   homeDisplayType: null,
-  //   expectedFrontCss: [
-  //     "base-style.css",
-  //     "integlight-style.css",
-  //     "page.css",
-  //     "module.css",
-  //     "svg-non-home.css",
-  //   ],
-  //   expectedEditorCss: [
-  //     "base-style.css",
-  //     "integlight-style.css",
-  //     "page.css",
-  //     "module.css",
-  //     "svg-non-home.css",
-  //   ],
-  //   expectedDeferredCss: ["integlight-sp-style.css"],
-  // },
-  // {
-  //   id: "TC04",
-  //   name: "投稿ページ",
-  //   url: "/test1/",
-  //   homeDisplayType: null,
-  //   expectedFrontCss: [
-  //     "base-style.css",
-  //     "integlight-style.css",
-  //     "post.css",
-  //     "module.css",
-  //     "svg-non-home.css",
-  //   ],
-  //   expectedEditorCss: [
-  //     "base-style.css",
-  //     "integlight-style.css",
-  //     "post.css",
-  //     "module.css",
-  //     "svg-non-home.css",
-  //   ],
-  //   expectedDeferredCss: ["integlight-sp-style.css"],
-  // },
+  {
+    id: "TC02",
+    name: "ホームページ（最新投稿表示）",
+    url: "/",
+    homeDisplayType: "最新の投稿",
+    expectedFrontCss: [
+      "layout.css",
+      "base-style.css",
+      "integlight-style.css",
+      "integlight-menu.css",
+      "helper.css",
+      "home.css",
+      "pattern8.css",
+      "home2.css",
+    ],
+    expectedEditorCss: [
+      "layout.css",
+      "base-style.css",
+      "integlight-style.css",
+      "integlight-menu.css",
+      "helper.css",
+      "home.css",
+      "pattern8.css",
+      "home2.css",
+    ],
+    expectedDeferredCss: [
+      "integlight-sp-style.css",
+      "style.min.css",
+      "pattern8.css",
+    ],
+  },
+  {
+    id: "TC03",
+    name: "固定ページ",
+    url: "/profile/",
+    homeDisplayType: null,
+    expectedFrontCss: [
+      "layout.css",
+      "base-style.css",
+      "integlight-style.css",
+      "integlight-menu.css",
+      "helper.css",
+      "page.css",
+      "module.css",
+      "svg-non-home.css",
+      "pattern8.css",
+      "home2.css",
+    ],
+    expectedEditorCss: [
+      "layout.css",
+      "base-style.css",
+      "integlight-style.css",
+      "integlight-menu.css",
+      "helper.css",
+      "page.css",
+      "module.css",
+      "svg-non-home.css",
+      "pattern8.css",
+      "home2.css",
+    ],
+    expectedDeferredCss: ["integlight-sp-style.css", "pattern8.css"],
+  },
+  {
+    id: "TC04",
+    name: "投稿ページ",
+    url: "/test1/",
+    homeDisplayType: null,
+    expectedFrontCss: [
+      "layout.css",
+      "base-style.css",
+      "integlight-style.css",
+      "integlight-menu.css",
+      "helper.css",
+      "post.css",
+      "module.css",
+      "svg-non-home.css",
+      "pattern8.css",
+      "home2.css",
+    ],
+    expectedEditorCss: [
+      "layout.css",
+      "base-style.css",
+      "integlight-style.css",
+      "integlight-menu.css",
+      "helper.css",
+      "post.css",
+      "module.css",
+      "svg-non-home.css",
+      "pattern8.css",
+      "home2.css",
+    ],
+    expectedDeferredCss: ["integlight-sp-style.css", "pattern8.css"],
+  },
 ];
 
 // データ駆動型テストの実行
@@ -153,10 +225,7 @@ for (const config of TEST_SCENARIOS) {
 
       // フロント/ホームページの表示設定
       if (config.homeDisplayType) {
-        await setHomeDisplayType(
-          page,
-          config.homeDisplayType as "fixed" | "latest"
-        );
+        await setHomeDisplayType(page, config.homeDisplayType);
       }
     });
 
@@ -176,3 +245,74 @@ for (const config of TEST_SCENARIOS) {
     });
   });
 }
+
+// ==============================
+// JSファイルの確認テスト
+// ==============================
+
+test.describe("JSファイルが正しく読み込まれているか", () => {
+  let page: Page;
+  let context;
+
+  // 確認したいファイル名
+  const targetJsFiles = ["slider.js", "navigation.js", "loadmore.js"];
+
+  test.beforeAll(async ({ browser }) => {
+    context = await browser.newContext();
+    page = await context.newPage();
+    await page.goto("/", { waitUntil: "networkidle" });
+  });
+
+  test.afterAll(async () => {
+    await page.close();
+    await context.close();
+  });
+
+  test("各JSファイルが<body>内にあり、defer属性があることを確認", async () => {
+    // scriptタグの情報をブラウザ内で取得
+    const scripts = await page.evaluate(() => {
+      const allScripts = document.querySelectorAll("script[src]");
+      const result = [];
+
+      for (const el of allScripts) {
+        const info = {
+          src: el.getAttribute("src"),
+          isInBody: document.body.contains(el),
+          hasDefer: el.hasAttribute("defer"),
+        };
+        result.push(info);
+      }
+
+      return result;
+    });
+
+    console.log("検出されたスクリプト一覧:", scripts);
+
+    // 1つずつ確認
+    for (const fileName of targetJsFiles) {
+      let found = null;
+
+      // scripts配列の中から一致するものを探す
+      for (const script of scripts) {
+        if (script.src && script.src.indexOf(fileName) !== -1) {
+          found = script;
+          break;
+        }
+      }
+
+      // ファイルが見つからなかった場合
+      expect(found, `${fileName} が見つかること`).toBeTruthy();
+
+      if (found) {
+        // body内にあること
+        expect(found.isInBody, `${fileName} は<body>内にあること`).toBeTruthy();
+
+        // defer属性があること
+        expect(
+          found.hasDefer,
+          `${fileName} に defer 属性があること`
+        ).toBeTruthy();
+      }
+    }
+  });
+});
