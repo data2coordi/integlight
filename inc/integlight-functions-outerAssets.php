@@ -187,6 +187,9 @@ add_action('wp', ['InteglightPreDetermineJsAssets', 'init']);
 
 
 
+//////////////////////////////////////////
+//カスタムカラー用のcss
+//////////////////////////////////////////
 
 class InteglightThemeColorLoader
 {
@@ -210,6 +213,9 @@ class InteglightThemeColorLoader
 new InteglightThemeColorLoader();
 
 
+//////////////////////////////////////////
+//ホームタイプ用のcss
+//////////////////////////////////////////
 class InteglightHomeTypeLoader
 {
     public function __construct()
@@ -238,8 +244,9 @@ class InteglightHomeTypeLoader
 new InteglightHomeTypeLoader();
 
 
-
-
+//////////////////////////////////////////
+//スライダー用のjs
+//////////////////////////////////////////
 class integlight_load_scripts
 {
 
@@ -265,4 +272,12 @@ class integlight_load_scripts
         InteglightDeferJs::add_deferred_scripts($deferredScripts);
         /* レンダリングブロック、layout計算増加の防止のためのチューニング e*/
     }
+    public static function getSliderScriptsHandleName()
+    {
+        return 'integlight_slider-script';
+    }
 }
+
+//////////////////////////////////////////
+//loadmore用のjs
+//////////////////////////////////////////

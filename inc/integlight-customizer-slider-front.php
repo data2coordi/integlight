@@ -83,7 +83,7 @@ class integlight_customizer_slider_outerAssets
 	{
 
 		// カスタマイザーの設定値をJavaScriptに渡す
-		wp_localize_script('integlight_slider-script', 'integlight_sliderSettings', array(
+		wp_localize_script(integlight_load_scripts::getSliderScriptsHandleName(), 'integlight_sliderSettings', array(
 			'changeDuration' => get_theme_mod('integlight_slider_change_duration', 3),
 			'effect' => get_theme_mod('integlight_slider_effect', InteglightSliderSettings::getEffectNameFade()),
 			'homeType' => get_theme_mod('integlight_hometype_setting', InteglightSliderSettings::getHomeType1Name()),
