@@ -246,9 +246,10 @@ new InteglightHomeTypeLoader();
 
 
 //////////////////////////////////////////
-//スライダーcssのロード
+//外部から呼び出しでcssのロード
+//slider
 //////////////////////////////////////////
-class integlight_load_css
+class integlight_load_css_forCall
 {
 
     public static function regSliderCss()
@@ -263,10 +264,10 @@ class integlight_load_css
 
 
 //////////////////////////////////////////
-//jsのロード
+//外部から呼び出しでjsのロード
 //スライダー、LoadMore
 //////////////////////////////////////////
-class integlight_load_scripts
+class integlight_load_scripts_forCall
 {
 
     public static function regSliderScripts()
