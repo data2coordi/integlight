@@ -245,7 +245,8 @@ new InteglightHomeTypeLoader();
 
 
 //////////////////////////////////////////
-//スライダー用のjs
+//jsのロード
+//スライダー、LoadMore
 //////////////////////////////////////////
 class integlight_load_scripts
 {
@@ -276,8 +277,26 @@ class integlight_load_scripts
     {
         return 'integlight_slider-script';
     }
+
+    public static function regLoadMoreScripts()
+    {
+
+        $scripts = [
+            //'integlight-loadmore' =>  ['path' => '/js/build/loadmore.js', 'deps' => ['jquery']],
+            'integlight-loadmore' =>  ['path' => '/js/build/loadmore.js'],
+        ];
+        InteglightFrontendScripts::add_scripts($scripts);
+
+        $deferredScripts = [
+            'integlight-loadmore',
+        ];
+        InteglightDeferJs::add_deferred_scripts($deferredScripts); //PF対応!!!
+
+    }
+    public static function getLoadMoreScriptsHandleName()
+    {
+        return 'integlight-loadmore';
+    }
 }
 
-//////////////////////////////////////////
-//loadmore用のjs
-//////////////////////////////////////////
+///////////////////////
