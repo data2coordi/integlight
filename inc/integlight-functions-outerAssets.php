@@ -244,6 +244,24 @@ class InteglightHomeTypeLoader
 new InteglightHomeTypeLoader();
 
 
+
+//////////////////////////////////////////
+//スライダーcssのロード
+//////////////////////////////////////////
+class integlight_load_css
+{
+
+    public static function regSliderCss()
+    {
+
+        $styles = [
+            'integlight-slide' => ['path' => '/css/build/integlight-slide-style.css', 'deps' => ['integlight-style-plus']],
+        ];
+        InteglightFrontendStyles::add_styles($styles);
+    }
+}
+
+
 //////////////////////////////////////////
 //jsのロード
 //スライダー、LoadMore
@@ -254,10 +272,6 @@ class integlight_load_scripts
     public static function regSliderScripts()
     {
 
-        $styles = [
-            'integlight-slide' => ['path' => '/css/build/integlight-slide-style.css', 'deps' => ['integlight-style-plus']],
-        ];
-        InteglightFrontendStyles::add_styles($styles);
 
         $scripts = [
             'integlight_slider-script' =>  ['path' => '/js/build/slider.js'],

@@ -76,6 +76,7 @@ class integlight_customizer_slider_outerAssets
 	public function __construct()
 	{
 		add_action('wp_enqueue_scripts', array($this, 'provideTOjs'));
+		integlight_load_css::regSliderCss();
 		integlight_load_scripts::regSliderScripts();
 	}
 
