@@ -1,5 +1,5 @@
 
-git rebase -i HEAD~20
+git rebase -i HEAD~5
 #git push --force-with-lease
 
 
