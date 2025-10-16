@@ -1,5 +1,33 @@
-/* Accessibility
---------------------------------------------- */
+/*************************************************************************/
+/* タブフォーカス（キーボード操作によるフォーカス）  */
+/*************************************************************************/
+
+/* タブフォーカスのスタイル */
+a:focus:not(:focus-visible),
+.wp-block-button__link:focus:not(:focus-visible) {
+  outline: none;
+}
+
+a:focus-visible,
+.wp-block-button__link:focus-visible,
+/* 広告のタブフォーカス */
+.easyLink-info-name a:focus-visible,
+.easyLink-info-btn-amazon:focus-visible,
+.easyLink-info-btn-rakuten:focus-visible {
+  outline: 2px solid #e6e6e6;
+  outline-offset: 2px;
+  border-radius: 4px;
+  transition: outline 0.2s ease;
+}
+
+.wp-block-button__link {
+  position: relative;
+  z-index: 1;
+}
+
+/*************************************************************************/
+/* Accessibility*/
+/*************************************************************************/
 
 /* Text meant only for screen readers. */
 .screen-reader-text {
