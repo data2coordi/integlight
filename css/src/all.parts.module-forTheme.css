@@ -185,8 +185,7 @@ li > ul > .cat-item:last-of-type {
 /*2.4 詳細 */
 
 /*2.5 テーブル */
-
-/* テーブルブロック */
+/*!!!!!s*/
 .wp-block-table :is(table, thead, tbody, tfoot, td) {
   border: 3px solid #eee;
   padding: 0.8em;
@@ -197,7 +196,7 @@ li > ul > .cat-item:last-of-type {
   border-color: #eee;
   background: #eee;
 }
-
+/*!!!!!e*/
 .ly_site_content_main .wp-block-columns .wp-block-table {
   margin: 0px -15px -10px -25px;
   /* 親を変えずに表のパディングをなくす */
