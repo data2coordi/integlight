@@ -224,7 +224,7 @@ class integlight_customizer_integlight_customizer_homeTypeTest extends WP_UnitTe
 1	コンストラクタがフックを登録しているか	wp_enqueue_scripts アクションに enqueue_hometype_css メソッドが登録されていることを確認
 2	enqueue_hometype_css が正しく動作するか	get_theme_mod('integlight_hometype_setting') の値をもとにCSSパスが組み立てられ、3つのスタイル管理クラスに正しく渡されているか検証
 3	テーマ設定が未設定の場合のデフォルトCSS適用	get_theme_mod が値を返さない場合に 'home1' を使ってCSSが組み立てられていること
-4	複数の設定値に対して正しくパスが生成されるか	例えば 'home1'、'home2' の場合それぞれ /css/build/home1.css、/css/build/home2.css になること
+4	複数の設定値に対して正しくパスが生成されるか	例えば 'home1'、'home2' の場合それぞれ /css/build/all.upd.site-type1.css、/css/build/all.upd.site-type2.css になること
 
 */
 
@@ -252,7 +252,7 @@ class integlight_customizer_integlight_customizer_homeTypeTest extends WP_UnitTe
         $this->homeTypeLoader->enqueue_hometype_css();
 
         // 実装に合わせた期待値（path + deps の形式）
-        $expected_css_path = '/css/build/home2.css';
+        $expected_css_path = '/css/build/all.upd.site-type2.css';
         $expected_styles = [
             'integlight-home-type' => [
                 'path' => $expected_css_path,
@@ -290,7 +290,7 @@ class integlight_customizer_integlight_customizer_homeTypeTest extends WP_UnitTe
         $this->homeTypeLoader->enqueue_hometype_css();
 
         // 期待されるデフォルトCSSパス
-        $expected_css_path = '/css/build/home1.css';
+        $expected_css_path = '/css/build/all.upd.site-type1.css';
         // 実装に合わせた期待値（path + deps の形式）
 
         $expected_styles = [
@@ -325,14 +325,14 @@ class integlight_customizer_integlight_customizer_homeTypeTest extends WP_UnitTe
     {
         $test_values = [
             'home1' => [
-                'path' => '/css/build/home1.css',
+                'path' => '/css/build/all.upd.site-type1.css',
                 'deps' => [
                     'integlight-integlight-menu',
                     'integlight-custom-color-pattern',
                 ],
             ],
             'home2' => [
-                'path' => '/css/build/home2.css',
+                'path' => '/css/build/all.upd.site-type2.css',
                 'deps' => [
                     'integlight-integlight-menu',
                     'integlight-custom-color-pattern',

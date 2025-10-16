@@ -363,9 +363,9 @@ class integlight_customizer_integlight_customizer_themeColorTest extends WP_Unit
     public function themeModProvider(): array
     {
         return [
-            'Default (pattern1)' => ['pattern1', '/css/build/pattern1.css'],
-            'Pattern 2' => ['pattern2', '/css/build/pattern2.css'],
-            'Pattern 6' => ['pattern6', '/css/build/pattern6.css'],
+            'Default (pattern1)' => ['pattern1', '/css/build/all.upd.color-pattern1.css'],
+            'Pattern 2' => ['pattern2', '/css/build/all.upd.color-pattern2.css'],
+            'Pattern 6' => ['pattern6', '/css/build/all.upd.color-pattern6.css'],
             // 必要に応じて他のパターンも追加
         ];
     }
@@ -378,7 +378,7 @@ class integlight_customizer_integlight_customizer_themeColorTest extends WP_Unit
     public function enqueue_custom_css_should_use_default_when_mod_not_set(): void
     {
         // Arrange: テーマ設定は setUp でクリア済み
-        $expected_css_file = '/css/build/pattern8.css'; // デフォルト値 'pattern8' に対応
+        $expected_css_file = '/css/build/all.upd.color-pattern8'; // デフォルト値 'pattern8' に対応
 
         // Act: wp_enqueue_scripts アクションを実行
         $this->instance_front->enqueue_custom_css(); // 直接呼び出し

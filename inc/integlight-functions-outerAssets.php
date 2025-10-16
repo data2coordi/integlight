@@ -27,11 +27,11 @@ add_action('wp_enqueue_scripts', function () {
 class InteglightPreDetermineCssAssets
 {
     private static $styles = [
-        'integlight-base-style-plus' => ['path' => '/css/build/base-style.css', 'deps' => ['integlight-layout']],
+        'integlight-base-style-plus' => ['path' => '/css/build/all.cmn.nonLayout.css', 'deps' => ['integlight-layout']],
         'integlight-style-plus' =>  ['path' => '/css/build/integlight-style.css', 'deps' => ['integlight-base-style-plus']],
         'integlight-sp-style' => ['path' =>  '/css/build/integlight-sp-style.css', 'deps' => ['integlight-style-plus']],
         'integlight-layout' =>  ['path' => '/css/build/all.cmn.layout.css', 'deps' => []],
-        'integlight-integlight-menu' =>  ['path' => '/css/build/integlight-menu.css', 'deps' => ['integlight-style-plus']],
+        'integlight-integlight-menu' =>  ['path' => '/css/build/all.sp.menu.css', 'deps' => ['integlight-style-plus']],
         'integlight-helper' =>  ['path' => '/css/build/helper.css', 'deps' => ['integlight-style-plus']],
 
     ];
@@ -50,41 +50,41 @@ class InteglightPreDetermineCssAssets
         // 以下、必要に応じて追加
         if (is_single()) {
             self::$styles = array_merge(self::$styles, [
-                'integlight-post' => ['path' => '/css/build/post.css', 'deps' => ['integlight-style-plus']],
-                'integlight-module' =>  ['path' => '/css/build/module.css', 'deps' => ['wp-block-library']],
-                'integlight-svg-non-home' =>  ['path' => '/css/build/svg-non-home.css', 'deps' => []],
+                'integlight-post' => ['path' => '/css/build/page.post.css', 'deps' => ['integlight-style-plus']],
+                'integlight-module' =>  ['path' => '/css/build/all.cmn.module-forTheme.css', 'deps' => ['wp-block-library']],
+                'integlight-svg-non-home' =>  ['path' => '/css/build/all.sp.svg-non-home.css', 'deps' => []],
             ]);
         }
 
         if (is_page()) {
             self::$styles = array_merge(self::$styles, [
-                'integlight-page' => ['path' => '/css/build/page.css', 'deps' => ['integlight-style-plus']],
-                'integlight-module' =>  ['path' => '/css/build/module.css', 'deps' => ['wp-block-library']],
-                'integlight-svg-non-home' =>  ['path' => '/css/build/svg-non-home.css', 'deps' => []],
+                'integlight-page' => ['path' => '/css/build/page.page.css', 'deps' => ['integlight-style-plus']],
+                'integlight-module' =>  ['path' => '/css/build/all.cmn.module-forTheme.css', 'deps' => ['wp-block-library']],
+                'integlight-svg-non-home' =>  ['path' => '/css/build/all.sp.svg-non-home.css', 'deps' => []],
             ]);
         }
 
         if (is_front_page() && (!is_home())) {
             self::$styles = array_merge(self::$styles, [
-                'integlight-front' => ['path' => '/css/build/front.css', 'deps' => ['integlight-style-plus']],
-                'integlight-module' =>  ['path' => '/css/build/module.css', 'deps' => ['wp-block-library']],
-                'integlight-svg-non-home' =>  ['path' => '/css/build/svg-non-home.css', 'deps' => []],
+                'integlight-front' => ['path' => '/css/build/page.front.css', 'deps' => ['integlight-style-plus']],
+                'integlight-module' =>  ['path' => '/css/build/all.cmn.module-forTheme.css', 'deps' => ['wp-block-library']],
+                'integlight-svg-non-home' =>  ['path' => '/css/build/all.sp.svg-non-home.css', 'deps' => []],
             ]);
         }
 
         if (is_archive() || is_search() || is_404()) {
             // 漏れているページ用の CSS をここで追加
             self::$styles = array_merge(self::$styles, [
-                'integlight-module' =>  ['path' => '/css/build/module.css', 'deps' => ['wp-block-library']],
-                'integlight-svg-non-home' =>  ['path' => '/css/build/svg-non-home.css', 'deps' => []],
+                'integlight-module' =>  ['path' => '/css/build/all.cmn.module-forTheme.css', 'deps' => ['wp-block-library']],
+                'integlight-svg-non-home' =>  ['path' => '/css/build/all.sp.svg-non-home.css', 'deps' => []],
             ]);
         }
 
         if (is_home()) {
             self::$styles = array_merge(self::$styles, [
-                'integlight-home' => ['path' => '/css/build/home.css', 'deps' => ['integlight-style-plus']],
+                'integlight-home' => ['path' => '/css/build/page.home.css', 'deps' => ['integlight-style-plus']],
                 //上書き。依存関係をはずす。homeはブロックアイテムはないため依存は不要
-                //'integlight-base-style-plus' => ['path' => '/css/build/base-style.css', 'deps' => []],
+                //'integlight-base-style-plus' => ['path' => '/css/build/all.cmn.nonLayout.css', 'deps' => []],
             ]);
             self::$deferredStyles = array_merge(self::$deferredStyles, [
                 'wp-block-library',
@@ -204,7 +204,7 @@ class InteglightThemeColorLoader
 
 
 
-        $styles = ['integlight-custom-color-pattern' => ['path' => '/css/build/' . $base_pattern . '.css', 'deps' => ['integlight-style-plus']]];
+        $styles = ['integlight-custom-color-pattern' => ['path' => '/css/build/' . 'all.upd.color-' . $base_pattern . '.css', 'deps' => ['integlight-style-plus']]];
         InteglightFrontendStyles::add_styles($styles);
         InteglightEditorStyles::add_styles($styles);
         InteglightDeferCss::add_deferred_styles(['integlight-custom-color-pattern']); //PF対応!!!
@@ -236,7 +236,8 @@ class InteglightHomeTypeLoader
             $tmp_deps[] = 'integlight-slide';
         }
 
-        $styles = ['integlight-home-type' => ['path' => '/css/build/' . $home_type . '.css', 'deps' => $tmp_deps]];
+        //$home_typeから最後の1文字(1or2)を取得するしてcssファイル名を決定
+        $styles = ['integlight-home-type' => ['path' => '/css/build/' . 'all.upd.site-type' . substr($home_type, -1) . '.css', 'deps' => $tmp_deps]];
         InteglightFrontendStyles::add_styles($styles);
         InteglightEditorStyles::add_styles($styles);
     }
@@ -256,7 +257,7 @@ class integlight_load_css_forCall
     {
 
         $styles = [
-            'integlight-slide' => ['path' => '/css/build/integlight-slide-style.css', 'deps' => ['integlight-style-plus']],
+            'integlight-slide' => ['path' => '/css/build/all.sp.slider.css', 'deps' => ['integlight-style-plus']],
         ];
         InteglightFrontendStyles::add_styles($styles);
     }
