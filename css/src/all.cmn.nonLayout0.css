@@ -1,43 +1,3 @@
-/*****************************************************/
-/*****************************************************/
-/*****************************************************/
-/* HTMLタグ毎の設定 */
-/*****************************************************/
-/*****************************************************/
-/*****************************************************/
-/* 
-====================
-1. 基本構造タグ (Document Structure)
-====================
-<html>       : HTML文書全体を囲む
-<head>       : メタ情報やタイトル、スタイル、スクリプトを記述
-<title>      : ページタイトルを指定
-<body>       : 表示されるコンテンツを記述
-*/
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  background: #fff;
-}
-
-/* 
-====================
-2. セクショニングタグ (Sectioning Elements)
-====================
-<section> : セクションを定義
-<article> : 独立した記事やコンテンツ
-<nav>     : ナビゲーションを定義
-<aside>   : 補足情報を提供
-<footer>  : フッター部分を定義
-*/
-
 /* 
 ====================
 3. HTML5セマンティックタグ
@@ -62,91 +22,6 @@ template {
 
 [hidden] {
   display: none;
-}
-
-/* 
-====================
-4. 見出し・段落・テキスト (Text Content)
-====================
-<h1>～<h6>  : 見出しレベルを示す
-<p>          : 段落を示す
-<br>         : 改行を挿入
-<hr>         : 区切り線を挿入
-<blockquote> : 引用文を示す
-<a>     : ハイパーリンクを作成
-*/
-
-/* Links
---------------------------------------------- */
-a {
-  background-color: transparent;
-
-  color: #222;
-  text-decoration: underline;
-}
-
-a:visited {
-  color: #999;
-  display: block;
-}
-
-a:hover,
-a:focus,
-a:active {
-  text-decoration: underline;
-  color: #777;
-}
-
-/* タブフォーカスのスタイル */
-/* タブフォーカスのスタイル */
-/* タブフォーカスのスタイル */
-/* タブフォーカスのスタイル */
-/* タブフォーカスのスタイル */
-a:focus,
-.wp-block-button__link:focus {
-  outline: 2px solid #e6e6e6;
-  outline-offset: 2px;
-  border-radius: 4px;
-  transition: outline 0.2s ease;
-}
-
-a:focus:not(:focus-visible),
-.wp-block-button__link:focus:not(:focus-visible) {
-  outline: none; /* マウス操作時だけ非表示 */
-}
-
-a:focus-visible,
-.wp-block-button__link:focus-visible {
-  outline: 2px solid #e6e6e6;
-  outline-offset: 2px;
-  border-radius: 4px;
-  transition: outline 0.2s ease;
-}
-
-/* 広告のタブフォーカス */
-.easyLink-info-name a:focus-visible,
-.easyLink-info-btn-amazon:focus-visible,
-.easyLink-info-btn-rakuten:focus-visible {
-  outline: 2px solid #e6e6e6;
-  transition: outline 0.2s ease;
-}
-
-.wp-block-button__link {
-  position: relative;
-  z-index: 1;
-}
-
-a:hover,
-a:active {
-  outline: 0;
-}
-
-a.post-edit-link {
-  background: none;
-}
-
-a.contact {
-  color: #fff;
 }
 
 /* 
@@ -176,11 +51,6 @@ pre {
   line-height: 1.6;
   max-width: 100%;
   overflow: auto;
-}
-
-b,
-strong {
-  /* font-weight: bolder; */
 }
 
 small {
@@ -254,64 +124,15 @@ var {
 
 /* 
 ====================
-6. リスト (Lists)
-====================
-<ul> : 順序なしリスト
-<ol> : 順序付きリスト
-<li> : リストの項目
-*/
-
-/* 
-====================
-7. 表 (Tables)
-====================
-<table> : 表全体を囲む
-<tr>    : 表の行を定義
-<td>    : 表のセルを定義
-<th>    : 見出しセルを定義
-*/
-table {
-  width: 100%;
-}
-
-dt {
-  font-weight: 700;
-}
-
-/* 
-====================
-8. メディア (Media)
-====================
-<img>   : 画像を表示
-<video> : 動画を表示
-<audio> : 音声を再生
-*/
-
-img {
-  height: auto;
-  max-width: 100%;
-  border-style: none;
-}
-
-embed,
-iframe,
-object {
-  max-width: 100%;
-}
-
-/* 
-====================
 9. フォーム (Forms)
 ====================
 <form>     : フォーム全体を囲む
 <input>    : 入力フィールドを定義
 <textarea> : 複数行のテキスト入力
-<button>   : ボタンを定義
 <label>    : 入力フィールドのラベル
 */
 
 /* 共通スタイル: 色、フォント、行間 */
-button,
 input,
 select,
 optgroup,
@@ -323,17 +144,6 @@ textarea {
   font-family: inherit;
 }
 
-/* ボタンのスタイル */
-button {
-  display: block;
-  background: #555;
-  /* color: #fff; */
-  border: none;
-  overflow: visible;
-  text-transform: none;
-}
-
-button,
 input[type="button"],
 input[type="reset"],
 input[type="submit"] {
@@ -344,29 +154,24 @@ input[type="submit"] {
   line-height: 1;
 }
 
-button:hover,
 input[type="button"]:hover,
 input[type="reset"]:hover,
 input[type="submit"]:hover {
   border-color: #ccc #bbb #aaa;
 }
 
-button:active,
-button:focus,
 input[type="button"]:active,
 input[type="reset"]:active,
 input[type="submit"]:active {
   border-color: #aaa #bbb #bbb;
 }
 
-button::-moz-focus-inner,
 [type="button"]::-moz-focus-inner,
 [type="reset"]::-moz-focus-inner,
 [type="submit"]::-moz-focus-inner {
   border-style: none;
 }
 
-button:-moz-focusring,
 [type="button"]:-moz-focusring,
 [type="reset"]:-moz-focusring,
 [type="submit"]:-moz-focusring {
@@ -431,20 +236,6 @@ textarea:focus {
   height: auto;
 }
 
-/* 検索入力フィールドのスタイル */
-[type="search"] {
-  -webkit-appearance: textfield;
-  -webkit-appearance: button;
-  /* Webkit系ブラウザ（Chrome、Safari）用 */
-  appearance: button;
-  /* 標準プロパティ */
-  outline-offset: -2px;
-}
-
-[type="search"]::-webkit-search-decoration {
-  -webkit-appearance: none;
-}
-
 /* フィールドセットと伝説タグ */
 fieldset {
   content: " ";
@@ -468,12 +259,3 @@ progress {
   -webkit-appearance: button;
   font: inherit;
 }
-
-/* 
-====================
-10. メタ情報・SEO (Metadata)
-====================
-<meta>   : メタデータを指定
-<link>   : 外部リソースを参照
-<script> : JavaScriptコードを埋め込む
-*/
