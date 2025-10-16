@@ -449,18 +449,6 @@ a:focus-visible,
   top: 16px !important;
 }
 
-/* テーブルブロック */
-.wp-block-table :is(table, thead, tbody, tfoot, td) {
-  border: 3px solid #eee;
-  padding: 0.8em;
-  margin-top: 1em;
-}
-
-.wp-block-table th {
-  border-color: #eee;
-  background: #eee;
-}
-
 /*************************************************************************/
 /* 7. メディアクエリ (Media Queries) */
 /*************************************************************************/
