@@ -1,14 +1,11 @@
 /*************************************************************************/
-/*************************************************************************/
-/*************************************************************************/
-/* integlight独自設定 s******************************************/
-/*************************************************************************/
-/*************************************************************************/
+/* 0. カスタムプロパティ (integlight独自設定) */
 /*************************************************************************/
 
 :root {
+  /* フォントサイズの設定（clampで最小14px、最大16px、ビューポート幅1.6vw） */
   --font-base: clamp(14px, 1.6vw, 16px);
-
+  /* レイアウト関連のvwベースの変数 */
   --ly-widthPadding: calc(100vw * 0.05);
   --ly-topMerge: calc(100vw * 0.05);
   --ly-betweenPadding: calc(100vw * 0.05);
@@ -16,19 +13,15 @@
   --ly-elementTopMarginSmall: calc(100vw * 0.015);
   --ly-elementPadding: calc(100vw * 0.01);
   --ly-elementBottomMargin: calc(100vw * 0.015);
+  /* コンテンツの最大幅 */
   --ly-content-max-width: calc(800px);
 }
 
-/*******************************/
-/*******************************/
-/*******************************/
-/*******************************/
-/* base s*/
-/*******************************/
-/*******************************/
-/*******************************/
-/*******************************/
+/*************************************************************************/
+/* 1. 基本リセット / ベーススタイル */
+/*************************************************************************/
 
+/* すべての要素のボックスモデル設定とマージン/パディングのリセット */
 *,
 *::before,
 *::after {
@@ -37,22 +30,43 @@
   padding: 0;
 }
 
+/* html/bodyの基本設定と高さ調整（フッター調整のための設定） */
+html,
 body {
-  background: #fff;
+  margin: 0;
+  height: 100%; /* スクロール抑止防止のため維持 */
 }
 
-/* Links
---------------------------------------------- */
+html {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  color: #333;
+  font-size: var(--font-base);
+}
+
+body {
+  background: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+/*************************************************************************/
+/* 2. 汎用HTML要素 (Text, Link, Table, Media, Form) */
+/*************************************************************************/
+
+/* リンク (a) */
 a {
   background-color: transparent;
-
   color: #222;
   text-decoration: underline;
+  font-size: 1rem;
 }
 
 a:visited {
   color: #999;
-  display: block;
+  display: block; /* 動作維持のため維持 */
 }
 
 a:hover,
@@ -62,48 +76,9 @@ a:active {
   color: #777;
 }
 
-/* タブフォーカスのスタイル */
-/* タブフォーカスのスタイル */
-/* タブフォーカスのスタイル */
-/* タブフォーカスのスタイル */
-/* タブフォーカスのスタイル */
-a:focus,
-.wp-block-button__link:focus {
-  outline: 2px solid #e6e6e6;
-  outline-offset: 2px;
-  border-radius: 4px;
-  transition: outline 0.2s ease;
-}
-
-a:focus:not(:focus-visible),
-.wp-block-button__link:focus:not(:focus-visible) {
-  outline: none; /* マウス操作時だけ非表示 */
-}
-
-a:focus-visible,
-.wp-block-button__link:focus-visible {
-  outline: 2px solid #e6e6e6;
-  outline-offset: 2px;
-  border-radius: 4px;
-  transition: outline 0.2s ease;
-}
-
-/* 広告のタブフォーカス */
-.easyLink-info-name a:focus-visible,
-.easyLink-info-btn-amazon:focus-visible,
-.easyLink-info-btn-rakuten:focus-visible {
-  outline: 2px solid #e6e6e6;
-  transition: outline 0.2s ease;
-}
-
-.wp-block-button__link {
-  position: relative;
-  z-index: 1;
-}
-
 a:hover,
 a:active {
-  outline: 0;
+  outline: 0; /* a:activeにも適用 */
 }
 
 a.post-edit-link {
@@ -114,59 +89,58 @@ a.contact {
   color: #fff;
 }
 
-table {
-  width: 100%;
+/* リスト (ul, ol) */
+ol,
+ul {
+  margin-top: 1em; /* リストの前にスペース */
 }
 
 dt {
   font-weight: 700;
 }
 
+/* テーブル (table) */
+table {
+  width: 100%;
+}
+
+/* 画像 (img) */
 img {
   height: auto;
   max-width: 100%;
   border-style: none;
 }
 
-/* 検索入力フィールドのスタイル */
-[type="search"] {
-  -webkit-appearance: textfield;
-  -webkit-appearance: button;
-  /* Webkit系ブラウザ（Chrome、Safari）用 */
-  appearance: button;
-  /* 標準プロパティ */
-  outline-offset: -2px;
+/* 画像の配置 */
+.aligncenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-[type="search"]::-webkit-search-decoration {
-  -webkit-appearance: none;
+.alignright {
+  float: right;
 }
 
-/*button*/
-/* 共通スタイル: 色、フォント、行間 */
+/* フォーム (button, input) */
 button {
+  /* 共通スタイル: 色、フォント、行間 */
   color: #404040;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   line-height: 1.5;
   font-family: inherit;
-}
+  font-size: 0.9rem;
+  padding: 10px;
 
-/* ボタンのスタイル */
-button {
+  /* ボタンのスタイル */
   display: block;
-  background: #555;
-  /* color: #fff; */
-  border: none;
-  overflow: visible;
-  text-transform: none;
-}
-
-button {
+  background: #e6e6e6; /* #555 の後に #e6e6e6 が適用されるため、後者のみ維持 */
   border: 1px solid;
   border-color: #ccc #ccc #bbb;
   border-radius: 0;
-  background: #e6e6e6;
+  overflow: visible;
+  text-transform: none;
   line-height: 1;
 }
 
@@ -187,41 +161,30 @@ button:-moz-focusring {
   outline: 1px dotted ButtonText;
 }
 
-/*******************************/
-/*******************************/
-/*******************************/
-/*******************************/
-/* base e*/
-/*******************************/
-/*******************************/
-/*******************************/
-/*******************************/
-
-/*******************************/
-/* 特殊設定 s */
-/*******************************/
-
-html {
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.15;
-  -webkit-text-size-adjust: 100%;
-  color: #333;
-  font-size: var(--font-base);
+/* その他フォーム要素 */
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-size: 0.9rem; /* buttonと重複だが維持 */
+  padding: 10px; /* buttonと重複だが維持 */
 }
 
-/**********フッターの調整をしている*********/
-/***************************************/
-html,
-body {
-  margin: 0;
-  /* スクロール抑止防止 */
-  height: 100%;
+/* 検索入力フィールド */
+[type="search"] {
+  -webkit-appearance: button; /* 最後に適用された値を維持 */
+  appearance: button;
+  outline-offset: -2px;
 }
 
-html {
-  height: 100%;
-  /* スクロール抑止防止 */
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
 }
+
+/*************************************************************************/
+/* 3. タイポグラフィ (見出し, フォントサイズ) */
+/*************************************************************************/
 
 h1,
 h2,
@@ -230,19 +193,6 @@ h4,
 h5,
 h6 {
   clear: both;
-}
-
-/*******************************/
-/* 基本的なフォントサイズの設定 s */
-/*******************************/
-
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  /* フォントファミリの設定 */
-  font-size: 1rem;
-  /* bodyのフォントサイズは16px相当 */
-  line-height: 1.8;
-  /* 行間の調整 */
 }
 
 /* 見出しのフォントサイズ */
@@ -276,10 +226,6 @@ ul {
   font-size: 1rem;
 }
 
-a {
-  font-size: 1rem;
-}
-
 /* 小さな文字のためのクラス */
 .small-text {
   font-size: 0.875rem;
@@ -290,38 +236,11 @@ a {
   font-size: 1.25rem;
 }
 
-button,
-input,
-optgroup,
-select,
-textarea {
-  font-size: 0.9rem;
-  padding: 10px;
-}
+/*************************************************************************/
+/* 4. レイアウト / 構造 (Header, Pagenation, Top Image) */
+/*************************************************************************/
 
-.wp-lightbox-overlay .close-button {
-  right: 16px !important;
-  top: 16px !important;
-}
-
-/* 公式プレビューのために書いているcss */
-/* 公式プレビューのために書いているcss */
-/* 公式プレビューのために書いているcss */
-/* 公式プレビューのために書いているcss */
-/* 公式プレビューのために書いているcss */
-.site-title a {
-  font-size: 1.6rem;
-  font-weight: 600;
-}
-
-/* 公式プレビューのために書いているcss */
-/* 公式プレビューのために書いているcss */
-/* 公式プレビューのために書いているcss */
-
-/************************************************************/
-/* 0. header***************************************************@@@/
-/************************************************************/
-
+/* ヘッダー */
 .site-header {
   background-repeat: no-repeat;
   background-size: 100% 11px;
@@ -335,7 +254,7 @@ textarea {
   padding-top: 0.5em;
 }
 
-/* ロゴがない時のデザインs */
+/* ロゴがない時のデザイン */
 .site-branding {
   width: 25vw;
   margin-top: 15px;
@@ -352,6 +271,7 @@ p.site-description {
   margin-top: 0;
 }
 
+/* 公式プレビューと競合するため、最終的な値を維持 */
 .site-title a {
   font-size: 1.6rem;
   font-weight: 600;
@@ -370,15 +290,11 @@ h1.site-title {
 .topImage {
   width: 100%;
   height: 100%;
-  /* コンテナの高さに合わせる */
   object-fit: cover;
-  /* はみ出しは見切って“つぶさず”に表示 */
   object-position: center;
 }
 
-/*******************************/
-/* ページトップの設定 s */
-/*******************************/
+/* ページトップ */
 #page-top {
   position: fixed;
   bottom: calc(20px + env(safe-area-inset-bottom));
@@ -396,29 +312,23 @@ h1.site-title {
   transition: opacity 0.3s ease;
 }
 
-/* 矢印（通常は黒） */
 #page-top::before {
   content: "";
   width: 15px;
   height: 15px;
-
-  /* 旧ルールの背景画像を無効化（ここがポイント） */
   background: none !important;
   background-image: none !important;
-
-  /* マスクで色を塗る */
-  background-color: #111; /* 矢印の色（通常） */
+  background-color: #111;
   -webkit-mask: url("/wp-content/themes/integlight/assets/rightarrow.svg")
     no-repeat center / contain;
   mask: url("/wp-content/themes/integlight/assets/rightarrow.svg") no-repeat
     center / contain;
-
-  transform: rotate(-90deg); /* 上向きに */
+  transform: rotate(-90deg);
   display: block;
 }
 
 #page-top:hover::before {
-  color: #fff; /* ホバーしたとき矢印の色 */
+  color: #fff;
 }
 
 #page-top:hover {
@@ -426,46 +336,86 @@ h1.site-title {
   color: #fff;
 }
 
-/* スクロール位置が100pxを越えた場合にボタンを表示 */
 /* @media (min-height: 800px) {
   #page-top {
-    opacity: 1; 
+    opacity: 1;
   }
 } */
 
-/*-------------ページトップの設定 e----------*/
+/*************************************************************************/
+/* 5. WordPress固有 (Focus, Widgets, Blocks) */
+/*************************************************************************/
 
-@media screen and (max-width: 768px) {
-  .navigation.post-navigation .nav-links {
-    flex-direction: column;
-  }
-
-  .site-branding {
-    width: 100vw;
-  }
-
-  .custom-logo ~ .site-title,
-  .custom-logo ~ .site-description {
-    margin-top: 0;
-  }
+/* タブフォーカスのスタイル */
+a:focus:not(:focus-visible),
+.wp-block-button__link:focus:not(:focus-visible) {
+  outline: none;
 }
 
-/* ロゴがない時のデザインe */
+a:focus-visible,
+.wp-block-button__link:focus-visible,
+/* 広告のタブフォーカス */
+.easyLink-info-name a:focus-visible,
+.easyLink-info-btn-amazon:focus-visible,
+.easyLink-info-btn-rakuten:focus-visible {
+  outline: 2px solid #e6e6e6;
+  outline-offset: 2px;
+  border-radius: 4px;
+  transition: outline 0.2s ease;
+}
 
-/* 0. header_e***************************************************@@@/
+.wp-block-button__link {
+  position: relative;
+  z-index: 1;
+}
 
+/* Lightbox */
+.wp-lightbox-overlay .close-button {
+  right: 16px !important;
+  top: 16px !important;
+}
 
-/************************************************************/
-/* Widgets @@@ ***************************************************/
-/************************************************************/
+/* ウィジェット */
 .widget {
   content: " ";
-  /*ダミー*/
 }
 
-/***************************************/
+/* プロフィールデザイン */
+.integlight-author-profile-widget {
+  background: #fff;
+  border: 1px solid #eee;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  max-width: 320px;
+  margin: 2rem auto;
+  text-align: center;
+}
 
-/* ウィジェット カテゴリー s */
+.integlight-author-profile-widget p {
+  margin: 0.5rem 0;
+  line-height: 1.8;
+  height: auto;
+  overflow: visible;
+  white-space: normal;
+  text-align: left;
+}
+
+.integlight-author-profile-widget img {
+  max-width: 120px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+}
+
+.integlight-author-profile-widget a {
+  font-weight: bold;
+  text-decoration: none;
+  color: #555;
+}
+
+/* ウィジェット内のカテゴリーブロック */
 .wp-block-categories {
   list-style: none;
   line-height: 2;
@@ -484,23 +434,25 @@ h1.site-title {
 
 li > ul > .cat-item:last-of-type {
   border-bottom: none;
-  /* カテゴリーの二重線をとっている */
 }
 
+/* カテゴリーのリストにマージン */
+.wp-block-categories ul.children {
+  margin-top: 10px;
+}
+
+/* ウィジェット内の要素の個別調整 (サイドバー) */
 .ly_site_content_widgetArea_right h2,
 .ly_site_content_widgetArea_right h3 {
   padding-top: 1em;
-  /* hタグの上にpadding */
 }
 
 .ly_site_content_widgetArea_right .is-layout-flex {
   padding: 0;
-  /* カテゴリーの検索バーのpaddingを消している */
 }
 
 .ly_site_content_widgetArea_right li {
   font-size: 0.8rem;
-  /* カテゴリーの文字を小さくしている */
   list-style: none;
 }
 
@@ -509,95 +461,7 @@ li > ul > .cat-item:last-of-type {
   font-size: 0.9rem;
 }
 
-/*********カテゴリーのリストにマージン !!!!!!!!!!!****************/
-.wp-block-categories ul.children {
-  /* padding-left: 1.5em; */
-  margin-top: 10px;
-}
-
-/*********最近の投稿のインデントを取る!!!!!!!!!!!****************/
-.wp-block-latest-posts li {
-  text-indent: 0;
-  padding-left: 0;
-}
-
-/*********アーカイブの見た目を整えている!!!!!!!!!!!****************/
-.wp-block-archives li {
-  padding: 5px 0px;
-  border-bottom: 1px solid #eee;
-  text-indent: 0;
-  /* 左に寄るのを防いでいる */
-}
-
-/* プロフィールデザイン */
-/* プロフィールデザイン */
-/* プロフィールデザイン */
-/* プロフィールデザイン */
-/* プロフィールデザインs */
-.integlight-author-profile-widget {
-  background: #fff;
-  /* カードの背景色（必要なら調整） */
-  border: 1px solid #eee;
-  padding: 1.5rem;
-  /* 内側の余白でゆとりを出す */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  /* ドロップシャドウ（ふんわり） */
-  max-width: 320px;
-  /* 横幅を制限すると整うよ */
-  margin: 2rem auto;
-  /* 上下に余白＋中央寄せ */
-  text-align: center;
-  /* 中身を中央に揃える */
-}
-
-.integlight-author-profile-widget p {
-  margin: 0.5rem 0;
-  line-height: 1.8;
-  height: auto;
-  /* ← 高さは自動（これがデフォルト） */
-  overflow: visible;
-  /* ← テキストが切れないように */
-  white-space: normal;
-  /* ← 改行も自動に（念のため） */
-  text-align: left;
-}
-
-/* .integlight-author-profile-widget p:first-of-type {
-  text-align: center;
-} */
-
-.integlight-author-profile-widget img {
-  max-width: 120px;
-  aspect-ratio: 1 / 1;
-  /* ← 正円維持：縦横比を固定 */
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-  margin: 0 auto;
-}
-
-.integlight-author-profile-widget a {
-  font-weight: bold;
-  /* ボールドに */
-  text-decoration: none;
-  /* 下線を消す */
-  color: #555;
-  /* リンクの色を親に合わせる（必要に応じて） */
-}
-
-/* プロフィールデザインe */
-/* プロフィールデザイン */
-
-/* .widget .wp-block-search__button {
-    color: #fff;
-} */
-
-/* ウィジェット カテゴリー e */
-
-/*************************************/
-/* 新着記事 @@@ s*/
-/*************************************/
-
+/* 最新の投稿ブロック */
 .wp-block-latest-posts__list {
   list-style: none;
   line-height: 2;
@@ -615,116 +479,22 @@ li > ul > .cat-item:last-of-type {
   padding: 5px 0px;
 }
 
-/* 下線とテキストが中に入るのを防ぐ */
+.wp-block-latest-posts li,
 .widget .wp-block-latest-posts__list li {
+  text-indent: 0;
   padding-left: 0;
+}
+
+/* アーカイブブロック */
+.wp-block-archives li {
+  padding: 5px 0px;
+  border-bottom: 1px solid #eee;
   text-indent: 0;
 }
 
-/* 新着記事 e*/
-
-/*-------------全幅ブロック----------*/
-/* .wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-colum {
-    padding-left: 10px;
-	padding-right: 10px;
-	padding-bottom: 20px;
-} */
-
-/*******************************/
-/* 基本的なフォントサイズの設定 e */
-/*******************************/
-
-/*****************************************************/
-/*****************************************************/
-/*****************************************************/
-/* HTMLタグ毎の設定 */
-/*****************************************************/
-/*****************************************************/
-/*****************************************************/
-/* 
-====================
-1. 基本構造タグ (Document Structure)
-====================
-<html>       : HTML文書全体を囲む
-<head>       : メタ情報やタイトル、スタイル、スクリプトを記述
-<title>      : ページタイトルを指定
-<body>       : 表示されるコンテンツを記述
-*/
-
-/* 
-====================
-2. セクショニングタグ (Sectioning Elements)
-====================
-<section> : セクションを定義
-<article> : 独立した記事やコンテンツ
-<nav>     : ナビゲーションを定義
-<aside>   : 補足情報を提供
-<footer>  : フッター部分を定義
-*/
-
-/* 
-====================
-3. HTML5セマンティックタグ
-====================
-<header>      : ヘッダーを定義
-<main>        : 主要なコンテンツ部分
-<figure>      : 図やイラストのグループ
-<figcaption>  : 図の説明文
-*/
-
-/* 
-====================
-4. 見出し・段落・テキスト (Text Content)
-====================
-<h1>～<h6>  : 見出しレベルを示す
-<p>          : 段落を示す
-<br>         : 改行を挿入
-<hr>         : 区切り線を挿入
-<blockquote> : 引用文を示す
-<a>     : ハイパーリンクを作成
-*/
-
-/* 
-====================
-5. フォーマット・インラインタグ (Inline Elements)
-====================
-<strong>  : 重要な強調 (太字)
-<em>      : 強調 (斜体)
-<b>       : 太字
-<i>       : 斜体
-<code>    : コードスニペット
-<small>   : 小さいテキスト
-*/
-
-/* 
-====================
-6. リスト (Lists)
-====================
-<ul> : 順序なしリスト
-<ol> : 順序付きリスト
-<li> : リストの項目
-*/
-
-ol,
-ul {
-  margin-top: 1em;
-}
-
-/* リストの前にスペース */
-
-/* 
-====================
-7. 表 (Tables)
-====================
-<table> : 表全体を囲む
-<tr>    : 表の行を定義
-<td>    : 表のセルを定義
-<th>    : 見出しセルを定義
-*/
-
+/* テーブルブロック */
 .wp-block-table :is(table, thead, tbody, tfoot, td) {
   border: 3px solid #eee;
-  /* 表の線を薄くする */
   padding: 0.8em;
   margin-top: 1em;
 }
@@ -734,53 +504,16 @@ ul {
   background: #eee;
 }
 
-/* 
-====================
-8. メディア (Media)
-====================
-<img>   : 画像を表示
-<video> : 動画を表示
-<audio> : 音声を再生
-*/
+/*-------------全幅ブロック----------*/
+/* .wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-colum {
+    padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 20px;
+} */
 
-.aligncenter {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  /* 画像を中央配置 */
-}
-
-.alignright {
-  float: right;
-  /* 画像を右寄せ */
-}
-
-/* 
-====================
-9. フォーム (Forms)
-====================
-<form>     : フォーム全体を囲む
-<input>    : 入力フィールドを定義
-<textarea> : 複数行のテキスト入力
-<button>   : ボタンを定義
-<label>    : 入力フィールドのラベル
-*/
-
-/* 
-====================
-10. メタ情報・SEO (Metadata)
-====================
-<meta>   : メタデータを指定
-<link>   : 外部リソースを参照
-<script> : JavaScriptコードを埋め込む
-*/
-/************************************************************/
-/* 11. footer***************************************************@@@/
-/************************************************************/
-/* html, body {
-    height: 100%; 
-    margin: 0;
-  } */
+/*************************************************************************/
+/* 6. Footer */
+/*************************************************************************/
 
 .site-footer {
   position: relative;
@@ -790,7 +523,6 @@ ul {
   color: #fff;
   text-align: center;
   font-size: 0.8rem;
-  /* padding: 10px; */
 }
 
 .site-footer a {
@@ -801,14 +533,6 @@ ul {
   outline: none;
 }
 
-.footer-menu {
-  display: flex;
-  justify-content: center;
-  list-style: none;
-  margin-bottom: 0.8rem;
-  flex-wrap: wrap;
-}
-
 .ly_site_footer a {
   font-size: 1rem;
   text-decoration: none;
@@ -816,6 +540,14 @@ ul {
 
 .ly_site_footer a:hover {
   opacity: 0.5;
+}
+
+.footer-menu {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  margin-bottom: 0.8rem;
+  flex-wrap: wrap;
 }
 
 .footer-menu a {
@@ -846,7 +578,7 @@ ul {
 
 /* .footer-menu li:first-child::before {
     display: none;
-  } */
+} */
 
 .footer-menu li:last-child::after {
   content: "";
@@ -859,16 +591,31 @@ ul {
   background-color: #000;
 }
 
+/*************************************************************************/
+/* 7. メディアクエリ (Media Queries) */
+/*************************************************************************/
+
 @media screen and (max-width: 768px) {
+  /* ヘッダー/ナビゲーション */
+  .navigation.post-navigation .nav-links {
+    flex-direction: column;
+  }
+
+  .site-branding {
+    width: 100vw;
+  }
+
+  .custom-logo ~ .site-title,
+  .custom-logo ~ .site-description {
+    margin-top: 0;
+  }
+
+  /* フッター */
   .footer-menu a {
     font-size: 0.9rem;
   }
 }
 
 /*************************************************************************/
-/*************************************************************************/
-/*************************************************************************/
 /* integlight独自設定 e******************************************/
-/*************************************************************************/
-/*************************************************************************/
 /*************************************************************************/
