@@ -53,42 +53,8 @@ body {
 }
 
 /*************************************************************************/
-/* 2. 汎用HTML要素 (Text, Link, Table, Media, Form) */
+/* 2. HTMLタグ */
 /*************************************************************************/
-
-/* リンク (a) */
-a {
-  background-color: transparent;
-  color: #222;
-  text-decoration: underline;
-  font-size: 1rem;
-}
-
-a:visited {
-  color: #999;
-  display: block; /* 動作維持のため維持 */
-}
-
-a:hover,
-a:focus,
-a:active {
-  text-decoration: underline;
-  color: #777;
-}
-
-a:hover,
-a:active {
-  outline: 0; /* a:activeにも適用 */
-}
-
-a.post-edit-link {
-  background: none;
-}
-
-a.contact {
-  color: #fff;
-}
-
 /* リスト (ul, ol) */
 ol,
 ul {
@@ -109,17 +75,6 @@ img {
   height: auto;
   max-width: 100%;
   border-style: none;
-}
-
-/* 画像の配置 */
-.aligncenter {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.alignright {
-  float: right;
 }
 
 /* フォーム (button, input) */
@@ -226,6 +181,57 @@ ul {
 }
 
 /*************************************************************************/
+/* 2. リンク */
+/*************************************************************************/
+
+a {
+  background-color: transparent;
+  color: #222;
+  text-decoration: underline;
+  font-size: 1rem;
+}
+
+a:visited {
+  color: #999;
+  display: block; /* 動作維持のため維持 */
+}
+
+a:hover,
+a:focus,
+a:active {
+  text-decoration: underline;
+  color: #777;
+}
+
+a:hover,
+a:active {
+  outline: 0; /* a:activeにも適用 */
+}
+
+a.post-edit-link {
+  background: none;
+}
+
+a.contact {
+  color: #fff;
+}
+
+/*************************************************************************/
+/* 配置変更  */
+/*************************************************************************/
+
+/* 画像の配置 */
+.aligncenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.alignright {
+  float: right;
+}
+
+/*************************************************************************/
 /* 5. WordPress固有  */
 /*************************************************************************/
 
@@ -327,14 +333,9 @@ h1.site-title {
   line-height: 1.2;
 }
 
-/* スライダーでなく画像を選んだ時 */
-.topImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
+/*************************************************************************/
+/* ページトップボタン */
+/*************************************************************************/
 /* ページトップ */
 #page-top {
   position: fixed;
