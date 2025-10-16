@@ -231,6 +231,24 @@ a.contact {
   float: right;
 }
 
+/*全幅表示*/
+.alignfull {
+  /* 全幅にする */
+  /* 中心を合わせるために調整 */
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/*幅広表示*/
+.alignwide {
+  position: relative;
+  width: min(100vw, 1200px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 /*************************************************************************/
 /* 5. WordPress固有  */
 /*************************************************************************/
