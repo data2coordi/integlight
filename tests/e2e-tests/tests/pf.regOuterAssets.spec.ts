@@ -95,7 +95,7 @@ const TEST_SCENARIOS = [
     url: "/",
     homeDisplayType: "固定ページ",
     expectedFrontCss: [
-      "layout.css",
+      "all.cmn.layout.css",
       "base-style.css",
       "integlight-style.css",
       "integlight-menu.css",
@@ -106,7 +106,7 @@ const TEST_SCENARIOS = [
       "home2.css",
     ],
     expectedEditorCss: [
-      "layout.css",
+      "all.cmn.layout.css",
       "base-style.css",
       "integlight-style.css",
       "integlight-menu.css",
@@ -124,7 +124,7 @@ const TEST_SCENARIOS = [
     url: "/",
     homeDisplayType: "最新の投稿",
     expectedFrontCss: [
-      "layout.css",
+      "all.cmn.layout.css",
       "base-style.css",
       "integlight-style.css",
       "integlight-menu.css",
@@ -134,7 +134,7 @@ const TEST_SCENARIOS = [
       "home2.css",
     ],
     expectedEditorCss: [
-      "layout.css",
+      "all.cmn.layout.css",
       "base-style.css",
       "integlight-style.css",
       "integlight-menu.css",
@@ -155,7 +155,7 @@ const TEST_SCENARIOS = [
     url: "/profile/",
     homeDisplayType: null,
     expectedFrontCss: [
-      "layout.css",
+      "all.cmn.layout.css",
       "base-style.css",
       "integlight-style.css",
       "integlight-menu.css",
@@ -167,7 +167,7 @@ const TEST_SCENARIOS = [
       "home2.css",
     ],
     expectedEditorCss: [
-      "layout.css",
+      "all.cmn.layout.css",
       "base-style.css",
       "integlight-style.css",
       "integlight-menu.css",
@@ -186,7 +186,7 @@ const TEST_SCENARIOS = [
     url: "/test1/",
     homeDisplayType: null,
     expectedFrontCss: [
-      "layout.css",
+      "all.cmn.layout.css",
       "base-style.css",
       "integlight-style.css",
       "integlight-menu.css",
@@ -198,7 +198,7 @@ const TEST_SCENARIOS = [
       "home2.css",
     ],
     expectedEditorCss: [
-      "layout.css",
+      "all.cmn.layout.css",
       "base-style.css",
       "integlight-style.css",
       "integlight-menu.css",
