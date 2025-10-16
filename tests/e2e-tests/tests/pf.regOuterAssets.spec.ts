@@ -116,7 +116,7 @@ const TEST_SCENARIOS = [
       "all.upd.color-pattern8",
       "all.upd.site-type2.css",
     ],
-    expectedDeferredCss: ["integlight-sp-style.css", "all.upd.color-pattern8"],
+    expectedDeferredCss: ["all.upd.color-pattern8"],
   },
   {
     id: "TC02",
@@ -143,11 +143,7 @@ const TEST_SCENARIOS = [
       "all.upd.color-pattern8",
       "all.upd.site-type2.css",
     ],
-    expectedDeferredCss: [
-      "integlight-sp-style.css",
-      "style.min.css",
-      "all.upd.color-pattern8",
-    ],
+    expectedDeferredCss: ["style.min.css", "all.upd.color-pattern8"],
   },
   {
     id: "TC03",
@@ -178,7 +174,7 @@ const TEST_SCENARIOS = [
       "all.upd.color-pattern8",
       "all.upd.site-type2.css",
     ],
-    expectedDeferredCss: ["integlight-sp-style.css", "all.upd.color-pattern8"],
+    expectedDeferredCss: ["all.upd.color-pattern8"],
   },
   {
     id: "TC04",
@@ -209,7 +205,7 @@ const TEST_SCENARIOS = [
       "all.upd.color-pattern8",
       "all.upd.site-type2.css",
     ],
-    expectedDeferredCss: ["integlight-sp-style.css", "all.upd.color-pattern8"],
+    expectedDeferredCss: ["all.upd.color-pattern8"],
   },
 ];
 
