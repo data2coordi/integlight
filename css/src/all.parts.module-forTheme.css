@@ -587,64 +587,6 @@ a.broken_link {
 }
 
 /************************************************************/
-/*** ボタン s ***/
-/************************************************************/
-
-/*** ボタン s ***/
-.wp-block-buttons {
-  margin-top: var(--ly-elementTopMarginSmall);
-}
-
-.wp-block-buttons
-  > .wp-block-button.has-custom-font-size
-  .wp-block-button__link {
-  min-width: 150px;
-  color: #fff;
-}
-
-.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link {
-  border-width: 1px;
-}
-
-/************ボタンアニメーション**********/
-/************ボタンアニメーション**********/
-/************ボタンアニメーション**********/
-/************ボタンアニメーション**********/
-/************ボタンアニメーション**********/
-
-.wp-block-button__link,
-.wp-block-buttons > .wp-block-button.has-custom-width .wp-block-button__link {
-  position: relative;
-  padding: 10px 20px;
-  border: 1px solid #555;
-  background-color: #fff; /* 常に白背景 */
-  color: #555; /* 常に濃い文字色 */
-  box-shadow: 2px 4px #000;
-  cursor: pointer;
-  text-align: center;
-}
-
-.wp-block-button__link:hover,
-.wp-block-button__link:active,
-.wp-block-buttons
-  > .wp-block-button.has-custom-width
-  .wp-block-button__link:hover,
-.wp-block-buttons
-  > .wp-block-button.has-custom-width
-  .wp-block-button__link:active {
-  box-shadow: none;
-  transform: translateY(4px); /* ギュッと沈むだけ */
-}
-
-/* キーボード操作でも状態が見えるように */
-.wp-block-button__link:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 2px;
-}
-
-/*** ボタン e ***/
-
-/************************************************************/
 /* タグ @@@ ***************************************************/
 /************************************************************/
 
