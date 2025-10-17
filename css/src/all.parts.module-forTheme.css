@@ -48,34 +48,11 @@
   /* リストのインデント2行目を1行目と揃える */
 }
 
-.wp-block-list li > ul {
-  padding-left: 1.5em;
-  /* リストの下の白ドットにインデント */
-}
-
 /*2.2 見出し*/
 
 /* 本文のタイトル */
 
 /*2.4 詳細 */
-
-/*2.5 テーブル */
-/*!!!!!s*/
-.wp-block-table :is(table, thead, tbody, tfoot, td) {
-  border: 3px solid #eee;
-  padding: 0.8em;
-  margin-top: 1em;
-}
-
-.wp-block-table th {
-  border-color: #eee;
-  background: #eee;
-}
-/*!!!!!e*/
-.ly_site_content_main .wp-block-columns .wp-block-table {
-  margin: 0px -15px -10px -25px;
-  /* 親を変えずに表のパディングをなくす */
-}
 
 /************************************************************/
 /* メディア @@@***************************************************/
