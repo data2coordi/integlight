@@ -54,58 +54,6 @@
 
 /*2.4 詳細 */
 
-/************************************************************/
-/* メディア @@@***************************************************/
-/************************************************************/
-/*3.1 画像  */
-/*3.2 ギャラリー */
-/*3.3 カバー */
-
-/* カバーイメージ */
-
-/* カバー画像e */
-
-/*3.4 メディアとテキスト */
-/* 背景なしの場合はpaddingをリセット */
-.wp-block-media-text:not(.has-background) .wp-block-media-text__content {
-  padding: 0;
-}
-
-/*3.5 テーブル */
-
-/* 画像・要素の左右・中央寄せ */
-.wp-block-image .alignleft {
-  float: left;
-  /* 左寄せ */
-  margin-right: 1.5em;
-  /* 右に適度な余白 */
-  margin-top: 0;
-  margin-bottom: 1em;
-  /* 下に余白を確保 */
-}
-
-.wp-block-image .alignright {
-  float: right;
-  /* 右寄せ */
-  margin-left: 1.5em;
-  /* 左に余白 */
-  margin-top: 0;
-  margin-bottom: 1em;
-  /* 下に余白 */
-}
-
-.wp-block-image .aligncenter {
-  display: block;
-  /* インライン要素ではなくブロック要素として扱う */
-  text-align: center;
-  /* 中央寄せ */
-}
-
-.image-container {
-  padding: 0;
-  /* imgにつくパディングを消している */
-}
-
 /*******************************/
 /* パンくずリスト s */
 /*******************************/
