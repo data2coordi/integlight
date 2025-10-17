@@ -50,6 +50,7 @@ class InteglightPreDetermineCssAssets
             self::$styles = array_merge(self::$styles, [
                 'integlight-post' => ['path' => '/css/build/page.post.css', 'deps' => ['integlight-style-plus']],
                 'integlight-module' =>  ['path' => '/css/build/all.parts.module-forTheme.css', 'deps' => ['wp-block-library']],
+                'integlight-module_forBlocks' =>  ['path' => '/css/build/all.parts.module-forBlocks.css', 'deps' => ['wp-block-library']],
                 'integlight-svg-non-home' =>  ['path' => '/css/build/all.sp.svg-non-home.css', 'deps' => []],
             ]);
         }
@@ -58,6 +59,7 @@ class InteglightPreDetermineCssAssets
             self::$styles = array_merge(self::$styles, [
                 'integlight-page' => ['path' => '/css/build/page.page.css', 'deps' => ['integlight-style-plus']],
                 'integlight-module' =>  ['path' => '/css/build/all.parts.module-forTheme.css', 'deps' => ['wp-block-library']],
+                'integlight-module_forBlocks' =>  ['path' => '/css/build/all.parts.module-forBlocks.css', 'deps' => ['wp-block-library']],
                 'integlight-svg-non-home' =>  ['path' => '/css/build/all.sp.svg-non-home.css', 'deps' => []],
             ]);
         }
@@ -66,6 +68,7 @@ class InteglightPreDetermineCssAssets
             self::$styles = array_merge(self::$styles, [
                 'integlight-front' => ['path' => '/css/build/page.front.css', 'deps' => ['integlight-style-plus']],
                 'integlight-module' =>  ['path' => '/css/build/all.parts.module-forTheme.css', 'deps' => ['wp-block-library']],
+                'integlight-module_forBlocks' =>  ['path' => '/css/build/all.parts.module-forBlocks.css', 'deps' => ['wp-block-library']],
                 'integlight-svg-non-home' =>  ['path' => '/css/build/all.sp.svg-non-home.css', 'deps' => []],
             ]);
         }
@@ -74,6 +77,7 @@ class InteglightPreDetermineCssAssets
             // 漏れているページ用の CSS をここで追加
             self::$styles = array_merge(self::$styles, [
                 'integlight-module' =>  ['path' => '/css/build/all.parts.module-forTheme.css', 'deps' => ['wp-block-library']],
+                'integlight-module_forBlocks' =>  ['path' => '/css/build/all.parts.module-forBlocks.css', 'deps' => ['wp-block-library']],
                 'integlight-svg-non-home' =>  ['path' => '/css/build/all.sp.svg-non-home.css', 'deps' => []],
             ]);
         }
