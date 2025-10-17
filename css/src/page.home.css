@@ -6,10 +6,8 @@
   - 文字あふれを防ぎ、デザイン崩れを回避（2行省略）
 ************************************************************/
 
-/* 一覧配下のボックスサイズ計算を安定化（余白でのはみ出し防止） */
-.blog .post-grid,
+/*  一覧配下のボックスサイズ計算を安定化（余白でのはみ出し防止） */
 .home1 .post-grid,
-.blog .post-grid *,
 .home1 .post-grid * {
   box-sizing: border-box;
 }
@@ -28,7 +26,6 @@ body .home1 {
 
 /* ========== 1) 一覧グリッド：最小幅を上げて“細すぎ”回避 + リキッド ========== */
 /* 360px 以上ないと列を増やさない→広い画面でも最大3列くらいをキープしやすい */
-.blog .post-grid,
 .home1 .post-grid {
   display: grid;
   grid-template-columns: repeat(
@@ -43,7 +40,6 @@ body .home1 {
 
 /* ========== 2) カード本体：正方形化 ＆ ホバー ========== */
 /* 高さ固定はやめ、幅から自動計算（1:1）。中身は縦フレックスで配分 */
-.blog .grid-item,
 .home1 .grid-item {
   position: relative;
   display: flex;
@@ -58,7 +54,6 @@ body .home1 {
     box-shadow 0.3s ease;
 }
 
-.blog .grid-item:hover,
 .home1 .grid-item:hover {
   transform: translateY(-10px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -66,7 +61,6 @@ body .home1 {
 
 /* ========== 3) サムネイル：カード高の60%を写真に割当 ========== */
 /* 正方形になった“カード高”の60%をサムネ領域として確保 */
-.blog .post-thumbnail,
 .home1 .post-thumbnail {
   position: relative;
   flex: 0 0 60%; /* ★全体高の6割を画像枠に */
@@ -75,14 +69,12 @@ body .home1 {
 }
 
 /* 画像は枠いっぱいにカバー。フチ感を出すため少し内側に余白 */
-.blog .post-thumbnail a,
 .home1 .post-thumbnail a {
   display: block;
   width: 100%;
   height: 100%;
 }
 
-.blog .post-thumbnail img,
 .home1 .post-thumbnail img {
   width: 100%;
   height: auto; /* ← これで縦方向に伸びすぎ防止 */
@@ -94,8 +86,6 @@ body .home1 {
 }
 
 /* ========== 4) タイトル：通常フロー＋2行で省略 ========== */
-.blog .grid-item h2,
-.blog .grid-item h3,
 .home1 .grid-item h2,
 .home1 .grid-item h3 {
   position: static;
@@ -123,7 +113,6 @@ body .home1 {
 
 /* ========== 5) メタ情報：カード下に吸着 ========== */
 /* タイトルの下に並べ、残り高さに応じて下側に寄せる */
-.blog .grid-item .post-meta,
 .home1 .grid-item .post-meta {
   position: relative;
   z-index: 1;
@@ -136,9 +125,6 @@ body .home1 {
   gap: 4px;
 }
 
-.blog .post-date,
-.blog .post-category,
-.blog .post-tags,
 .home1 .post-date,
 .home1 .post-category,
 .home1 .post-tags {
@@ -177,7 +163,6 @@ body .home1 {
 }
 
 /* タグは非表示（仕様維持） */
-.blog .post-tags,
 .home1 .post-tags {
   display: none;
 }
@@ -264,7 +249,6 @@ body .home1 {
 
 /* ===== タブレット：2列に落とす（目安 1024px以下） ===== */
 @media (max-width: 1024px) {
-  .blog .post-grid,
   .home1 .post-grid {
     grid-template-columns: repeat(2, 1fr); /* 2列 */
     width: min(100%, 820px); /* 列幅が太くなりすぎないよう微調整 */
@@ -273,7 +257,6 @@ body .home1 {
 
 /* ===== スマホ：1列（目安 600px以下） ===== */
 @media (max-width: 600px) {
-  .blog .post-grid,
   .home1 .post-grid {
     grid-template-columns: 1fr; /* 1列 */
     width: 100%; /* 端まで使う */
