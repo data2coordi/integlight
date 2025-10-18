@@ -1,0 +1,118 @@
+/* homeのh2はやや小さめ */
+.blog .grid-item h2 {
+  font-size: 1.25rem; /* 見出しとして十分な存在感 */
+  line-height: 1.5; /* 行間を少し広めにして読みやすく */
+  font-weight: 600; /* 見出しらしさを強調 */
+  white-space: normal; /* 折り返し許可 */
+  overflow: visible; /* 隠さない */
+}
+
+.blog .post-date,
+.home1 .post-date,
+.home1 .post-category,
+.home1 .post-tags {
+  margin: 0;
+  padding: 0;
+  font-size: 0.9rem;
+  white-space: nowrap; /* メタは1行でコンパクトに */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ========== 6) カテゴリ・バッジ：画像左上に重ねる（意図的にabsolute） ========== */
+.blog .grid-item .post-category,
+.home1 .grid-item .post-category {
+  position: absolute;
+  top: 13px;
+  left: 12px;
+  z-index: 2; /* 画像より前面 */
+}
+
+.blog .post-category p,
+.home1 .post-category p {
+  display: inline-block;
+  font-size: 13px;
+  color: #fff;
+  background-color: #323232;
+  padding: 4px 15px;
+  margin: 0;
+  border-radius: 2px;
+}
+
+/* リンクの見た目は継承（下線なし・色継承） */
+.blog .grid-item a,
+.home1 .grid-item a {
+  text-decoration: none;
+  color: inherit;
+  font-size: 0.8rem;
+}
+
+/* ===== デスクトップ：常に3列 ===== */
+.blog .post-grid,
+.home1 .post-grid {
+  grid-template-columns: repeat(3, 1fr); /* ★ 3列固定 */
+  width: min(100%, 1080px); /* ★ 1200px→1080pxにしてカードを小ぶりに */
+  margin: 0 auto; /* 中央寄せ（念のため明示） */
+  /* gap / padding は前のまま clamp でOK。必要ならここで上書きも可 */
+  /* gap: 20px; padding: 20px; など */
+}
+
+/************************************************************/
+/* ページネーション @@@***************************************************/
+/************************************************************/
+nav.navigation.pagination {
+  text-align: center;
+}
+
+/* 次へ */
+.pagination .nav-links {
+  width: 600px;
+  display: block;
+  margin: auto;
+  margin-top: 2rem;
+}
+
+/* 次への数字の囲みをコメントアウト */
+.pagination .page-numbers {
+  border: 1px solid #555;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  /* 中央揃え */
+  text-align: center;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0.3em;
+  text-decoration: none;
+}
+
+.pagination .next.page-numbers,
+.pagination .prev.page-numbers {
+  display: none;
+}
+
+.pagination .page-numbers:hover,
+.pagination .next.page-numbers:hover,
+.pagination .prev.page-numbers:hover {
+  background: #f5f4f4;
+}
+
+@media screen and (max-width: 768px) {
+  /* ページネーション */
+  /* ページネーション */
+  /* ページネーション */
+  .pagination .nav-links {
+    width: 90vw;
+  }
+
+  .pagination .page-numbers {
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    margin-left: 0;
+  }
+
+  /* ページネーション */
+  /* ページネーション */
+  /* ページネーション */
+}
