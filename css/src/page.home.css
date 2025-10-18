@@ -108,8 +108,8 @@ nav.navigation.pagination {
 }
 
 /* ===== デスクトップ：常に3列 ===== */
-.blog .post-grid,
-.home1 .post-grid {
+/*!!!!! home.cssとtype1.cssの両方で必要 要修正*/
+.blog .post-grid {
   grid-template-columns: repeat(3, 1fr); /* ★ 3列固定 */
   width: min(100%, 1080px); /* ★ 1200px→1080pxにしてカードを小ぶりに */
   margin: 0 auto; /* 中央寄せ（念のため明示） */
