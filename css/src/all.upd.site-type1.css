@@ -95,3 +95,250 @@ body .home1 {
   line-height: 1.4;
   border-bottom: none;
 }
+
+/* homeのh2はやや小さめ */
+.blog .grid-item h2 {
+  font-size: 1.25rem; /* 見出しとして十分な存在感 */
+  line-height: 1.5; /* 行間を少し広めにして読みやすく */
+  font-weight: 600; /* 見出しらしさを強調 */
+  white-space: normal; /* 折り返し許可 */
+  overflow: visible; /* 隠さない */
+}
+
+/* 抜粋は非表示（仕様維持） */
+/* .blog .post-excerpt,
+.home1 .post-excerpt {
+  display: none;
+} */
+
+/* ========== 5) メタ情報：カード下に吸着 ========== */
+/* タイトルの下に並べ、残り高さに応じて下側に寄せる */
+.home1 .grid-item .post-meta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1% 5% 5% 5%;
+  margin-top: auto; /* ★下にピタッと寄せる鍵 */
+  color: #222;
+  gap: 4px;
+}
+
+.blog .post-date,
+.home1 .post-date,
+.home1 .post-category,
+.home1 .post-tags {
+  margin: 0;
+  padding: 0;
+  font-size: 0.9rem;
+  white-space: nowrap; /* メタは1行でコンパクトに */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ========== 6) カテゴリ・バッジ：画像左上に重ねる（意図的にabsolute） ========== */
+.blog .grid-item .post-category,
+.home1 .grid-item .post-category {
+  position: absolute;
+  top: 13px;
+  left: 12px;
+  z-index: 2; /* 画像より前面 */
+}
+
+.blog .post-category p,
+.home1 .post-category p {
+  display: inline-block;
+  font-size: 13px;
+  color: #fff;
+  background-color: #323232;
+  padding: 4px 15px;
+  margin: 0;
+  border-radius: 2px;
+}
+
+/* home1だけ、全部この色にする */
+#primary.home1 .post-category p {
+  background: #323232; /* ここにhome1用の色を入れてもOK */
+  border-radius: 0;
+}
+
+/* タグは非表示（仕様維持） */
+.home1 .post-tags {
+  display: none;
+}
+
+/* リンクの見た目は継承（下線なし・色継承） */
+.blog .grid-item a,
+.home1 .grid-item a {
+  text-decoration: none;
+  color: inherit;
+  font-size: 0.8rem;
+}
+
+/* ========== 7) レスポンシブ補助（任意） ========== */
+/* auto-fitが面倒見るので原則不要。どうしてもスマホ1列固定なら下を解除して使う */
+/*
+@media (max-width: 768px){
+  .blog .post-grid,
+  .home1 .post-grid { grid-template-columns: 1fr; }
+}
+*/
+
+/* ========== 8) トップの丸いカテゴリ（そのまま流用OK：任意） ========== */
+.home1 .category-list {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: clamp(8px, 1.5vw, 16px);
+  margin: clamp(24px, 6vw, 64px) auto;
+  padding: 0 clamp(8px, 2vw, 32px);
+  max-width: 900px;
+}
+
+.home1 .category-item {
+  flex: 1;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home1 .category-link {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: clamp(96px, 11vw, 150px);
+  height: clamp(96px, 11vw, 150px);
+  background-color: #f0f0f0;
+  color: #000;
+  text-align: center;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: clamp(0.8rem, 0.6vw + 0.6rem, 0.95rem);
+  margin: 0 8px 8px 0;
+  padding: 10px;
+  text-decoration: none;
+  box-shadow:
+    inset 2px 2px 6px hsla(0, 0%, 100%, 0.6),
+    inset -2px -2px 6px rgba(0, 0, 0, 0.2),
+    0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.home1 .category-link:hover {
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+/************************************************************
+  固定3列レイアウト（デスクトップ）に上書き
+  ねらい：
+  - 画面が広くても“3列”で止める
+  - 一覧の最大幅を 1080px に下げてカードを少し小さく
+  - タブレット2列／スマホ1列の自然な切替も用意
+************************************************************/
+
+/* ===== デスクトップ：常に3列 ===== */
+.blog .post-grid,
+.home1 .post-grid {
+  grid-template-columns: repeat(3, 1fr); /* ★ 3列固定 */
+  width: min(100%, 1080px); /* ★ 1200px→1080pxにしてカードを小ぶりに */
+  margin: 0 auto; /* 中央寄せ（念のため明示） */
+  /* gap / padding は前のまま clamp でOK。必要ならここで上書きも可 */
+  /* gap: 20px; padding: 20px; など */
+}
+
+/* ===== タブレット：2列に落とす（目安 1024px以下） ===== */
+@media (max-width: 1024px) {
+  .home1 .post-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2列 */
+    width: min(100%, 820px); /* 列幅が太くなりすぎないよう微調整 */
+  }
+}
+
+/* ===== スマホ：1列（目安 600px以下） ===== */
+@media (max-width: 600px) {
+  .home1 .post-grid {
+    grid-template-columns: 1fr; /* 1列 */
+    width: 100%; /* 端まで使う */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .home1 .category-list {
+    padding: 0;
+    justify-content: center;
+    gap: 0.5rem;
+    /* スマホで隙間を狭める */
+  }
+
+  .home1 .category-link {
+    width: 100px;
+    height: 100px;
+    font-size: 0.75rem;
+  }
+}
+
+/***********************************************/
+/*先頭のカテゴリ一覧e*/
+/***********************************************/
+
+/************************************************************/
+/* ページネーション @@@***************************************************/
+/************************************************************/
+nav.navigation.pagination {
+  text-align: center;
+}
+
+/* 次へ */
+.pagination .nav-links {
+  width: 600px;
+  display: block;
+  margin: auto;
+  margin-top: 2rem;
+}
+
+/* 次への数字の囲みをコメントアウト */
+.pagination .page-numbers {
+  border: 1px solid #555;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  /* 中央揃え */
+  text-align: center;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0.3em;
+  text-decoration: none;
+}
+
+.pagination .next.page-numbers,
+.pagination .prev.page-numbers {
+  display: none;
+}
+
+.pagination .page-numbers:hover,
+.pagination .next.page-numbers:hover,
+.pagination .prev.page-numbers:hover {
+  background: #f5f4f4;
+}
+
+@media screen and (max-width: 768px) {
+  /* ページネーション */
+  /* ページネーション */
+  /* ページネーション */
+  .pagination .nav-links {
+    width: 90vw;
+  }
+
+  .pagination .page-numbers {
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    margin-left: 0;
+  }
+
+  /* ページネーション */
+  /* ページネーション */
+  /* ページネーション */
+}
