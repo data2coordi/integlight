@@ -2,7 +2,7 @@ name: Playwright Visual Snapshot Test
 #vstest
 on:
   push:
-    branches: [master]
+    branches: [ビジュアルテスト修正]
   pull_request:
   workflow_dispatch:
 
