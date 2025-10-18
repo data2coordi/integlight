@@ -1,3 +1,12 @@
+/* ===== デスクトップ：常に3列 ===== */
+/*!!!!! home.cssとtype1.cssの両方で必要 要修正*/
+.home2 .post-grid {
+  width: min(100%, 1080px); /* ★ 1200px→1080pxにしてカードを小ぶりに */
+  margin: 0 auto; /* 中央寄せ（念のため明示） */
+  /* gap / padding は前のまま clamp でOK。必要ならここで上書きも可 */
+  /* gap: 20px; padding: 20px; など */
+}
+
 /*************スライダー用*********/
 /*************スライダー用*********/
 /*************スライダー用*********/
@@ -377,7 +386,10 @@ p.site-description {
   background: #fff;
   border: 1px solid #555;
   padding: 15px 28px;
-  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
   /* 変化が滑らか */
 }
 
@@ -443,7 +455,9 @@ p.site-description {
   border: 1px solid #b5b4b4;
   height: var(--card-h); /* ← ここだけで常に同一高さにする */
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .home2 .grid-item:hover {
