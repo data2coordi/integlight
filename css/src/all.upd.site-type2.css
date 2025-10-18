@@ -295,7 +295,72 @@ p.site-description {
 /*--------------------------------------------------------------------------------------*/
 
 /*========================================================================================
- * 4.メインコンテンツ（見出し・一覧・カード）
+ * 5.1 ボタン
+ *========================================================================================*/
+
+/*************ボタンs*********/
+/* テーマの汎用ボタン設定 */
+.integlight_pt button {
+  /* width: 350px; */
+  padding: 15px;
+  border: 1px solid #555;
+  background: #fff;
+  color: #555;
+}
+/*========================================================================================
+ * 5.2 ボタン（ロードモア）
+ *========================================================================================*/
+
+/* ボタン本体（ロードモア）のレイアウトとデザイン */
+#load-more,
+.load-more-cat,
+.integlight_pt button#load-more {
+  display: flex;
+  margin: 40px auto;
+  align-items: center;
+  gap: 28px;
+  justify-content: center;
+  width: clamp(240px, calc(100vw - 48px), 350px);
+  box-sizing: border-box;
+  color: #555; /* ← これが矢印の色になる */
+  background: #fff;
+  border: 1px solid #555;
+  padding: 15px 28px;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease; /* 変化が滑らか */
+}
+
+/* 矢印（SVG）をマスクとして表示 */
+#load-more::after,
+.load-more-cat::after {
+  content: "";
+  width: 80px;
+  height: 10px;
+  background-color: currentColor;
+  -webkit-mask-image: url("/wp-content/themes/integlight/assets/yajirushi.svg");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  mask-image: url("/wp-content/themes/integlight/assets/yajirushi.svg");
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+}
+
+/* モバイル調整 (780px以下) */
+@media (max-width: 780px) {
+  #load-more,
+  .load-more-cat,
+  .integlight_pt button#load-more {
+    width: 300px;
+  }
+}
+/*************ボタンe*********/
+
+/*========================================================================================
+ * 6.メインコンテンツ（見出し・一覧・カード）
  *========================================================================================*/
 
 /*--------------------------------------------------------------------------------------*/
@@ -665,67 +730,3 @@ section.latest-posts .grid-item h2 {
     padding: 8px 0; /* モバイルでのタップ/視線移動を最適化 */
   }
 }
-/*========================================================================================
- * 5.1 ボタン
- *========================================================================================*/
-
-/*************ボタンs*********/
-/* テーマの汎用ボタン設定 */
-.integlight_pt button {
-  /* width: 350px; */
-  padding: 15px;
-  border: 1px solid #555;
-  background: #fff;
-  color: #555;
-}
-/*========================================================================================
- * 5.2 ボタン（ロードモア）
- *========================================================================================*/
-
-/* ボタン本体（ロードモア）のレイアウトとデザイン */
-#load-more,
-.load-more-cat,
-.integlight_pt button#load-more {
-  display: flex;
-  margin: 40px auto;
-  align-items: center;
-  gap: 28px;
-  justify-content: center;
-  width: clamp(240px, calc(100vw - 48px), 350px);
-  box-sizing: border-box;
-  color: #555; /* ← これが矢印の色になる */
-  background: #fff;
-  border: 1px solid #555;
-  padding: 15px 28px;
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease; /* 変化が滑らか */
-}
-
-/* 矢印（SVG）をマスクとして表示 */
-#load-more::after,
-.load-more-cat::after {
-  content: "";
-  width: 80px;
-  height: 10px;
-  background-color: currentColor;
-  -webkit-mask-image: url("/wp-content/themes/integlight/assets/yajirushi.svg");
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  -webkit-mask-size: contain;
-  mask-image: url("/wp-content/themes/integlight/assets/yajirushi.svg");
-  mask-repeat: no-repeat;
-  mask-position: center;
-  mask-size: contain;
-}
-
-/* モバイル調整 (780px以下) */
-@media (max-width: 780px) {
-  #load-more,
-  .load-more-cat,
-  .integlight_pt button#load-more {
-    width: 300px;
-  }
-}
-/*************ボタンe*********/
