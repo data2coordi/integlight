@@ -16,6 +16,17 @@ body .home1 {
 /*************home1のコンテンツ下にスペース*********/
 /*************home1のコンテンツ下にスペース*********/
 
+.home1 .post-date,
+.home1 .post-category,
+.home1 .post-tags {
+  margin: 0;
+  padding: 0;
+  font-size: 0.9rem;
+  white-space: nowrap; /* メタは1行でコンパクトに */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /* ========== 1) 一覧グリッド：最小幅を上げて“細すぎ”回避 + リキッド ========== */
 /* 360px 以上ないと列を増やさない→広い画面でも最大3列くらいをキープしやすい */
 .home1 .post-grid {

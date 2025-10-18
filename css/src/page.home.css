@@ -7,10 +7,7 @@
   overflow: visible; /* 隠さない */
 }
 
-.blog .post-date,
-.home1 .post-date,
-.home1 .post-category,
-.home1 .post-tags {
+.blog .post-date {
   margin: 0;
   padding: 0;
   font-size: 0.9rem;
