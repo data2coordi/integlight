@@ -102,7 +102,9 @@ for (const siteType of siteTypes) {
     test.beforeAll(async ({ browser }) => {
       const page = await browser.newPage();
       await openCustomizer(page);
-      await selHeaderImage(page);
+      await setSiteType(page, siteType);
+      await ensureCustomizerRoot(page);
+      await openHeaderSetting(page, "静止画像");
       await saveCustomizer(page);
 
       await page.close();
