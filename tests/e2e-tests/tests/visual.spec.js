@@ -5,6 +5,7 @@ import {
   setSiteType,
   selSliderEffect,
   ensureCustomizerRoot,
+  openHeaderSetting,
 } from "../utils/common";
 // ======= 共通関数 =======
 
