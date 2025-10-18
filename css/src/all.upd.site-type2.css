@@ -1,191 +1,15 @@
-/*************スライダー用*********/
-/*************スライダー用*********/
-/*************スライダー用*********/
-/*************スライダー用*********/
-/*************スライダー用s********/
+/**************************************************
+ * 0. ベースレイヤー（HTML・BODY・共通構造）
+ **************************************************/
 
-/*------------PCのみs--------*/
-/*------------PCのみs--------*/
-/*------------PCのみs--------*/
-@media (min-width: 1024px) {
-  .slider {
-    height: 35vh; /* スライダー全体の高さを“画面高の35%”に固定（レスポンシブで高さが自然に可変） */
-  }
-
-  .slider .slide img {
-    height: 100%; /* スライド内の画像を、スライドの縦サイズにフィットさせる */
-    object-fit: cover; /* 画像を切り取る（黒帯が出てもトリミングする）。サムネ比率がバラつく時に安全 */
-  }
-
-  /* スライド式エフェクトs */
-  .slider.slide-effect .slide {
-    min-width: 50vw; /* 1枚のスライド幅＝画面幅の50%。横に2枚見せる/送りの“スライド”感を作る */
-  }
-  /* スライド式エフェクトe */
-
-  /* フェード式エフェクトs */
-  .slider.fade-effect .slides {
-    transition: none; /* フェード演出は opacity 切替を想定：translate系のスライド遷移は無効化 */
-    transform: none; /* JSや他CSSで付与されがちな transform を打ち消し、位置のズレを防止 */
-    width: 100%; /* スライダー領域いっぱいを使うベース幅 */
-    display: flex; /* サムネを横並びにし、左右の“脇役スライド”を見せる土台にする */
-    align-items: stretch; /* 各スライドの高さを揃えて段差をなくす */
-    justify-content: center; /* センター起点に配置（左右の“脇役”が均等に見える） */
-    gap: 0; /* スライド間の余白をゼロ（デザインで隙間を出したくない前提） */
-  }
-
-  .slider.fade-effect .slide img {
-    width: 100%; /* 画像をスライドの幅いっぱいに */
-    height: 100%; /* 画像をスライドの高さいっぱいに */
-    object-fit: cover; /* 余白を作らず“面で見せる”。一部トリミングされても迫力重視 */
-    display: block; /* 画像周囲の余白/行間（inline要素の挙動）を消す */
-  }
-
-  .slider.fade-effect .slide {
-    position: relative; /* キャプションやオーバーレイをこの中で相対配置できるようにする */
-    overflow: hidden; /* はみ出した画像や装飾を見切る（角丸やズーム演出に必須） */
-    box-sizing: border-box; /* padding/borderをサイズ計算に含めてレイアウト崩れを防ぐ */
-  }
-
-  .slider.fade-effect .slide.slide-left,
-  .slider.fade-effect .slide.slide-right {
-    flex: 0 0 25%; /* 左右の“脇役”スライドは幅25%で小さく見せ、中央を引き立てる */
-  }
-
-  .slider.fade-effect .slide.slide-center {
-    flex: 0 0 50%; /* 中央の“主役”スライドは幅50%。左右の合計と合わせて100%でバランス良く中央寄せ */
-  }
-}
-/*------------PCのみs--------*/
-/*------------PCのみs--------*/
-@media (max-width: 1023px) {
-  .slider {
-    height: 35vh;
-  }
-
-  .slider .slide img {
-    height: 35vh;
-    object-fit: cover;
-    width: 100vw;
-  }
-  .site-header {
-    border-bottom: none;
-    box-shadow: none;
-  }
-}
-
-/* フェード式エフェクトe */
-
-/*************スライダー用e*********/
-/*************スライダー用*********/
-/*************スライダー用*********/
-
-/***********ロゴ**************/
-/***********ロゴ**************/
-/***********ロゴ**************/
-/***********ロゴ**************/
-/***********ロゴs**************/
-
-/***********ロゴe**************/
-/***********ロゴ**************/
-/***********ロゴ**************/
-
-/*************hタグ*********/
-/*************hタグ*********/
-/*************hタグs*********/
-.home2 h1,
-.home2 h2,
-.home2 h3,
-.home2 h4,
-.home2 h5,
-.home2 h6 {
-  border-bottom: none;
-  /* font-family: 'RocknRoll One', sans-serif;
-    font-weight: 500; */
-}
-
-/* ===== デスクトップ：常に3列 ===== */
-.home2 .post-grid {
-  width: min(100%, 1080px); /* ★ 1200px→1080pxにしてカードを小ぶりに */
-  margin: 0 auto; /* 中央寄せ（念のため明示） */
-  /* gap / padding は前のまま clamp でOK。必要ならここで上書きも可 */
-  /* gap: 20px; padding: 20px; など */
-}
-
-/* ① セクション見出しだけ中央 */
-section.latest-posts > h2,
-.top-categories-posts > h2,
-.category-posts > h3 {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-/* ② カード内の h2 は左寄せのまま */
-section.latest-posts .post-grid h2,
-section.latest-posts .grid-item h2 {
-  text-align: left;
-}
-
-/* カード内のh2文字を小さく */
-.home2 #primary .post-grid .grid-item h2 {
-  font-size: 1.3rem;
-}
-
-.category-posts > h3 {
-  margin-top: 5rem;
-  color: #555;
-}
-
-/* 下線を消している */
-/* .integlight_pt h2:after,
-.integlight_pt h3:after {
-  background: none ;
-} */
-
-.category-posts > h3,
-.top-categories-posts > h2,
-section.latest-posts > h2 {
-  font-weight: 600;
-}
-
-@media (max-width: 780px) {
-  .home2 h1,
-  .home2 h2,
-  .home2 h3,
-  .home2 h4,
-  .home2 h5,
-  .home2 h6 {
-    padding: 0 16px;
-  }
-
-  .top-categories-posts > h2,
-  section.latest-posts > h2 {
-    margin-bottom: 2rem;
-  }
-
-  .category-posts > h3 {
-    margin-top: 2.5rem;
-    margin-bottom: 0.5rem;
-  }
-}
-/*************hタグe*********/
-/*************hタグ*********/
-
-/*************home2のコンテンツ下にスペース*********/
-/*************home2のコンテンツ下にスペース*********/
-/*************home2のコンテンツ下にスペース*********/
-/*************home2のコンテンツ下にスペース*********/
-/*************home2のコンテンツ下にスペース*********/
-/* ルートを塗れるように */
 html,
 body {
   min-height: 100%;
 }
 
-/* 同じ条件で、body の“塗りつぶし色”だけ透明化（画像はそのまま前面） */
+/* home2専用背景：背景画像をWP側に任せる */
 body:has(.home2) {
   background-color: transparent !important;
-  /* background-image は WP が出力するので触らない */
 }
 
 html:has(body .home2) {
@@ -195,59 +19,64 @@ html:has(body .home2) {
 html:has(body .home2)::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  inset: 0; /* 全画面カバー */
-  /* height: 60vh; ← フェードをかけたい高さだけ */
+  inset: 0;
   pointer-events: none;
 }
 
-/* 画像が設定されている home2 ページでは、html のグラデを消す */
+/* 背景画像がある場合はグラデーションを打ち消す */
 html:has(body.custom-background .home2) {
   background: none !important;
 }
 
-/* home2のコンテンツ幅が小さくなるのを解除 */
+/* home2ページのコンテンツ幅解除 */
 #primary.home2 {
   max-width: none;
   width: 100%;
 }
 
-/*************home2のコンテンツ下にスペース*********/
-/*************home2のコンテンツ下にスペース*********/
-/*************home2のコンテンツ下にスペース*********/
+/**************************************************
+ * 1. ヘッダー・ナビゲーション・ロゴ
+ **************************************************/
 
-/*************ヘッダー*********/
-/*************ヘッダー*********/
-/*************ヘッダーs*********/
-.site-branding {
-  width: 350px;
-  /* 固定幅 */
-  margin: 15px auto;
-  /* 上下15px・左右autoで中央 */
-  text-align: center;
-}
-
-#masthead.ly_site_content,
-#masthead.ly_site_header {
-  flex-direction: column;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  /* x, y, ぼかし, 色 */
-  z-index: 999;
-  /* 必要なら前面に */
-}
-
-h1.site-title {
-  margin-top: var(--ly-elementTopMarginSmall);
-}
-
+/* --- ヘッダー本体 --- */
 .site-header,
 ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu,
 ul.menu > li.menu-item-has-children > ul.sub-menu {
   background: #fff;
 }
 
+/* ヘッダー構造 */
+#masthead.ly_site_content,
+#masthead.ly_site_header {
+  flex-direction: column;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+}
+
+.site-branding {
+  width: 350px;
+  margin: 15px auto;
+  text-align: center;
+}
+
+/* 見出し・タイトル */
+h1.site-title {
+  margin-top: var(--ly-elementTopMarginSmall);
+}
+
+.site-title a {
+  font-size: 1.2rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+p.site-description {
+  color: #222;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+/* ナビゲーションリンク */
 .main-navigation a {
   color: #222;
   font-weight: bold;
@@ -257,19 +86,17 @@ ul.menu > li.menu-item-has-children > ul.sub-menu {
   background-color: #222;
 }
 
+/* モバイルヘッダー */
 @media (max-width: 780px) {
   .menuToggle-containerForMenu {
     background: #fff !important;
   }
 }
-/*************ヘッダーe*********/
-/*************ヘッダー*********/
 
-/***********ハンバーガーメニュー**************/
-/***********ハンバーガーメニュー**************/
-/***********ハンバーガーメニュー**************/
-/***********ハンバーガーメニュー**************/
-/***********ハンバーガーメニューs**************/
+/**************************************************
+ * 2. ハンバーガーメニュー（モバイル専用）
+ **************************************************/
+
 @media (max-width: 780px) {
   header .menuToggle-label span,
   header .menuToggle-label::before,
@@ -290,170 +117,148 @@ ul.menu > li.menu-item-has-children > ul.sub-menu {
 
   button#menuToggle-button {
     border: none;
-    /* top: -28px; */
   }
 
   ul.menu {
     margin-top: 5rem;
   }
 }
-/***********ハンバーガーメニューe**************/
-/***********ハンバーガーメニュー**************/
-/***********ハンバーガーメニュー**************/
 
-/*************コピーの帯*********/
-/*************コピーの帯*********/
-/*************コピーの帯s*********/
-:root {
-  --titlebar-h: 40px;
-  /* 帯の高さ */
-  --titlebar-gap: 12px;
-  /* 帯の下の余白 */
-}
+/**************************************************
+ * 3. スライダー（フェード/スライド共通）
+ **************************************************/
 
-/* ヘッダーは帯の高さぶんだけ下げる */
-.site-header {
-  position: relative;
-  overflow: visible;
-  /* margin-top: var(--titlebar-h); */
-}
+/* ======== PC用 ======== */
+@media (min-width: 1024px) {
+  .slider {
+    height: 35vh;
+  }
 
-/* 帯：ヘッダーの“上”へ + 余白ぶんさらに上へ */
+  .slider .slide img {
+    height: 100%;
+    object-fit: cover;
+  }
 
-/* h1.site-title { */
-/* position: absolute;                 通常フローから外して好きな位置に固定 */
-/* top: 0;                              親の上端を基準に */
-/* left: 50%;                           左端を親の中央に置く */
-/* transform: translate(-50%,           /* X方向：自身の幅の50%左へ→中央寄せ */
-/*calc(-100% - var(--titlebar-gap)));  */
-/* Y方向：自身の高さぶん(= -100%)＋
-                                            追加の余白(--titlebar-gap)だけさらに上へ押し上げる */
-/* width: 100vw;                        ビューポート幅いっぱい（スクロールバー含む） */
-/* max-width: 100vw;                    100vw以上にならない保険 */
-/* height: var(--titlebar-h);           帯の高さをCSS変数で一元管理 */
-/* line-height: var(--titlebar-h);      テキストを縦中央に見せる（1行想定） */
-/* margin: 0;                           ブラウザのH1デフォルト余白を消す */
-/* background: #222;                    帯の背景色（黒） */
-/* color: #fff;                         テキスト色（白） */
-/* text-align: center;                  テキストを中央寄せ */
-/* z-index: 10;                         ヘッダーより前面に重ねる（値は環境に合わせ調整） */
-/* } */
+  /* スライド式 */
+  .slider.slide-effect .slide {
+    min-width: 50vw;
+  }
 
-/* モバイルUIの表示/非表示でvwが揺れる問題対策：対応環境ではdvwを優先 */
-/* @supports (width: 100dvw) { */
-/* h1.site-title { width: 100dvw; }     動的ビューポート幅で横ブレ/はみ出しを減らす */
-/* } */
+  /* フェード式 */
+  .slider.fade-effect .slides {
+    transition: none;
+    transform: none;
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 0;
+  }
 
-.site-title a {
-  font-size: 1.2rem; /* 見出しリンクの文字サイズ */
-  color: inherit; /* 親(h1)の色(白)を継承 */
-  text-decoration: none; /* 下線を消す */
-}
+  .slider.fade-effect .slide {
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
 
-p.site-description {
-  color: #222; /* キャッチコピーの文字色 */
-  font-weight: 600; /* 少し太めに */
-  font-size: 0.8rem; /* 小さめサイズ */
-}
+  .slider.fade-effect .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
 
-/*************コピーの帯e*********/
-/*************コピーの帯*********/
+  .slider.fade-effect .slide.slide-left,
+  .slider.fade-effect .slide.slide-right {
+    flex: 0 0 25%;
+  }
 
-/*************ボタン*********/
-/*************ボタン*********/
-/*************ボタンs*********/
-.integlight_pt button {
-  /* width: 350px; */
-  padding: 15px;
-  border: 1px solid #555;
-  background: #fff;
-  color: #555;
-}
-
-/* ボタン本体（今の指定をそのまま活かしつつ） */
-.home2 #load-more,
-.home2 .load-more-cat,
-.home2 .integlight_pt button#load-more {
-  display: flex;
-  margin: 40px auto;
-  align-items: center;
-  gap: 28px;
-  justify-content: center;
-  width: clamp(240px, calc(100vw - 48px), 350px);
-  box-sizing: border-box;
-  color: #555; /* ← これが矢印の色になる */
-  background: #fff;
-  border: 1px solid #555;
-  padding: 15px 28px;
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease;
-  /* 変化が滑らか */
-}
-
-/* 矢印（SVG）をマスクとして表示 */
-/* 例：テーマ直下に assets/yajirushi.svg を置いた場合 */
-#load-more::after,
-.load-more-cat::after {
-  content: "";
-  width: 80px;
-  height: 10px;
-  background-color: currentColor;
-  -webkit-mask-image: url("/wp-content/themes/integlight/assets/yajirushi.svg");
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  -webkit-mask-size: contain;
-  mask-image: url("/wp-content/themes/integlight/assets/yajirushi.svg");
-  mask-repeat: no-repeat;
-  mask-position: center;
-  mask-size: contain;
-}
-
-/* 例：ホバーで色を変える */
-/* #load-more:hover,
-  .load-more-cat:hover,
-  #load-more:focus-visible,
-  .load-more-cat:focus-visible {
-    background: #555;
-    border: 1px solid #555;
-    color: #fff;                
-  } */
-
-@media (max-width: 780px) {
-  #load-more,
-  .load-more-cat,
-  .integlight_pt button#load-more {
-    width: 300px;
+  .slider.fade-effect .slide.slide-center {
+    flex: 0 0 50%;
   }
 }
-/*************ボタンe*********/
-/*************ボタン*********/
 
-/* =========================================================
-     新着カード（左：画像 / 右：情報）＋ワイド画面の中央寄せ
-     ポイント：
-     1) カードのレイアウトと読みやすいタイポを定義
-     2) 画面が広い時も“中央1200px”で気持ちよく止める
-     3) 親の #page が左右2カラム化しないように縦積みに修正
-  ========================================================= */
-/* 追加：カードの共通高さ（必要に応じて数値だけ変えれば全体反映） */
+/* ======== モバイル用 ======== */
+@media (max-width: 1023px) {
+  .slider {
+    height: 35vh;
+  }
+
+  .slider .slide img {
+    height: 35vh;
+    object-fit: cover;
+    width: 100vw;
+  }
+
+  .site-header {
+    border-bottom: none;
+    box-shadow: none;
+  }
+}
+
+/**************************************************
+ * 4. home2専用セクション（見出し・カード・ボタン）
+ **************************************************/
+
+/* ===== hタグリセット ===== */
+.home2 h1,
+.home2 h2,
+.home2 h3,
+.home2 h4,
+.home2 h5,
+.home2 h6 {
+  border-bottom: none;
+}
+
+@media (max-width: 780px) {
+  .home2 h1,
+  .home2 h2,
+  .home2 h3,
+  .home2 h4,
+  .home2 h5,
+  .home2 h6 {
+    padding: 0 16px;
+  }
+}
+
+/* ===== 見出し中央揃え・調整 ===== */
+section.latest-posts > h2,
+.top-categories-posts > h2,
+.category-posts > h3 {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.category-posts > h3 {
+  margin-top: 5rem;
+  color: #555;
+  font-weight: 600;
+}
+
+/* ===== カードレイアウト ===== */
 :root {
   --card-h: 260px;
-} /* PCの見え方に合わせて 300–360px で調整 */
+}
 @media (max-width: 780px) {
   :root {
     --card-h: 360px;
-  } /* モバイルは少し高めに（任意） */
+  }
 }
 
-/* ========== 1) カードの基本レイアウト ========== */
+.home2 .post-grid {
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(2, 1fr);
+  width: min(100%, 1080px);
+  margin: 0 auto;
+  padding: 15px 0;
+}
 
 .home2 .grid-item {
   background-color: #fff;
   border: 1px solid #b5b4b4;
-  height: var(--card-h); /* ← ここだけで常に同一高さにする */
-  overflow: hidden;
+  border-radius: 20px;
+  height: var(--card-h);
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
@@ -464,346 +269,100 @@ p.site-description {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.home2 .post-grid {
-  display: grid;
-  gap: 30px;
-  grid-template-columns: repeat(2, 1fr); /* PCは常に2カラム */
-  padding: 15px 0;
-}
-
-/* 抜粋がテーマ側で非表示でも出す */
-.home2 .post-excerpt {
-  display: block; /* 抜粋を強制的に表示（テーマ側の非表示指定を打ち消し） */
-}
-
-/* カード本体 */
-.home2 .post-grid .grid-item {
-  position: relative; /* バッジ等をabsolute配置するための基準に */
-  height: var(--card-h); /* 固定高にそろえる（上と同じ） */
-  width: 100%;
-  /* 必要なら 270–300 に調整 */
-  border-radius: 20px; /* 角丸でカード感を出す */
-}
-
-/* a要素内を「左=画像 / 右=テキスト3段」に */
+/* ===== カード内部構造 ===== */
 .home2 .post-grid .grid-item > a {
-  display: grid; /* リンク全体をさらに内部グリッド化 */
-  grid-template-columns: 50% 1fr; /* 画像:テキスト = 50:50（右側を確保） */
-  /* 左右比率 */
-  grid-template-rows: auto 1fr auto; /* 上=タイトル / 中=抜粋(伸縮) / 下=日付 */
-  /* 上:タイトル / 中:抜粋 / 下:日付 */
-  align-items: stretch; /* 行の高さを揃えて段差をなくす */
-  row-gap: 6px; /* テキスト縦要素の間隔 */
-  height: 100%; /* ← これが重要 */
-  text-decoration: none; /* リンクの下線を消す（カード全体をクリック領域に） */
-  min-height: 0; /* グリッド内で高さ計算が破綻しないように保険 */
+  display: grid;
+  grid-template-columns: 50% 1fr;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
+  text-decoration: none;
 }
 
-/* 画像（左カラム全体） */
-.home2 .post-grid .grid-item .post-thumbnail {
-  grid-column: 1 / 2; /* 左カラムに配置 */
-  grid-row: 1 / -1; /* タイトル〜日付の3行すべてにまたがる（縦いっぱい） */
-  height: 100%; /* カードの高さに合わせる */
-  overflow: hidden; /* 画像のはみ出しを見切る（トリミング前提） */
-}
-
-.home2 .post-grid .grid-item .post-thumbnail img {
-  width: 100%; /* 画像を横いっぱいに */
-  height: 100%; /* 画像を縦いっぱいに */
-  padding: 0; /* 画像周りの余白をゼロに */
-  object-fit: cover; /* 画像をトリミングして“面で見せる” */
-  display: block; /* 画像の行間由来の余白を消す */
-}
-
-/* 右カラム共通（左右余白＆はみ出し防止） */
-.home2 .post-grid .grid-item > a > h2,
-.home2 .post-grid .grid-item > a > .post-excerpt,
-.home2 .post-grid .grid-item > a > .post-meta {
-  grid-column: 2 / 3; /* 右カラムにまとめる */
-  padding: 0 18px; /* 右カラム内の左右余白（読みやすさ） */
-  max-width: 100%; /* 親の幅を超えないように制限 */
-  min-width: 0; /* グリッド内のはみ出し防止（長い単語対策） */
-}
-
-.home2 .post-date {
-  padding-bottom: 12px; /* 日付の下に少し余白（詰まり防止） */
-}
-
-/* タイトル（上段） */
-.home2 .post-grid .grid-item > a > h2 {
-  grid-row: 1; /* 1行目：タイトル */
-  margin: 0.2rem 0 6px; /* タイトル上下のマージン（上は控えめ） */
-  padding-top: 10px; /* 画像との視覚的距離を確保 */
-  font-weight: 600; /* 見出しとして強めのウェイト */
-  font-size: clamp(
-    17px,
-    1.8vw,
-    20px
-  ); /* 画面幅に応じて可変（最小17/最大20px） */
-  line-height: 1.35; /* 見出し向けのややタイトな行間 */
-  display: -webkit-box; /* マルチライン省略の土台（WebKit系） */
-  -webkit-box-orient: vertical; /* 縦方向での行数制御を有効に */
-  /* 2行で省略-webkit-line-clamp: 2;  */ /* 必要ならコメント解除で2行省略 */
-  overflow: hidden; /* はみ出したテキストを隠す */
-  word-break: break-word; /* 長い単語での折返し許可（日本語/英数字混在対策） */
-  overflow-wrap: anywhere; /* どこでも折返し可（より強力な保険） */
-  align-self: start; /* 上寄せで安定配置 */
-}
-
-/* 抜粋（中段） */
-.home2 .post-grid .grid-item > a > .post-excerpt {
-  grid-row: 2; /* 2行目：抜粋 */
-  margin: 0; /* 余白リセット（右カラムの余白に任せる） */
-  font-size: 14px; /* 本文よりやや小さめで要約感を出す */
-  line-height: 1.6; /* 読みやすい行間 */
-  color: #444; /* 見出しとの差を付ける落ち着いた色 */
-  display: -webkit-box; /* マルチライン省略の土台 */
-  -webkit-box-orient: vertical; /* 縦方向での行数制御を有効に */
-  /* -webkit-line-clamp: 1;          情報量優先は 3 に */ /* 行数は運用で調整 */
-  overflow: hidden; /* はみ出しを隠す */
-  min-height: 0; /* はみ出し防止の保険 */
-}
-
-/* 日付（下段） */
-.post-grid .grid-item > a > .post-meta {
-  grid-row: 3; /* 3行目：日付やメタ情報 */
-  margin-top: 0; /* 上マージン不要（行レイアウトで吸収済） */
-  font-size: 13px; /* 小さめ表示で情報階層を明確化 */
-  color: #444; /* 補助情報のトーンダウン */
-}
-
-.post-date {
-  font-size: 0.8rem; /* 日付の相対サイズ（テーマ依存のため相対指定） */
-}
-
-/* カテゴリバッジ（画像左上） */
-.post-grid .grid-item .post-category {
-  position: absolute; /* カード内で自由配置 */
-  max-width: calc(49% - 16px); /* 左列=49%想定。余白ぶん差し引き */
-  z-index: 2; /* 画像より前面に（被せる） */
-}
-
-/* 2行クランプを“確実に”適用（特に .home2/.blog の既存ルールを上書き） */
-.home2 .post-category p {
-  display: -webkit-box; /* ← inline-block を上書き */
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+.home2 .post-grid .post-thumbnail {
+  grid-column: 1 / 2;
+  grid-row: 1 / -1;
   overflow: hidden;
-
-  white-space: normal; /* 折り返し許可 */
-  overflow-wrap: anywhere; /* 長い語の保険 */
-  margin: 0;
-  padding: 4px 12px;
 }
 
-/* カテゴリバッジhome1では全部グレーに */
-/* .home1 .post-category p {
-  background: #555;
-} */
-
-/* プラグインとかでどんな画像が来ても100% */
-.home2 .post-thumbnail :is(picture, a, figure, div, span) {
-  display: block;
+.home2 .post-grid .post-thumbnail img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
-/* ========== 3) モバイルは縦積み（見やすさ優先） ========== */
+/* テキスト領域 */
+.home2 .post-grid h2,
+.home2 .post-excerpt,
+.home2 .post-meta {
+  grid-column: 2 / 3;
+  padding: 0 18px;
+}
+
+.home2 .post-grid h2 {
+  font-size: clamp(17px, 1.8vw, 20px);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.home2 .post-excerpt {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #444;
+}
+
+.home2 .post-meta {
+  font-size: 13px;
+  color: #444;
+}
+
+/* ===== ボタン ===== */
+.home2 #load-more,
+.home2 .load-more-cat {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px auto;
+  width: clamp(240px, calc(100vw - 48px), 350px);
+  padding: 15px 28px;
+  border: 1px solid #555;
+  color: #555;
+  background: #fff;
+  transition: all 0.2s ease;
+}
+
+#load-more::after,
+.load-more-cat::after {
+  content: "";
+  width: 80px;
+  height: 10px;
+  background-color: currentColor;
+  -webkit-mask-image: url("/wp-content/themes/integlight/assets/yajirushi.svg");
+  mask-image: url("/wp-content/themes/integlight/assets/yajirushi.svg");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
 @media (max-width: 780px) {
-  .post-grid .grid-item {
-    height: auto; /* カードの高さを可変にして窮屈さを解消 */
-  }
-
-  .post-grid .grid-item .post-thumbnail {
-    height: 200px; /* サムネの見栄え基準（縦長/横長の暴れを抑える） */
-    border-radius: 16px; /* 角丸でモバイルの視覚密度を下げる */
-  }
-
-  .post-grid .grid-item > a > h2,
-  .post-grid .grid-item > a > .post-excerpt,
-  .post-grid .grid-item > a > .post-meta {
-    padding: 8px 0; /* モバイルでのタップ/視線移動を最適化 */
-  }
-
-  /* 一覧自体も1列に */
-  .home2 .post-grid {
-    grid-template-columns: 1fr; /* ホーム2専用：1カラム化 */
-    gap: 18px; /* モバイルの視覚密度に合わせて間隔を微調整 */
+  #load-more,
+  .load-more-cat {
+    width: 300px;
   }
 }
 
-/* --- カード崩れ対策：画像上のオーバーレイを無効化し、右カラムへ戻す --- */
-.post-grid .grid-item > a > h2,
-.post-grid .grid-item > a > .post-excerpt,
-.post-grid .grid-item > a > .post-meta {
-  position: static; /* テーマ側のabsolute指定を打ち消し、通常フローに戻す */
-  /* テーマの absolute を打ち消す */
-  inset: auto; /* top/right/bottom/left を一括解除 */
-  /* top/right/bottom/left を解除 */
-  transform: none; /* 位置の補正やアニメ起因のズレを無効化 */
-  /* 位置補正があれば無効化 */
-  z-index: 1; /* 画像より前面だが、重なり事故を避けるため最低限 */
-  /* 画像より前面でOK（重ならない） */
-  color: inherit; /* 画像上の白文字指定などテーマ依存の色を解除 */
-  /* 画像上の白文字指定などを解除 */
+/**************************************************
+ * 5. コピー帯・微調整
+ **************************************************/
+
+:root {
+  --titlebar-h: 40px;
+  --titlebar-gap: 12px;
 }
 
-/* === 画像が全面に被る不具合の修正 ===========================
-     サムネが absolute でオーバーレイ→グリッド左カラムの要素に戻す
-  ============================================================== */
-
-/* テーマごとの差異に対応（div/a/figure どれでも拾う） */
-.post-grid .grid-item .post-thumbnail,
-.post-grid .grid-item a.post-thumbnail,
-.post-grid .grid-item figure.post-thumbnail {
-  position: static; /* absolute指定を解除して通常フローに */
-  /* ← absolute を無効化して通常フローへ */
-  grid-column: 1 / 2; /* 左カラムに固定 */
-  /* 左カラム */
-  grid-row: 1 / -1; /* タイトル〜日付の3行を縦断 */
-  /* タイトル/抜粋/日付の3行を縦断 */
-  height: 100%; /* カードの高さに合わせる */
-  align-self: stretch; /* 行の高さにぴったり合わせる */
-  overflow: hidden; /* 画像はみ出しを見切る */
-  z-index: 0; /* テキストより背面にする（クリック妨害を防止） */
-  /* テキストより背面 */
-}
-
-/* =========================================================
-    Mobile：右に回り込む要素を全部“縦1カラム”へ
-    目的：画像 → タイトル → 抜粋 → 日付 の順で1列表示
-  ========================================================= */
-@media (max-width: 780px) {
-  /* ========== 1) 一覧は必ず1カラム ========== */
-  .home2 .post-grid.post-grid {
-    display: grid; /* 念のためdisplayを明示（テーマ上書き対策） */
-    grid-template-columns: 1fr; /* ← 1カラム固定 */
-    grid-auto-flow: row; /* 横方向への自動配置を禁止（縦に流す） */
-    gap: 20px; /* モバイルの読みやすい間隔 */
-  }
-
-  /* ========== 2) カードは可変高（中身に合わせる） ========== */
-  .home2 .post-grid .grid-item {
-    width: auto; /* 親幅にフィット */
-    max-width: 100%; /* 画面外にはみ出さない */
-    height: 425px; /* ★固定高をやめる */
-  }
-
-  /* 内部グリッドを解除して縦積みへ（横レイアウト由来の崩れを防ぐ） */
-  .home2 .post-grid .grid-item > a {
-    display: block; /* ★縦に順番通り流す */
-  }
-
-  /* ========== 3) 画像は回り込み＆固定高を解除、見栄え基準だけ設定 ========== */
-  .home2 .post-grid .grid-item .post-thumbnail {
-    float: none; /* 回り込みを完全オフ */
-    clear: both; /* 影響をリセット */
-    position: static; /* 通常フローに戻す */
-    width: 100%;
-    height: clamp(160px, 52vw, 240px); /* ★端末幅連動の基準高（可変） */
-    margin: 0 0 8px;
-    border-radius: 16px 16px 0 0;
-    overflow: hidden;
-  }
-
-  .home2 .post-grid .grid-item .post-thumbnail img {
-    display: block;
-    width: 100%;
-    height: auto; /* ★100%→auto にしてノークロップ */
-    object-fit: cover; /* ★ぜったい切らない（余白は出る） */ /* 面で見せる */
-  }
-
-  /* ========== 4) テキストは通常フローで縦積み & 長文でも崩さない ========== */
-  .home2 .post-grid .grid-item > a > h2,
-  .home2 .post-grid .grid-item > a > .post-excerpt,
-  .home2 .post-grid .grid-item > a > .post-meta {
-    position: static; /* ★absolute指定があっても無効化 */
-    inset: auto;
-    transform: none;
-    clear: both; /* 画像の横に回り込まない */
-    display: block; /* ブロックで縦積み */
-    word-break: break-word; /* ★長い英数字の折返し */
-    overflow-wrap: anywhere; /* ★どこでも折返しの保険 */
-  }
-
-  /* タイトル：視認性と省略の下地（必要なら line-clamp をONに） */
-  .home2 .post-grid .grid-item > a > h2 {
-    margin-top: 10px;
-    margin-bottom: 6px;
-    font-weight: 600;
-    font-size: clamp(16px, 4.6vw, 19px);
-    line-height: 1.35;
-    display: -webkit-box; /* マルチライン省略の土台 */
-    -webkit-box-orient: vertical;
-    /* -webkit-line-clamp: 2; */ /* ←2行で切りたい時だけコメント解除 */
-    overflow: hidden;
-  }
-
-  .home2 #primary .post-grid .grid-item h2 {
-    font-size: 1.3rem;
-    padding: 0;
-  }
-
-  /* 抜粋：行間広め、必要なら行数制限 */
-  .home2 .post-grid .grid-item > a > .post-excerpt {
-    margin: 0 0 10px;
-    padding: 0 16px; /* 行頭をそろえる */
-    font-size: 14px;
-    line-height: 1.7;
-    color: #444;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    /* -webkit-line-clamp: 2;  情報量重視なら 3 に */
-    overflow: hidden;
-  }
-
-  .home2 .post-grid .grid-item > a > .post-meta {
-    margin: 6px 0 14px;
-    font-size: 13px;
-    color: #666;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  /* ========== 5) 一覧コンテナの見やすい幅 & 行高の固定は解除 ========== */
-  .home2 .post-grid {
-    max-width: 680px; /* 可読幅の上限 */
-    margin-inline: auto; /* 中央寄せ */
-    padding-inline: 16px; /* 端ベタ防止 */
-    grid-template-columns: 1fr; /* 念のため1カラムを再指定 */
-    gap: 20px;
-    grid-auto-rows: auto !important; /* ★PCの行固定を解除（テキストが切れない） */
-  }
-
-  .home2 .grid-item h2 {
-    width: 90%; /* 行幅をやや絞って読みやすく */
-  }
-}
-
-/* スマホ（WP基準 782px以下）で、.home2 があるページだけ htmlの押し下げをゼロに */
-@media screen and (max-width: 782px) {
-  @supports selector(html:has(body .home2)) {
-    /* 既に入れたやつ：html の押し下げを無効化 */
-    html:root:has(body .home2) {
-      margin-top: 0 !important;
-    }
-
-    /* 追加：管理バー高さぶんだけヘッダーを下げる */
-    body.admin-bar:has(.home2)
-      :is(#masthead, .site-header, header[role="banner"]) {
-      margin-top: 46px; /* 初期配置用 */
-    }
-  }
-}
-
-/* home2のとき、グラデのオーバーレイを背面/コンテンツを前面に */
-@supports selector(html:has(body .home2)) {
-  html:has(body .home2)::before {
-    z-index: 0 !important;
-  } /* 上に来ないよう背面へ */
-  body .home2 {
-    position: relative;
-    z-index: 1;
-  } /* 中身を前面へ */
+.site-header {
+  position: relative;
+  overflow: visible;
 }
