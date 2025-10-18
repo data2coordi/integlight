@@ -2,7 +2,7 @@ name: Playwright Compare Visual Test
 #vtest
 on:
   push:
-    branches: [master]
+    branches: [ビジュアルテスト修正]
   pull_request:
   workflow_dispatch:
 
