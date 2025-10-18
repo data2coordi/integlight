@@ -377,10 +377,7 @@ p.site-description {
   background: #fff;
   border: 1px solid #555;
   padding: 15px 28px;
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
   /* 変化が滑らか */
 }
 
@@ -441,24 +438,19 @@ p.site-description {
 
 /* ========== 1) カードの基本レイアウト ========== */
 
-.blog .grid-item,
 .home2 .grid-item {
   background-color: #fff;
   border: 1px solid #b5b4b4;
   height: var(--card-h); /* ← ここだけで常に同一高さにする */
   overflow: hidden;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.blog .grid-item:hover,
 .home2 .grid-item:hover {
   transform: translateY(-10px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.blog .post-grid,
 .home2 .post-grid {
   display: grid;
   gap: 30px;
@@ -467,7 +459,6 @@ p.site-description {
 }
 
 /* 抜粋がテーマ側で非表示でも出す */
-.blog .post-excerpt,
 .home2 .post-excerpt {
   display: block; /* 抜粋を強制的に表示（テーマ側の非表示指定を打ち消し） */
 }
@@ -580,8 +571,7 @@ p.site-description {
 }
 
 /* 2行クランプを“確実に”適用（特に .home2/.blog の既存ルールを上書き） */
-.home2 .post-category p,
-.blog .post-category p {
+.home2 .post-category p {
   display: -webkit-box; /* ← inline-block を上書き */
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -672,8 +662,7 @@ p.site-description {
   ========================================================= */
 @media (max-width: 780px) {
   /* ========== 1) 一覧は必ず1カラム ========== */
-  .home2 .post-grid.post-grid,
-  .blog .post-grid.post-grid {
+  .home2 .post-grid.post-grid {
     display: grid; /* 念のためdisplayを明示（テーマ上書き対策） */
     grid-template-columns: 1fr; /* ← 1カラム固定 */
     grid-auto-flow: row; /* 横方向への自動配置を禁止（縦に流す） */
@@ -681,22 +670,19 @@ p.site-description {
   }
 
   /* ========== 2) カードは可変高（中身に合わせる） ========== */
-  .home2 .post-grid .grid-item,
-  .blog .post-grid .grid-item {
+  .home2 .post-grid .grid-item {
     width: auto; /* 親幅にフィット */
     max-width: 100%; /* 画面外にはみ出さない */
     height: 425px; /* ★固定高をやめる */
   }
 
   /* 内部グリッドを解除して縦積みへ（横レイアウト由来の崩れを防ぐ） */
-  .home2 .post-grid .grid-item > a,
-  .blog .post-grid .grid-item > a {
+  .home2 .post-grid .grid-item > a {
     display: block; /* ★縦に順番通り流す */
   }
 
   /* ========== 3) 画像は回り込み＆固定高を解除、見栄え基準だけ設定 ========== */
-  .home2 .post-grid .grid-item .post-thumbnail,
-  .blog .post-grid .grid-item .post-thumbnail {
+  .home2 .post-grid .grid-item .post-thumbnail {
     float: none; /* 回り込みを完全オフ */
     clear: both; /* 影響をリセット */
     position: static; /* 通常フローに戻す */
@@ -707,8 +693,7 @@ p.site-description {
     overflow: hidden;
   }
 
-  .home2 .post-grid .grid-item .post-thumbnail img,
-  .blog .post-grid .grid-item .post-thumbnail img {
+  .home2 .post-grid .grid-item .post-thumbnail img {
     display: block;
     width: 100%;
     height: auto; /* ★100%→auto にしてノークロップ */
@@ -718,10 +703,7 @@ p.site-description {
   /* ========== 4) テキストは通常フローで縦積み & 長文でも崩さない ========== */
   .home2 .post-grid .grid-item > a > h2,
   .home2 .post-grid .grid-item > a > .post-excerpt,
-  .home2 .post-grid .grid-item > a > .post-meta,
-  .blog .post-grid .grid-item > a > h2,
-  .blog .post-grid .grid-item > a > .post-excerpt,
-  .blog .post-grid .grid-item > a > .post-meta {
+  .home2 .post-grid .grid-item > a > .post-meta {
     position: static; /* ★absolute指定があっても無効化 */
     inset: auto;
     transform: none;
@@ -732,8 +714,7 @@ p.site-description {
   }
 
   /* タイトル：視認性と省略の下地（必要なら line-clamp をONに） */
-  .home2 .post-grid .grid-item > a > h2,
-  .blog .post-grid .grid-item > a > h2 {
+  .home2 .post-grid .grid-item > a > h2 {
     margin-top: 10px;
     margin-bottom: 6px;
     font-weight: 600;
@@ -751,8 +732,7 @@ p.site-description {
   }
 
   /* 抜粋：行間広め、必要なら行数制限 */
-  .home2 .post-grid .grid-item > a > .post-excerpt,
-  .blog .post-grid .grid-item > a > .post-excerpt {
+  .home2 .post-grid .grid-item > a > .post-excerpt {
     margin: 0 0 10px;
     padding: 0 16px; /* 行頭をそろえる */
     font-size: 14px;
@@ -764,8 +744,7 @@ p.site-description {
     overflow: hidden;
   }
 
-  .home2 .post-grid .grid-item > a > .post-meta,
-  .blog .post-grid .grid-item > a > .post-meta {
+  .home2 .post-grid .grid-item > a > .post-meta {
     margin: 6px 0 14px;
     font-size: 13px;
     color: #666;
@@ -775,8 +754,7 @@ p.site-description {
   }
 
   /* ========== 5) 一覧コンテナの見やすい幅 & 行高の固定は解除 ========== */
-  .home2 .post-grid,
-  .blog .post-grid {
+  .home2 .post-grid {
     max-width: 680px; /* 可読幅の上限 */
     margin-inline: auto; /* 中央寄せ */
     padding-inline: 16px; /* 端ベタ防止 */
