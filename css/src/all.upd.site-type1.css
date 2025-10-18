@@ -174,7 +174,6 @@ body .home1 {
 }
 
 /* ===== デスクトップ：常に3列 ===== */
-/*!!!!! home.cssとtype1.cssの両方で必要 要修正*/
 .home1 .post-grid {
   grid-template-columns: repeat(3, 1fr); /* ★ 3列固定 */
   width: min(100%, 1080px); /* ★ 1200px→1080pxにしてカードを小ぶりに */

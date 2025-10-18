@@ -20,16 +20,14 @@
 }
 
 /* ========== 6) カテゴリ・バッジ：画像左上に重ねる（意図的にabsolute） ========== */
-.blog .grid-item .post-category,
-.home1 .grid-item .post-category {
+.blog .grid-item .post-category {
   position: absolute;
   top: 13px;
   left: 12px;
   z-index: 2; /* 画像より前面 */
 }
 
-.blog .post-category p,
-.home1 .post-category p {
+.blog .post-category p {
   display: inline-block;
   font-size: 13px;
   color: #fff;
@@ -40,8 +38,7 @@
 }
 
 /* リンクの見た目は継承（下線なし・色継承） */
-.blog .grid-item a,
-.home1 .grid-item a {
+.blog .grid-item a {
   text-decoration: none;
   color: inherit;
   font-size: 0.8rem;
