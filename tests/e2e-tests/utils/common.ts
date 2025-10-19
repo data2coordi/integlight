@@ -75,6 +75,7 @@ export async function selColorSetting(page: Page, setting: string) {
     await checkbox.check();
   }
   await expect(checkbox).toBeChecked();
+  console.log(`Color pattern set to: 緑`);
 }
 
 export async function selSliderEffect(
