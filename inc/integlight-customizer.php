@@ -77,7 +77,23 @@ new integlight_customizer_sidebar();
 
 // ## 配色カスタマイズ _s /////////////////////////////////////////////
 
-class integlight_customizer_themeColor
+/**
+ * カスタマイザーの選択肢コントロールのベースクラス
+ */
+abstract class Integlight_Customizer_Choices_Base
+{
+	public function sanitize_choices($input, $setting)
+	{
+		global $wp_customize;
+		$control = $wp_customize->get_control($setting->id);
+		if (array_key_exists($input, $control->choices)) {
+			return $input;
+		}
+		return $setting->default;
+	}
+}
+
+class integlight_customizer_themeColor extends Integlight_Customizer_Choices_Base
 {
 	public function __construct()
 	{
@@ -114,24 +130,13 @@ class integlight_customizer_themeColor
 			'priority'    => 1, // 優先度を小さくすると上に表示される
 		));
 	}
-
-	public function sanitize_choices($input, $setting)
-	{
-		global $wp_customize;
-		$control = $wp_customize->get_control($setting->id);
-		if (array_key_exists($input, $control->choices)) {
-			return $input;
-		} else {
-			return $setting->default;
-		}
-	}
 }
 
 // インスタンスを作成して初期化
 new integlight_customizer_themeColor();
 
 
-class integlight_customizer_HomeType
+class integlight_customizer_HomeType extends Integlight_Customizer_Choices_Base
 {
 	public function __construct()
 	{
@@ -170,17 +175,6 @@ class integlight_customizer_HomeType
 				//'home4' => __('home4', 'integlight'),
 			),
 		));
-	}
-
-	public function sanitize_choices($input, $setting)
-	{
-		global $wp_customize;
-		$control = $wp_customize->get_control($setting->id);
-		if (array_key_exists($input, $control->choices)) {
-			return $input;
-		} else {
-			return $setting->default;
-		}
 	}
 }
 
