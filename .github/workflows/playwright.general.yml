@@ -40,7 +40,8 @@ jobs:
       # 9. general(汎用a) テスト実行a
       - name: Run Playwright general tests
         run: |
-          npx playwright test tests/e2e-tests/tests/pf.regOuterAssets.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
+          npx playwright test tests/e2e-tests/tests/customiser.color.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
+          #npx playwright test tests/e2e-tests/tests/pf.regOuterAssets.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
           #npx playwright test tests/e2e-tests/tests/pf.image.home.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
           #npx playwright test tests/e2e-tests/tests/slider.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
           #npx playwright test tests/e2e-tests/tests/header.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
