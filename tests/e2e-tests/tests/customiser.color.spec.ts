@@ -49,14 +49,18 @@ export async function verifyCssAssets(
   console.log("読み込まれた CSS:", hrefs);
 
   // 期待配列に存在する CSS だけ結果配列に追加
-  let foundCss: string[] = [];
   for (const expected of expectedFrontCss) {
+    let found = false;
+
     for (const href of hrefs) {
       if (href.includes(expected)) {
-        foundCss.push(expected);
-        break; // 見つけたら次の expected へ
+        found = true;
+        break; // 見つかったので次の expected へ
       }
     }
+
+    // 含まれていない場合は即テスト失敗
+    expect(found, `CSSが見つかりません: ${expected}`).toBeTruthy();
   }
 
   // エディタ CSS は別ページで同様に確認可能
