@@ -27,12 +27,7 @@ async function setHomeDisplayType(page: Page, frontType: string) {
 }
 
 // CSS 検証関数
-export async function verifyCssAssets(
-  page: Page,
-  expectedFrontCss: string[],
-  expectedEditorCss: string[],
-  expectedDeferredCss: string[]
-) {
+export async function verifyCssAssets(page: Page, expectedFrontCss: string[]) {
   await page.goto(page.url(), { waitUntil: "networkidle" });
 
   // ページ内の全 CSS を取得
@@ -73,8 +68,6 @@ const TEST_SCENARIOS = [
     url: "/",
     homeDisplayType: "固定ページ",
     expectedFrontCss: ["all.upd.color-pattern8"],
-    expectedEditorCss: ["all.upd.color-pattern8"],
-    expectedDeferredCss: ["all.upd.color-pattern8"],
   },
   {
     id: "TC02",
@@ -82,8 +75,6 @@ const TEST_SCENARIOS = [
     url: "/",
     homeDisplayType: "最新の投稿",
     expectedFrontCss: ["all.upd.color-pattern8"],
-    expectedEditorCss: ["all.upd.color-pattern8"],
-    expectedDeferredCss: ["style.min.css", "all.upd.color-pattern8"],
   },
   {
     id: "TC03",
@@ -91,8 +82,6 @@ const TEST_SCENARIOS = [
     url: "/profile/",
     homeDisplayType: null,
     expectedFrontCss: ["all.upd.color-pattern8"],
-    expectedEditorCss: ["all.upd.color-pattern8"],
-    expectedDeferredCss: ["all.upd.color-pattern8"],
   },
   {
     id: "TC04",
@@ -100,8 +89,6 @@ const TEST_SCENARIOS = [
     url: "/test1/",
     homeDisplayType: null,
     expectedFrontCss: ["all.upd.color-pattern8"],
-    expectedEditorCss: ["all.upd.color-pattern8"],
-    expectedDeferredCss: ["all.upd.color-pattern8"],
   },
 ];
 
@@ -128,12 +115,7 @@ for (const config of TEST_SCENARIOS) {
 
     test(`CSSアセットが正しく読み込まれている: ${config.id}`, async () => {
       await page.goto(config.url, { waitUntil: "networkidle" });
-      await verifyCssAssets(
-        page,
-        config.expectedFrontCss,
-        config.expectedEditorCss,
-        config.expectedDeferredCss
-      );
+      await verifyCssAssets(page, config.expectedFrontCss);
     });
   });
 }
