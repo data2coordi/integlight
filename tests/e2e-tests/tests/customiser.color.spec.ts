@@ -55,29 +55,22 @@ export async function verifyCssAssets(page: Page, expectedFrontCss: string[]) {
 }
 // データ駆動型テストケース
 const TEST_SCENARIOS = [
-  // {
-  //   id: "TC01",
-  //   name: "フロントページ（固定ページ表示）",
-  //   url: "/",
-  //   homeDisplayType: "固定ページ",
-  //   expectedFrontCss: ["all.upd.color-pattern8"],
-  // },
-  // {
-  //   id: "TC02",
-  //   name: "ホームページ（最新投稿表示）",
-  //   url: "/",
-  //   homeDisplayType: "最新の投稿",
-  //   expectedFrontCss: ["all.upd.color-pattern8"],
-  // },
   {
-    id: "TC03",
+    id: "TC01",
+    name: "ホームページ",
+    url: "/",
+    colorType: "パープル",
+    expectedFrontCss: ["all.upd.color-pattern5"],
+  },
+  {
+    id: "TC02",
     name: "固定ページ",
     url: "/profile/",
-    homeDisplayType: "緑",
+    colorType: "緑",
     expectedFrontCss: ["all.upd.color-pattern3"],
   },
   {
-    id: "TC04",
+    id: "TC03",
     name: "投稿ページ",
     url: "/test1/",
     colorType: "ネイビー",
