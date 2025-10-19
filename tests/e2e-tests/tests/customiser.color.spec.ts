@@ -7,7 +7,7 @@ import {
   setColorSetting,
 } from "../utils/common";
 
-// 共通関数（カスタマイザーでホームページ表示を設定する）a
+// 共通関数（カスタマイザーでホームページ表示を設定する）
 async function setColorPattern(page: Page, colorType: string) {
   // 実装例：カスタマイザー画面で選択肢を切り替え
   console.log(`Setting color pattern  to 開始: ${colorType}`);
