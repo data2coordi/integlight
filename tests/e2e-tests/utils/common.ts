@@ -70,7 +70,10 @@ export async function openHeaderSetting(page: Page, setting: string) {
 export async function setColorSetting(page: Page, setting: string) {
   await page.getByRole("button", { name: "デザイン設定" }).click();
   await page.getByRole("button", { name: "配色" }).click();
-  const checkbox = page.getByLabel(setting).first();
+
+  const section = page.getByRole("region", { name: "アクセントカラー設定" });
+
+  const checkbox = section.getByLabel(setting);
   if (!(await checkbox.isChecked())) {
     await checkbox.check();
   }
