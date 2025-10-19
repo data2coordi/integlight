@@ -73,15 +73,15 @@ const TEST_SCENARIOS = [
     id: "TC03",
     name: "投稿ページ",
     url: "/test1/",
-    colorType: "ネイビー",
-    expectedFrontCss: ["all.upd.color-pattern8"],
+    colorType: "なし",
+    expectedFrontCss: ["all.upd.color-pattern1"],
   },
   {
     id: "TC04",
     name: "投稿ページ",
     url: "/test1/",
-    colorType: "なし",
-    expectedFrontCss: ["all.upd.color-pattern1"],
+    colorType: "ネイビー",
+    expectedFrontCss: ["all.upd.color-pattern8"],
   },
 ];
 
