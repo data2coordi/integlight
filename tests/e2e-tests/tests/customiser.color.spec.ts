@@ -4,7 +4,7 @@ import {
   logStepTime,
   openCustomizer,
   saveCustomizer,
-  selColorSetting,
+  setColorSetting,
 } from "../utils/common";
 
 // 共通関数（カスタマイザーでホームページ表示を設定する）a
@@ -13,7 +13,7 @@ async function setColorPattern(page: Page, colorType: string) {
   console.log(`Setting color pattern  to 開始: ${colorType}`);
   await test.step(" カスタマイザー画面を開く", () => openCustomizer(page));
 
-  await test.step("カラー設定の変更", () => selColorSetting(page, colorType));
+  await test.step("カラー設定の変更", () => setColorSetting(page, colorType));
 
   await test.step("変更を保存", () => saveCustomizer(page));
   console.log(`Setting color pattern to 完了: ${colorType}`);
@@ -95,7 +95,6 @@ for (const config of TEST_SCENARIOS) {
       context = await browser.newContext();
       page = await context.newPage();
 
-      // フロント/ホームページの表示設定
       await setColorPattern(page, config.colorType);
     });
 

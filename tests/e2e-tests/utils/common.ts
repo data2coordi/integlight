@@ -67,15 +67,14 @@ export async function openHeaderSetting(page: Page, setting: string) {
   await effectSelect.selectOption({ label: setting });
 }
 
-export async function selColorSetting(page: Page, setting: string) {
+export async function setColorSetting(page: Page, setting: string) {
   await page.getByRole("button", { name: "デザイン設定" }).click();
   await page.getByRole("button", { name: "配色" }).click();
-  const checkbox = page.getByLabel("緑");
+  const checkbox = page.getByLabel(setting);
   if (!(await checkbox.isChecked())) {
     await checkbox.check();
   }
   await expect(checkbox).toBeChecked();
-  console.log(`Color pattern set to: 緑`);
 }
 
 export async function selSliderEffect(
