@@ -3,10 +3,8 @@ import {
   timeStart,
   logStepTime,
   openCustomizer,
-  setFrontType,
   saveCustomizer,
-  ensureCustomizerRoot,
-  setSiteType,
+  selColorSetting,
 } from "../utils/common";
 
 // 共通関数（カスタマイザーでホームページ表示を設定する）a
@@ -15,12 +13,7 @@ async function setHomeDisplayType(page: Page, frontType: string) {
   console.log(`Setting home display type to 開始: ${frontType}`);
   await test.step(" カスタマイザー画面を開く", () => openCustomizer(page));
 
-  await test.step("フロントページのタイプ(最新の投稿or固定ページ）を設定", () =>
-    setFrontType(page, frontType));
-
-  await ensureCustomizerRoot(page);
-
-  await test.step("ホームタイプの変更", () => setSiteType(page, "ポップ"));
+  await test.step("カラー設定の変更", () => selColorSetting(page, "緑"));
 
   await test.step("変更を保存", () => saveCustomizer(page));
   console.log(`Setting home display type to 完了: `);
