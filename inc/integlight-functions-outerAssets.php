@@ -44,58 +44,42 @@ class InteglightPreDetermineCssAssets
 
     public static function init()
     {
+        // --- 1. 共通スタイルの定義 ---
+        // is_singular() は is_single(), is_page(), is_attachment() を含む
+        if (is_singular() || is_front_page() || is_archive() || is_search() || is_404()) {
+            self::$styles['integlight-module'] = ['path' => '/css/build/all.parts.module-forTheme.css', 'deps' => ['wp-block-library']];
+            self::$styles['integlight-module_forBlocks'] =  ['path' => '/css/build/all.parts.module-forBlockItem.css', 'deps' => ['wp-block-library']];
+        }
 
-        // 以下、必要に応じて追加
+        // is_home() 以外のページで読み込むSVGスタイル
+        if (!is_home()) {
+            self::$styles['integlight-svg-non-home'] = ['path' => '/css/build/all.sp.svg-non-home.css', 'deps' => []];
+        }
+
+        // --- 2. ページ固有のスタイルの追加 ---
         if (is_single()) {
-            self::$styles = array_merge(self::$styles, [
-                'integlight-post' => ['path' => '/css/build/page.post.css', 'deps' => ['integlight-style-plus']],
-                'integlight-module' =>  ['path' => '/css/build/all.parts.module-forTheme.css', 'deps' => ['wp-block-library']],
-                'integlight-module_forBlocks' =>  ['path' => '/css/build/all.parts.module-forBlockItem.css', 'deps' => ['wp-block-library']],
-                'integlight-svg-non-home' =>  ['path' => '/css/build/all.sp.svg-non-home.css', 'deps' => []],
-            ]);
+            self::$styles['integlight-post'] = ['path' => '/css/build/page.post.css', 'deps' => ['integlight-style-plus']];
         }
 
         if (is_page()) {
-            self::$styles = array_merge(self::$styles, [
-                'integlight-page' => ['path' => '/css/build/page.page.css', 'deps' => ['integlight-style-plus']],
-                'integlight-module' =>  ['path' => '/css/build/all.parts.module-forTheme.css', 'deps' => ['wp-block-library']],
-                'integlight-module_forBlocks' =>  ['path' => '/css/build/all.parts.module-forBlockItem.css', 'deps' => ['wp-block-library']],
-                'integlight-svg-non-home' =>  ['path' => '/css/build/all.sp.svg-non-home.css', 'deps' => []],
-            ]);
+            self::$styles['integlight-page'] = ['path' => '/css/build/page.page.css', 'deps' => ['integlight-style-plus']];
         }
 
         if (is_front_page() && (!is_home())) {
-            self::$styles = array_merge(self::$styles, [
-                'integlight-front' => ['path' => '/css/build/page.front.css', 'deps' => ['integlight-style-plus']],
-                'integlight-module' =>  ['path' => '/css/build/all.parts.module-forTheme.css', 'deps' => ['wp-block-library']],
-                'integlight-module_forBlocks' =>  ['path' => '/css/build/all.parts.module-forBlockItem.css', 'deps' => ['wp-block-library']],
-                'integlight-svg-non-home' =>  ['path' => '/css/build/all.sp.svg-non-home.css', 'deps' => []],
-            ]);
-        }
-
-        if (is_archive() || is_search() || is_404()) {
-            // 漏れているページ用の CSS をここで追加
-            self::$styles = array_merge(self::$styles, [
-                'integlight-module' =>  ['path' => '/css/build/all.parts.module-forTheme.css', 'deps' => ['wp-block-library']],
-                'integlight-module_forBlocks' =>  ['path' => '/css/build/all.parts.module-forBlockItem.css', 'deps' => ['wp-block-library']],
-                'integlight-svg-non-home' =>  ['path' => '/css/build/all.sp.svg-non-home.css', 'deps' => []],
-            ]);
+            self::$styles['integlight-front'] = ['path' => '/css/build/page.front.css', 'deps' => ['integlight-style-plus']];
         }
 
         if (is_home()) {
-            self::$styles = array_merge(self::$styles, [
-                'integlight-home' => ['path' => '/css/build/page.home.css', 'deps' => ['integlight-style-plus']],
-                //上書き。依存関係をはずす。homeはブロックアイテムはないため依存は不要
-                //'integlight-base-style-plus' => ['path' => '/css/build/all.cmn.nonLayout.css', 'deps' => []],
-            ]);
+            self::$styles['integlight-home'] = ['path' => '/css/build/page.home.css', 'deps' => ['integlight-style-plus']];
+            // is_home() の場合、wp-block-library を遅延読み込みの対象に追加
             self::$deferredStyles = array_merge(self::$deferredStyles, [
                 'wp-block-library',
             ]);
         }
 
+        // --- 3. 登録処理 ---
         // スタイルリストを設定（追記可能）
         InteglightFrontendStyles::add_styles(self::$styles);
-
 
         $excluded_key = 'dummy';
         // $styles から $excluded_key を除外してコピー
