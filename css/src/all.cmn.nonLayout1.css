@@ -340,49 +340,7 @@ h1.site-title {
   height: 1rem;
   background-color: #000;
 }
-/*************************************************************************/
-/* ページトップボタン */
-/*************************************************************************/
-#page-top {
-  position: fixed;
-  bottom: calc(20px + env(safe-area-inset-bottom));
-  right: 20px;
-  width: 50px;
-  height: 50px;
-  background: #fff;
-  border: 1px solid #333;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 9999;
-  transition: opacity 0.3s ease;
-}
 
-#page-top::before {
-  content: "";
-  width: 15px;
-  height: 15px;
-  background: none !important;
-  background-image: none !important;
-  background-color: #111;
-  -webkit-mask: url("/wp-content/themes/integlight/assets/rightarrow.svg")
-    no-repeat center / contain;
-  mask: url("/wp-content/themes/integlight/assets/rightarrow.svg") no-repeat
-    center / contain;
-  transform: rotate(-90deg);
-  display: block;
-}
-
-#page-top:hover::before {
-  color: #fff;
-}
-
-#page-top:hover {
-  background: #333;
-  color: #fff;
-}
 /*************************************************************************/
 /* 配置変更  */
 /*************************************************************************/
