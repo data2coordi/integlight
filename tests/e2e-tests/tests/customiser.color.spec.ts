@@ -8,15 +8,15 @@ import {
 } from "../utils/common";
 
 // 共通関数（カスタマイザーでホームページ表示を設定する）a
-async function setColorPattern(page: Page, frontType: string) {
+async function setColorPattern(page: Page, colorType: string) {
   // 実装例：カスタマイザー画面で選択肢を切り替え
-  console.log(`Setting color pattern  to 開始: ${frontType}`);
+  console.log(`Setting color pattern  to 開始: ${colorType}`);
   await test.step(" カスタマイザー画面を開く", () => openCustomizer(page));
 
-  await test.step("カラー設定の変更", () => selColorSetting(page, "緑"));
+  await test.step("カラー設定の変更", () => selColorSetting(page, colorType));
 
   await test.step("変更を保存", () => saveCustomizer(page));
-  console.log(`Setting color pattern to 完了: `);
+  console.log(`Setting color pattern to 完了: ${colorType}`);
 }
 
 // CSS 検証関数
@@ -80,7 +80,7 @@ const TEST_SCENARIOS = [
     id: "TC04",
     name: "投稿ページ",
     url: "/test1/",
-    homeDisplayType: null,
+    colorType: "緑",
     expectedFrontCss: ["all.upd.color-pattern3"],
   },
 ];
@@ -96,7 +96,7 @@ for (const config of TEST_SCENARIOS) {
       page = await context.newPage();
 
       // フロント/ホームページの表示設定
-      await setColorPattern(page, "緑");
+      await setColorPattern(page, config.colorType);
     });
 
     test.afterAll(async () => {
