@@ -8,7 +8,7 @@ import {
 } from "../utils/common";
 
 // 共通関数（カスタマイザーでホームページ表示を設定する）a
-async function setHomeDisplayType(page: Page, frontType: string) {
+async function setColorPattern(page: Page, frontType: string) {
   // 実装例：カスタマイザー画面で選択肢を切り替え
   console.log(`Setting color pattern  to 開始: ${frontType}`);
   await test.step(" カスタマイザー画面を開く", () => openCustomizer(page));
@@ -96,9 +96,7 @@ for (const config of TEST_SCENARIOS) {
       page = await context.newPage();
 
       // フロント/ホームページの表示設定
-      if (config.homeDisplayType) {
-        await setHomeDisplayType(page, config.homeDisplayType);
-      }
+      await setColorPattern(page, "緑");
     });
 
     test.afterAll(async () => {
