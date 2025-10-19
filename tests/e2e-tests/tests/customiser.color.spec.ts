@@ -76,6 +76,13 @@ const TEST_SCENARIOS = [
     colorType: "ネイビー",
     expectedFrontCss: ["all.upd.color-pattern8"],
   },
+  {
+    id: "TC04",
+    name: "投稿ページ",
+    url: "/test1/",
+    colorType: "なし",
+    expectedFrontCss: ["all.upd.color-pattern1"],
+  },
 ];
 
 // データ駆動型テストの実行
