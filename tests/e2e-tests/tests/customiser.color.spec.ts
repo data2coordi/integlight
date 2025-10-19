@@ -69,19 +69,19 @@ const TEST_SCENARIOS = [
   //   homeDisplayType: "最新の投稿",
   //   expectedFrontCss: ["all.upd.color-pattern8"],
   // },
-  // {
-  //   id: "TC03",
-  //   name: "固定ページ",
-  //   url: "/profile/",
-  //   homeDisplayType: null,
-  //   expectedFrontCss: ["all.upd.color-pattern8"],
-  // },
+  {
+    id: "TC03",
+    name: "固定ページ",
+    url: "/profile/",
+    homeDisplayType: "緑",
+    expectedFrontCss: ["all.upd.color-pattern3"],
+  },
   {
     id: "TC04",
     name: "投稿ページ",
     url: "/test1/",
-    colorType: "緑",
-    expectedFrontCss: ["all.upd.color-pattern3"],
+    colorType: "ネイビー",
+    expectedFrontCss: ["all.upd.color-pattern8"],
   },
 ];
 
