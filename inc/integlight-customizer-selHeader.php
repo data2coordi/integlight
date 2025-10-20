@@ -53,9 +53,7 @@ function integlight_display_headerContents()
             break;
 
         case $image:
-            if (get_header_image()) {
-                echo '<img src="' . esc_url(get_header_image()) . '" class="topImage" ' .  ' alt="' . esc_attr(get_bloginfo('name')) . '">';
-            }
+            get_template_part('template-parts/content', 'headerImage');
             break;
 
         default:

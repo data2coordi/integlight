@@ -247,6 +247,15 @@ class integlight_load_css_forCall
         ];
         InteglightFrontendStyles::add_styles($styles);
     }
+
+    public static function regHeaderImageCss()
+    {
+
+        $styles = [
+            'integlight-header-image' => ['path' => '/css/build/all.sp.headerImage.css', 'deps' => ['integlight-style-plus']],
+        ];
+        InteglightFrontendStyles::add_styles($styles);
+    }
 }
 
 

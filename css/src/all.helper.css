@@ -71,21 +71,3 @@ a:focus-visible,
 #header-menu[tabindex="-1"]:focus {
   outline: 0;
 }
-
-/*************************************************************************/
-/* ヘッダーTop画像(画像選択時） */
-/*************************************************************************/
-/* スライダーでなく画像を選んだ時 */
-img.topImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  z-index: 0;
-}
-
-@media (max-width: 768px) {
-  img.topImage {
-    height: 35vh;
-  }
-}
