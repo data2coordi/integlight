@@ -83,3 +83,9 @@ img.topImage {
   object-position: center;
   z-index: 0;
 }
+
+@media (max-width: 768px) {
+  img.topImage {
+    height: 35vh;
+  }
+}
