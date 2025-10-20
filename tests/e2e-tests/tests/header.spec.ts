@@ -26,7 +26,7 @@ const TEST_SCENARIOS = {
   ヘッダー画像: {
     siteType: "エレガント",
     headerType: "静止画像",
-    selector: "body > .site > .topImage",
+    selector: "body > .site > .header-image",
   },
 };
 //////////////////////////////外出し候補end
