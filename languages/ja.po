@@ -253,8 +253,8 @@ msgid "Slider Image mobile 3"
 msgstr "スライダー画像3（モバイル）"
 
 
-msgid "Header Image Text"
-msgstr "ヘッダー画像テキスト"
+msgid "Header text over the header image"
+msgstr "ヘッダー画像の上に表示するテキスト"
 
 msgid "Header Image Text Main"
 msgstr "ヘッダー画像メインテキスト"

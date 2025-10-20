@@ -97,7 +97,7 @@ class Integlight_Customizer_HeaderImage_Text_Settings extends Integlight_Customi
     private function register_pc_settings()
     {
         /* テキスト */
-        $this->labelSetting('integlight_header_image_text_heading', __('Header Image Text', 'integlight'));
+        $this->labelSetting('integlight_header_image_text_heading', __('Header text over the header image', 'integlight'));
         $this->textSetting('integlight_header_image_text_1', __('Header Image Text Main', 'integlight'));
         $this->textSetting('integlight_header_image_text_2', __('Header Image Text Sub', 'integlight'));
         $this->colorSetting('integlight_header_image_text_color', __('Header Image Text color', 'integlight'));
