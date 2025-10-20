@@ -22,15 +22,17 @@
 }
 
 /*************************************************************************/
-/* ヘッダーテキスト*/
+/* ヘッダーテキスト */
 /*************************************************************************/
+/*
 .header-image .text-overlay {
   position: absolute;
-  top: 300px;
+  top: 150px;
   left: 30px;
   color: white;
   width: 60vw;
 }
+*/
 
 .header-image .text-overlay1 h1 {
   font-size: clamp(1.6rem, 4vw, 3.2rem);

@@ -253,6 +253,45 @@ msgid "Slider Image mobile 3"
 msgstr "スライダー画像3（モバイル）"
 
 
+msgid "Header Image Text"
+msgstr "ヘッダー画像テキスト"
+
+msgid "Header Image Text Main"
+msgstr "ヘッダー画像メインテキスト"
+
+msgid "Header Image Text Sub"
+msgstr "ヘッダー画像サブテキスト"
+
+msgid "Header Image Text color"
+msgstr "ヘッダー画像テキストの色"
+
+msgid "Header Image Text Font"
+msgstr "ヘッダー画像テキストのフォント"
+
+msgid "Header Image Text Position"
+msgstr "ヘッダー画像テキストの位置"
+
+msgid "Header Image Text Position Top (px)"
+msgstr "ヘッダー画像テキストの上位置（px）"
+
+msgid "Header Image Text Position Left (px)"
+msgstr "ヘッダー画像テキストの左位置（px）"
+
+msgid "Header Image Text Position Mobile"
+msgstr "ヘッダー画像テキストのモバイル位置"
+
+msgid "Header Image Text Position Top Mobile (px)"
+msgstr "ヘッダー画像テキストのモバイル上位置（px）"
+
+msgid "Header Image Text Position Left Mobile (px)"
+msgstr "ヘッダー画像テキストのモバイル左位置（px）"
+
+
+
+
+
+
+
 msgid "[Integlight] Display Profile"
 msgstr "【Integlight】プロフィール表示"
 

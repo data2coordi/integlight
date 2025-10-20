@@ -131,7 +131,6 @@ class Integlight_Customizer_HeaderImage
     {
         $text_settings = new Integlight_Customizer_HeaderImage_Text_Settings($wp_customize, 'header_image');
         $text_settings->register_settings();
-        new integlight_customizer_headerImage_applyHeaderTextStyle();
     }
 
     public function register_text_style($wp_customize)
