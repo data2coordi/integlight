@@ -219,13 +219,12 @@ test.describe("初期設定", () => {
 const SITE_TYPES = ["エレガント", "ポップ"];
 
 for (const siteType of SITE_TYPES) {
-  console.log(`サイトタイプ: ${siteType} のテスト開始`);
-
   let context: BrowserContext;
   let page: Page;
 
   test.beforeAll(async ({ browser }) => {
     // 自前で context と page を作成
+    console.log(`サイトタイプ: ${siteType} の設定`);
     context = await browser.newContext({
       viewport: { width: 1440, height: 900 },
       userAgent: "",
