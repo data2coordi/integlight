@@ -97,6 +97,10 @@ async function setHeaderImageText(page: Page) {
   const select = page.locator(`#${selectId}`);
   await select.waitFor({ state: "visible" });
   await select.selectOption("yu_mincho");
+
+  //テキストの位置
+  await page.getByLabel("ヘッダー画像テキストの上位置（px）").fill("100");
+  await page.getByLabel("ヘッダー画像テキストの左位置（px）").fill("100");
 }
 
 //@@@@@@
@@ -124,10 +128,8 @@ async function setHeaderImage(page: Page) {
   await targetImage.click({ force: true });
 
   // 選択ボタンを押してモーダルを閉じる
-  await page.locator(".media-button-select").click();
-  await page
-    .locator(".media-modal")
-    .waitFor({ state: "hidden", timeout: 15000 });
+  await page.getByRole("button", { name: "選択して切り抜く" }).nth(0).click();
+  await page.getByRole("button", { name: "画像切り抜き" }).nth(0).click();
 }
 
 // 共通テストフロー
