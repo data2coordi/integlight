@@ -105,8 +105,7 @@ async function setHeaderImage(page: Page) {
   await openHeaderImage(page);
 
   // 既存画像を削除
-  await page.getByRole("button", { name: "削除" }).nth(0).click();
-  await page.getByRole("button", { name: "画像を選択" }).nth(0).click();
+  await page.getByRole("button", { name: "画像を追加" }).nth(0).click();
 
   // モーダルが表示されるのを待つ
   const mediaModal = page.locator(".attachments-browser");
@@ -148,33 +147,6 @@ async function setHeaderImageDetailSettings(page, config, inisialSetting) {
   await ensureCustomizerRoot(page);
   await test.step("ヘッダー画像を設定する", () => setHeaderImage(page));
 
-  // await test.step("3. スライダーの変更間隔を設定", () =>
-  //   setSliderInterval(page, config.interval));
-  // await test.step("4 スライダー画像を設定", () =>
-  //   setSliderImage(
-  //     page,
-  //     config.imagePartialName,
-  //     config.image_delBtnNo,
-  //     config.image_selBtnNo
-  //   ));
-  // await test.step("5 スライダーテキストを入力", () =>
-  //   setSliderText(page, config.mainText, config.subText));
-  // await test.step("6 テキストの表示位置を設定", () =>
-  //   setTextPosition(
-  //     page,
-  //     config.textPositionTop,
-  //     config.textPositionLeft,
-  //     config.text_positionLavel_top,
-  //     config.text_positionLavel_left
-  //   ));
-  // await test.step("6 テキストのカラーを設定", () =>
-  //   setTextColor(page, config.textColor, config.text_colorLavel));
-  // await test.step("6 テキストのフォントを設定", () =>
-  //   setTextFont(page, config.textFont, config.text_fontLavel));
-  // await ensureCustomizerRoot(page);
-  // await test.step("7.ホームタイプの変更", async () => {
-  //   await setSiteType(page, inisialSetting.siteType);
-  // });
   await test.step("8. 公開ボタンをクリックして変更を保存", () =>
     saveCustomizer(page));
 }
