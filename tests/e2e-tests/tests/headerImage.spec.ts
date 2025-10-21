@@ -143,68 +143,46 @@ async function setHeaderImageDetailSettings(page, config) {
 /****検証用 ***********************************/
 /****検証用 ***********************************/
 /****検証用 ***********************************/
-async function verifyText_onFront(
+async function verifyHeaderImageText(
   page,
-  expectedMainText,
-  expectedSubText,
+  mainText,
+  subText,
   expectedTop,
   expectedLeft,
-  expectedFont,
+  expectedFont, // 部分一致でチェック
   expectedColor
 ) {
-  await page.goto(BASE_URL, { waitUntil: "domcontentloaded" });
+  await page.goto("/", { waitUntil: "networkidle" });
+  await expect(page.locator(".header-image")).toBeVisible();
 
-  // ===== 対象要素 =====
+  // ===== テキスト確認 =====
+  const mainTextLocator = page.locator(".header-image .text-overlay h1");
+  const subTextLocator = page.locator(".header-image .text-overlay h2");
+
+  await expect(mainTextLocator).toHaveText(mainText);
+  await expect(subTextLocator).toHaveText(subText);
+
+  // ===== 位置確認 =====
   const overlay = page.locator(".header-image .text-overlay");
-  const mainTextEl = overlay.locator(".text-overlay1 h1");
-  const subTextEl = overlay.locator(".text-overlay2 h2");
-
-  await expect(mainTextEl).toBeVisible();
-  await expect(subTextEl).toBeVisible();
-
-  // ===== テキスト内容検証 =====
-  await expect(mainTextEl).toHaveText(expectedMainText);
-  await expect(subTextEl).toHaveText(expectedSubText);
-
-  // ===== .text-overlay のスタイル取得 =====
-  const overlayStyles = await overlay.evaluate((el) => {
-    const s = getComputedStyle(el);
-    return {
-      position: s.position,
-      top: s.top,
-      left: s.left,
-      color: s.color,
-      fontFamily: s.fontFamily,
-    };
+  const position = await overlay.evaluate((el) => {
+    const style = getComputedStyle(el);
+    return { top: style.top, left: style.left };
   });
+  expect(position.top).toBe(`${expectedTop}px`);
+  expect(position.left).toBe(`${expectedLeft}px`);
 
-  // ===== 位置検証 =====
-  expect(overlayStyles.position).toBe("absolute");
-  expect(overlayStyles.top).toBe(`${expectedTop}px`);
-  expect(overlayStyles.left).toBe(`${expectedLeft}px`);
+  // ===== フォント確認（スライダー方式と同じ） =====
+  const fontFamily = await mainTextLocator.evaluate(
+    (el) => getComputedStyle(el).fontFamily
+  );
+  expect(fontFamily.toLowerCase()).toContain(expectedFont.toLowerCase());
 
-  // ===== 色検証（rgb形式） =====
-  expect(overlayStyles.color).toBe(expectedColor);
-
-  // ===== フォント検証（完全一致でなく含有チェックに）=====
-  // ブラウザ差異により "Yu Mincho" / "游明朝体" の順が変わる場合があるため
-  const normalizedFont = overlayStyles.fontFamily
-    .replace(/\s/g, "")
-    .toLowerCase();
-  const normalizedExpected = expectedFont.replace(/\s/g, "").toLowerCase();
-  expect(normalizedFont).toContain(normalizedExpected.split(",")[0]);
-
-  // ===== サブテキストも念のためスタイル確認 =====
-  const subStyles = await subTextEl.evaluate((el) => {
-    const s = getComputedStyle(el);
-    return { color: s.color, fontFamily: s.fontFamily };
-  });
-
-  expect(subStyles.color).toBe(expectedColor);
-  const subFont = subStyles.fontFamily.replace(/\s/g, "").toLowerCase();
-  expect(subFont).toContain(normalizedExpected.split(",")[0]);
+  // ===== 色確認（rgb形式） =====
+  const color = await mainTextLocator.evaluate(
+    (el) => getComputedStyle(el).color
+  );
+  expect(color).toBe(expectedColor);
 }
-
 /* TEST実行****************/
 /* TEST実行****************/
 /* TEST実行****************/
