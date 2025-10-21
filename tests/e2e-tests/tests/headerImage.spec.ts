@@ -319,17 +319,30 @@ async function setHeaderImageText(page: Page) {
   await expect(page.getByLabel("ヘッダー画像サブテキスト").nth(0)).toHaveValue(
     "subText"
   );
+
+  // 「色を選択」ボタンをクリック → input が表示される
+  await page.getByRole("button", { name: "色を選択" }).click();
+
+  const input = page.getByLabel("ヘッダー画像テキストの色");
+
+  await input.fill("##ff0000");
+}
+async function setHeaderImage(page: Page) {
+  //ヘッダー画像設定をオープン
+  await openHeaderImage(page);
 }
 
 // 共通テストフロー
 async function setHeaderImageDetailSettings(page, config, inisialSetting) {
-  await test.step("1. カスタマイザー画面を開く", () => openCustomizer(page));
-  await test.step("3. ヘッダー有無を設定", () =>
+  await test.step("カスタマイザー画面を開く", () => openCustomizer(page));
+  await test.step("ヘッダー有無を設定", () =>
     openHeaderSetting(page, "静止画像"));
 
   await ensureCustomizerRoot(page);
   await test.step("ヘッダー画像テキストを設定する", () =>
     setHeaderImageText(page));
+
+  await test.step("ヘッダー画像テキストを設定する", () => setHeaderImage(page));
   // await test.step("3. スライダーの変更間隔を設定", () =>
   //   setSliderInterval(page, config.interval));
   // await test.step("4 スライダー画像を設定", () =>
