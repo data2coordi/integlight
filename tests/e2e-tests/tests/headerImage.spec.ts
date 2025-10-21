@@ -21,7 +21,6 @@ const TEST_CONFIGS = {
     viewport: { width: 375, height: 800 },
     userAgent:
       "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1",
-    interval: "1",
     mainText: "テストタイトル",
     subText: "これはPlaywrightテストによって入力された説明文です。",
     textPositionTop: "10",
@@ -29,16 +28,6 @@ const TEST_CONFIGS = {
     textColor: "#ff0000",
     textFont: "yu_mincho",
     imagePartialName: "Firefly-260521",
-  },
-  pcCustomizerSetting: {
-    interval: "1",
-    mainText: "テストタイトル",
-    subText: "これはPlaywrightテストによって入力された説明文です。",
-    textPositionTop: "100",
-    textPositionLeft: "150",
-    textColor: "#ff0000",
-    textFont: "yu_mincho",
-    imagePartialName: "Firefly-203280",
   },
 };
 
@@ -138,9 +127,6 @@ test.describe("初期設定", () => {
     const inisialSetting = TEST_CONFIGS.inisialCustomiserSetting;
     const configSp = TEST_CONFIGS.spCustomizerSetting;
     await setHeaderImageDetailSettings(page, configSp, inisialSetting);
-
-    const configPc = TEST_CONFIGS.pcCustomizerSetting;
-    await setHeaderImageDetailSettings(page, configPc, inisialSetting);
   });
 });
 ////////////////////////////////////////////////////////
@@ -149,8 +135,8 @@ test.describe("初期設定", () => {
 test.describe("テキスト設定の検証", () => {
   test.describe("SP環境", () => {
     test.use({
-      viewport: TEST_CONFIGS.spCustomizerSetting.viewport,
-      userAgent: TEST_CONFIGS.spCustomizerSetting.userAgent,
+      viewport: TEST_CONFIGS.CustomizerSetting.viewport,
+      userAgent: TEST_CONFIGS.CustomizerSetting.userAgent,
       extraHTTPHeaders: { "sec-ch-ua-mobile": "?1" },
     });
 
@@ -172,7 +158,7 @@ test.describe("テキスト設定の検証", () => {
 
   test.describe("PC環境", () => {
     test("テキストの設定確認", async ({ page }) => {
-      const config = TEST_CONFIGS.pcCustomizerSetting;
+      const config = TEST_CONFIGS.CustomizerSetting;
       await test.step("フロントページで表示確認", () =>
         verifyText_onFront(
           page,
@@ -197,13 +183,13 @@ test.describe("フロントで画像の詳細設定を検証する", () => {
     test.beforeAll(async ({ browser }) => {});
 
     test.use({
-      viewport: TEST_CONFIGS.spCustomizerSetting.viewport,
-      userAgent: TEST_CONFIGS.spCustomizerSetting.userAgent,
+      viewport: TEST_CONFIGS.CustomizerSetting.viewport,
+      userAgent: TEST_CONFIGS.CustomizerSetting.userAgent,
       extraHTTPHeaders: { "sec-ch-ua-mobile": "?1" },
     });
 
     test("カスタマイザーで画像、テキストを選択...", async ({ page }) => {
-      const config = TEST_CONFIGS.spCustomizerSetting;
+      const config = TEST_CONFIGS.CustomizerSetting;
       await test.step("フロントページで表示確認", () =>
         verifyImage_onFront(page, config.imagePartialName));
     });
@@ -211,7 +197,7 @@ test.describe("フロントで画像の詳細設定を検証する", () => {
 
   test.describe("PC環境", () => {
     test("カスタマイザーで画像、テキストを選択...", async ({ page }) => {
-      const config = TEST_CONFIGS.pcCustomizerSetting;
+      const config = TEST_CONFIGS.CustomizerSetting;
       await test.step("フロントページで表示確認", () =>
         verifyImage_onFront(page, config.imagePartialName));
     });
