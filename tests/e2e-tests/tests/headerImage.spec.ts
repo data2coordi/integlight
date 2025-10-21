@@ -1,17 +1,14 @@
 import { test, expect } from "@playwright/test";
-
 import {
   timeStart,
   logStepTime,
   openCustomizer,
-  selSliderEffect,
   saveCustomizer,
-  setSiteType,
   ensureCustomizerRoot,
   openHeaderSetting,
 } from "../utils/common";
-import { useEffect } from "react";
-// 共通設定a
+
+// 共通設定
 const BASE_URL = "https://wpdev.auroralab-design.com";
 
 // テスト用設定一覧
@@ -31,12 +28,6 @@ const TEST_CONFIGS = {
     textPositionLeft: "15",
     textColor: "#ff0000",
     textFont: "yu_mincho",
-    image_delBtnNo: 3,
-    image_selBtnNo: 0,
-    text_positionLavel_top: "スライダーテキスト位置（モバイル、上）（px）",
-    text_positionLavel_left: "スライダーテキスト位置（モバイル、左）（px）",
-    text_colorLavel: "スライダーテキストカラー",
-    text_fontLavel: "スライダーテキストフォント",
     imagePartialName: "Firefly-260521",
   },
   pcCustomizerSetting: {
@@ -47,86 +38,79 @@ const TEST_CONFIGS = {
     textPositionLeft: "150",
     textColor: "#ff0000",
     textFont: "yu_mincho",
-    image_delBtnNo: 0,
-    image_selBtnNo: 0,
-    text_positionLavel_top: "スライダーテキスト位置（上）（px）",
-    text_positionLavel_left: "スライダーテキスト位置（左）（px）",
-    text_colorLavel: "スライダーテキストカラー",
-    text_fontLavel: "スライダーテキストフォント",
     imagePartialName: "Firefly-203280",
   },
 };
 
 // ヘッダー設定をヘッダー画像に変更
-async function openHeaderImage(page: Page) {
-  // ログイン処理はauth.setup.tsで完了済み
+async function openHeaderImage(page) {
   await page.getByRole("button", { name: "ヘッダー設定" }).click();
   await page.getByRole("button", { name: "2.静止画像設定" }).click();
 }
 
-async function setHeaderImageText(page: Page) {
-  //ヘッダー画像設定をオープン
+// ヘッダー画像テキスト設定
+async function setHeaderImageText(page, config) {
   await openHeaderImage(page);
-  await page.getByLabel("ヘッダー画像メインテキスト").nth(0).fill("mainText");
-  await page.getByLabel("ヘッダー画像サブテキスト").nth(0).fill("subText");
+
+  // テキスト設定
+  await page
+    .getByLabel("ヘッダー画像メインテキスト")
+    .nth(0)
+    .fill(config.mainText);
+  await page.getByLabel("ヘッダー画像サブテキスト").nth(0).fill(config.subText);
+
   await expect(
     page.getByLabel("ヘッダー画像メインテキスト").nth(0)
-  ).toHaveValue("mainText");
+  ).toHaveValue(config.mainText);
   await expect(page.getByLabel("ヘッダー画像サブテキスト").nth(0)).toHaveValue(
-    "subText"
+    config.subText
   );
 
-  // 「色を選択」ボタンをクリック → input が表示される
+  // テキストカラー設定
   await page.getByRole("button", { name: "色を選択" }).click();
   const input = page.getByLabel("ヘッダー画像テキストの色");
-  await input.fill("#4a35e8");
+  await input.fill(config.textColor);
 
-  // ラベル名から要素を取得
+  // フォント設定
   const label = page.locator("label", {
     hasText: "ヘッダー画像テキストのフォント",
   });
-  // ラベルの for 属性から select の id を取得
   const selectId = await label.getAttribute("for");
   if (!selectId)
     throw new Error(
       `ラベル "ヘッダー画像テキストのフォント" に対応する select が見つかりません`
     );
-
-  // select を取得して選択
   const select = page.locator(`#${selectId}`);
   await select.waitFor({ state: "visible" });
-  await select.selectOption("yu_mincho");
+  await select.selectOption(config.textFont);
 
-  //テキストの位置
-  await page.getByLabel("ヘッダー画像テキストの上位置（px）").fill("100");
-  await page.getByLabel("ヘッダー画像テキストの左位置（px）").fill("100");
+  // テキスト位置設定
+  await page
+    .getByLabel("ヘッダー画像テキストの上位置（px）")
+    .fill(config.textPositionTop);
+  await page
+    .getByLabel("ヘッダー画像テキストの左位置（px）")
+    .fill(config.textPositionLeft);
 }
 
-//@@@@@@
-async function setHeaderImage(page: Page) {
-  //ヘッダー画像設定をオープン
+// ヘッダー画像設定
+async function setHeaderImage(page, config) {
   await openHeaderImage(page);
 
-  // 既存画像を削除
   await page.getByRole("button", { name: "画像を追加" }).nth(0).click();
-
-  // モーダルが表示されるのを待つ
   const mediaModal = page.locator(".attachments-browser");
   await mediaModal.waitFor({ state: "visible", timeout: 15000 });
 
-  // 検索ボックスに入力して検索
   const searchInput = page.locator("#media-search-input");
-  await searchInput.fill("Firefly-260521");
+  await searchInput.fill(config.imagePartialName);
   await searchInput.press("Enter");
 
-  // 検索結果の最初の画像をクリック
   const targetImage = page
-    .locator(`.attachments-browser img[src*="Firefly-260521"]`)
+    .locator(`.attachments-browser img[src*="${config.imagePartialName}"]`)
     .first();
   await targetImage.waitFor({ state: "visible", timeout: 15000 });
   await targetImage.click({ force: true });
 
-  // 選択ボタンを押してモーダルを閉じる
   await page.getByRole("button", { name: "選択して切り抜く" }).nth(0).click();
   await page.getByRole("button", { name: "画像切り抜き" }).nth(0).click();
 }
@@ -134,44 +118,27 @@ async function setHeaderImage(page: Page) {
 // 共通テストフロー
 async function setHeaderImageDetailSettings(page, config, inisialSetting) {
   await test.step("カスタマイザー画面を開く", () => openCustomizer(page));
-
-  //ヘッダーを静止画像に設定
   await test.step("ヘッダー有無を設定", () =>
     openHeaderSetting(page, "静止画像"));
 
-  //ヘッダー画像テキストを設定
   await ensureCustomizerRoot(page);
   await test.step("ヘッダー画像テキストを設定する", () =>
-    setHeaderImageText(page));
+    setHeaderImageText(page, config));
 
-  //ヘッダー画像を設定
   await ensureCustomizerRoot(page);
-  await test.step("ヘッダー画像を設定する", () => setHeaderImage(page));
+  await test.step("ヘッダー画像を設定する", () => setHeaderImage(page, config));
 
   await test.step("8. 公開ボタンをクリックして変更を保存", () =>
     saveCustomizer(page));
 }
 
-async function set_sliderEffect_and_siteType(page, useEffect, homeType) {
-  await test.step("1.カスタマイザー画面を開く", () => openCustomizer(page));
-  await test.step("2. スライダーのエフェクトを設定", () =>
-    selSliderEffect(page, useEffect, "1"));
-  await ensureCustomizerRoot(page);
-  await test.step("4.ホームタイプの変更", async () => {
-    await setSiteType(page, homeType);
-  });
-  await test.step("5. 公開ボタンをクリックして変更を保存", () =>
-    saveCustomizer(page));
-}
-
-////////////////////////////////////////////////////////
-//初期設定
-////////////////////////////////////////////////////////
+// 初期設定テスト
 test.describe("初期設定", () => {
   test.only("カスタマイザーでの設定確認", async ({ page }) => {
     const inisialSetting = TEST_CONFIGS.inisialCustomiserSetting;
     const configSp = TEST_CONFIGS.spCustomizerSetting;
     await setHeaderImageDetailSettings(page, configSp, inisialSetting);
+
     const configPc = TEST_CONFIGS.pcCustomizerSetting;
     await setHeaderImageDetailSettings(page, configPc, inisialSetting);
   });
