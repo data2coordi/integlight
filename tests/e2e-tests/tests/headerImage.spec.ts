@@ -210,7 +210,7 @@ test.describe("テキスト設定の検証", () => {
       extraHTTPHeaders: { "sec-ch-ua-mobile": "?1" },
     });
 
-    test.only("テキストの設定確認", async ({ page }) => {
+    test("テキストの設定確認", async ({ page }) => {
       const config = TEST_CONFIGS.CustomizerSetting;
 
       await test.step("フロントページで表示確認", () =>
@@ -227,7 +227,7 @@ test.describe("テキスト設定の検証", () => {
   });
 
   test.describe("PC環境", () => {
-    test("テキストの設定確認", async ({ page }) => {
+    test.only("テキストの設定確認", async ({ page }) => {
       const config = TEST_CONFIGS.CustomizerSetting;
       await test.step("フロントページで表示確認", () =>
         verifyText_onFront(
