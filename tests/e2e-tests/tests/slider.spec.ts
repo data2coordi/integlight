@@ -294,48 +294,54 @@ async function verifySliderOnFade_Home2Pc(page, imagePartialName) {
   expect(firstSrc.includes(imagePartialName)).toBe(true);
 }
 
-async function verifyTextDetails(
+async function verifyHeaderImageText(
   page,
   mainText,
   subText,
-  top,
-  left,
-  font,
-  fontColor
+  expectedTop,
+  expectedLeft,
+  expectedFont,
+  expectedColor
 ) {
   await page.goto("/", { waitUntil: "networkidle" });
-  await expect(page.locator(".slider.fade-effect")).toBeVisible();
+  await expect(page.locator(".header-image")).toBeVisible();
 
-  // テキストと位置確認
-  const mainTextLocator = page.locator(".slider .text-overlay h1");
-  const subTextLocator = page.locator(".slider .text-overlay h2");
+  // ===== テキスト確認 =====
+  const mainTextLocator = page.locator(".header-image .text-overlay h1");
+  const subTextLocator = page.locator(".header-image .text-overlay h2");
+
   await expect(mainTextLocator).toHaveText(mainText);
   await expect(subTextLocator).toHaveText(subText);
 
-  const overlay = page.locator(".slider .text-overlay");
+  // ===== 位置確認 =====
+  const overlay = page.locator(".header-image .text-overlay");
   const position = await overlay.evaluate((el) => {
-    const style = window.getComputedStyle(el);
+    const style = getComputedStyle(el);
     return {
       top: style.top,
       left: style.left,
     };
   });
-  expect(position.top).toBe(`${top}px`);
-  expect(position.left).toBe(`${left}px`);
 
-  // フォントファミリーチェック
+  expect(position.top).toBe(`${expectedTop}px`);
+  expect(position.left).toBe(`${expectedLeft}px`);
+
+  // ===== フォント確認（厳密一致） =====
   const fontFamily = await mainTextLocator.evaluate(
     (el) => getComputedStyle(el).fontFamily
   );
-  expect(fontFamily).toContain(font); // 部分一致で確認することも可能
 
-  // カラー（文字色）チェック
+  // 空白・大文字小文字を無視した厳密比較
+  const normalizedActual = fontFamily.replace(/\s/g, "").toLowerCase();
+  const normalizedExpected = expectedFont.replace(/\s/g, "").toLowerCase();
+  expect(normalizedActual).toBe(normalizedExpected);
+
+  // ===== カラー確認（rgb形式） =====
   const color = await mainTextLocator.evaluate(
     (el) => getComputedStyle(el).color
   );
-  expect(color).toBe(fontColor); // 文字色をrgbで指定
+  expect(color).toBe(expectedColor);
 }
-
 // 共通テストフロー
 async function setSliderDetailSettings(page, config, inisialSetting) {
   await test.step("1. カスタマイザー画面を開く", () => openCustomizer(page));
