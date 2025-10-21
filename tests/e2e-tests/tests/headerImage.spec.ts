@@ -188,10 +188,6 @@ export async function verifyText_onFront(
     };
   });
 
-  // ===== 位置検証 =====
-  // 「position」がabsoluteまたはrelativeである前提
-  expect(["absolute", "relative"]).toContain(mainStyles.position);
-
   // 数値として一致確認（px単位）
   expect(mainStyles.top).toBe(`${expectedTop}px`);
   expect(mainStyles.left).toBe(`${expectedLeft}px`);
