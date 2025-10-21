@@ -302,12 +302,20 @@ async function verifyTextDetails(
 }
 
 // ヘッダー設定をヘッダー画像に変更
-async function setHeaderTypeToImage(page: Page, config: any) {
+//@@@@@@
+async function setHeaderImageText(page: Page) {
   // ログイン処理はauth.setup.tsで完了済み
-  await test.step("2. カスタマイザー画面を開く", () => openCustomizer(page));
-  //timeStart('saveCustomizer');
-  await test.step("7. 変更を保存", () => saveCustomizer(page));
-  //logStepTime('saveCustomizer');
+  await page.getByRole("button", { name: "ヘッダー設定" }).click();
+  await page.getByRole("button", { name: "2.静止画像設定" }).click();
+
+  await page.getByLabel("ヘッダー画像メインテキスト").nth(0).fill("mainText");
+  //  await page.getByLabel("ヘッダー画像サブテキスト").nth(0).fill("subText");
+  // await expect(
+  //   page.getByLabel("スライダーテキスト（メイン）").nth(0)
+  // ).toHaveValue(mainText);
+  // await expect(
+  //   page.getByLabel("スライダーテキスト（サブ）").nth(0)
+  // ).toHaveValue(subText);
 }
 
 // 共通テストフロー
@@ -316,7 +324,9 @@ async function setHeaderImageDetailSettings(page, config, inisialSetting) {
   await test.step("3. ヘッダー有無を設定", () =>
     openHeaderSetting(page, "静止画像"));
 
-  // await test.step("3. スライダー設定を開く", () => openSliderSetting(page));
+  await ensureCustomizerRoot(page);
+  await test.step("ヘッダー画像テキストを設定する", () =>
+    setHeaderImageText(page));
   // await test.step("3. スライダーの変更間隔を設定", () =>
   //   setSliderInterval(page, config.interval));
   // await test.step("4 スライダー画像を設定", () =>
@@ -350,7 +360,6 @@ async function setHeaderImageDetailSettings(page, config, inisialSetting) {
 
 async function set_sliderEffect_and_siteType(page, useEffect, homeType) {
   await test.step("1.カスタマイザー画面を開く", () => openCustomizer(page));
-  //await test.step('2.2. スライダー設定を開く', () => openSliderSetting(page));
   await test.step("2. スライダーのエフェクトを設定", () =>
     selSliderEffect(page, useEffect, "1"));
   await ensureCustomizerRoot(page);
