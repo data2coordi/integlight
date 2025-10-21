@@ -114,6 +114,67 @@ async function setHeaderImage(page, config) {
   await page.getByRole("button", { name: "画像切り抜き" }).nth(0).click();
 }
 
+/**
+ * フロントページでヘッダー画像上のテキスト設定を検証する
+ * @param {import('@playwright/test').Page} page - Playwrightのページオブジェクト
+ * @param {string} expectedMainText - メインテキストの期待値
+ * @param {string} expectedSubText - サブテキストの期待値
+ * @param {string} expectedTop - 期待される上位置(px)
+ * @param {string} expectedLeft - 期待される左位置(px)
+ * @param {string} expectedFont - 期待されるフォント指定
+ * @param {string} expectedColor - 期待される色(rgb形式)
+ */
+async function verifyText_onFront(
+  page,
+  expectedMainText,
+  expectedSubText,
+  expectedTop,
+  expectedLeft,
+  expectedFont,
+  expectedColor
+) {
+  // フロントページを開く
+  await page.goto(BASE_URL, { waitUntil: "domcontentloaded" });
+
+  // メイン・サブテキスト要素を取得
+  const mainTextEl = page.locator(".header-image-text-main");
+  const subTextEl = page.locator(".header-image-text-sub");
+
+  // ======= テキスト内容を確認 =======
+  await expect(mainTextEl).toHaveText(expectedMainText);
+  await expect(subTextEl).toHaveText(expectedSubText);
+
+  // ======= CSSプロパティを取得 =======
+  const mainStyles = await mainTextEl.evaluate((el) => {
+    const s = getComputedStyle(el);
+    return {
+      top: s.top,
+      left: s.left,
+      color: s.color,
+      fontFamily: s.fontFamily,
+    };
+  });
+
+  const subStyles = await subTextEl.evaluate((el) => {
+    const s = getComputedStyle(el);
+    return {
+      color: s.color,
+      fontFamily: s.fontFamily,
+    };
+  });
+
+  // ======= 位置を検証（px単位） =======
+  expect(mainStyles.top).toBe(`${expectedTop}px`);
+  expect(mainStyles.left).toBe(`${expectedLeft}px`);
+
+  // ======= フォント・色を検証 =======
+  expect(mainStyles.fontFamily).toBe(expectedFont);
+  expect(subStyles.fontFamily).toBe(expectedFont);
+
+  expect(mainStyles.color).toBe(expectedColor);
+  expect(subStyles.color).toBe(expectedColor);
+}
+
 // 共通テストフロー
 async function setHeaderImageDetailSettings(page, config) {
   await test.step("カスタマイザー画面を開く", () => openCustomizer(page));
@@ -133,12 +194,13 @@ async function setHeaderImageDetailSettings(page, config) {
 
 // 初期設定テスト
 test.describe("初期設定", () => {
-  test.only("カスタマイザーでの設定確認", async ({ page }) => {
+  test("カスタマイザーでの設定確認", async ({ page }) => {
     const inisialSetting = TEST_CONFIGS.inisialCustomiserSetting;
     const configSp = TEST_CONFIGS.CustomizerSetting;
     await setHeaderImageDetailSettings(page, configSp, inisialSetting);
   });
 });
+
 ////////////////////////////////////////////////////////
 //フロントでテキストの詳細設定を検証する s
 ////////////////////////////////////////////////////////
@@ -150,7 +212,7 @@ test.describe("テキスト設定の検証", () => {
       extraHTTPHeaders: { "sec-ch-ua-mobile": "?1" },
     });
 
-    test("テキストの設定確認", async ({ page }) => {
+    test.only("テキストの設定確認", async ({ page }) => {
       const config = TEST_CONFIGS.CustomizerSetting;
 
       await test.step("フロントページで表示確認", () =>
@@ -161,7 +223,7 @@ test.describe("テキスト設定の検証", () => {
           config.textPositionTop_mobile,
           config.textPositionLeft_mobile,
           '"Yu Mincho", 游明朝体, serif',
-          "rgb(255, 0, 0)" // pcではrgbで確認
+          "rgb(255, 0, 0)" // rgbで確認
         ));
     });
   });
@@ -177,7 +239,7 @@ test.describe("テキスト設定の検証", () => {
           config.textPositionTop,
           config.textPositionLeft,
           '"Yu Mincho", 游明朝体, serif',
-          "rgb(255, 0, 0)" // pcではrgbで確認
+          "rgb(255, 0, 0)" // rgbで確認
         ));
     });
   });
