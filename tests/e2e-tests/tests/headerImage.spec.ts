@@ -213,6 +213,7 @@ async function verifyImage_onFront(page, imagePartialName: string) {
 ////////////////////////////////////////////////////////
 test.describe("初期設定", () => {
   test("カスタマイザーでの設定確認", async ({ page }) => {
+    console.log("カスタマイザーでの初期設定テスト開始");
     const inisialSetting = TEST_CONFIGS.inisialCustomiserSetting;
     const configSp = TEST_CONFIGS.CustomizerSetting;
     await setHeaderImageDetailSettings(page, configSp, inisialSetting);
@@ -231,6 +232,7 @@ test.describe("テキスト設定の検証", () => {
     });
 
     test("テキストの設定確認", async ({ page }) => {
+      console.log("SP環境でのテキスト表示確認テスト開始");
       const config = TEST_CONFIGS.CustomizerSetting;
 
       await test.step("ホームで表示確認", () =>
@@ -248,6 +250,7 @@ test.describe("テキスト設定の検証", () => {
 
   test.describe("PC環境", () => {
     test("テキストの設定確認", async ({ page }) => {
+      console.log("PC環境でのテキスト表示確認テスト開始");
       const config = TEST_CONFIGS.CustomizerSetting;
       await test.step("ホームで表示確認", () =>
         verifyText_onFront(
@@ -276,6 +279,7 @@ test.describe("フロントで画像の詳細設定を検証する", () => {
     });
 
     test("ホームで画像の表示確認", async ({ page }) => {
+      console.log("SP環境での画像表示確認テスト開始");
       const config = TEST_CONFIGS.CustomizerSetting;
       await test.step("ホームで表示確認ステップ", () =>
         verifyImage_onFront(page, config.imagePartialName));
@@ -284,6 +288,7 @@ test.describe("フロントで画像の詳細設定を検証する", () => {
 
   test.describe("PC環境", () => {
     test("ホームで画像の表示確認", async ({ page }) => {
+      console.log("PC環境での画像表示確認テスト開始");
       const config = TEST_CONFIGS.CustomizerSetting;
       await test.step("ホームで表示確認ステップ", () =>
         verifyImage_onFront(page, config.imagePartialName));
