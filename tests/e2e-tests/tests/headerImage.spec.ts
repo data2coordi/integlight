@@ -222,98 +222,100 @@ for (const siteType of SITE_TYPES) {
   let context: BrowserContext;
   let page: Page;
 
-  test.beforeAll(async ({ browser }) => {
-    // 自前で context と page を作成
-    console.log(`サイトタイプ: ${siteType} の設定`);
-    context = await browser.newContext({
-      viewport: { width: 1440, height: 900 },
-      userAgent: "",
-    });
-    page = await context.newPage();
-
-    // サイトタイプを設定
-    await test.step(" カスタマイザー画面を開く", () => openCustomizer(page));
-    //logStepTime('openCustomizer_1');
-    //timeStart('setSiteType');
-    await test.step(" ホームタイプの変更", () => setSiteType(page, siteType));
-    await test.step(" 変更を保存", () => saveCustomizer(page));
-  });
-
-  test.afterAll(async () => {
-    await context.close(); // context を閉じる
-  });
-
-  ////////////////////////////////////////////////////////
-  //フロントでテキストの詳細設定を検証する s
-  ////////////////////////////////////////////////////////
-  test.describe(`テキスト設定の検証:${siteType}`, () => {
-    test.describe("SP環境", () => {
-      test.use({
-        viewport: TEST_CONFIGS.CustomizerSetting.viewport,
-        userAgent: TEST_CONFIGS.CustomizerSetting.userAgent,
-        extraHTTPHeaders: { "sec-ch-ua-mobile": "?1" },
+  test.describe.serial(`サイトタイプ: ${siteType}`, () => {
+    test.beforeAll(async ({ browser }) => {
+      // 自前で context と page を作成
+      console.log(`サイトタイプ: ${siteType} の設定`);
+      context = await browser.newContext({
+        viewport: { width: 1440, height: 900 },
+        userAgent: "",
       });
+      page = await context.newPage();
 
-      test("テキストの設定確認", async ({ page }) => {
-        console.log("SP環境でのテキスト表示確認テスト開始");
-        const config = TEST_CONFIGS.CustomizerSetting;
-
-        await test.step("ホームで表示確認", () =>
-          verifyText_onFront(
-            page,
-            config.mainText,
-            config.subText,
-            config.textPositionTop_mobile,
-            config.textPositionLeft_mobile,
-            '"Yu Mincho", 游明朝体, serif',
-            "rgb(255, 0, 0)" // rgbで確認
-          ));
-      });
+      // サイトタイプを設定
+      await test.step(" カスタマイザー画面を開く", () => openCustomizer(page));
+      //logStepTime('openCustomizer_1');
+      //timeStart('setSiteType');
+      await test.step(" ホームタイプの変更", () => setSiteType(page, siteType));
+      await test.step(" 変更を保存", () => saveCustomizer(page));
     });
 
-    test.describe("PC環境", () => {
-      test("テキストの設定確認", async ({ page }) => {
-        console.log("PC環境でのテキスト表示確認テスト開始");
-        const config = TEST_CONFIGS.CustomizerSetting;
-        await test.step("ホームで表示確認", () =>
-          verifyText_onFront(
-            page,
-            config.mainText,
-            config.subText,
-            config.textPositionTop,
-            config.textPositionLeft,
-            '"Yu Mincho", 游明朝体, serif',
-            "rgb(255, 0, 0)" // rgbで確認
-          ));
-      });
-    });
-  });
-  ////////////////////////////////////////////////////////
-  //フロントで画像の詳細設定を検証する
-  ////////////////////////////////////////////////////////
-
-  test.describe(`フロントでヘッダー画像の検証:${siteType}`, () => {
-    test.describe("SP環境", () => {
-      test.use({
-        viewport: TEST_CONFIGS.CustomizerSetting.viewport,
-        userAgent: TEST_CONFIGS.CustomizerSetting.userAgent,
-        extraHTTPHeaders: { "sec-ch-ua-mobile": "?1" },
-      });
-
-      test("ホームで画像の表示確認", async ({ page }) => {
-        console.log("SP環境での画像表示確認テスト開始");
-        const config = TEST_CONFIGS.CustomizerSetting;
-        await test.step("ホームで表示確認ステップ", () =>
-          verifyImage_onFront(page, config.imagePartialName));
-      });
+    test.afterAll(async () => {
+      await context.close(); // context を閉じる
     });
 
-    test.describe("PC環境", () => {
-      test("ホームで画像の表示確認", async ({ page }) => {
-        console.log("PC環境での画像表示確認テスト開始");
-        const config = TEST_CONFIGS.CustomizerSetting;
-        await test.step("ホームで表示確認ステップ", () =>
-          verifyImage_onFront(page, config.imagePartialName));
+    ////////////////////////////////////////////////////////
+    //フロントでテキストの詳細設定を検証する s
+    ////////////////////////////////////////////////////////
+    test.describe(`テキスト設定の検証:${siteType}`, () => {
+      test.describe("SP環境", () => {
+        test.use({
+          viewport: TEST_CONFIGS.CustomizerSetting.viewport,
+          userAgent: TEST_CONFIGS.CustomizerSetting.userAgent,
+          extraHTTPHeaders: { "sec-ch-ua-mobile": "?1" },
+        });
+
+        test("テキストの設定確認", async ({ page }) => {
+          console.log("SP環境でのテキスト表示確認テスト開始");
+          const config = TEST_CONFIGS.CustomizerSetting;
+
+          await test.step("ホームで表示確認", () =>
+            verifyText_onFront(
+              page,
+              config.mainText,
+              config.subText,
+              config.textPositionTop_mobile,
+              config.textPositionLeft_mobile,
+              '"Yu Mincho", 游明朝体, serif',
+              "rgb(255, 0, 0)" // rgbで確認
+            ));
+        });
+      });
+
+      test.describe("PC環境", () => {
+        test("テキストの設定確認", async ({ page }) => {
+          console.log("PC環境でのテキスト表示確認テスト開始");
+          const config = TEST_CONFIGS.CustomizerSetting;
+          await test.step("ホームで表示確認", () =>
+            verifyText_onFront(
+              page,
+              config.mainText,
+              config.subText,
+              config.textPositionTop,
+              config.textPositionLeft,
+              '"Yu Mincho", 游明朝体, serif',
+              "rgb(255, 0, 0)" // rgbで確認
+            ));
+        });
+      });
+    });
+    ////////////////////////////////////////////////////////
+    //フロントで画像の詳細設定を検証する
+    ////////////////////////////////////////////////////////
+
+    test.describe(`フロントでヘッダー画像の検証:${siteType}`, () => {
+      test.describe("SP環境", () => {
+        test.use({
+          viewport: TEST_CONFIGS.CustomizerSetting.viewport,
+          userAgent: TEST_CONFIGS.CustomizerSetting.userAgent,
+          extraHTTPHeaders: { "sec-ch-ua-mobile": "?1" },
+        });
+
+        test("ホームで画像の表示確認", async ({ page }) => {
+          console.log("SP環境での画像表示確認テスト開始");
+          const config = TEST_CONFIGS.CustomizerSetting;
+          await test.step("ホームで表示確認ステップ", () =>
+            verifyImage_onFront(page, config.imagePartialName));
+        });
+      });
+
+      test.describe("PC環境", () => {
+        test("ホームで画像の表示確認", async ({ page }) => {
+          console.log("PC環境での画像表示確認テスト開始");
+          const config = TEST_CONFIGS.CustomizerSetting;
+          await test.step("ホームで表示確認ステップ", () =>
+            verifyImage_onFront(page, config.imagePartialName));
+        });
       });
     });
   });
