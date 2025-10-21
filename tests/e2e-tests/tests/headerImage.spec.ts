@@ -326,8 +326,9 @@ async function setHeaderImageText(page: Page) {
   await input.fill("#4a35e8");
 
   // ラベル名から要素を取得
-  const label = page.locator("label", { hasText: text_fontLabel });
-
+  const label = page.locator("label", {
+    hasText: "ヘッダー画像テキストのフォント",
+  });
   // ラベルの for 属性から select の id を取得
   const selectId = await label.getAttribute("for");
   if (!selectId)
@@ -338,8 +339,9 @@ async function setHeaderImageText(page: Page) {
   // select を取得して選択
   const select = page.locator(`#${selectId}`);
   await select.waitFor({ state: "visible" });
-  await select.selectOption(textFont);
+  await select.selectOption("yu_mincho");
 }
+
 async function setHeaderImage(page: Page) {
   //ヘッダー画像設定をオープン
   await openHeaderImage(page);
