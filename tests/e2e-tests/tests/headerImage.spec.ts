@@ -344,8 +344,8 @@ async function setHeaderImageDetailSettings(page, config, inisialSetting) {
   // await test.step("7.ホームタイプの変更", async () => {
   //   await setSiteType(page, inisialSetting.siteType);
   // });
-  // await test.step("8. 公開ボタンをクリックして変更を保存", () =>
-  //   saveCustomizer(page));
+  await test.step("8. 公開ボタンをクリックして変更を保存", () =>
+    saveCustomizer(page));
 }
 
 async function set_sliderEffect_and_siteType(page, useEffect, homeType) {
