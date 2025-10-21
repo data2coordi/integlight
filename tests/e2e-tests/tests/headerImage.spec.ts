@@ -107,7 +107,7 @@ async function setHeaderImage(page, config) {
 }
 
 // 共通テストフロー
-async function setHeaderImageDetailSettings(page, config, inisialSetting) {
+async function setHeaderImageDetailSettings(page, config) {
   await test.step("カスタマイザー画面を開く", () => openCustomizer(page));
   await test.step("ヘッダー有無を設定", () =>
     openHeaderSetting(page, "静止画像"));
@@ -119,7 +119,7 @@ async function setHeaderImageDetailSettings(page, config, inisialSetting) {
   await ensureCustomizerRoot(page);
   await test.step("ヘッダー画像を設定する", () => setHeaderImage(page, config));
 
-  await test.step("8. 公開ボタンをクリックして変更を保存", () =>
+  await test.step("公開ボタンをクリックして変更を保存", () =>
     saveCustomizer(page));
 }
 
@@ -127,7 +127,7 @@ async function setHeaderImageDetailSettings(page, config, inisialSetting) {
 test.describe("初期設定", () => {
   test.only("カスタマイザーでの設定確認", async ({ page }) => {
     const inisialSetting = TEST_CONFIGS.inisialCustomiserSetting;
-    const configSp = TEST_CONFIGS.spCustomizerSetting;
+    const configSp = TEST_CONFIGS.CustomizerSetting;
     await setHeaderImageDetailSettings(page, configSp, inisialSetting);
   });
 });
@@ -150,8 +150,8 @@ test.describe("テキスト設定の検証", () => {
           page,
           config.mainText,
           config.subText,
-          config.textPositionTop,
-          config.textPositionLeft,
+          config.textPositionTop_mobile,
+          config.textPositionLeft_mobile,
           '"Yu Mincho", 游明朝体, serif',
           "rgb(255, 0, 0)" // pcではrgbで確認
         ));
