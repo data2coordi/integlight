@@ -143,7 +143,7 @@ async function setHeaderImageDetailSettings(page, config) {
 /****検証用 ***********************************/
 /****検証用 ***********************************/
 /****検証用 ***********************************/
-async function verifyHeaderImageText(
+async function verifyText_onFront(
   page,
   mainText,
   subText,
