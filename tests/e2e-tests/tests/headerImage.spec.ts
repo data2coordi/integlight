@@ -145,6 +145,7 @@ async function setHeaderImageDetailSettings(page, config, inisialSetting) {
   await test.step("ヘッダー画像テキストを設定する", () =>
     setHeaderImageText(page));
 
+  await ensureCustomizerRoot(page);
   await test.step("ヘッダー画像を設定する", () => setHeaderImage(page));
 
   // await test.step("3. スライダーの変更間隔を設定", () =>
