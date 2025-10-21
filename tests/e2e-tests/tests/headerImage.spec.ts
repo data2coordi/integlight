@@ -33,6 +33,12 @@ const TEST_CONFIGS = {
   },
 };
 
+/****設定用 ***********************************/
+/****設定用 ***********************************/
+/****設定用 ***********************************/
+/****設定用 ***********************************/
+/****設定用 ***********************************/
+
 // ヘッダー設定をヘッダー画像に変更
 async function openHeaderImage(page) {
   await page.getByRole("button", { name: "ヘッダー設定" }).click();
@@ -114,67 +120,6 @@ async function setHeaderImage(page, config) {
   await page.getByRole("button", { name: "画像切り抜き" }).nth(0).click();
 }
 
-/**
- * フロントページでヘッダー画像上のテキスト設定を検証する
- * @param {import('@playwright/test').Page} page - Playwrightのページオブジェクト
- * @param {string} expectedMainText - メインテキストの期待値
- * @param {string} expectedSubText - サブテキストの期待値
- * @param {string} expectedTop - 期待される上位置(px)
- * @param {string} expectedLeft - 期待される左位置(px)
- * @param {string} expectedFont - 期待されるフォント指定
- * @param {string} expectedColor - 期待される色(rgb形式)
- */
-async function verifyText_onFront(
-  page,
-  expectedMainText,
-  expectedSubText,
-  expectedTop,
-  expectedLeft,
-  expectedFont,
-  expectedColor
-) {
-  // フロントページを開く
-  await page.goto(BASE_URL, { waitUntil: "domcontentloaded" });
-
-  // メイン・サブテキスト要素を取得
-  const mainTextEl = page.locator(".header-image-text-main");
-  const subTextEl = page.locator(".header-image-text-sub");
-
-  // ======= テキスト内容を確認 =======
-  await expect(mainTextEl).toHaveText(expectedMainText);
-  await expect(subTextEl).toHaveText(expectedSubText);
-
-  // ======= CSSプロパティを取得 =======
-  const mainStyles = await mainTextEl.evaluate((el) => {
-    const s = getComputedStyle(el);
-    return {
-      top: s.top,
-      left: s.left,
-      color: s.color,
-      fontFamily: s.fontFamily,
-    };
-  });
-
-  const subStyles = await subTextEl.evaluate((el) => {
-    const s = getComputedStyle(el);
-    return {
-      color: s.color,
-      fontFamily: s.fontFamily,
-    };
-  });
-
-  // ======= 位置を検証（px単位） =======
-  expect(mainStyles.top).toBe(`${expectedTop}px`);
-  expect(mainStyles.left).toBe(`${expectedLeft}px`);
-
-  // ======= フォント・色を検証 =======
-  expect(mainStyles.fontFamily).toBe(expectedFont);
-  expect(subStyles.fontFamily).toBe(expectedFont);
-
-  expect(mainStyles.color).toBe(expectedColor);
-  expect(subStyles.color).toBe(expectedColor);
-}
-
 // 共通テストフロー
 async function setHeaderImageDetailSettings(page, config) {
   await test.step("カスタマイザー画面を開く", () => openCustomizer(page));
@@ -190,6 +135,81 @@ async function setHeaderImageDetailSettings(page, config) {
 
   await test.step("公開ボタンをクリックして変更を保存", () =>
     saveCustomizer(page));
+}
+
+/****検証用 ***********************************/
+/****検証用 ***********************************/
+/****検証用 ***********************************/
+/****検証用 ***********************************/
+/****検証用 ***********************************/
+/****検証用 ***********************************/
+/**
+ * フロントページでヘッダー画像上のテキスト設定を検証する
+ * @param {import('@playwright/test').Page} page - Playwrightのページオブジェクト
+ * @param {string} expectedMainText - メインテキストの期待値
+ * @param {string} expectedSubText - サブテキストの期待値
+ * @param {string} expectedTop - 期待される上位置(px)
+ * @param {string} expectedLeft - 期待される左位置(px)
+ * @param {string} expectedFont - 期待されるフォント指定
+ * @param {string} expectedColor - 期待される色(rgb形式)
+ */
+export async function verifyText_onFront(
+  page,
+  expectedMainText,
+  expectedSubText,
+  expectedTop,
+  expectedLeft,
+  expectedFont,
+  expectedColor
+) {
+  // ===== フロントページを開く =====
+  await page.goto(BASE_URL, { waitUntil: "domcontentloaded" });
+
+  // ===== 要素の存在を確認 =====
+  const mainTextEl = page.locator(".text-overlay1 h1");
+  const subTextEl = page.locator(".text-overlay2 h2");
+
+  await expect(mainTextEl).toBeVisible();
+  await expect(subTextEl).toBeVisible();
+
+  // ===== テキスト内容を確認 =====
+  await expect(mainTextEl).toHaveText(expectedMainText);
+  await expect(subTextEl).toHaveText(expectedSubText);
+
+  // ===== CSSスタイルを取得 =====
+  const mainStyles = await mainTextEl.evaluate((el) => {
+    const s = getComputedStyle(el);
+    return {
+      top: s.top,
+      left: s.left,
+      color: s.color,
+      fontFamily: s.fontFamily,
+      position: s.position,
+    };
+  });
+
+  // ===== 位置検証 =====
+  // 「position」がabsoluteまたはrelativeである前提
+  expect(["absolute", "relative"]).toContain(mainStyles.position);
+
+  // 数値として一致確認（px単位）
+  expect(mainStyles.top).toBe(`${expectedTop}px`);
+  expect(mainStyles.left).toBe(`${expectedLeft}px`);
+
+  // ===== 色検証（rgb形式） =====
+  expect(mainStyles.color).toBe(expectedColor);
+
+  // ===== フォント検証（完全一致） =====
+  expect(mainStyles.fontFamily).toBe(expectedFont);
+
+  // ===== サブテキストも色・フォントを確認 =====
+  const subStyles = await subTextEl.evaluate((el) => {
+    const s = getComputedStyle(el);
+    return { color: s.color, fontFamily: s.fontFamily };
+  });
+
+  expect(subStyles.color).toBe(expectedColor);
+  expect(subStyles.fontFamily).toBe(expectedFont);
 }
 
 // 初期設定テスト
