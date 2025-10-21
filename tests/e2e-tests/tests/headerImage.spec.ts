@@ -309,13 +309,13 @@ async function setHeaderImageText(page: Page) {
   await page.getByRole("button", { name: "2.静止画像設定" }).click();
 
   await page.getByLabel("ヘッダー画像メインテキスト").nth(0).fill("mainText");
-  //  await page.getByLabel("ヘッダー画像サブテキスト").nth(0).fill("subText");
-  // await expect(
-  //   page.getByLabel("スライダーテキスト（メイン）").nth(0)
-  // ).toHaveValue(mainText);
-  // await expect(
-  //   page.getByLabel("スライダーテキスト（サブ）").nth(0)
-  // ).toHaveValue(subText);
+  await page.getByLabel("ヘッダー画像サブテキスト").nth(0).fill("subText");
+  await expect(
+    page.getByLabel("ヘッダー画像メインテキスト").nth(0)
+  ).toHaveValue(mainText);
+  await expect(page.getByLabel("ヘッダー画像サブテキスト").nth(0)).toHaveValue(
+    subText
+  );
 }
 
 // 共通テストフロー
