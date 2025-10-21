@@ -303,18 +303,21 @@ async function verifyTextDetails(
 
 // ヘッダー設定をヘッダー画像に変更
 //@@@@@@
-async function setHeaderImageText(page: Page) {
+async function openHeaderImage(page: Page) {
   // ログイン処理はauth.setup.tsで完了済み
   await page.getByRole("button", { name: "ヘッダー設定" }).click();
   await page.getByRole("button", { name: "2.静止画像設定" }).click();
-
+}
+async function setHeaderImageText(page: Page) {
+  //ヘッダー画像設定をオープン
+  await openHeaderImage(page);
   await page.getByLabel("ヘッダー画像メインテキスト").nth(0).fill("mainText");
   await page.getByLabel("ヘッダー画像サブテキスト").nth(0).fill("subText");
   await expect(
     page.getByLabel("ヘッダー画像メインテキスト").nth(0)
-  ).toHaveValue(mainText);
+  ).toHaveValue("mainText");
   await expect(page.getByLabel("ヘッダー画像サブテキスト").nth(0)).toHaveValue(
-    subText
+    "subText"
   );
 }
 
