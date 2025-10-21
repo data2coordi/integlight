@@ -233,6 +233,7 @@ for (const siteType of SITE_TYPES) {
     page = await context.newPage();
 
     // サイトタイプを設定
+    await openCustomizer(page);
     await setSiteType(page, siteType);
 
     // ページを残しておくことで、以降の test で再利用可能
