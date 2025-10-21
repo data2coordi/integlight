@@ -54,7 +54,6 @@ const TEST_CONFIGS = {
     text_colorLavel: "スライダーテキストカラー",
     text_fontLavel: "スライダーテキストフォント",
     imagePartialName: "Firefly-203280",
-    imagePartialName_forPcHome2: "Firefly-51159-1.webp",
   },
 };
 
@@ -140,12 +139,12 @@ async function setHeaderImageDetailSettings(page, config, inisialSetting) {
   await test.step("ヘッダー有無を設定", () =>
     openHeaderSetting(page, "静止画像"));
 
-  await ensureCustomizerRoot(page);
-
   //ヘッダー画像テキストを設定
+  await ensureCustomizerRoot(page);
   await test.step("ヘッダー画像テキストを設定する", () =>
     setHeaderImageText(page));
 
+  //ヘッダー画像を設定
   await ensureCustomizerRoot(page);
   await test.step("ヘッダー画像を設定する", () => setHeaderImage(page));
 
@@ -178,7 +177,7 @@ test.describe("初期設定", () => {
   });
 });
 ////////////////////////////////////////////////////////
-//フェード&home1でカスタマイザーでのテキストの詳細設定を検証する s
+//フロントでテキストの詳細設定を検証する s
 ////////////////////////////////////////////////////////
 test.describe("テキスト設定の検証", () => {
   test.describe("SP環境", () => {
@@ -192,7 +191,7 @@ test.describe("テキスト設定の検証", () => {
       const config = TEST_CONFIGS.spCustomizerSetting;
 
       await test.step("フロントページで表示確認", () =>
-        verifyTextDetails(
+        verifyText_onFront(
           page,
           config.mainText,
           config.subText,
@@ -208,7 +207,7 @@ test.describe("テキスト設定の検証", () => {
     test("テキストの設定確認", async ({ page }) => {
       const config = TEST_CONFIGS.pcCustomizerSetting;
       await test.step("フロントページで表示確認", () =>
-        verifyTextDetails(
+        verifyText_onFront(
           page,
           config.mainText,
           config.subText,
@@ -221,80 +220,33 @@ test.describe("テキスト設定の検証", () => {
   });
 });
 ////////////////////////////////////////////////////////
-//フェード&home1でカスタマイザーでのテキストの詳細設定を検証する e
+//テキストの詳細設定を検証する e
 ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////
-//スライダー(フェード）の動作を検証する s
+//フロントで画像の詳細設定を検証する
 ////////////////////////////////////////////////////////
-test.describe("フェード", () => {
-  test.describe("home1", () => {
-    test.describe("SP環境", () => {
-      test.beforeAll(async ({ browser }) => {
-        const context = await browser.newContext();
-        const page = await context.newPage();
+test.describe("フロントで画像の詳細設定を検証する", () => {
+  test.describe("SP環境", () => {
+    test.beforeAll(async ({ browser }) => {});
 
-        await set_sliderEffect_and_siteType(page, "フェード", "エレガント");
-
-        await page.close();
-        await context.close();
-      });
-
-      test.use({
-        viewport: TEST_CONFIGS.spCustomizerSetting.viewport,
-        userAgent: TEST_CONFIGS.spCustomizerSetting.userAgent,
-        extraHTTPHeaders: { "sec-ch-ua-mobile": "?1" },
-      });
-
-      test("カスタマイザーで画像、テキストを選択...", async ({ page }) => {
-        const config = TEST_CONFIGS.spCustomizerSetting;
-        await test.step("フロントページで表示確認", () =>
-          verifySliderOnFade_Front(page, config.imagePartialName));
-      });
+    test.use({
+      viewport: TEST_CONFIGS.spCustomizerSetting.viewport,
+      userAgent: TEST_CONFIGS.spCustomizerSetting.userAgent,
+      extraHTTPHeaders: { "sec-ch-ua-mobile": "?1" },
     });
 
-    test.describe("PC環境", () => {
-      test("カスタマイザーで画像、テキストを選択...", async ({ page }) => {
-        const config = TEST_CONFIGS.pcCustomizerSetting;
-        await test.step("フロントページで表示確認", () =>
-          verifySliderOnFade_Front(page, config.imagePartialName));
-      });
+    test("カスタマイザーで画像、テキストを選択...", async ({ page }) => {
+      const config = TEST_CONFIGS.spCustomizerSetting;
+      await test.step("フロントページで表示確認", () =>
+        verifyImage_onFront(page, config.imagePartialName));
     });
   });
-  test.describe("home2", () => {
-    test.beforeAll(async ({ browser }) => {
-      const context = await browser.newContext();
-      const page = await context.newPage();
 
-      await set_sliderEffect_and_siteType(page, "フェード", "ポップ");
-
-      await page.close();
-      await context.close();
-    });
-
-    test.describe("SP環境", () => {
-      test.use({
-        viewport: TEST_CONFIGS.spCustomizerSetting.viewport,
-        userAgent: TEST_CONFIGS.spCustomizerSetting.userAgent,
-        extraHTTPHeaders: { "sec-ch-ua-mobile": "?1" },
-      });
-
-      test("フェード画像切り替え確認", async ({ page }) => {
-        const config = TEST_CONFIGS.spCustomizerSetting;
-        await test.step("トップページで表示確認", () =>
-          verifySliderOnFade_Home2Sp(page, config.imagePartialName));
-      });
-    });
-
-    test.describe("PC環境", () => {
-      test("フェード画像切り替え確認", async ({ page }) => {
-        const config = TEST_CONFIGS.pcCustomizerSetting;
-        await test.step("トップページで表示確認", async () => {
-          await verifySliderOnFade_Home2Pc(
-            page,
-            config.imagePartialName_forPcHome2
-          );
-        });
-      });
+  test.describe("PC環境", () => {
+    test("カスタマイザーで画像、テキストを選択...", async ({ page }) => {
+      const config = TEST_CONFIGS.pcCustomizerSetting;
+      await test.step("フロントページで表示確認", () =>
+        verifyImage_onFront(page, config.imagePartialName));
     });
   });
 });
