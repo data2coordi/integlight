@@ -13,10 +13,6 @@ const BASE_URL = "https://wpdev.auroralab-design.com";
 
 // テスト用設定一覧
 const TEST_CONFIGS = {
-  inisialCustomiserSetting: {
-    effectLabel: "フェード",
-    siteType: "エレガント",
-  },
   CustomizerSetting: {
     viewport: { width: 375, height: 800 },
     userAgent:
