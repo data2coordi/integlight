@@ -220,7 +220,12 @@ const SITE_TYPES = ["エレガント", "ポップ"];
 
 for (const siteType of SITE_TYPES) {
   console.log(`サイトタイプ: ${siteType} のテスト開始`);
-  await setSiteType(page, siteType);
+
+  test.beforeAll(async ({ page }) => {
+    // 各テスト開始前にサイトタイプを設定
+    await setSiteType(page, siteType);
+  });
+
   ////////////////////////////////////////////////////////
   //フロントでテキストの詳細設定を検証する s
   ////////////////////////////////////////////////////////
