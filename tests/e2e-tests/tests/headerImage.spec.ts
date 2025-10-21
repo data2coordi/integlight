@@ -211,9 +211,8 @@ async function verifyImage_onFront(page, imagePartialName: string) {
 test.describe("初期設定", () => {
   test("カスタマイザーでの設定確認", async ({ page }) => {
     console.log("カスタマイザーでの初期設定テスト開始");
-    const inisialSetting = TEST_CONFIGS.inisialCustomiserSetting;
-    const configSp = TEST_CONFIGS.CustomizerSetting;
-    await setHeaderImageDetailSettings(page, configSp, inisialSetting);
+    const config = TEST_CONFIGS.CustomizerSetting;
+    await setHeaderImageDetailSettings(page, config);
   });
 });
 
