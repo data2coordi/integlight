@@ -17,14 +17,16 @@ const TEST_CONFIGS = {
     effectLabel: "フェード",
     siteType: "エレガント",
   },
-  spCustomizerSetting: {
+  CustomizerSetting: {
     viewport: { width: 375, height: 800 },
     userAgent:
       "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1",
     mainText: "テストタイトル",
     subText: "これはPlaywrightテストによって入力された説明文です。",
-    textPositionTop: "10",
-    textPositionLeft: "15",
+    textPositionTop: "20",
+    textPositionLeft: "30",
+    textPositionTop_mobile: "5",
+    textPositionLeft_mobile: "10",
     textColor: "#ff0000",
     textFont: "yu_mincho",
     imagePartialName: "Firefly-260521",
