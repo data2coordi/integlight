@@ -294,8 +294,6 @@ for (const siteType of SITE_TYPES) {
 
   test.describe(`フロントでヘッダー画像の検証:${siteType}`, () => {
     test.describe("SP環境", () => {
-      test.beforeAll(async ({ browser }) => {});
-
       test.use({
         viewport: TEST_CONFIGS.CustomizerSetting.viewport,
         userAgent: TEST_CONFIGS.CustomizerSetting.userAgent,
