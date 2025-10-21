@@ -2,16 +2,6 @@
 
 class InteglightHeaderImageContent
 {
-	/**
-	 * 3スライド分の画像HTMLを返す（存在するスライドのみを配列に入れる）
-	 *
-	 * @return array<string> index 0..2 の可能性がある配列（存在するスライドのみ格納）
-	 */
-	/**
-	 * スライダー用の2行テキストを返す
-	 *
-	 * @return array<string> [line1, line2]
-	 */
 	public static function getTexts(): array
 	{
 		return [
@@ -22,12 +12,84 @@ class InteglightHeaderImageContent
 }
 
 
+/* スライダーに表示するテキストにカスタマイザーでユーザーがセットしたスタイルを適用するs */
+class integlight_customizer_headerImage_applyHeaderTextStyle
+{
+
+	/**
+	 * コンストラクタ
+	 */
+	public function __construct()
+	{
+		// wp_head に出力するためのフックを登録
+		add_action('wp_head', array($this, 'integlight_headerImage_applyTextStyles'));
+	}
+
+	/**
+	 * カスタマイザーの設定値に基づき、.slider .text-overlay のスタイルを出力
+	 */
+	public function integlight_headerImage_applyTextStyles()
+	{
+
+		// カスタマイザーから値を取得。未設定の場合はデフォルト値を使用
+		$color = get_theme_mod('integlight_header_image_text_color', '#ffffff'); // デフォルトは白
+		$left  = get_theme_mod('integlight_header_image_text_left', 30);      // デフォルト 30px
+		$top   = get_theme_mod('integlight_header_image_text_top', 300);       // デフォルト 300px
+		$left_mobile  = get_theme_mod('integlight_header_image_text_left_mobile', 20);      // デフォルト 30px
+		$top_mobile   = get_theme_mod('integlight_header_image_text_top_mobile', 200);       // デフォルト 300px
+		// フォント選択の取得（デフォルトは 'yu_gothic'）
+
+		$font = get_theme_mod('integlight_header_image_text_font', 'yu_gothic');
+		switch ($font) {
+			case 'yu_mincho':
+				// 游明朝の場合の font-family
+				$font_family = 'Yu Mincho, 游明朝体, serif';
+				break;
+			case 'yu_gothic':
+			default:
+				// 游ゴシックの場合の font-family
+				$font_family = 'Yu Gothic, 游ゴシック体, sans-serif';
+				break;
+		}
+
+
+?>
+		<style>
+			.header-image .text-overlay {
+				position: absolute;
+				left: <?php echo absint($left); ?>px;
+				top: <?php echo absint($top); ?>px;
+				color: <?php echo esc_attr($color); ?>;
+			}
+
+			.header-image .text-overlay h1 {
+				font-family: <?php echo esc_attr($font_family); ?>;
+			}
+
+			@media only screen and (max-width: 767px) {
+				.header-image .text-overlay {
+					position: absolute;
+					left: <?php echo absint($left_mobile); ?>px;
+					top: <?php echo absint($top_mobile); ?>px;
+				}
+			}
+		</style>
+<?php
+	}
+}
+/* スライダーに表示するテキストe */
+
+
+
+
+
 
 /*カスタマイザーで設定したスライダー機能をフロントでオープンしたときにロード*/
 add_action('wp', function () {
 	if (is_front_page()) {
 		if (InteglightHeaderSettings::getImage() === get_theme_mod('integlight_display_choice', 'none')) {
 			integlight_load_css_forCall::regHeaderImageCss();
+			new integlight_customizer_headerImage_applyHeaderTextStyle();
 		}
 	}
 });
