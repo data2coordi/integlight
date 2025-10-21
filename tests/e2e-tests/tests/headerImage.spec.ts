@@ -229,7 +229,7 @@ for (const siteType of SITE_TYPES) {
   ////////////////////////////////////////////////////////
   //フロントでテキストの詳細設定を検証する s
   ////////////////////////////////////////////////////////
-  test.describe("テキスト設定の検証", () => {
+  test.describe(`テキスト設定の検証:${siteType}`, () => {
     test.describe("SP環境", () => {
       test.use({
         viewport: TEST_CONFIGS.CustomizerSetting.viewport,
@@ -275,7 +275,7 @@ for (const siteType of SITE_TYPES) {
   //フロントで画像の詳細設定を検証する
   ////////////////////////////////////////////////////////
 
-  test.describe("フロントで画像の詳細設定を検証する", () => {
+  test.describe(`フロントでヘッダー画像の検証:${siteType}`, () => {
     test.describe("SP環境", () => {
       test.beforeAll(async ({ browser }) => {});
 
