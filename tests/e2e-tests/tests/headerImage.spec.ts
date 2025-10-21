@@ -236,8 +236,7 @@ for (const siteType of SITE_TYPES) {
     await test.step(" カスタマイザー画面を開く", () => openCustomizer(page));
     //logStepTime('openCustomizer_1');
     //timeStart('setSiteType');
-    await test.step(" ホームタイプの変更", () =>
-      setSiteType(page, config.siteType));
+    await test.step(" ホームタイプの変更", () => setSiteType(page, siteType));
     await test.step(" 変更を保存", () => saveCustomizer(page));
   });
 
