@@ -322,10 +322,23 @@ async function setHeaderImageText(page: Page) {
 
   // 「色を選択」ボタンをクリック → input が表示される
   await page.getByRole("button", { name: "色を選択" }).click();
-
   const input = page.getByLabel("ヘッダー画像テキストの色");
+  await input.fill("#4a35e8");
 
-  await input.fill("##ff0000");
+  // ラベル名から要素を取得
+  const label = page.locator("label", { hasText: text_fontLabel });
+
+  // ラベルの for 属性から select の id を取得
+  const selectId = await label.getAttribute("for");
+  if (!selectId)
+    throw new Error(
+      `ラベル "${text_fontLabel}" に対応する select が見つかりません`
+    );
+
+  // select を取得して選択
+  const select = page.locator(`#${selectId}`);
+  await select.waitFor({ state: "visible" });
+  await select.selectOption(textFont);
 }
 async function setHeaderImage(page: Page) {
   //ヘッダー画像設定をオープン
@@ -335,10 +348,14 @@ async function setHeaderImage(page: Page) {
 // 共通テストフロー
 async function setHeaderImageDetailSettings(page, config, inisialSetting) {
   await test.step("カスタマイザー画面を開く", () => openCustomizer(page));
+
+  //ヘッダーを静止画像に設定
   await test.step("ヘッダー有無を設定", () =>
     openHeaderSetting(page, "静止画像"));
 
   await ensureCustomizerRoot(page);
+
+  //ヘッダー画像テキストを設定
   await test.step("ヘッダー画像テキストを設定する", () =>
     setHeaderImageText(page));
 
