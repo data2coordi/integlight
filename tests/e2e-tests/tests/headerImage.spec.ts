@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, BrowserContext } from "@playwright/test";
 import {
   timeStart,
   logStepTime,
@@ -221,9 +221,25 @@ const SITE_TYPES = ["エレガント", "ポップ"];
 for (const siteType of SITE_TYPES) {
   console.log(`サイトタイプ: ${siteType} のテスト開始`);
 
-  test.beforeAll(async ({ page }) => {
-    // 各テスト開始前にサイトタイプを設定
+  let context: BrowserContext;
+  let page: Page;
+
+  test.beforeAll(async ({ browser }) => {
+    // 自前で context と page を作成
+    context = await browser.newContext({
+      viewport: { width: 1440, height: 900 },
+      userAgent: "",
+    });
+    page = await context.newPage();
+
+    // サイトタイプを設定
     await setSiteType(page, siteType);
+
+    // ページを残しておくことで、以降の test で再利用可能
+  });
+
+  test.afterAll(async () => {
+    await context.close(); // context を閉じる
   });
 
   ////////////////////////////////////////////////////////
