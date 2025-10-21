@@ -82,6 +82,14 @@ async function setHeaderImageText(page, config) {
   await page
     .getByLabel("ヘッダー画像テキストの左位置（px）")
     .fill(config.textPositionLeft);
+
+  // テキスト位置設定
+  await page
+    .getByLabel("ヘッダー画像テキストのモバイル上位置（px）")
+    .fill(config.textPositionTop_mobile);
+  await page
+    .getByLabel("ヘッダー画像テキストのモバイル左位置（px）")
+    .fill(config.textPositionLeft_mobile);
 }
 
 // ヘッダー画像設定
@@ -143,7 +151,7 @@ test.describe("テキスト設定の検証", () => {
     });
 
     test("テキストの設定確認", async ({ page }) => {
-      const config = TEST_CONFIGS.spCustomizerSetting;
+      const config = TEST_CONFIGS.CustomizerSetting;
 
       await test.step("フロントページで表示確認", () =>
         verifyText_onFront(
