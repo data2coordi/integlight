@@ -2,84 +2,6 @@
 
 
 
-// top header slider or Image select  _s ////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-/* スライダーに表示するテキストにカスタマイザーでユーザーがセットしたスタイルを適用するs */
-class integlight_customizer_slider_applyHeaderTextStyle
-{
-
-	/**
-	 * コンストラクタ
-	 */
-	public function __construct()
-	{
-		// wp_head に出力するためのフックを登録
-		add_action('wp_head', array($this, 'integlight_slider_applyTextStyles'));
-	}
-
-	/**
-	 * カスタマイザーの設定値に基づき、.slider .text-overlay のスタイルを出力
-	 */
-	public function integlight_slider_applyTextStyles()
-	{
-		// カスタマイザーから値を取得。未設定の場合はデフォルト値を使用
-		$color = get_theme_mod('integlight_slider_text_color', '#ffffff'); // デフォルトは白
-		$left  = get_theme_mod('integlight_slider_text_left', 30);      // デフォルト 30px
-		$top   = get_theme_mod('integlight_slider_text_top', 300);       // デフォルト 300px
-		$left_mobile  = get_theme_mod('integlight_slider_text_left_mobile', 20);      // デフォルト 30px
-		$top_mobile   = get_theme_mod('integlight_slider_text_top_mobile', 200);       // デフォルト 300px
-		// フォント選択の取得（デフォルトは 'yu_gothic'）
-
-		$font = get_theme_mod('integlight_slider_text_font', 'yu_gothic');
-		switch ($font) {
-			case 'yu_mincho':
-				// 游明朝の場合の font-family
-				$font_family = 'Yu Mincho, 游明朝体, serif';
-				break;
-			case 'yu_gothic':
-			default:
-				// 游ゴシックの場合の font-family
-				$font_family = 'Yu Gothic, 游ゴシック体, sans-serif';
-				break;
-		}
-
-
-?>
-		<style>
-			.slider .text-overlay {
-				position: absolute;
-				left: <?php echo absint($left); ?>px;
-				top: <?php echo absint($top); ?>px;
-				color: <?php echo esc_attr($color); ?>;
-			}
-
-			.slider .text-overlay h1 {
-				font-family: <?php echo esc_attr($font_family); ?>;
-			}
-
-			@media only screen and (max-width: 767px) {
-				.slider .text-overlay {
-					position: absolute;
-					left: <?php echo absint($left_mobile); ?>px;
-					top: <?php echo absint($top_mobile); ?>px;
-				}
-			}
-		</style>
-<?php
-	}
-}
-/* スライダーに表示するテキストe */
-
-
-
 class integlight_customizer_slider_creSection
 {
 
@@ -208,7 +130,6 @@ class integlight_customizer_slider
 
 		$creSliderSection = new integlight_customizer_slider_creSection();
 		new Integlight_Customizer_Slider_Setting_Manager($creSliderSection);
-		new integlight_customizer_slider_applyHeaderTextStyle();
 	}
 }
 
