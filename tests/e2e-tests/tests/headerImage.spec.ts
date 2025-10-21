@@ -183,6 +183,26 @@ async function verifyText_onFront(
   );
   expect(color).toBe(expectedColor);
 }
+
+async function verifyImage_onFront(page, imagePartialName: string) {
+  // フロントページを開く
+  await page.goto("/", { waitUntil: "networkidle" });
+
+  // 画像要素の取得
+  const imageLocator = page.locator(`.header-image img.topImage`);
+
+  // 表示確認
+  await expect(imageLocator).toBeVisible({ timeout: 10000 });
+
+  // src属性に指定した部分文字列が含まれていることを確認
+  const src = await imageLocator.getAttribute("src");
+  if (!src) {
+    throw new Error("画像の src 属性が取得できませんでした");
+  }
+
+  expect(src).toContain(imagePartialName);
+}
+
 /* TEST実行****************/
 /* TEST実行****************/
 /* TEST実行****************/
@@ -213,7 +233,7 @@ test.describe("テキスト設定の検証", () => {
     test("テキストの設定確認", async ({ page }) => {
       const config = TEST_CONFIGS.CustomizerSetting;
 
-      await test.step("フロントページで表示確認", () =>
+      await test.step("ホームで表示確認", () =>
         verifyText_onFront(
           page,
           config.mainText,
@@ -227,9 +247,9 @@ test.describe("テキスト設定の検証", () => {
   });
 
   test.describe("PC環境", () => {
-    test.only("テキストの設定確認", async ({ page }) => {
+    test("テキストの設定確認", async ({ page }) => {
       const config = TEST_CONFIGS.CustomizerSetting;
-      await test.step("フロントページで表示確認", () =>
+      await test.step("ホームで表示確認", () =>
         verifyText_onFront(
           page,
           config.mainText,
@@ -255,17 +275,17 @@ test.describe("フロントで画像の詳細設定を検証する", () => {
       extraHTTPHeaders: { "sec-ch-ua-mobile": "?1" },
     });
 
-    test("カスタマイザーで画像、テキストを選択...", async ({ page }) => {
+    test("ホームで画像の表示確認", async ({ page }) => {
       const config = TEST_CONFIGS.CustomizerSetting;
-      await test.step("フロントページで表示確認", () =>
+      await test.step("ホームで表示確認ステップ", () =>
         verifyImage_onFront(page, config.imagePartialName));
     });
   });
 
   test.describe("PC環境", () => {
-    test("カスタマイザーで画像、テキストを選択...", async ({ page }) => {
+    test("ホームで画像の表示確認", async ({ page }) => {
       const config = TEST_CONFIGS.CustomizerSetting;
-      await test.step("フロントページで表示確認", () =>
+      await test.step("ホームで表示確認ステップ", () =>
         verifyImage_onFront(page, config.imagePartialName));
     });
   });
