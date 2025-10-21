@@ -58,256 +58,13 @@ const TEST_CONFIGS = {
   },
 };
 
-// 共通関数
-async function setSliderInterval(page, interval) {
-  const intervalInput = page.getByLabel("変更時間間隔（秒）");
-  await intervalInput.fill("999999");
-  await intervalInput.fill(interval);
-}
-
-async function setSliderImage(
-  page: Page,
-  imagePartialName: string,
-  image_delBtnNo: number,
-  image_selBtnNo: number
-) {
-  // 既存画像を削除
-  await page.getByRole("button", { name: "削除" }).nth(image_delBtnNo).click();
-  await page
-    .getByRole("button", { name: "画像を選択" })
-    .nth(image_selBtnNo)
-    .click();
-
-  // モーダルが表示されるのを待つ
-  const mediaModal = page.locator(".attachments-browser");
-  await mediaModal.waitFor({ state: "visible", timeout: 15000 });
-
-  // 検索ボックスに入力して検索
-  const searchInput = page.locator("#media-search-input");
-  await searchInput.fill(imagePartialName);
-  await searchInput.press("Enter");
-
-  // 検索結果の最初の画像をクリック
-  const targetImage = page
-    .locator(`.attachments-browser img[src*="${imagePartialName}"]`)
-    .first();
-  await targetImage.waitFor({ state: "visible", timeout: 15000 });
-  await targetImage.click({ force: true });
-
-  // 選択ボタンを押してモーダルを閉じる
-  await page.locator(".media-button-select").click();
-  await page
-    .locator(".media-modal")
-    .waitFor({ state: "hidden", timeout: 15000 });
-}
-
-async function setSliderText(page, mainText, subText) {
-  await page.getByLabel("スライダーテキスト（メイン）").nth(0).fill(mainText);
-  await page.getByLabel("スライダーテキスト（サブ）").nth(0).fill(subText);
-  await expect(
-    page.getByLabel("スライダーテキスト（メイン）").nth(0)
-  ).toHaveValue(mainText);
-  await expect(
-    page.getByLabel("スライダーテキスト（サブ）").nth(0)
-  ).toHaveValue(subText);
-}
-
-async function setTextPosition(
-  page,
-  top,
-  left,
-  text_positionLavel_top,
-  text_positionLavel_left
-) {
-  await page.getByLabel(text_positionLavel_top).fill(top);
-  await page.getByLabel(text_positionLavel_left).fill(left);
-}
-
-async function setTextColor(page, textColor, text_colorLabel) {
-  // 「色を選択」ボタンをクリック → input が表示される
-  await page.getByRole("button", { name: "色を選択" }).click();
-
-  const input = page.getByLabel(text_colorLabel);
-
-  await input.fill(textColor);
-}
-
-async function setTextFont(page, textFont, text_fontLabel) {
-  // ラベル名から要素を取得
-  const label = page.locator("label", { hasText: text_fontLabel });
-
-  // ラベルの for 属性から select の id を取得
-  const selectId = await label.getAttribute("for");
-  if (!selectId)
-    throw new Error(
-      `ラベル "${text_fontLabel}" に対応する select が見つかりません`
-    );
-
-  // select を取得して選択
-  const select = page.locator(`#${selectId}`);
-  await select.waitFor({ state: "visible" });
-  await select.selectOption(textFont);
-}
-
-async function verifySliderOnFade_Home2Sp(page, imagePartialName) {
-  await page.goto("/", { waitUntil: "networkidle" });
-  await expect(page.locator(".slider.fade-effect")).toBeVisible();
-
-  // 画像が1秒で切り替わる
-  const getActiveImageSrc = async () =>
-    await page
-      .locator(".slider.fade-effect .slide.active img")
-      .getAttribute("src");
-  const firstSrc = await getActiveImageSrc();
-  await expect
-    .poll(
-      async () => {
-        const currentSrc = await getActiveImageSrc();
-        return currentSrc !== firstSrc;
-      },
-      {
-        timeout: 3000,
-        message: "スライド画像が切り替わりませんでした",
-      }
-    )
-    .toBe(true);
-
-  await expect(
-    page.locator(`.slider.fade-effect .slide img[src*="${imagePartialName}"]`)
-  ).toHaveCount(1);
-}
-
-async function verifySliderOnFade_Front(page, imagePartialName) {
-  await page.goto("/", { waitUntil: "networkidle" });
-  await expect(page.locator(".slider.fade-effect")).toBeVisible();
-
-  // 画像が1秒で切り替わる
-  const getActiveImageSrc = async () =>
-    await page
-      .locator(".slider.fade-effect .slide.active img")
-      .getAttribute("src");
-  const firstSrc = await getActiveImageSrc();
-  await expect
-    .poll(
-      async () => {
-        const currentSrc = await getActiveImageSrc();
-        return currentSrc !== firstSrc;
-      },
-      {
-        timeout: 3000,
-        message: "スライド画像が切り替わりませんでした",
-      }
-    )
-    .toBe(true);
-
-  await expect(
-    page.locator(`.slider.fade-effect .slide img[src*="${imagePartialName}"]`)
-  ).toHaveCount(1);
-}
-
-async function verifySliderOnFade_Home2Pc(page, imagePartialName) {
-  await page.goto("/", { waitUntil: "networkidle" });
-  await expect(page.locator(".slider.fade-effect")).toBeVisible();
-
-  await expect(
-    page.locator(`.slider.fade-effect .slide img[src*="${imagePartialName}"]`)
-  ).toHaveCount(1);
-
-  // 画像が1秒で切り替わる
-  const getActiveImageSrc = async () =>
-    await page
-      .locator(".slider.fade-effect .slide-center img")
-      .getAttribute("src");
-
-  const firstSrc = await getActiveImageSrc();
-
-  let secondSrc;
-  await expect
-    .poll(
-      async () => {
-        secondSrc = await getActiveImageSrc();
-        return secondSrc !== firstSrc;
-      },
-      {
-        timeout: 3000,
-        message: "スライド画像が切り替わりませんでした",
-      }
-    )
-    .toBe(true);
-
-  let thirdSrc;
-
-  await expect
-    .poll(
-      async () => {
-        thirdSrc = await getActiveImageSrc();
-        return thirdSrc !== secondSrc;
-      },
-      {
-        timeout: 3000,
-        message: "スライド画像が切り替わりませんでした",
-      }
-    )
-    .toBe(true);
-
-  //3つの画像が切り替わることを確認
-  expect(firstSrc).not.toBe(secondSrc);
-  expect(secondSrc).not.toBe(thirdSrc);
-  expect(thirdSrc).not.toBe(firstSrc);
-
-  //想定した画像が含まれることを確認
-  expect(firstSrc.includes(imagePartialName)).toBe(true);
-}
-
-async function verifyTextDetails(
-  page,
-  mainText,
-  subText,
-  top,
-  left,
-  font,
-  fontColor
-) {
-  await page.goto("/", { waitUntil: "networkidle" });
-  await expect(page.locator(".slider.fade-effect")).toBeVisible();
-
-  // テキストと位置確認
-  const mainTextLocator = page.locator(".slider .text-overlay h1");
-  const subTextLocator = page.locator(".slider .text-overlay h2");
-  await expect(mainTextLocator).toHaveText(mainText);
-  await expect(subTextLocator).toHaveText(subText);
-
-  const overlay = page.locator(".slider .text-overlay");
-  const position = await overlay.evaluate((el) => {
-    const style = window.getComputedStyle(el);
-    return {
-      top: style.top,
-      left: style.left,
-    };
-  });
-  expect(position.top).toBe(`${top}px`);
-  expect(position.left).toBe(`${left}px`);
-
-  // フォントファミリーチェック
-  const fontFamily = await mainTextLocator.evaluate(
-    (el) => getComputedStyle(el).fontFamily
-  );
-  expect(fontFamily).toContain(font); // 部分一致で確認することも可能
-
-  // カラー（文字色）チェック
-  const color = await mainTextLocator.evaluate(
-    (el) => getComputedStyle(el).color
-  );
-  expect(color).toBe(fontColor); // 文字色をrgbで指定
-}
-
 // ヘッダー設定をヘッダー画像に変更
-//@@@@@@
 async function openHeaderImage(page: Page) {
   // ログイン処理はauth.setup.tsで完了済み
   await page.getByRole("button", { name: "ヘッダー設定" }).click();
   await page.getByRole("button", { name: "2.静止画像設定" }).click();
 }
+
 async function setHeaderImageText(page: Page) {
   //ヘッダー画像設定をオープン
   await openHeaderImage(page);
@@ -333,7 +90,7 @@ async function setHeaderImageText(page: Page) {
   const selectId = await label.getAttribute("for");
   if (!selectId)
     throw new Error(
-      `ラベル "${text_fontLabel}" に対応する select が見つかりません`
+      `ラベル "ヘッダー画像テキストのフォント" に対応する select が見つかりません`
     );
 
   // select を取得して選択
@@ -342,9 +99,36 @@ async function setHeaderImageText(page: Page) {
   await select.selectOption("yu_mincho");
 }
 
+//@@@@@@
 async function setHeaderImage(page: Page) {
   //ヘッダー画像設定をオープン
   await openHeaderImage(page);
+
+  // 既存画像を削除
+  await page.getByRole("button", { name: "削除" }).nth(0).click();
+  await page.getByRole("button", { name: "画像を選択" }).nth(0).click();
+
+  // モーダルが表示されるのを待つ
+  const mediaModal = page.locator(".attachments-browser");
+  await mediaModal.waitFor({ state: "visible", timeout: 15000 });
+
+  // 検索ボックスに入力して検索
+  const searchInput = page.locator("#media-search-input");
+  await searchInput.fill("Firefly-260521");
+  await searchInput.press("Enter");
+
+  // 検索結果の最初の画像をクリック
+  const targetImage = page
+    .locator(`.attachments-browser img[src*="Firefly-260521"]`)
+    .first();
+  await targetImage.waitFor({ state: "visible", timeout: 15000 });
+  await targetImage.click({ force: true });
+
+  // 選択ボタンを押してモーダルを閉じる
+  await page.locator(".media-button-select").click();
+  await page
+    .locator(".media-modal")
+    .waitFor({ state: "hidden", timeout: 15000 });
 }
 
 // 共通テストフロー
@@ -361,7 +145,7 @@ async function setHeaderImageDetailSettings(page, config, inisialSetting) {
   await test.step("ヘッダー画像テキストを設定する", () =>
     setHeaderImageText(page));
 
-  //await test.step("ヘッダー画像を設定する", () => setHeaderImage(page));
+  await test.step("ヘッダー画像を設定する", () => setHeaderImage(page));
 
   // await test.step("3. スライダーの変更間隔を設定", () =>
   //   setSliderInterval(page, config.interval));
