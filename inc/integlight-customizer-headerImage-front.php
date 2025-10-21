@@ -22,20 +22,12 @@ class InteglightHeaderImageContent
 }
 
 
-class integlight_customizer_header_image_outerAssets
-{
-	public function __construct()
-	{
-		integlight_load_css_forCall::regHeaderImageCss();
-	}
-}
-
 
 /*カスタマイザーで設定したスライダー機能をフロントでオープンしたときにロード*/
 add_action('wp', function () {
 	if (is_front_page()) {
 		if (InteglightHeaderSettings::getImage() === get_theme_mod('integlight_display_choice', 'none')) {
-			new integlight_customizer_header_image_outerAssets();
+			integlight_load_css_forCall::regHeaderImageCss();
 		}
 	}
 });
