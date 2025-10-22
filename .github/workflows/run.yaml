@@ -1,17 +1,16 @@
 # Release zip
-name: Release 
+name: Release
 
 on:
   push:
-
+    branches:
+      - master # master にマージされたときに実行
 jobs:
   upload-release-asset:
-    if: contains(github.event.head_commit.message, 'douki')
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
-
 
       - name: build
         run: |
@@ -39,7 +38,6 @@ jobs:
               "integlight.zip" \
               "*.log"
 
-
       - name: リリースを作成する
         uses: actions/create-release@v1
         id: create-release
@@ -50,7 +48,6 @@ jobs:
           release_name: Release ${{ github.ref }}
           body: release body
 
- 
       - name: リリースアセットをアップロードする
         uses: actions/upload-release-asset@v1.0.2
         env:
@@ -60,5 +57,3 @@ jobs:
           asset_name: integlight.zip
           asset_path: ./integlight.zip
           asset_content_type: application/zip
-
-
