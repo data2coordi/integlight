@@ -391,7 +391,7 @@ async function set_sliderEffect_and_siteType(page, useEffect, homeType) {
 test.describe("初期設定", () => {
   test("カスタマイザーでのテキストの設定確認", async ({ page }) => {
     console.log(
-      "===== START: 初期設定 - カスタマイザーでのテキストの設定確認 ====="
+      "[10_slider.spec.ts] ===== START: 初期設定 - カスタマイザーでのテキストの設定確認 ====="
     );
     const inisialSetting = TEST_CONFIGS.inisialCustomiserSetting;
     const configSp = TEST_CONFIGS.spCustomizerSetting;
@@ -413,7 +413,7 @@ test.describe("初期設定とテキスト設定の検証", () => {
 
     test("カスタマイザーでのテキストの設定確認", async ({ page }) => {
       console.log(
-        "===== START: 初期設定とテキスト設定の検証 (SP) - カスタマイザーでのテキストの設定確認 ====="
+        "[10_slider.spec.ts] ===== START: 初期設定とテキスト設定の検証 (SP) - カスタマイザーでのテキストの設定確認 ====="
       );
       const config = TEST_CONFIGS.spCustomizerSetting;
 
@@ -433,7 +433,7 @@ test.describe("初期設定とテキスト設定の検証", () => {
   test.describe("PC環境", () => {
     test("カスタマイザーでのテキストの設定確認", async ({ page }) => {
       console.log(
-        "===== START: 初期設定とテキスト設定の検証 (PC) - カスタマイザーでのテキストの設定確認 ====="
+        "[10_slider.spec.ts] ===== START: 初期設定とテキスト設定の検証 (PC) - カスタマイザーでのテキストの設定確認 ====="
       );
       const config = TEST_CONFIGS.pcCustomizerSetting;
       await test.step("フロントページで表示確認", () =>
@@ -476,7 +476,7 @@ test.describe("フェード", () => {
 
       test("カスタマイザーで画像、テキストを選択...", async ({ page }) => {
         console.log(
-          "===== START: フェード > home1 > SP環境 - カスタマイザーで画像、テキストを選択... ====="
+          "[10_slider.spec.ts] ===== START: フェード > home1 > SP環境 - カスタマイザーで画像、テキストを選択... ====="
         );
         const config = TEST_CONFIGS.spCustomizerSetting;
         await test.step("フロントページで表示確認", () =>
@@ -487,7 +487,7 @@ test.describe("フェード", () => {
     test.describe("PC環境", () => {
       test("カスタマイザーで画像、テキストを選択...", async ({ page }) => {
         console.log(
-          "===== START: フェード > home1 > PC環境 - カスタマイザーで画像、テキストを選択... ====="
+          "[10_slider.spec.ts] ===== START: フェード > home1 > PC環境 - カスタマイザーで画像、テキストを選択... ====="
         );
         const config = TEST_CONFIGS.pcCustomizerSetting;
         await test.step("フロントページで表示確認", () =>
@@ -515,7 +515,7 @@ test.describe("フェード", () => {
 
       test("フェード画像切り替え確認", async ({ page }) => {
         console.log(
-          "===== START: フェード > home2 > SP環境 - フェード画像切り替え確認 ====="
+          "[10_slider.spec.ts] ===== START: フェード > home2 > SP環境 - フェード画像切り替え確認 ====="
         );
         const config = TEST_CONFIGS.spCustomizerSetting;
         await test.step("トップページで表示確認", () =>
@@ -526,7 +526,7 @@ test.describe("フェード", () => {
     test.describe("PC環境", () => {
       test("フェード画像切り替え確認", async ({ page }) => {
         console.log(
-          "===== START: フェード > home2 > PC環境 - フェード画像切り替え確認 ====="
+          "[10_slider.spec.ts] ===== START: フェード > home2 > PC環境 - フェード画像切り替え確認 ====="
         );
         const config = TEST_CONFIGS.pcCustomizerSetting;
         await test.step("トップページで表示確認", async () => {
@@ -564,7 +564,7 @@ test.describe("スライド", () => {
 
       test("スライド画像切り替え確認", async ({ page }) => {
         console.log(
-          "===== START: スライド > home1 > SP環境 - スライド画像切り替え確認 ====="
+          "[10_slider.spec.ts] ===== START: スライド > home1 > SP環境 - スライド画像切り替え確認 ====="
         );
         const config = TEST_CONFIGS.spCustomizerSetting;
         await test.step("トップページで表示確認", () =>
@@ -575,7 +575,7 @@ test.describe("スライド", () => {
     test.describe("PC環境", () => {
       test("スライド画像切り替え確認", async ({ page }) => {
         console.log(
-          "===== START: スライド > home1 > PC環境 - スライド画像切り替え確認 ====="
+          "[10_slider.spec.ts] ===== START: スライド > home1 > PC環境 - スライド画像切り替え確認 ====="
         );
         const config = TEST_CONFIGS.pcCustomizerSetting;
         await test.step("トップページで表示確認", async () => {
@@ -604,7 +604,7 @@ test.describe("スライド", () => {
 
       test("スライド画像切り替え確認", async ({ page }) => {
         console.log(
-          "===== START: スライド > home2 > SP環境 - スライド画像切り替え確認 ====="
+          "[10_slider.spec.ts] ===== START: スライド > home2 > SP環境 - スライド画像切り替え確認 ====="
         );
         const config = TEST_CONFIGS.spCustomizerSetting;
         await test.step("トップページで表示確認", () =>
@@ -616,7 +616,7 @@ test.describe("スライド", () => {
     test.describe("PC環境", () => {
       test("スライド画像切り替え確認", async ({ page }) => {
         console.log(
-          "===== START: スライド > home2 > PC環境 - スライド画像切り替え確認 ====="
+          "[10_slider.spec.ts] ===== START: スライド > home2 > PC環境 - スライド画像切り替え確認 ====="
         );
         const config = TEST_CONFIGS.pcCustomizerSetting;
         await test.step("トップページで表示確認", async () => {

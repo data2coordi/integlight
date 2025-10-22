@@ -42,7 +42,7 @@ const CUSTOMIZER_INPUTS = [
 test.describe("カスタマイザー全パターンまとめテスト", () => {
   test("E2E: 4パターン入力・保存・フロント確認・復元確認", async ({ page }) => {
     console.log(
-      "===== START: カスタマイザー全パターンまとめテスト - E2E: 4パターン入力・保存・フロント確認・復元確認 ====="
+      "[03_customiser.spec.ts] ===== START: カスタマイザー全パターンまとめテスト - E2E: 4パターン入力・保存・フロント確認・復元確認 ====="
     );
     // ---------------------------
     // 1. カスタマイザーを1回だけ開き、4パターン入力
@@ -114,7 +114,7 @@ test.describe("カスタマイザー全パターンまとめテスト", () => {
   });
   test("E2E: GA 高速化オプション OFF でフロント確認", async ({ page }) => {
     console.log(
-      "===== START: カスタマイザー全パターンまとめテスト - E2E: GA 高速化オプション OFF でフロント確認 ====="
+      "[03_customiser.spec.ts] ===== START: カスタマイザー全パターンまとめテスト - E2E: GA 高速化オプション OFF でフロント確認 ====="
     );
     // GA入力
     await openCustomizer(page);

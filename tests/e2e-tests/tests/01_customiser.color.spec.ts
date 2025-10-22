@@ -101,7 +101,7 @@ for (const config of TEST_SCENARIOS) {
 
     test(`CSSアセットが正しく読み込まれている: ${config.id}`, async () => {
       console.log(
-        `===== START: ${config.name} - CSSアセットが正しく読み込まれている: ${config.id} =====`
+        `[01_customiser.color.spec.ts] ===== START: ${config.name} - CSSアセットが正しく読み込まれている: ${config.id} =====`
       );
       await page.goto(config.url, { waitUntil: "networkidle" });
       await verifyCssAssets(page, config.expectedFrontCss);

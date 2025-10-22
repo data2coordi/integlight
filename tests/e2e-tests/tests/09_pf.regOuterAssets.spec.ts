@@ -236,7 +236,7 @@ for (const config of TEST_SCENARIOS) {
 
     test(`CSSアセットが正しく読み込まれている: ${config.id}`, async () => {
       console.log(
-        `===== START: ${config.name} - CSSアセットが正しく読み込まれている: ${config.id} =====`
+        `[09_pf.regOuterAssets.spec.ts] ===== START: ${config.name} - CSSアセットが正しく読み込まれている: ${config.id} =====`
       );
       await page.goto(config.url, { waitUntil: "networkidle" });
       await verifyCssAssets(
@@ -273,7 +273,7 @@ test.describe("JSファイルが正しく読み込まれているか", () => {
 
   test("各JSファイルが<body>内にあり、defer属性があることを確認", async () => {
     console.log(
-      "===== START: JSファイルが正しく読み込まれているか - 各JSファイルが<body>内にあり、defer属性があることを確認 ====="
+      "[09_pf.regOuterAssets.spec.ts] ===== START: JSファイルが正しく読み込まれているか - 各JSファイルが<body>内にあり、defer属性があることを確認 ====="
     );
     // scriptタグの情報をブラウザ内で取得
     const scripts = await page.evaluate(() => {

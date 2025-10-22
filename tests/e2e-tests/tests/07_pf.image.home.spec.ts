@@ -227,7 +227,7 @@ for (const [headerGroup, scenarios] of Object.entries(TEST_SCENARIOS)) {
 
         test("画像ロード属性を確認", async () => {
           console.log(
-            `===== START: ${headerGroup} - ${testCaseName} (${deviceDesc}) - 画像ロード属性を確認 =====`
+            `[07_pf.image.home.spec.ts] ===== START: ${headerGroup} - ${testCaseName} (${deviceDesc}) - 画像ロード属性を確認 =====`
           );
           if (config.headCt > 0 && config.headSelector) {
             //console.log(`@@@@@@@@@@ヘッダー画像のチェック: ${config.headSelector}`);

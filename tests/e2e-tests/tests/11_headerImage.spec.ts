@@ -210,7 +210,9 @@ async function verifyImage_onFront(page, imagePartialName: string) {
 ////////////////////////////////////////////////////////
 test.describe("初期設定", () => {
   test("カスタマイザーでの設定確認", async ({ page }) => {
-    console.log("===== START: 初期設定 - カスタマイザーでの設定確認 =====");
+    console.log(
+      "[11_headerImage.spec.ts] ===== START: 初期設定 - カスタマイザーでの設定確認 ====="
+    );
     const config = TEST_CONFIGS.CustomizerSetting;
     await setHeaderImageDetailSettings(page, config);
   });
@@ -256,7 +258,7 @@ for (const siteType of SITE_TYPES) {
 
         test("テキストの設定確認", async ({ page }) => {
           console.log(
-            `===== START: サイトタイプ: ${siteType} > テキスト設定の検証:${siteType} > SP環境 - テキストの設定確認 =====`
+            `[11_headerImage.spec.ts] ===== START: サイトタイプ: ${siteType} > テキスト設定の検証:${siteType} > SP環境 - テキストの設定確認 =====`
           );
           const config = TEST_CONFIGS.CustomizerSetting;
 
@@ -276,7 +278,7 @@ for (const siteType of SITE_TYPES) {
       test.describe("PC環境", () => {
         test("テキストの設定確認", async ({ page }) => {
           console.log(
-            `===== START: サイトタイプ: ${siteType} > テキスト設定の検証:${siteType} > PC環境 - テキストの設定確認 =====`
+            `[11_headerImage.spec.ts] ===== START: サイトタイプ: ${siteType} > テキスト設定の検証:${siteType} > PC環境 - テキストの設定確認 =====`
           );
           const config = TEST_CONFIGS.CustomizerSetting;
           await test.step("ホームで表示確認", () =>
@@ -306,7 +308,7 @@ for (const siteType of SITE_TYPES) {
 
         test("ホームで画像の表示確認", async ({ page }) => {
           console.log(
-            `===== START: サイトタイプ: ${siteType} > フロントでヘッダー画像の検証:${siteType} > SP環境 - ホームで画像の表示確認 =====`
+            `[11_headerImage.spec.ts] ===== START: サイトタイプ: ${siteType} > フロントでヘッダー画像の検証:${siteType} > SP環境 - ホームで画像の表示確認 =====`
           );
           const config = TEST_CONFIGS.CustomizerSetting;
           await test.step("ホームで表示確認ステップ", () =>
@@ -317,7 +319,7 @@ for (const siteType of SITE_TYPES) {
       test.describe("PC環境", () => {
         test("ホームで画像の表示確認", async ({ page }) => {
           console.log(
-            `===== START: サイトタイプ: ${siteType} > フロントでヘッダー画像の検証:${siteType} > PC環境 - ホームで画像の表示確認 =====`
+            `[11_headerImage.spec.ts] ===== START: サイトタイプ: ${siteType} > フロントでヘッダー画像の検証:${siteType} > PC環境 - ホームで画像の表示確認 =====`
           );
           const config = TEST_CONFIGS.CustomizerSetting;
           await test.step("ホームで表示確認ステップ", () =>

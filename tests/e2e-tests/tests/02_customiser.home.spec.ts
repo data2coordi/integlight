@@ -128,7 +128,7 @@ test.describe("e2e-home1-PC:", () => {
   // テスト本体
   test("ナビゲーションで次のページに遷移できること", async ({}) => {
     console.log(
-      "===== START: e2e-home1-PC - ナビゲーションで次のページに遷移できること ====="
+      "[02_customiser.home.spec.ts] ===== START: e2e-home1-PC - ナビゲーションで次のページに遷移できること ====="
     );
     // 既存の呼び出し部分はこう書き換え可能
     await test.step("4. 新着情報の確認", () =>
@@ -145,7 +145,7 @@ test.describe("e2e-home1-PC:", () => {
   // テスト本体
   test("カテゴリーナビゲーションでカテゴリーページに遷移できること", async ({}) => {
     console.log(
-      "===== START: e2e-home1-PC - カテゴリーナビゲーションでカテゴリーページに遷移できること ====="
+      "[02_customiser.home.spec.ts] ===== START: e2e-home1-PC - カテゴリーナビゲーションでカテゴリーページに遷移できること ====="
     );
     // 既存の呼び出し部分はこう書き換え可能
     await test.step("4. カテゴリーナビゲーションの確認", () =>
@@ -164,7 +164,7 @@ test.describe("e2e-home2-PC:", () => {
   // テスト本体
   test("もっとみるボタンでカードを取得できること", async ({ page }) => {
     console.log(
-      "===== START: e2e-home2-PC - もっとみるボタンでカードを取得できること ====="
+      "[02_customiser.home.spec.ts] ===== START: e2e-home2-PC - もっとみるボタンでカードを取得できること ====="
     );
     await test.step("2. カスタマイザー画面を開く", () => openCustomizer(page));
     await test.step("3. ホームタイプ設定を開く", () =>

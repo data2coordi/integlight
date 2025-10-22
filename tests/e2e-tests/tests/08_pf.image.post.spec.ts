@@ -145,7 +145,7 @@ for (const [deviceLabel, deviceConfig] of Object.entries(DEVICES)) {
     for (const scenario of SCENARIOS) {
       test(`${scenario.url} 画像属性チェック`, async ({ browser }) => {
         console.log(
-          `===== START: ${deviceLabel}環境 - ${scenario.url} 画像属性チェック =====`
+          `[08_pf.image.post.spec.ts] ===== START: ${deviceLabel}環境 - ${scenario.url} 画像属性チェック =====`
         );
         const context = await browser.newContext({
           viewport: deviceConfig.viewport,

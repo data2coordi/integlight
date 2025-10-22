@@ -46,7 +46,7 @@ test.describe("ORP :", () => {
   // -------------------------------------------
   for (const p of pages) {
     test(p.name, async ({ page }) => {
-      console.log(`===== START: ORP - ${p.name} =====`);
+      console.log(`[05_htmlCode.spec.ts] ===== START: ORP - ${p.name} =====`);
       await page.goto(p.path);
       await checkOGPMetaTags(page);
     });
