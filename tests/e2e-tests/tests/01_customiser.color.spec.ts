@@ -10,13 +10,11 @@ import {
 // 共通関数（カスタマイザーでホームページ表示を設定する）
 async function setColorPattern(page: Page, colorType: string) {
   // 実装例：カスタマイザー画面で選択肢を切り替え
-  console.log(`Setting color pattern  to 開始: ${colorType}`);
   await test.step(" カスタマイザー画面を開く", () => openCustomizer(page));
 
   await test.step("カラー設定の変更", () => setColorSetting(page, colorType));
 
   await test.step("変更を保存", () => saveCustomizer(page));
-  console.log(`Setting color pattern to 完了: ${colorType}`);
 }
 
 // CSS 検証関数
@@ -33,8 +31,6 @@ export async function verifyCssAssets(page: Page, expectedFrontCss: string[]) {
     }
     return result;
   });
-
-  console.log("読み込まれた CSS:", hrefs);
 
   // 期待配列に存在する CSS だけ結果配列に追加
   for (const expected of expectedFrontCss) {
@@ -104,6 +100,9 @@ for (const config of TEST_SCENARIOS) {
     });
 
     test(`CSSアセットが正しく読み込まれている: ${config.id}`, async () => {
+      console.log(
+        `===== START: ${config.name} - CSSアセットが正しく読み込まれている: ${config.id} =====`
+      );
       await page.goto(config.url, { waitUntil: "networkidle" });
       await verifyCssAssets(page, config.expectedFrontCss);
     });

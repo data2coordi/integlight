@@ -12,7 +12,6 @@ import {
 // 共通関数（カスタマイザーでホームページ表示を設定する）a
 async function setHomeDisplayType(page: Page, frontType: string) {
   // 実装例：カスタマイザー画面で選択肢を切り替え
-  console.log(`Setting home display type to 開始: ${frontType}`);
   await test.step(" カスタマイザー画面を開く", () => openCustomizer(page));
 
   await test.step("フロントページのタイプ(最新の投稿or固定ページ）を設定", () =>
@@ -23,7 +22,6 @@ async function setHomeDisplayType(page: Page, frontType: string) {
   await test.step("ホームタイプの変更", () => setSiteType(page, "ポップ"));
 
   await test.step("変更を保存", () => saveCustomizer(page));
-  console.log(`Setting home display type to 完了: `);
 }
 
 // CSS 検証関数
@@ -46,7 +44,7 @@ export async function verifyCssAssets(
     return result;
   });
 
-  console.log("読み込まれた CSS:", hrefs);
+  //console.log("読み込まれた CSS:", hrefs);
 
   // 期待配列に存在する CSS だけ結果配列に追加
   let foundCss: string[] = [];
@@ -78,7 +76,7 @@ export async function verifyCssAssets(
 
   // 遅延 CSS の確認
   for (const deferred of expectedDeferredCss) {
-    console.log("Checking deferred CSS:", deferred);
+    //console.log("Checking deferred CSS:", deferred);
     const deferredCount = await page
       .locator(`link[href*="${deferred}"][onload*="media='all'"]`)
       .count();
@@ -237,6 +235,9 @@ for (const config of TEST_SCENARIOS) {
     });
 
     test(`CSSアセットが正しく読み込まれている: ${config.id}`, async () => {
+      console.log(
+        `===== START: ${config.name} - CSSアセットが正しく読み込まれている: ${config.id} =====`
+      );
       await page.goto(config.url, { waitUntil: "networkidle" });
       await verifyCssAssets(
         page,
@@ -271,6 +272,9 @@ test.describe("JSファイルが正しく読み込まれているか", () => {
   });
 
   test("各JSファイルが<body>内にあり、defer属性があることを確認", async () => {
+    console.log(
+      "===== START: JSファイルが正しく読み込まれているか - 各JSファイルが<body>内にあり、defer属性があることを確認 ====="
+    );
     // scriptタグの情報をブラウザ内で取得
     const scripts = await page.evaluate(() => {
       const allScripts = document.querySelectorAll("script[src]");
@@ -288,7 +292,7 @@ test.describe("JSファイルが正しく読み込まれているか", () => {
       return result;
     });
 
-    console.log("検出されたスクリプト一覧:", scripts);
+    //console.log("検出されたスクリプト一覧:", scripts);
 
     // 1つずつ確認
     for (const fileName of targetJsFiles) {

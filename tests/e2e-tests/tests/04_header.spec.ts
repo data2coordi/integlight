@@ -94,6 +94,9 @@ for (const [headerGroup, config] of Object.entries(TEST_SCENARIOS)) {
     });
 
     test("ヘッダーの設定の妥当性を確認", async () => {
+      console.log(
+        `===== START: ${headerGroup} - ヘッダーの設定の妥当性を確認 =====`
+      );
       await runCustomizerFlow(page, config);
       await verifyHeaderContents(page, config.selector);
     });
