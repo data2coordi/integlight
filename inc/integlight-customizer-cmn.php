@@ -1,4 +1,6 @@
 <?php
+
+
 class Integlight_Customizer_Panel_Description_AlwaysVisible
 {
 	/**
@@ -304,8 +306,30 @@ class Integlight_Customizer_Section_Description
 }
 
 
+// パネル上のセクションボタンに説明追加クラス _e ////////////////////////////////////////////////////////////////////////////////
 
 
+// パネル上の説明を修正 _s ////////////////////////////////////////////////////////////////////////////////
+// コアの日本語訳が酷いため修正
+function integlight_customize_home_description($wp_customize)
+{
+	$section = $wp_customize->get_section('static_front_page');
+	if ($section) {
+		$section->description = __(
+			'You can choose what to display on your homepage. '
+				. 'If you select (Your latest posts), the newest articles will appear in order like a blog. '
+				. 'If you select (A static page), a fixed page will be shown instead. '
+				. 'To use a static homepage, please create two pages in advance: one for Home and one for Posts page.',
+			'integlight'
+		);
+	}
+}
+add_action('customize_register', 'integlight_customize_home_description', 20);
+// パネル上の説明を修正 _e ////////////////////////////////////////////////////////////////////////////////
+
+
+
+// ヘッダースライダー、ヘッダー画像の設定で使うヘルパー s ///////////////////////////////////////////////////////////////////////////////
 abstract class Integlight_Customizer_Setting_Helper
 {
 	protected $pWp_customize;
@@ -434,3 +458,5 @@ abstract class Integlight_Customizer_Setting_Helper
 		]);
 	}
 }
+
+// ヘッダースライダー、ヘッダー画像の設定で使うヘルパー e /////////////// 
