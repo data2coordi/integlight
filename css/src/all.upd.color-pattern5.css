@@ -95,8 +95,8 @@ a:focus-visible,
 } */
 
 /* homeのカテゴリーの色 */
-.blog .category-link,
-.home1 .category-link {
+body .blog .category-link,
+body .home1 .category-link {
   background: #f3dede;
 }
 
