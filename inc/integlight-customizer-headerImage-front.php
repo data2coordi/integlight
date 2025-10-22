@@ -33,10 +33,10 @@ class integlight_customizer_headerImage_applyHeaderTextStyle
 
 		// カスタマイザーから値を取得。未設定の場合はデフォルト値を使用
 		$color = get_theme_mod('integlight_header_image_text_color', '#ffffff'); // デフォルトは白
-		$left  = get_theme_mod('integlight_header_image_text_left', 30);      // デフォルト 30px
-		$top   = get_theme_mod('integlight_header_image_text_top', 300);       // デフォルト 300px
-		$left_mobile  = get_theme_mod('integlight_header_image_text_left_mobile', 20);      // デフォルト 30px
-		$top_mobile   = get_theme_mod('integlight_header_image_text_top_mobile', 200);       // デフォルト 300px
+		$left  = get_theme_mod('integlight_header_image_text_left', 1);      // デフォルト 30px
+		$top   = get_theme_mod('integlight_header_image_text_top', 1);       // デフォルト 300px
+		$left_mobile  = get_theme_mod('integlight_header_image_text_left_mobile', 1);      // デフォルト 30px
+		$top_mobile   = get_theme_mod('integlight_header_image_text_top_mobile', 1);       // デフォルト 300px
 		// フォント選択の取得（デフォルトは 'yu_gothic'）
 
 		$font = get_theme_mod('integlight_header_image_text_font', 'yu_gothic');
