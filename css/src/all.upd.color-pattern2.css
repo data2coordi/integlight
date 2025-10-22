@@ -108,7 +108,7 @@ a:focus-visible,
 
 /* homeのカテゴリーの色 */
 body .blog .category-link,
-body .home .category-link {
+body .home1 .category-link {
   background: #dcdcfb;
 }
 
