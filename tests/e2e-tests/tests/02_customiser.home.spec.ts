@@ -115,8 +115,6 @@ test.describe("e2e-home1-PC:", () => {
   test.beforeAll(async ({ browser }) => {
     context = await browser.newContext();
     page = await context.newPage();
-  // 各テストの前にサイトタイプを設定
-  test.beforeEach(async ({ page }) => {
     await test.step("1. カスタマイザー画面を開く", () => openCustomizer(page));
     await test.step("2. ホームタイプ設定を開く", () =>
       setSiteType(page, "エレガント"));
@@ -129,7 +127,6 @@ test.describe("e2e-home1-PC:", () => {
   });
   // テスト本体
   test("ナビゲーションで次のページに遷移できること", async ({}) => {
-  test("ナビゲーションで次のページに遷移できること", async ({ page }) => {
     console.log(
       "===== START: e2e-home1-PC - ナビゲーションで次のページに遷移できること ====="
     );
@@ -147,7 +144,6 @@ test.describe("e2e-home1-PC:", () => {
 
   // テスト本体
   test("カテゴリーナビゲーションでカテゴリーページに遷移できること", async ({}) => {
-  test("カテゴリーナビゲーションでカテゴリーページに遷移できること", async ({ page }) => {
     console.log(
       "===== START: e2e-home1-PC - カテゴリーナビゲーションでカテゴリーページに遷移できること ====="
     );
