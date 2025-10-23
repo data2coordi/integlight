@@ -79,7 +79,7 @@ class InteglightPreDetermineCssAssets
 
         // --- 3. 登録処理 ---
         // スタイルリストを設定（追記可能）
-        InteglightFrontendStyles::add_styles(self::$styles);
+        Integlight_outerAssets_css_frontend::add_styles(self::$styles);
 
         $excluded_key = 'dummy';
         // $styles から $excluded_key を除外してコピー
@@ -87,10 +87,10 @@ class InteglightPreDetermineCssAssets
             return $key !== $excluded_key;
         }, ARRAY_FILTER_USE_KEY);
 
-        InteglightEditorStyles::add_styles($EditorStyles);
+        Integlight_outerAssets_css_editor::add_styles($EditorStyles);
 
         // 遅延対象のスタイルを登録
-        InteglightDeferCss::add_deferred_styles(self::$deferredStyles);
+        Integlight_outerAssets_css_defer::add_deferred_styles(self::$deferredStyles);
     }
 }
 
@@ -133,18 +133,18 @@ class InteglightPreDetermineJsAssets
             ]);
         }
         */
-        InteglightFrontendScripts::add_scripts(self::$scripts);
+        Integlight_outerAssets_js_frontend::add_scripts(self::$scripts);
 
         $deferredScripts = [
             'integlight-navigation',
         ];
-        InteglightDeferJs::add_deferred_scripts($deferredScripts); //PF対応!!!
+        Integlight_outerAssets_js_defer::add_deferred_scripts($deferredScripts); //PF対応!!!
 
         // フッターに移動するスクリプトを登録
         //$footerScripts = [
         //  'jquery'   => includes_url('/js/jquery/jquery.min.js') jqueryが不要なときもロードされてしまうため廃止
         //];
-        //InteglightMoveScripts::add_scripts($footerScripts);
+        //Integlight_outerAssets_js_move::add_scripts($footerScripts);
 
 
         //js 読み込み　WPデフォルトのコメント用
@@ -191,9 +191,9 @@ class InteglightThemeColorLoader
 
 
         $styles = ['integlight-custom-color-pattern' => ['path' => '/css/build/' . 'all.upd.color-' . $base_pattern . '.css', 'deps' => ['integlight-style-plus']]];
-        InteglightFrontendStyles::add_styles($styles);
-        InteglightEditorStyles::add_styles($styles);
-        InteglightDeferCss::add_deferred_styles(['integlight-custom-color-pattern']); //PF対応!!!
+        Integlight_outerAssets_css_frontend::add_styles($styles);
+        Integlight_outerAssets_css_editor::add_styles($styles);
+        Integlight_outerAssets_css_defer::add_deferred_styles(['integlight-custom-color-pattern']); //PF対応!!!
     }
 }
 new InteglightThemeColorLoader();
@@ -224,8 +224,8 @@ class InteglightHomeTypeLoader
 
         //$home_typeから最後の1文字(1or2)を取得するしてcssファイル名を決定
         $styles = ['integlight-home-type' => ['path' => '/css/build/' . 'all.upd.site-type' . substr($home_type, -1) . '.css', 'deps' => $tmp_deps]];
-        InteglightFrontendStyles::add_styles($styles);
-        InteglightEditorStyles::add_styles($styles);
+        Integlight_outerAssets_css_frontend::add_styles($styles);
+        Integlight_outerAssets_css_editor::add_styles($styles);
     }
 }
 new InteglightHomeTypeLoader();
@@ -245,7 +245,7 @@ class integlight_load_css_forCall
         $styles = [
             'integlight-slide' => ['path' => '/css/build/all.sp.slider.css', 'deps' => ['integlight-style-plus']],
         ];
-        InteglightFrontendStyles::add_styles($styles);
+        Integlight_outerAssets_css_frontend::add_styles($styles);
     }
 
     public static function regHeaderImageCss()
@@ -254,7 +254,7 @@ class integlight_load_css_forCall
         $styles = [
             'integlight-header-image' => ['path' => '/css/build/all.sp.headerImage.css', 'deps' => ['integlight-style-plus']],
         ];
-        InteglightFrontendStyles::add_styles($styles);
+        Integlight_outerAssets_css_frontend::add_styles($styles);
     }
 }
 
@@ -274,14 +274,14 @@ class integlight_load_scripts_forCall
             'integlight_slider-script' =>  ['path' => '/js/build/slider.js'],
             //'integlight_slider-script' =>  ['path' => '/js/build/slider.js', 'deps' => ['jquery']],
         ];
-        InteglightFrontendScripts::add_scripts($scripts);
+        Integlight_outerAssets_js_frontend::add_scripts($scripts);
 
 
         // 遅延対象のスクリプトを登録
         $deferredScripts = [
             'integlight_slider-script',
         ];
-        InteglightDeferJs::add_deferred_scripts($deferredScripts);
+        Integlight_outerAssets_js_defer::add_deferred_scripts($deferredScripts);
         /* レンダリングブロック、layout計算増加の防止のためのチューニング e*/
     }
     public static function getSliderScriptsHandleName()
@@ -296,12 +296,12 @@ class integlight_load_scripts_forCall
             //'integlight-loadmore' =>  ['path' => '/js/build/loadmore.js', 'deps' => ['jquery']],
             'integlight-loadmore' =>  ['path' => '/js/build/loadmore.js'],
         ];
-        InteglightFrontendScripts::add_scripts($scripts);
+        Integlight_outerAssets_js_frontend::add_scripts($scripts);
 
         $deferredScripts = [
             'integlight-loadmore',
         ];
-        InteglightDeferJs::add_deferred_scripts($deferredScripts); //PF対応!!!
+        Integlight_outerAssets_js_defer::add_deferred_scripts($deferredScripts); //PF対応!!!
 
     }
     public static function getLoadMoreScriptsHandleName()

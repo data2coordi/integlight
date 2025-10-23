@@ -1,4 +1,4 @@
-<?php // tests/unit-tests/integlight_functions_outerAssets_InteglightMoveScriptsTest.php
+<?php // tests/unit-tests/integlight_functions_outerAssets_Integlight_outerAssets_js_moveTest.php
 
 declare(strict_types=1);
 
@@ -11,18 +11,18 @@ if (!defined('_INTEGLIGHT_S_VERSION')) {
 }
 
 /**
- * InteglightMoveScripts クラスのユニットテスト
+ * Integlight_outerAssets_js_move クラスのユニットテスト
  *
- * @coversDefaultClass InteglightMoveScripts
+ * @coversDefaultClass Integlight_outerAssets_js_move
  * @group assets
  * @group scripts
  */
-class integlight_functions_outerAssets_InteglightMoveScriptsTest extends WP_UnitTestCase
+class integlight_functions_outerAssets_Integlight_outerAssets_js_moveTest extends WP_UnitTestCase
 {
     /**
      * テスト対象クラス名
      */
-    private const TARGET_CLASS = InteglightMoveScripts::class;
+    private const TARGET_CLASS = Integlight_outerAssets_js_move::class;
 
     /**
      * テスト対象の静的プロパティ名
@@ -42,7 +42,7 @@ class integlight_functions_outerAssets_InteglightMoveScriptsTest extends WP_Unit
         // WordPress のスクリプトキューをリセット
         $this->reset_scripts();
         // フィルターフックを再登録 (テスト対象のメソッドを確実にフックするため)
-        InteglightMoveScripts::init();
+        Integlight_outerAssets_js_move::init();
 
         // 管理画面フラグをリセット
         set_current_screen('front'); // デフォルトはフロントエンド
@@ -139,7 +139,7 @@ class integlight_functions_outerAssets_InteglightMoveScriptsTest extends WP_Unit
         $scripts_to_add = ['my-script' => '/path/to/my-script.js'];
 
         // Act
-        InteglightMoveScripts::add_scripts($scripts_to_add);
+        Integlight_outerAssets_js_move::add_scripts($scripts_to_add);
 
         // Assert
         $added_scripts = $this->get_static_property_value();
@@ -160,7 +160,7 @@ class integlight_functions_outerAssets_InteglightMoveScriptsTest extends WP_Unit
         ];
 
         // Act
-        InteglightMoveScripts::add_scripts($scripts_to_add);
+        Integlight_outerAssets_js_move::add_scripts($scripts_to_add);
 
         // Assert
         $added_scripts = $this->get_static_property_value();
@@ -181,7 +181,7 @@ class integlight_functions_outerAssets_InteglightMoveScriptsTest extends WP_Unit
         $expected_scripts = array_merge($initial_scripts, $scripts_to_add);
 
         // Act
-        InteglightMoveScripts::add_scripts($scripts_to_add);
+        Integlight_outerAssets_js_move::add_scripts($scripts_to_add);
 
         // Assert
         $added_scripts = $this->get_static_property_value();
@@ -202,7 +202,7 @@ class integlight_functions_outerAssets_InteglightMoveScriptsTest extends WP_Unit
         $expected_scripts = $scripts_to_add; // 上書きされることを期待
 
         // Act
-        InteglightMoveScripts::add_scripts($scripts_to_add);
+        Integlight_outerAssets_js_move::add_scripts($scripts_to_add);
 
         // Assert
         $added_scripts = $this->get_static_property_value();
@@ -226,8 +226,8 @@ class integlight_functions_outerAssets_InteglightMoveScriptsTest extends WP_Unit
         wp_register_script($handle, $full_path, [], '1.0', false); // in_footer = false (ヘッダー)
         wp_enqueue_script($handle);
 
-        // 2. InteglightMoveScripts に移動対象として登録
-        InteglightMoveScripts::add_scripts([$handle => $full_path]); // パスも渡す
+        // 2. Integlight_outerAssets_js_move に移動対象として登録
+        Integlight_outerAssets_js_move::add_scripts([$handle => $full_path]); // パスも渡す
 
         // 3. ヘッダーでエンキューされていることを確認
         $this->assertTrue(wp_script_is($handle, 'enqueued'), "Script '{$handle}' should be enqueued initially.");
@@ -273,8 +273,8 @@ class integlight_functions_outerAssets_InteglightMoveScriptsTest extends WP_Unit
         wp_register_script($handle, $full_path, [], '1.0', false);
         wp_enqueue_script($handle);
 
-        // 2. InteglightMoveScripts に登録
-        InteglightMoveScripts::add_scripts([$handle => $full_path]);
+        // 2. Integlight_outerAssets_js_move に登録
+        Integlight_outerAssets_js_move::add_scripts([$handle => $full_path]);
 
         // 3. ヘッダーでエンキューされていることを確認
         $this->assertTrue(wp_script_is($handle, 'enqueued'), "Script '{$handle}' should be enqueued initially in admin.");
@@ -310,7 +310,7 @@ class integlight_functions_outerAssets_InteglightMoveScriptsTest extends WP_Unit
         wp_register_script($handle, $full_path, [], '1.0', false);
         wp_enqueue_script($handle);
 
-        // 2. InteglightMoveScripts には何も登録しない
+        // 2. Integlight_outerAssets_js_move には何も登録しない
         // $this->set_static_property_value([]); // setUp でリセット済み
 
         // 3. ヘッダーでエンキューされていることを確認

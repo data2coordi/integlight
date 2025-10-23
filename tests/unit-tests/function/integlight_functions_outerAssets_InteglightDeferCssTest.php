@@ -1,4 +1,4 @@
-<?php // tests/unit-tests/integlight_functions_outerAssets_InteglightDeferCssTest.php
+<?php // tests/unit-tests/integlight_functions_outerAssets_Integlight_outerAssets_css_deferTest.php
 
 declare(strict_types=1);
 
@@ -6,18 +6,18 @@ declare(strict_types=1);
 // require_once dirname(__DIR__, 2) . '/inc/integlight-functions-outerAssets.php';
 
 /**
- * InteglightDeferCss クラスのユニットテスト
+ * Integlight_outerAssets_css_defer クラスのユニットテスト
  *
- * @coversDefaultClass InteglightDeferCss
+ * @coversDefaultClass Integlight_outerAssets_css_defer
  * @group assets
  * @group styles
  */
-class integlight_functions_outerAssets_InteglightDeferCssTest extends WP_UnitTestCase
+class integlight_functions_outerAssets_Integlight_outerAssets_css_deferTest extends WP_UnitTestCase
 {
     /**
      * テスト対象クラス名
      */
-    private const TARGET_CLASS = InteglightDeferCss::class;
+    private const TARGET_CLASS = Integlight_outerAssets_css_defer::class;
 
     /**
      * テスト対象の静的プロパティ名
@@ -35,7 +35,7 @@ class integlight_functions_outerAssets_InteglightDeferCssTest extends WP_UnitTes
         // フィルターフックを削除 (init() がグローバルスコープで呼ばれている可能性があるため)
         remove_filter('style_loader_tag', [self::TARGET_CLASS, 'defer_css'], 10);
         // フィルターフックを再登録 (テスト対象のメソッドを確実にフックするため)
-        InteglightDeferCss::init();
+        Integlight_outerAssets_css_defer::init();
     }
 
     /**
@@ -113,7 +113,7 @@ class integlight_functions_outerAssets_InteglightDeferCssTest extends WP_UnitTes
         $styles_to_add = ['my-style'];
 
         // Act
-        InteglightDeferCss::add_deferred_styles($styles_to_add);
+        Integlight_outerAssets_css_defer::add_deferred_styles($styles_to_add);
 
         // Assert
         $deferred_styles = $this->get_static_property_value();
@@ -131,7 +131,7 @@ class integlight_functions_outerAssets_InteglightDeferCssTest extends WP_UnitTes
         $styles_to_add = ['style-1', 'style-2', 'style-3'];
 
         // Act
-        InteglightDeferCss::add_deferred_styles($styles_to_add);
+        Integlight_outerAssets_css_defer::add_deferred_styles($styles_to_add);
 
         // Assert
         $deferred_styles = $this->get_static_property_value();
@@ -152,7 +152,7 @@ class integlight_functions_outerAssets_InteglightDeferCssTest extends WP_UnitTes
         $expected_styles = ['style-1', 'style-2', 'style-3']; // 重複排除後の期待値
 
         // Act
-        InteglightDeferCss::add_deferred_styles($styles_to_add);
+        Integlight_outerAssets_css_defer::add_deferred_styles($styles_to_add);
 
         // Assert
         $deferred_styles = $this->get_static_property_value();
@@ -179,7 +179,7 @@ class integlight_functions_outerAssets_InteglightDeferCssTest extends WP_UnitTes
         $expected_styles = ['existing-style-1', 'existing-style-2', 'new-style-1', 'new-style-2'];
 
         // Act
-        InteglightDeferCss::add_deferred_styles($styles_to_add);
+        Integlight_outerAssets_css_defer::add_deferred_styles($styles_to_add);
 
         // Assert
         $deferred_styles = $this->get_static_property_value();
@@ -201,7 +201,7 @@ class integlight_functions_outerAssets_InteglightDeferCssTest extends WP_UnitTes
     {
         // Arrange
         $deferred_handle = 'my-deferred-style';
-        InteglightDeferCss::add_deferred_styles([$deferred_handle]);
+        Integlight_outerAssets_css_defer::add_deferred_styles([$deferred_handle]);
         $original_tag = "<link rel='stylesheet' id='{$deferred_handle}-css' href='http://example.com/style.css' type='text/css' media='all' />";
         // ★★★ 修正: 現在の実装に合わせた期待値 (rel='stylesheet' の直後に挿入、元の media='all' は残る) ★★★
         $expected_tag = "<link rel='stylesheet' media='print' onload=\"this.onload=null;this.media='all';\" id='{$deferred_handle}-css' href='http://example.com/style.css' type='text/css' />";
@@ -228,7 +228,7 @@ class integlight_functions_outerAssets_InteglightDeferCssTest extends WP_UnitTes
         // Arrange
         $non_deferred_handle = 'my-normal-style';
         $deferred_handle = 'another-style';
-        InteglightDeferCss::add_deferred_styles([$deferred_handle]); // 他のスタイルは遅延対象
+        Integlight_outerAssets_css_defer::add_deferred_styles([$deferred_handle]); // 他のスタイルは遅延対象
         $original_tag = "<link rel='stylesheet' id='{$non_deferred_handle}-css' href='http://example.com/normal.css' type='text/css' media='all' />";
 
         // Act
@@ -249,7 +249,7 @@ class integlight_functions_outerAssets_InteglightDeferCssTest extends WP_UnitTes
     {
         // Arrange
         $deferred_handle = 'my-deferred-style';
-        InteglightDeferCss::add_deferred_styles([$deferred_handle]);
+        Integlight_outerAssets_css_defer::add_deferred_styles([$deferred_handle]);
         $original_tag = sprintf($original_tag_format, $deferred_handle);
         $expected_tag = sprintf($expected_tag_format, $deferred_handle);
 

@@ -263,18 +263,18 @@ class integlight_customizer_integlight_customizer_homeTypeTest extends WP_UnitTe
             ],
         ];
 
-        // InteglightFrontendStyles::add_styles が正しいパスで呼ばれているか検証
-        $frontend_styles = $this->get_static_property_value(InteglightFrontendStyles::class, 'styles');
+        // Integlight_outerAssets_css_frontend::add_styles が正しいパスで呼ばれているか検証
+        $frontend_styles = $this->get_static_property_value(Integlight_outerAssets_css_frontend::class, 'styles');
         $this->assertArrayHasKey('integlight-home-type', $frontend_styles);
         $this->assertSame($expected_styles['integlight-home-type'], $frontend_styles['integlight-home-type']);
 
-        // InteglightEditorStyles::add_styles が正しいパスで呼ばれているか検証
-        $editor_styles = $this->get_static_property_value(InteglightEditorStyles::class, 'styles');
+        // Integlight_outerAssets_css_editor::add_styles が正しいパスで呼ばれているか検証
+        $editor_styles = $this->get_static_property_value(Integlight_outerAssets_css_editor::class, 'styles');
         $this->assertArrayHasKey('integlight-home-type', $editor_styles);
         $this->assertSame($expected_styles['integlight-home-type'], $editor_styles['integlight-home-type']);
 
-        // InteglightDeferCss::add_deferred_styles に 'integlight-home-type' が追加されているか検証
-        //$deferred_styles = $this->get_static_property_value(InteglightDeferCss::class, 'deferred_styles');
+        // Integlight_outerAssets_css_defer::add_deferred_styles に 'integlight-home-type' が追加されているか検証
+        //$deferred_styles = $this->get_static_property_value(Integlight_outerAssets_css_defer::class, 'deferred_styles');
         //$this->assertContains('integlight-home-type', $deferred_styles);
     }
     /**
@@ -303,18 +303,18 @@ class integlight_customizer_integlight_customizer_homeTypeTest extends WP_UnitTe
             ],
         ];
 
-        // InteglightFrontendStyles::add_styles に正しくパスがセットされているか
-        $frontend_styles = $this->get_static_property_value(InteglightFrontendStyles::class, 'styles');
+        // Integlight_outerAssets_css_frontend::add_styles に正しくパスがセットされているか
+        $frontend_styles = $this->get_static_property_value(Integlight_outerAssets_css_frontend::class, 'styles');
         $this->assertArrayHasKey('integlight-home-type', $frontend_styles);
         $this->assertSame($expected_styles['integlight-home-type'], $frontend_styles['integlight-home-type']);
 
-        // InteglightEditorStyles::add_styles に正しくパスがセットされているか
-        $editor_styles = $this->get_static_property_value(InteglightEditorStyles::class, 'styles');
+        // Integlight_outerAssets_css_editor::add_styles に正しくパスがセットされているか
+        $editor_styles = $this->get_static_property_value(Integlight_outerAssets_css_editor::class, 'styles');
         $this->assertArrayHasKey('integlight-home-type', $editor_styles);
         $this->assertSame($expected_styles['integlight-home-type'], $editor_styles['integlight-home-type']);
 
-        // InteglightDeferCss::add_deferred_styles に 'integlight-home-type' が含まれているか
-        //$deferred_styles = $this->get_static_property_value(InteglightDeferCss::class, 'deferred_styles');
+        // Integlight_outerAssets_css_defer::add_deferred_styles に 'integlight-home-type' が含まれているか
+        //$deferred_styles = $this->get_static_property_value(Integlight_outerAssets_css_defer::class, 'deferred_styles');
         //$this->assertContains('integlight-home-type', $deferred_styles);
     }
     /**
@@ -345,20 +345,20 @@ class integlight_customizer_integlight_customizer_homeTypeTest extends WP_UnitTe
             set_theme_mod('integlight_hometype_setting', $setting_value);
 
             // スタイル管理クラスの静的プロパティを初期化（リセット）
-            $this->reset_static_property(InteglightFrontendStyles::class, 'styles');
-            $this->reset_static_property(InteglightEditorStyles::class, 'styles');
-            $this->reset_static_property(InteglightDeferCss::class, 'deferred_styles');
+            $this->reset_static_property(Integlight_outerAssets_css_frontend::class, 'styles');
+            $this->reset_static_property(Integlight_outerAssets_css_editor::class, 'styles');
+            $this->reset_static_property(Integlight_outerAssets_css_defer::class, 'deferred_styles');
 
             // enqueue_hometype_cssを実行
             $this->homeTypeLoader->enqueue_hometype_css();
 
             // フロントエンド用スタイルを取得し検証
-            $frontend_styles = $this->get_static_property_value(InteglightFrontendStyles::class, 'styles');
+            $frontend_styles = $this->get_static_property_value(Integlight_outerAssets_css_frontend::class, 'styles');
             $this->assertArrayHasKey('integlight-home-type', $frontend_styles, "FrontendStyles should have 'integlight-home-type' for {$setting_value}");
             $this->assertSame($expected_data, $frontend_styles['integlight-home-type'], "FrontendStyles path should be correct for {$setting_value}");
 
             // エディタ用スタイルを取得し検証
-            $editor_styles = $this->get_static_property_value(InteglightEditorStyles::class, 'styles');
+            $editor_styles = $this->get_static_property_value(Integlight_outerAssets_css_editor::class, 'styles');
             $this->assertArrayHasKey('integlight-home-type', $editor_styles, "EditorStyles should have 'integlight-home-type' for {$setting_value}");
             $this->assertSame($expected_data, $editor_styles['integlight-home-type'], "EditorStyles path should be correct for {$setting_value}");
         }

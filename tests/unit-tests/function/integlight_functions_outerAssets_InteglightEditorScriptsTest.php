@@ -1,4 +1,4 @@
-<?php // tests/unit-tests/InteglightEditorScriptsTest.php
+<?php // tests/unit-tests/Integlight_outerAssets_js_editorTest.php
 
 declare(strict_types=1);
 
@@ -12,19 +12,19 @@ if (!defined('_INTEGLIGHT_S_VERSION')) {
 }
 
 /**
- * InteglightEditorScripts クラスのユニットテスト (シンプル版)
+ * Integlight_outerAssets_js_editor クラスのユニットテスト (シンプル版)
  *
- * @coversDefaultClass InteglightEditorScripts
+ * @coversDefaultClass Integlight_outerAssets_js_editor
  * @group assets
  * @group scripts
  * @group editor
  */
-class integlight_functions_outerAssets_InteglightEditorScriptsTest extends WP_UnitTestCase // クラス名を修正 (PSR-4推奨) InteglightEditorScriptsTest
+class integlight_functions_outerAssets_Integlight_outerAssets_js_editorTest extends WP_UnitTestCase // クラス名を修正 (PSR-4推奨) Integlight_outerAssets_js_editorTest
 {
     /**
      * テスト対象クラス名
      */
-    private const TARGET_CLASS = InteglightEditorScripts::class;
+    private const TARGET_CLASS = Integlight_outerAssets_js_editor::class;
 
     /**
      * テスト対象の静的プロパティ名
@@ -58,7 +58,7 @@ class integlight_functions_outerAssets_InteglightEditorScriptsTest extends WP_Un
         // 再度静的プロパティをリセット (念のため)
         $this->set_static_property_value([]);
 
-        // 依存クラス (InteglightDeferJs) のプロパティもリセット
+        // 依存クラス (Integlight_outerAssets_js_defer) のプロパティもリセット
         $this->reset_defer_js_property();
     }
 
@@ -74,7 +74,7 @@ class integlight_functions_outerAssets_InteglightEditorScriptsTest extends WP_Un
         // WordPress のスクリプトキューをリセット
         $this->reset_scripts();
 
-        // 依存クラス (InteglightDeferJs) のプロパティもリセット
+        // 依存クラス (Integlight_outerAssets_js_defer) のプロパティもリセット
         $this->reset_defer_js_property();
 
         // ★★★ after_setup_theme フックを元に戻す (他のテストに影響を与えないように) ★★★
@@ -97,25 +97,25 @@ class integlight_functions_outerAssets_InteglightEditorScriptsTest extends WP_Un
     }
 
     /**
-     * InteglightDeferJs の静的プロパティをリセットするヘルパーメソッド
+     * Integlight_outerAssets_js_defer の静的プロパティをリセットするヘルパーメソッド
      */
     private function reset_defer_js_property(): void
     {
         try {
-            // InteglightDeferJs クラスが存在するか確認
-            if (!class_exists('InteglightDeferJs')) {
+            // Integlight_outerAssets_js_defer クラスが存在するか確認
+            if (!class_exists('Integlight_outerAssets_js_defer')) {
                 // クラスが存在しない場合は何もしないか、エラーを出す
-                // $this->markTestSkipped('InteglightDeferJs class not found.');
+                // $this->markTestSkipped('Integlight_outerAssets_js_defer class not found.');
                 return;
             }
-            $reflection = new ReflectionProperty(InteglightDeferJs::class, 'deferred_scripts');
+            $reflection = new ReflectionProperty(Integlight_outerAssets_js_defer::class, 'deferred_scripts');
             if (method_exists($reflection, 'setAccessible')) {
                 $reflection->setAccessible(true);
             }
             $reflection->setValue(null, []); // 静的プロパティを空配列にリセット
         } catch (ReflectionException $e) {
             // プロパティが存在しない場合などのエラー処理
-            $this->fail("Failed to reset static property InteglightDeferJs::deferred_scripts: " . $e->getMessage());
+            $this->fail("Failed to reset static property Integlight_outerAssets_js_defer::deferred_scripts: " . $e->getMessage());
         }
     }
 
@@ -168,7 +168,7 @@ class integlight_functions_outerAssets_InteglightEditorScriptsTest extends WP_Un
         $this->assertFalse(has_action('enqueue_block_editor_assets', [self::TARGET_CLASS, 'enqueue_editor_scripts']));
 
         // Act
-        InteglightEditorScripts::init();
+        Integlight_outerAssets_js_editor::init();
 
         // Assert
         // enqueue_block_editor_assets のデフォルト優先度は 10
@@ -186,7 +186,7 @@ class integlight_functions_outerAssets_InteglightEditorScriptsTest extends WP_Un
         $scripts_to_add = ['my-editor-script' => ['path' => '/js/my-editor-script.js', 'deps' => ['wp-blocks']]];
 
         // Act
-        InteglightEditorScripts::add_scripts($scripts_to_add);
+        Integlight_outerAssets_js_editor::add_scripts($scripts_to_add);
 
         // Assert
         $added_scripts = $this->get_static_property_value();
@@ -202,14 +202,14 @@ class integlight_functions_outerAssets_InteglightEditorScriptsTest extends WP_Un
     {
         // Arrange: 最初にスクリプトを追加
         $initial_scripts = ['editor-script-1' => ['path' => '/js/editor-script-1.js', 'deps' => []]];
-        InteglightEditorScripts::add_scripts($initial_scripts);
+        Integlight_outerAssets_js_editor::add_scripts($initial_scripts);
 
         // Act: さらにスクリプトを追加
         $scripts_to_add = [
             'editor-script-2' => ['path' => '/js/editor-script-2.js', 'deps' => ['wp-i18n']],
             'editor-script-3' => ['path' => '/js/editor-script-3.js', 'deps' => ['wp-element']],
         ];
-        InteglightEditorScripts::add_scripts($scripts_to_add);
+        Integlight_outerAssets_js_editor::add_scripts($scripts_to_add);
 
         // Assert: 全てのスクリプトがマージされているか確認
         $expected_scripts = array_merge($initial_scripts, $scripts_to_add);
@@ -229,8 +229,8 @@ class integlight_functions_outerAssets_InteglightEditorScriptsTest extends WP_Un
             'editor-script-a' => ['path' => '/js/editor-script-a.js', 'deps' => []],
             'editor-script-b' => ['path' => '/js/editor-script-b.js', 'deps' => ['wp-blocks']], // wp-blocks に依存
         ];
-        InteglightEditorScripts::add_scripts($scripts_to_enqueue);
-        InteglightEditorScripts::init(); // フックを登録
+        Integlight_outerAssets_js_editor::add_scripts($scripts_to_enqueue);
+        Integlight_outerAssets_js_editor::init(); // フックを登録
 
         // Act: enqueue_block_editor_assets アクションを実行
         do_action('enqueue_block_editor_assets');
@@ -258,7 +258,7 @@ class integlight_functions_outerAssets_InteglightEditorScriptsTest extends WP_Un
     {
         // Arrange
         // setUp で静的プロパティとフックはリセット済み
-        InteglightEditorScripts::init(); // フックを登録
+        Integlight_outerAssets_js_editor::init(); // フックを登録
 
         // テスト開始時に登録されていないことを確認
         // integlight-functions-block.php で追加される可能性のあるスクリプトをチェック

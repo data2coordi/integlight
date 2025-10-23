@@ -1,4 +1,4 @@
-<?php // tests/unit-tests/integlight_functions_outerAssets_InteglightDeferJsTest.php
+<?php // tests/unit-tests/integlight_functions_outerAssets_Integlight_outerAssets_js_deferTest.php
 
 declare(strict_types=1);
 
@@ -6,18 +6,18 @@ declare(strict_types=1);
 // require_once dirname(__DIR__, 2) . '/inc/integlight-functions-outerAssets.php';
 
 /**
- * InteglightDeferJs クラスのユニットテスト
+ * Integlight_outerAssets_js_defer クラスのユニットテスト
  *
- * @coversDefaultClass InteglightDeferJs
+ * @coversDefaultClass Integlight_outerAssets_js_defer
  * @group assets
  * @group scripts
  */
-class integlight_functions_outerAssets_InteglightDeferJsTest extends WP_UnitTestCase
+class integlight_functions_outerAssets_Integlight_outerAssets_js_deferTest extends WP_UnitTestCase
 {
     /**
      * テスト対象クラス名
      */
-    private const TARGET_CLASS = InteglightDeferJs::class;
+    private const TARGET_CLASS = Integlight_outerAssets_js_defer::class;
 
     /**
      * テスト対象の静的プロパティ名
@@ -35,7 +35,7 @@ class integlight_functions_outerAssets_InteglightDeferJsTest extends WP_UnitTest
         // フィルターフックを削除 (init() がグローバルスコープで呼ばれている可能性があるため)
         remove_filter('script_loader_tag', [self::TARGET_CLASS, 'defer_js'], 10);
         // フィルターフックを再登録 (テスト対象のメソッドを確実にフックするため)
-        InteglightDeferJs::init();
+        Integlight_outerAssets_js_defer::init();
     }
 
     /**
@@ -113,7 +113,7 @@ class integlight_functions_outerAssets_InteglightDeferJsTest extends WP_UnitTest
         $scripts_to_add = ['my-script'];
 
         // Act
-        InteglightDeferJs::add_deferred_scripts($scripts_to_add);
+        Integlight_outerAssets_js_defer::add_deferred_scripts($scripts_to_add);
 
         // Assert
         $deferred_scripts = $this->get_static_property_value();
@@ -131,7 +131,7 @@ class integlight_functions_outerAssets_InteglightDeferJsTest extends WP_UnitTest
         $scripts_to_add = ['script-1', 'script-2', 'script-3'];
 
         // Act
-        InteglightDeferJs::add_deferred_scripts($scripts_to_add);
+        Integlight_outerAssets_js_defer::add_deferred_scripts($scripts_to_add);
 
         // Assert
         $deferred_scripts = $this->get_static_property_value();
@@ -152,7 +152,7 @@ class integlight_functions_outerAssets_InteglightDeferJsTest extends WP_UnitTest
         $expected_scripts = ['script-1', 'script-2', 'script-3']; // 重複排除後の期待値
 
         // Act
-        InteglightDeferJs::add_deferred_scripts($scripts_to_add);
+        Integlight_outerAssets_js_defer::add_deferred_scripts($scripts_to_add);
 
         // Assert
         $deferred_scripts = $this->get_static_property_value();
@@ -179,7 +179,7 @@ class integlight_functions_outerAssets_InteglightDeferJsTest extends WP_UnitTest
         $expected_scripts = ['existing-script-1', 'existing-script-2', 'new-script-1', 'new-script-2'];
 
         // Act
-        InteglightDeferJs::add_deferred_scripts($scripts_to_add);
+        Integlight_outerAssets_js_defer::add_deferred_scripts($scripts_to_add);
 
         // Assert
         $deferred_scripts = $this->get_static_property_value();
@@ -201,7 +201,7 @@ class integlight_functions_outerAssets_InteglightDeferJsTest extends WP_UnitTest
     {
         // Arrange
         $deferred_handle = 'my-deferred-script';
-        InteglightDeferJs::add_deferred_scripts([$deferred_handle]);
+        Integlight_outerAssets_js_defer::add_deferred_scripts([$deferred_handle]);
         $original_tag = "<script type='text/javascript' src='http://example.com/script.js?ver=1.0' id='{$deferred_handle}-js'></script>";
         // defer 属性が src の前に追加されることを期待
         $expected_tag = "<script type='text/javascript' defer src='http://example.com/script.js?ver=1.0' id='{$deferred_handle}-js'></script>";
@@ -224,7 +224,7 @@ class integlight_functions_outerAssets_InteglightDeferJsTest extends WP_UnitTest
         // Arrange
         $non_deferred_handle = 'my-normal-script';
         $deferred_handle = 'another-script';
-        InteglightDeferJs::add_deferred_scripts([$deferred_handle]); // 他のスクリプトは遅延対象
+        Integlight_outerAssets_js_defer::add_deferred_scripts([$deferred_handle]); // 他のスクリプトは遅延対象
         $original_tag = "<script type='text/javascript' src='http://example.com/normal.js?ver=1.0' id='{$non_deferred_handle}-js'></script>";
 
         // Act
@@ -245,7 +245,7 @@ class integlight_functions_outerAssets_InteglightDeferJsTest extends WP_UnitTest
     {
         // Arrange
         $deferred_handle = 'my-deferred-script';
-        InteglightDeferJs::add_deferred_scripts([$deferred_handle]);
+        Integlight_outerAssets_js_defer::add_deferred_scripts([$deferred_handle]);
         $original_tag = sprintf($original_tag_format, $deferred_handle);
         $expected_tag = sprintf($expected_tag_format, $deferred_handle);
 

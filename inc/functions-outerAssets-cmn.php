@@ -18,7 +18,7 @@
 /********************************************************* */
 
 
-class InteglightDeferCss
+class Integlight_outerAssets_css_defer
 {
 	private static $deferred_styles = [];
 
@@ -61,10 +61,10 @@ class InteglightDeferCss
 }
 
 // フィルタの登録を実行
-InteglightDeferCss::init();
+Integlight_outerAssets_css_defer::init();
 
 
-class InteglightRegStyles
+class Integlight_outerAssets_css_reg
 {
 	protected static $styles = []; // 各サブクラスで独自の配列を持つ
 
@@ -88,7 +88,7 @@ class InteglightRegStyles
 }
 
 // フロントエンド用のスタイル管理クラス
-class InteglightFrontendStyles extends InteglightRegStyles
+class Integlight_outerAssets_css_frontend extends Integlight_outerAssets_css_reg
 {
 	protected static $styles = []; // フロントエンド専用の配列
 
@@ -99,7 +99,7 @@ class InteglightFrontendStyles extends InteglightRegStyles
 }
 
 // エディタ用のスタイル管理クラス
-class InteglightEditorStyles extends InteglightRegStyles
+class Integlight_outerAssets_css_editor extends Integlight_outerAssets_css_reg
 {
 	protected static $styles = []; // エディタ専用の配列
 
@@ -110,8 +110,8 @@ class InteglightEditorStyles extends InteglightRegStyles
 }
 
 // 各クラスの初期化
-InteglightFrontendStyles::init();
-InteglightEditorStyles::init();
+Integlight_outerAssets_css_frontend::init();
+Integlight_outerAssets_css_editor::init();
 
 
 /********************************************************* */
@@ -125,7 +125,7 @@ InteglightEditorStyles::init();
 /********************************************************* */
 
 
-class InteglightRegScripts
+class Integlight_outerAssets_js_reg
 {
 	/**
 	 * スクリプトを登録する共通処理（サブクラスで配列を管理）
@@ -144,7 +144,7 @@ class InteglightRegScripts
 /**
  * フロントエンド用のスクリプト管理
  */
-class InteglightFrontendScripts extends InteglightRegScripts
+class Integlight_outerAssets_js_frontend extends Integlight_outerAssets_js_reg
 {
 	private static $scripts = [];
 
@@ -163,12 +163,12 @@ class InteglightFrontendScripts extends InteglightRegScripts
 		parent::enqueue_scripts(self::$scripts);
 	}
 }
-InteglightFrontendScripts::init();
+Integlight_outerAssets_js_frontend::init();
 
 /**
  * ブロックエディタ用のスクリプト管理
  */
-class InteglightEditorScripts extends InteglightRegScripts
+class Integlight_outerAssets_js_editor extends Integlight_outerAssets_js_reg
 {
 	private static $scripts = [];
 
@@ -189,10 +189,10 @@ class InteglightEditorScripts extends InteglightRegScripts
 }
 
 // 初期化
-InteglightEditorScripts::init();
+Integlight_outerAssets_js_editor::init();
 
 
-class InteglightDeferJs
+class Integlight_outerAssets_js_defer
 {
 	private static $deferred_scripts = [];
 
@@ -230,12 +230,12 @@ class InteglightDeferJs
 }
 
 // フィルタの登録を実行
-InteglightDeferJs::init();
+Integlight_outerAssets_js_defer::init();
 
 
 
 
-class InteglightMoveScripts
+class Integlight_outerAssets_js_move
 {
 	private static $scripts = [];
 
@@ -274,7 +274,7 @@ class InteglightMoveScripts
 }
 
 // 初期化処理
-InteglightMoveScripts::init();
+Integlight_outerAssets_js_move::init();
 /********************************************************* */
 /* jsファイル e***********************************************/
 /********************************************************* */

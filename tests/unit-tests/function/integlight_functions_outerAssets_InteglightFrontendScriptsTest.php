@@ -1,4 +1,4 @@
-<?php // tests/unit-tests/InteglightFrontendScriptsTest.php
+<?php // tests/unit-tests/Integlight_outerAssets_js_frontendTest.php
 
 declare(strict_types=1);
 
@@ -11,18 +11,18 @@ if (!defined('_INTEGLIGHT_S_VERSION')) {
 }
 
 /**
- * InteglightFrontendScripts クラスのユニットテスト (シンプル版)
+ * Integlight_outerAssets_js_frontend クラスのユニットテスト (シンプル版)
  *
- * @coversDefaultClass InteglightFrontendScripts
+ * @coversDefaultClass Integlight_outerAssets_js_frontend
  * @group assets
  * @group scripts
  */
-class integlight_functions_outerAssets_InteglightFrontendScriptsTest extends WP_UnitTestCase // クラス名を修正 (PSR-4推奨) InteglightFrontendScriptsTest
+class integlight_functions_outerAssets_Integlight_outerAssets_js_frontendTest extends WP_UnitTestCase // クラス名を修正 (PSR-4推奨) Integlight_outerAssets_js_frontendTest
 {
     /**
      * テスト対象クラス名
      */
-    private const TARGET_CLASS = InteglightFrontendScripts::class;
+    private const TARGET_CLASS = Integlight_outerAssets_js_frontend::class;
 
     /**
      * テスト対象の静的プロパティ名
@@ -50,7 +50,7 @@ class integlight_functions_outerAssets_InteglightFrontendScriptsTest extends WP_
         // 再度静的プロパティをリセット (念のため)
         $this->set_static_property_value([]);
 
-        // 依存クラス (InteglightMoveScripts) のプロパティもリセット
+        // 依存クラス (Integlight_outerAssets_js_move) のプロパティもリセット
         $this->reset_move_scripts_property();
     }
 
@@ -66,7 +66,7 @@ class integlight_functions_outerAssets_InteglightFrontendScriptsTest extends WP_
         // WordPress のスクリプトキューをリセット
         $this->reset_scripts();
 
-        // 依存クラス (InteglightMoveScripts) のプロパティもリセット
+        // 依存クラス (Integlight_outerAssets_js_move) のプロパティもリセット
         $this->reset_move_scripts_property();
 
         // ★★★ after_setup_theme フックを元に戻す (他のテストに影響を与えないように) ★★★
@@ -87,18 +87,18 @@ class integlight_functions_outerAssets_InteglightFrontendScriptsTest extends WP_
     }
 
     /**
-     * InteglightMoveScripts の静的プロパティをリセットするヘルパーメソッド
+     * Integlight_outerAssets_js_move の静的プロパティをリセットするヘルパーメソッド
      */
     private function reset_move_scripts_property(): void
     {
         try {
-            $reflection = new ReflectionProperty(InteglightMoveScripts::class, 'scripts');
+            $reflection = new ReflectionProperty(Integlight_outerAssets_js_move::class, 'scripts');
             if (method_exists($reflection, 'setAccessible')) {
                 $reflection->setAccessible(true);
             }
             $reflection->setValue(null, []); // 静的プロパティを空配列にリセット
         } catch (ReflectionException $e) {
-            $this->fail("Failed to reset static property InteglightMoveScripts::scripts: " . $e->getMessage());
+            $this->fail("Failed to reset static property Integlight_outerAssets_js_move::scripts: " . $e->getMessage());
         }
     }
 
@@ -151,7 +151,7 @@ class integlight_functions_outerAssets_InteglightFrontendScriptsTest extends WP_
         $this->assertFalse(has_action('wp_enqueue_scripts', [self::TARGET_CLASS, 'enqueue_frontend_scripts']));
 
         // Act
-        InteglightFrontendScripts::init();
+        Integlight_outerAssets_js_frontend::init();
 
         // Assert
         // wp_enqueue_scripts のデフォルト優先度は 10
@@ -169,7 +169,7 @@ class integlight_functions_outerAssets_InteglightFrontendScriptsTest extends WP_
         $scripts_to_add = ['my-script' => ['path' => '/js/my-script.js', 'deps' => ['jquery']]];
 
         // Act
-        InteglightFrontendScripts::add_scripts($scripts_to_add);
+        Integlight_outerAssets_js_frontend::add_scripts($scripts_to_add);
 
         // Assert
         $added_scripts = $this->get_static_property_value();
@@ -185,14 +185,14 @@ class integlight_functions_outerAssets_InteglightFrontendScriptsTest extends WP_
     {
         // Arrange: 最初にスクリプトを追加
         $initial_scripts = ['script-1' => ['path' => '/js/script-1.js', 'deps' => []]];
-        InteglightFrontendScripts::add_scripts($initial_scripts);
+        Integlight_outerAssets_js_frontend::add_scripts($initial_scripts);
 
         // Act: さらにスクリプトを追加
         $scripts_to_add = [
             'script-2' => ['path' => '/js/script-2.js', 'deps' => ['jquery']],
             'script-3' => ['path' => '/js/script-3.js', 'deps' => []],
         ];
-        InteglightFrontendScripts::add_scripts($scripts_to_add);
+        Integlight_outerAssets_js_frontend::add_scripts($scripts_to_add);
 
         // Assert: 全てのスクリプトがマージされているか確認
         $expected_scripts = array_merge($initial_scripts, $scripts_to_add);
@@ -212,8 +212,8 @@ class integlight_functions_outerAssets_InteglightFrontendScriptsTest extends WP_
             'script-a' => ['path' => '/js/script-a.js', 'deps' => []],
             'script-b' => ['path' => '/js/script-b.js', 'deps' => ['jquery']], // jquery に依存
         ];
-        InteglightFrontendScripts::add_scripts($scripts_to_enqueue);
-        InteglightFrontendScripts::init(); // フックを登録
+        Integlight_outerAssets_js_frontend::add_scripts($scripts_to_enqueue);
+        Integlight_outerAssets_js_frontend::init(); // フックを登録
 
         // Act: wp_enqueue_scripts アクションを実行
         do_action('wp_enqueue_scripts');
@@ -241,7 +241,7 @@ class integlight_functions_outerAssets_InteglightFrontendScriptsTest extends WP_
     {
         // Arrange
         // setUp で静的プロパティとフックはリセット済み
-        InteglightFrontendScripts::init(); // フックを登録
+        Integlight_outerAssets_js_frontend::init(); // フックを登録
 
         // テスト開始時に登録されていないことを確認
         // InteglightCommonJsAssets::init で追加される可能性のあるスクリプトをチェック

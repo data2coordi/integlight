@@ -1,4 +1,4 @@
-<?php // tests/unit-tests/InteglightEditorStylesTest.php
+<?php // tests/unit-tests/Integlight_outerAssets_css_editorTest.php
 
 declare(strict_types=1);
 
@@ -11,22 +11,22 @@ if (!defined('_INTEGLIGHT_S_VERSION')) {
 }
 
 /**
- * InteglightEditorStyles クラスのユニットテスト (シンプル版)
+ * Integlight_outerAssets_css_editor クラスのユニットテスト (シンプル版)
  *
- * @coversDefaultClass InteglightEditorStyles
+ * @coversDefaultClass Integlight_outerAssets_css_editor
  * @group assets
  * @group styles
  * @group editor
  */
-class integlight_functions_outerAssets_InteglightEditorStylesTest extends WP_UnitTestCase // クラス名を修正 (PSR-4推奨) InteglightEditorStylesTest
+class integlight_functions_outerAssets_Integlight_outerAssets_css_editorTest extends WP_UnitTestCase // クラス名を修正 (PSR-4推奨) Integlight_outerAssets_css_editorTest
 {
     /**
      * テスト対象クラス名
      */
-    private const TARGET_CLASS = InteglightEditorStyles::class;
+    private const TARGET_CLASS = Integlight_outerAssets_css_editor::class;
 
     /**
-     * テスト対象の静的プロパティ名 (親クラス InteglightRegStyles から継承)
+     * テスト対象の静的プロパティ名 (親クラス Integlight_outerAssets_css_reg から継承)
      */
     private const STYLES_PROPERTY = 'styles';
 
@@ -128,7 +128,7 @@ class integlight_functions_outerAssets_InteglightEditorStylesTest extends WP_Uni
         $this->assertFalse(has_action('enqueue_block_editor_assets', [self::TARGET_CLASS, 'enqueue_styles']));
 
         // Act
-        InteglightEditorStyles::init();
+        Integlight_outerAssets_css_editor::init();
 
         // Assert
         // enqueue_block_editor_assets のデフォルト優先度は 10
@@ -146,7 +146,7 @@ class integlight_functions_outerAssets_InteglightEditorStylesTest extends WP_Uni
         $styles_to_add = ['my-editor-style' => '/path/to/my-editor-style.css'];
 
         // Act
-        InteglightEditorStyles::add_styles($styles_to_add);
+        Integlight_outerAssets_css_editor::add_styles($styles_to_add);
 
         // Assert
         $added_styles = $this->get_static_property_value();
@@ -162,14 +162,14 @@ class integlight_functions_outerAssets_InteglightEditorStylesTest extends WP_Uni
     {
         // Arrange: 最初にスタイルを追加
         $initial_styles = ['editor-style-1' => '/path/to/editor-style-1.css'];
-        InteglightEditorStyles::add_styles($initial_styles);
+        Integlight_outerAssets_css_editor::add_styles($initial_styles);
 
         // Act: さらにスタイルを追加
         $styles_to_add = [
             'editor-style-2' => '/path/to/editor-style-2.css',
             'editor-style-3' => '/path/to/editor-style-3.css',
         ];
-        InteglightEditorStyles::add_styles($styles_to_add);
+        Integlight_outerAssets_css_editor::add_styles($styles_to_add);
 
         // Assert: 全てのスタイルがマージされているか確認
         $expected_styles = array_merge($initial_styles, $styles_to_add);
@@ -189,8 +189,8 @@ class integlight_functions_outerAssets_InteglightEditorStylesTest extends WP_Uni
             'editor-style-a' => ['path' => '/css/editor-style-a.css'],
             'editor-style-b' => ['path' => '/css/editor-style-b.css'],
         ];
-        InteglightEditorStyles::add_styles($styles_to_enqueue);
-        InteglightEditorStyles::init(); // フックを登録
+        Integlight_outerAssets_css_editor::add_styles($styles_to_enqueue);
+        Integlight_outerAssets_css_editor::init(); // フックを登録
 
         // Act: enqueue_block_editor_assets アクションを実行
         do_action('enqueue_block_editor_assets');
@@ -214,7 +214,7 @@ class integlight_functions_outerAssets_InteglightEditorStylesTest extends WP_Uni
     {
         // Arrange
         // setUp で静的プロパティとフックはリセット済み
-        InteglightEditorStyles::init(); // フックを登録
+        Integlight_outerAssets_css_editor::init(); // フックを登録
 
         // テスト開始時に登録されていないことを確認
         // InteglightCommonCssAssets::init で追加される可能性のあるスタイルをチェック

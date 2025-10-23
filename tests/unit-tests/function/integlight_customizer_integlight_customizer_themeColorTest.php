@@ -79,9 +79,9 @@ class integlight_customizer_integlight_customizer_themeColorTest extends WP_Unit
         $this->reset_wp_scripts_styles();
 
         // 依存クラスの静的プロパティをリセット
-        $this->reset_static_property(InteglightFrontendStyles::class, 'styles');
-        $this->reset_static_property(InteglightEditorStyles::class, 'styles');
-        $this->reset_static_property(InteglightDeferCss::class, 'deferred_styles');
+        $this->reset_static_property(Integlight_outerAssets_css_frontend::class, 'styles');
+        $this->reset_static_property(Integlight_outerAssets_css_editor::class, 'styles');
+        $this->reset_static_property(Integlight_outerAssets_css_defer::class, 'deferred_styles');
 
         // テスト前に theme_mod をクリア
         remove_theme_mod($this->theme_mod_key);
@@ -108,9 +108,9 @@ class integlight_customizer_integlight_customizer_themeColorTest extends WP_Unit
         $this->reset_wp_scripts_styles();
 
         // 依存クラスの静的プロパティをリセット
-        $this->reset_static_property(InteglightFrontendStyles::class, 'styles');
-        $this->reset_static_property(InteglightEditorStyles::class, 'styles');
-        $this->reset_static_property(InteglightDeferCss::class, 'deferred_styles');
+        $this->reset_static_property(Integlight_outerAssets_css_frontend::class, 'styles');
+        $this->reset_static_property(Integlight_outerAssets_css_editor::class, 'styles');
+        $this->reset_static_property(Integlight_outerAssets_css_defer::class, 'deferred_styles');
 
         parent::tearDown();
     }
@@ -341,18 +341,18 @@ class integlight_customizer_integlight_customizer_themeColorTest extends WP_Unit
         // Act: wp_enqueue_scripts アクションを実行
         $this->instance_front->enqueue_custom_css(); // 直接呼び出してアセット追加を確認
 
-        // Assert: InteglightFrontendStyles にスタイルが追加されたか
-        $frontend_styles = $this->get_static_property_value(InteglightFrontendStyles::class, 'styles');
+        // Assert: Integlight_outerAssets_css_frontend にスタイルが追加されたか
+        $frontend_styles = $this->get_static_property_value(Integlight_outerAssets_css_frontend::class, 'styles');
         $this->assertArrayHasKey('integlight-custom-color-pattern', $frontend_styles, 'FrontendStyles should have "integlight-custom-color-pattern" key.');
         $this->assertEquals($expected_css_file, $frontend_styles['integlight-custom-color-pattern']['path'], 'FrontendStyles path should be correct.');
 
-        // Assert: InteglightEditorStyles にスタイルが追加されたか
-        $editor_styles = $this->get_static_property_value(InteglightEditorStyles::class, 'styles');
+        // Assert: Integlight_outerAssets_css_editor にスタイルが追加されたか
+        $editor_styles = $this->get_static_property_value(Integlight_outerAssets_css_editor::class, 'styles');
         $this->assertArrayHasKey('integlight-custom-color-pattern', $editor_styles, 'EditorStyles should have "integlight-custom-color-pattern" key.');
         $this->assertEquals($expected_css_file, $editor_styles['integlight-custom-color-pattern']['path'], 'EditorStyles path should be correct.');
 
-        // Assert: InteglightDeferCss に遅延スクリプトが追加されたか
-        $deferred_styles = $this->get_static_property_value(InteglightDeferCss::class, 'deferred_styles');
+        // Assert: Integlight_outerAssets_css_defer に遅延スクリプトが追加されたか
+        $deferred_styles = $this->get_static_property_value(Integlight_outerAssets_css_defer::class, 'deferred_styles');
         $this->assertContains('integlight-custom-color-pattern', $deferred_styles, 'Style "integlight-custom-color-pattern" should be added for deferring.');
     }
 
@@ -384,13 +384,13 @@ class integlight_customizer_integlight_customizer_themeColorTest extends WP_Unit
         $this->instance_front->enqueue_custom_css(); // 直接呼び出し
 
         // Assert: デフォルトのCSSが追加されているか確認
-        $frontend_styles = $this->get_static_property_value(InteglightFrontendStyles::class, 'styles');
+        $frontend_styles = $this->get_static_property_value(Integlight_outerAssets_css_frontend::class, 'styles');
         $this->assertEquals($expected_css_file, $frontend_styles['integlight-custom-color-pattern']['path'], 'Default FrontendStyles path should be correct.');
 
-        $editor_styles = $this->get_static_property_value(InteglightEditorStyles::class, 'styles');
+        $editor_styles = $this->get_static_property_value(Integlight_outerAssets_css_editor::class, 'styles');
         $this->assertEquals($expected_css_file, $editor_styles['integlight-custom-color-pattern']['path'], 'Default EditorStyles path should be correct.');
 
-        $deferred_styles = $this->get_static_property_value(InteglightDeferCss::class, 'deferred_styles');
+        $deferred_styles = $this->get_static_property_value(Integlight_outerAssets_css_defer::class, 'deferred_styles');
         $this->assertContains('integlight-custom-color-pattern', $deferred_styles, 'Default style "integlight-custom-color-pattern" should be added for deferring.');
     }
 }

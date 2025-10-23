@@ -104,8 +104,8 @@ class integlight_functions_InteglightPreDetermineJsAssetsTest extends WP_UnitTes
         parent::setUp();
         // Reset static arrays to ensure test isolation
         // ※ init() が呼ばれる前にリセット
-        self::setStaticPropertyValue(InteglightFrontendScripts::class, 'scripts', []);
-        self::setStaticPropertyValue(InteglightMoveScripts::class, 'scripts', []);
+        self::setStaticPropertyValue(Integlight_outerAssets_js_frontend::class, 'scripts', []);
+        self::setStaticPropertyValue(Integlight_outerAssets_js_move::class, 'scripts', []);
 
         // Reset WordPress script queue
         $this->reset_scripts();
@@ -130,7 +130,7 @@ class integlight_functions_InteglightPreDetermineJsAssetsTest extends WP_UnitTes
         // デバッグ用: setUp完了時点でcomment-replyがエンキューされていないことを確認
         // $this->assertFalse(wp_script_is('comment-reply', 'enqueued'), 'comment-reply should NOT be enqueued at the end of setUp');
         // デバッグ用: setUp完了時点でフロントエンドスクリプトが登録されているか確認
-        // $scripts = self::getStaticPropertyValue(InteglightFrontendScripts::class, 'scripts');
+        // $scripts = self::getStaticPropertyValue(Integlight_outerAssets_js_frontend::class, 'scripts');
         // $this->assertNotEmpty($scripts, 'Frontend scripts should be populated after do_action(after_setup_theme)');
 
     }
@@ -142,8 +142,8 @@ class integlight_functions_InteglightPreDetermineJsAssetsTest extends WP_UnitTes
     protected function tearDown(): void
     {
         // Reset static arrays again to be safe
-        self::setStaticPropertyValue(InteglightFrontendScripts::class, 'scripts', []);
-        self::setStaticPropertyValue(InteglightMoveScripts::class, 'scripts', []);
+        self::setStaticPropertyValue(Integlight_outerAssets_js_frontend::class, 'scripts', []);
+        self::setStaticPropertyValue(Integlight_outerAssets_js_move::class, 'scripts', []);
 
         // Reset WordPress script queue
         $this->reset_scripts();
@@ -179,7 +179,7 @@ class integlight_functions_InteglightPreDetermineJsAssetsTest extends WP_UnitTes
 
         // --- Assert ---
         // init() が実行された結果、静的プロパティに値がセットされているはず
-        $actualFrontendScripts = self::getStaticPropertyValue(InteglightFrontendScripts::class, 'scripts');
+        $actualFrontendScripts = self::getStaticPropertyValue(Integlight_outerAssets_js_frontend::class, 'scripts');
         $this->assertEquals($expectedFrontendScripts, $actualFrontendScripts, 'Frontend scripts were not added correctly.');
     }
 
@@ -201,7 +201,7 @@ class integlight_functions_InteglightPreDetermineJsAssetsTest extends WP_UnitTes
     // テスト対象のメソッドを呼び出す
     // InteglightPreDetermineJsAssets::init();
     // init() が実行された結果、静的プロパティに値がセットされているはず
-    //$actualFooterScripts = self::getStaticPropertyValue(InteglightMoveScripts::class, 'scripts');
+    //$actualFooterScripts = self::getStaticPropertyValue(Integlight_outerAssets_js_move::class, 'scripts');
     // jQuery遅延処理は削除
     //$this->assertArrayHasKey('jquery', $actualFooterScripts, 'Footer scripts should contain jquery handle.');
     //$this->assertIsString($actualFooterScripts['jquery'], 'jQuery path should be a string.');

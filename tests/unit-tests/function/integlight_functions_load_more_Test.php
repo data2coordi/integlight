@@ -376,15 +376,15 @@ class integlight_functions_load_more_Test extends WP_Ajax_UnitTestCase
 
 
         // Act
-        //$this->reset_static_property_value(InteglightFrontendScripts::class, 'scripts')
+        //$this->reset_static_property_value(Integlight_outerAssets_js_frontend::class, 'scripts')
         $this->instance->pre_enqueue_scripts();
 
-        // Assert: InteglightFrontendScripts に追加されていない
-        $frontend_scripts = $this->get_static_property_value(InteglightFrontendScripts::class, 'scripts');
+        // Assert: Integlight_outerAssets_js_frontend に追加されていない
+        $frontend_scripts = $this->get_static_property_value(Integlight_outerAssets_js_frontend::class, 'scripts');
         $this->assertArrayNotHasKey('integlight-loadmore', $frontend_scripts, 'FrontendScripts should not contain "integlight-loadmore".');
 
-        // Assert: InteglightDeferJs にも追加されていない
-        $deferred_scripts = $this->get_static_property_value(InteglightDeferJs::class, 'deferred_scripts');
+        // Assert: Integlight_outerAssets_js_defer にも追加されていない
+        $deferred_scripts = $this->get_static_property_value(Integlight_outerAssets_js_defer::class, 'deferred_scripts');
         $this->assertNotContains('integlight-loadmore', $deferred_scripts, 'Deferred scripts should not contain "integlight-loadmore".');
     }
     /**
@@ -408,8 +408,8 @@ class integlight_functions_load_more_Test extends WP_Ajax_UnitTestCase
         // Act: メソッドを直接呼び出し
         $this->instance->pre_enqueue_scripts();
 
-        // Assert: InteglightFrontendScripts にスクリプトが追加されたか
-        $frontend_scripts = $this->get_static_property_value(InteglightFrontendScripts::class, 'scripts');
+        // Assert: Integlight_outerAssets_js_frontend にスクリプトが追加されたか
+        $frontend_scripts = $this->get_static_property_value(Integlight_outerAssets_js_frontend::class, 'scripts');
         $this->assertArrayHasKey('integlight-loadmore', $frontend_scripts, 'FrontendScripts should have "integlight-loadmore" key.');
         $this->assertEquals(
             '/js/build/loadmore.js',
@@ -417,8 +417,8 @@ class integlight_functions_load_more_Test extends WP_Ajax_UnitTestCase
             'FrontendScripts path should be correct.'
         );
 
-        // Assert: InteglightDeferJs に遅延スクリプトが追加されたか
-        $deferred_scripts = $this->get_static_property_value(InteglightDeferJs::class, 'deferred_scripts');
+        // Assert: Integlight_outerAssets_js_defer に遅延スクリプトが追加されたか
+        $deferred_scripts = $this->get_static_property_value(Integlight_outerAssets_js_defer::class, 'deferred_scripts');
         $this->assertContains(
             'integlight-loadmore',
             $deferred_scripts,

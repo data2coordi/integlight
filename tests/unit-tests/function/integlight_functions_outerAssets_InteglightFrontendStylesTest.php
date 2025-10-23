@@ -1,4 +1,4 @@
-<?php // tests/unit-tests/InteglightFrontendStylesTest.php
+<?php // tests/unit-tests/Integlight_outerAssets_css_frontendTest.php
 
 declare(strict_types=1);
 
@@ -11,21 +11,21 @@ if (!defined('_INTEGLIGHT_S_VERSION')) {
 }
 
 /**
- * InteglightFrontendStyles クラスのユニットテスト (シンプル版)
+ * Integlight_outerAssets_css_frontend クラスのユニットテスト (シンプル版)
  *
- * @coversDefaultClass InteglightFrontendStyles
+ * @coversDefaultClass Integlight_outerAssets_css_frontend
  * @group assets
  * @group styles
  */
-class integlight_functions_outerAssets_InteglightFrontendStylesTest extends WP_UnitTestCase // クラス名を修正 (PSR-4推奨) InteglightFrontendStylesTest
+class integlight_functions_outerAssets_Integlight_outerAssets_css_frontendTest extends WP_UnitTestCase // クラス名を修正 (PSR-4推奨) Integlight_outerAssets_css_frontendTest
 {
     /**
      * テスト対象クラス名
      */
-    private const TARGET_CLASS = InteglightFrontendStyles::class;
+    private const TARGET_CLASS = Integlight_outerAssets_css_frontend::class;
 
     /**
-     * テスト対象の静的プロパティ名 (親クラス InteglightRegStyles から継承)
+     * テスト対象の静的プロパティ名 (親クラス Integlight_outerAssets_css_reg から継承)
      */
     private const STYLES_PROPERTY = 'styles';
 
@@ -133,7 +133,7 @@ class integlight_functions_outerAssets_InteglightFrontendStylesTest extends WP_U
         $this->assertFalse(has_action('wp', [self::TARGET_CLASS, 'enqueue_styles']));
 
         // Act
-        InteglightFrontendStyles::init();
+        Integlight_outerAssets_css_frontend::init();
 
         // Assert
         $this->assertEquals(2, has_action('wp_enqueue_scripts', [self::TARGET_CLASS, 'enqueue_styles']));
@@ -150,7 +150,7 @@ class integlight_functions_outerAssets_InteglightFrontendStylesTest extends WP_U
         $styles_to_add = ['my-style' => '/path/to/my-style.css'];
 
         // Act
-        InteglightFrontendStyles::add_styles($styles_to_add);
+        Integlight_outerAssets_css_frontend::add_styles($styles_to_add);
 
         // Assert
         $added_styles = $this->get_static_property_value();
@@ -166,14 +166,14 @@ class integlight_functions_outerAssets_InteglightFrontendStylesTest extends WP_U
     {
         // Arrange: 最初にスタイルを追加
         $initial_styles = ['style-1' => '/path/to/style-1.css'];
-        InteglightFrontendStyles::add_styles($initial_styles);
+        Integlight_outerAssets_css_frontend::add_styles($initial_styles);
 
         // Act: さらにスタイルを追加
         $styles_to_add = [
             'style-2' => '/path/to/style-2.css',
             'style-3' => '/path/to/style-3.css',
         ];
-        InteglightFrontendStyles::add_styles($styles_to_add);
+        Integlight_outerAssets_css_frontend::add_styles($styles_to_add);
 
         // Assert: 全てのスタイルがマージされているか確認
         $expected_styles = array_merge($initial_styles, $styles_to_add);
@@ -193,8 +193,8 @@ class integlight_functions_outerAssets_InteglightFrontendStylesTest extends WP_U
             'style-a' => ['path' => '/css/style-a.css'],
             'style-b' => ['path' => '/css/style-b.css'],
         ];
-        InteglightFrontendStyles::add_styles($styles_to_enqueue);
-        InteglightFrontendStyles::init(); // フックを登録
+        Integlight_outerAssets_css_frontend::add_styles($styles_to_enqueue);
+        Integlight_outerAssets_css_frontend::init(); // フックを登録
 
         // Act: wp_enqueue_scripts アクションを実行
         do_action('wp_enqueue_scripts');
@@ -217,7 +217,7 @@ class integlight_functions_outerAssets_InteglightFrontendStylesTest extends WP_U
     {
         // Arrange
         // setUp で静的プロパティとフックはリセット済み
-        InteglightFrontendStyles::init(); // フックを登録
+        Integlight_outerAssets_css_frontend::init(); // フックを登録
 
         // ★★★ 追加: もし 'style-a' が登録されていたら強制的に解除 ★★★
         if (wp_style_is('style-a', 'registered')) {
