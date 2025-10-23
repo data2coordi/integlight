@@ -36,6 +36,7 @@ require get_template_directory() . '/inc/starter-content.php';
 
 require get_template_directory() . '/inc/customizer-selHeader.php';
 require get_template_directory() . '/inc/customizer-cmn.php';
+require get_template_directory() . '/inc/customizer-userInterface.php';
 require get_template_directory() . '/inc/customizer-base.php';
 require get_template_directory() . '/inc/customizer.php';
 require get_template_directory() . '/inc/customizer-slider-cmn.php';
