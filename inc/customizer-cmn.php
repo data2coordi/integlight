@@ -142,8 +142,8 @@ abstract class Integlight_customizer_settingHelper
 			'section'  => $this->pSectionId,
 			'type'     => 'select',
 			'choices'  => [
-				InteglightSliderSettings::getEffectNameFade()  => __('Fade', 'integlight'),
-				InteglightSliderSettings::getEffectNameSlide() => __('Slide', 'integlight')
+				Integlight_customizer_slider_settings::getEffectNameFade()  => __('Fade', 'integlight'),
+				Integlight_customizer_slider_settings::getEffectNameSlide() => __('Slide', 'integlight')
 			],
 		]);
 	}

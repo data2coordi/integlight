@@ -2,7 +2,7 @@
 
 
 
-class InteglightSliderSettings
+class Integlight_customizer_slider_settings
 {
 
     private static $seffectName_fade = 'fade';
@@ -44,5 +44,5 @@ class InteglightSliderSettings
     }
 }
 //使用例
-//echo InteglightSliderSettings::getEffectNameFade(); // fade
-//echo InteglightSliderSettings::getHomeType4Name();  // home4
+//echo Integlight_customizer_slider_settings::getEffectNameFade(); // fade
+//echo Integlight_customizer_slider_settings::getHomeType4Name();  // home4

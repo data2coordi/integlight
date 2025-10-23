@@ -12,13 +12,13 @@ class integlight_customizer_slider_headerTextStyle
 	public function __construct()
 	{
 		// wp_head に出力するためのフックを登録
-		add_action('wp_head', array($this, 'applyTextStyles'));
+		add_action('wp_head', array($this, 'ApplyTextStyles'));
 	}
 
 	/**
 	 * カスタマイザーの設定値に基づき、.slider .text-overlay のスタイルを出力
 	 */
-	public function integlight_slider_applyTextStyles()
+	public function ApplyTextStyles()
 	{
 		// カスタマイザーから値を取得。未設定の場合はデフォルト値を使用
 		$color = get_theme_mod('integlight_slider_text_color', '#ffffff'); // デフォルトは白
@@ -158,14 +158,14 @@ class integlight_customizer_slider_outerAssets
 		// カスタマイザーの設定値をJavaScriptに渡す
 		wp_localize_script(integlight_load_scripts_forCall::getSliderScriptsHandleName(), 'integlight_sliderSettings', array(
 			'changeDuration' => get_theme_mod('integlight_slider_change_duration', 3),
-			'effect' => get_theme_mod('integlight_slider_effect', InteglightSliderSettings::getEffectNameFade()),
-			'homeType' => get_theme_mod('integlight_hometype_setting', InteglightSliderSettings::getHomeType1Name()),
-			'fadeName' => InteglightSliderSettings::getEffectNameFade(),
-			'slideName' => InteglightSliderSettings::getEffectNameSlide(),
-			'home1Name' => InteglightSliderSettings::getHomeType1Name(),
-			'home2Name' => InteglightSliderSettings::getHomeType2Name(),
-			'home3Name' => InteglightSliderSettings::getHomeType3Name(),
-			'home4Name' => InteglightSliderSettings::getHomeType4Name(),
+			'effect' => get_theme_mod('integlight_slider_effect', Integlight_customizer_slider_settings::getEffectNameFade()),
+			'homeType' => get_theme_mod('integlight_hometype_setting', Integlight_customizer_slider_settings::getHomeType1Name()),
+			'fadeName' => Integlight_customizer_slider_settings::getEffectNameFade(),
+			'slideName' => Integlight_customizer_slider_settings::getEffectNameSlide(),
+			'home1Name' => Integlight_customizer_slider_settings::getHomeType1Name(),
+			'home2Name' => Integlight_customizer_slider_settings::getHomeType2Name(),
+			'home3Name' => Integlight_customizer_slider_settings::getHomeType3Name(),
+			'home4Name' => Integlight_customizer_slider_settings::getHomeType4Name(),
 		));
 	}
 }
