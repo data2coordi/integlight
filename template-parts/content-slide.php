@@ -21,8 +21,8 @@
 
 
 
-$slides = InteglightSliderContent::getImages();
-$texts  = InteglightSliderContent::getTexts();
+$slides = Integlight_customizer_slider_display_sliderContent::getImages();
+$texts  = Integlight_customizer_slider_display_sliderContent::getTexts();
 
 
 if (empty(array_filter($slides))) {

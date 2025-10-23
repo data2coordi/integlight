@@ -3,7 +3,7 @@
 
 
 /* スライダーに表示するテキストにカスタマイザーでユーザーがセットしたスタイルを適用するs */
-class integlight_customizer_slider_applyHeaderTextStyle
+class integlight_customizer_slider_headerTextStyle
 {
 
 	/**
@@ -12,7 +12,7 @@ class integlight_customizer_slider_applyHeaderTextStyle
 	public function __construct()
 	{
 		// wp_head に出力するためのフックを登録
-		add_action('wp_head', array($this, 'integlight_slider_applyTextStyles'));
+		add_action('wp_head', array($this, 'applyTextStyles'));
 	}
 
 	/**
@@ -72,7 +72,7 @@ class integlight_customizer_slider_applyHeaderTextStyle
 
 
 
-class InteglightSliderContent
+class Integlight_customizer_slider_display_sliderContent
 {
 	/**
 	 * 3スライド分の画像HTMLを返す（存在するスライドのみを配列に入れる）
@@ -190,7 +190,7 @@ add_action('wp', function () {
 			) {
 				// いずれかがセットされているときの処理
 				new integlight_customizer_slider_outerAssets();
-				new integlight_customizer_slider_applyHeaderTextStyle();
+				new integlight_customizer_slider_headerTextStyle();
 			}
 		}
 	}

@@ -36,7 +36,7 @@ class integlight_customizer_slider_creSection
 }
 
 
-class Integlight_Customizer_Slider_Image_Settings extends Integlight_customizer_settingHelper
+class Integlight_customizer_slider_imageSettings extends Integlight_customizer_settingHelper
 {
 	public function register_pc_settings()
 	{
@@ -57,7 +57,7 @@ class Integlight_Customizer_Slider_Image_Settings extends Integlight_customizer_
 	}
 }
 
-class Integlight_Customizer_Slider_Text_Settings extends Integlight_customizer_settingHelper
+class Integlight_Customizer_slider_textSettings extends Integlight_customizer_settingHelper
 {
 	public function register_pc_settings()
 	{
@@ -80,7 +80,7 @@ class Integlight_Customizer_Slider_Text_Settings extends Integlight_customizer_s
 	}
 }
 
-class Integlight_Customizer_Slider_Effect_Settings extends Integlight_customizer_settingHelper
+class Integlight_Customizer_Slider_effectSettings extends Integlight_customizer_settingHelper
 {
 	public function register_settings()
 	{
@@ -91,7 +91,7 @@ class Integlight_Customizer_Slider_Effect_Settings extends Integlight_customizer
 	}
 }
 
-class Integlight_Customizer_Slider_Setting_Manager
+class Integlight_customizer_slider_settingManager
 {
 	private $pSectionId;
 
@@ -104,9 +104,9 @@ class Integlight_Customizer_Slider_Setting_Manager
 	public function register_settings($wp_customize)
 	{
 		// 各設定クラスをインスタンス化
-		$effect_settings = new Integlight_Customizer_Slider_Effect_Settings($wp_customize, $this->pSectionId);
-		$text_settings = new Integlight_Customizer_Slider_Text_Settings($wp_customize, $this->pSectionId);
-		$image_settings = new Integlight_Customizer_Slider_Image_Settings($wp_customize, $this->pSectionId);
+		$effect_settings = new Integlight_customizer_slider_effectSettings($wp_customize, $this->pSectionId);
+		$text_settings = new Integlight_customizer_slider_textSettings($wp_customize, $this->pSectionId);
+		$image_settings = new Integlight_customizer_slider_imageSettings($wp_customize, $this->pSectionId);
 
 		// 元の表示順序を維持するようにメソッドを呼び出す
 		$effect_settings->register_settings();
@@ -121,20 +121,10 @@ class Integlight_Customizer_Slider_Setting_Manager
 	}
 }
 
-class integlight_customizer_slider
-{
 
-	public function __construct()
-	{
+$Integlight_creSliderSection = new integlight_customizer_slider_creSection();
+new Integlight_customizer_slider_settingManager($Integlight_creSliderSection);
 
-
-		$creSliderSection = new integlight_customizer_slider_creSection();
-		new Integlight_Customizer_Slider_Setting_Manager($creSliderSection);
-	}
-}
-
-
-$InteglightSlider = new integlight_customizer_slider();
 
 
 
