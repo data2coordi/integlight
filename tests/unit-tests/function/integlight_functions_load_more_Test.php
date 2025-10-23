@@ -332,7 +332,7 @@ class integlight_functions_load_more_Test extends WP_Ajax_UnitTestCase
     public function constructor_should_add_all_hooks(): void
     {
         // setUpで $this->instance が Integlight_Load_More のインスタンスとして作成されている前提
-        $this->instance = new Integlight_Load_More();
+        $this->instance = new Integlight_loadMore();
 
 
         // --- スクリプト関連フック ---
@@ -372,7 +372,7 @@ class integlight_functions_load_more_Test extends WP_Ajax_UnitTestCase
     public function pre_enqueue_scripts_should_not_add_scripts_when_condition_not_met(): void
     {
         // Arrange: 条件を満たさないテーマ設定にする
-        $this->instance = new Integlight_Load_More();
+        $this->instance = new Integlight_loadMore();
 
 
         // Act
@@ -403,7 +403,7 @@ class integlight_functions_load_more_Test extends WP_Ajax_UnitTestCase
         $wp_query->is_main_query = true;
 
 
-        $this->instance = new Integlight_Load_More();
+        $this->instance = new Integlight_loadMore();
 
         // Act: メソッドを直接呼び出し
         $this->instance->pre_enqueue_scripts();
@@ -437,7 +437,7 @@ class integlight_functions_load_more_Test extends WP_Ajax_UnitTestCase
         // Arrange: テーマ設定 home2
         set_theme_mod('integlight_hometype_setting', 'home2');
 
-        $this->instance = new Integlight_Load_More();
+        $this->instance = new Integlight_loadMore();
 
         wp_register_script(
             'integlight-loadmore',

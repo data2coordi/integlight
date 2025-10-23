@@ -1,5 +1,5 @@
 <?php
-class Integlight_Load_More
+class Integlight_loadMore
 {
     private $new_posts_per_page = 4;
     private $cat_posts_per_page = 2;
@@ -102,4 +102,4 @@ class Integlight_Load_More
 }
 
 
-new Integlight_Load_More();
+new Integlight_loadMore();
