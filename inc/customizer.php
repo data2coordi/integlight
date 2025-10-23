@@ -11,7 +11,7 @@
 
 
 // side bar position _s ////////////////////////////////////////////////////////////////////////////////
-class integlight_customizer_sidebar
+class Integlight_customizer_sidebar
 {
 
 	public function __construct()
@@ -69,31 +69,14 @@ class integlight_customizer_sidebar
 	}
 }
 
-new integlight_customizer_sidebar();
+new Integlight_customizer_sidebar();
 
 
 // side bar position _e ////////////////////////////////////////////////////////////////////////////////
 
 
 // ## 配色カスタマイズ _s /////////////////////////////////////////////
-
-/**
- * カスタマイザーの選択肢コントロールのベースクラス
- */
-abstract class Integlight_Customizer_Choices_Base
-{
-	public function sanitize_choices($input, $setting)
-	{
-		global $wp_customize;
-		$control = $wp_customize->get_control($setting->id);
-		if (array_key_exists($input, $control->choices)) {
-			return $input;
-		}
-		return $setting->default;
-	}
-}
-
-class integlight_customizer_themeColor extends Integlight_Customizer_Choices_Base
+class integlight_customizer_themeColor extends Integlight_customizer_choiceCtlBase
 {
 	public function __construct()
 	{
@@ -136,7 +119,7 @@ class integlight_customizer_themeColor extends Integlight_Customizer_Choices_Bas
 new integlight_customizer_themeColor();
 
 
-class integlight_customizer_HomeType extends Integlight_Customizer_Choices_Base
+class integlight_customizer_homeType extends Integlight_customizer_choiceCtlBase
 {
 	public function __construct()
 	{
@@ -179,13 +162,13 @@ class integlight_customizer_HomeType extends Integlight_Customizer_Choices_Base
 }
 
 // インスタンスを作成して初期化
-new integlight_customizer_HomeType();
+new integlight_customizer_homeType();
 
 
 
 
 // ## フッター クレジット設定 _s /////////////////////////////////////////////
-class Integlight_Customizer_Footer
+class Integlight_customizer_footer
 {
 	public function __construct()
 	{
@@ -240,7 +223,7 @@ class Integlight_Customizer_Footer
 }
 
 // 初期化
-new Integlight_Customizer_Footer();
+new Integlight_customizer_footer();
 
 // ## フッター クレジット設定 _e /////////////////////////////////////////////
 
