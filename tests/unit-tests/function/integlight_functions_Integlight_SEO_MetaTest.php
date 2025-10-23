@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Tests for the Integlight_SEO_Meta class.
+ * Tests for the Integlight_seoMeta class.
  *
  * @package Integlight
  * @group seo-meta
@@ -9,11 +9,11 @@
 
 // require_once dirname( __FILE__ ) . '/../inc/integlight-functions.php';
 
-class integlight_functions_Integlight_SEO_MetaTest extends WP_UnitTestCase
+class integlight_functions_Integlight_seoMetaTest extends WP_UnitTestCase
 {
     /**
      * Instance of the class under test.
-     * @var Integlight_SEO_Meta
+     * @var Integlight_seoMeta
      */
     private $instance;
 
@@ -52,7 +52,7 @@ class integlight_functions_Integlight_SEO_MetaTest extends WP_UnitTestCase
         wp_set_current_user($this->editor_id);
 
         // Instantiate the class under test
-        $this->instance = new Integlight_SEO_Meta();
+        $this->instance = new Integlight_seoMeta();
 
         // Create test post and page authored by the editor
         $this->post_id = self::factory()->post->create([
@@ -78,7 +78,7 @@ class integlight_functions_Integlight_SEO_MetaTest extends WP_UnitTestCase
 
     /**
      * Test if hooks are added correctly.
-     * @covers Integlight_SEO_Meta::__construct
+     * @covers Integlight_seoMeta::__construct
      */
     public function test_hooks_are_added()
     {
@@ -90,7 +90,7 @@ class integlight_functions_Integlight_SEO_MetaTest extends WP_UnitTestCase
 
     /**
      * Test the add_meta_box method callback exists.
-     * @covers Integlight_SEO_Meta::add_meta_box
+     * @covers Integlight_seoMeta::add_meta_box
      */
     public function test_add_meta_box_callback_exists()
     {
@@ -99,7 +99,7 @@ class integlight_functions_Integlight_SEO_MetaTest extends WP_UnitTestCase
 
     /**
      * Test the display_meta_box_content output.
-     * @covers Integlight_SEO_Meta::display_meta_box_content
+     * @covers Integlight_seoMeta::display_meta_box_content
      */
     public function test_display_meta_box_content()
     {
@@ -132,7 +132,7 @@ class integlight_functions_Integlight_SEO_MetaTest extends WP_UnitTestCase
 
     /**
      * Test the save_meta_data method functionality.
-     * @covers Integlight_SEO_Meta::save_meta_data
+     * @covers Integlight_seoMeta::save_meta_data
      */
     public function test_save_meta_data()
     {
@@ -157,7 +157,7 @@ class integlight_functions_Integlight_SEO_MetaTest extends WP_UnitTestCase
 
     /**
      * Test the filter_document_title method.
-     * @covers Integlight_SEO_Meta::filter_document_title
+     * @covers Integlight_seoMeta::filter_document_title
      */
     public function test_filter_document_title()
     {
@@ -182,7 +182,7 @@ class integlight_functions_Integlight_SEO_MetaTest extends WP_UnitTestCase
 
     /**
      * Test the output_meta_description method.
-     * @covers Integlight_SEO_Meta::output_meta_description
+     * @covers Integlight_seoMeta::output_meta_description
      */
     public function test_output_meta_description()
     {

@@ -10,7 +10,7 @@
 
 
 // デフォルトから追加するテーマサポート _s ///////////////////////////////////////////////
-function integlight_setup_plus()
+function integlight_themeSupport()
 {
 
 
@@ -40,7 +40,7 @@ function integlight_setup_plus()
 
 
 }
-add_action('after_setup_theme', 'integlight_setup_plus');
+add_action('after_setup_theme', 'integlight_themeSupport');
 // デフォルトから追加するテーマサポート _e /////////////////////////////////////////////
 
 
@@ -63,7 +63,7 @@ add_action('after_setup_theme', 'integlight_setup_plus');
 
 
 // ## パンくずリスト _s //////////////////////////////////////////////////////////
-class InteglightBreadcrumb
+class Integlight_breadCrumb
 {
 
 
@@ -153,7 +153,7 @@ class InteglightBreadcrumb
 }
 
 // インスタンスを作成して初期化
-new InteglightBreadcrumb();
+new Integlight_breadCrumb();
 
 // ## パンくずリスト _e //////////////////////////////////////////////////////////
 
@@ -165,11 +165,11 @@ new InteglightBreadcrumb();
 
 
 /**
- * Class Integlight_SEO_Meta
+ * Class Integlight_seoMeta
  *
  * Handles custom SEO meta fields (title and description) for posts and pages.
  */
-class Integlight_SEO_Meta
+class Integlight_seoMeta
 {
 
 	/**
@@ -250,7 +250,7 @@ class Integlight_SEO_Meta
 			<label for="custom_meta_description"><strong><?php esc_html_e('Meta Description', 'integlight'); ?></strong></label><br>
 			<textarea name="<?php echo esc_attr($this->meta_key_description); ?>" id="custom_meta_description" rows="4" style="width:100%;" placeholder="<?php esc_attr_e('ex) Struggling with English speaking? Learn 5 simple and practical tips to boost your fluency and confidence in conversations. Perfect for beginners and intermediate learners!', 'integlight'); ?>"><?php echo esc_textarea($custom_meta_description); ?></textarea>
 		</p>
-	<?php
+<?php
 	}
 
 	/**
@@ -359,7 +359,7 @@ class Integlight_SEO_Meta
 }
 
 // Instantiate the class to initialize the functionality
-new Integlight_SEO_Meta();
+new Integlight_seoMeta();
 
 
 
@@ -375,94 +375,17 @@ new Integlight_SEO_Meta();
 
 
 
-/********************************************************************/
-/* 次へ＆前へのページネーション s*/
-/********************************************************************/
-class Integlight_PostNavigations
-{
-	/**
-	 * 投稿の画像を取得する（アイキャッチ or 本文の最初の画像）
-	 */
-
-
-
-	/**
-	 * ナビゲーションの共通HTMLを出力
-	 */
-	private static function get_post_navigation_item($post, $class, $icon)
-	{
-		if (!$post) {
-			return;
-		}
-
-		$post_id    = $post->ID;
-		$post_title = get_the_title($post_id);
-		$post_title = (strlen($post_title) > 17) ? wp_html_excerpt($post_title, 17) . esc_html__('...', 'integlight') : $post_title;
-		$post_url   = get_permalink($post_id);
-
-	?>
-		<a href="<?php echo esc_url($post_url); ?>" class="<?php echo esc_attr($class); ?>">
-			<div class="nav-image-wrapper">
-				<img loading="lazy" fetchpriority="low" src="<?php echo esc_url(Integlight_PostThumbnail::getUrl($post_id)); ?>"
-					alt="">
-				<span class="nav-label">
-					<?php if ($class === 'nav-previous') : ?>
-						<?php echo $icon; ?>
-					<?php endif; ?>
-					<?php echo esc_html($post_title); ?>
-					<?php if ($class === 'nav-next') : ?>
-						<?php echo $icon; ?>
-					<?php endif; ?>
-				</span>
-			</div>
-		</a>
-
-	<?php
-	}
-
-	/**
-	 * 前後の投稿ナビゲーションを表示する
-	 */
-	public static function get_post_navigation()
-	{
-		$prev_post = get_previous_post();
-		$next_post = get_next_post();
-
-
-		if (!$prev_post && !$next_post) {
-			return;
-		}
-
-		$icon_prev = '<span class="icon-prev"></span>';
-
-		$icon_next = '<span class="icon-next"></span>';
-
-
-	?>
-		<nav class="post-navigation" role="navigation">
-			<?php
-			self::get_post_navigation_item($prev_post, 'nav-previous', $icon_prev);
-			self::get_post_navigation_item($next_post, 'nav-next', $icon_next);
-			?>
-		</nav>
-<?php
-	}
-}
-/********************************************************************/
-/* 次へ＆前へのページネーション e*/
-/********************************************************************/
-
 
 /********************************************************************/
 /* 抜粋関数の文字数を変更 s	*/
 /********************************************************************/
 
 /**
- * Class Integlight_Excerpt_Customizer
+ * Class Integlight_excerpt_edit
  *
  * Customizes the excerpt length and cleans up the automatically generated excerpt.
  */
-class Integlight_Excerpt_Customizer
+class Integlight_excerpt_edit
 {
 	/**
 	 * The desired excerpt length in words.
@@ -516,7 +439,7 @@ class Integlight_Excerpt_Customizer
 }
 
 // Instantiate the class to initialize the functionality
-new Integlight_Excerpt_Customizer();
+new Integlight_excerpt_edit();
 
 
 

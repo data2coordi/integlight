@@ -165,3 +165,82 @@ function integlight_get_trimmed_excerpt($post_id = null, $length = 150, $more = 
 
 	return $excerpt_trimmed;
 }
+
+
+
+/********************************************************************/
+/* 次へ＆前へのページネーション s*/
+/********************************************************************/
+class Integlight_postNavigations
+{
+	/**
+	 * 投稿の画像を取得する（アイキャッチ or 本文の最初の画像）
+	 */
+
+
+
+	/**
+	 * ナビゲーションの共通HTMLを出力
+	 */
+	private static function get_post_navigation_item($post, $class, $icon)
+	{
+		if (!$post) {
+			return;
+		}
+
+		$post_id    = $post->ID;
+		$post_title = get_the_title($post_id);
+		$post_title = (strlen($post_title) > 17) ? wp_html_excerpt($post_title, 17) . esc_html__('...', 'integlight') : $post_title;
+		$post_url   = get_permalink($post_id);
+
+?>
+		<a href="<?php echo esc_url($post_url); ?>" class="<?php echo esc_attr($class); ?>">
+			<div class="nav-image-wrapper">
+				<img loading="lazy" fetchpriority="low" src="<?php echo esc_url(Integlight_PostThumbnail::getUrl($post_id)); ?>"
+					alt="">
+				<span class="nav-label">
+					<?php if ($class === 'nav-previous') : ?>
+						<?php echo $icon; ?>
+					<?php endif; ?>
+					<?php echo esc_html($post_title); ?>
+					<?php if ($class === 'nav-next') : ?>
+						<?php echo $icon; ?>
+					<?php endif; ?>
+				</span>
+			</div>
+		</a>
+
+	<?php
+	}
+
+	/**
+	 * 前後の投稿ナビゲーションを表示する
+	 */
+	public static function get_post_navigation()
+	{
+		$prev_post = get_previous_post();
+		$next_post = get_next_post();
+
+
+		if (!$prev_post && !$next_post) {
+			return;
+		}
+
+		$icon_prev = '<span class="icon-prev"></span>';
+
+		$icon_next = '<span class="icon-next"></span>';
+
+
+	?>
+		<nav class="post-navigation" role="navigation">
+			<?php
+			self::get_post_navigation_item($prev_post, 'nav-previous', $icon_prev);
+			self::get_post_navigation_item($next_post, 'nav-next', $icon_next);
+			?>
+		</nav>
+<?php
+	}
+}
+/********************************************************************/
+/* 次へ＆前へのページネーション e*/
+/********************************************************************/

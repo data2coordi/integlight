@@ -1,19 +1,19 @@
-<?php // tests/unit-tests/InteglightBreadcrumbTest.php
+<?php // tests/unit-tests/Integlight_breadCrumbTest.php
 
 declare(strict_types=1);
 
 /**
- * Test case for the InteglightBreadcrumb class.
+ * Test case for the Integlight_breadCrumb class.
  *
- * @coversDefaultClass InteglightBreadcrumb
+ * @coversDefaultClass Integlight_breadCrumb
  * @group functions
  * @group breadcrumb
  */
-class integlight_functions_InteglightBreadcrumbTest extends WP_UnitTestCase
+class integlight_functions_Integlight_breadCrumbTest extends WP_UnitTestCase
 {
     /**
      * Test target class instance.
-     * @var InteglightBreadcrumb|null
+     * @var Integlight_breadCrumb|null
      */
     private $instance = null;
 
@@ -24,7 +24,7 @@ class integlight_functions_InteglightBreadcrumbTest extends WP_UnitTestCase
     {
         parent::setUp();
         // Instantiate the class (this also adds the hooks)
-        $this->instance = new InteglightBreadcrumb();
+        $this->instance = new Integlight_breadCrumb();
     }
 
     /**
@@ -258,7 +258,7 @@ class integlight_functions_InteglightBreadcrumbTest extends WP_UnitTestCase
         $output = '';
         try {
             // Use reflection to access the private method
-            $reflectionMethod = new ReflectionMethod(InteglightBreadcrumb::class, 'generate_breadcrumb');
+            $reflectionMethod = new ReflectionMethod(Integlight_breadCrumb::class, 'generate_breadcrumb');
             $reflectionMethod->setAccessible(true); // Make the private method accessible
             $output = $reflectionMethod->invoke($this->instance); // Invoke the method
 
