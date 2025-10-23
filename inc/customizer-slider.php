@@ -21,7 +21,7 @@ class integlight_customizer_slider_creSection
 		$wp_customize->add_section(self::SLIDER_SECTION_ID, array(
 			'title'    => __('Slider Settings', 'integlight'),
 			'priority' => 29,
-			'panel' => InteglightHeaderSettings::getHeaderPanelId(),
+			'panel' => Integlight_customizer_selHeader_settingValues::getHeaderPanelId(),
 			'active_callback' => function () {
 				return get_theme_mod('integlight_display_choice', 'none') === 'slider';
 			},
@@ -36,7 +36,7 @@ class integlight_customizer_slider_creSection
 }
 
 
-class Integlight_Customizer_Slider_Image_Settings extends Integlight_Customizer_Setting_Helper
+class Integlight_Customizer_Slider_Image_Settings extends Integlight_customizer_settingHelper
 {
 	public function register_pc_settings()
 	{
@@ -57,7 +57,7 @@ class Integlight_Customizer_Slider_Image_Settings extends Integlight_Customizer_
 	}
 }
 
-class Integlight_Customizer_Slider_Text_Settings extends Integlight_Customizer_Setting_Helper
+class Integlight_Customizer_Slider_Text_Settings extends Integlight_customizer_settingHelper
 {
 	public function register_pc_settings()
 	{
@@ -80,7 +80,7 @@ class Integlight_Customizer_Slider_Text_Settings extends Integlight_Customizer_S
 	}
 }
 
-class Integlight_Customizer_Slider_Effect_Settings extends Integlight_Customizer_Setting_Helper
+class Integlight_Customizer_Slider_Effect_Settings extends Integlight_customizer_settingHelper
 {
 	public function register_settings()
 	{

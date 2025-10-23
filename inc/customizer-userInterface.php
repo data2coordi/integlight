@@ -59,7 +59,7 @@ new Integlight_Customizer_Panel_Description_AlwaysVisible(
 	[
 		'integlight_site_panel',
 		'integlight_menu_panel',
-		InteglightHeaderSettings::getHeaderPanelId(),
+		Integlight_customizer_selHeader_settingValues::getHeaderPanelId(),
 		'integlight_sidebar_panel',
 		'integlight_footer_panel',
 		'integlight_design_panel',
@@ -131,7 +131,7 @@ class Integlight_Customizer_Manager
 				'priority'    => 20,
 				'description' => $menu_desc,
 			],
-			InteglightHeaderSettings::getHeaderPanelId() => [
+			Integlight_customizer_selHeader_settingValues::getHeaderPanelId() => [
 				'title'       => __('Header Settings', 'integlight'),
 				'priority'    => 30,
 				'description' => $header_desc,
@@ -170,7 +170,7 @@ class Integlight_Customizer_Manager
 			'background_image'   => ['panel' => 'integlight_design_panel',  'title' => __('Background Image', 'integlight')],
 			'custom_css'         => ['panel' => 'integlight_design_panel',  'title' => __('Additional CSS', 'integlight')],
 			// nav_menus等はパネル -> それに属するセクションを移動する形で扱う
-			'header_image'       => ['panel' => InteglightHeaderSettings::getHeaderPanelId(), 'title' => __('2.Static Image Settings', 'integlight')],
+			'header_image'       => ['panel' => Integlight_customizer_selHeader_settingValues::getHeaderPanelId(), 'title' => __('2.Static Image Settings', 'integlight')],
 			'nav_menus'          => ['panel' => 'integlight_menu_panel',   'title' => __('Menus', 'integlight')],
 			'widgets'            => ['panel' => 'integlight_sidebar_panel', 'title' => __('Widgets', 'integlight')],
 		];

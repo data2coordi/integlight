@@ -12,7 +12,7 @@
 /**
  * Adds text settings to the built-in 'header_image' Customizer section.
  */
-class Integlight_Customizer_HeaderImage_Text_Settings extends Integlight_Customizer_Setting_Helper
+class Integlight_customizer_headerImage_textSettings extends Integlight_customizer_settingHelper
 {
     /**
      * Registers PC and Mobile text settings.
@@ -57,7 +57,7 @@ class Integlight_Customizer_HeaderImage
 
     public function register_text_settings($wp_customize)
     {
-        $text_settings = new Integlight_Customizer_HeaderImage_Text_Settings($wp_customize, 'header_image');
+        $text_settings = new Integlight_customizer_headerImage_textSettings($wp_customize, 'header_image');
         $text_settings->register_settings();
     }
 }

@@ -1,5 +1,5 @@
 <?php
-class Integlight_Customize_Performance
+class Integlight_customize_performance
 {
 
     /**
@@ -52,4 +52,4 @@ class Integlight_Customize_Performance
 }
 
 // クラス初期化
-new Integlight_Customize_Performance();
+new Integlight_customize_performance();

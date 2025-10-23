@@ -3,7 +3,7 @@
 
 
 // ヘッダースライダー、ヘッダー画像の設定で使うヘルパー s ///////////////////////////////////////////////////////////////////////////////
-abstract class Integlight_Customizer_Setting_Helper
+abstract class Integlight_customizer_settingHelper
 {
 	protected $pWp_customize;
 	protected $pSectionId;

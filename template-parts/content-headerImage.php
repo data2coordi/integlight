@@ -19,7 +19,7 @@ if (!get_header_image()) {
 	return;
 }
 
-$texts  = InteglightHeaderImageContent::getTexts();
+$texts  = Integlight_customizer_headerImage_displayContent::getTexts();
 
 ?>
 

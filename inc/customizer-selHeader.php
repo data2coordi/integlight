@@ -3,7 +3,7 @@
 
 
 
-class InteglightHeaderSettings
+class Integlight_customizer_selHeader_settingValues
 {
     private static string $headerTypeName_slider = 'slider';
     private static string $headerTypeName_image = 'image';
@@ -27,10 +27,6 @@ class InteglightHeaderSettings
 }
 
 // 利用例
-//echo InteglightHeaderSettings::getSlider(); // slider
-//echo InteglightHeaderSettings::getImage();  // image
-//echo InteglightHeaderSettings::getHeaderPanelId();  // image
-
 
 
 
@@ -42,8 +38,8 @@ function integlight_display_headerContents()
 {
 
     $choice = get_theme_mod('integlight_display_choice', 'none');
-    $slider = InteglightHeaderSettings::getSlider();
-    $image  = InteglightHeaderSettings::getImage();
+    $slider = Integlight_customizer_selHeader_settingValues::getSlider();
+    $image  = Integlight_customizer_selHeader_settingValues::getImage();
 
     switch ($choice) {
         case $slider:
@@ -71,7 +67,7 @@ class integlight_customizer_headerImage_updSection
 
     public function __construct()
     {
-        $this->pPanelId = InteglightHeaderSettings::getHeaderPanelId();
+        $this->pPanelId = Integlight_customizer_selHeader_settingValues::getHeaderPanelId();
 
         add_action('customize_register', array($this, 'integlight_customizer_headerImage_updSection'));
     }
@@ -114,7 +110,7 @@ class integlight_customizer_selHeader_creSection
         $wp_customize->add_section(self::SLIDER_OR_IMAGE_SECTION_ID, array(
             'title'    => __('Select - Slider or Image', 'integlight'),
             'priority' => 29,
-            'panel' => InteglightHeaderSettings::getHeaderPanelId(),
+            'panel' => Integlight_customizer_selHeader_settingValues::getHeaderPanelId(),
             'description' => __("Select the type of media to display on the homepage (top page).<br>The settings button for the selected type will appear on the previous screen.<br><br><b>Recommended setting:</b><br>Slider is recommended.", 'integlight')
         ));
 
@@ -164,8 +160,8 @@ class integlight_customizer_HeaderTypeSelecter
             'settings' => 'integlight_display_choice',
             'type'     => 'select',
             'choices'  => array(
-                InteglightHeaderSettings::getSlider() => __('Slider', 'integlight'),
-                InteglightHeaderSettings::getImage() => __('Still Image', 'integlight'),
+                Integlight_customizer_selHeader_settingValues::getSlider() => __('Slider', 'integlight'),
+                Integlight_customizer_selHeader_settingValues::getImage() => __('Still Image', 'integlight'),
                 'none' => __('None', 'integlight'),
             ),
         ));

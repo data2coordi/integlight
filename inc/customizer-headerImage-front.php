@@ -1,6 +1,6 @@
 <?php
 
-class InteglightHeaderImageContent
+class Integlight_customizer_headerImage_displayContent
 {
 	public static function getTexts(): array
 	{
@@ -13,7 +13,7 @@ class InteglightHeaderImageContent
 
 
 /* スライダーに表示するテキストにカスタマイザーでユーザーがセットしたスタイルを適用するs */
-class integlight_customizer_headerImage_applyHeaderTextStyle
+class integlight_customizer_headerImage_textStyle
 {
 
 	/**
@@ -22,13 +22,13 @@ class integlight_customizer_headerImage_applyHeaderTextStyle
 	public function __construct()
 	{
 		// wp_head に出力するためのフックを登録
-		add_action('wp_head', array($this, 'integlight_headerImage_applyTextStyles'));
+		add_action('wp_head', array($this, 'applyTextStyles'));
 	}
 
 	/**
 	 * カスタマイザーの設定値に基づき、.slider .text-overlay のスタイルを出力
 	 */
-	public function integlight_headerImage_applyTextStyles()
+	public function applyTextStyles()
 	{
 
 		// カスタマイザーから値を取得。未設定の場合はデフォルト値を使用
@@ -83,13 +83,12 @@ class integlight_customizer_headerImage_applyHeaderTextStyle
 
 
 
-
 /*カスタマイザーで設定したスライダー機能をフロントでオープンしたときにロード*/
 add_action('wp', function () {
 	if (is_front_page()) {
-		if (InteglightHeaderSettings::getImage() === get_theme_mod('integlight_display_choice', 'none')) {
+		if (Integlight_customizer_selHeader_settingValues::getImage() === get_theme_mod('integlight_display_choice', 'none')) {
 			integlight_load_css_forCall::regHeaderImageCss();
-			new integlight_customizer_headerImage_applyHeaderTextStyle();
+			new integlight_customizer_headerImage_textStyle();
 		}
 	}
 });

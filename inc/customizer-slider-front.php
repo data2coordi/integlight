@@ -179,7 +179,7 @@ class integlight_customizer_slider_outerAssets
 /*カスタマイザーで設定したスライダー機能をフロントでオープンしたときにロード*/
 add_action('wp', function () {
 	if (is_front_page()) {
-		if (InteglightHeaderSettings::getSlider() === get_theme_mod('integlight_display_choice', 'none')) {
+		if (Integlight_customizer_selHeader_settingValues::getSlider() === get_theme_mod('integlight_display_choice', 'none')) {
 			if (
 				get_theme_mod('integlight_slider_image_mobile_1') ||
 				get_theme_mod('integlight_slider_image_mobile_2') ||
