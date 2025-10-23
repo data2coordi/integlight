@@ -33,6 +33,6 @@
 		<span class="entry-date"><i class="fa-solid fa-calendar-days"></i><?php echo get_the_date(); ?></span>
 	</div>
 	<div class="bl_card_body">
-		<p class="bl_card_txt"><?php echo integlight_get_trimmed_excerpt(); ?></p>
+		<p class="bl_card_txt"><?php echo Integlight_excerpt_trim(); ?></p>
 	</div>
 </div>

@@ -70,12 +70,12 @@ endif;
 
 
 /**
- * integlight_entry_footer
+ * integlight_footerEntry
  * フッターを付与
  * @package Integlight
  */
-if (! function_exists('integlight_entry_footer')) :
-	function integlight_entry_footer()
+if (! function_exists('integlight_footerEntry')) :
+	function integlight_footerEntry()
 	{
 		// Hide category and tag text for pages.
 		if ('post' === get_post_type()) {
@@ -144,7 +144,7 @@ endif;
  * @param string $more 省略文字（デフォルト '…'）
  * @return string 安全に整形された抜粋文字列
  */
-function integlight_get_trimmed_excerpt($post_id = null, $length = 150, $more = '…')
+function Integlight_excerpt_trim($post_id = null, $length = 150, $more = '…')
 {
 	if (! $post_id) {
 		global $post;

@@ -113,10 +113,10 @@ class template_tags_TemplateTagsTest extends WP_UnitTestCase
     }
 
     /**
-     * Test integlight_entry_footer() output.
-     * @covers ::integlight_entry_footer
+     * Test integlight_footerEntry() output.
+     * @covers ::integlight_footerEntry
      */
-    public function test_integlight_entry_footer()
+    public function test_integlight_footerEntry()
     {
         // --- Test with Categories and Tags ---
         $cat_id = self::factory()->category->create(array('name' => 'Test Category'));
@@ -130,7 +130,7 @@ class template_tags_TemplateTagsTest extends WP_UnitTestCase
         setup_postdata($post);
 
         ob_start();
-        integlight_entry_footer();
+        integlight_footerEntry();
         $output = ob_get_clean();
 
         // Check for category link
@@ -150,7 +150,7 @@ class template_tags_TemplateTagsTest extends WP_UnitTestCase
         setup_postdata($post);
 
         ob_start();
-        integlight_entry_footer();
+        integlight_footerEntry();
         $output_comments_open = ob_get_clean();
         $this->assertStringContainsString('<span class="comments-link">', $output_comments_open);
         $this->assertStringContainsString(__('Leave a Comment', 'integlight'), $output_comments_open);
@@ -161,7 +161,7 @@ class template_tags_TemplateTagsTest extends WP_UnitTestCase
         setup_postdata($post);
 
         ob_start();
-        integlight_entry_footer();
+        integlight_footerEntry();
         $output_comments_closed = ob_get_clean();
         // comments_popup_link won't output if comments are closed AND there are 0 comments
         $this->assertStringNotContainsString('<span class="comments-link">', $output_comments_closed);
@@ -169,7 +169,7 @@ class template_tags_TemplateTagsTest extends WP_UnitTestCase
         // --- Test Edit Link (User Can Edit) ---
         // User is already set to editor in setUp
         ob_start();
-        integlight_entry_footer();
+        integlight_footerEntry();
         $output_edit = ob_get_clean();
         $this->assertStringContainsString('<span class="edit-link">', $output_edit);
         // *** MODIFIED HERE: Use esc_url() for comparison ***
@@ -179,7 +179,7 @@ class template_tags_TemplateTagsTest extends WP_UnitTestCase
         // --- Test Edit Link (User Cannot Edit) ---
         wp_set_current_user(0); // Log out user
         ob_start();
-        integlight_entry_footer();
+        integlight_footerEntry();
         $output_no_edit = ob_get_clean();
         $this->assertStringNotContainsString('<span class="edit-link">', $output_no_edit);
         wp_set_current_user($this->user_id); // Log back in for subsequent tests
@@ -190,7 +190,7 @@ class template_tags_TemplateTagsTest extends WP_UnitTestCase
         setup_postdata($post);
 
         ob_start();
-        integlight_entry_footer();
+        integlight_footerEntry();
         $output_page = ob_get_clean();
         $this->assertStringNotContainsString('<span class="cat-links">', $output_page);
         $this->assertStringNotContainsString('<span class="tags-links">', $output_page);
