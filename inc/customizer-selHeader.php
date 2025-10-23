@@ -115,7 +115,7 @@ class integlight_customizer_selHeader_creSection
         ));
 
         $msg1 =
-            new Integlight_Customizer_Section_Description(
+            new Integlight_customizer_sectionDescription(
                 self::SLIDER_OR_IMAGE_SECTION_ID,
                 __("<br>In 1 above, select the media type to display in the header section of the homepage (top page).<br><b>◆ Slider type</b>:<br>Images slide with animation<br><b>◆ Static image type</b>:<br>Normal static image<br><br>According to the type selected in 1 above, the 'Slider' or 'Static Image' settings button will appear in 2 below. Click the button to configure.", 'integlight')
 
@@ -133,7 +133,7 @@ class integlight_customizer_selHeader_creSection
 
 
 
-class integlight_customizer_HeaderTypeSelecter
+class integlight_customizer_selHeader_typeSelecter
 {
 
     private $pSectionId;
@@ -141,11 +141,11 @@ class integlight_customizer_HeaderTypeSelecter
     public function __construct($headerSection)
     {
         $this->pSectionId = $headerSection->getSliderOrImageSectionId();
-        add_action('customize_register', array($this, 'integlight_customizer_HeaderTypeSelecter'));
+        add_action('customize_register', array($this, 'headerTypeSelecter'));
     }
 
 
-    public function integlight_customizer_HeaderTypeSelecter($wp_customize)
+    public function headerTypeSelecter($wp_customize)
     {
 
         // 選択ボックスを追加
@@ -183,7 +183,7 @@ class integlight_customizer_selHeader
 
         $creHeaderSection = new integlight_customizer_selHeader_creSection();
 
-        new integlight_customizer_HeaderTypeSelecter($creHeaderSection);
+        new integlight_customizer_selHeader_typeSelecter($creHeaderSection);
         new integlight_customizer_headerImage_updSection();
     }
 }

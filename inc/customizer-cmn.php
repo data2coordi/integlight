@@ -69,7 +69,7 @@ abstract class Integlight_customizer_settingHelper
 		$this->pWp_customize->add_setting($settingName, array(
 			'sanitize_callback' => 'sanitize_text_field',
 		));
-		$this->pWp_customize->add_control(new integlight_customizer_creBigTitle(
+		$this->pWp_customize->add_control(new Integlight_customizer_creBigTitle(
 			$this->pWp_customize,
 			$settingName,
 			array(

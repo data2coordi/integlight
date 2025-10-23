@@ -1,7 +1,7 @@
 <?php
 
 
-class Integlight_Customizer_Panel_Description_AlwaysVisible
+class Integlight_customizer_panelDescription
 {
 	/**
 	 * 対象パネルID（例: ['integlight_site_panel']）
@@ -55,7 +55,7 @@ class Integlight_Customizer_Panel_Description_AlwaysVisible
 	}
 }
 
-new Integlight_Customizer_Panel_Description_AlwaysVisible(
+new Integlight_customizer_panelDescription(
 	[
 		'integlight_site_panel',
 		'integlight_menu_panel',
@@ -68,12 +68,95 @@ new Integlight_Customizer_Panel_Description_AlwaysVisible(
 );
 
 
+
+
+// パネル上の説明を修正 _s ////////////////////////////////////////////////////////////////////////////////
+// コアの日本語訳が酷いため修正
+function integlight_customizer_homeDescription($wp_customize)
+{
+	$section = $wp_customize->get_section('static_front_page');
+	if ($section) {
+		$section->description = __(
+			'You can choose what to display on your homepage. '
+				. 'If you select (Your latest posts), the newest articles will appear in order like a blog. '
+				. 'If you select (A static page), a fixed page will be shown instead. '
+				. 'To use a static homepage, please create two pages in advance: one for Home and one for Posts page.',
+			'integlight'
+		);
+	}
+}
+add_action('customize_register', 'integlight_customizer_homeDescription', 20);
+// パネル上の説明を修正 _e ////////////////////////////////////////////////////////////////////////////////
+
+
+// パネル上のセクションボタンに説明追加クラス _s ////////////////////////////////////////////////////////////////////////////////
+class Integlight_customizer_sectionDescription
+{
+	private string $section_id;
+	private string $description;
+	private string $position; // 'before' か 'after'
+
+	public function __construct(string $section_id, string $description, string $position = 'after')
+	{
+		$this->section_id  = $section_id;
+		$this->description = $description;
+		$this->position    = in_array($position, ['before', 'after'], true) ? $position : 'after';
+
+		// PHP 側：既存セクションの description を空にする
+		add_action('customize_register', [$this, 'clear_section_description']);
+
+		// JS 側：タイトル上または下に説明文を挿入
+		add_action('customize_controls_print_footer_scripts', [$this, 'inject_description_script']);
+	}
+
+	public function clear_section_description($wp_customize)
+	{
+		if ($wp_customize->get_section($this->section_id)) {
+			$wp_customize->get_section($this->section_id)->description = '';
+		}
+	}
+
+	public function inject_description_script()
+	{
+		$section_id_js = esc_js($this->section_id);
+		$description_html = wp_kses_post($this->description);
+		$position_js = esc_js($this->position);
+	?>
+		<script>
+			jQuery(document).ready(function($) {
+				var section = $('#accordion-section-<?php echo $section_id_js; ?>');
+				if (section.length && !section.find('.custom-section-description').length) {
+					var descriptionHTML = '<div class="custom-section-description" style="margin-bottom:6px;color:#555;font-size:13px;"><?php echo $description_html; ?></div>';
+
+					// before/after を選択可能
+					if (['before', 'after'].includes('<?php echo $position_js; ?>')) {
+						section.find('h3').first()['<?php echo $position_js; ?>'](descriptionHTML);
+					} else {
+						section.find('h3').first().after(descriptionHTML);
+					}
+				}
+			});
+		</script>
+		<style>
+			#accordion-section-<?php echo $section_id_js; ?>.custom-section-description {
+				line-height: 1.4;
+			}
+		</style>
+<?php
+	}
+}
+
+
+// パネル上のセクションボタンに説明追加クラス _e ////////////////////////////////////////////////////////////////////////////////
+
+
+
 /**
  * Integlight: customizer rearrange
  * コアのセクションを独自パネルに移動する（子テーマ/プラグインは下に追加される前提）
  */
 
-class Integlight_Customizer_Manager
+class Integlight_customizer_interfaceManager
 {
 	/** @var array */
 	private $panels;
@@ -219,17 +302,17 @@ class Integlight_Customizer_Manager
 }
 
 // init
-new Integlight_Customizer_Manager();
+new Integlight_customizer_interfaceManager();
 
 // セクション上に見出し作成クラス _s ////////////////////////////////////////////////////////////////////////////////
 
 /**
- * セクション上に説明を追加する。
+ * セクション上に見出しを追加する。
  */
 function integlight_define_custom_control_for_customizer()
 {
-	if (class_exists('WP_Customize_Control') && !class_exists('integlight_customizer_creBigTitle')) {
-		class integlight_customizer_creBigTitle extends WP_Customize_Control
+	if (class_exists('WP_Customize_Control') && !class_exists('Integlight_customizer_creBigTitle')) {
+		class Integlight_customizer_creBigTitle extends WP_Customize_Control
 		{
 			public $type = 'heading';
 			public function render_content()
@@ -247,82 +330,3 @@ function integlight_define_custom_control_for_customizer()
 add_action('customize_register', 'integlight_define_custom_control_for_customizer', 1);
 
 // セクション上に見出し作成クラス _e ////////////////////////////////////////////////////////////////////////////////
-
-// パネル上のセクションボタンに説明追加クラス _s ////////////////////////////////////////////////////////////////////////////////
-class Integlight_Customizer_Section_Description
-{
-	private string $section_id;
-	private string $description;
-	private string $position; // 'before' か 'after'
-
-	public function __construct(string $section_id, string $description, string $position = 'after')
-	{
-		$this->section_id  = $section_id;
-		$this->description = $description;
-		$this->position    = in_array($position, ['before', 'after'], true) ? $position : 'after';
-
-		// PHP 側：既存セクションの description を空にする
-		add_action('customize_register', [$this, 'clear_section_description']);
-
-		// JS 側：タイトル上または下に説明文を挿入
-		add_action('customize_controls_print_footer_scripts', [$this, 'inject_description_script']);
-	}
-
-	public function clear_section_description($wp_customize)
-	{
-		if ($wp_customize->get_section($this->section_id)) {
-			$wp_customize->get_section($this->section_id)->description = '';
-		}
-	}
-
-	public function inject_description_script()
-	{
-		$section_id_js = esc_js($this->section_id);
-		$description_html = wp_kses_post($this->description);
-		$position_js = esc_js($this->position);
-	?>
-		<script>
-			jQuery(document).ready(function($) {
-				var section = $('#accordion-section-<?php echo $section_id_js; ?>');
-				if (section.length && !section.find('.custom-section-description').length) {
-					var descriptionHTML = '<div class="custom-section-description" style="margin-bottom:6px;color:#555;font-size:13px;"><?php echo $description_html; ?></div>';
-
-					// before/after を選択可能
-					if (['before', 'after'].includes('<?php echo $position_js; ?>')) {
-						section.find('h3').first()['<?php echo $position_js; ?>'](descriptionHTML);
-					} else {
-						section.find('h3').first().after(descriptionHTML);
-					}
-				}
-			});
-		</script>
-		<style>
-			#accordion-section-<?php echo $section_id_js; ?>.custom-section-description {
-				line-height: 1.4;
-			}
-		</style>
-<?php
-	}
-}
-
-
-// パネル上のセクションボタンに説明追加クラス _e ////////////////////////////////////////////////////////////////////////////////
-
-
-// パネル上の説明を修正 _s ////////////////////////////////////////////////////////////////////////////////
-// コアの日本語訳が酷いため修正
-function integlight_customize_home_description($wp_customize)
-{
-	$section = $wp_customize->get_section('static_front_page');
-	if ($section) {
-		$section->description = __(
-			'You can choose what to display on your homepage. '
-				. 'If you select (Your latest posts), the newest articles will appear in order like a blog. '
-				. 'If you select (A static page), a fixed page will be shown instead. '
-				. 'To use a static homepage, please create two pages in advance: one for Home and one for Posts page.',
-			'integlight'
-		);
-	}
-}
-add_action('customize_register', 'integlight_customize_home_description', 20);
-// パネル上の説明を修正 _e ////////////////////////////////////////////////////////////////////////////////
