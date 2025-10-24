@@ -43,62 +43,84 @@ const devices = [
 const siteTypes = ["エレガント", "ポップ"];
 
 // ======= テスト展開 =======
-for (const siteType of siteTypes) {
-  test.describe(`${siteType}`, () => {
-    test.beforeAll(async ({ browser }) => {
-      const page = await browser.newPage();
-      // await openCustomizer(page);
-      // await setSiteType(page, siteType);
-      // await ensureCustomizerRoot(page);
-      // await selSliderEffect(page, "スライド", "60"); // スライダーエフェクトを「スライド」、変更時間間隔を3秒に設定
-      // await saveCustomizer(page);
+// for (const siteType of siteTypes) {
+//   test.describe(`${siteType}`, () => {
+//     test.beforeAll(async ({ browser }) => {
+//       const page = await browser.newPage();
+//       await openCustomizer(page);
+//       await setSiteType(page, siteType);
+//       await ensureCustomizerRoot(page);
+//       await selSliderEffect(page, "スライド", "60"); // スライダーエフェクトを「スライド」、変更時間間隔を3秒に設定
+//       await saveCustomizer(page);
 
-      await page.close();
-    });
+//       await page.close();
+//     });
 
-    for (const device of devices) {
-      test.describe(`${device.name} : ${siteType}`, () => {
-        test.use(device.use);
+//     for (const device of devices) {
+//       test.describe(`${device.name} : ${siteType}`, () => {
+//         test.use(device.use);
 
-        for (const { name, url, options } of pages) {
-          test(`： ${name}`, async ({ page }) => {
-            await page.goto(url, { waitUntil: "networkidle" });
+//         for (const { name, url, options } of pages) {
+//           test(`： ${name}`, async ({ page }) => {
+//             await page.goto(url, { waitUntil: "networkidle" });
 
-            // 安全待機: ページ全体が見える状態を確認
-            //await page.locator('body').waitFor({ state: 'visible', timeout: 10000 });
+//             // 安全待機: ページ全体が見える状態を確認
+//             //await page.locator('body').waitFor({ state: 'visible', timeout: 10000 });
 
-            // 任意で、LazyLoad画像の読み込みやフォント描画を待つ場合
-            //await page.waitForTimeout(500); // 0.5秒程度の余裕待機
+//             // 任意で、LazyLoad画像の読み込みやフォント描画を待つ場合
+//             //await page.waitForTimeout(500); // 0.5秒程度の余裕待機
 
-            const options = {
-              maxDiffPixelRatio: 0.03, // 人間の目でわからないレベル
-              threshold: 0.03,
-            };
-            await expect(page).toHaveScreenshot({
-              fullPage: true,
-              timeout: 100000,
-              ...options,
-            });
-          });
-          //break;
-        }
-      });
-      //break;
-    }
-  });
-  //break;
+//             const options = {
+//               maxDiffPixelRatio: 0.03, // 人間の目でわからないレベル
+//               threshold: 0.03,
+//             };
+//             await expect(page).toHaveScreenshot({
+//               fullPage: true,
+//               timeout: 100000,
+//               ...options,
+//             });
+//           });
+//         }
+//       });
+//     }
+//   });
+// }
+
+//画像ヘッダーを選択
+async function setHeaderImage(page, config) {
+  await ensureCustomizerRoot(page);
+  await openHeaderImage(page);
+
+  await page.getByRole("button", { name: "画像を追加" }).nth(0).click();
+  const mediaModal = page.locator(".attachments-browser");
+  await mediaModal.waitFor({ state: "visible", timeout: 15000 });
+
+  const searchInput = page.locator("#media-search-input");
+  await searchInput.fill(config.imagePartialName);
+  await searchInput.press("Enter");
+
+  const targetImage = page
+    .locator(`.attachments-browser img[src*="${config.imagePartialName}"]`)
+    .first();
+  await targetImage.waitFor({ state: "visible", timeout: 15000 });
+  await targetImage.click({ force: true });
+
+  await page.getByRole("button", { name: "選択して切り抜く" }).nth(0).click();
+  await page.getByRole("button", { name: "画像切り抜き" }).nth(0).click();
+}
+
+async function settingWrapper(page, siteType) {
+  await openCustomizer(page);
+  await setSiteType(page, siteType);
+  await ensureCustomizerRoot(page);
+  await saveCustomizer(page);
 }
 
 for (const siteType of siteTypes) {
   test.describe(`画像ヘッダーテスト:${siteType}`, () => {
     test.beforeAll(async ({ browser }) => {
       const page = await browser.newPage();
-      // await openCustomizer(page);
-      // await setSiteType(page, siteType);
-      // await ensureCustomizerRoot(page);
-      // await openHeaderSetting(page, "静止画像");
-      // await saveCustomizer(page);
-
+      await settingWrapper(page, "ポップ");
       await page.close();
     });
 
