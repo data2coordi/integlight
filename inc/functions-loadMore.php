@@ -21,7 +21,7 @@ class Integlight_loadMore
     {
 
         if (is_home() && 'home2' === get_theme_mod('integlight_hometype_setting', 'home1')) {
-            integlight_load_scripts_forCall::regLoadMoreScripts();
+            Integlight_outerAssets_js_forCall::regLoadMoreScripts();
         }
     }
 
@@ -30,7 +30,7 @@ class Integlight_loadMore
 
         if (is_home() && 'home2' === get_theme_mod('integlight_hometype_setting', 'home1')) {
 
-            wp_localize_script(integlight_load_scripts_forCall::getLoadMoreScriptsHandleName(), 'integlightLoadMore', [
+            wp_localize_script(Integlight_outerAssets_js_forCall::getLoadMoreScriptsHandleName(), 'integlightLoadMore', [
                 'loadMoreText'      => __('もっと見る', 'integlight'),
                 'loadingText'       => __('読み込み中...', 'integlight'),
                 'ajax_url' => admin_url('admin-ajax.php'),

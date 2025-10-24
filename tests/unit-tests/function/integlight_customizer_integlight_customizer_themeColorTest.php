@@ -73,7 +73,7 @@ class integlight_customizer_integlight_customizer_themeColorTest extends WP_Unit
 
         // テスト対象クラスのインスタンスを作成
         $this->instance = new integlight_customizer_themeColor();
-        $this->instance_front = new InteglightThemeColorLoader();
+        $this->instance_front = new Integlight_outerAssets_themeColorLoader();
 
         // WordPress のスクリプト/スタイルシステムをリセット
         $this->reset_wp_scripts_styles();

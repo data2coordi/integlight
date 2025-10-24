@@ -148,15 +148,15 @@ class integlight_customizer_slider_outerAssets
 	public function __construct()
 	{
 		add_action('wp_enqueue_scripts', array($this, 'provideTOjs'));
-		integlight_load_css_forCall::regSliderCss();
-		integlight_load_scripts_forCall::regSliderScripts();
+		Integlight_outerAssets_css_forCall::regSliderCss();
+		Integlight_outerAssets_js_forCall::regSliderScripts();
 	}
 
 	public function provideTOjs()
 	{
 
 		// カスタマイザーの設定値をJavaScriptに渡す
-		wp_localize_script(integlight_load_scripts_forCall::getSliderScriptsHandleName(), 'integlight_sliderSettings', array(
+		wp_localize_script(Integlight_outerAssets_js_forCall::getSliderScriptsHandleName(), 'integlight_sliderSettings', array(
 			'changeDuration' => get_theme_mod('integlight_slider_change_duration', 3),
 			'effect' => get_theme_mod('integlight_slider_effect', Integlight_customizer_slider_settings::getEffectNameFade()),
 			'homeType' => get_theme_mod('integlight_hometype_setting', Integlight_customizer_slider_settings::getHomeType1Name()),

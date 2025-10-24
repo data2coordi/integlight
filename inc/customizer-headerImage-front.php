@@ -87,7 +87,7 @@ class integlight_customizer_headerImage_textStyle
 add_action('wp', function () {
 	if (is_front_page()) {
 		if (Integlight_customizer_selHeader_settingValues::getImage() === get_theme_mod('integlight_display_choice', 'none')) {
-			integlight_load_css_forCall::regHeaderImageCss();
+			Integlight_outerAssets_css_forCall::regHeaderImageCss();
 			new integlight_customizer_headerImage_textStyle();
 		}
 	}

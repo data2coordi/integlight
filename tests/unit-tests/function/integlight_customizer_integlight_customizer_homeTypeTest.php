@@ -27,7 +27,7 @@ class integlight_customizer_integlight_customizer_homeTypeTest extends WP_UnitTe
         $wp_customize = $this->wp_customize; // グローバル変数に代入
 
         $this->instance = new integlight_customizer_HomeType();
-        $this->homeTypeLoader = new InteglightHomeTypeLoader();
+        $this->homeTypeLoader = new Integlight_outerAssets_homeTypeLoader();
     }
 
     public function tearDown(): void
@@ -241,7 +241,7 @@ class integlight_customizer_integlight_customizer_homeTypeTest extends WP_UnitTe
 
     /**
      * @test
-     * @covers InteglightHomeTypeLoader::enqueue_hometype_css
+     * @covers Integlight_outerAssets_homeTypeLoader::enqueue_hometype_css
      */
     public function enqueue_hometype_css_should_pass_correct_css_path_to_style_managers(): void
     {
@@ -279,7 +279,7 @@ class integlight_customizer_integlight_customizer_homeTypeTest extends WP_UnitTe
     }
     /**
      * @test
-     * @covers InteglightHomeTypeLoader::enqueue_hometype_css
+     * @covers Integlight_outerAssets_homeTypeLoader::enqueue_hometype_css
      */
     public function enqueue_hometype_css_should_use_default_home1_if_theme_mod_not_set(): void
     {
@@ -319,7 +319,7 @@ class integlight_customizer_integlight_customizer_homeTypeTest extends WP_UnitTe
     }
     /**
      * @test
-     * @covers InteglightHomeTypeLoader::enqueue_hometype_css
+     * @covers Integlight_outerAssets_homeTypeLoader::enqueue_hometype_css
      */
     public function enqueue_hometype_css_should_generate_correct_path_for_each_setting(): void
     {

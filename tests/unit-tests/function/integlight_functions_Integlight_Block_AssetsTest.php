@@ -6,17 +6,17 @@ declare(strict_types=1);
 // require_once dirname(__DIR__, 2) . '/inc/integlight-functions.php'; // またはクラス定義ファイル
 
 /**
- * Integlight_Block_Assets クラスのユニットテスト
+ * Integlight_blockItemPattern クラスのユニットテスト
  *
- * @coversDefaultClass Integlight_Block_Assets
+ * @coversDefaultClass Integlight_blockItemPattern
  * @group assets
  * @group blocks
  */
-class integlight_functions_Integlight_Block_AssetsTest extends WP_UnitTestCase // クラス名を修正 (PSR-4推奨) Integlight_Block_AssetsTest
+class integlight_functions_Integlight_blockItemPatternTest extends WP_UnitTestCase // クラス名を修正 (PSR-4推奨) Integlight_blockItemPatternTest
 {
     /**
      * テスト対象クラスのインスタンス
-     * @var Integlight_Block_Assets|null
+     * @var Integlight_blockItemPattern|null
      */
     private $instance = null;
 
@@ -28,7 +28,7 @@ class integlight_functions_Integlight_Block_AssetsTest extends WP_UnitTestCase /
         parent::setUp();
         // テスト対象クラスのインスタンスを作成
         // ※コンストラクタ内でフック登録が行われる
-        $this->instance = new Integlight_Block_Assets();
+        $this->instance = new Integlight_blockItemPattern();
 
         // --- ここから削除 ---
         // // テスト間でレジストリの状態をクリーンにする

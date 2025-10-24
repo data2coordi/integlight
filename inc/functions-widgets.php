@@ -4,12 +4,12 @@
 /* Profile表示 s	*/
 /********************************************************************/
 
-class Integlight_Profile_Widget extends WP_Widget
+class Integlight_widget_profile extends WP_Widget
 {
     public function __construct()
     {
         parent::__construct(
-            'integlight_profile_widget',
+            'Integlight_widget_profile',
             __('[Integlight] Display Profile', 'integlight'),
             array('description' => __('Display the profile of a selected user', 'integlight'))
         );
@@ -71,7 +71,7 @@ class Integlight_Profile_Widget extends WP_Widget
 
 function integlight_register_widgets()
 {
-    register_widget('Integlight_Profile_Widget');
+    register_widget('Integlight_widget_profile');
 }
 add_action('widgets_init', 'integlight_register_widgets');
 

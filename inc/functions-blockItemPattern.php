@@ -6,11 +6,11 @@
 
 
 /**
- * Class Integlight_Block_Assets
+ * Class Integlight_blockItemPattern
  *
  * Registers custom block styles and patterns for the theme.
  */
-class Integlight_Block_Assets
+class Integlight_blockItemPattern
 {
 
   /**
@@ -263,7 +263,7 @@ HTML
 }
 
 // Instantiate the class to initialize the functionality
-new Integlight_Block_Assets();
+new Integlight_blockItemPattern();
 
 
 

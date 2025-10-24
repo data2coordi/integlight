@@ -21,7 +21,7 @@ require get_template_directory() . '/inc/functions-outerAssets.php';
 require get_template_directory() . '/inc/functions.php';
 require get_template_directory() . '/inc/functions-pf.php';
 require get_template_directory() . '/inc/functions-widgets.php';
-require get_template_directory() . '/inc/functions-pattern.php';
+require get_template_directory() . '/inc/functions-blockItemPattern.php';
 require get_template_directory() . '/inc/functions-loadMore.php';
 
 require get_template_directory() . '/inc/starter-content.php';

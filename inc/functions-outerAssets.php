@@ -24,7 +24,7 @@ add_action('wp_enqueue_scripts', function () {
 /****************************************************** */
 /* ccsの登録                                              */
 /****************************************************** */
-class InteglightPreDetermineCssAssets
+class Integlight_outerAssets_css_preDetermine
 {
     private static $styles = [
         'integlight-base-style-plus' => ['path' => '/css/build/all.cmn.nonLayout0.css', 'deps' => ['integlight-layout']],
@@ -95,16 +95,15 @@ class InteglightPreDetermineCssAssets
 }
 
 // 初期化処理（ルートで実行）
-add_action('wp', ['InteglightPreDetermineCssAssets', 'init']);
+add_action('wp', ['Integlight_outerAssets_css_preDetermine', 'init']);
 
 
 
 /****************************************************** */
 /* JSの登録                                              */
 /****************************************************** */
-
 //js 移動　PF対応!!!
-class InteglightPreDetermineJsAssets
+class Integlight_outerAssets_js_preDetermine
 {
 
     private static $scripts = [
@@ -160,7 +159,7 @@ class InteglightPreDetermineJsAssets
 }
 
 // 初期化処理
-add_action('wp', ['InteglightPreDetermineJsAssets', 'init']);
+add_action('wp', ['Integlight_outerAssets_js_preDetermine', 'init']);
 
 
 /***************************************** */
@@ -177,7 +176,7 @@ add_action('wp', ['InteglightPreDetermineJsAssets', 'init']);
 //カスタムカラー用のcss
 //////////////////////////////////////////
 
-class InteglightThemeColorLoader
+class Integlight_outerAssets_themeColorLoader
 {
     public function __construct()
     {
@@ -196,13 +195,13 @@ class InteglightThemeColorLoader
         Integlight_outerAssets_css_defer::add_deferred_styles(['integlight-custom-color-pattern']); //PF対応!!!
     }
 }
-new InteglightThemeColorLoader();
+new Integlight_outerAssets_themeColorLoader();
 
 
 //////////////////////////////////////////
 //ホームタイプ用のcss
 //////////////////////////////////////////
-class InteglightHomeTypeLoader
+class Integlight_outerAssets_homeTypeLoader
 {
     public function __construct()
     {
@@ -228,15 +227,15 @@ class InteglightHomeTypeLoader
         Integlight_outerAssets_css_editor::add_styles($styles);
     }
 }
-new InteglightHomeTypeLoader();
+new Integlight_outerAssets_homeTypeLoader();
 
 
 
 //////////////////////////////////////////
 //外部から呼び出しでcssのロード
-//slider
+//スライダー
 //////////////////////////////////////////
-class integlight_load_css_forCall
+class Integlight_outerAssets_css_forCall
 {
 
     public static function regSliderCss()
@@ -263,7 +262,7 @@ class integlight_load_css_forCall
 //外部から呼び出しでjsのロード
 //スライダー、LoadMore
 //////////////////////////////////////////
-class integlight_load_scripts_forCall
+class Integlight_outerAssets_js_forCall
 {
 
     public static function regSliderScripts()
