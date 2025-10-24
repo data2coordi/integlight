@@ -10,7 +10,7 @@ import {
 // ======= 共通関数 =======
 
 // ======= 設定 =======
-const baseUrl = "https://t2.auroralab-design.com";
+const baseUrl = "";
 
 const pages = [
   { name: "home top", url: `${baseUrl}/` },
