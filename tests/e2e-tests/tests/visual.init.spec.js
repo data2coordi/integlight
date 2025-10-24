@@ -91,6 +91,9 @@ async function setHeaderImage(page, config) {
   await ensureCustomizerRoot(page);
   await openHeaderImage(page);
 
+  await page.getByRole("button", { name: "ヘッダー設定" }).click();
+  await page.getByRole("button", { name: "2.静止画像設定" }).click();
+
   await page.getByRole("button", { name: "画像を追加" }).nth(0).click();
   const mediaModal = page.locator(".attachments-browser");
   await mediaModal.waitFor({ state: "visible", timeout: 15000 });
@@ -112,8 +115,12 @@ async function setHeaderImage(page, config) {
 async function settingWrapper(page, siteType) {
   console.log(`Setting site type to: ${siteType}`);
   await openCustomizer(page);
+  //サイトタイプ
   await setSiteType(page, siteType);
+  //ヘッダータイプ
   await ensureCustomizerRoot(page);
+  openHeaderSetting(page, "静止画像");
+
   await saveCustomizer(page);
 }
 
