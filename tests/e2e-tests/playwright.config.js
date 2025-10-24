@@ -50,6 +50,7 @@ export default defineConfig({
         /htmlCode\.spec\.ts/,
         /pf\.image\.post\.spec\.ts/,
         /visual\.spec\.js/,
+        /visual\.init\.spec\.js/,
       ], // setupと認証不要テストを除外
       dependencies: ["setup"], // setupプロジェクトの完了を待機
       use: {
@@ -62,6 +63,17 @@ export default defineConfig({
       name: "visual",
       testDir: "./tests", // テストファイルのディレクトリを指定
       testMatch: [/visual\.spec\.js/],
+      dependencies: ["setup"], // setupプロジェクトの完了を待機
+      use: {
+        ...devices["Desktop Chrome"], // デスクトップChromeを使用
+        // 保存した認証状態をロード
+        storageState: authFile,
+      },
+    },
+    {
+      name: "visual.init",
+      testDir: "./tests", // テストファイルのディレクトリを指定
+      testMatch: [/visual\.init\.spec\.js/],
       dependencies: ["setup"], // setupプロジェクトの完了を待機
       use: {
         ...devices["Desktop Chrome"], // デスクトップChromeを使用
