@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  visual-test:
+  visual-init-test:
     if: contains(github.event.head_commit.message, 'vitest')
     runs-on: ubuntu-latest
     container:
