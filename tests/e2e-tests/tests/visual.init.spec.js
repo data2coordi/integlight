@@ -116,9 +116,9 @@ async function settingWrapper(page, siteType) {
   console.log(`Setting site type to: ${siteType}`);
   await openCustomizer(page);
   //サイトタイプ
-  await setSiteType(page, siteType);
+  //await setSiteType(page, siteType);
   //ヘッダータイプ
-  await ensureCustomizerRoot(page);
+  //await ensureCustomizerRoot(page);
   openHeaderSetting(page, "静止画像");
 
   await saveCustomizer(page);
