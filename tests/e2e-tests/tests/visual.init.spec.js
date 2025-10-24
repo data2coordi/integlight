@@ -121,7 +121,7 @@ for (const siteType of siteTypes) {
   test.describe(`画像ヘッダーテスト:${siteType}`, () => {
     test.beforeAll(async ({ browser }) => {
       const page = await browser.newPage();
-      //await settingWrapper(page, "ポップ");
+      await settingWrapper(page, "ポップ");
       await page.close();
     });
 
