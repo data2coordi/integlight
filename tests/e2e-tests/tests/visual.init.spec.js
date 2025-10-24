@@ -110,6 +110,7 @@ async function setHeaderImage(page, config) {
 }
 
 async function settingWrapper(page, siteType) {
+  console.log(`Setting site type to: ${siteType}`);
   await openCustomizer(page);
   await setSiteType(page, siteType);
   await ensureCustomizerRoot(page);
