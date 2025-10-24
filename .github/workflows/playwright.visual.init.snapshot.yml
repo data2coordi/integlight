@@ -33,7 +33,7 @@ jobs:
       #   run: npx playwright test --project=setup --config=playwright.config.js
       #   working-directory: tests/e2e-tests
 
-      - name: Run Playwright visual init tests
+      - name: Run Playwright visual init snapshot tests
         run: npx playwright test --project=visual.init --config=playwright.config.js --update-snapshots
         working-directory: tests/e2e-tests
 
