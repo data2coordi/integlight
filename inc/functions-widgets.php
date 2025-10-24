@@ -9,7 +9,7 @@ class Integlight_widget_profile extends WP_Widget
     public function __construct()
     {
         parent::__construct(
-            'Integlight_widget_profile',
+            'integlight_profile_widget',
             __('[Integlight] Display Profile', 'integlight'),
             array('description' => __('Display the profile of a selected user', 'integlight'))
         );
