@@ -41,7 +41,7 @@ jobs:
       - name: Run Playwright general tests
         run: |
 
-          npx playwright test tests/e2e-tests/tests/01_customiser.color.spec.ts --project=main --project=unauthenticated --config=playwright.config.js --reporter=html --output=tests/e2e-tests/test-results/playwright-report
+          npx playwright test tests/e2e-tests/tests/01_customiser.color.spec.ts --project=main --project=unauthenticated --config=playwright.config.js --reporter=html 
           #npx playwright test tests/e2e-tests/tests/01_customiser.color.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
           #npx playwright test tests/e2e-tests/tests/03_customiser.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
           #npx playwright test tests/e2e-tests/tests/04_header.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
@@ -53,6 +53,9 @@ jobs:
           #DEBUG=pw:api npx playwright test tests/e2e-tests/tests/10_slider.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
         working-directory: tests/e2e-tests
       # #######################################################
+
+      - name: Move HTML report
+        run: mv playwright-report tests/e2e-tests/test-results/
 
       # 10. テスト結果・スクリーンショットをアーティファクトとして保存
       - name: Upload test artifacts
