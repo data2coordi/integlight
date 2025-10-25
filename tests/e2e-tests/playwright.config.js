@@ -75,12 +75,13 @@ export default defineConfig({
       testDir: "./tests", // テストファイルのディレクトリを指定
       testMatch: [/visual\.spec\.js/],
       dependencies: ["setup"], // setupプロジェクトの完了を待機
+      fullyParallel: true, // ファイル内のテストも並列実行を許可する
       use: {
         ...devices["Desktop Chrome"], // デスクトップChromeを使用
         // 保存した認証状態をロード
         storageState: authFile,
       },
-      workers: '50%', // CI環境で利用可能なCPUコアの50%をワーカーとして使用
+      workers: "50%", // CI環境で利用可能なCPUコアの50%をワーカーとして使用
     },
     {
       name: "visual.init",
