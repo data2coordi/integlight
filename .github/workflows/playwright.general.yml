@@ -55,7 +55,8 @@ jobs:
       # #######################################################
 
       - name: Move HTML report
-        run: mv playwright-report tests/e2e-tests/test-results/
+        run: mv playwright-report test-results/
+        working-directory: tests/e2e-tests
 
       # 10. テスト結果・スクリーンショットをアーティファクトとして保存
       - name: Upload test artifacts
