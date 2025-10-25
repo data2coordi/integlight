@@ -5,7 +5,16 @@ const BASE_URL = "https://wpdev.auroralab-design.com";
 const authFile = "playwright/.auth/user.json";
 
 export default defineConfig({
-  reporter: [["list"]], // デフォルト reporter
+  reporter: [
+    ["list"],
+    [
+      "html",
+      {
+        open: "never",
+        outputFolder: "tests/e2e-tests/test-results/playwright-report",
+      },
+    ],
+  ],
   // 各テストのデフォルトタイムアウト（ms）
   timeout: 60_000,
 
