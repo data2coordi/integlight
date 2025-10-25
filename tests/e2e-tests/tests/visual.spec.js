@@ -66,7 +66,7 @@ for (const siteType of siteTypes) {
     });
 
     for (const device of devices) {
-      test.describe(`${device.name} : ${siteType}`, () => {
+      test.describe.parallel(`${device.name} : ${siteType}`, () => {
         test.use(device.use);
 
         for (const { name, url, options } of pages) {
