@@ -11,7 +11,7 @@ export default defineConfig({
       "html",
       {
         open: "never",
-        outputFolder: "./tests/e2e-tests/test-results",
+        outputFolder: "test-results",
       },
     ],
   ],
