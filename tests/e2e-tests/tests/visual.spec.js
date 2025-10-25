@@ -54,6 +54,7 @@ const siteTypes = ["エレガント", "ポップ"];
 // ======= テスト展開 =======
 for (const siteType of siteTypes) {
   test.describe(`${siteType}`, () => {
+    test.describe.configure({ mode: "serial" }); // 👈 ここを追加
     test.beforeAll(async ({ browser }) => {
       const page = await browser.newPage();
       await openCustomizer(page);
@@ -66,7 +67,7 @@ for (const siteType of siteTypes) {
     });
 
     for (const device of devices) {
-      test.describe(`${device.name} : ${siteType}`, () => {
+      test.describe.parallel(`${device.name} : ${siteType}`, () => {
         test.use(device.use);
 
         for (const { name, url, options } of pages) {
