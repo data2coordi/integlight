@@ -80,6 +80,7 @@ export default defineConfig({
         // 保存した認証状態をロード
         storageState: authFile,
       },
+      workers: '50%', // CI環境で利用可能なCPUコアの50%をワーカーとして使用
     },
     {
       name: "visual.init",
