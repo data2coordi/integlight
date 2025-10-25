@@ -58,6 +58,7 @@ export default defineConfig({
         // 保存した認証状態をロード
         storageState: authFile,
       },
+      workers: 1,
     },
     {
       name: "visual",
@@ -69,6 +70,7 @@ export default defineConfig({
         // 保存した認証状態をロード
         storageState: authFile,
       },
+      workers: 1,
     },
     {
       name: "visual.init",
@@ -80,6 +82,7 @@ export default defineConfig({
         // 保存した認証状態をロード
         storageState: authFile,
       },
+      workers: 1,
     },
   ],
 });
