@@ -51,87 +51,67 @@ const devices = [
 
 const siteTypes = ["エレガント", "ポップ"];
 
-// ======= テスト展開 =======
-for (const siteType of siteTypes) {
-  test.describe(`${siteType}`, () => {
-    test.describe.configure({ mode: "serial" }); // 👈 ここを追加
-    test.beforeAll(async ({ browser }) => {
-      const page = await browser.newPage();
-      await openCustomizer(page);
+const testCases = [
+  {
+    name: "スライダーヘッダー",
+    pages: pages,
+    beforeAll: async (page, siteType) => {
       await setSiteType(page, siteType);
       await ensureCustomizerRoot(page);
-      await selSliderEffect(page, "スライド", "60"); // スライダーエフェクトを「スライド」、変更時間間隔を3秒に設定
-      await saveCustomizer(page);
-
-      await page.close();
-    });
-
-    for (const device of devices) {
-      test.describe.parallel(`${device.name} : ${siteType}`, () => {
-        test.use(device.use);
-
-        for (const { name, url, options } of pages) {
-          test(`： ${name}`, async ({ page }) => {
-            await page.goto(url, { waitUntil: "networkidle" });
-
-            // 安全待機: ページ全体が見える状態を確認
-            //await page.locator('body').waitFor({ state: 'visible', timeout: 10000 });
-
-            // 任意で、LazyLoad画像の読み込みやフォント描画を待つ場合
-            //await page.waitForTimeout(500); // 0.5秒程度の余裕待機
-
-            const options = {
-              maxDiffPixelRatio: 0.03, // 人間の目でわからないレベル
-              threshold: 0.03,
-            };
-            await expect(page).toHaveScreenshot({
-              fullPage: true,
-              timeout: 100000,
-              ...options,
-            });
-          });
-          //break;
-        }
-      });
-      //break;
-    }
-  });
-  //break;
-}
-
-for (const siteType of siteTypes) {
-  test.describe(`画像ヘッダーテスト:${siteType}`, () => {
-    test.beforeAll(async ({ browser }) => {
-      const page = await browser.newPage();
-      await openCustomizer(page);
+      await selSliderEffect(page, "スライド", "60");
+    },
+  },
+  {
+    name: "画像ヘッダー",
+    pages: pagesForImageHeader,
+    beforeAll: async (page, siteType) => {
       await setSiteType(page, siteType);
       await ensureCustomizerRoot(page);
       await openHeaderSetting(page, "静止画像");
-      await saveCustomizer(page);
+    },
+  },
+];
 
-      await page.close();
-    });
+// ======= テスト展開 =======
+for (const testCase of testCases) {
+  for (const siteType of siteTypes) {
+    test.describe(`${testCase.name}テスト: ${siteType}`, () => {
+      // siteTypeとtestCaseの組み合わせごとに直列実行
+      test.describe.configure({ mode: "serial" });
 
-    for (const device of devices) {
-      test.describe(`${device.name} : ${siteType}`, () => {
-        test.use(device.use);
-
-        for (const { name, url, options } of pagesForImageHeader) {
-          test(`： ${name}`, async ({ page }) => {
-            await page.goto(url, { waitUntil: "networkidle" });
-
-            const options = {
-              maxDiffPixelRatio: 0.03, // 人間の目でわからないレベル
-              threshold: 0.03,
-            };
-            await expect(page).toHaveScreenshot({
-              fullPage: true,
-              timeout: 100000,
-              ...options,
-            });
-          });
-        }
+      // 各テストケースの前に一度だけ実行
+      test.beforeAll(async ({ browser }) => {
+        const page = await browser.newPage();
+        await openCustomizer(page);
+        // 各テストケース固有のセットアップを実行
+        await testCase.beforeAll(page, siteType);
+        await saveCustomizer(page);
+        await page.close();
       });
-    }
-  });
+
+      // デバイスごとに並列実行
+      for (const device of devices) {
+        test.describe(`${device.name}`, () => {
+          test.use(device.use);
+
+          // ページごとにテストを生成
+          for (const { name, url } of testCase.pages) {
+            test(`： ${name}`, async ({ page }) => {
+              await page.goto(url, { waitUntil: "networkidle" });
+
+              const options = {
+                maxDiffPixelRatio: 0.03,
+                threshold: 0.03,
+              };
+              await expect(page).toHaveScreenshot({
+                fullPage: true,
+                timeout: 100000,
+                ...options,
+              });
+            });
+          }
+        });
+      }
+    });
+  }
 }
