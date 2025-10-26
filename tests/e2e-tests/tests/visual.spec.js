@@ -54,19 +54,22 @@ const siteTypes = ["エレガント", "ポップ"];
 // ======= テスト展開 =======
 for (const siteType of siteTypes) {
   test.describe(`${siteType}`, () => {
-    test.beforeAll(async ({ browser }) => {
-      const page = await browser.newPage();
-      await openCustomizer(page);
-      await setSiteType(page, siteType);
-      await ensureCustomizerRoot(page);
-      await selSliderEffect(page, "スライド", "60"); // スライダーエフェクトを「スライド」、変更時間間隔を3秒に設定
-      await saveCustomizer(page);
+    test.describe.serial(`サーバー設定変更シリアル`, () => {
+      test(async ({ browser }) => {
+        const page = await browser.newPage();
+        await openCustomizer(page);
+        await setSiteType(page, siteType);
+        await ensureCustomizerRoot(page);
+        await selSliderEffect(page, "スライド", "60"); // スライダーエフェクトを「スライド」、変更時間間隔を3秒に設定
+        await saveCustomizer(page);
 
-      await page.close();
+        await page.close();
+      });
     });
 
     for (const device of devices) {
-      test.describe(`${device.name} : ${siteType}`, () => {
+      test.describe
+        .parallel(`検証のパラレル実行：${device.name} : ${siteType}`, () => {
         test.use(device.use);
 
         for (const { name, url, options } of pages) {
