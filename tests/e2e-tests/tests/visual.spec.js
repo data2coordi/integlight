@@ -55,7 +55,7 @@ const siteTypes = ["エレガント", "ポップ"];
 for (const siteType of siteTypes) {
   test.describe(`${siteType}`, () => {
     test.describe.serial(`サーバー設定変更シリアル`, () => {
-      test(async ({ browser }) => {
+      test(`サーバー設定：${siteType}`, async ({ browser }) => {
         const page = await browser.newPage();
         await openCustomizer(page);
         await setSiteType(page, siteType);
