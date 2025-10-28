@@ -4,6 +4,7 @@ import {
   Customizer_siteType,
   Customizer_utils,
   Customizer_slider,
+  Customizer_manager,
 } from "../utils/customizer";
 // ======= 共通関数 =======
 
@@ -21,13 +22,14 @@ test.describe("ビジュアルテスト", () => {
     const cm_siteType = new Customizer_siteType(page);
     const cm_header = new Customizer_header(page);
     const cm_slider = new Customizer_slider(page);
+    const cm_manager = new Customizer_manager(page);
 
     await cm_utils.openCustomizer();
     await cm_siteType.setSiteType(siteType);
     if (headerType === "スライダー") {
       await cm_slider.selSliderEffect("スライド", "60"); // スライダーエフェクトを「スライド」、変更時間間隔を3秒に設定
     }
-    await cm_header.apply(headerType);
+    await cm_manager.apply(headerType);
     await cm_utils.saveCustomizer();
 
     await page.close();
