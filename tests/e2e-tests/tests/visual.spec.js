@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 // ======= 共通関数 =======
 
 // ======= 設定 =======
-const baseUrl = "https://wpdev.auroralab-design.com";
+const baseUrl = "";
 
 const pages = [
   { name: "home top", url: `${baseUrl}/` },
