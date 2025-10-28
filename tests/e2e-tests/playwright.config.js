@@ -49,6 +49,7 @@ const visualProjects = visualTestCnf.flatMap(
         siteType,
         headerType,
       },
+      workers: 4,
     },
   ]
 );
