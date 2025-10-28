@@ -10,7 +10,7 @@ import {
 
 // ======= テスト展開 =======
 test.describe("ビジュアルテスト", () => {
-  test(async ({ browser }, testInfo) => {
+  test("カスタマイザー設定", async ({ browser }, testInfo) => {
     const { siteType } = testInfo.project.use; // ✅ ここで取得
     const page = await browser.newPage();
     await openCustomizer(page);
