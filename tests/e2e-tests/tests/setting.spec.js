@@ -6,12 +6,12 @@ import {
   selSliderEffect,
   ensureCustomizerRoot,
   openHeaderSetting,
-  Customizer_slider,
 } from "../utils/common";
 import {
   Customizer_header,
   Customizer_siteType,
   Customizer_utils,
+  Customizer_slider,
 } from "../utils/commonClass";
 // ======= 共通関数 =======
 
