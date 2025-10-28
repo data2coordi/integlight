@@ -27,7 +27,7 @@ test.describe("ビジュアルテスト", () => {
     const cm_utils = new Customizer_utils(page);
     const cm_siteType = new Customizer_siteType(page);
     await cm_utils.openCustomizer();
-    await cm_siteType.setSiteType(psiteType);
+    await cm_siteType.setSiteType(siteType);
     if (headerType === "スライダー") {
       await ensureCustomizerRoot(page);
       await selSliderEffect(page, "スライド", "60"); // スライダーエフェクトを「スライド」、変更時間間隔を3秒に設定
