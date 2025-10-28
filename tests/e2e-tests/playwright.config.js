@@ -71,15 +71,26 @@ export default defineConfig({
       workers: 1,
     },
     {
-      name: "visual",
+      name: "setting",
       testDir: "./tests", // テストファイルのディレクトリを指定
-      testMatch: [/visual\.spec\.js/],
+      testMatch: [/setting\.spec\.js/],
       dependencies: ["setup"], // setupプロジェクトの完了を待機
       use: {
         ...devices["Desktop Chrome"], // デスクトップChromeを使用
         // 保存した認証状態をロード
         storageState: authFile,
         siteType: "エレガント",
+      },
+    },
+    {
+      name: "visual",
+      testDir: "./tests", // テストファイルのディレクトリを指定
+      testMatch: [/visual\.spec\.js/],
+      dependencies: ["setting"], // setupプロジェクトの完了を待機
+      use: {
+        ...devices["Desktop Chrome"], // デスクトップChromeを使用
+        // 保存した認証状態をロード
+        storageState: authFile,
       },
     },
     {
