@@ -6,6 +6,7 @@ import {
   selSliderEffect,
   ensureCustomizerRoot,
   openHeaderSetting,
+  Customizer_slider,
 } from "../utils/common";
 import {
   Customizer_header,
@@ -26,15 +27,18 @@ test.describe("ビジュアルテスト", () => {
 
     const cm_utils = new Customizer_utils(page);
     const cm_siteType = new Customizer_siteType(page);
+    const cm_header = new Customizer_header(page);
+    const cm_slider = new Customizer_slider(page);
+
     await cm_utils.openCustomizer();
     await cm_siteType.setSiteType(siteType);
     if (headerType === "スライダー") {
       await ensureCustomizerRoot(page);
-      await selSliderEffect(page, "スライド", "60"); // スライダーエフェクトを「スライド」、変更時間間隔を3秒に設定
+      await cm_slider.selSliderEffect("スライド", "60"); // スライダーエフェクトを「スライド」、変更時間間隔を3秒に設定
     }
     await ensureCustomizerRoot(page);
-    await openHeaderSetting(page, headerType);
-    await saveCustomizer(page);
+    await cm_header.openHeaderSetting(headerType);
+    await cm_utils.saveCustomizer();
 
     await page.close();
   });

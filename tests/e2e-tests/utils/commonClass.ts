@@ -64,6 +64,9 @@ export class Customizer_header {
     });
     await effectSelect.selectOption({ label: setting });
   }
+}
+export class Customizer_slider {
+  constructor(private page: Page) {}
 
   async selSliderEffect(effect = "フェード", interval = "5") {
     await this.page.getByRole("button", { name: "ヘッダー設定" }).click();
