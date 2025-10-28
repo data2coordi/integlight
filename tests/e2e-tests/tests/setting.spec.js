@@ -4,7 +4,7 @@ import {
   Customizer_siteType,
   Customizer_utils,
   Customizer_slider,
-} from "../utils/commonClass";
+} from "../utils/customizer";
 // ======= 共通関数 =======
 
 // ======= テスト展開 =======
@@ -27,7 +27,6 @@ test.describe("ビジュアルテスト", () => {
     if (headerType === "スライダー") {
       await cm_slider.selSliderEffect("スライド", "60"); // スライダーエフェクトを「スライド」、変更時間間隔を3秒に設定
     }
-    //await Customizer_utils.ensureCustomizerRoot(page);
     await cm_header.openHeaderSetting(headerType);
     await cm_utils.saveCustomizer();
 
