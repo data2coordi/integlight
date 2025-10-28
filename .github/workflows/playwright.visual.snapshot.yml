@@ -34,7 +34,8 @@ jobs:
       #   working-directory: tests/e2e-tests
 
       - name: Run Playwright visual tests
-        run: npx playwright test --project=visual --config=playwright.config.js --update-snapshots
+        #run: npx playwright test --project=visual --config=playwright.config.js --update-snapshots
+        run: npx playwright test --project=setting --config=playwright.config.js --update-snapshots
         working-directory: tests/e2e-tests
 
       - name: Upload test artifacts
