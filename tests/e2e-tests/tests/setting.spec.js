@@ -7,6 +7,11 @@ import {
   ensureCustomizerRoot,
   openHeaderSetting,
 } from "../utils/common";
+import {
+  Customizer_header,
+  Customizer_siteType,
+  Customizer_utils,
+} from "../utils/commonClass";
 // ======= 共通関数 =======
 
 // ======= テスト展開 =======
@@ -18,7 +23,9 @@ test.describe("ビジュアルテスト", () => {
       `Test ID: ${testid}, Site Type: ${siteType}, Header Type: ${headerType}`
     );
     const page = await browser.newPage();
-    await openCustomizer(page);
+
+    const cm_utils = new Customizer_utils(page);
+    await cm_utils.openCustomizer();
     await setSiteType(page, siteType);
     if (headerType === "スライダー") {
       await ensureCustomizerRoot(page);
