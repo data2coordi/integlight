@@ -5,6 +5,10 @@ import { expect, type Page } from "@playwright/test";
 export class Customizer_header {
   constructor(private page: Page) {}
 
+  async apply(value) {
+    await this.openHeaderSetting(value);
+  }
+
   async openHeaderSetting(setting: string) {
     await Customizer_utils.ensureCustomizerRoot(this.page);
     await this.page.getByRole("button", { name: "ヘッダー設定" }).click();
@@ -127,17 +131,16 @@ export class Customizer_manager {
     this.page = page;
     this.utils = new Customizer_utils(page);
 
-    // 各クラスが apply() を持つ想定
     this.handlers = {
       siteType: new Customizer_siteType(page),
       headerType: new Customizer_header(page),
       sliderType: new Customizer_slider(page),
-      // 将来追加しても CustomizerManager は変更不要
+      // 追加クラスもここに登録するだけ
     };
   }
 
   /**
-   * 設定全体を実行
+   * 全体設定を適用
    * @param {object} config 例: { testid, siteType, headerType, sliderType }
    */
   async apply(config) {
@@ -147,7 +150,7 @@ export class Customizer_manager {
     await this.utils.openCustomizer();
 
     for (const [key, value] of Object.entries(config)) {
-      if (!value || key === "testid") continue; // 無関係項目はスキップ
+      if (!value || key === "testid") continue;
 
       const handler = this.handlers[key];
       await handler.apply(value);
@@ -157,3 +160,37 @@ export class Customizer_manager {
     console.log("=== Customizer apply done ===");
   }
 }
+
+//
+//
+
+/*
+Customizer_header.js
+export class Customizer_header {
+  constructor(page) {
+    this.page = page;
+  }
+
+  async apply(value) {
+    await this.openHeaderSetting(value);
+  }
+
+  async openHeaderSetting(headerType) {
+    console.log(`✅ headerType set to: ${headerType}`);
+    // await this.page.locator(...).click();
+  }
+}
+*/
+
+//実行例
+/*
+const config = {
+  testid: "pop_slider",
+  siteType: "ポップ",
+  headerType: "スライダー",
+  sliderType: { effect: "スライド", interval: "60" },
+};
+
+const cm = new CustomizerManager(page);
+await cm.apply(config);
+*/

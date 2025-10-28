@@ -27,7 +27,7 @@ test.describe("ビジュアルテスト", () => {
     if (headerType === "スライダー") {
       await cm_slider.selSliderEffect("スライド", "60"); // スライダーエフェクトを「スライド」、変更時間間隔を3秒に設定
     }
-    await cm_header.openHeaderSetting(headerType);
+    await cm_header.apply(headerType);
     await cm_utils.saveCustomizer();
 
     await page.close();
