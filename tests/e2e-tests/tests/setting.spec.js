@@ -33,10 +33,10 @@ test.describe("ビジュアルテスト", () => {
     await cm_utils.openCustomizer();
     await cm_siteType.setSiteType(siteType);
     if (headerType === "スライダー") {
-      await ensureCustomizerRoot(page);
+      await cm_utils.ensureCustomizerRoot(page);
       await cm_slider.selSliderEffect("スライド", "60"); // スライダーエフェクトを「スライド」、変更時間間隔を3秒に設定
     }
-    await ensureCustomizerRoot(page);
+    await cm_utils.ensureCustomizerRoot(page);
     await cm_header.openHeaderSetting(headerType);
     await cm_utils.saveCustomizer();
 

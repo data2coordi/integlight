@@ -147,8 +147,8 @@ export class Customizer_utils {
     await expect(saveBtn).toBeDisabled();
   }
 
-  async ensureCustomizerRoot() {
-    await this.page.evaluate(() => {
+  static async ensureCustomizerRoot(page: Page) {
+    await page.evaluate(() => {
       if (window.wp && window.wp.customize) {
         try {
           window.wp.customize.panel.each((panel) => {
@@ -160,7 +160,7 @@ export class Customizer_utils {
         } catch {}
       }
     });
-    await this.page.waitForTimeout(200);
+    await page.waitForTimeout(200);
   }
 }
 
