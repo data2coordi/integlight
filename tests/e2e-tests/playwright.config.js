@@ -79,8 +79,8 @@ export default defineConfig({
         ...devices["Desktop Chrome"], // デスクトップChromeを使用
         // 保存した認証状態をロード
         storageState: authFile,
+        siteType: "エレガント",
       },
-      workers: 1,
     },
     {
       name: "visual.init",

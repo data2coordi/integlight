@@ -46,7 +46,8 @@ const siteTypes = ["エレガント"];
 // ======= テスト展開 =======
 for (const siteType of siteTypes) {
   test.describe(`${siteType}`, () => {
-    test.beforeAll(async ({ browser }) => {
+    test.beforeAll(async ({ browser }, testInfo) => {
+      const { siteType } = testInfo.project.use; // ✅ ここで取得
       const page = await browser.newPage();
       await openCustomizer(page);
       await setSiteType(page, siteType);
