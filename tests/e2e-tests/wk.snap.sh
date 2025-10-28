@@ -1,8 +1,7 @@
 #!/bin/bash
 
-
 clear
-#./integlight_backup.sh restore
+./integlight_backup.sh restore
 
 
 # ===== ユーザー設定 =====
