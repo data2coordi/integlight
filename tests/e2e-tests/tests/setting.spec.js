@@ -36,7 +36,7 @@ test.describe("ビジュアルテスト", () => {
       await Customizer_utils.ensureCustomizerRoot(page);
       await cm_slider.selSliderEffect("スライド", "60"); // スライダーエフェクトを「スライド」、変更時間間隔を3秒に設定
     }
-    await Customizer_utils.ensureCustomizerRoot(page);
+    //await Customizer_utils.ensureCustomizerRoot(page);
     await cm_header.openHeaderSetting(headerType);
     await cm_utils.saveCustomizer();
 

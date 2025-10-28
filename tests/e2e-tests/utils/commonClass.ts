@@ -53,6 +53,7 @@ export class Customizer_header {
   constructor(private page: Page) {}
 
   async openHeaderSetting(setting: string) {
+    await Customizer_utils.ensureCustomizerRoot(this.page);
     await this.page.getByRole("button", { name: "ヘッダー設定" }).click();
     await this.page
       .getByRole("button", {
@@ -69,6 +70,7 @@ export class Customizer_slider {
   constructor(private page: Page) {}
 
   async selSliderEffect(effect = "フェード", interval = "5") {
+    await Customizer_utils.ensureCustomizerRoot(this.page);
     await this.page.getByRole("button", { name: "ヘッダー設定" }).click();
     await this.page.getByRole("button", { name: "2.スライダー設定" }).click();
     const effectSelect = this.page.getByRole("combobox", {
@@ -85,6 +87,7 @@ export class Customizer_design {
   constructor(private page: Page) {}
 
   async setColorSetting(setting: string) {
+    await Customizer_utils.ensureCustomizerRoot(this.page);
     await this.page.getByRole("button", { name: "デザイン設定" }).click();
     await this.page.getByRole("button", { name: "配色" }).click();
     const section = this.page.locator(
@@ -101,6 +104,7 @@ export class Customizer_siteType {
   constructor(private page: Page) {}
 
   async setSiteType(siteType = "エレガント") {
+    await Customizer_utils.ensureCustomizerRoot(this.page);
     await this.page.getByRole("button", { name: "サイト設定" }).click();
     await this.page.getByRole("button", { name: "サイトタイプ設定" }).click();
     const checkbox = this.page.getByLabel(siteType);
@@ -109,6 +113,7 @@ export class Customizer_siteType {
   }
 
   async setFrontType(frontType = "最新の投稿") {
+    await Customizer_utils.ensureCustomizerRoot(this.page);
     await this.page.getByRole("button", { name: "サイト設定" }).click();
     await this.page.getByRole("button", { name: "ホームページ設定" }).click();
     const radio = this.page.getByRole("radio", { name: frontType });
