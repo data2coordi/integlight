@@ -121,3 +121,39 @@ export class Customizer_utils {
     await page.waitForTimeout(200);
   }
 }
+
+export class Customizer_manager {
+  constructor(page) {
+    this.page = page;
+    this.utils = new Customizer_utils(page);
+
+    // 各クラスが apply() を持つ想定
+    this.handlers = {
+      siteType: new Customizer_siteType(page),
+      headerType: new Customizer_header(page),
+      sliderType: new Customizer_slider(page),
+      // 将来追加しても CustomizerManager は変更不要
+    };
+  }
+
+  /**
+   * 設定全体を実行
+   * @param {object} config 例: { testid, siteType, headerType, sliderType }
+   */
+  async apply(config) {
+    console.log("=== Customizer apply start ===");
+    console.log(config);
+
+    await this.utils.openCustomizer();
+
+    for (const [key, value] of Object.entries(config)) {
+      if (!value || key === "testid") continue; // 無関係項目はスキップ
+
+      const handler = this.handlers[key];
+      await handler.apply(value);
+    }
+
+    await this.utils.saveCustomizer();
+    console.log("=== Customizer apply done ===");
+  }
+}
