@@ -56,18 +56,12 @@ test.describe("ビジュアルテスト", () => {
   });
 
   for (const device of devices) {
-    test.describe(`${device.name} : ${siteType}`, () => {
+    test.describe(`${device.name}`, () => {
       test.use(device.use);
 
       for (const { name, url, options } of pages) {
         test(`： ${name}`, async ({ page }) => {
           await page.goto(url, { waitUntil: "networkidle" });
-
-          // 安全待機: ページ全体が見える状態を確認
-          //await page.locator('body').waitFor({ state: 'visible', timeout: 10000 });
-
-          // 任意で、LazyLoad画像の読み込みやフォント描画を待つ場合
-          //await page.waitForTimeout(500); // 0.5秒程度の余裕待機
 
           const options = {
             maxDiffPixelRatio: 0.03, // 人間の目でわからないレベル
