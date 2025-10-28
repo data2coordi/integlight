@@ -11,7 +11,11 @@ import {
 // ======= テスト展開 =======
 test.describe("ビジュアルテスト", () => {
   test("カスタマイザー設定", async ({ browser }, testInfo) => {
-    const { siteType } = testInfo.project.use; // ✅ ここで取得
+    console.log(`Running test in project: ${testInfo.project.name}`);
+    const { testid, siteType, headerType } = testInfo.project.use; // ✅ ここで取得
+    console.log(
+      `Test ID: ${testid}, Site Type: ${siteType}, Header Type: ${headerType}`
+    );
     const page = await browser.newPage();
     await openCustomizer(page);
     await setSiteType(page, siteType);

@@ -16,7 +16,7 @@ const visualTestCnf = [
     headerType: "スライダー",
   },
   {
-    testid: "elegant_img",
+    testid: "pop_img",
     siteType: "ポップ",
     headerType: "静止画像",
   },
