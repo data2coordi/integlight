@@ -4,6 +4,32 @@ import { defineConfig, devices } from "@playwright/test";
 const BASE_URL = "https://wpdev.auroralab-design.com";
 const authFile = "playwright/.auth/user.json";
 
+// サイトタイプごとに setting / visual を生成
+const siteTypes = ["エレガント", "ポップ"];
+const siteProjects = siteTypes.flatMap((type) => [
+  {
+    name: `setting_${type}`,
+    testDir: "./tests",
+    testMatch: [/setting\.spec\.js/],
+    dependencies: ["setup"],
+    use: {
+      ...devices["Desktop Chrome"],
+      storageState: authFile,
+      siteType: type,
+    },
+  },
+  {
+    name: `visual_${type}`,
+    testDir: "./tests",
+    testMatch: [/visual\.spec\.js/],
+    dependencies: [`setting_${type}`],
+    use: {
+      ...devices["Desktop Chrome"],
+      storageState: authFile,
+    },
+  },
+]);
+
 export default defineConfig({
   reporter: [
     ["list"],
@@ -70,29 +96,29 @@ export default defineConfig({
       },
       workers: 1,
     },
-    {
-      name: "setting",
-      testDir: "./tests", // テストファイルのディレクトリを指定
-      testMatch: [/setting\.spec\.js/],
-      dependencies: ["setup"], // setupプロジェクトの完了を待機
-      use: {
-        ...devices["Desktop Chrome"], // デスクトップChromeを使用
-        // 保存した認証状態をロード
-        storageState: authFile,
-        siteType: "エレガント",
-      },
-    },
-    {
-      name: "visual",
-      testDir: "./tests", // テストファイルのディレクトリを指定
-      testMatch: [/visual\.spec\.js/],
-      dependencies: ["setting"], // setupプロジェクトの完了を待機
-      use: {
-        ...devices["Desktop Chrome"], // デスクトップChromeを使用
-        // 保存した認証状態をロード
-        storageState: authFile,
-      },
-    },
+    // {
+    //   name: "setting",
+    //   testDir: "./tests", // テストファイルのディレクトリを指定
+    //   testMatch: [/setting\.spec\.js/],
+    //   dependencies: ["setup"], // setupプロジェクトの完了を待機
+    //   use: {
+    //     ...devices["Desktop Chrome"], // デスクトップChromeを使用
+    //     // 保存した認証状態をロード
+    //     storageState: authFile,
+    //     siteType: "エレガント",
+    //   },
+    // },
+    // {
+    //   name: "visual",
+    //   testDir: "./tests", // テストファイルのディレクトリを指定
+    //   testMatch: [/visual\.spec\.js/],
+    //   dependencies: ["setting"], // setupプロジェクトの完了を待機
+    //   use: {
+    //     ...devices["Desktop Chrome"], // デスクトップChromeを使用
+    //     // 保存した認証状態をロード
+    //     storageState: authFile,
+    //   },
+    // },
     {
       name: "visual.init",
       testDir: "./tests", // テストファイルのディレクトリを指定
@@ -105,5 +131,7 @@ export default defineConfig({
       },
       workers: 1,
     },
+
+    ...siteProjects,
   ],
 });
