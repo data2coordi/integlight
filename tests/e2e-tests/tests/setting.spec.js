@@ -1,13 +1,5 @@
 import { test } from "@playwright/test";
 import {
-  openCustomizer,
-  saveCustomizer,
-  setSiteType,
-  selSliderEffect,
-  ensureCustomizerRoot,
-  openHeaderSetting,
-} from "../utils/common";
-import {
   Customizer_header,
   Customizer_siteType,
   Customizer_utils,
