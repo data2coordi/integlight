@@ -34,11 +34,11 @@ jobs:
       #   working-directory: tests/e2e-tests
 
       - name: Run Playwright visual tests
-        run: npx playwright test --project=visual_エレガント --config=playwright.config.js --update-snapshots
+        run: npx playwright test --project=visual_elegant_slider --config=playwright.config.js --update-snapshots
         working-directory: tests/e2e-tests
 
       - name: Run Playwright visual tests
-        run: npx playwright test --project=visual_ポップ --config=playwright.config.js --update-snapshots
+        run: npx playwright test --project=visual_pop_slider --config=playwright.config.js --update-snapshots
         working-directory: tests/e2e-tests
 
       - name: Upload test artifacts

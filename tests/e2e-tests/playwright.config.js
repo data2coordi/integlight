@@ -4,31 +4,52 @@ import { defineConfig, devices } from "@playwright/test";
 const BASE_URL = "https://wpdev.auroralab-design.com";
 const authFile = "playwright/.auth/user.json";
 
-// サイトタイプごとに setting / visual を生成
-const siteTypes = ["エレガント", "ポップ"];
-const siteProjects = siteTypes.flatMap((type) => [
+const visualTestCnf = [
   {
-    name: `setting_${type}`,
-    testDir: "./tests",
-    testMatch: [/setting\.spec\.js/],
-    dependencies: ["setup"],
-    use: {
-      ...devices["Desktop Chrome"],
-      storageState: authFile,
-      siteType: type,
-    },
+    testid: "elegant_slider",
+    siteType: "エレガント",
+    headerType: "スライダー",
   },
   {
-    name: `visual_${type}`,
-    testDir: "./tests",
-    testMatch: [/visual\.spec\.js/],
-    dependencies: [`setting_${type}`],
-    use: {
-      ...devices["Desktop Chrome"],
-      storageState: authFile,
-    },
+    testid: "pop_slider",
+    siteType: "ポップ",
+    headerType: "スライダー",
   },
-]);
+  {
+    testid: "elegant_img",
+    siteType: "ポップ",
+    headerType: "静止画像",
+  },
+];
+
+const visualProjects = visualTestCnf.flatMap(
+  ({ testid, siteType, headerType }) => [
+    {
+      name: `setting_${testid}`,
+      testDir: "./tests",
+      testMatch: [/setting\.spec\.js/],
+      dependencies: ["setup"],
+      use: {
+        ...devices["Desktop Chrome"],
+        storageState: authFile,
+        siteType,
+        headerType,
+      },
+    },
+    {
+      name: `visual_${testid}`,
+      testDir: "./tests",
+      testMatch: [/visual\.spec\.js/],
+      dependencies: [`setting_${testid}`],
+      use: {
+        ...devices["Desktop Chrome"],
+        storageState: authFile,
+        siteType,
+        headerType,
+      },
+    },
+  ]
+);
 
 export default defineConfig({
   reporter: [
@@ -132,6 +153,6 @@ export default defineConfig({
       workers: 1,
     },
 
-    ...siteProjects,
+    ...visualProjects,
   ],
 });
