@@ -41,6 +41,10 @@ jobs:
         run: npx playwright test --project=visual_pop_slider --config=playwright.config.js --update-snapshots
         working-directory: tests/e2e-tests
 
+      - name: Run Playwright visual tests
+        run: npx playwright test --project=visual_pop_img --config=playwright.config.js --update-snapshots
+        working-directory: tests/e2e-tests
+
       - name: Upload test artifacts
         if: always()
         uses: actions/upload-artifact@v4
