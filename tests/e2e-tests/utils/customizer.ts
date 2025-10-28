@@ -60,6 +60,9 @@ export class Customizer_design {
 export class Customizer_siteType {
   constructor(private page: Page) {}
 
+  async apply(value) {
+    await this.setSiteType(value);
+  }
   async setSiteType(siteType = "エレガント") {
     await Customizer_utils.ensureCustomizerRoot(this.page);
     await this.page.getByRole("button", { name: "サイト設定" }).click();
