@@ -17,7 +17,7 @@ test.describe("ビジュアルテスト", () => {
       `Test ID: ${testid}, Site Type: ${siteType}, Header Type: ${headerType}`
     );
     const config = testInfo.project.use; // ✅ ここで取得
-    console.log(`key&value:${config}`);
+    console.log(`@@@@@key&value:${config}`);
 
     const page = await browser.newPage();
     // const cm_utils = new Customizer_utils(page);
