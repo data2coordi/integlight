@@ -1,6 +1,6 @@
 import { defineConfig, devices } from "@playwright/test";
 
-// 環境によってURLや認証ファイルパスが変わるため、定数として定義a
+// 環境によってURLや認証ファイルパスが変わるため、定数として定義
 const BASE_URL = "https://wpdev.auroralab-design.com";
 const authFile = "playwright/.auth/user.json";
 
