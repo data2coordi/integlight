@@ -10,7 +10,6 @@ import {
   ensureCustomizerRoot,
 } from "../utils/common";
 // 共通設定a
-const BASE_URL = "https://wpdev.auroralab-design.com";
 
 // テスト用設定一覧
 const TEST_CONFIGS = {
