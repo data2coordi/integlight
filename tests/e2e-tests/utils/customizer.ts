@@ -26,6 +26,9 @@ export class Customizer_header {
 export class Customizer_slider {
   constructor(private page: Page) {}
 
+  async apply(value) {
+    await this.selSliderEffect(value);
+  }
   async selSliderEffect(effect = "フェード", interval = "5") {
     await Customizer_utils.ensureCustomizerRoot(this.page);
     await this.page.getByRole("button", { name: "ヘッダー設定" }).click();
