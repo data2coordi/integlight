@@ -16,8 +16,8 @@ test.describe("ビジュアルテスト", () => {
     console.log(
       `Test ID: ${testid}, Site Type: ${siteType}, Header Type: ${headerType}`
     );
-    const config = testInfo.project.use; // ✅ ここで取得
-    console.log(`@@@@@key&value:${config}`);
+    const keyValue = testInfo.project.use.keyValue; // ✅ ここで取得
+    console.log(`@@@@@keyValue:${keyValue}`);
 
     const page = await browser.newPage();
     // const cm_utils = new Customizer_utils(page);
@@ -32,7 +32,7 @@ test.describe("ビジュアルテスト", () => {
     //   await cm_slider.selSliderEffect("スライド", "60"); // スライダーエフェクトを「スライド」、変更時間間隔を3秒に設定
     // }
 
-    await cm_manager.apply(config);
+    await cm_manager.apply(keyValue);
     //await cm_utils.saveCustomizer();
 
     await page.close();

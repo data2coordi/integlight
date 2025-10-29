@@ -32,9 +32,11 @@ const visualProjects = visualTestCnf.flatMap(
       use: {
         ...devices["Desktop Chrome"],
         storageState: authFile,
-        testid,
-        siteType,
-        headerType,
+        keyValue: {
+          testid,
+          siteType,
+          headerType,
+        },
       },
     },
     {
@@ -45,9 +47,11 @@ const visualProjects = visualTestCnf.flatMap(
       use: {
         ...devices["Desktop Chrome"],
         storageState: authFile,
-        testid,
-        siteType,
-        headerType,
+        keyValue: {
+          testid,
+          siteType,
+          headerType,
+        },
       },
       workers: 4,
     },
