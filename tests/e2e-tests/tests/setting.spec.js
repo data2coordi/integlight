@@ -8,7 +8,7 @@ test.describe("ビジュアルテスト", () => {
     console.log(`Running test in project: ${testInfo.project.name}`);
 
     let keyValue = testInfo.project.use.keyValue;
-    console.log(`@@@@@keyValue@@@@@: ${JSON.stringify(config)}`);
+    console.log(`@@@@@keyValue@@@@@: ${JSON.stringify(keyValue)}`);
 
     if (keyValue.headerType === "スライダー") {
       keyValue = {
