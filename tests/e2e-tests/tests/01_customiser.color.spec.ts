@@ -1,11 +1,4 @@
 import { test, expect, type Page } from "@playwright/test";
-import {
-  timeStart,
-  logStepTime,
-  openCustomizer,
-  saveCustomizer,
-  setColorSetting,
-} from "../utils/common";
 import { Customizer_manager } from "../utils/customizer";
 
 // 共通関数（カスタマイザーでホームページ表示を設定する）
