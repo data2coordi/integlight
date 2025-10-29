@@ -19,6 +19,7 @@ const TEST_CONFIGS = {
     siteType: "エレガント",
   },
   spCustomizerSetting: {
+    deviceType: "sp",
     viewport: { width: 375, height: 800 },
     userAgent:
       "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1",
@@ -29,11 +30,10 @@ const TEST_CONFIGS = {
     textPositionLeft: "15",
     textColor: "#ff0000",
     textFont: "yu_mincho",
-    text_positionLavel_top: "スライダーテキスト位置（モバイル、上）（px）",
-    text_positionLavel_left: "スライダーテキスト位置（モバイル、左）（px）",
     imagePartialName: "Firefly-260521",
   },
   pcCustomizerSetting: {
+    deviceType: "pc",
     interval: "1",
     mainText: "テストタイトル",
     subText: "これはPlaywrightテストによって入力された説明文です。",
@@ -41,8 +41,6 @@ const TEST_CONFIGS = {
     textPositionLeft: "150",
     textColor: "#ff0000",
     textFont: "yu_mincho",
-    text_positionLavel_top: "スライダーテキスト位置（上）（px）",
-    text_positionLavel_left: "スライダーテキスト位置（左）（px）",
     imagePartialName: "Firefly-203280",
     imagePartialName_forPcHome2: "Firefly-51159-1.webp",
   },
@@ -102,13 +100,13 @@ async function setSliderText(page, mainText, subText) {
   ).toHaveValue(subText);
 }
 
-async function setTextPosition(
-  page,
-  top,
-  left,
-  text_positionLavel_top,
-  text_positionLavel_left
-) {
+async function setTextPosition(page, top, left, deviceType = "sp") {
+  let text_positionLavel_top = "スライダーテキスト位置（モバイル、上）（px）";
+  let text_positionLavel_left = "スライダーテキスト位置（モバイル、左）（px）";
+  if (deviceType === "sp") {
+    text_positionLavel_top = "スライダーテキスト位置（上）（px）";
+    text_positionLavel_left = "スライダーテキスト位置（左）（px）";
+  }
   await page.getByLabel(text_positionLavel_top).fill(top);
   await page.getByLabel(text_positionLavel_left).fill(left);
 }
@@ -346,8 +344,7 @@ async function setSliderDetailSettings(page, config, inisialSetting) {
       page,
       config.textPositionTop,
       config.textPositionLeft,
-      config.text_positionLavel_top,
-      config.text_positionLavel_left
+      config.deviceType
     ));
   await test.step("6 テキストのカラーを設定", () =>
     setTextColor(page, config.textColor));
