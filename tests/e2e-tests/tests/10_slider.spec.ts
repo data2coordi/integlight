@@ -362,16 +362,24 @@ async function setSliderDetailSettings(page, config, inisialSetting) {
 }
 
 async function set_sliderEffect_and_siteType(page, useEffect, homeType) {
-  await test.step("1.カスタマイザー画面を開く", () => openCustomizer(page));
-  //await test.step('2.2. スライダー設定を開く', () => openSliderSetting(page));
-  await test.step("2. スライダーのエフェクトを設定", () =>
-    selSliderEffect(page, useEffect, "1"));
-  await ensureCustomizerRoot(page);
-  await test.step("4.ホームタイプの変更", async () => {
-    await setSiteType(page, homeType);
-  });
-  await test.step("5. 公開ボタンをクリックして変更を保存", () =>
-    saveCustomizer(page));
+  // await test.step("1.カスタマイザー画面を開く", () => openCustomizer(page));
+  // //await test.step('2.2. スライダー設定を開く', () => openSliderSetting(page));
+  // await test.step("2. スライダーのエフェクトを設定", () =>
+  //   selSliderEffect(page, useEffect, "1"));
+  // await ensureCustomizerRoot(page);
+  // await test.step("4.ホームタイプの変更", async () => {
+  //   await setSiteType(page, homeType);
+  // });
+  // await test.step("5. 公開ボタンをクリックして変更を保存", () =>
+  //   saveCustomizer(page));
+
+  const keyValue = {
+    siteType: homeType,
+    sliderType: { effect: useEffect, interval: "1" },
+  };
+
+  const cm_manager = new Customizer_manager(page);
+  await cm_manager.apply(keyValue);
 }
 
 ////////////////////////////////////////////////////////
