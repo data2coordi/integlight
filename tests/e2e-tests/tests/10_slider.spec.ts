@@ -321,13 +321,6 @@ async function verifyTextDetails(
 
 // 共通テストフロー
 async function setSliderDetailSettings(page, config, inisialSetting) {
-  const cm_manager = new Customizer_manager(page);
-  const keyValue = {
-    siteType: inisialSetting.siteType,
-    //sliderType: { effect: inisialSetting.siteType, interval: config.interval },
-  };
-  await cm_manager.apply(keyValue);
-
   const cm_utils = new Customizer_utils(page);
   await test.step("1. カスタマイザー画面を開く", () =>
     cm_utils.openCustomizer());
@@ -356,6 +349,16 @@ async function setSliderDetailSettings(page, config, inisialSetting) {
   // });
   await test.step("8. 公開ボタンをクリックして変更を保存", () =>
     cm_utils.saveCustomizer());
+
+  const cm_manager = new Customizer_manager(page);
+  const keyValue = {
+    siteType: inisialSetting.siteType,
+    sliderType: {
+      effect: inisialSetting.effectLabel,
+      interval: config.interval,
+    },
+  };
+  await cm_manager.apply(keyValue);
 }
 
 async function set_sliderEffect_and_siteType(
