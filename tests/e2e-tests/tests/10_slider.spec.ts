@@ -324,7 +324,7 @@ async function setSliderDetailSettings(page, config, inisialSetting) {
   const cm_manager = new Customizer_manager(page);
   const keyValue = {
     siteType: inisialSetting.siteType,
-    sliderType: { effect: inisialSetting.siteType, interval: config.interval },
+    //sliderType: { effect: inisialSetting.siteType, interval: config.interval },
   };
   await cm_manager.apply(keyValue);
 
