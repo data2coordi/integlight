@@ -1,14 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-import {
-  timeStart,
-  logStepTime,
-  openCustomizer,
-  selSliderEffect,
-  saveCustomizer,
-  setSiteType,
-  ensureCustomizerRoot,
-} from "../utils/common";
+import { selSliderEffect, setSiteType } from "../utils/common";
 // 共通設定a
 import { Customizer_utils, Customizer_manager } from "../utils/customizer";
 
@@ -361,21 +353,15 @@ async function setSliderDetailSettings(page, config, inisialSetting) {
     cm_utils.saveCustomizer());
 }
 
-async function set_sliderEffect_and_siteType(page, useEffect, homeType) {
-  // await test.step("1.カスタマイザー画面を開く", () => openCustomizer(page));
-  // //await test.step('2.2. スライダー設定を開く', () => openSliderSetting(page));
-  // await test.step("2. スライダーのエフェクトを設定", () =>
-  //   selSliderEffect(page, useEffect, "1"));
-  // await ensureCustomizerRoot(page);
-  // await test.step("4.ホームタイプの変更", async () => {
-  //   await setSiteType(page, homeType);
-  // });
-  // await test.step("5. 公開ボタンをクリックして変更を保存", () =>
-  //   saveCustomizer(page));
-
+async function set_sliderEffect_and_siteType(
+  page,
+  useEffect,
+  siteType,
+  interval
+) {
   const keyValue = {
-    siteType: homeType,
-    sliderType: { effect: useEffect, interval: "1" },
+    siteType: siteType,
+    sliderType: { effect: useEffect, interval: interval },
   };
 
   const cm_manager = new Customizer_manager(page);
@@ -459,7 +445,12 @@ test.describe("フェード", () => {
         const context = await browser.newContext();
         const page = await context.newPage();
 
-        await set_sliderEffect_and_siteType(page, "フェード", "エレガント");
+        await set_sliderEffect_and_siteType(
+          page,
+          "フェード",
+          "エレガント",
+          "1"
+        );
 
         await page.close();
         await context.close();
@@ -497,7 +488,7 @@ test.describe("フェード", () => {
       const context = await browser.newContext();
       const page = await context.newPage();
 
-      await set_sliderEffect_and_siteType(page, "フェード", "ポップ");
+      await set_sliderEffect_and_siteType(page, "フェード", "ポップ", "1");
 
       await page.close();
       await context.close();
@@ -546,7 +537,7 @@ test.describe("スライド", () => {
       const context = await browser.newContext();
       const page = await context.newPage();
 
-      await set_sliderEffect_and_siteType(page, "スライド", "エレガント");
+      await set_sliderEffect_and_siteType(page, "スライド", "エレガント", "1");
 
       await page.close();
       await context.close();
@@ -587,7 +578,7 @@ test.describe("スライド", () => {
       const context = await browser.newContext();
       const page = await context.newPage();
 
-      await set_sliderEffect_and_siteType(page, "スライド", "ポップ");
+      await set_sliderEffect_and_siteType(page, "スライド", "ポップ", "1");
       await page.close();
       await context.close();
     });
