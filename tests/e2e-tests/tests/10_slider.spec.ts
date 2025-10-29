@@ -103,7 +103,7 @@ async function setSliderText(page, mainText, subText) {
 async function setTextPosition(page, top, left, deviceType = "sp") {
   let text_positionLavel_top = "スライダーテキスト位置（モバイル、上）（px）";
   let text_positionLavel_left = "スライダーテキスト位置（モバイル、左）（px）";
-  if (deviceType === "sp") {
+  if (deviceType === "pc") {
     text_positionLavel_top = "スライダーテキスト位置（上）（px）";
     text_positionLavel_left = "スライダーテキスト位置（左）（px）";
   }
