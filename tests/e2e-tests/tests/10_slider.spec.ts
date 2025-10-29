@@ -29,7 +29,7 @@ const TEST_CONFIGS = {
     textPositionLeft: "15",
     textColor: "#ff0000",
     textFont: "yu_mincho",
-    image_delBtnNo: 3,
+    image_delBtnNo: 0,
     image_selBtnNo: 0,
     text_positionLavel_top: "スライダーテキスト位置（モバイル、上）（px）",
     text_positionLavel_left: "スライダーテキスト位置（モバイル、左）（px）",
