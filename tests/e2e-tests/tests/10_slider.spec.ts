@@ -357,6 +357,7 @@ async function setSliderDetailSettings(page, config, inisialSetting) {
       effect: inisialSetting.effectLabel,
       interval: config.interval,
     },
+    sliderImg: { imagePartialName: config.imagePartialName },
   };
   await cm_manager.apply(keyValue);
 }
