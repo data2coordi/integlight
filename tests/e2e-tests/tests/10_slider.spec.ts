@@ -10,6 +10,7 @@ import {
   ensureCustomizerRoot,
 } from "../utils/common";
 // 共通設定a
+import { Customizer_utils, Customizer_manager } from "../utils/customizer";
 
 // テスト用設定一覧
 const TEST_CONFIGS = {
@@ -328,7 +329,10 @@ async function verifyTextDetails(
 
 // 共通テストフロー
 async function setSliderDetailSettings(page, config, inisialSetting) {
-  await test.step("1. カスタマイザー画面を開く", () => openCustomizer(page));
+  const cm_manger = new Customizer_manager(page);
+  const cm_utils = new Customizer_utils(page);
+  await test.step("1. カスタマイザー画面を開く", () =>
+    cm_utils.openCustomizer());
   //await test.step('3. スライダー設定を開く', () => openSliderSetting(page));
   await test.step("2. スライダーのエフェクト設定", () =>
     selSliderEffect(page, inisialSetting.effectLabel));
@@ -349,12 +353,12 @@ async function setSliderDetailSettings(page, config, inisialSetting) {
     setTextColor(page, config.textColor));
   await test.step("6 テキストのフォントを設定", () =>
     setTextFont(page, config.textFont));
-  await ensureCustomizerRoot(page);
+  await Customizer_utils.ensureCustomizerRoot(page);
   await test.step("7.ホームタイプの変更", async () => {
     await setSiteType(page, inisialSetting.siteType);
   });
   await test.step("8. 公開ボタンをクリックして変更を保存", () =>
-    saveCustomizer(page));
+    cm_utils.saveCustomizer());
 }
 
 async function set_sliderEffect_and_siteType(page, useEffect, homeType) {
