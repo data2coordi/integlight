@@ -1,6 +1,10 @@
 import { test, expect } from "@playwright/test";
 
-import { selSliderEffect, setSiteType } from "../utils/common";
+import {
+  selSliderEffect,
+  setSiteType,
+  openSliderSetting,
+} from "../utils/common";
 // 共通設定a
 import { Customizer_utils, Customizer_manager } from "../utils/customizer";
 
@@ -331,7 +335,6 @@ async function setSliderDetailSettings(page, config, inisialSetting) {
   const cm_utils = new Customizer_utils(page);
   await test.step("1. カスタマイザー画面を開く", () =>
     cm_utils.openCustomizer());
-  await test.step("3. スライダー設定を開く", () => openSliderSetting(page));
   await test.step("2. スライダーのエフェクト設定", () =>
     selSliderEffect(page, inisialSetting.effectLabel));
   await test.step("3. スライダーの変更間隔を設定", () =>
