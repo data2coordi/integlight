@@ -26,8 +26,9 @@ export class Customizer_header {
 export class Customizer_slider {
   constructor(private page: Page) {}
 
-  async apply(value) {
-    await this.selSliderEffect(value);
+  async apply(config: { effect?: string; interval?: string }) {
+    const { effect = "フェード", interval = "5" } = config;
+    await this.selSliderEffect(effect, interval);
   }
   async selSliderEffect(effect = "フェード", interval = "5") {
     await Customizer_utils.ensureCustomizerRoot(this.page);
@@ -156,8 +157,8 @@ export class Customizer_manager {
     await this.utils.openCustomizer();
 
     for (const [key, value] of Object.entries(config)) {
+      console.log(`--- Applying ${key}: ${JSON.stringify(value)} ---`);
       if (!value || key === "testid") continue;
-
       const handler = this.handlers[key];
       await handler.apply(value);
     }
