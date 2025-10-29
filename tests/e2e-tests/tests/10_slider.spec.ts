@@ -29,8 +29,6 @@ const TEST_CONFIGS = {
     textPositionLeft: "15",
     textColor: "#ff0000",
     textFont: "yu_mincho",
-    image_delBtnNo: 0,
-    image_selBtnNo: 0,
     text_positionLavel_top: "スライダーテキスト位置（モバイル、上）（px）",
     text_positionLavel_left: "スライダーテキスト位置（モバイル、左）（px）",
     imagePartialName: "Firefly-260521",
@@ -43,8 +41,6 @@ const TEST_CONFIGS = {
     textPositionLeft: "150",
     textColor: "#ff0000",
     textFont: "yu_mincho",
-    image_delBtnNo: 0,
-    image_selBtnNo: 0,
     text_positionLavel_top: "スライダーテキスト位置（上）（px）",
     text_positionLavel_left: "スライダーテキスト位置（左）（px）",
     imagePartialName: "Firefly-203280",
@@ -62,8 +58,8 @@ async function setSliderInterval(page, interval) {
 async function setSliderImage(
   page: Page,
   imagePartialName: string,
-  image_delBtnNo: number,
-  image_selBtnNo: number
+  image_delBtnNo: number = 0,
+  image_selBtnNo: number = 0
 ) {
   // 既存画像を削除
   await page.getByRole("button", { name: "削除" }).nth(image_delBtnNo).click();
@@ -342,12 +338,7 @@ async function setSliderDetailSettings(page, config, inisialSetting) {
   await test.step("3. スライダーの変更間隔を設定", () =>
     setSliderInterval(page, config.interval));
   await test.step("4 スライダー画像を設定", () =>
-    setSliderImage(
-      page,
-      config.imagePartialName,
-      config.image_delBtnNo,
-      config.image_selBtnNo
-    ));
+    setSliderImage(page, config.imagePartialName));
   await test.step("5 スライダーテキストを入力", () =>
     setSliderText(page, config.mainText, config.subText));
   await test.step("6 テキストの表示位置を設定", () =>
