@@ -1,10 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-import {
-  selSliderEffect,
-  setSiteType,
-  openSliderSetting,
-} from "../utils/common";
+import { selSliderEffect, setSiteType } from "../utils/common";
 // 共通設定a
 import { Customizer_utils, Customizer_manager } from "../utils/customizer";
 
@@ -325,12 +321,12 @@ async function verifyTextDetails(
 
 // 共通テストフロー
 async function setSliderDetailSettings(page, config, inisialSetting) {
-  // const cm_manager = new Customizer_manager(page);
-  // const keyValue = {
-  //   siteType: inisialSetting.siteType,
-  //   sliderType: { effect: inisialSetting.siteType, interval: config.interval },
-  // };
-  // await cm_manager.apply(keyValue);
+  const cm_manager = new Customizer_manager(page);
+  const keyValue = {
+    siteType: inisialSetting.siteType,
+    sliderType: { effect: inisialSetting.siteType, interval: config.interval },
+  };
+  await cm_manager.apply(keyValue);
 
   const cm_utils = new Customizer_utils(page);
   await test.step("1. カスタマイザー画面を開く", () =>
@@ -354,10 +350,10 @@ async function setSliderDetailSettings(page, config, inisialSetting) {
     setTextColor(page, config.textColor));
   await test.step("6 テキストのフォントを設定", () =>
     setTextFont(page, config.textFont));
-  await Customizer_utils.ensureCustomizerRoot(page);
-  await test.step("7.ホームタイプの変更", async () => {
-    await setSiteType(page, inisialSetting.siteType);
-  });
+  // await Customizer_utils.ensureCustomizerRoot(page);
+  // await test.step("7.ホームタイプの変更", async () => {
+  //   await setSiteType(page, inisialSetting.siteType);
+  // });
   await test.step("8. 公開ボタンをクリックして変更を保存", () =>
     cm_utils.saveCustomizer());
 }
