@@ -6,15 +6,20 @@ import {
   saveCustomizer,
   setColorSetting,
 } from "../utils/common";
+import { Customizer_manager } from "../utils/customizer";
 
 // 共通関数（カスタマイザーでホームページ表示を設定する）
 async function setColorPattern(page: Page, colorType: string) {
   // 実装例：カスタマイザー画面で選択肢を切り替え
-  await test.step(" カスタマイザー画面を開く", () => openCustomizer(page));
+  //await test.step(" カスタマイザー画面を開く", () => openCustomizer(page));
+  //await test.step("カラー設定の変更", () => setColorSetting(page, colorType));
+  //await test.step("変更を保存", () => saveCustomizer(page));
 
-  await test.step("カラー設定の変更", () => setColorSetting(page, colorType));
-
-  await test.step("変更を保存", () => saveCustomizer(page));
+  const keyValue = {
+    colorType: colorType,
+  };
+  const cm_manager = new Customizer_manager(page);
+  await cm_manager.apply(keyValue);
 }
 
 // CSS 検証関数

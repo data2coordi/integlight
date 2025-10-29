@@ -47,6 +47,10 @@ export class Customizer_slider {
 export class Customizer_design {
   constructor(private page: Page) {}
 
+  async apply(value) {
+    await this.setColorSetting(value);
+  }
+
   async setColorSetting(setting: string) {
     await Customizer_utils.ensureCustomizerRoot(this.page);
     await this.page.getByRole("button", { name: "デザイン設定" }).click();
@@ -142,6 +146,7 @@ export class Customizer_manager {
       siteType: new Customizer_siteType(page),
       headerType: new Customizer_header(page),
       sliderType: new Customizer_slider(page),
+      colorType: new Customizer_design(page),
       // 追加クラスもここに登録するだけ
     };
   }
