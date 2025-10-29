@@ -7,7 +7,7 @@ test.describe("ビジュアルテスト", () => {
   test("カスタマイザー設定", async ({ browser }, testInfo) => {
     console.log(`Running test in project: ${testInfo.project.name}`);
 
-    const keyValue = testInfo.project.use.keyValue;
+    let keyValue = testInfo.project.use.keyValue;
     console.log(`@@@@@keyValue@@@@@: ${JSON.stringify(config)}`);
 
     if (keyValue.headerType === "スライダー") {
