@@ -148,15 +148,22 @@ export class Customizer_manager {
 
   /**
    * 全体設定を適用
-   * @param {object} config 例: { testid, siteType, headerType, sliderType }
+   * @param {object} keyValue 
+   * 例：
+      {
+          testid: 'elegant_slider',
+          siteType: 'エレガント',
+          headerType: 'スライダー',
+          sliderType: { effect: 'スライド', interval: '60' }
+      }
    */
-  async apply(config) {
+  async apply(keyValue) {
     console.log("=== Customizer apply start ===");
-    console.log(config);
+    console.log(keyValue);
 
     await this.utils.openCustomizer();
 
-    for (const [key, value] of Object.entries(config)) {
+    for (const [key, value] of Object.entries(keyValue)) {
       console.log(`--- Applying ${key}: ${JSON.stringify(value)} ---`);
       if (!value || key === "testid") continue;
       const handler = this.handlers[key];
