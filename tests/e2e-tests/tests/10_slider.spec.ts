@@ -33,8 +33,6 @@ const TEST_CONFIGS = {
     image_selBtnNo: 0,
     text_positionLavel_top: "スライダーテキスト位置（モバイル、上）（px）",
     text_positionLavel_left: "スライダーテキスト位置（モバイル、左）（px）",
-    text_colorLavel: "スライダーテキストカラー",
-    text_fontLavel: "スライダーテキストフォント",
     imagePartialName: "Firefly-260521",
   },
   pcCustomizerSetting: {
@@ -49,8 +47,6 @@ const TEST_CONFIGS = {
     image_selBtnNo: 0,
     text_positionLavel_top: "スライダーテキスト位置（上）（px）",
     text_positionLavel_left: "スライダーテキスト位置（左）（px）",
-    text_colorLavel: "スライダーテキストカラー",
-    text_fontLavel: "スライダーテキストフォント",
     imagePartialName: "Firefly-203280",
     imagePartialName_forPcHome2: "Firefly-51159-1.webp",
   },
@@ -121,24 +117,26 @@ async function setTextPosition(
   await page.getByLabel(text_positionLavel_left).fill(left);
 }
 
-async function setTextColor(page, textColor, text_colorLabel) {
+async function setTextColor(page, textColor) {
   // 「色を選択」ボタンをクリック → input が表示される
   await page.getByRole("button", { name: "色を選択" }).click();
 
-  const input = page.getByLabel(text_colorLabel);
+  const input = page.getByLabel("スライダーテキストカラー");
 
   await input.fill(textColor);
 }
 
-async function setTextFont(page, textFont, text_fontLabel) {
+async function setTextFont(page, textFont) {
   // ラベル名から要素を取得
-  const label = page.locator("label", { hasText: text_fontLabel });
+  const label = page.locator("label", {
+    hasText: "スライダーテキストフォント",
+  });
 
   // ラベルの for 属性から select の id を取得
   const selectId = await label.getAttribute("for");
   if (!selectId)
     throw new Error(
-      `ラベル "${text_fontLabel}" に対応する select が見つかりません`
+      "ラベル スライダーテキストフォント に対応する select が見つかりません"
     );
 
   // select を取得して選択
@@ -361,9 +359,9 @@ async function setSliderDetailSettings(page, config, inisialSetting) {
       config.text_positionLavel_left
     ));
   await test.step("6 テキストのカラーを設定", () =>
-    setTextColor(page, config.textColor, config.text_colorLavel));
+    setTextColor(page, config.textColor));
   await test.step("6 テキストのフォントを設定", () =>
-    setTextFont(page, config.textFont, config.text_fontLavel));
+    setTextFont(page, config.textFont));
   await ensureCustomizerRoot(page);
   await test.step("7.ホームタイプの変更", async () => {
     await setSiteType(page, inisialSetting.siteType);
