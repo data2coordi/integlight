@@ -11,13 +11,13 @@ const TEST_CONFIGS = {
     siteType: "エレガント",
   },
   spCustomizerSetting: {
-    deviceType: "sp",
     viewport: { width: 375, height: 800 },
     userAgent:
       "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1",
     interval: "1",
     mainText: "テストタイトル",
     subText: "これはPlaywrightテストによって入力された説明文です。",
+    deviceType: "sp",
     textPositionTop: "10",
     textPositionLeft: "15",
     textColor: "#ff0000",
@@ -25,10 +25,10 @@ const TEST_CONFIGS = {
     imagePartialName: "Firefly-260521",
   },
   pcCustomizerSetting: {
-    deviceType: "pc",
     interval: "1",
     mainText: "テストタイトル",
     subText: "これはPlaywrightテストによって入力された説明文です。",
+    deviceType: "pc",
     textPositionTop: "100",
     textPositionLeft: "150",
     textColor: "#ff0000",
