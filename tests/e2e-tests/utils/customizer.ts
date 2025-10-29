@@ -43,6 +43,65 @@ export class Customizer_slider {
   }
 }
 
+export class Customizer_slider_img {
+  constructor(private page: Page) {}
+
+  async apply(config: {
+    imagePartialName?: string;
+    image_delBtnNo?: number;
+    image_selBtnNo?: number;
+  }) {
+    const {
+      imagePartialName = "",
+      image_delBtnNo = 0,
+      image_selBtnNo = 0,
+    } = config;
+    await this.setSliderImage(imagePartialName, image_delBtnNo, image_selBtnNo);
+  }
+
+  async setSliderImage(
+    imagePartialName: string,
+    image_delBtnNo: number = 0,
+    image_selBtnNo: number = 0
+  ) {
+    await Customizer_utils.ensureCustomizerRoot(this.page);
+    await this.page.getByRole("button", { name: "ヘッダー設定" }).click();
+    await this.page.getByRole("button", { name: "2.スライダー設定" }).click();
+
+    // 既存画像を削除
+    await this.page
+      .getByRole("button", { name: "削除" })
+      .nth(image_delBtnNo)
+      .click();
+    await this.page
+      .getByRole("button", { name: "画像を選択" })
+      .nth(image_selBtnNo)
+      .click();
+
+    // モーダルが表示されるのを待つ
+    const mediaModal = this.page.locator(".attachments-browser");
+    await mediaModal.waitFor({ state: "visible", timeout: 15000 });
+
+    // 検索ボックスに入力して検索
+    const searchInput = this.page.locator("#media-search-input");
+    await searchInput.fill(imagePartialName);
+    await searchInput.press("Enter");
+
+    // 検索結果の最初の画像をクリック
+    const targetImage = this.page
+      .locator(`.attachments-browser img[src*="${imagePartialName}"]`)
+      .first();
+    await targetImage.waitFor({ state: "visible", timeout: 15000 });
+    await targetImage.click({ force: true });
+
+    // 選択ボタンを押してモーダルを閉じる
+    await this.page.locator(".media-button-select").click();
+    await this.page
+      .locator(".media-modal")
+      .waitFor({ state: "hidden", timeout: 15000 });
+  }
+}
+
 // 2. デザイン関連操作
 export class Customizer_design {
   constructor(private page: Page) {}
@@ -146,6 +205,7 @@ export class Customizer_manager {
       siteType: new Customizer_siteType(page),
       headerType: new Customizer_header(page),
       sliderType: new Customizer_slider(page),
+      sliderImg: new Customizer_slider_img(page),
       colorType: new Customizer_design(page),
       // 追加クラスもここに登録するだけ
     };
@@ -203,7 +263,7 @@ export class Customizer_header {
 
 //実行例
 /*
-const config = {
+const keyValue = {
   testid: "pop_slider",
   siteType: "ポップ",
   headerType: "スライダー",
@@ -211,5 +271,5 @@ const config = {
 };
 
 const cm = new CustomizerManager(page);
-await cm.apply(config);
+await cm.apply(keyValue);
 */
