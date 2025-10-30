@@ -119,11 +119,13 @@ async function setHeaderImage(page, config) {
 
 // 共通テストフロー
 async function setHeaderImageDetailSettings(page, config) {
-  await test.step("カスタマイザー画面を開く", () => openCustomizer(page));
-  await test.step("ヘッダー有無を設定", () =>
-    openHeaderSetting(page, "静止画像"));
+  const keyValue = {
+    headerType: "静止画像",
+  };
+  const cm_manager = new Customizer_manager(page);
+  await cm_manager.apply(keyValue);
 
-  await ensureCustomizerRoot(page);
+  await test.step("カスタマイザー画面を開く", () => openCustomizer(page));
   await test.step("ヘッダー画像テキストを設定する", () =>
     setHeaderImageText(page, config));
 
@@ -132,12 +134,6 @@ async function setHeaderImageDetailSettings(page, config) {
 
   await test.step("公開ボタンをクリックして変更を保存", () =>
     saveCustomizer(page));
-
-  const keyValue = {
-    headerType: "静止画像",
-  };
-  const cm_manager = new Customizer_manager(page);
-  await cm_manager.apply(keyValue);
 }
 
 /****検証用 ***********************************/
