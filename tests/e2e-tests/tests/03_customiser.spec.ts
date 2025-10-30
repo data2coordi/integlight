@@ -1,9 +1,4 @@
 import { test, expect, type Page } from "@playwright/test";
-import {
-  openCustomizer,
-  saveCustomizer,
-  ensureCustomizerRoot,
-} from "../utils/common";
 import { Admin, Debugger } from "../utils/commonClass";
 import { Customizer_utils } from "../utils/customizer";
 
