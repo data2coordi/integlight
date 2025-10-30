@@ -201,7 +201,7 @@ export class Customizer_headerImage_img {
     await this.page.getByRole("button", { name: "2.静止画像設定" }).click();
     await this.setHeaderImage(imageName);
   }
-  async setHeaderImage(config) {
+  async setHeaderImage(imageName) {
     await this.page.getByRole("button", { name: "画像を追加" }).nth(0).click();
     const mediaModal = this.page.locator(".attachments-browser");
     await mediaModal.waitFor({ state: "visible", timeout: 15000 });
