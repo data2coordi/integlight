@@ -6,9 +6,9 @@ import {
   saveCustomizer,
   ensureCustomizerRoot,
   openHeaderSetting,
-  setSiteType,
 } from "../utils/common";
 
+import { Customizer_manager } from "../utils/customizer";
 // 共通設定
 const BASE_URL = "https://wpdev.auroralab-design.com";
 
@@ -233,12 +233,11 @@ for (const siteType of SITE_TYPES) {
       });
       page = await context.newPage();
 
-      // サイトタイプを設定
-      await test.step(" カスタマイザー画面を開く", () => openCustomizer(page));
-      //logStepTime('openCustomizer_1');
-      //timeStart('setSiteType');
-      await test.step(" ホームタイプの変更", () => setSiteType(page, siteType));
-      await test.step(" 変更を保存", () => saveCustomizer(page));
+      const keyValue = {
+        siteType: siteType,
+      };
+      const cm_manager = new Customizer_manager(page);
+      await cm_manager.apply(keyValue);
     });
 
     test.afterAll(async () => {
