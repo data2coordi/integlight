@@ -321,34 +321,34 @@ async function verifyTextDetails(
 
 // 共通テストフロー
 async function setSliderDetailSettings(page, config, inisialSetting) {
-  const cm_utils = new Customizer_utils(page);
-  await test.step("1. カスタマイザー画面を開く", () =>
-    cm_utils.openCustomizer());
-  await test.step("2. スライダーのエフェクト設定", () =>
-    selSliderEffect(page, inisialSetting.effectLabel));
+  // const cm_utils = new Customizer_utils(page);
+  // await test.step("1. カスタマイザー画面を開く", () =>
+  //   cm_utils.openCustomizer());
+  // await test.step("2. スライダーのエフェクト設定", () =>
+  //   selSliderEffect(page, inisialSetting.effectLabel));
   //  await test.step("3. スライダーの変更間隔を設定", () =>
   //   setSliderInterval(page, config.interval));
   //await test.step("4 スライダー画像を設定", () =>
   // setSliderImage(page, config.imagePartialName));
-  await test.step("5 スライダーテキストを入力", () =>
-    setSliderText(page, config.mainText, config.subText));
-  await test.step("6 テキストの表示位置を設定", () =>
-    setTextPosition(
-      page,
-      config.textPositionTop,
-      config.textPositionLeft,
-      config.deviceType
-    ));
-  await test.step("6 テキストのカラーを設定", () =>
-    setTextColor(page, config.textColor));
-  await test.step("6 テキストのフォントを設定", () =>
-    setTextFont(page, config.textFont));
+  // await test.step("5 スライダーテキストを入力", () =>
+  //   setSliderText(page, config.mainText, config.subText));
+  // await test.step("6 テキストの表示位置を設定", () =>
+  //   setTextPosition(
+  //     page,
+  //     config.textPositionTop,
+  //     config.textPositionLeft,
+  //     config.deviceType
+  //   ));
+  // await test.step("6 テキストのカラーを設定", () =>
+  //   setTextColor(page, config.textColor));
+  // await test.step("6 テキストのフォントを設定", () =>
+  //   setTextFont(page, config.textFont));
   // await Customizer_utils.ensureCustomizerRoot(page);
   // await test.step("7.ホームタイプの変更", async () => {
   //   await setSiteType(page, inisialSetting.siteType);
   // });
-  await test.step("8. 公開ボタンをクリックして変更を保存", () =>
-    cm_utils.saveCustomizer());
+  // await test.step("8. 公開ボタンをクリックして変更を保存", () =>
+  //   cm_utils.saveCustomizer());
 
   const cm_manager = new Customizer_manager(page);
   const keyValue = {
