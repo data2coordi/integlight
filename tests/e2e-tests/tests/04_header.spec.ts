@@ -77,10 +77,16 @@ async function runCustomizerFlow(page: Page, config: any) {
   // await test.step("7. 変更を保存", () => saveCustomizer(page));
   //logStepTime('saveCustomizer');
 
-  const keyValue = {
+  let keyValue = {
     siteType: config.siteType,
-    sliderType: { effect: "フェード", interval: "5" },
+    headerType: config.headerType,
   };
+  if (config.headerType === "スライダー") {
+    keyValue = {
+      ...keyValue,
+      sliderType: {},
+    };
+  }
   const cm_manager = new Customizer_manager(page);
   await cm_manager.apply(keyValue);
 }
