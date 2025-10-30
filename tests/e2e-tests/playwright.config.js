@@ -27,7 +27,7 @@ const visualProjects = visualTestCnf.flatMap(
     {
       name: `setting_${testid}`,
       testDir: "./tests",
-      testMatch: [/setting\.spec\.js/],
+      testMatch: [/visual\.setting\.spec\.js/],
       dependencies: ["setup"],
       use: {
         ...devices["Desktop Chrome"],
