@@ -176,6 +176,11 @@ export default defineConfig({
       name: "setup",
       testMatch: "auth.setup.ts",
     },
+    {
+      name: "setup_init",
+      testMatch: "auth.setup.ts",
+      baseURL: "https://t2.auroralab-design.com",
+    },
 
     // 2. 【新規】認証が不要なテスト用のプロジェクト
     {
