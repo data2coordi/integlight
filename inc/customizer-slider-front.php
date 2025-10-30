@@ -162,8 +162,8 @@ class integlight_customizer_slider_outerAssets
 			'homeType' => get_theme_mod('integlight_hometype_setting', Integlight_customizer_slider_settings::getHomeType1Name()),
 			'fadeName' => Integlight_customizer_slider_settings::getEffectNameFade(),
 			'slideName' => Integlight_customizer_slider_settings::getEffectNameSlide(),
-			'home1Name' => Integlight_customizer_slider_settings::getHomeType1Name(),
-			'home2Name' => Integlight_customizer_slider_settings::getHomeType2Name(),
+			'siteType1Name' => Integlight_customizer_slider_settings::getHomeType1Name(),
+			'siteType2Name' => Integlight_customizer_slider_settings::getHomeType2Name(),
 			'home3Name' => Integlight_customizer_slider_settings::getHomeType3Name(),
 			'home4Name' => Integlight_customizer_slider_settings::getHomeType4Name(),
 		));

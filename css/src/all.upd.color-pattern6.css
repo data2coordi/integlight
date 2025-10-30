@@ -97,7 +97,7 @@ a:focus-visible,
 
 /* homeのカテゴリーの色 */
 body .blog .category-link,
-body .home1 .category-link {
+body .siteType1 .category-link {
   background: #fae7f2;
 }
 
@@ -132,11 +132,11 @@ ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
 }
 /**************アイコンのホバーした時の色を変えているe***************/
 
-/************ home2ボタン **************/
-/************ home2ボタン **************/
-/************ home2ボタン **************/
-/************ home2ボタン **************/
-/************ home2ボタンs **************/
+/************ siteType2ボタン **************/
+/************ siteType2ボタン **************/
+/************ siteType2ボタン **************/
+/************ siteType2ボタン **************/
+/************ siteType2ボタンs **************/
 /* .home button#load-more, .home button#load-more, .home button.load-more-cat, .home button.load-more-cat, .home .integlight_pt button#load-more,.home .integlight_pt button#load-more {
   color:#fa9301;                 
   background:#fff;
@@ -148,11 +148,11 @@ ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
 /**************背景のグラデーションの設定s***************/
 /**************背景のグラデーションの設定s***************/
 /**************背景のグラデーションの設定s***************/
-html:has(body .home2) {
+html:has(body .siteType2) {
   background: linear-gradient(to right, #fcf2f8 0%, #fef8fe 60%, #e2f0f2 100%);
 }
 
-html:has(body .home2)::before {
+html:has(body .siteType2)::before {
   background: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 0) 0%,
@@ -165,32 +165,32 @@ html:has(body .home2)::before {
 /**************背景のグラデーションの設定e***************/
 /**************背景のグラデーションの設定e***************/
 
-.home2 #load-more:focus-visible,
-.home2 #load-more:hover,
-.home2 .load-more-cat:focus-visible,
-.home2 .load-more-cat:hover,
-.home2 .integlight_pt button#load-more:focus-visible,
-.home2 .integlight_pt button#load-more:hover {
+.siteType2 #load-more:focus-visible,
+.siteType2 #load-more:hover,
+.siteType2 .load-more-cat:focus-visible,
+.siteType2 .load-more-cat:hover,
+.siteType2 .integlight_pt button#load-more:focus-visible,
+.siteType2 .integlight_pt button#load-more:hover {
   background: #f936a8;
   border: 1px solid #f936a8;
   color: #fff;
 }
-/************ home2ボタンe **************/
-/************ home2ボタン **************/
-/************ home2ボタン **************/
+/************ siteType2ボタンe **************/
+/************ siteType2ボタン **************/
+/************ siteType2ボタン **************/
 
-/************ home2カテゴリタグs **************/
-/************ home2カテゴリタグs **************/
-/************ home2カテゴリタグs **************/
-/************ home2カテゴリタグs **************/
-/************ home2カテゴリタグs **************/
+/************ siteType2カテゴリタグs **************/
+/************ siteType2カテゴリタグs **************/
+/************ siteType2カテゴリタグs **************/
+/************ siteType2カテゴリタグs **************/
+/************ siteType2カテゴリタグs **************/
 
-.home2 .post-category p {
+.siteType2 .post-category p {
   background: #f936a8;
 }
-/************ home2カテゴリタグe **************/
-/************ home2カテゴリタグe **************/
-/************ home2カテゴリタグe **************/
+/************ siteType2カテゴリタグe **************/
+/************ siteType2カテゴリタグe **************/
+/************ siteType2カテゴリタグe **************/
 
 @media screen and (max-width: 768px) {
   .menuToggle-containerForMenu {

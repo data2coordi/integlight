@@ -58,7 +58,7 @@ class template_HomeTemplateTest extends WP_UnitTestCase
     public function test_post_title_trimmed()
     {
 
-        set_theme_mod('integlight_hometype_setting', 'home2');
+        set_theme_mod('integlight_hometype_setting', 'siteType2');
         $this->go_to(home_url('/'));
 
         ob_start();
@@ -68,19 +68,18 @@ class template_HomeTemplateTest extends WP_UnitTestCase
 
         // 長いタイトルは42文字＋「 ...」で切り詰め
         $expected_trim = mb_substr($this->long_title, 0, 42) . ' ...';
-		$this->assertTrue(
-			str_contains($output, $expected_trim) || str_contains($output, $this->short_title),
-			"出力に {$expected_trim} または {$this->short_title} が含まれていません。"
-		);
-
+        $this->assertTrue(
+            str_contains($output, $expected_trim) || str_contains($output, $this->short_title),
+            "出力に {$expected_trim} または {$this->short_title} が含まれていません。"
+        );
     }
 
     public function test_post_excerpt_length()
     {
 
-        set_theme_mod('integlight_hometype_setting', 'home2');
+        set_theme_mod('integlight_hometype_setting', 'siteType2');
 
-		$this->go_to(home_url('/'));
+        $this->go_to(home_url('/'));
 
         ob_start();
         include get_template_directory() . '/home.php';
@@ -166,8 +165,8 @@ class template_HomeTemplateTest extends WP_UnitTestCase
 
     public function test_home_type_class_is_applied()
     {
-        // カスタマイザー設定を home2 に変更
-        set_theme_mod('integlight_hometype_setting', 'home2');
+        // カスタマイザー設定を siteType2 に変更
+        set_theme_mod('integlight_hometype_setting', 'siteType2');
 
         $this->go_to(home_url('/'));
 
@@ -175,20 +174,20 @@ class template_HomeTemplateTest extends WP_UnitTestCase
         include get_template_directory() . '/home.php';
         $output = ob_get_clean();
 
-        // <main> のクラスが "home2" になっているか確認
+        // <main> のクラスが "siteType2" になっているか確認
         $this->assertMatchesRegularExpression(
-            '/<main id="primary" class=["\']?home2["\']?>/',
+            '/<main id="primary" class=["\']?siteType2["\']?>/',
             $output
         );
 
-        // デフォルト（設定なし）の場合は "home1" になる
+        // デフォルト（設定なし）の場合は "siteType1" になる
         remove_theme_mod('integlight_hometype_setting');
         ob_start();
         include get_template_directory() . '/home.php';
         $output = ob_get_clean();
 
         $this->assertMatchesRegularExpression(
-            '/<main id="primary" class=["\']?home1["\']?>/',
+            '/<main id="primary" class=["\']?siteType1["\']?>/',
             $output
         );
     }
