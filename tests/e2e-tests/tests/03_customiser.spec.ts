@@ -3,9 +3,8 @@ import {
   openCustomizer,
   saveCustomizer,
   ensureCustomizerRoot,
-  showCodeOverlay,
 } from "../utils/common";
-import { Admin } from "../utils/commonClass";
+import { Admin, Debugger } from "../utils/commonClass";
 
 // テストデータを配列でまとめる
 const CUSTOMIZER_INPUTS = [
@@ -85,7 +84,8 @@ test.describe("カスタマイザー全パターンまとめテスト", () => {
       const content = await page.locator(input.outputTarget).innerHTML();
       expect(content).toContain(input.code);
       // デバッグ用表示（必要な場合のみ）
-      await showCodeOverlay(page, input.code);
+      const mydebugger = new Debugger(page);
+      await mydebugger.showCodeOverlay(page, input.code);
     }
 
     // ---------------------------
