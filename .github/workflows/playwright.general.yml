@@ -46,8 +46,9 @@ jobs:
           #npx playwright test tests/e2e-tests/tests/03_customiser.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
           #npx playwright test tests/e2e-tests/tests/04_header.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
           #npx playwright test tests/e2e-tests/tests/05_htmlCode.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
-          npx playwright test tests/e2e-tests/tests/07_pf.image.home.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
+          #npx playwright test tests/e2e-tests/tests/07_pf.image.home.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
           #npx playwright test tests/e2e-tests/tests/08_pf.regOuterAssets.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
+          npx playwright test tests/e2e-tests/tests/09_pf.regOuterAssets.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
           #npx playwright test tests/e2e-tests/tests/10_slider.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
           #npx playwright test tests/e2e-tests/tests/11_headerImage.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
           #DEBUG=pw:api npx playwright test tests/e2e-tests/tests/10_slider.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
