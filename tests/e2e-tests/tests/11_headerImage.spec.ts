@@ -95,33 +95,21 @@ async function setHeaderImageText(page, config) {
     .fill(config.textPositionLeft_mobile);
 }
 
-// ヘッダー画像設定
-async function setHeaderImage(page, config) {
-  await openHeaderImage(page);
-
-  await page.getByRole("button", { name: "画像を追加" }).nth(0).click();
-  const mediaModal = page.locator(".attachments-browser");
-  await mediaModal.waitFor({ state: "visible", timeout: 15000 });
-
-  const searchInput = page.locator("#media-search-input");
-  await searchInput.fill(config.imagePartialName);
-  await searchInput.press("Enter");
-
-  const targetImage = page
-    .locator(`.attachments-browser img[src*="${config.imagePartialName}"]`)
-    .first();
-  await targetImage.waitFor({ state: "visible", timeout: 15000 });
-  await targetImage.click({ force: true });
-
-  await page.getByRole("button", { name: "選択して切り抜く" }).nth(0).click();
-  await page.getByRole("button", { name: "画像切り抜き" }).nth(0).click();
-}
-
 // 共通テストフロー
 async function setHeaderImageDetailSettings(page, config) {
   const keyValue = {
     headerType: "静止画像",
     headerImageImg: { imageName: config.imagePartialName },
+    headerImageText: {
+      mainText: config.mainText,
+      subText: config.subText,
+      textColor: config.textColor,
+      textFont: config.textFont,
+      textPositionTop: config.textPositionTop,
+      textPositionLeft: config.textPositionLeft,
+      textPositionTop_mobile: config.textPositionTop_mobile,
+      textPositionLeft_mobile: config.textPositionLeft_mobile,
+    },
   };
   const cm_manager = new Customizer_manager(page);
   await cm_manager.apply(keyValue);

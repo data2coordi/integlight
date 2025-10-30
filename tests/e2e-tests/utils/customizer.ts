@@ -229,12 +229,32 @@ export class Customizer_headerImage_img {
 export class Customizer_headerImage_text {
   constructor(private page: Page) {}
 
-  async apply(config: { imageName?: string }) {
-    const { imageName = "" } = config;
+  async apply(config: {
+    imageName?: string;
+    mainText?: string;
+    subText?: string;
+    textColor?: string;
+    textFont?: string;
+    textPositionTop?: string;
+    textPositionLeft?: string;
+    textPositionTop_mobile?: string;
+    textPositionLeft_mobile?: string;
+  }) {
+    const {
+      mainText = "",
+      subText = "",
+      textColor = "",
+      textFont = "",
+      textPositionTop = "",
+      textPositionLeft = "",
+      textPositionTop_mobile = "",
+      textPositionLeft_mobile = "",
+    } = config;
+
     await Customizer_utils.ensureCustomizerRoot(this.page);
     await this.page.getByRole("button", { name: "ヘッダー設定" }).click();
     await this.page.getByRole("button", { name: "2.静止画像設定" }).click();
-    await this.setHeaderImageText(imageName);
+    await this.setHeaderImageText(config);
   }
   async setHeaderImageText(config) {
     // テキスト設定
