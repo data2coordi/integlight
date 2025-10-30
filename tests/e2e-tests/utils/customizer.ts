@@ -6,12 +6,12 @@ export class Customizer_header {
   constructor(private page: Page) {}
 
   async apply(value) {
+    await Customizer_utils.ensureCustomizerRoot(this.page);
+    await this.page.getByRole("button", { name: "ヘッダー設定" }).click();
     await this.openHeaderSetting(value);
   }
 
   async openHeaderSetting(setting: string) {
-    await Customizer_utils.ensureCustomizerRoot(this.page);
-    await this.page.getByRole("button", { name: "ヘッダー設定" }).click();
     await this.page
       .getByRole("button", {
         name: "1.「スライダー」タイプまたは「静止画像」タイプを選択",
@@ -28,12 +28,12 @@ export class Customizer_slider {
 
   async apply(config: { effect?: string; interval?: string }) {
     const { effect = "フェード", interval = "5" } = config;
-    await this.selSliderEffect(effect, interval);
-  }
-  async selSliderEffect(effect = "フェード", interval = "5") {
     await Customizer_utils.ensureCustomizerRoot(this.page);
     await this.page.getByRole("button", { name: "ヘッダー設定" }).click();
     await this.page.getByRole("button", { name: "2.スライダー設定" }).click();
+    await this.selSliderEffect(effect, interval);
+  }
+  async selSliderEffect(effect = "フェード", interval = "5") {
     const effectSelect = this.page.getByRole("combobox", {
       name: "エフェクト",
     });
@@ -56,6 +56,9 @@ export class Customizer_slider_img {
       image_delBtnNo = 0,
       image_selBtnNo = 0,
     } = config;
+    await Customizer_utils.ensureCustomizerRoot(this.page);
+    await this.page.getByRole("button", { name: "ヘッダー設定" }).click();
+    await this.page.getByRole("button", { name: "2.スライダー設定" }).click();
     await this.setSliderImage(imagePartialName, image_delBtnNo, image_selBtnNo);
   }
 
@@ -64,10 +67,6 @@ export class Customizer_slider_img {
     image_delBtnNo: number = 0,
     image_selBtnNo: number = 0
   ) {
-    await Customizer_utils.ensureCustomizerRoot(this.page);
-    await this.page.getByRole("button", { name: "ヘッダー設定" }).click();
-    await this.page.getByRole("button", { name: "2.スライダー設定" }).click();
-
     // 既存画像を削除
     await this.page
       .getByRole("button", { name: "削除" })
@@ -197,13 +196,13 @@ export class Customizer_design {
   constructor(private page: Page) {}
 
   async apply(value) {
+    await Customizer_utils.ensureCustomizerRoot(this.page);
+    await this.page.getByRole("button", { name: "デザイン設定" }).click();
+    await this.page.getByRole("button", { name: "配色" }).click();
     await this.setColorSetting(value);
   }
 
   async setColorSetting(setting: string) {
-    await Customizer_utils.ensureCustomizerRoot(this.page);
-    await this.page.getByRole("button", { name: "デザイン設定" }).click();
-    await this.page.getByRole("button", { name: "配色" }).click();
     const section = this.page.locator(
       "#customize-control-integlight_base_color_setting"
     );
@@ -218,12 +217,12 @@ export class Customizer_siteType {
   constructor(private page: Page) {}
 
   async apply(value) {
-    await this.setSiteType(value);
-  }
-  async setSiteType(siteType = "エレガント") {
     await Customizer_utils.ensureCustomizerRoot(this.page);
     await this.page.getByRole("button", { name: "サイト設定" }).click();
     await this.page.getByRole("button", { name: "サイトタイプ設定" }).click();
+    await this.setSiteType(value);
+  }
+  async setSiteType(siteType = "エレガント") {
     const checkbox = this.page.getByLabel(siteType);
     if (!(await checkbox.isChecked())) await checkbox.check();
     await expect(checkbox).toBeChecked();
