@@ -79,7 +79,7 @@ async function runCustomizerFlow(page: Page, config: any) {
 
   const keyValue = {
     siteType: config.siteType,
-    sliderType: {},
+    sliderType: { effect: "フェード", interval: "5" },
   };
   const cm_manager = new Customizer_manager(page);
   await cm_manager.apply(keyValue);
