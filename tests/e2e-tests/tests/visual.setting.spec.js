@@ -7,15 +7,15 @@ test.describe("ビジュアルテスト", () => {
   test("カスタマイザー設定", async ({ browser }, testInfo) => {
     console.log(`Running test in project: ${testInfo.project.name}`);
 
-    let keyValue = testInfo.project.use.keyValue;
+    const keyValue = testInfo.project.use.keyValue;
     console.log(`@@@@@keyValue@@@@@: ${JSON.stringify(keyValue)}`);
 
-    if (keyValue.headerType === "スライダー") {
-      keyValue = {
-        ...keyValue,
-        sliderType: { effect: "スライド", interval: "60" },
-      };
-    }
+    // if (keyValue.headerType === "スライダー") {
+    //   keyValue = {
+    //     ...keyValue,
+    //     sliderType: { effect: "スライド", interval: "60" },
+    //   };
+    // }
 
     const page = await browser.newPage();
     const cm_manager = new Customizer_manager(page);
