@@ -29,3 +29,12 @@ git reset --soft HEAD~10
 # まとめて新しい1コミットを作成
 git commit -m "コミットを集約"
 git push --force-with-lease
+
+
+
+
+##########################
+#履歴なしで別ブランチから取得
+#別リポジトリから取得 ディレクトリ単位
+cd ./tests/e2e-tests
+git restore --source origin/ビジュアルinit2 ./

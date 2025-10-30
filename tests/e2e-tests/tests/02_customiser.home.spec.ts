@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 import { Customizer_manager } from "../utils/customizer";
 
-// 共通化関数（home1ページナビゲーション）
+// 共通化関数（siteType1ページナビゲーション）
 async function verifyPageNavigation(
   page: any,
 
@@ -39,7 +39,7 @@ async function verifyPageNavigation(
   expect(firstTitle.trim()).toContain(expectedTitle2);
 }
 
-// 共通化関数（home1カテゴリナビゲーション）
+// 共通化関数（siteType1カテゴリナビゲーション）
 async function verifyCategoryNavi(
   page: any,
   gridSelector: string,
@@ -72,7 +72,7 @@ async function verifyCategoryNavi(
   expect(heading.trim()).toContain(expectedTitle2);
 }
 
-// 共通化関数（home2もっと見るボタン）
+// 共通化関数（siteType2もっと見るボタン）
 async function verifyLoadMoreGeneric(
   page: any,
   gridSelector: string,
@@ -108,7 +108,7 @@ async function verifyLoadMoreGeneric(
   );
 }
 
-test.describe("e2e-home1-PC:", () => {
+test.describe("e2e-siteType1-PC:", () => {
   let page: Page;
   let context;
 
@@ -130,7 +130,7 @@ test.describe("e2e-home1-PC:", () => {
   // テスト本体
   test("ナビゲーションで次のページに遷移できること", async ({}) => {
     console.log(
-      "[02_customiser.home.spec.ts] ===== START: e2e-home1-PC - ナビゲーションで次のページに遷移できること ====="
+      "[02_customiser.home.spec.ts] ===== START: e2e-siteType1-PC - ナビゲーションで次のページに遷移できること ====="
     );
     // 既存の呼び出し部分はこう書き換え可能
     await test.step("4. 新着情報の確認", () =>
@@ -147,7 +147,7 @@ test.describe("e2e-home1-PC:", () => {
   // テスト本体
   test("カテゴリーナビゲーションでカテゴリーページに遷移できること", async ({}) => {
     console.log(
-      "[02_customiser.home.spec.ts] ===== START: e2e-home1-PC - カテゴリーナビゲーションでカテゴリーページに遷移できること ====="
+      "[02_customiser.home.spec.ts] ===== START: e2e-siteType1-PC - カテゴリーナビゲーションでカテゴリーページに遷移できること ====="
     );
     // 既存の呼び出し部分はこう書き換え可能
     await test.step("4. カテゴリーナビゲーションの確認", () =>
@@ -162,11 +162,11 @@ test.describe("e2e-home1-PC:", () => {
   });
 });
 
-test.describe("e2e-home2-PC:", () => {
+test.describe("e2e-siteType2-PC:", () => {
   // テスト本体
   test("もっとみるボタンでカードを取得できること", async ({ page }) => {
     console.log(
-      "[02_customiser.home.spec.ts] ===== START: e2e-home2-PC - もっとみるボタンでカードを取得できること ====="
+      "[02_customiser.home.spec.ts] ===== START: e2e-siteType2-PC - もっとみるボタンでカードを取得できること ====="
     );
 
     const keyValue = {

@@ -7,3 +7,4 @@ tests/e2e-tests/e2e_backups_pf/
 tests/e2e-tests/e2e_backups_init/
 tests/e2e-tests/playwright/.auth/
 .env
+.env_init

@@ -7,10 +7,10 @@ class Integlight_customizer_slider_settings
 
     private static $seffectName_fade = 'fade';
     private static $seffectName_slide = 'slide';
-    private static $shomeType1Name = 'home1';
-    private static $shomeType2Name = 'home2';
-    private static $shomeType3Name = 'home3';
-    private static $shomeType4Name = 'home4';
+    private static $shomeType1Name = 'siteType1';
+    private static $shomeType2Name = 'siteType2';
+    private static $shomeType3Name = 'siteType3';
+    private static $shomeType4Name = 'siteType4';
 
 
     public static function getEffectNameFade()

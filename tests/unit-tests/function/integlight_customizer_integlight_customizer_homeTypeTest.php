@@ -123,15 +123,15 @@ class integlight_customizer_integlight_customizer_homeTypeTest extends WP_UnitTe
         $this->assertEquals('Site Type Settings', $control->label);
         $this->assertEquals('radio', $control->type);
         $this->assertEquals(
-            ['home1' => 'Elegant', 'home2' => 'Pop'],
+            ['siteType1' => 'Elegant', 'siteType2' => 'Pop'],
             $control->choices
         );
     }
     /**
      * @test
-     * integlight_hometype_setting の初期値が home1（Elegant）であることを検証
+     * integlight_hometype_setting の初期値が siteType1（Elegant）であることを検証
      */
-    public function hometype_setting_should_have_default_value_home1(): void
+    public function hometype_setting_should_have_default_value_siteType1(): void
     {
         // カスタマイザーの登録処理を実行
         $this->instance->customize_register($this->wp_customize);
@@ -140,13 +140,13 @@ class integlight_customizer_integlight_customizer_homeTypeTest extends WP_UnitTe
         $setting = $this->wp_customize->get_setting('integlight_hometype_setting');
         $this->assertNotNull($setting, 'integlight_hometype_setting の設定が存在すること');
 
-        // 初期値が home1 であることを確認
-        $this->assertEquals('home1', $setting->default, '初期値が home1 に設定されていること');
+        // 初期値が siteType1 であることを確認
+        $this->assertEquals('siteType1', $setting->default, '初期値が siteType1 に設定されていること');
 
         // 念のため choices との整合性も確認（ラベルが Elegant であること）
         $control = $this->wp_customize->get_control('integlight_hometype_setting');
-        $this->assertArrayHasKey('home1', $control->choices);
-        $this->assertEquals('Elegant', $control->choices['home1']);
+        $this->assertArrayHasKey('siteType1', $control->choices);
+        $this->assertEquals('Elegant', $control->choices['siteType1']);
     }
     /**
      * @test
@@ -160,13 +160,13 @@ class integlight_customizer_integlight_customizer_homeTypeTest extends WP_UnitTe
         $setting = $this->wp_customize->get_setting('integlight_hometype_setting');
         $this->assertNotNull($setting, 'integlight_hometype_setting の設定が存在すること');
 
-        // ---- 正常系: home1 ----
-        $sanitizedHome1 = call_user_func($setting->sanitize_callback, 'home1', $setting);
-        $this->assertEquals('home1', $sanitizedHome1, 'home1 がそのまま保存されること');
+        // ---- 正常系: siteType1 ----
+        $sanitizedSiteType1 = call_user_func($setting->sanitize_callback, 'siteType1', $setting);
+        $this->assertEquals('siteType1', $sanitizedSiteType1, 'siteType1 がそのまま保存されること');
 
-        // ---- 正常系: home2 ----
-        $sanitizedHome2 = call_user_func($setting->sanitize_callback, 'home2', $setting);
-        $this->assertEquals('home2', $sanitizedHome2, 'home2 がそのまま保存されること');
+        // ---- 正常系: siteType2 ----
+        $sanitizedSiteType2 = call_user_func($setting->sanitize_callback, 'siteType2', $setting);
+        $this->assertEquals('siteType2', $sanitizedSiteType2, 'siteType2 がそのまま保存されること');
 
         // ---- 異常系: 不正値 ----
         $invalidValue   = 'invalid_value';
@@ -198,11 +198,11 @@ class integlight_customizer_integlight_customizer_homeTypeTest extends WP_UnitTe
         });
 
         try {
-            // 有効な値 home1 を保存
-            call_user_func($setting->sanitize_callback, 'home1', $setting);
+            // 有効な値 siteType1 を保存
+            call_user_func($setting->sanitize_callback, 'siteType1', $setting);
 
-            // 有効な値 home2 を保存
-            call_user_func($setting->sanitize_callback, 'home2', $setting);
+            // 有効な値 siteType2 を保存
+            call_user_func($setting->sanitize_callback, 'siteType2', $setting);
 
             // 無効な値を保存（デフォルトに戻る想定）
             call_user_func($setting->sanitize_callback, 'invalid_value', $setting);
@@ -223,8 +223,8 @@ class integlight_customizer_integlight_customizer_homeTypeTest extends WP_UnitTe
     /*
 1	コンストラクタがフックを登録しているか	wp_enqueue_scripts アクションに enqueue_hometype_css メソッドが登録されていることを確認
 2	enqueue_hometype_css が正しく動作するか	get_theme_mod('integlight_hometype_setting') の値をもとにCSSパスが組み立てられ、3つのスタイル管理クラスに正しく渡されているか検証
-3	テーマ設定が未設定の場合のデフォルトCSS適用	get_theme_mod が値を返さない場合に 'home1' を使ってCSSが組み立てられていること
-4	複数の設定値に対して正しくパスが生成されるか	例えば 'home1'、'home2' の場合それぞれ /css/build/all.upd.site-type1.css、/css/build/all.upd.site-type2.css になること
+3	テーマ設定が未設定の場合のデフォルトCSS適用	get_theme_mod が値を返さない場合に 'siteType1' を使ってCSSが組み立てられていること
+4	複数の設定値に対して正しくパスが生成されるか	例えば 'siteType1'、'siteType2' の場合それぞれ /css/build/all.upd.site-type1.css、/css/build/all.upd.site-type2.css になること
 
 */
 
@@ -246,7 +246,7 @@ class integlight_customizer_integlight_customizer_homeTypeTest extends WP_UnitTe
     public function enqueue_hometype_css_should_pass_correct_css_path_to_style_managers(): void
     {
         // テスト用にテーマモッドの値を設定
-        set_theme_mod('integlight_hometype_setting', 'home2');
+        set_theme_mod('integlight_hometype_setting', 'siteType2');
 
         // enqueue_hometype_cssを呼び出す
         $this->homeTypeLoader->enqueue_hometype_css();
@@ -281,7 +281,7 @@ class integlight_customizer_integlight_customizer_homeTypeTest extends WP_UnitTe
      * @test
      * @covers Integlight_outerAssets_homeTypeLoader::enqueue_hometype_css
      */
-    public function enqueue_hometype_css_should_use_default_home1_if_theme_mod_not_set(): void
+    public function enqueue_hometype_css_should_use_default_siteType1_if_theme_mod_not_set(): void
     {
         // テーマ設定をクリア（未設定状態にする）
         remove_theme_mod('integlight_hometype_setting');
@@ -324,14 +324,14 @@ class integlight_customizer_integlight_customizer_homeTypeTest extends WP_UnitTe
     public function enqueue_hometype_css_should_generate_correct_path_for_each_setting(): void
     {
         $test_values = [
-            'home1' => [
+            'siteType1' => [
                 'path' => '/css/build/all.upd.site-type1.css',
                 'deps' => [
                     'integlight-integlight-menu',
                     'integlight-custom-color-pattern',
                 ],
             ],
-            'home2' => [
+            'siteType2' => [
                 'path' => '/css/build/all.upd.site-type2.css',
                 'deps' => [
                     'integlight-integlight-menu',
