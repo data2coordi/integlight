@@ -132,6 +132,12 @@ async function setHeaderImageDetailSettings(page, config) {
 
   await test.step("公開ボタンをクリックして変更を保存", () =>
     saveCustomizer(page));
+
+  const keyValue = {
+    headerType: "静止画像",
+  };
+  const cm_manager = new Customizer_manager(page);
+  await cm_manager.apply(keyValue);
 }
 
 /****検証用 ***********************************/
