@@ -72,7 +72,7 @@ const visualInitProjects = visualInitTestCnf.flatMap(
       testDir: "./tests",
       snapshotDir: "./tests/visual.init/", // 期待値（比較元）画像
       testMatch: [/visual\.spec\.js/],
-      dependencies: [`setting_${testid}`],
+      dependencies: [`setting_init_${testid}`],
       use: {
         baseURL: "https://t2.auroralab-design.com",
         ...devices["Desktop Chrome"],
