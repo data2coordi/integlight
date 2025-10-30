@@ -358,6 +358,15 @@ async function setSliderDetailSettings(page, config, inisialSetting) {
       interval: config.interval,
     },
     sliderImg: { imagePartialName: config.imagePartialName },
+    sliderText: {
+      mainText: config.mainText,
+      subText: config.subText,
+      top: config.textPositionTop,
+      left: config.textPositionLeft,
+      deviceType: config.deviceType,
+      textColor: config.textColor,
+      textFont: config.textFont,
+    },
   };
   await cm_manager.apply(keyValue);
 }
