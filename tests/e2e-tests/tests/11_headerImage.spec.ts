@@ -121,6 +121,7 @@ async function setHeaderImage(page, config) {
 async function setHeaderImageDetailSettings(page, config) {
   const keyValue = {
     headerType: "静止画像",
+    headerImageImg: { imageName: config.imagePartialName },
   };
   const cm_manager = new Customizer_manager(page);
   await cm_manager.apply(keyValue);

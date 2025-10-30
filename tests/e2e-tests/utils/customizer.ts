@@ -191,6 +191,42 @@ export class Customizer_slider_text {
   }
 }
 
+export class Customizer_headerImage_img {
+  constructor(private page: Page) {}
+
+  async apply(config: { imageName?: string }) {
+    const { imageName = "" } = config;
+    await Customizer_utils.ensureCustomizerRoot(this.page);
+    await this.page.getByRole("button", { name: "ヘッダー設定" }).click();
+    await this.page.getByRole("button", { name: "2.静止画像設定" }).click();
+    await this.setHeaderImage(imageName);
+  }
+  async setHeaderImage(config) {
+    await this.page.getByRole("button", { name: "画像を追加" }).nth(0).click();
+    const mediaModal = this.page.locator(".attachments-browser");
+    await mediaModal.waitFor({ state: "visible", timeout: 15000 });
+
+    const searchInput = this.page.locator("#media-search-input");
+    await searchInput.fill(imageName);
+    await searchInput.press("Enter");
+
+    const targetImage = this.page
+      .locator(`.attachments-browser img[src*="${imageName}"]`)
+      .first();
+    await targetImage.waitFor({ state: "visible", timeout: 15000 });
+    await targetImage.click({ force: true });
+
+    await this.page
+      .getByRole("button", { name: "選択して切り抜く" })
+      .nth(0)
+      .click();
+    await this.page
+      .getByRole("button", { name: "画像切り抜き" })
+      .nth(0)
+      .click();
+  }
+}
+
 // 2. デザイン関連操作
 export class Customizer_design {
   constructor(private page: Page) {}
@@ -325,6 +361,7 @@ export class Customizer_manager {
       sliderText: new Customizer_slider_text(page),
       colorType: new Customizer_design(page),
       frontType: new Customizer_frontType(page),
+      headerImageImg: new Customizer_headerImage_img(page),
 
       // 追加クラスもここに登録するだけ
     };
