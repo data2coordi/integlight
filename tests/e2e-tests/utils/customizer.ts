@@ -245,6 +245,33 @@ export class Customizer_siteType {
     }
   }
 }
+export class Customizer_frontType {
+  constructor(private page: Page) {}
+
+  async apply(value) {
+    await Customizer_utils.ensureCustomizerRoot(this.page);
+    await this.page.getByRole("button", { name: "サイト設定" }).click();
+    await this.page.getByRole("button", { name: "サイトタイプ設定" }).click();
+    await this.setFrontType(value);
+  }
+
+  async setFrontType(frontType = "最新の投稿") {
+    await Customizer_utils.ensureCustomizerRoot(this.page);
+    await this.page.getByRole("button", { name: "サイト設定" }).click();
+    await this.page.getByRole("button", { name: "ホームページ設定" }).click();
+    const radio = this.page.getByRole("radio", { name: frontType });
+    if (!(await radio.isChecked())) await radio.check();
+    await expect(radio).toBeChecked();
+
+    if (frontType === "固定ページ") {
+      const select = this.page.locator(
+        'select[name="_customize-dropdown-pages-page_on_front"]'
+      );
+      await select.selectOption({ label: "FIREで自由と成長を掴む！" });
+      await expect(select).toHaveValue("4210");
+    }
+  }
+}
 
 // 4. 共通ユーティリティ
 export class Customizer_utils {
@@ -297,6 +324,8 @@ export class Customizer_manager {
       sliderImg: new Customizer_slider_img(page),
       sliderText: new Customizer_slider_text(page),
       colorType: new Customizer_design(page),
+      frontType: new Customizer_frontType(page),
+
       // 追加クラスもここに登録するだけ
     };
   }
@@ -329,37 +358,3 @@ export class Customizer_manager {
     console.log("=== Customizer apply done ===");
   }
 }
-
-//
-//
-
-/*
-Customizer_header.js
-export class Customizer_header {
-  constructor(page) {
-    this.page = page;
-  }
-
-  async apply(value) {
-    await this.openHeaderSetting(value);
-  }
-
-  async openHeaderSetting(headerType) {
-    console.log(`✅ headerType set to: ${headerType}`);
-    // await this.page.locator(...).click();
-  }
-}
-*/
-
-//実行例
-/*
-const keyValue = {
-  testid: "pop_slider",
-  siteType: "ポップ",
-  headerType: "スライダー",
-  sliderType: { effect: "スライド", interval: "60" },
-};
-
-const cm = new CustomizerManager(page);
-await cm.apply(keyValue);
-*/
