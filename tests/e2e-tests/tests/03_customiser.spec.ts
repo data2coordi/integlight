@@ -85,7 +85,7 @@ test.describe("カスタマイザー全パターンまとめテスト", () => {
       expect(content).toContain(input.code);
       // デバッグ用表示（必要な場合のみ）
       const mydebugger = new Debugger(page);
-      await mydebugger.showCodeOverlay(page, input.code);
+      await mydebugger.showCodeOverlay(input.code);
     }
 
     // ---------------------------
