@@ -5,6 +5,7 @@ import {
   ensureCustomizerRoot,
 } from "../utils/common";
 import { Admin, Debugger } from "../utils/commonClass";
+import { Customizer_utils } from "../utils/customizer";
 
 // テストデータを配列でまとめる
 const CUSTOMIZER_INPUTS = [
@@ -46,7 +47,9 @@ test.describe("カスタマイザー全パターンまとめテスト", () => {
     // ---------------------------
     // 1. カスタマイザーを1回だけ開き、4パターン入力
     // ---------------------------
-    await openCustomizer(page);
+
+    const utils = new Customizer_utils(page);
+    await utils.openCustomizer();
     for (const input of CUSTOMIZER_INPUTS) {
       await page.getByRole("button", { name: input.buttonName }).click();
 
@@ -60,11 +63,11 @@ test.describe("カスタマイザー全パターンまとめテスト", () => {
         await gaLabel.check();
       }
 
-      await ensureCustomizerRoot(page);
+      await Customizer_utils.ensureCustomizerRoot(page);
     }
 
     // 保存ボタンをクリック
-    await saveCustomizer(page);
+    await utils.saveCustomizer(page);
 
     // ---------------------------
     // 2. 保存後、カスタマイザー内で値が復元されるか確認
@@ -73,7 +76,7 @@ test.describe("カスタマイザー全パターンまとめテスト", () => {
       await page.getByRole("button", { name: input.buttonName }).click();
       const field = page.getByLabel(input.label);
       await expect(field).toHaveValue(input.code);
-      await ensureCustomizerRoot(page);
+      await Customizer_utils.ensureCustomizerRoot(page);
     }
 
     // ---------------------------
@@ -105,12 +108,13 @@ test.describe("カスタマイザー全パターンまとめテスト", () => {
     // ---------------------------
     // 5. Twenty Twentyで保存した値が復元されるか確認（E2E-05相当）
     // ---------------------------
-    await openCustomizer(page);
+
+    await utils.openCustomizer();
     for (const input of CUSTOMIZER_INPUTS) {
       await page.getByRole("button", { name: input.buttonName }).click();
       const field = page.getByLabel(input.label);
       await expect(field).toHaveValue(input.code);
-      await ensureCustomizerRoot(page);
+      await Customizer_utils.ensureCustomizerRoot(page);
     }
 
     // 元テーマに戻す
@@ -121,7 +125,9 @@ test.describe("カスタマイザー全パターンまとめテスト", () => {
       "[03_customiser.spec.ts] ===== START: カスタマイザー全パターンまとめテスト - E2E: GA 高速化オプション OFF でフロント確認 ====="
     );
     // GA入力
-    await openCustomizer(page);
+
+    const utils = new Customizer_utils(page);
+    await utils.openCustomizer();
     await page.getByRole("button", { name: "Google Analytics 設定" }).click();
     const gaField = page.getByLabel("Google Analytics 測定ID");
     await gaField.fill("");
@@ -131,10 +137,10 @@ test.describe("カスタマイザー全パターンまとめテスト", () => {
     const gaLabel = page.getByLabel("高速化オプションを有効にする");
     await gaLabel.uncheck();
 
-    await ensureCustomizerRoot(page);
+    await Customizer_utils.ensureCustomizerRoot(page);
 
     // 保存してフロント確認
-    await saveCustomizer(page);
+    await utils.saveCustomizer();
     await page.goto("/", { waitUntil: "networkidle" });
     const content = await page.locator("head").innerHTML();
     expect(content).toContain("UA-12345678-1");
