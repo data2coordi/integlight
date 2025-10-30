@@ -6,7 +6,7 @@ clear
 
 
 # ===== ユーザー設定 =====
-BRANCH="e2e並列化"  # ブランチ名
+BRANCH="dev"  # ブランチ名
 WAIT_SEC=6     # リトライ間隔（秒）
 MAX_RETRY=200   # 最大リトライ回数
 COMMIT_MSG="${1:-vistest}"
