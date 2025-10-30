@@ -25,7 +25,7 @@ const visualTestCnf = [
 ];
 
 const visualProjects = visualTestCnf.flatMap(
-  ({ testid, siteType, headerType }) => [
+  ({ testid, siteType, headerType, sliderType }) => [
     {
       name: `setting_${testid}`,
       testDir: "./tests",
