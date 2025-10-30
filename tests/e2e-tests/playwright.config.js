@@ -21,6 +21,17 @@ const visualInitTestCnf = [
     testid: "pop_img",
     siteType: "ポップ",
     headerType: "静止画像",
+    headerImageImg: { imageName: "Firefly-1498.webp" },
+    headerImageText: {
+      mainText: "テストタイトル",
+      subText: "これはPlaywrightテストによって入力された説明文です。",
+      textFont: "yu_mincho",
+      textPositionTop: "20",
+      textPositionLeft: "30",
+      textPositionTop_mobile: "5",
+      textPositionLeft_mobile: "10",
+      textColor: "#ff0000",
+    },
   },
 ];
 
