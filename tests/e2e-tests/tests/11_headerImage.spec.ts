@@ -1,16 +1,6 @@
 import { test, expect, BrowserContext } from "@playwright/test";
-import {
-  timeStart,
-  logStepTime,
-  openCustomizer,
-  saveCustomizer,
-  ensureCustomizerRoot,
-  openHeaderSetting,
-  setSiteType,
-} from "../utils/common";
 
-// 共通設定
-const BASE_URL = "https://wpdev.auroralab-design.com";
+import { Customizer_manager } from "../utils/customizer";
 
 // テスト用設定一覧
 const TEST_CONFIGS = {
@@ -36,102 +26,24 @@ const TEST_CONFIGS = {
 /****設定用 ***********************************/
 /****設定用 ***********************************/
 
-// ヘッダー設定をヘッダー画像に変更
-async function openHeaderImage(page) {
-  await page.getByRole("button", { name: "ヘッダー設定" }).click();
-  await page.getByRole("button", { name: "2.静止画像設定" }).click();
-}
-
-// ヘッダー画像テキスト設定
-async function setHeaderImageText(page, config) {
-  await openHeaderImage(page);
-
-  // テキスト設定
-  await page
-    .getByLabel("ヘッダー画像メインテキスト")
-    .nth(0)
-    .fill(config.mainText);
-  await page.getByLabel("ヘッダー画像サブテキスト").nth(0).fill(config.subText);
-
-  await expect(
-    page.getByLabel("ヘッダー画像メインテキスト").nth(0)
-  ).toHaveValue(config.mainText);
-  await expect(page.getByLabel("ヘッダー画像サブテキスト").nth(0)).toHaveValue(
-    config.subText
-  );
-
-  // テキストカラー設定
-  await page.getByRole("button", { name: "色を選択" }).click();
-  const input = page.getByLabel("ヘッダー画像テキストの色");
-  await input.fill(config.textColor);
-
-  // フォント設定
-  const label = page.locator("label", {
-    hasText: "ヘッダー画像テキストのフォント",
-  });
-  const selectId = await label.getAttribute("for");
-  if (!selectId)
-    throw new Error(
-      `ラベル "ヘッダー画像テキストのフォント" に対応する select が見つかりません`
-    );
-  const select = page.locator(`#${selectId}`);
-  await select.waitFor({ state: "visible" });
-  await select.selectOption(config.textFont);
-
-  // テキスト位置設定
-  await page
-    .getByLabel("ヘッダー画像テキストの上位置（px）")
-    .fill(config.textPositionTop);
-  await page
-    .getByLabel("ヘッダー画像テキストの左位置（px）")
-    .fill(config.textPositionLeft);
-
-  // テキスト位置設定
-  await page
-    .getByLabel("ヘッダー画像テキストのモバイル上位置（px）")
-    .fill(config.textPositionTop_mobile);
-  await page
-    .getByLabel("ヘッダー画像テキストのモバイル左位置（px）")
-    .fill(config.textPositionLeft_mobile);
-}
-
-// ヘッダー画像設定
-async function setHeaderImage(page, config) {
-  await openHeaderImage(page);
-
-  await page.getByRole("button", { name: "画像を追加" }).nth(0).click();
-  const mediaModal = page.locator(".attachments-browser");
-  await mediaModal.waitFor({ state: "visible", timeout: 15000 });
-
-  const searchInput = page.locator("#media-search-input");
-  await searchInput.fill(config.imagePartialName);
-  await searchInput.press("Enter");
-
-  const targetImage = page
-    .locator(`.attachments-browser img[src*="${config.imagePartialName}"]`)
-    .first();
-  await targetImage.waitFor({ state: "visible", timeout: 15000 });
-  await targetImage.click({ force: true });
-
-  await page.getByRole("button", { name: "選択して切り抜く" }).nth(0).click();
-  await page.getByRole("button", { name: "画像切り抜き" }).nth(0).click();
-}
-
 // 共通テストフロー
 async function setHeaderImageDetailSettings(page, config) {
-  await test.step("カスタマイザー画面を開く", () => openCustomizer(page));
-  await test.step("ヘッダー有無を設定", () =>
-    openHeaderSetting(page, "静止画像"));
-
-  await ensureCustomizerRoot(page);
-  await test.step("ヘッダー画像テキストを設定する", () =>
-    setHeaderImageText(page, config));
-
-  await ensureCustomizerRoot(page);
-  await test.step("ヘッダー画像を設定する", () => setHeaderImage(page, config));
-
-  await test.step("公開ボタンをクリックして変更を保存", () =>
-    saveCustomizer(page));
+  const keyValue = {
+    headerType: "静止画像",
+    headerImageImg: { imageName: config.imagePartialName },
+    headerImageText: {
+      mainText: config.mainText,
+      subText: config.subText,
+      textColor: config.textColor,
+      textFont: config.textFont,
+      textPositionTop: config.textPositionTop,
+      textPositionLeft: config.textPositionLeft,
+      textPositionTop_mobile: config.textPositionTop_mobile,
+      textPositionLeft_mobile: config.textPositionLeft_mobile,
+    },
+  };
+  const cm_manager = new Customizer_manager(page);
+  await cm_manager.apply(keyValue);
 }
 
 /****検証用 ***********************************/
@@ -233,12 +145,11 @@ for (const siteType of SITE_TYPES) {
       });
       page = await context.newPage();
 
-      // サイトタイプを設定
-      await test.step(" カスタマイザー画面を開く", () => openCustomizer(page));
-      //logStepTime('openCustomizer_1');
-      //timeStart('setSiteType');
-      await test.step(" ホームタイプの変更", () => setSiteType(page, siteType));
-      await test.step(" 変更を保存", () => saveCustomizer(page));
+      const keyValue = {
+        siteType: siteType,
+      };
+      const cm_manager = new Customizer_manager(page);
+      await cm_manager.apply(keyValue);
     });
 
     test.afterAll(async () => {

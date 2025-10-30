@@ -1,14 +1,6 @@
 import { test, expect, type Page } from "@playwright/test";
-import {
-  timeStart,
-  logStepTime,
-  openCustomizer,
-  openHeaderSetting,
-  selSliderEffect,
-  saveCustomizer,
-  setSiteType,
-  ensureCustomizerRoot,
-} from "../utils/common";
+
+import { Customizer_manager } from "../utils/customizer";
 
 // テスト設定を統合し、階層的な構造にする
 const TEST_SCENARIOS = {
@@ -156,41 +148,19 @@ async function verifyImageAttributes(
 
 // 共通テストフロー
 async function runCustomizerFlow(page: Page, config: any) {
-  // ログイン処理はauth.setup.tsで完了済み
-
-  //timeStart('openCustomizer_1');
-  await test.step("2. カスタマイザー画面を開く", () => openCustomizer(page));
-  //logStepTime('openCustomizer_1');
-
-  //timeStart('openHeaderSetting');
-  await test.step("3. ヘッダー有無を設定", () =>
-    openHeaderSetting(page, config.headerType));
-  //logStepTime('openHeaderSetting');
-
-  //timeStart('CustomizerRoot_1');
-  await ensureCustomizerRoot(page);
-  //logStepTime('CustomizerRoot_1');
+  let keyValue = {
+    siteType: config.siteType,
+    headerType: config.headerType,
+  };
 
   if (config.headerType === "スライダー") {
-    //timeStart('sliderSettings');
-    await test.step("8. スライダー設定", async () => {
-      await selSliderEffect(page);
-    });
-    //logStepTime('sliderSettings');
-
-    //timeStart('CustomizerRoot_2');
-    await ensureCustomizerRoot(page);
-    //logStepTime('CustomizerRoot_2');
+    keyValue = {
+      ...keyValue,
+      sliderType: {}, //警告が出るが使える。
+    };
   }
-
-  //timeStart('setSiteType');
-  await test.step("6. ホームタイプの変更", () =>
-    setSiteType(page, config.siteType));
-  //logStepTime('setSiteType');
-
-  //timeStart('saveCustomizer');
-  await test.step("7. 変更を保存", () => saveCustomizer(page));
-  //logStepTime('saveCustomizer');
+  const cm_manager = new Customizer_manager(page);
+  await cm_manager.apply(keyValue);
 }
 
 // データ駆動型テストの実行

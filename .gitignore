@@ -4,5 +4,9 @@ bk/
 node_modules/
 tests/e2e-tests/e2e_backups/
 tests/e2e-tests/e2e_backups_pf/
+<<<<<<< HEAD
+=======
+tests/e2e-tests/e2e_backups_init/
+>>>>>>> 4e6768b6766ead090997d466da670b84f67703a8
 tests/e2e-tests/playwright/.auth/
 .env

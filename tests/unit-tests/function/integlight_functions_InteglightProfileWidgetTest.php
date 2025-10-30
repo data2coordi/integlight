@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Tests for the Integlight_Profile_Widget class.
+ * Tests for the Integlight_widget_profile class.
  *
  * @package Integlight
  * @group profile-widget
@@ -29,7 +29,7 @@ class integlight_functions_InteglightProfileWidgetTest extends WP_UnitTestCase
 
     /**
      * ウィジェットインスタンス
-     * @var Integlight_Profile_Widget
+     * @var Integlight_widget_profile
      */
     private $widget;
 
@@ -61,7 +61,7 @@ class integlight_functions_InteglightProfileWidgetTest extends WP_UnitTestCase
             'description'  => '説明文',
         ]);
 
-        $this->widget = new Integlight_Profile_Widget();
+        $this->widget = new Integlight_widget_profile();
     }
 
     /**
@@ -79,7 +79,7 @@ class integlight_functions_InteglightProfileWidgetTest extends WP_UnitTestCase
      * Test that widget output includes display_name, description and URL
      * when a valid user_id is provided.
      * 
-     * @covers Integlight_Profile_Widget::widget
+     * @covers Integlight_widget_profile::widget
      * BB-2 有効なユーザーIDを指定 実在ユーザーのID display_name・description・URL・アバターが含まれたHTMLが出力される
      * BB-3 description に改行が含まれる 実在ユーザー（説明あり） <br>に変換されて表示される
      */
@@ -131,7 +131,7 @@ class integlight_functions_InteglightProfileWidgetTest extends WP_UnitTestCase
      * BB-4 URLが空のユーザーでリンクのhrefが空かどうか検証
      * BB-5 display_nameにHTMLタグが含まれる場合、タグが除去されて表示されるか検証
      *
-     * @covers Integlight_Profile_Widget::widget
+     * @covers Integlight_widget_profile::widget
      */
     public function test_widget_with_empty_url_and_html_in_display_name()
     {
@@ -163,7 +163,7 @@ class integlight_functions_InteglightProfileWidgetTest extends WP_UnitTestCase
     /**
      * BB-6 ユーザーが複数人 例：3人のユーザーが存在 全ユーザーの display_name が選択肢に表示される
      *
-     * @covers Integlight_Profile_Widget::form
+     * @covers Integlight_widget_profile::form
      */
     public function test_form_shows_user_in_options()
     {

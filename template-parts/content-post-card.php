@@ -26,7 +26,7 @@
         </h2>
 
         <p class="post-excerpt">
-            <?php echo integlight_get_trimmed_excerpt(); ?>
+            <?php echo Integlight_excerpt_trim(); ?>
         </p>
 
         <div class="post-meta">

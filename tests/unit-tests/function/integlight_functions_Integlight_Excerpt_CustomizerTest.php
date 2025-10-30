@@ -1,21 +1,21 @@
-<?php // tests/unit-tests/Integlight_Excerpt_Customizer_Test.php
+<?php // tests/unit-tests/Integlight_excerpt_edit_Test.php
 
 declare(strict_types=1);
 
 // テスト対象のクラスファイルを読み込む (パスは環境に合わせて調整してください)
-//require_once dirname(__DIR__, 2) . '/inc/integlight-functions.php'; // Integlight_Excerpt_Customizer が定義されているファイル
+//require_once dirname(__DIR__, 2) . '/inc/integlight-functions.php'; // Integlight_excerpt_edit が定義されているファイル
 
 /**
- * Test case for the Integlight_Excerpt_Customizer class.
+ * Test case for the Integlight_excerpt_edit class.
  *
- * @coversDefaultClass Integlight_Excerpt_Customizer
+ * @coversDefaultClass Integlight_excerpt_edit
  * @group functions
  * @group excerpt
  */
-class integlight_functions_Integlight_Excerpt_CustomizerTest extends WP_UnitTestCase // クラス名を修正
+class integlight_functions_Integlight_excerpt_editTest extends WP_UnitTestCase // クラス名を修正
 {
     /**
-     * @var Integlight_Excerpt_Customizer
+     * @var Integlight_excerpt_edit
      */
     private $instance;
 
@@ -26,7 +26,7 @@ class integlight_functions_Integlight_Excerpt_CustomizerTest extends WP_UnitTest
     {
         parent::setUp();
         // クラスをインスタンス化してフィルターフックを登録
-        $this->instance = new Integlight_Excerpt_Customizer();
+        $this->instance = new Integlight_excerpt_edit();
     }
 
     /**

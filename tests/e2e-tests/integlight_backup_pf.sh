@@ -7,13 +7,9 @@ BACKUP_DIR=./e2e_backups_pf
 UPLOADS_SRC=/home/xsaurora/auroralab-design.com/public_html/wpdev.auroralab-design.com/wp-content/uploads
 
 # MySQL 接続情報
-# Xserverの場合、ホスト名は通常localhost
-MYSQL_HOST="localhost"
-# MySQLの標準ポート
-MYSQL_PORT="3306"
-MYSQL_USER="xsaurora_gdar9"
-MYSQL_ROOT_PW="r9n623ofvv" 
-MYSQL_DB="xsaurora_0kepc"
+set -a
+source ./utils/.env
+set +a
 
 # uploadsディレクトリの所有者とグループ
 # Xserverのウェブサーバーユーザーは通常`www-data`ですが、

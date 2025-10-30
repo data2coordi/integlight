@@ -1,16 +1,7 @@
 import { test, expect } from "@playwright/test";
 
-import {
-  timeStart,
-  logStepTime,
-  openCustomizer,
-  selSliderEffect,
-  saveCustomizer,
-  setSiteType,
-  ensureCustomizerRoot,
-} from "../utils/common";
 // 共通設定a
-const BASE_URL = "https://wpdev.auroralab-design.com";
+import { Customizer_manager } from "../utils/customizer";
 
 // テスト用設定一覧
 const TEST_CONFIGS = {
@@ -25,127 +16,26 @@ const TEST_CONFIGS = {
     interval: "1",
     mainText: "テストタイトル",
     subText: "これはPlaywrightテストによって入力された説明文です。",
+    deviceType: "sp",
     textPositionTop: "10",
     textPositionLeft: "15",
     textColor: "#ff0000",
     textFont: "yu_mincho",
-    image_delBtnNo: 3,
-    image_selBtnNo: 0,
-    text_positionLavel_top: "スライダーテキスト位置（モバイル、上）（px）",
-    text_positionLavel_left: "スライダーテキスト位置（モバイル、左）（px）",
-    text_colorLavel: "スライダーテキストカラー",
-    text_fontLavel: "スライダーテキストフォント",
     imagePartialName: "Firefly-260521",
   },
   pcCustomizerSetting: {
     interval: "1",
     mainText: "テストタイトル",
     subText: "これはPlaywrightテストによって入力された説明文です。",
+    deviceType: "pc",
     textPositionTop: "100",
     textPositionLeft: "150",
     textColor: "#ff0000",
     textFont: "yu_mincho",
-    image_delBtnNo: 0,
-    image_selBtnNo: 0,
-    text_positionLavel_top: "スライダーテキスト位置（上）（px）",
-    text_positionLavel_left: "スライダーテキスト位置（左）（px）",
-    text_colorLavel: "スライダーテキストカラー",
-    text_fontLavel: "スライダーテキストフォント",
     imagePartialName: "Firefly-203280",
     imagePartialName_forPcHome2: "Firefly-51159-1.webp",
   },
 };
-
-// 共通関数
-async function setSliderInterval(page, interval) {
-  const intervalInput = page.getByLabel("変更時間間隔（秒）");
-  await intervalInput.fill("999999");
-  await intervalInput.fill(interval);
-}
-
-async function setSliderImage(
-  page: Page,
-  imagePartialName: string,
-  image_delBtnNo: number,
-  image_selBtnNo: number
-) {
-  // 既存画像を削除
-  await page.getByRole("button", { name: "削除" }).nth(image_delBtnNo).click();
-  await page
-    .getByRole("button", { name: "画像を選択" })
-    .nth(image_selBtnNo)
-    .click();
-
-  // モーダルが表示されるのを待つ
-  const mediaModal = page.locator(".attachments-browser");
-  await mediaModal.waitFor({ state: "visible", timeout: 15000 });
-
-  // 検索ボックスに入力して検索
-  const searchInput = page.locator("#media-search-input");
-  await searchInput.fill(imagePartialName);
-  await searchInput.press("Enter");
-
-  // 検索結果の最初の画像をクリック
-  const targetImage = page
-    .locator(`.attachments-browser img[src*="${imagePartialName}"]`)
-    .first();
-  await targetImage.waitFor({ state: "visible", timeout: 15000 });
-  await targetImage.click({ force: true });
-
-  // 選択ボタンを押してモーダルを閉じる
-  await page.locator(".media-button-select").click();
-  await page
-    .locator(".media-modal")
-    .waitFor({ state: "hidden", timeout: 15000 });
-}
-
-async function setSliderText(page, mainText, subText) {
-  await page.getByLabel("スライダーテキスト（メイン）").nth(0).fill(mainText);
-  await page.getByLabel("スライダーテキスト（サブ）").nth(0).fill(subText);
-  await expect(
-    page.getByLabel("スライダーテキスト（メイン）").nth(0)
-  ).toHaveValue(mainText);
-  await expect(
-    page.getByLabel("スライダーテキスト（サブ）").nth(0)
-  ).toHaveValue(subText);
-}
-
-async function setTextPosition(
-  page,
-  top,
-  left,
-  text_positionLavel_top,
-  text_positionLavel_left
-) {
-  await page.getByLabel(text_positionLavel_top).fill(top);
-  await page.getByLabel(text_positionLavel_left).fill(left);
-}
-
-async function setTextColor(page, textColor, text_colorLabel) {
-  // 「色を選択」ボタンをクリック → input が表示される
-  await page.getByRole("button", { name: "色を選択" }).click();
-
-  const input = page.getByLabel(text_colorLabel);
-
-  await input.fill(textColor);
-}
-
-async function setTextFont(page, textFont, text_fontLabel) {
-  // ラベル名から要素を取得
-  const label = page.locator("label", { hasText: text_fontLabel });
-
-  // ラベルの for 属性から select の id を取得
-  const selectId = await label.getAttribute("for");
-  if (!selectId)
-    throw new Error(
-      `ラベル "${text_fontLabel}" に対応する select が見つかりません`
-    );
-
-  // select を取得して選択
-  const select = page.locator(`#${selectId}`);
-  await select.waitFor({ state: "visible" });
-  await select.selectOption(textFont);
-}
 
 async function verifySliderOnSlide_Home1(
   page,
@@ -337,52 +227,40 @@ async function verifyTextDetails(
 
 // 共通テストフロー
 async function setSliderDetailSettings(page, config, inisialSetting) {
-  await test.step("1. カスタマイザー画面を開く", () => openCustomizer(page));
-  //await test.step('3. スライダー設定を開く', () => openSliderSetting(page));
-  await test.step("2. スライダーのエフェクト設定", () =>
-    selSliderEffect(page, inisialSetting.effectLabel));
-  await test.step("3. スライダーの変更間隔を設定", () =>
-    setSliderInterval(page, config.interval));
-  await test.step("4 スライダー画像を設定", () =>
-    setSliderImage(
-      page,
-      config.imagePartialName,
-      config.image_delBtnNo,
-      config.image_selBtnNo
-    ));
-  await test.step("5 スライダーテキストを入力", () =>
-    setSliderText(page, config.mainText, config.subText));
-  await test.step("6 テキストの表示位置を設定", () =>
-    setTextPosition(
-      page,
-      config.textPositionTop,
-      config.textPositionLeft,
-      config.text_positionLavel_top,
-      config.text_positionLavel_left
-    ));
-  await test.step("6 テキストのカラーを設定", () =>
-    setTextColor(page, config.textColor, config.text_colorLavel));
-  await test.step("6 テキストのフォントを設定", () =>
-    setTextFont(page, config.textFont, config.text_fontLavel));
-  await ensureCustomizerRoot(page);
-  await test.step("7.ホームタイプの変更", async () => {
-    await setSiteType(page, inisialSetting.siteType);
-  });
-  await test.step("8. 公開ボタンをクリックして変更を保存", () =>
-    saveCustomizer(page));
+  const cm_manager = new Customizer_manager(page);
+  const keyValue = {
+    siteType: inisialSetting.siteType,
+    sliderType: {
+      effect: inisialSetting.effectLabel,
+      interval: config.interval,
+    },
+    sliderImg: { imagePartialName: config.imagePartialName },
+    sliderText: {
+      mainText: config.mainText,
+      subText: config.subText,
+      top: config.textPositionTop,
+      left: config.textPositionLeft,
+      deviceType: config.deviceType,
+      textColor: config.textColor,
+      textFont: config.textFont,
+    },
+  };
+  await cm_manager.apply(keyValue);
 }
 
-async function set_sliderEffect_and_siteType(page, useEffect, homeType) {
-  await test.step("1.カスタマイザー画面を開く", () => openCustomizer(page));
-  //await test.step('2.2. スライダー設定を開く', () => openSliderSetting(page));
-  await test.step("2. スライダーのエフェクトを設定", () =>
-    selSliderEffect(page, useEffect, "1"));
-  await ensureCustomizerRoot(page);
-  await test.step("4.ホームタイプの変更", async () => {
-    await setSiteType(page, homeType);
-  });
-  await test.step("5. 公開ボタンをクリックして変更を保存", () =>
-    saveCustomizer(page));
+async function set_sliderEffect_and_siteType(
+  page,
+  useEffect,
+  siteType,
+  interval
+) {
+  const keyValue = {
+    siteType: siteType,
+    sliderType: { effect: useEffect, interval: interval },
+  };
+
+  const cm_manager = new Customizer_manager(page);
+  await cm_manager.apply(keyValue);
 }
 
 ////////////////////////////////////////////////////////
@@ -462,7 +340,12 @@ test.describe("フェード", () => {
         const context = await browser.newContext();
         const page = await context.newPage();
 
-        await set_sliderEffect_and_siteType(page, "フェード", "エレガント");
+        await set_sliderEffect_and_siteType(
+          page,
+          "フェード",
+          "エレガント",
+          "1"
+        );
 
         await page.close();
         await context.close();
@@ -500,7 +383,7 @@ test.describe("フェード", () => {
       const context = await browser.newContext();
       const page = await context.newPage();
 
-      await set_sliderEffect_and_siteType(page, "フェード", "ポップ");
+      await set_sliderEffect_and_siteType(page, "フェード", "ポップ", "1");
 
       await page.close();
       await context.close();
@@ -549,7 +432,7 @@ test.describe("スライド", () => {
       const context = await browser.newContext();
       const page = await context.newPage();
 
-      await set_sliderEffect_and_siteType(page, "スライド", "エレガント");
+      await set_sliderEffect_and_siteType(page, "スライド", "エレガント", "1");
 
       await page.close();
       await context.close();
@@ -590,7 +473,7 @@ test.describe("スライド", () => {
       const context = await browser.newContext();
       const page = await context.newPage();
 
-      await set_sliderEffect_and_siteType(page, "スライド", "ポップ");
+      await set_sliderEffect_and_siteType(page, "スライド", "ポップ", "1");
       await page.close();
       await context.close();
     });

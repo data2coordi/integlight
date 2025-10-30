@@ -1,5 +1,5 @@
 <?php
-class integlight_functions_Integlight_PostNavigationsTest extends WP_UnitTestCase
+class integlight_functions_Integlight_postNavigationsTest extends WP_UnitTestCase
 {
     protected static $prev_post_id;
     protected static $current_post_id;
@@ -65,7 +65,7 @@ class integlight_functions_Integlight_PostNavigationsTest extends WP_UnitTestCas
             : $next_raw_title;
 
         ob_start();
-        Integlight_PostNavigations::get_post_navigation();
+        Integlight_postNavigations::get_post_navigation();
         $output = ob_get_clean();
 
         $this->assertStringContainsString('<nav class="post-navigation"', $output);
@@ -89,7 +89,7 @@ class integlight_functions_Integlight_PostNavigationsTest extends WP_UnitTestCas
         $this->go_to(get_permalink(self::$prev_post_id)); // 先頭記事
 
         ob_start();
-        Integlight_PostNavigations::get_post_navigation();
+        Integlight_postNavigations::get_post_navigation();
         $output = ob_get_clean();
 
         $this->assertStringContainsString('class="nav-next"', $output);
@@ -104,7 +104,7 @@ class integlight_functions_Integlight_PostNavigationsTest extends WP_UnitTestCas
         $this->go_to(get_permalink(self::$next_post_id)); // 最後の記事
 
         ob_start();
-        Integlight_PostNavigations::get_post_navigation();
+        Integlight_postNavigations::get_post_navigation();
         $output = ob_get_clean();
 
         $this->assertStringContainsString('class="nav-previous"', $output);
@@ -129,7 +129,7 @@ class integlight_functions_Integlight_PostNavigationsTest extends WP_UnitTestCas
         $this->go_to(get_permalink($single_id));
 
         ob_start();
-        Integlight_PostNavigations::get_post_navigation();
+        Integlight_postNavigations::get_post_navigation();
         $output = ob_get_clean();
 
         $this->assertEmpty(trim($output), 'Expected no output when no prev/next post.');

@@ -155,4 +155,4 @@ function integlight_widgets_init()
 add_action('widgets_init', 'integlight_widgets_init');
 
 
-require get_template_directory() . '/inc/integlight-functions-phpload.php';
+require get_template_directory() . '/inc/functions-phpload.php';

@@ -3,11 +3,11 @@
 use PHPUnit\Framework\TestCase; // 通常は WP_UnitTestCase を使用します
 
 /**
- * Test case for InteglightPreDetermineJsAssets class.
+ * Test case for Integlight_outerAssets_js_preDetermine class.
  *
  * @group assets
  */
-class integlight_functions_InteglightPreDetermineJsAssetsTest extends WP_UnitTestCase // WP_UnitTestCase を継承
+class integlight_functions_Integlight_outerAssets_js_preDetermineTest extends WP_UnitTestCase // WP_UnitTestCase を継承
 {
     /**
      * @var array<string> List of expected incorrect usage messages during tests.
@@ -104,8 +104,8 @@ class integlight_functions_InteglightPreDetermineJsAssetsTest extends WP_UnitTes
         parent::setUp();
         // Reset static arrays to ensure test isolation
         // ※ init() が呼ばれる前にリセット
-        self::setStaticPropertyValue(InteglightFrontendScripts::class, 'scripts', []);
-        self::setStaticPropertyValue(InteglightMoveScripts::class, 'scripts', []);
+        self::setStaticPropertyValue(Integlight_outerAssets_js_frontend::class, 'scripts', []);
+        self::setStaticPropertyValue(Integlight_outerAssets_js_move::class, 'scripts', []);
 
         // Reset WordPress script queue
         $this->reset_scripts();
@@ -130,7 +130,7 @@ class integlight_functions_InteglightPreDetermineJsAssetsTest extends WP_UnitTes
         // デバッグ用: setUp完了時点でcomment-replyがエンキューされていないことを確認
         // $this->assertFalse(wp_script_is('comment-reply', 'enqueued'), 'comment-reply should NOT be enqueued at the end of setUp');
         // デバッグ用: setUp完了時点でフロントエンドスクリプトが登録されているか確認
-        // $scripts = self::getStaticPropertyValue(InteglightFrontendScripts::class, 'scripts');
+        // $scripts = self::getStaticPropertyValue(Integlight_outerAssets_js_frontend::class, 'scripts');
         // $this->assertNotEmpty($scripts, 'Frontend scripts should be populated after do_action(after_setup_theme)');
 
     }
@@ -142,8 +142,8 @@ class integlight_functions_InteglightPreDetermineJsAssetsTest extends WP_UnitTes
     protected function tearDown(): void
     {
         // Reset static arrays again to be safe
-        self::setStaticPropertyValue(InteglightFrontendScripts::class, 'scripts', []);
-        self::setStaticPropertyValue(InteglightMoveScripts::class, 'scripts', []);
+        self::setStaticPropertyValue(Integlight_outerAssets_js_frontend::class, 'scripts', []);
+        self::setStaticPropertyValue(Integlight_outerAssets_js_move::class, 'scripts', []);
 
         // Reset WordPress script queue
         $this->reset_scripts();
@@ -158,7 +158,7 @@ class integlight_functions_InteglightPreDetermineJsAssetsTest extends WP_UnitTes
 
     /**
      * @test
-     * @covers InteglightPreDetermineJsAssets::init
+     * @covers Integlight_outerAssets_js_preDetermine::init
      * Verifies that frontend scripts are added correctly.
      */
     public function test_init_adds_frontend_scripts(): void
@@ -171,7 +171,7 @@ class integlight_functions_InteglightPreDetermineJsAssetsTest extends WP_UnitTes
         ];
         // --- Act ---
         // テスト対象のメソッドを呼び出す
-        InteglightPreDetermineJsAssets::init();
+        Integlight_outerAssets_js_preDetermine::init();
         // Act は不要 (setUp で実行済み)
 
         // --- Act ---
@@ -179,13 +179,13 @@ class integlight_functions_InteglightPreDetermineJsAssetsTest extends WP_UnitTes
 
         // --- Assert ---
         // init() が実行された結果、静的プロパティに値がセットされているはず
-        $actualFrontendScripts = self::getStaticPropertyValue(InteglightFrontendScripts::class, 'scripts');
+        $actualFrontendScripts = self::getStaticPropertyValue(Integlight_outerAssets_js_frontend::class, 'scripts');
         $this->assertEquals($expectedFrontendScripts, $actualFrontendScripts, 'Frontend scripts were not added correctly.');
     }
 
     /**
      * @test
-     * @covers InteglightPreDetermineJsAssets::init
+     * @covers Integlight_outerAssets_js_preDetermine::init
      * Verifies that scripts to move to footer are added correctly.
      */
     //public function test_init_adds_footer_scripts(): void
@@ -199,9 +199,9 @@ class integlight_functions_InteglightPreDetermineJsAssetsTest extends WP_UnitTes
 
     // --- Act ---
     // テスト対象のメソッドを呼び出す
-    // InteglightPreDetermineJsAssets::init();
+    // Integlight_outerAssets_js_preDetermine::init();
     // init() が実行された結果、静的プロパティに値がセットされているはず
-    //$actualFooterScripts = self::getStaticPropertyValue(InteglightMoveScripts::class, 'scripts');
+    //$actualFooterScripts = self::getStaticPropertyValue(Integlight_outerAssets_js_move::class, 'scripts');
     // jQuery遅延処理は削除
     //$this->assertArrayHasKey('jquery', $actualFooterScripts, 'Footer scripts should contain jquery handle.');
     //$this->assertIsString($actualFooterScripts['jquery'], 'jQuery path should be a string.');
@@ -212,8 +212,8 @@ class integlight_functions_InteglightPreDetermineJsAssetsTest extends WP_UnitTes
 
     /**
      * @test
-     * @covers InteglightPreDetermineJsAssets::init // init がフックを登録することを確認
-     * @covers InteglightPreDetermineJsAssets::enqueue_comment_reply_script // このメソッドのロジックをテスト
+     * @covers Integlight_outerAssets_js_preDetermine::init // init がフックを登録することを確認
+     * @covers Integlight_outerAssets_js_preDetermine::enqueue_comment_reply_script // このメソッドのロジックをテスト
      * Verifies that comment-reply script is enqueued when conditions are met.
      */
     public function test_init_enqueues_comment_reply_when_conditions_met(): void
@@ -229,7 +229,7 @@ class integlight_functions_InteglightPreDetermineJsAssetsTest extends WP_UnitTes
 
         // --- Act ---
         // wp_enqueue_scripts フックを手動で実行して、
-        // InteglightPreDetermineJsAssets::enqueue_comment_reply_script を呼び出す
+        // Integlight_outerAssets_js_preDetermine::enqueue_comment_reply_script を呼び出す
         do_action('wp_enqueue_scripts');
 
         // --- Assert ---
@@ -239,8 +239,8 @@ class integlight_functions_InteglightPreDetermineJsAssetsTest extends WP_UnitTes
 
     /**
      * @test
-     * @covers InteglightPreDetermineJsAssets::init
-     * @covers InteglightPreDetermineJsAssets::enqueue_comment_reply_script // カバーするメソッドを追加
+     * @covers Integlight_outerAssets_js_preDetermine::init
+     * @covers Integlight_outerAssets_js_preDetermine::enqueue_comment_reply_script // カバーするメソッドを追加
      * Verifies that comment-reply script is NOT enqueued when not on a singular page.
      */
     public function test_init_does_not_enqueue_comment_reply_when_not_singular(): void
@@ -262,8 +262,8 @@ class integlight_functions_InteglightPreDetermineJsAssetsTest extends WP_UnitTes
 
     /**
      * @test
-     * @covers InteglightPreDetermineJsAssets::init
-     * @covers InteglightPreDetermineJsAssets::enqueue_comment_reply_script // カバーするメソッドを追加
+     * @covers Integlight_outerAssets_js_preDetermine::init
+     * @covers Integlight_outerAssets_js_preDetermine::enqueue_comment_reply_script // カバーするメソッドを追加
      * Verifies that comment-reply script is NOT enqueued when comments are closed.
      */
     public function test_init_does_not_enqueue_comment_reply_when_comments_closed(): void
@@ -285,8 +285,8 @@ class integlight_functions_InteglightPreDetermineJsAssetsTest extends WP_UnitTes
 
     /**
      * @test
-     * @covers InteglightPreDetermineJsAssets::init
-     * @covers InteglightPreDetermineJsAssets::enqueue_comment_reply_script // カバーするメソッドを追加
+     * @covers Integlight_outerAssets_js_preDetermine::init
+     * @covers Integlight_outerAssets_js_preDetermine::enqueue_comment_reply_script // カバーするメソッドを追加
      * Verifies that comment-reply script is NOT enqueued when threaded comments are disabled.
      */
     public function test_init_does_not_enqueue_comment_reply_when_threading_disabled(): void

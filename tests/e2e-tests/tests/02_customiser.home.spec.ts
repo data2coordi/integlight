@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-import { openCustomizer, saveCustomizer, setSiteType } from "../utils/common";
+import { Customizer_manager } from "../utils/customizer";
 
 // 共通化関数（home1ページナビゲーション）
 async function verifyPageNavigation(
@@ -115,10 +115,12 @@ test.describe("e2e-home1-PC:", () => {
   test.beforeAll(async ({ browser }) => {
     context = await browser.newContext();
     page = await context.newPage();
-    await test.step("1. カスタマイザー画面を開く", () => openCustomizer(page));
-    await test.step("2. ホームタイプ設定を開く", () =>
-      setSiteType(page, "エレガント"));
-    await test.step("3. 変更を保存", () => saveCustomizer(page));
+
+    const keyValue = {
+      siteType: "エレガント",
+    };
+    const cm_manager = new Customizer_manager(page);
+    await cm_manager.apply(keyValue);
   });
 
   test.afterAll(async () => {
@@ -166,13 +168,13 @@ test.describe("e2e-home2-PC:", () => {
     console.log(
       "[02_customiser.home.spec.ts] ===== START: e2e-home2-PC - もっとみるボタンでカードを取得できること ====="
     );
-    await test.step("2. カスタマイザー画面を開く", () => openCustomizer(page));
-    await test.step("3. ホームタイプ設定を開く", () =>
-      setSiteType(page, "ポップ"));
-    await test.step("4. 公開ボタンをクリックして変更を保存", () =>
-      saveCustomizer(page));
 
-    // 既存の呼び出し部分はこう書き換え可能
+    const keyValue = {
+      siteType: "ポップ",
+    };
+    const cm_manager = new Customizer_manager(page);
+    await cm_manager.apply(keyValue);
+
     await test.step("5. 新着情報の確認", () =>
       verifyLoadMoreGeneric(
         page,

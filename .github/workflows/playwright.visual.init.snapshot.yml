@@ -1,0 +1,62 @@
+name: Playwright Visual Init Snapshot Test
+#vstest
+on:
+  push:
+    branches: [dev]
+  pull_request:
+  workflow_dispatch:
+
+env:
+  WP_ADMIN_USER: ${{ secrets.WP_ADMIN_USER }}
+  WP_ADMIN_PASSWORD: ${{ secrets.WP_ADMIN_PASSWORD }}
+
+jobs:
+  visual-init-snapshot-test:
+    if: contains(github.event.head_commit.message, 'vistest')
+    runs-on: ubuntu-latest
+    container:
+      # 公式のPlaywrightイメージを使用x
+      image: mcr.microsoft.com/playwright:v1.51.1-jammy
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Playwright Environment
+        uses: ./.github/actions/setup-playwright
+
+      # - name: Prepare auth directory
+      #   run: mkdir -p playwright/.auth
+      #   working-directory: tests/e2e-tests
+
+      - name: Run Playwright visual tests
+        run: npx playwright test --project=visual_init_elegant_slider --config=playwright.config.js --update-snapshots
+        working-directory: tests/e2e-tests
+
+      - name: Run Playwright visual tests
+        run: npx playwright test --project=visual_init_pop_slider --config=playwright.config.js --update-snapshots
+        working-directory: tests/e2e-tests
+
+      - name: Run Playwright visual tests
+        run: npx playwright test --project=visual_init_pop_img --config=playwright.config.js --update-snapshots
+        working-directory: tests/e2e-tests
+
+      - name: Upload test artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-artifacts
+          path: tests/e2e-tests/test-results/
+
+      - name: Commit updated snapshots
+        if: always()
+        run: |
+          git config --global --add safe.directory $GITHUB_WORKSPACE
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add tests/e2e-tests/tests/visual.init/
+          git commit -m "Update test result $(date '+%Y-%m-%d %H:%M:%S')" --allow-empty
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: ${{ github.workspace }}

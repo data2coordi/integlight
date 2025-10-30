@@ -1,12 +1,11 @@
 #!/bin/bash
 
-
 clear
-#./integlight_backup.sh restore
+./integlight_backup.sh restore
 
 
 # ===== ユーザー設定 =====
-BRANCH="master"  # ブランチ名
+BRANCH="dev"  # ブランチ名
 WAIT_SEC=6     # リトライ間隔（秒）
 MAX_RETRY=200   # 最大リトライ回数
 COMMIT_MSG="${1:-vstest}"

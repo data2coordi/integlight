@@ -41,17 +41,23 @@ jobs:
       - name: Run Playwright general tests
         run: |
 
-          npx playwright test tests/e2e-tests/tests/headerImage.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
-          #npx playwright test tests/e2e-tests/tests/customiser.color.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
-          #npx playwright test tests/e2e-tests/tests/pf.regOuterAssets.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
-          #npx playwright test tests/e2e-tests/tests/pf.image.home.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
-          #DEBUG=pw:api npx playwright test tests/e2e-tests/tests/slider.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
-          #npx playwright test tests/e2e-tests/tests/slider.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
-          #npx playwright test tests/e2e-tests/tests/header.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
-          #npx playwright test tests/e2e-tests/tests/customiser.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
-          #npx playwright test tests/e2e-tests/tests/htmlCode.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
+          #npx playwright test tests/e2e-tests/tests/01_customiser.color.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
+          #npx playwright test tests/e2e-tests/tests/02_customiser.home.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
+          #npx playwright test tests/e2e-tests/tests/03_customiser.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
+          #npx playwright test tests/e2e-tests/tests/04_header.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
+          #npx playwright test tests/e2e-tests/tests/05_htmlCode.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
+          #npx playwright test tests/e2e-tests/tests/07_pf.image.home.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
+          #npx playwright test tests/e2e-tests/tests/08_pf.regOuterAssets.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
+          #npx playwright test tests/e2e-tests/tests/09_pf.regOuterAssets.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
+          #npx playwright test tests/e2e-tests/tests/10_slider.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
+          npx playwright test tests/e2e-tests/tests/11_headerImage.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
+          #DEBUG=pw:api npx playwright test tests/e2e-tests/tests/10_slider.spec.ts --project=main --project=unauthenticated --config=playwright.config.js
         working-directory: tests/e2e-tests
       # #######################################################
+
+      #- name: Move HTML report
+      #  run: mv playwright-report test-results/
+      #  working-directory: tests/e2e-tests
 
       # 10. テスト結果・スクリーンショットをアーティファクトとして保存
       - name: Upload test artifacts
