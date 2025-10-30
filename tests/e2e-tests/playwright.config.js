@@ -9,7 +9,20 @@ const visualInitTestCnf = [
     testid: "elegant_slider",
     siteType: "エレガント",
     headerType: "スライダー",
-    sliderType: { effect: "スライド", interval: "60" },
+    sliderType: {
+      effect: "スライド",
+      interval: "60",
+    },
+    sliderImg: { imagePartialName: "Firefly-1498.webp" },
+    sliderText: {
+      mainText: "visual init slider main テストタイトル",
+      subText: "visual init slider sub テストタイトル",
+      top: "10",
+      left: "10",
+      deviceType: "PC",
+      textColor: "#0000ff",
+      textFont: "yu_mincho",
+    },
   },
   {
     testid: "pop_slider",
