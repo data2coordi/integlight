@@ -1,8 +1,7 @@
 import { test, expect } from "@playwright/test";
 
-import { selSliderEffect, setSiteType } from "../utils/common";
 // 共通設定a
-import { Customizer_utils, Customizer_manager } from "../utils/customizer";
+import { Customizer_manager } from "../utils/customizer";
 
 // テスト用設定一覧
 const TEST_CONFIGS = {
@@ -37,99 +36,6 @@ const TEST_CONFIGS = {
     imagePartialName_forPcHome2: "Firefly-51159-1.webp",
   },
 };
-
-// 共通関数
-async function setSliderInterval(page, interval) {
-  const intervalInput = page.getByLabel("変更時間間隔（秒）");
-  await intervalInput.fill("999999");
-  await intervalInput.fill(interval);
-}
-
-async function setSliderImage(
-  page: Page,
-  imagePartialName: string,
-  image_delBtnNo: number = 0,
-  image_selBtnNo: number = 0
-) {
-  // 既存画像を削除
-  await page.getByRole("button", { name: "削除" }).nth(image_delBtnNo).click();
-  await page
-    .getByRole("button", { name: "画像を選択" })
-    .nth(image_selBtnNo)
-    .click();
-
-  // モーダルが表示されるのを待つ
-  const mediaModal = page.locator(".attachments-browser");
-  await mediaModal.waitFor({ state: "visible", timeout: 15000 });
-
-  // 検索ボックスに入力して検索
-  const searchInput = page.locator("#media-search-input");
-  await searchInput.fill(imagePartialName);
-  await searchInput.press("Enter");
-
-  // 検索結果の最初の画像をクリック
-  const targetImage = page
-    .locator(`.attachments-browser img[src*="${imagePartialName}"]`)
-    .first();
-  await targetImage.waitFor({ state: "visible", timeout: 15000 });
-  await targetImage.click({ force: true });
-
-  // 選択ボタンを押してモーダルを閉じる
-  await page.locator(".media-button-select").click();
-  await page
-    .locator(".media-modal")
-    .waitFor({ state: "hidden", timeout: 15000 });
-}
-
-async function setSliderText(page, mainText, subText) {
-  await page.getByLabel("スライダーテキスト（メイン）").nth(0).fill(mainText);
-  await page.getByLabel("スライダーテキスト（サブ）").nth(0).fill(subText);
-  await expect(
-    page.getByLabel("スライダーテキスト（メイン）").nth(0)
-  ).toHaveValue(mainText);
-  await expect(
-    page.getByLabel("スライダーテキスト（サブ）").nth(0)
-  ).toHaveValue(subText);
-}
-
-async function setTextPosition(page, top, left, deviceType = "sp") {
-  let text_positionLavel_top = "スライダーテキスト位置（モバイル、上）（px）";
-  let text_positionLavel_left = "スライダーテキスト位置（モバイル、左）（px）";
-  if (deviceType === "pc") {
-    text_positionLavel_top = "スライダーテキスト位置（上）（px）";
-    text_positionLavel_left = "スライダーテキスト位置（左）（px）";
-  }
-  await page.getByLabel(text_positionLavel_top).fill(top);
-  await page.getByLabel(text_positionLavel_left).fill(left);
-}
-
-async function setTextColor(page, textColor) {
-  // 「色を選択」ボタンをクリック → input が表示される
-  await page.getByRole("button", { name: "色を選択" }).click();
-
-  const input = page.getByLabel("スライダーテキストカラー");
-
-  await input.fill(textColor);
-}
-
-async function setTextFont(page, textFont) {
-  // ラベル名から要素を取得
-  const label = page.locator("label", {
-    hasText: "スライダーテキストフォント",
-  });
-
-  // ラベルの for 属性から select の id を取得
-  const selectId = await label.getAttribute("for");
-  if (!selectId)
-    throw new Error(
-      "ラベル スライダーテキストフォント に対応する select が見つかりません"
-    );
-
-  // select を取得して選択
-  const select = page.locator(`#${selectId}`);
-  await select.waitFor({ state: "visible" });
-  await select.selectOption(textFont);
-}
 
 async function verifySliderOnSlide_Home1(
   page,
