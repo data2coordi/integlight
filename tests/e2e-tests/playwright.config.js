@@ -9,11 +9,13 @@ const visualTestCnf = [
     testid: "elegant_slider",
     siteType: "エレガント",
     headerType: "スライダー",
+    sliderType: { effect: "スライド", interval: "60" },
   },
   {
     testid: "pop_slider",
     siteType: "ポップ",
     headerType: "スライダー",
+    sliderType: { effect: "スライド", interval: "60" },
   },
   {
     testid: "pop_img",
@@ -36,6 +38,7 @@ const visualProjects = visualTestCnf.flatMap(
           testid,
           siteType,
           headerType,
+          sliderType,
         },
       },
     },
