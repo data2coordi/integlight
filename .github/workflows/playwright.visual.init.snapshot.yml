@@ -32,9 +32,16 @@ jobs:
       # - name: Run Playwright auth setup
       #   run: npx playwright test --project=setup --config=playwright.config.js
       #   working-directory: tests/e2e-tests
+      - name: Run Playwright visual tests
+        run: npx playwright test --project=visual_init_elegant_slider --config=playwright.config.js --update-snapshots
+        working-directory: tests/e2e-tests
 
-      - name: Run Playwright visual init snapshot tests
-        run: npx playwright test --project=visual.init --config=playwright.config.js --update-snapshots
+      - name: Run Playwright visual tests
+        run: npx playwright test --project=visual_init_pop_slider --config=playwright.config.js --update-snapshots
+        working-directory: tests/e2e-tests
+
+      - name: Run Playwright visual tests
+        run: npx playwright test --project=visual_init_pop_img --config=playwright.config.js --update-snapshots
         working-directory: tests/e2e-tests
 
       - name: Upload test artifacts
