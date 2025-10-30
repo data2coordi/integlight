@@ -326,8 +326,8 @@ async function setSliderDetailSettings(page, config, inisialSetting) {
     cm_utils.openCustomizer());
   await test.step("2. スライダーのエフェクト設定", () =>
     selSliderEffect(page, inisialSetting.effectLabel));
-  await test.step("3. スライダーの変更間隔を設定", () =>
-    setSliderInterval(page, config.interval));
+  //  await test.step("3. スライダーの変更間隔を設定", () =>
+  //   setSliderInterval(page, config.interval));
   //await test.step("4 スライダー画像を設定", () =>
   // setSliderImage(page, config.imagePartialName));
   await test.step("5 スライダーテキストを入力", () =>

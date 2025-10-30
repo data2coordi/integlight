@@ -102,6 +102,91 @@ export class Customizer_slider_img {
   }
 }
 
+export class Customizer_slider_text {
+  constructor(private page: Page) {}
+  async apply(config: {
+    mainText?: string;
+    subText?: string;
+    top?: string;
+    left?: string;
+    deviceType?: string;
+    textColor?: string;
+    textFont?: string;
+  }) {
+    const {
+      mainText = "Main Text dummy",
+      subText = "Sub Text dummy",
+      top = "1",
+      left = "1",
+      deviceType = "pc",
+      textColor = "#000000",
+      textFont = "Arial",
+    } = config;
+    await this.setSliderText(mainText, subText);
+    await this.setTextPosition(top, left, deviceType);
+
+    await this.setTextColor(textColor);
+    await this.setTextFont(textFont);
+  }
+
+  async setSliderText(mainText, subText) {
+    await this.page
+      .getByLabel("スライダーテキスト（メイン）")
+      .nth(0)
+      .fill(mainText);
+    await this.page
+      .getByLabel("スライダーテキスト（サブ）")
+      .nth(0)
+      .fill(subText);
+    await expect(
+      this.page.getByLabel("スライダーテキスト（メイン）").nth(0)
+    ).toHaveValue(mainText);
+    await expect(
+      this.page.getByLabel("スライダーテキスト（サブ）").nth(0)
+    ).toHaveValue(subText);
+  }
+
+  async setTextPosition(top, left, deviceType = "sp") {
+    let text_positionLavel_top = "スライダーテキスト位置（モバイル、上）（px）";
+    let text_positionLavel_left =
+      "スライダーテキスト位置（モバイル、左）（px）";
+    if (deviceType === "pc") {
+      text_positionLavel_top = "スライダーテキスト位置（上）（px）";
+      text_positionLavel_left = "スライダーテキスト位置（左）（px）";
+    }
+    await this.page.getByLabel(text_positionLavel_top).fill(top);
+    await this.page.getByLabel(text_positionLavel_left).fill(left);
+  }
+
+  async setTextColor(textColor) {
+    // 「色を選択」ボタンをクリック → input が表示される
+    await this.page.getByRole("button", { name: "色を選択" }).click();
+
+    const input = this.page.getByLabel("スライダーテキストカラー");
+
+    await input.fill(textColor);
+  }
+
+  async setTextFont(textFont) {
+    // ラベル名から要素を取得
+    const label = this.page.locator("label", {
+      hasText: "スライダーテキストフォント",
+    });
+
+    // ラベルの for 属性から select の id を取得
+    const selectId = await label.getAttribute("for");
+    if (!selectId)
+      throw new Error(
+        "ラベル スライダーテキストフォント に対応する select が見つかりません"
+      );
+
+    // select を取得して選択
+    const select = this.page.locator(`#${selectId}`);
+    await select.waitFor({ state: "visible" });
+    await select.selectOption(textFont);
+  }
+}
+
 // 2. デザイン関連操作
 export class Customizer_design {
   constructor(private page: Page) {}
@@ -206,6 +291,7 @@ export class Customizer_manager {
       headerType: new Customizer_header(page),
       sliderType: new Customizer_slider(page),
       sliderImg: new Customizer_slider_img(page),
+      sliderText: new Customizer_slider_text(page),
       colorType: new Customizer_design(page),
       // 追加クラスもここに登録するだけ
     };
