@@ -1,30 +1,9 @@
 import { test, expect, type Page } from "@playwright/test";
-import {
-  timeStart,
-  logStepTime,
-  openCustomizer,
-  saveCustomizer,
-  ensureCustomizerRoot,
-  setFrontType,
-  setSiteType,
-} from "../utils/common";
 
 import { Customizer_manager } from "../utils/customizer";
 
 // 共通関数（カスタマイザーでホームページ表示を設定する）a
 async function setHomeDisplayType(page: Page, frontType: string) {
-  // 実装例：カスタマイザー画面で選択肢を切り替え
-  await test.step(" カスタマイザー画面を開く", () => openCustomizer(page));
-
-  await test.step("フロントページのタイプ(最新の投稿or固定ページ）を設定", () =>
-    setFrontType(page, frontType));
-
-  await ensureCustomizerRoot(page);
-
-  await test.step("ホームタイプの変更", () => setSiteType(page, "ポップ"));
-
-  await test.step("変更を保存", () => saveCustomizer(page));
-
   let keyValue = {
     siteType: "ポップ",
     frontType: frontType,
