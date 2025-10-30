@@ -6,6 +6,7 @@ import {
   activateTheme,
   showCodeOverlay,
 } from "../utils/common";
+import { Admin } from "../utils/commonClass";
 
 // テストデータを配列でまとめる
 const CUSTOMIZER_INPUTS = [
@@ -109,8 +110,9 @@ test.describe("カスタマイザー全パターンまとめテスト", () => {
       await ensureCustomizerRoot(page);
     }
 
+    const admin = new Admin(page);
     // 元テーマに戻す
-    await activateTheme(page, "integlight");
+    await admin.activateTheme("integlight");
   });
   test("E2E: GA 高速化オプション OFF でフロント確認", async ({ page }) => {
     console.log(

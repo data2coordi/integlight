@@ -1,6 +1,5 @@
 import { test, expect } from "@playwright/test";
 
-//import { openCustomizer, saveCustomizer, setSiteType } from "../utils/common";
 import { Customizer_manager } from "../utils/customizer";
 
 // 共通化関数（home1ページナビゲーション）
