@@ -1,16 +1,6 @@
 import { test, expect, BrowserContext } from "@playwright/test";
-import {
-  timeStart,
-  logStepTime,
-  openCustomizer,
-  saveCustomizer,
-  ensureCustomizerRoot,
-  openHeaderSetting,
-} from "../utils/common";
 
 import { Customizer_manager } from "../utils/customizer";
-// 共通設定
-const BASE_URL = "https://wpdev.auroralab-design.com";
 
 // テスト用設定一覧
 const TEST_CONFIGS = {
@@ -114,15 +104,15 @@ async function setHeaderImageDetailSettings(page, config) {
   const cm_manager = new Customizer_manager(page);
   await cm_manager.apply(keyValue);
 
-  await test.step("カスタマイザー画面を開く", () => openCustomizer(page));
-  await test.step("ヘッダー画像テキストを設定する", () =>
-    setHeaderImageText(page, config));
+  // await test.step("カスタマイザー画面を開く", () => openCustomizer(page));
+  // await test.step("ヘッダー画像テキストを設定する", () =>
+  //   setHeaderImageText(page, config));
 
-  // await ensureCustomizerRoot(page);
-  // await test.step("ヘッダー画像を設定する", () => setHeaderImage(page, config));
+  // // await ensureCustomizerRoot(page);
+  // // await test.step("ヘッダー画像を設定する", () => setHeaderImage(page, config));
 
-  await test.step("公開ボタンをクリックして変更を保存", () =>
-    saveCustomizer(page));
+  // await test.step("公開ボタンをクリックして変更を保存", () =>
+  //   saveCustomizer(page));
 }
 
 /****検証用 ***********************************/
