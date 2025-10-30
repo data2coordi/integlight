@@ -10,6 +10,8 @@ import {
   ensureCustomizerRoot,
 } from "../utils/common";
 
+import { Customizer_manager } from "../utils/customizer";
+
 // テスト設定を統合し、階層的な構造にする
 const TEST_SCENARIOS = {
   ヘッダーなし: {
@@ -191,6 +193,20 @@ async function runCustomizerFlow(page: Page, config: any) {
   //timeStart('saveCustomizer');
   await test.step("7. 変更を保存", () => saveCustomizer(page));
   //logStepTime('saveCustomizer');
+
+  let keyValue = {
+    siteType: config.siteType,
+    headerType: config.headerType,
+  };
+
+  if (config.headerType === "スライダー") {
+    keyValue = {
+      ...keyValue,
+      sliderType: {}, //警告が出るが使える。
+    };
+  }
+  const cm_manager = new Customizer_manager(page);
+  await cm_manager.apply(keyValue);
 }
 
 // データ駆動型テストの実行
