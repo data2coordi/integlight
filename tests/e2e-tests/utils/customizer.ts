@@ -122,6 +122,11 @@ export class Customizer_slider_text {
       textColor = "#000000",
       textFont = "Arial",
     } = config;
+
+    await Customizer_utils.ensureCustomizerRoot(this.page);
+    await this.page.getByRole("button", { name: "ヘッダー設定" }).click();
+    await this.page.getByRole("button", { name: "2.スライダー設定" }).click();
+
     await this.setSliderText(mainText, subText);
     await this.setTextPosition(top, left, deviceType);
 
