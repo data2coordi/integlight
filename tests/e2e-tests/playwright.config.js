@@ -29,6 +29,7 @@ const visualInitProjects = visualInitTestCnf.flatMap(
     {
       name: `setting_init_${testid}`,
       testDir: "./tests",
+      snapshotDir: "./tests/visual.init/", // 期待値（比較元）画像
       testMatch: [/visual\.setting\.spec\.js/],
       dependencies: ["setup"],
       use: {
