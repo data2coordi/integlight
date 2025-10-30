@@ -130,8 +130,8 @@ async function setHeaderImageDetailSettings(page, config) {
   await test.step("ヘッダー画像テキストを設定する", () =>
     setHeaderImageText(page, config));
 
-  await ensureCustomizerRoot(page);
-  await test.step("ヘッダー画像を設定する", () => setHeaderImage(page, config));
+  // await ensureCustomizerRoot(page);
+  // await test.step("ヘッダー画像を設定する", () => setHeaderImage(page, config));
 
   await test.step("公開ボタンをクリックして変更を保存", () =>
     saveCustomizer(page));

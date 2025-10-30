@@ -226,6 +226,69 @@ export class Customizer_headerImage_img {
       .click();
   }
 }
+export class Customizer_headerImage_text {
+  constructor(private page: Page) {}
+
+  async apply(config: { imageName?: string }) {
+    const { imageName = "" } = config;
+    await Customizer_utils.ensureCustomizerRoot(this.page);
+    await this.page.getByRole("button", { name: "ヘッダー設定" }).click();
+    await this.page.getByRole("button", { name: "2.静止画像設定" }).click();
+    await this.setHeaderImageText(imageName);
+  }
+  async setHeaderImageText(config) {
+    // テキスト設定
+    await this.page
+      .getByLabel("ヘッダー画像メインテキスト")
+      .nth(0)
+      .fill(config.mainText);
+    await this.page
+      .getByLabel("ヘッダー画像サブテキスト")
+      .nth(0)
+      .fill(config.subText);
+
+    await expect(
+      this.page.getByLabel("ヘッダー画像メインテキスト").nth(0)
+    ).toHaveValue(config.mainText);
+    await expect(
+      this.page.getByLabel("ヘッダー画像サブテキスト").nth(0)
+    ).toHaveValue(config.subText);
+
+    // テキストカラー設定
+    await this.page.getByRole("button", { name: "色を選択" }).click();
+    const input = this.page.getByLabel("ヘッダー画像テキストの色");
+    await input.fill(config.textColor);
+
+    // フォント設定
+    const label = this.page.locator("label", {
+      hasText: "ヘッダー画像テキストのフォント",
+    });
+    const selectId = await label.getAttribute("for");
+    if (!selectId)
+      throw new Error(
+        `ラベル "ヘッダー画像テキストのフォント" に対応する select が見つかりません`
+      );
+    const select = this.page.locator(`#${selectId}`);
+    await select.waitFor({ state: "visible" });
+    await select.selectOption(config.textFont);
+
+    // テキスト位置設定
+    await this.page
+      .getByLabel("ヘッダー画像テキストの上位置（px）")
+      .fill(config.textPositionTop);
+    await this.page
+      .getByLabel("ヘッダー画像テキストの左位置（px）")
+      .fill(config.textPositionLeft);
+
+    // テキスト位置設定
+    await this.page
+      .getByLabel("ヘッダー画像テキストのモバイル上位置（px）")
+      .fill(config.textPositionTop_mobile);
+    await this.page
+      .getByLabel("ヘッダー画像テキストのモバイル左位置（px）")
+      .fill(config.textPositionLeft_mobile);
+  }
+}
 
 // 2. デザイン関連操作
 export class Customizer_design {
@@ -362,8 +425,7 @@ export class Customizer_manager {
       colorType: new Customizer_design(page),
       frontType: new Customizer_frontType(page),
       headerImageImg: new Customizer_headerImage_img(page),
-
-      // 追加クラスもここに登録するだけ
+      headerImageText: new Customizer_headerImage_text(page),
     };
   }
 
