@@ -4,6 +4,63 @@ import { defineConfig, devices } from "@playwright/test";
 const BASE_URL = "https://wpdev.auroralab-design.com";
 const authFile = "playwright/.auth/user.json";
 
+const visualInitTestCnf = [
+  {
+    testid: "elegant_slider",
+    siteType: "エレガント",
+    headerType: "スライダー",
+    sliderType: { effect: "スライド", interval: "60" },
+  },
+  {
+    testid: "pop_slider",
+    siteType: "ポップ",
+    headerType: "スライダー",
+    sliderType: { effect: "スライド", interval: "60" },
+  },
+  {
+    testid: "pop_img",
+    siteType: "ポップ",
+    headerType: "静止画像",
+  },
+];
+
+const visualInitProjects = visualInitTestCnf.flatMap(
+  ({ testid, siteType, headerType, sliderType }) => [
+    {
+      name: `setting_init_${testid}`,
+      testDir: "./tests",
+      testMatch: [/visual\.setting\.spec\.js/],
+      dependencies: ["setup"],
+      use: {
+        ...devices["Desktop Chrome"],
+        storageState: authFile,
+        keyValue: {
+          testid,
+          siteType,
+          headerType,
+          sliderType,
+        },
+      },
+    },
+    {
+      name: `visual_init_${testid}`,
+      testDir: "./tests",
+      testMatch: [/visual\.spec\.js/],
+      dependencies: [`setting_${testid}`],
+      use: {
+        ...devices["Desktop Chrome"],
+        storageState: authFile,
+        keyValue: {
+          testid,
+          siteType,
+          headerType,
+        },
+      },
+      workers: 4,
+    },
+  ]
+);
+
 const visualTestCnf = [
   {
     testid: "elegant_slider",
@@ -165,5 +222,6 @@ export default defineConfig({
     },
 
     ...visualProjects,
+    ...visualInitProjects,
   ],
 });
