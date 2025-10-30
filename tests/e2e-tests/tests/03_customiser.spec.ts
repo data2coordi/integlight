@@ -3,7 +3,6 @@ import {
   openCustomizer,
   saveCustomizer,
   ensureCustomizerRoot,
-  activateTheme,
   showCodeOverlay,
 } from "../utils/common";
 import { Admin } from "../utils/commonClass";
@@ -92,7 +91,11 @@ test.describe("カスタマイザー全パターンまとめテスト", () => {
     // ---------------------------
     // 4. Twenty Twentyでフロント出力を確認（E2E-04相当）
     // ---------------------------
-    await activateTheme(page, "twentytwenty");
+
+    const admin = new Admin(page);
+    // 元テーマに戻す
+    await admin.activateTheme("twentytwenty");
+
     await page.goto("/", { waitUntil: "networkidle" });
     for (const input of CUSTOMIZER_INPUTS) {
       const content = await page.locator(input.outputTarget).innerHTML();
@@ -110,7 +113,6 @@ test.describe("カスタマイザー全パターンまとめテスト", () => {
       await ensureCustomizerRoot(page);
     }
 
-    const admin = new Admin(page);
     // 元テーマに戻す
     await admin.activateTheme("integlight");
   });
