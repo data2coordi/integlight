@@ -229,10 +229,14 @@ class Integlight_getAttr_byImageCount
         ['env' => 'PC', 'homeType' => 'siteType1', 'header' => 'none', 'headCt' => 0, 'bodyCt' => 3],
         ['env' => 'SP', 'homeType' => 'siteType2', 'header' => 'none', 'headCt' => 0, 'bodyCt' => 2],
         ['env' => 'PC', 'homeType' => 'siteType2', 'header' => 'none', 'headCt' => 0, 'bodyCt' => 4],
+        ['env' => 'SP', 'homeType' => 'siteType3', 'header' => 'none', 'headCt' => 0, 'bodyCt' => 2],
+        ['env' => 'PC', 'homeType' => 'siteType3', 'header' => 'none', 'headCt' => 0, 'bodyCt' => 4],
         ['env' => 'SP', 'homeType' => 'siteType1', 'header' => 'exist', 'headCt' => 1, 'bodyCt' => 0],
         ['env' => 'PC', 'homeType' => 'siteType1', 'header' => 'exist', 'headCt' => 1, 'bodyCt' => 0],
         ['env' => 'SP', 'homeType' => 'siteType2', 'header' => 'exist', 'headCt' => 1, 'bodyCt' => 1],
         ['env' => 'PC', 'homeType' => 'siteType2', 'header' => 'exist', 'headCt' => 3, 'bodyCt' => 2],
+        ['env' => 'SP', 'homeType' => 'siteType3', 'header' => 'exist', 'headCt' => 1, 'bodyCt' => 1],
+        ['env' => 'PC', 'homeType' => 'siteType3', 'header' => 'exist', 'headCt' => 3, 'bodyCt' => 2],
     ];
 
     public static function getCurrentPattern(): ?array

@@ -234,17 +234,25 @@ class Integlight_SliderManager {
         Integlight_FadeSlider,
       [settings.fadeName + settings.siteType2Name + "pc"]:
         Integlight_FadeSlider2,
+      [settings.fadeName + settings.siteType3Name + "pc"]:
+        Integlight_FadeSlider2,
       [settings.slideName + settings.siteType1Name + "pc"]:
         Integlight_SlideSlider,
       [settings.slideName + settings.siteType2Name + "pc"]:
+        Integlight_SlideSlider2,
+      [settings.slideName + settings.siteType3Name + "pc"]:
         Integlight_SlideSlider2,
       [settings.fadeName + settings.siteType1Name + "sp"]:
         Integlight_FadeSlider,
       [settings.fadeName + settings.siteType2Name + "sp"]:
         Integlight_FadeSlider,
+      [settings.fadeName + settings.siteType3Name + "sp"]:
+        Integlight_FadeSlider,
       [settings.slideName + settings.siteType1Name + "sp"]:
         Integlight_SlideSlider,
       [settings.slideName + settings.siteType2Name + "sp"]:
+        Integlight_SlideSlider,
+      [settings.slideName + settings.siteType3Name + "sp"]:
         Integlight_SlideSlider,
     };
   }

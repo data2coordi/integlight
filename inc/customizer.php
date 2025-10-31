@@ -154,8 +154,8 @@ class integlight_customizer_homeType extends Integlight_customizer_choiceCtlBase
 			'choices'     => array(
 				'siteType1' => __('Elegant', 'integlight'),
 				'siteType2' => __('Pop', 'integlight'),
-				//'home3' => __('home3', 'integlight'),
-				//'home4' => __('home4', 'integlight'),
+				'siteType3' => __('Simple', 'integlight'),
+				//'siteType4' => __('home4', 'integlight'),
 			),
 		));
 	}

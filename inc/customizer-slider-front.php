@@ -164,8 +164,8 @@ class integlight_customizer_slider_outerAssets
 			'slideName' => Integlight_customizer_slider_settings::getEffectNameSlide(),
 			'siteType1Name' => Integlight_customizer_slider_settings::getHomeType1Name(),
 			'siteType2Name' => Integlight_customizer_slider_settings::getHomeType2Name(),
-			'home3Name' => Integlight_customizer_slider_settings::getHomeType3Name(),
-			'home4Name' => Integlight_customizer_slider_settings::getHomeType4Name(),
+			'siteType3Name' => Integlight_customizer_slider_settings::getHomeType3Name(),
+			'siteType4Name' => Integlight_customizer_slider_settings::getHomeType4Name(),
 		));
 	}
 }

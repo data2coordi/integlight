@@ -20,7 +20,14 @@ class Integlight_loadMore
     public function pre_enqueue_scripts()
     {
 
-        if (is_home() && 'siteType2' === get_theme_mod('integlight_hometype_setting', 'siteType1')) {
+        if (
+            is_home() &&
+            in_array(
+                get_theme_mod('integlight_hometype_setting', 'siteType1'),
+                ['siteType2', 'siteType3'],
+                true
+            )
+        ) {
             Integlight_outerAssets_js_forCall::regLoadMoreScripts();
         }
     }
@@ -28,7 +35,14 @@ class Integlight_loadMore
     public function enqueue_scripts()
     {
 
-        if (is_home() && 'siteType2' === get_theme_mod('integlight_hometype_setting', 'siteType1')) {
+        if (
+            is_home() &&
+            in_array(
+                get_theme_mod('integlight_hometype_setting', 'siteType1'),
+                ['siteType2', 'siteType3'],
+                true
+            )
+        ) {
 
             wp_localize_script(Integlight_outerAssets_js_forCall::getLoadMoreScriptsHandleName(), 'integlightLoadMore', [
                 'loadMoreText'      => __('もっと見る', 'integlight'),
