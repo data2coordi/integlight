@@ -36,7 +36,7 @@ jobs:
       # 5. Visual テスト
       - name: Run Playwright visual tests
         #run: npx playwright test --project=visual_init_elegant_slider --config=playwright.config.js
-        run: npx playwright test --project=setting_init_elegant_slider --config=playwright.config.init.js
+        DEBUG=pw:api run: npx playwright test --project=setting_init_elegant_slider --config=playwright.config.init.js
         working-directory: tests/e2e-tests
 
       #- name: Run Playwright visual tests
