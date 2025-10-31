@@ -4,6 +4,7 @@ import { defineConfig, devices } from "@playwright/test";
 const authFile = "playwright/.auth/user.json";
 
 const visualInitTestCnf = [
+  // ... (visualInitTestCnf の定義は省略せずそのまま)
   {
     testid: "elegant_slider",
     siteType: "エレガント",
@@ -83,19 +84,21 @@ const visualInitProjects = visualInitTestCnf.flatMap(
 );
 
 export default defineConfig({
-  // reporter: [
-  //   ["list"],
-  //   [
-  //     "html",
-  //     {
-  //       open: "never",
-  //       outputFolder: "test-results",
-  //     },
-  //   ],
-  // ],
+  // ... (reporterのコメントアウトはそのまま)
   // 各テストのデフォルトタイムアウト（ms）
   timeout: 60_000,
 
   // 複数のテストプロジェクトを定義
-  projects: visualInitProjects, // 👈 このように修正
+  projects: [
+    // 👈 配列を開始
+    ...visualInitProjects, // 👈 プロジェクトを展開
+    {
+      // 👈 setup_init プロジェクトを配列の要素として追加
+      name: "setup_init",
+      testMatch: "auth.setup.ts",
+      use: {
+        baseURL: "https://t2.auroralab-design.com",
+      },
+    },
+  ], // 👈 配列を閉じる
 });
