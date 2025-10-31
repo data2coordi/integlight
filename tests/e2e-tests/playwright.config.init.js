@@ -51,6 +51,7 @@ const visualInitProjects = visualInitTestCnf.flatMap(
           mode: "on",
           retainOnFailure: true, // 成功・失敗に関わらず動画を残す
         },
+        storageState: authFile,
         keyValue: {
           testid,
           siteType,
