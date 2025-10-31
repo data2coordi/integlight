@@ -13,7 +13,7 @@ test.describe("ビジュアルテスト", () => {
     const page = await browser.newPage();
     const cm_manager = new Customizer_manager(page);
     await cm_manager.apply(keyValue);
-
+    await page.waitForTimeout(2000);
     await page.close();
   });
 });
