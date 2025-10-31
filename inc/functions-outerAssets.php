@@ -210,7 +210,7 @@ class Integlight_outerAssets_homeTypeLoader
 
     public function enqueue_hometype_css()
     {
-        $home_type = get_theme_mod('integlight_hometype_setting', 'home1');
+        $home_type = get_theme_mod('integlight_hometype_setting', 'siteType1');
 
         $tmp_deps = ['integlight-integlight-menu', 'integlight-custom-color-pattern'];
         // slider かつフロントまたは home の場合に追記

@@ -140,7 +140,7 @@ class integlight_customizer_homeType extends Integlight_customizer_choiceCtlBase
 		// Setting
 		$wp_customize->add_setting('integlight_hometype_setting', array(
 			'type'              => 'theme_mod',
-			'default'           => 'home1',
+			'default'           => 'siteType1',
 			'sanitize_callback' => [$this, 'sanitize_choices'],
 		));
 
@@ -152,8 +152,8 @@ class integlight_customizer_homeType extends Integlight_customizer_choiceCtlBase
 			'description' => __("Elegant: a luxurious and refined design<br>Pop: a lively and fun impression design", 'integlight'),
 			'type'        => 'radio',
 			'choices'     => array(
-				'home1' => __('Elegant', 'integlight'),
-				'home2' => __('Pop', 'integlight'),
+				'siteType1' => __('Elegant', 'integlight'),
+				'siteType2' => __('Pop', 'integlight'),
 				//'home3' => __('home3', 'integlight'),
 				//'home4' => __('home4', 'integlight'),
 			),

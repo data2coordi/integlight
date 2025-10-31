@@ -367,7 +367,7 @@ class integlight_functions_load_more_Test extends WP_Ajax_UnitTestCase
     /**
      * @test
      * @covers ::pre_enqueue_scripts
-     * home1 または非ホームページではスクリプトが登録されないことをテスト
+     * siteType1 または非ホームページではスクリプトが登録されないことをテスト
      */
     public function pre_enqueue_scripts_should_not_add_scripts_when_condition_not_met(): void
     {
@@ -390,12 +390,12 @@ class integlight_functions_load_more_Test extends WP_Ajax_UnitTestCase
     /**
      * @test
      * @covers ::pre_enqueue_scripts
-     * home2 設定時にスクリプトが登録され、遅延スクリプトにも追加されることをテスト
+     * siteType2 設定時にスクリプトが登録され、遅延スクリプトにも追加されることをテスト
      */
     public function pre_enqueue_scripts_should_add_scripts_and_defer(): void
     {
         // Arrange: 条件を満たすテーマ設定にする
-        set_theme_mod('integlight_hometype_setting', 'home2');
+        set_theme_mod('integlight_hometype_setting', 'siteType2');
 
         global $wp_query;
         $wp_query = new WP_Query();
@@ -434,8 +434,8 @@ class integlight_functions_load_more_Test extends WP_Ajax_UnitTestCase
         $wp_query->is_home = true;
         $wp_query->is_main_query = true;
 
-        // Arrange: テーマ設定 home2
-        set_theme_mod('integlight_hometype_setting', 'home2');
+        // Arrange: テーマ設定 siteType2
+        set_theme_mod('integlight_hometype_setting', 'siteType2');
 
         $this->instance = new Integlight_loadMore();
 

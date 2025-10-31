@@ -2,7 +2,6 @@ name: Playwright Compare Visual Test
 #vtest
 on:
   push:
-    branches: [dev]
   pull_request:
   workflow_dispatch:
 
