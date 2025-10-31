@@ -146,16 +146,16 @@ const visualProjects = visualTestCnf.flatMap(
 );
 
 export default defineConfig({
-  // reporter: [
-  //   ["list"],
-  //   [
-  //     "html",
-  //     {
-  //       open: "never",
-  //       outputFolder: "test-results",
-  //     },
-  //   ],
-  // ],
+  reporter: [
+    ["list"],
+    [
+      "html",
+      {
+        open: "never",
+        outputFolder: "test-results",
+      },
+    ],
+  ],
   // 各テストのデフォルトタイムアウト（ms）
   timeout: 60_000,
 
@@ -164,7 +164,14 @@ export default defineConfig({
     // click や fill など1アクションのタイムアウト
     actionTimeout: 10_000,
     // 動画録画設定
-    video: "on",
+    video: {
+      mode: "on",
+      retainOnFailure: true, // 成功・失敗に関わらず動画を残す
+      // videosPath を指定して、動画を別の専用フォルダに確実に保存
+      // ただし、通常このオプションは不要で、単に retainOnFailure: true で十分なはずです
+      // videosPath: './test-results/videos',
+    },
+
     // ブラウザのベースURL
     baseURL: BASE_URL,
   },
