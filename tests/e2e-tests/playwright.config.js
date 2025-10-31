@@ -65,15 +65,9 @@ const visualInitProjects = visualInitTestCnf.flatMap(
       testMatch: [/visual\.setting\.spec\.js/],
       dependencies: ["setup_init"],
       use: {
-        // 1. デバイス設定を最初に展開
-        ...devices["Desktop Chrome"],
-
-        // 2. その後、必要な設定で上書き
         baseURL: "https://t2.auroralab-design.com",
+        ...devices["Desktop Chrome"],
         storageState: authFile,
-
-        // 3. 動画設定を明示的に上書きして、確実に有効化
-        video: { mode: "on", retainOnFailure: true },
         keyValue: {
           testid,
           siteType,
