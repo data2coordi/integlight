@@ -49,7 +49,16 @@ const visualInitTestCnf = [
 ];
 
 const visualInitProjects = visualInitTestCnf.flatMap(
-  ({ testid, siteType, headerType, sliderType }) => [
+  ({
+    testid,
+    siteType,
+    headerType,
+    sliderType,
+    headerImageImg,
+    headerImageText,
+    sliderImg,
+    sliderText,
+  }) => [
     {
       name: `setting_init_${testid}`,
       testDir: "./tests",
