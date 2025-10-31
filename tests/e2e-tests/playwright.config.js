@@ -57,13 +57,16 @@ const visualInitProjects = visualInitTestCnf.flatMap(
       dependencies: ["setup_init"],
       use: {
         baseURL: "https://t2.auroralab-design.com",
-        ...devices["Desktop Chrome"],
         storageState: authFile,
         keyValue: {
           testid,
           siteType,
           headerType,
           sliderType,
+          headerImageImg,
+          headerImageText,
+          sliderImg,
+          sliderText,
         },
       },
     },
@@ -76,7 +79,6 @@ const visualInitProjects = visualInitTestCnf.flatMap(
       use: {
         baseURL: "https://t2.auroralab-design.com",
         ...devices["Desktop Chrome"],
-        storageState: authFile,
       },
       workers: 4,
     },
@@ -160,7 +162,7 @@ export default defineConfig({
     actionTimeout: 10_000,
     // 動画録画設定
     video: {
-      mode: "on",
+      mode: "off",
       retainOnFailure: true, // 成功・失敗に関わらず動画を残す
       // videosPath を指定して、動画を別の専用フォルダに確実に保存
       // ただし、通常このオプションは不要で、単に retainOnFailure: true で十分なはずです
