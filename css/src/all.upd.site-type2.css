@@ -154,6 +154,16 @@ p.site-description {
   font-size: 0.8rem; /* 小さめサイズ */
 }
 
+html:has(body .siteType2)::before {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    /* 透明で開始 */ rgba(255, 255, 255, 1) 45vh,
+    /* 35vhまでは透明のまま */ rgba(255, 255, 255, 0) 100%
+      /* そこから白にフェード */
+  );
+}
+
 /* -------------------- レスポンシブ調整 -------------------- */
 /* モバイル調整 (1023px以下) */
 @media (max-width: 1023px) {
