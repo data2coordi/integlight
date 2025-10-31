@@ -99,6 +99,10 @@ export default defineConfig({
       testMatch: "auth.setup.ts",
       use: {
         baseURL: "https://t2.auroralab-design.com",
+        video: {
+          mode: "on",
+          retainOnFailure: true, // 成功・失敗に関わらず動画を残す
+        },
       },
     },
   ], // 👈 配列を閉じる
