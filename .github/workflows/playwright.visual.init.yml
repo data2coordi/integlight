@@ -39,15 +39,15 @@ jobs:
         run: npx playwright test --project=setting_init_elegant_slider --config=playwright.config.js
         working-directory: tests/e2e-tests
 
-      - name: Run Playwright visual tests
-        #run: npx playwright test --project=visual_init_pop_slider --config=playwright.config.js
-        #run: npx playwright test --project=setting_init_pop_slider --config=playwright.config.js
-        working-directory: tests/e2e-tests
+      #- name: Run Playwright visual tests
+      #run: npx playwright test --project=visual_init_pop_slider --config=playwright.config.js
+      #run: npx playwright test --project=setting_init_pop_slider --config=playwright.config.js
+      #working-directory: tests/e2e-tests
 
-      - name: Run Playwright visual tests
-        #run: npx playwright test --project=visual_init_pop_img --config=playwright.config.js
-        #run: npx playwright test --project=setting_init_pop_img --config=playwright.config.js
-        working-directory: tests/e2e-tests
+      #- name: Run Playwright visual tests
+      #run: npx playwright test --project=visual_init_pop_img --config=playwright.config.js
+      #run: npx playwright test --project=setting_init_pop_img --config=playwright.config.js
+      #working-directory: tests/e2e-tests
 
       # 6. テスト結果保存
       - name: Upload test artifacts
