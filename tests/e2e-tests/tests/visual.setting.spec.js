@@ -13,16 +13,19 @@ test.describe("ビジュアルテスト", () => {
     const page = await browser.newPage();
 
     // ===============================================
-    // ⭐ 【追加】動画録画の強制的な初期化を試みる (ログでffmpegが起動しない問題に対応)
+    // ⭐ 動画録画の強制的な初期化を試みる (ffmpegの欠落に対応)
+    //    テスト操作の前に実行することで、操作を記録させる
     // ===============================================
     const video = page.video();
+    let videoPath;
     if (video) {
       console.log(
         "[DEBUG] Forcefully accessing video object to trigger initialization."
       );
       try {
         // video.path() へのアクセスが、Playwrightに録画セッションの開始を促すことを期待
-        const videoPath = await video.path();
+        // これにより、ffmpegが起動する可能性がある
+        videoPath = await video.path();
         console.log(
           `[DEBUG] Video Path after forced access (initiation check): ${videoPath}`
         );
@@ -36,18 +39,19 @@ test.describe("ビジュアルテスト", () => {
     // ===============================================
 
     const cm_manager = new Customizer_manager(page);
-    await cm_manager.apply(keyValue); // ここでページ操作（gotoなど）が開始される
+    await cm_manager.apply(keyValue); // ここから実際の操作が記録されるはず
 
     await page.waitForTimeout(2000);
 
     // ===============================================
-    // ⭐ 【追加】動画の手動保存を保証 (動画が自動保存されない問題に対応)
+    // ⭐ 動画の手動保存を保証 (動画が自動保存されない問題に対応)
     // ===============================================
-    if (video) {
+    if (video && videoPath) {
       const projectName = testInfo.project.name;
+      // ファイル名として安全な形式にテスト名を変換
       const testTitle = testInfo.title
         .replace(/[^a-z0-9]/gi, "_")
-        .toLowerCase(); // ファイル名に使用できない文字を置換
+        .toLowerCase();
 
       // Playwrightの標準的な保存先に合わせてパスを構成
       const outputPath = `test-results/${projectName}/${testTitle}.webm`;
