@@ -171,7 +171,7 @@ export default defineConfig({
     actionTimeout: 10_000,
     // 動画録画設定
     video: {
-      mode: "off",
+      mode: "on",
       retainOnFailure: true, // 成功・失敗に関わらず動画を残す
       // videosPath を指定して、動画を別の専用フォルダに確実に保存
       // ただし、通常このオプションは不要で、単に retainOnFailure: true で十分なはずです
