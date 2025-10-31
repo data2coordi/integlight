@@ -66,6 +66,7 @@ const visualInitProjects = visualInitTestCnf.flatMap(
       dependencies: ["setup_init"],
       use: {
         baseURL: "https://t2.auroralab-design.com",
+        ...devices["Desktop Chrome"],
         storageState: authFile,
         keyValue: {
           testid,
