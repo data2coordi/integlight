@@ -97,5 +97,5 @@ export default defineConfig({
   timeout: 60_000,
 
   // 複数のテストプロジェクトを定義
-  ...visualInitProjects,
+  projects: visualInitProjects, // 👈 このように修正
 });
