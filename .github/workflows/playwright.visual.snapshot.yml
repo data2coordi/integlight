@@ -28,10 +28,6 @@ jobs:
       #   run: mkdir -p playwright/.auth
       #   working-directory: tests/e2e-tests
 
-      # - name: Run Playwright auth setup
-      #   run: npx playwright test --project=setup --config=playwright.config.visual.js
-      #   working-directory: tests/e2e-tests
-
       - name: Run Playwright visual tests
         run: npx playwright test --project=visual_elegant_slider --config=playwright.config.visual.js --update-snapshots
         working-directory: tests/e2e-tests
