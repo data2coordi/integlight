@@ -1,5 +1,5 @@
 import { test } from "@playwright/test";
-import { Customizer_manager } from "../utils/customizer";
+//import { Customizer_manager } from "../utils/customizer";
 // ======= 共通関数 =======
 
 // ======= テスト展開 =======
