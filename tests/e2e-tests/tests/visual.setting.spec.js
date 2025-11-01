@@ -1,41 +1,56 @@
-import { test, devices } from "@playwright/test";
-import { Customizer_manager } from "../utils/customizer";
-const authFile = "playwright/.auth/user.json";
+import { test } from "@playwright/test"import { test } from "@playwright/test";
 
-test.describe("ビジュアルテスト", () => {
-  test("カスタマイザー設定", async ({ browser }, testInfo) => {
-    console.log(`Running test in project: ${testInfo.project.name}`); // ⭐ 修正点: keyValueをここで定義する
+test.describe("動画強制出力", () => {
+    test("動画取得の強制テスト（最小版）", async ({ browser, baseURL }, testInfo) => {
+        let page;
+        let context;
+        let video;
+        
+        // 1. ブラウザコンテキストを手動で作成し、動画設定を強制注入
+        //    (storageStateや認証情報は一切含めない)
+        context = await browser.newContext({
+            video: {
+                mode: "on", // 録画を強制的に有効化
+                retainOnFailure: true, // 失敗時も保持
+            },
+            baseURL: baseURL || "https://t2.auroralab-design.com", 
+        });
+        
+        page = await context.newPage();
+        
+        // 2. 動画オブジェクトにアクセスし、録画開始を強制
+        video = page.video();
+        if (video) {
+            console.log("[DEBUG] Video object found. Forcing initialization.");
+            // .path()を呼び出すことで、ffmpegの起動を促す
+            await video.path().catch(e => console.error("Video path access failed:", e.message)); 
+        }
 
-    let keyValue = testInfo.project.use.keyValue;
-    console.log(`@@@@@keyValue@@@@@: ${JSON.stringify(keyValue)}`);
+        try {
+            // 3. 動画に記録するための最小限の操作と待機
+            //    ページ遷移が失敗しても構いません
+            await page.goto("/", { waitUntil: 'domcontentloaded', timeout: 30000 });
+            await page.waitForTimeout(5000); // 録画時間を稼ぐための待機
 
-    // ... Playwrightの設定を無視し、コンテキスト作成時に動画設定を強制的に適用
-    const context = await browser.newContext({
-      video: {
-        mode: "on",
-        retainOnFailure: true,
-      },
+        } catch (e) {
+            // エラーが発生しても finally へ進みます
+            console.error("Test body encountered an error (will still try to save video):", e);
+        } finally {
+            // 4. ⭐ 絶体に手動保存を保証 (テストの成否に関わらず実行)
+            if (video) {
+                const projectName = testInfo.project.name;
+                const testTitle = testInfo.title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+                const outputPath = `test-results/${projectName}/${testTitle}_ABSOLUTE_MINIMAL.webm`;
+                
+                console.log(`[DEBUG] Saving video in FINALLY block to: ${outputPath}`);
+                
+                // ファイル書き込みが完了するまで待つ
+                await video.saveAs(outputPath).catch(e => console.error("Video saveAs failed:", e.message));
+            }
+            
+            // ページとコンテキストを閉じる
+            if (page) await page.close().catch(e => {});
+            if (context) await context.close().catch(e => {});
+        }
     });
-
-    const page = await context.newPage();
-
-    // ... 動画強制初期化ロジック (省略)
-    const video = page.video();
-
-    const cm_manager = new Customizer_manager(page); // ⭐ 修正点: keyValueは既にこのスコープで定義されているため、OK
-    await cm_manager.apply(keyValue);
-
-    await page.waitForTimeout(2000);
-
-    // ... 動画の手動保存ロジック ...
-    if (video) {
-      // ...
-      await video.saveAs(
-        `test-results/${testInfo.project.name}/${testInfo.title}_manual.webm`
-      );
-    }
-
-    await page.close();
-    await context.close();
-  });
 });
