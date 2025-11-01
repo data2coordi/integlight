@@ -7,9 +7,9 @@ test.describe("ビジュアルテスト", () => {
   test("カスタマイザー設定", async ({ page, browser }, testInfo) => {
     console.log(`Running test in project: ${testInfo.project.name}`);
 
-    // await page.goto("/", {
-    //   waitUntil: "networkidle",
-    // });
+    await page.goto("/", {
+      waitUntil: "networkidle",
+    });
 
     let keyValue = testInfo.project.use.keyValue;
     console.log(`@@@@@keyValue@@@@@: ${JSON.stringify(keyValue)}`);
