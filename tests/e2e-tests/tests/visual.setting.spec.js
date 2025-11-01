@@ -1,4 +1,4 @@
-import { test } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { Customizer_manager } from "../utils/customizer";
 // ======= 共通関数 =======
 
@@ -11,6 +11,7 @@ test.describe("ビジュアルテスト", () => {
     console.log(`@@@@@keyValue@@@@@: ${JSON.stringify(keyValue)}`);
 
     const page = await browser.newPage();
+    expect(page).toBeDefined();
 
     // ===============================================
     // ⭐ 動画録画の強制的な初期化を試みる (ffmpegの欠落に対応)
