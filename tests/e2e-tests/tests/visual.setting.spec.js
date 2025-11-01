@@ -12,6 +12,7 @@ test.describe("ビジュアルテスト", () => {
     //console.log(`@@@@@keyValue@@@@@: ${JSON.stringify(keyValue)}`);
 
     const page = await browser.newPage();
+    await page.goto("/", { waitUntil: "domcontentloaded" });
     //const cm_manager = new Customizer_manager(page);
     //await cm_manager.apply(keyValue);
     await page.waitForTimeout(2000);
