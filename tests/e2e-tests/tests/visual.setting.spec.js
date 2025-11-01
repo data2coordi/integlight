@@ -15,7 +15,7 @@ test.describe("動画デバッグ用テスト", () => {
 
     // 1. Configファイルから設定されたbaseURLへ移動
     //    Configファイルにvideo設定があるため、ここで自動的に録画が開始されているはず
-    //const page = await browser.newPage();
+    const page = await browser.newPage();
     await page.goto("/", { waitUntil: "domcontentloaded" });
 
     // 2. 録画時間を稼ぐための待機と簡単なアサーション（デバッグ用）
