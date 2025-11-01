@@ -110,7 +110,7 @@ const visualTestCnf = [
 
 const visualProjects = visualTestCnf.flatMap((conf) => [
   {
-    name: `setting_${testid}`,
+    name: `setting_${conf.testid}`,
     testDir: "./tests",
     testMatch: [/visual\.setting\.spec\.js/],
     dependencies: ["setup"],
@@ -121,10 +121,10 @@ const visualProjects = visualTestCnf.flatMap((conf) => [
     },
   },
   {
-    name: `visual_${testid}`,
+    name: `visual_${conf.testid}`,
     testDir: "./tests",
     testMatch: [/visual\.spec\.js/],
-    dependencies: [`setting_${testid}`],
+    dependencies: [`setting_${conf.testid}`],
     use: {
       ...devices["Desktop Chrome"],
     },
