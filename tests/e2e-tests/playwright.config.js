@@ -133,12 +133,6 @@ const visualProjects = visualTestCnf.flatMap(
       dependencies: [`setting_${testid}`],
       use: {
         ...devices["Desktop Chrome"],
-        storageState: authFile,
-        keyValue: {
-          testid,
-          siteType,
-          headerType,
-        },
       },
       workers: 4,
     },
