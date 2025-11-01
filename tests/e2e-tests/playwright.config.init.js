@@ -1,90 +1,90 @@
-import { defineconfig, devices } from "@playwright/test";
+import { defineConfig, devices } from "@playwright/test";
 
-// 環境によってurlや認証ファイルパスが変わるため、定数として定義
-const authfile = "playwright/.auth/user.json";
+// 環境によってURLや認証ファイルパスが変わるため、定数として定義
+const authFile = "playwright/.auth/user.json";
 
-const visualinittestcnf = [
-  // ... (visualinittestcnf の定義は省略せずそのまま)
+const visualInitTestCnf = [
+  // ... (visualInitTestCnf の定義は省略せずそのまま)
   {
     testid: "elegant_slider",
-    sitetype: "エレガント",
-    headertype: "スライダー",
-    slidertype: {
+    siteType: "エレガント",
+    headerType: "スライダー",
+    sliderType: {
       effect: "スライド",
       interval: "60",
     },
-    sliderimg: { imagepartialname: "firefly-1498.webp" },
-    slidertext: {
-      maintext: "visual init slider main テストタイトル",
-      subtext: "visual init slider sub テストタイトル",
+    sliderImg: { imagePartialName: "Firefly-1498.webp" },
+    sliderText: {
+      mainText: "visual init slider main テストタイトル",
+      subText: "visual init slider sub テストタイトル",
       top: "10",
       left: "10",
-      devicetype: "pc",
-      textcolor: "#0000ff",
-      textfont: "yu_mincho",
+      deviceType: "PC",
+      textColor: "#0000ff",
+      textFont: "yu_mincho",
     },
   },
 ];
 
-const visualinitprojects = visualinittestcnf.flatmap(
+const visualInitProjects = visualInitTestCnf.flatMap(
   ({
     testid,
-    sitetype,
-    headertype,
-    slidertype,
-    //headerimageimg,
-    //headerimagetext,
-    //sliderimg,
-    //slidertext,
+    siteType,
+    headerType,
+    sliderType,
+    //headerImageImg,
+    //headerImageText,
+    //sliderImg,
+    //sliderText,
   }) => [
     {
       name: `setting_init_${testid}`,
-      testdir: "./tests",
-      testmatch: [/visual\.setting\.spec\.js/],
+      testDir: "./tests",
+      testMatch: [/visual\.setting\.spec\.js/],
       //dependencies: ["setup_init"],
       use: {
-        baseurl: "https://t2.auroralab-design.com",
-        ...devices["desktop chrome"],
-        actiontimeout: 10_000,
+        baseURL: "https://t2.auroralab-design.com",
+        ...devices["Desktop Chrome"],
+        actionTimeout: 10_000,
         // 動画録画設定
         video: {
           mode: "on",
-          retainonfailure: true, // 成功・失敗に関わらず動画を残す
+          retainOnFailure: true, // 成功・失敗に関わらず動画を残す
         },
-        //storagestate: authfile,
-        keyvalue: {
+        //storageState: authFile,
+        keyValue: {
           testid,
-          sitetype,
-          headertype,
-          slidertype,
-          //  headerimageimg,
-          //  headerimagetext,
-          //  sliderimg,
-          //  slidertext,
+          siteType,
+          headerType,
+          sliderType,
+          //  headerImageImg,
+          //  headerImageText,
+          //  sliderImg,
+          //  sliderText,
         },
       },
     },
     {
       name: `visual_init_${testid}`,
-      testdir: "./tests",
-      snapshotdir: "./tests/visual.init/", // 期待値（比較元）画像
-      testmatch: [/visual\.spec\.js/],
+      testDir: "./tests",
+      snapshotDir: "./tests/visual.init/", // 期待値（比較元）画像
+      testMatch: [/visual\.spec\.js/],
       dependencies: [`setting_init_${testid}`],
       use: {
-        baseurl: "https://t2.auroralab-design.com",
-        ...devices["desktop chrome"],
-        actiontimeout: 10_000,
+        baseURL: "https://t2.auroralab-design.com",
+        ...devices["Desktop Chrome"],
+        actionTimeout: 10_000,
         // 動画録画設定
         video: {
           mode: "on",
-          retainonfailure: true, // 成功・失敗に関わらず動画を残す
+          retainOnFailure: true, // 成功・失敗に関わらず動画を残す
         },
       },
     },
   ]
 );
 
-export default defineconfig({
+export default defineConfig({
   // ... (reporterのコメントアウトはそのまま)
   // 各テストのデフォルトタイムアウト（ms）
   timeout: 60_000,
@@ -92,16 +92,16 @@ export default defineconfig({
   // 複数のテストプロジェクトを定義
   projects: [
     // 👈 配列を開始
-    ...visualinitprojects, // 👈 プロジェクトを展開
+    ...visualInitProjects, // 👈 プロジェクトを展開
     {
       // 👈 setup_init プロジェクトを配列の要素として追加
       name: "setup_init",
-      testmatch: "auth.setup.ts",
+      testMatch: "auth.setup.ts",
       use: {
-        baseurl: "https://t2.auroralab-design.com",
+        baseURL: "https://t2.auroralab-design.com",
         video: {
           mode: "on",
-          retainonfailure: true, // 成功・失敗に関わらず動画を残す
+          retainOnFailure: true, // 成功・失敗に関わらず動画を残す
         },
       },
     },
