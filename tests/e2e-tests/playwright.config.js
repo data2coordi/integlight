@@ -146,16 +146,16 @@ const visualProjects = visualTestCnf.flatMap(
 );
 
 export default defineConfig({
-  // reporter: [
-  //   ["list"],
-  //   [
-  //     "html",
-  //     {
-  //       open: "never",
-  //       outputFolder: "test-results",
-  //     },
-  //   ],
-  // ],
+  reporter: [
+    ["list"],
+    [
+      "html",
+      {
+        open: "never",
+        outputFolder: "test-results",
+      },
+    ],
+  ],
   // 各テストのデフォルトタイムアウト（ms）
   timeout: 60_000,
 
@@ -164,7 +164,7 @@ export default defineConfig({
     // click や fill など1アクションのタイムアウト
     actionTimeout: 10_000,
     // 動画録画設定
-    video: "on",
+    video: "off",
     // ブラウザのベースURL
     baseURL: BASE_URL,
   },
