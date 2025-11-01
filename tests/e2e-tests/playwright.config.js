@@ -132,9 +132,7 @@ const visualProjects = visualTestCnf.flatMap(
       testMatch: [/visual\.spec\.js/],
       dependencies: [`setting_${testid}`],
       use: {
-        baseURL: "https://t2.auroralab-design.com",
         ...devices["Desktop Chrome"],
-        storageState: authFile,
       },
       workers: 4,
     },
