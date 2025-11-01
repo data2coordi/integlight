@@ -10,8 +10,6 @@ test.describe("ビジュアルテスト", () => {
     let keyValue = testInfo.project.use.keyValue;
     console.log(`@@@@@keyValue@@@@@: ${JSON.stringify(keyValue)}`);
 
-    const page = await browser.newPage();
-
     await page.goto("/", { waitUntil: "networkidle" });
     const cm_manager = new Customizer_manager(page);
     await cm_manager.apply(keyValue);
