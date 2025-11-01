@@ -108,36 +108,29 @@ const visualTestCnf = [
   },
 ];
 
-const visualProjects = visualTestCnf.flatMap(
-  ({ testid, siteType, headerType, sliderType }) => [
-    {
-      name: `setting_${testid}`,
-      testDir: "./tests",
-      testMatch: [/visual\.setting\.spec\.js/],
-      dependencies: ["setup"],
-      use: {
-        ...devices["Desktop Chrome"],
-        storageState: authFile,
-        keyValue: {
-          testid,
-          siteType,
-          headerType,
-          sliderType,
-        },
-      },
+const visualProjects = visualTestCnf.flatMap((conf) => [
+  {
+    name: `setting_${testid}`,
+    testDir: "./tests",
+    testMatch: [/visual\.setting\.spec\.js/],
+    dependencies: ["setup"],
+    use: {
+      ...devices["Desktop Chrome"],
+      storageState: authFile,
+      keyValue: conf,
     },
-    {
-      name: `visual_${testid}`,
-      testDir: "./tests",
-      testMatch: [/visual\.spec\.js/],
-      dependencies: [`setting_${testid}`],
-      use: {
-        ...devices["Desktop Chrome"],
-      },
-      workers: 4,
+  },
+  {
+    name: `visual_${testid}`,
+    testDir: "./tests",
+    testMatch: [/visual\.spec\.js/],
+    dependencies: [`setting_${testid}`],
+    use: {
+      ...devices["Desktop Chrome"],
     },
-  ]
-);
+    workers: 4,
+  },
+]);
 
 export default defineConfig({
   reporter: [
