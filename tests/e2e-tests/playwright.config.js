@@ -146,16 +146,16 @@ const visualProjects = visualTestCnf.flatMap(
 );
 
 export default defineConfig({
-  reporter: [
-    ["list"],
-    [
-      "html",
-      {
-        open: "never",
-        outputFolder: "test-results",
-      },
-    ],
-  ],
+  // reporter: [
+  //   ["list"],
+  //   [
+  //     "html",
+  //     {
+  //       open: "never",
+  //       outputFolder: "test-results",
+  //     },
+  //   ],
+  // ],
   // 各テストのデフォルトタイムアウト（ms）
   timeout: 60_000,
 
