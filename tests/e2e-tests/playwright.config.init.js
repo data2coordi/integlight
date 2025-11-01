@@ -41,7 +41,7 @@ const visualInitProjects = visualInitTestCnf.flatMap(
       name: `setting_init_${testid}`,
       testDir: "./tests",
       testMatch: [/visual\.setting\.spec\.js/],
-      dependencies: ["setup_init"],
+      //dependencies: ["setup_init"],
       use: {
         baseURL: "https://t2.auroralab-design.com",
         ...devices["Desktop Chrome"],
