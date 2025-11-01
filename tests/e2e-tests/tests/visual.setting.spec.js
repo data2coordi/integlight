@@ -1,67 +1,42 @@
-import { test } from "@playwright/test";
+// tests/visual.setting.spec.js
 
-test.describe("動画強制出力", () => {
-  test("動画取得の強制テスト（最小版）", async ({
-    browser,
-    baseURL,
-  }, testInfo) => {
-    let page;
-    let context;
-    let video;
+import { test, expect } from "@playwright/test";
+// Customizer_manager は一旦削除せず残しておきますが、認証なしでは機能しません
+// import { Customizer_manager } from "../utils/customizer";
 
-    // 1. ブラウザコンテキストを手動で作成し、動画設定を強制注入
-    //    (storageStateや認証情報は一切含めない)
-    context = await browser.newContext({
-      video: {
-        mode: "on", // 録画を強制的に有効化
-        retainOnFailure: true, // 失敗時も保持
-      },
-      baseURL: baseURL || "https://t2.auroralab-design.com",
-    });
+// 🚨 Playwright Test Runnerは、Configファイルから認証情報（storageState）を自動でロードします。
+//    テストコードから認証ファイルパスの定義を削除します。
+// const authFile = "playwright/.auth/user.json";
 
-    page = await context.newPage();
+test.describe("動画デバッグ用テスト", () => {
+  // pageフィクスチャを使用することで、Configファイルの設定（baseURL, video, storageState）が適用されます。
+  test("標準のページ遷移と待機", async ({ page, browser }, testInfo) => {
+    console.log(`Running test in project: ${testInfo.project.name}`);
 
-    // 2. 動画オブジェクトにアクセスし、録画開始を強制
-    video = page.video();
+    // 1. Configファイルから設定されたbaseURLへ移動
+    //    Configファイルにvideo設定があるため、ここで自動的に録画が開始されているはず
+    await page.goto("/", { waitUntil: "domcontentloaded" });
+
+    // 2. 録画時間を稼ぐための待機と簡単なアサーション（デバッグ用）
+    await page.waitForTimeout(5000);
+    await expect(page).toHaveURL(/.*/); // URLが何かあればOK
+
+    // 3. 動画ファイルパスをログに出力（自動保存の確認用）
+    const video = page.video();
     if (video) {
-      console.log("[DEBUG] Video object found. Forcing initialization.");
-      // .path()を呼び出すことで、ffmpegの起動を促す
-      await video
-        .path()
-        .catch((e) => console.error("Video path access failed:", e.message));
-    }
-
-    try {
-      // 3. 動画に記録するための最小限の操作と待機
-      //    ページ遷移が失敗しても構いません
-      await page.goto("/", { waitUntil: "domcontentloaded", timeout: 30000 });
-      await page.waitForTimeout(5000); // 録画時間を稼ぐための待機
-    } catch (e) {
-      // エラーが発生しても finally へ進みます
-      console.error(
-        "Test body encountered an error (will still try to save video):",
-        e
+      console.log(
+        `[DEBUG] Video is active. Path (if saved): ${await video
+          .path()
+          .catch((e) => "Path unavailable")}`
       );
-    } finally {
-      // 4. ⭐ 絶体に手動保存を保証 (テストの成否に関わらず実行)
-      if (video) {
-        const projectName = testInfo.project.name;
-        const testTitle = testInfo.title
-          .replace(/[^a-z0-9]/gi, "_")
-          .toLowerCase();
-        const outputPath = `test-results/${projectName}/${testTitle}_ABSOLUTE_MINIMAL.webm`;
-
-        console.log(`[DEBUG] Saving video in FINALLY block to: ${outputPath}`);
-
-        // ファイル書き込みが完了するまで待つ
-        await video
-          .saveAs(outputPath)
-          .catch((e) => console.error("Video saveAs failed:", e.message));
-      }
-
-      // ページとコンテキストを閉じる
-      if (page) await page.close().catch((e) => {});
-      if (context) await context.close().catch((e) => {});
+    } else {
+      console.log(`[DEBUG] Video object is NOT available via page.video().`);
     }
+
+    // 🚨 Configファイル設定に基づき、テスト終了時にPlaywrightが自動で動画を保存するはずです。
+
+    // ページやコンテキストの手動 close は不要（フィクスチャが自動で処理）
+    // await page.close();
+    // await context.close();
   });
 });
