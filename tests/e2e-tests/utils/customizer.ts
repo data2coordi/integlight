@@ -207,12 +207,13 @@ export class Customizer_headerImage_img {
   }
   async setHeaderImage(imageName) {
     await this.page.getByRole("button", { name: "画像を追加" }).nth(0).click();
+    const mediaModal = this.page.locator(".attachments-browser");
+    await mediaModal.waitFor({ state: "visible", timeout: 15000 });
+
     await this.page
       .getByRole("button", { name: "メディアライブラリ" })
       .nth(0)
       .click();
-    const mediaModal = this.page.locator(".attachments-browser");
-    await mediaModal.waitFor({ state: "visible", timeout: 15000 });
 
     const searchInput = this.page.locator("#media-search-input");
     await searchInput.fill(imageName);
