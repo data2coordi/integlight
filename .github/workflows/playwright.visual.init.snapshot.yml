@@ -28,13 +28,13 @@ jobs:
       #   run: mkdir -p playwright/.auth
       #   working-directory: tests/e2e-tests
 
-      # - name: Run Playwright visual init snapshot update
-      #   run: npx playwright test --project=init_iii_visual_elegant_slider  --config=playwright.config.visual.init.js --update-snapshots
-      #   working-directory: tests/e2e-tests
-
       - name: Run Playwright visual init snapshot update
-        run: npx playwright test --project=init_iii_visual_pop_slider  --config=playwright.config.visual.init.js --update-snapshots
+        run: npx playwright test --project=init_iii_visual_elegant_slider  --config=playwright.config.visual.init.js --update-snapshots
         working-directory: tests/e2e-tests
+
+      # - name: Run Playwright visual init snapshot update
+      #   run: npx playwright test --project=init_iii_visual_pop_slider  --config=playwright.config.visual.init.js --update-snapshots
+      #   working-directory: tests/e2e-tests
 
       # - name: Run Playwright visual init snapshot update
       #   run: npx playwright test --project=init_iii_visual_pop_img --config=playwright.config.visual.init.js --update-snapshots
