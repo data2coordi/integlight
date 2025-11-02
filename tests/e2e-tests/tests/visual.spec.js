@@ -10,11 +10,11 @@ const pages = [
     name: "front top",
     url: `${baseUrl}/fire%e3%81%a7%e8%87%aa%e7%94%b1%e3%81%a8%e6%88%90%e9%95%b7%e3%82%92%e6%8e%b4%e3%82%80%ef%bc%81/`,
   },
-  { name: "カテゴリ一覧", url: `${baseUrl}/category/fire-blog/` },
-  { name: "固定ページ", url: `${baseUrl}/profile/` },
-  { name: "ブログ", url: `${baseUrl}/sidefire-7500man-life-cost/` },
-  { name: "プラグイン1", url: `${baseUrl}/ptest/` },
-  { name: "プラグイン2", url: `${baseUrl}/ptest2/` },
+  // { name: "カテゴリ一覧", url: `${baseUrl}/category/fire-blog/` },
+  // { name: "固定ページ", url: `${baseUrl}/profile/` },
+  // { name: "ブログ", url: `${baseUrl}/sidefire-7500man-life-cost/` },
+  // { name: "プラグイン1", url: `${baseUrl}/ptest/` },
+  // { name: "プラグイン2", url: `${baseUrl}/ptest2/` },
 ];
 
 const pagesForImageHeader = [
