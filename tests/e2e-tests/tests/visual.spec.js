@@ -45,7 +45,7 @@ const devices = [
 test.describe.parallel("ビジュアルテスト", () => {
   test.beforeAll(async () => {
     console.log("@@@@@@@@@@@Waiting 5 seconds before tests start...");
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+    await new Promise((resolve) => setTimeout(resolve, 15000));
   });
 
   for (const device of devices) {
