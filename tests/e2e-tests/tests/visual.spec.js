@@ -42,7 +42,8 @@ const devices = [
 ];
 
 // ======= テスト展開 =======
-test.describe.parallel("ビジュアルテスト", () => {
+//test.describe.parallel("ビジュアルテスト", () => {
+test.describe("ビジュアルテスト", () => {
   for (const device of devices) {
     test.describe(`${device.name}`, () => {
       test.use(device.use);

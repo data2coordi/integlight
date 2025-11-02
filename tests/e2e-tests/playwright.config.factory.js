@@ -41,7 +41,7 @@ export function createVisualConfig({
       use: {
         ...devices["Desktop Chrome"],
       },
-      workers: 4,
+      workers: 1,
     },
   ]);
 
