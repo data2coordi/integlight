@@ -4,7 +4,7 @@ import { defineConfig, devices } from "@playwright/test";
 const BASE_URL = "https://t2.auroralab-design.com";
 const authFile = "playwright/.auth/user.json";
 
-const visualInitTestCnf = [
+const visualTestCnf = [
   {
     testid: "elegant_slider",
     siteType: "エレガント",
@@ -48,7 +48,7 @@ const visualInitTestCnf = [
   },
 ];
 
-const visualInitProjects = visualInitTestCnf.flatMap((conf) => [
+const visualInitProjects = visualTestCnf.flatMap((conf) => [
   {
     name: `setting_${conf.testid}`,
     testDir: "./tests",
