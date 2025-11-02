@@ -1,9 +1,9 @@
 #!/bin/bash
 
 
-clear
-#./integlight_backup.sh restore
 
+clear
+./integlight_backup_init.sh restore
 
 # ===== ユーザー設定 =====
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
