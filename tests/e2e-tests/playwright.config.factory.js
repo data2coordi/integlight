@@ -29,6 +29,7 @@ export function createVisualConfig({
         // 'keyValue'よりも意図が明確な'testData'に変更
         testData: conf,
       },
+      workers: 1,
     },
     {
       name: `${projectPrefix}visual_${conf.testid}`,
