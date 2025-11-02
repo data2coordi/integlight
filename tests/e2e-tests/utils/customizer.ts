@@ -95,7 +95,12 @@ export class Customizer_slider_img {
 
     // 検索結果の最初の画像をクリック
     const targetImage = this.page
-      .locator(`.attachments-browser img[src*="${imagePartialName}"]`)
+      .locator(
+        `.attachments-browser img[src*="${imagePartialName.replace(
+          ".webp",
+          ""
+        )}"]`
+      )
       .first();
     await targetImage.waitFor({ state: "visible", timeout: 15000 });
     await targetImage.click({ force: true });
@@ -226,8 +231,11 @@ export class Customizer_headerImage_img {
     await searchInput.press("Enter");
 
     const targetImage = this.page
-      .locator(`.attachments-browser img[src*="${imageName}"]`)
+      .locator(
+        `.attachments-browser img[src*="${imageName.replace(".webp", "")}"]`
+      )
       .first();
+
     await targetImage.waitFor({ state: "visible", timeout: 15000 });
     await targetImage.click({ force: true });
 
