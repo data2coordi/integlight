@@ -77,16 +77,17 @@ export class Customizer_slider_img {
       .nth(image_selBtnNo)
       .click();
 
-    // モーダルが表示されるのを待つ
-    const mediaModal = this.page.locator(".attachments-browser");
-    await mediaModal.waitFor({ state: "visible", timeout: 15000 });
-
     const mediaLibraryTab = this.page.getByRole("tab", {
       name: "メディアライブラリ",
     });
     if (await mediaLibraryTab.isVisible()) {
       await mediaLibraryTab.click();
     }
+
+    // モーダルが表示されるのを待つ
+    const mediaModal = this.page.locator(".attachments-browser");
+    await mediaModal.waitFor({ state: "visible", timeout: 15000 });
+
     // 検索ボックスに入力して検索
     const searchInput = this.page.locator("#media-search-input");
     await searchInput.fill(imagePartialName);
@@ -209,8 +210,6 @@ export class Customizer_headerImage_img {
   }
   async setHeaderImage(imageName) {
     await this.page.getByRole("button", { name: "画像を追加" }).nth(0).click();
-    const mediaModal = this.page.locator(".attachments-browser");
-    await mediaModal.waitFor({ state: "visible", timeout: 15000 });
 
     const mediaLibraryTab = this.page.getByRole("tab", {
       name: "メディアライブラリ",
@@ -218,6 +217,9 @@ export class Customizer_headerImage_img {
     if (await mediaLibraryTab.isVisible()) {
       await mediaLibraryTab.click();
     }
+
+    const mediaModal = this.page.locator(".attachments-browser");
+    await mediaModal.waitFor({ state: "visible", timeout: 15000 });
 
     const searchInput = this.page.locator("#media-search-input");
     await searchInput.fill(imageName);
