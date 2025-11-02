@@ -50,5 +50,5 @@ export default createVisualConfig({
   baseURL: BASE_URL,
   testConfigs: visualTestCnf,
   snapshotDir: "./tests/visual.init/", // 期待値（比較元）画像
-  projectPrefix: "init_", // プロジェクト名を区別するためのプレフィックス
+  projectPrefix: "init_@@@_", // プロジェクト名を区別するためのプレフィックス
 });
