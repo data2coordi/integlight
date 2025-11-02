@@ -58,7 +58,7 @@ export function createVisualConfig({
     timeout: 60_000,
     use: {
       actionTimeout: 10_000,
-      video: "on",
+      video: "off",
       baseURL: baseURL,
     },
     projects: [
