@@ -4,7 +4,7 @@ import { Customizer_manager } from "../utils/customizer";
 
 // ======= テスト展開 =======
 test.describe("ビジュアルテスト", () => {
-  test("カスタマイザー設定", async ({ page, browser }, testInfo) => {
+  test("カスタマイザー設定", async ({ page }, testInfo) => {
     console.log(`Running test in project: ${testInfo.project.name}`);
 
     const testData = testInfo.project.use.testData;
