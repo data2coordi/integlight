@@ -81,10 +81,12 @@ export class Customizer_slider_img {
     const mediaModal = this.page.locator(".attachments-browser");
     await mediaModal.waitFor({ state: "visible", timeout: 15000 });
 
-    await this.page
-      .getByRole("button", { name: "メディアライブラリ" })
-      .nth(0)
-      .click();
+    const mediaLibraryTab = this.page.getByRole("tab", {
+      name: "メディアライブラリ",
+    });
+    if (await mediaLibraryTab.isVisible()) {
+      await mediaLibraryTab.click();
+    }
     // 検索ボックスに入力して検索
     const searchInput = this.page.locator("#media-search-input");
     await searchInput.fill(imagePartialName);
@@ -210,10 +212,12 @@ export class Customizer_headerImage_img {
     const mediaModal = this.page.locator(".attachments-browser");
     await mediaModal.waitFor({ state: "visible", timeout: 15000 });
 
-    await this.page
-      .getByRole("button", { name: "メディアライブラリ" })
-      .nth(0)
-      .click();
+    const mediaLibraryTab = this.page.getByRole("tab", {
+      name: "メディアライブラリ",
+    });
+    if (await mediaLibraryTab.isVisible()) {
+      await mediaLibraryTab.click();
+    }
 
     const searchInput = this.page.locator("#media-search-input");
     await searchInput.fill(imageName);
