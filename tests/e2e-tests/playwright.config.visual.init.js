@@ -1,15 +1,28 @@
 import { defineConfig, devices } from "@playwright/test";
 
 // 環境によってURLや認証ファイルパスが変わるため、定数として定義
-const BASE_URL = "https://wpdev.auroralab-design.com";
+const BASE_URL = "https://t2.auroralab-design.com";
 const authFile = "playwright/.auth/user.json";
 
-const visualTestCnf = [
+const visualInitTestCnf = [
   {
     testid: "elegant_slider",
     siteType: "エレガント",
     headerType: "スライダー",
-    sliderType: { effect: "スライド", interval: "60" },
+    sliderType: {
+      effect: "スライド",
+      interval: "60",
+    },
+    sliderImg: { imagePartialName: "Firefly-1498.webp" },
+    sliderText: {
+      mainText: "visual init slider main テストタイトル",
+      subText: "visual init slider sub テストタイトル",
+      top: "10",
+      left: "10",
+      deviceType: "PC",
+      textColor: "#0000ff",
+      textFont: "yu_mincho",
+    },
   },
   {
     testid: "pop_slider",
@@ -21,10 +34,21 @@ const visualTestCnf = [
     testid: "pop_img",
     siteType: "ポップ",
     headerType: "静止画像",
+    headerImageImg: { imageName: "Firefly-1498.webp" },
+    headerImageText: {
+      mainText: "テストタイトル",
+      subText: "これはPlaywrightテストによって入力された説明文です。",
+      textFont: "yu_mincho",
+      textPositionTop: "20",
+      textPositionLeft: "30",
+      textPositionTop_mobile: "5",
+      textPositionLeft_mobile: "10",
+      textColor: "#ff0000",
+    },
   },
 ];
 
-const visualProjects = visualTestCnf.flatMap((conf) => [
+const visualInitProjects = visualInitTestCnf.flatMap((conf) => [
   {
     name: `setting_${conf.testid}`,
     testDir: "./tests",
@@ -39,6 +63,7 @@ const visualProjects = visualTestCnf.flatMap((conf) => [
   {
     name: `visual_${conf.testid}`,
     testDir: "./tests",
+    snapshotDir: "./tests/visual.init/", // 期待値（比較元）画像
     testMatch: [/visual\.spec\.js/],
     dependencies: [`setting_${conf.testid}`],
     use: {
@@ -79,6 +104,6 @@ export default defineConfig({
       name: "setup",
       testMatch: "auth.setup.ts",
     },
-    ...visualProjects,
+    ...visualInitProjects,
   ],
 });
