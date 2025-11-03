@@ -23,7 +23,6 @@ export function createVisualConfig({
       testDir: "./tests",
       testMatch: [/visual\.setting\.spec\.js/],
       dependencies: ["setup"],
-      outputDir: `test-results/${projectPrefix}visual_${conf.testid}`,
       use: {
         ...devices["Desktop Chrome"],
         storageState: authFile,
@@ -34,6 +33,7 @@ export function createVisualConfig({
     {
       name: `${projectPrefix}visual_${conf.testid}`,
       testDir: "./tests",
+      outputDir: `test-results/${projectPrefix}visual_${conf.testid}`,
       // snapshotDirが指定されている場合のみ設定に追加
       ...(snapshotDir && { snapshotDir }),
       testMatch: [/visual\.spec\.js/],
