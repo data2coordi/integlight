@@ -50,6 +50,7 @@ test.describe("ビジュアルテスト", () => {
 
       for (const { name, url, options } of pages) {
         test(`： ${name}`, async ({ page }) => {
+          await page.waitForTimeout(10000); // 常に10秒待機
           await page.goto(url, { waitUntil: "networkidle" });
 
           const options = {
