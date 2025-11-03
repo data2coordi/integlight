@@ -29,14 +29,17 @@ jobs:
       #   working-directory: tests/e2e-tests
 
       - name: Run Playwright visual tests
+        if: always()
         run: npx playwright test --project=visual_elegant_slider --config=playwright.config.visual.js --update-snapshots
         working-directory: tests/e2e-tests
 
       - name: Run Playwright visual tests
+        if: always()
         run: npx playwright test --project=visual_pop_slider --config=playwright.config.visual.js --update-snapshots
         working-directory: tests/e2e-tests
 
       - name: Run Playwright visual tests
+        if: always()
         run: npx playwright test --project=visual_pop_img --config=playwright.config.visual.js --update-snapshots
         working-directory: tests/e2e-tests
 
