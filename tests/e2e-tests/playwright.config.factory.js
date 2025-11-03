@@ -23,6 +23,7 @@ export function createVisualConfig({
       testDir: "./tests",
       testMatch: [/visual\.setting\.spec\.js/],
       dependencies: ["setup"],
+      outputDir: `test-results/${projectPrefix}visual_${conf.testid}`,
       use: {
         ...devices["Desktop Chrome"],
         storageState: authFile,
