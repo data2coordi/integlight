@@ -32,13 +32,13 @@ jobs:
         run: npx playwright test --project=init_visual_elegant_slider --project=init_visual_pop_slider  --update-snapshots
         working-directory: tests/e2e-tests
 
-      - name: Run Playwright visual init snapshot update
-        run: npx playwright test --project=init_visual_pop_slider --config=playwright.config.visual.init.js --update-snapshots
-        working-directory: tests/e2e-tests
+      # - name: Run Playwright visual init snapshot update
+      #   run: npx playwright test --project=init_visual_pop_slider --config=playwright.config.visual.init.js --update-snapshots
+      #   working-directory: tests/e2e-tests
 
-      - name: Run Playwright visual init snapshot update
-        run: npx playwright test --project=init_visual_pop_img --config=playwright.config.visual.init.js --update-snapshots
-        working-directory: tests/e2e-tests
+      # - name: Run Playwright visual init snapshot update
+      #   run: npx playwright test --project=init_visual_pop_img --config=playwright.config.visual.init.js --update-snapshots
+      #   working-directory: tests/e2e-tests
 
       - name: Upload test artifacts
         if: always()
