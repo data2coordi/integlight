@@ -35,15 +35,15 @@ jobs:
 
       # 5. Visual Init テスト (全プロジェクト)
       - name: Run Playwright visual init tests
-        run: npx playwright test --project=visual_elegant_slider --config=playwright.config.visual.js
+        run: npx playwright test --project=visual_elegant_slider --config=playwright.config.visual.init.js
         working-directory: tests/e2e-tests
 
       - name: Run Playwright visual tests
-        run: npx playwright test --project=visual_pop_slider --config=playwright.config.visual.js
+        run: npx playwright test --project=visual_pop_slider --config=playwright.config.visual.init.js
         working-directory: tests/e2e-tests
 
       - name: Run Playwright visual tests
-        run: npx playwright test --project=visual_pop_img --config=playwright.config.visual.js
+        run: npx playwright test --project=visual_pop_img --config=playwright.config.visual.init.js
         working-directory: tests/e2e-tests
 
       # 6. テスト結果保存
