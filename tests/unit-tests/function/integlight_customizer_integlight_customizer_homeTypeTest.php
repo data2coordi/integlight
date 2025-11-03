@@ -123,7 +123,7 @@ class integlight_customizer_integlight_customizer_homeTypeTest extends WP_UnitTe
         $this->assertEquals('Site Type Settings', $control->label);
         $this->assertEquals('radio', $control->type);
         $this->assertEquals(
-            ['siteType1' => 'Elegant', 'siteType2' => 'Pop'],
+            ['siteType1' => 'Elegant', 'siteType2' => 'Pop', 'siteType3' => 'Simple'],
             $control->choices
         );
     }

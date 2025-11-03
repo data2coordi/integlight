@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 
 /**
- * integlight_customizer_slider_applyHeaderTextStyle クラスのユニットテスト
+ * integlight_customizer_slider_headerTextStyle クラスのユニットテスト
  *
- * @coversDefaultClass integlight_customizer_slider_applyHeaderTextStyle
+ * @coversDefaultClass integlight_customizer_slider_headerTextStyle
  * @group customizer
  * @group slider
  * @group styles
@@ -14,7 +14,7 @@ class integlight_customizer_slider_applyHeaderTextStyleTest extends WP_UnitTestC
 {
     /**
      * テスト対象クラスのインスタンス
-     * @var integlight_customizer_slider_applyHeaderTextStyle|null
+     * @var integlight_customizer_slider_headerTextStyle|null
      */
     private $instance = null;
 
@@ -39,7 +39,7 @@ class integlight_customizer_slider_applyHeaderTextStyleTest extends WP_UnitTestC
         parent::setUp();
         // テスト対象クラスのインスタンスを作成
         // コンストラクタがフックを追加する
-        $this->instance = new integlight_customizer_slider_applyHeaderTextStyle();
+        $this->instance = new integlight_customizer_slider_headerTextStyle();
 
         // テスト前に theme_mod をクリア
         foreach ($this->theme_mods_keys as $key) {
