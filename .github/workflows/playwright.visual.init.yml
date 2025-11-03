@@ -33,9 +33,10 @@ jobs:
       #   run: npx playwright test --project=setup --config=playwright.config.js
       #   working-directory: tests/e2e-tests
 
-      # 5. Visual Init テスト
-      - name: Run Playwright visual init tests
-        run: npx playwright test --project=init_visual_elegant_slider --project=init_visual_pop_slider --project=init_visual_pop_img --config=playwright.config.visual.init.js
+      # 5. Visual Init テスト (全プロジェクト)
+      - name: Run Playwright visual init tests (all projects)
+        # By omitting the --project flag, all projects defined in the config file will be run.
+        run: npx playwright test --config=playwright.config.visual.init.js
         working-directory: tests/e2e-tests
 
       # 6. テスト結果保存
