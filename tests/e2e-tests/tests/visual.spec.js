@@ -50,7 +50,9 @@ test.describe("ビジュアルテスト", () => {
 
       for (const { name, url, options } of pages) {
         test(`： ${name}`, async ({ page }) => {
-          await page.goto(url, { waitUntil: "networkidle" });
+          // キャッシュを回避するため、URLに現在時刻を付与して毎回違うURLにする
+          const urlWithCacheBuster = `${url}?cache_bust=${Date.now()}`;
+          await page.goto(urlWithCacheBuster, { waitUntil: "networkidle" });
 
           const options = {
             maxDiffPixelRatio: 0.03, // 人間の目でわからないレベル
