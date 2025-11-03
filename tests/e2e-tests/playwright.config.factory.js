@@ -39,6 +39,7 @@ export function createVisualConfig({
       dependencies: [`${projectPrefix}setting_${conf.testid}`],
       use: {
         ...devices["Desktop Chrome"],
+        storageState: authFile,
       },
       workers: 4,
     },
