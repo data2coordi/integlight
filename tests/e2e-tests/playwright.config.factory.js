@@ -46,20 +46,20 @@ export function createVisualConfig({
   ]);
 
   return defineConfig({
-    // reporter: [
-    //   ["list"],
-    //   [
-    //     "html",
-    //     {
-    //       open: "never",
-    //       outputFolder: "test-results",
-    //     },
-    //   ],
-    // ],
+    reporter: [
+      ["list"],
+      // [
+      //   "html",
+      //   {
+      //     open: "never",
+      //     outputFolder: "test-results",
+      //   },
+      // ],
+    ],
     timeout: 60_000,
     use: {
       actionTimeout: 10_000,
-      video: "on",
+      video: "off",
       baseURL: baseURL,
     },
     projects: [
