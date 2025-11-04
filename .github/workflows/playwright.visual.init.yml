@@ -2,7 +2,6 @@ name: Playwright Compare Visual Init Test
 #vtest
 on:
   push:
-    branches: [dev]
   pull_request:
   workflow_dispatch:
 
@@ -34,17 +33,20 @@ jobs:
       #   run: npx playwright test --project=setup --config=playwright.config.js
       #   working-directory: tests/e2e-tests
 
-      # 5. Visual テスト
-      - name: Run Playwright visual tests
-        run: npx playwright test --project=visual_init_elegant_slider --config=playwright.config.js
+      # 5. Visual Init テスト (全プロジェクト)
+      - name: Run Playwright visual init snapshot update
+        if: always()
+        run: npx playwright test --project=init_visual_elegant_slider  --config=playwright.config.visual.init.js
         working-directory: tests/e2e-tests
 
-      - name: Run Playwright visual tests
-        run: npx playwright test --project=visual_init_pop_slider --config=playwright.config.js
+      - name: Run Playwright visual init snapshot update
+        if: always()
+        run: npx playwright test --project=init_visual_pop_slider --config=playwright.config.visual.init.js
         working-directory: tests/e2e-tests
 
-      - name: Run Playwright visual tests
-        run: npx playwright test --project=visual_init_pop_img --config=playwright.config.js
+      - name: Run Playwright visual init snapshot update
+        if: always()
+        run: npx playwright test --project=init_visual_pop_img --config=playwright.config.visual.init.js
         working-directory: tests/e2e-tests
 
       # 6. テスト結果保存

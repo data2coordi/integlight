@@ -33,11 +33,11 @@ const TEST_CONFIGS = {
     textColor: "#ff0000",
     textFont: "yu_mincho",
     imagePartialName: "Firefly-203280",
-    imagePartialName_forPcHome2: "Firefly-51159-1.webp",
+    imagePartialName_forPcSiteType2: "Firefly-51159-1.webp",
   },
 };
 
-async function verifySliderOnSlide_Home1(
+async function verifySliderOnSlide_SiteType1(
   page,
   imagePartialName,
   expectedCount = 2
@@ -73,7 +73,7 @@ async function verifySliderOnSlide_Home1(
   ).toHaveCount(expectedCount);
 }
 
-async function verifySliderOnFade_Home2Sp(page, imagePartialName) {
+async function verifySliderOnFade_SiteType2Sp(page, imagePartialName) {
   await page.goto("/", { waitUntil: "networkidle" });
   await expect(page.locator(".slider.fade-effect")).toBeVisible();
 
@@ -129,7 +129,7 @@ async function verifySliderOnFade_Front(page, imagePartialName) {
   ).toHaveCount(1);
 }
 
-async function verifySliderOnFade_Home2Pc(page, imagePartialName) {
+async function verifySliderOnFade_SiteType2Pc(page, imagePartialName) {
   await page.goto("/", { waitUntil: "networkidle" });
   await expect(page.locator(".slider.fade-effect")).toBeVisible();
 
@@ -279,7 +279,7 @@ test.describe("初期設定", () => {
   });
 });
 ////////////////////////////////////////////////////////
-//フェード&home1でカスタマイザーでのテキストの詳細設定を検証する s
+//フェード&siteType1でカスタマイザーでのテキストの詳細設定を検証する s
 ////////////////////////////////////////////////////////
 test.describe("初期設定とテキスト設定の検証", () => {
   test.describe("SP環境", () => {
@@ -328,13 +328,13 @@ test.describe("初期設定とテキスト設定の検証", () => {
   });
 });
 ////////////////////////////////////////////////////////
-//フェード&home1でカスタマイザーでのテキストの詳細設定を検証する e
+//フェード&siteType1でカスタマイザーでのテキストの詳細設定を検証する e
 ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////
 //スライダー(フェード）の動作を検証する s
 ////////////////////////////////////////////////////////
 test.describe("フェード", () => {
-  test.describe("home1", () => {
+  test.describe("siteType1", () => {
     test.describe("SP環境", () => {
       test.beforeAll(async ({ browser }) => {
         const context = await browser.newContext();
@@ -359,7 +359,7 @@ test.describe("フェード", () => {
 
       test("カスタマイザーで画像、テキストを選択...", async ({ page }) => {
         console.log(
-          "[10_slider.spec.ts] ===== START: フェード > home1 > SP環境 - カスタマイザーで画像、テキストを選択... ====="
+          "[10_slider.spec.ts] ===== START: フェード > siteType1 > SP環境 - カスタマイザーで画像、テキストを選択... ====="
         );
         const config = TEST_CONFIGS.spCustomizerSetting;
         await test.step("フロントページで表示確認", () =>
@@ -370,7 +370,7 @@ test.describe("フェード", () => {
     test.describe("PC環境", () => {
       test("カスタマイザーで画像、テキストを選択...", async ({ page }) => {
         console.log(
-          "[10_slider.spec.ts] ===== START: フェード > home1 > PC環境 - カスタマイザーで画像、テキストを選択... ====="
+          "[10_slider.spec.ts] ===== START: フェード > siteType1 > PC環境 - カスタマイザーで画像、テキストを選択... ====="
         );
         const config = TEST_CONFIGS.pcCustomizerSetting;
         await test.step("フロントページで表示確認", () =>
@@ -378,7 +378,7 @@ test.describe("フェード", () => {
       });
     });
   });
-  test.describe("home2", () => {
+  test.describe("siteType2", () => {
     test.beforeAll(async ({ browser }) => {
       const context = await browser.newContext();
       const page = await context.newPage();
@@ -398,24 +398,24 @@ test.describe("フェード", () => {
 
       test("フェード画像切り替え確認", async ({ page }) => {
         console.log(
-          "[10_slider.spec.ts] ===== START: フェード > home2 > SP環境 - フェード画像切り替え確認 ====="
+          "[10_slider.spec.ts] ===== START: フェード > siteType2 > SP環境 - フェード画像切り替え確認 ====="
         );
         const config = TEST_CONFIGS.spCustomizerSetting;
         await test.step("トップページで表示確認", () =>
-          verifySliderOnFade_Home2Sp(page, config.imagePartialName));
+          verifySliderOnFade_SiteType2Sp(page, config.imagePartialName));
       });
     });
 
     test.describe("PC環境", () => {
       test("フェード画像切り替え確認", async ({ page }) => {
         console.log(
-          "[10_slider.spec.ts] ===== START: フェード > home2 > PC環境 - フェード画像切り替え確認 ====="
+          "[10_slider.spec.ts] ===== START: フェード > siteType2 > PC環境 - フェード画像切り替え確認 ====="
         );
         const config = TEST_CONFIGS.pcCustomizerSetting;
         await test.step("トップページで表示確認", async () => {
-          await verifySliderOnFade_Home2Pc(
+          await verifySliderOnFade_SiteType2Pc(
             page,
-            config.imagePartialName_forPcHome2
+            config.imagePartialName_forPcSiteType2
           );
         });
       });
@@ -427,7 +427,7 @@ test.describe("フェード", () => {
 //スライダー(スライド）の動作を検証する s
 ////////////////////////////////////////////////////////
 test.describe("スライド", () => {
-  test.describe("home1", () => {
+  test.describe("siteType1", () => {
     test.beforeAll(async ({ browser }) => {
       const context = await browser.newContext();
       const page = await context.newPage();
@@ -447,28 +447,28 @@ test.describe("スライド", () => {
 
       test("スライド画像切り替え確認", async ({ page }) => {
         console.log(
-          "[10_slider.spec.ts] ===== START: スライド > home1 > SP環境 - スライド画像切り替え確認 ====="
+          "[10_slider.spec.ts] ===== START: スライド > siteType1 > SP環境 - スライド画像切り替え確認 ====="
         );
         const config = TEST_CONFIGS.spCustomizerSetting;
         await test.step("トップページで表示確認", () =>
-          verifySliderOnSlide_Home1(page, config.imagePartialName));
+          verifySliderOnSlide_SiteType1(page, config.imagePartialName));
       });
     });
 
     test.describe("PC環境", () => {
       test("スライド画像切り替え確認", async ({ page }) => {
         console.log(
-          "[10_slider.spec.ts] ===== START: スライド > home1 > PC環境 - スライド画像切り替え確認 ====="
+          "[10_slider.spec.ts] ===== START: スライド > siteType1 > PC環境 - スライド画像切り替え確認 ====="
         );
         const config = TEST_CONFIGS.pcCustomizerSetting;
         await test.step("トップページで表示確認", async () => {
-          await verifySliderOnSlide_Home1(page, config.imagePartialName);
+          await verifySliderOnSlide_SiteType1(page, config.imagePartialName);
         });
       });
     });
   });
 
-  test.describe("home2", () => {
+  test.describe("siteType2", () => {
     test.beforeAll(async ({ browser }) => {
       const context = await browser.newContext();
       const page = await context.newPage();
@@ -487,26 +487,26 @@ test.describe("スライド", () => {
 
       test("スライド画像切り替え確認", async ({ page }) => {
         console.log(
-          "[10_slider.spec.ts] ===== START: スライド > home2 > SP環境 - スライド画像切り替え確認 ====="
+          "[10_slider.spec.ts] ===== START: スライド > siteType2 > SP環境 - スライド画像切り替え確認 ====="
         );
         const config = TEST_CONFIGS.spCustomizerSetting;
         await test.step("トップページで表示確認", () =>
-          //spはhome2もhome1も同じ動作
-          verifySliderOnSlide_Home1(page, config.imagePartialName));
+          //spはsiteType2もsiteType1も同じ動作
+          verifySliderOnSlide_SiteType1(page, config.imagePartialName));
       });
     });
 
     test.describe("PC環境", () => {
       test("スライド画像切り替え確認", async ({ page }) => {
         console.log(
-          "[10_slider.spec.ts] ===== START: スライド > home2 > PC環境 - スライド画像切り替え確認 ====="
+          "[10_slider.spec.ts] ===== START: スライド > siteType2 > PC環境 - スライド画像切り替え確認 ====="
         );
         const config = TEST_CONFIGS.pcCustomizerSetting;
         await test.step("トップページで表示確認", async () => {
-          //home2もhome1と同じ方法で検証（テストコストの削減優先）
-          await verifySliderOnSlide_Home1(
+          //siteType2もsiteType1と同じ方法で検証（テストコストの削減優先）
+          await verifySliderOnSlide_SiteType1(
             page,
-            config.imagePartialName_forPcHome2,
+            config.imagePartialName_forPcSiteType2,
             3
           );
         });

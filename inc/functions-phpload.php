@@ -26,6 +26,8 @@ require get_template_directory() . '/inc/functions-loadMore.php';
 
 require get_template_directory() . '/inc/starter-content.php';
 
+require get_template_directory() . '/inc/functions-tmp.php';
+
 /***************************************** */
 /**php読み込み e************************ */
 /***************************************** */

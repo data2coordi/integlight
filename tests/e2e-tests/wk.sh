@@ -6,7 +6,7 @@ clear
 
 
 # ===== ユーザー設定 =====
-BRANCH="dev"  # ブランチ名
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
 WAIT_SEC=6     # リトライ間隔（秒）
 MAX_RETRY=200   # 最大リトライ回数
 COMMIT_MSG="${1:-vtest}"

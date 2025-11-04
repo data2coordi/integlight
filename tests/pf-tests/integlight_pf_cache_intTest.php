@@ -313,8 +313,8 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
         // --- 【前提条件】テスト環境の準備 ---
 
         // テスト用の home_type を設定
-        set_theme_mod('integlight_hometype_setting', 'home2');
-        $home_type = get_theme_mod('integlight_hometype_setting', 'home2');
+        set_theme_mod('integlight_hometype_setting', 'siteType2');
+        $home_type = get_theme_mod('integlight_hometype_setting', 'siteType2');
 
         // テストで使用するキャッシュキーを定義
         $key  = 'home_content_' . $home_type;
@@ -333,7 +333,7 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
         $post_id = $this->factory->post->create([
             'post_title'   => 'Home Test Post',
             'post_content' => 'This is a post for testing home.php output.',
-		    'post_excerpt' => 'This is a post for testing home.php output.',
+            'post_excerpt' => 'This is a post for testing home.php output.',
             'post_status'  => 'publish',
             'post_category' => [$cat_id],
         ]);
@@ -346,7 +346,7 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
         $output_html = ob_get_clean();
 
         // --- 【検証】外部から見える結果のみをアサート ---
-       // 1. 出力されたHTMLにhome1用のコンテンツが含まれていることを確認
+        // 1. 出力されたHTMLにsiteType1用のコンテンツが含まれていることを確認
         $this->assertStringContainsString(
             'This is a post for testing home.php output.',
             $output_html,
@@ -391,8 +391,8 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
 
         // --- 【前提条件】テスト環境の準備 ---
         // テスト用の home_type を設定
-        set_theme_mod('integlight_hometype_setting', 'home1');
-        $home_type = get_theme_mod('integlight_hometype_setting', 'home1');
+        set_theme_mod('integlight_hometype_setting', 'siteType1');
+        $home_type = get_theme_mod('integlight_hometype_setting', 'siteType1');
 
         // テストで使用するキャッシュキーを定義
         $key  = 'home_content_' . $home_type;
@@ -400,7 +400,7 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
 
         // --- 【外部システムの状態設定】 ---
         // キャッシュヒット用のダミーHTMLを保存
-        $dummy_cached_html = '<div class="cached-home-content">Cached home1 content</div>';
+        $dummy_cached_html = '<div class="cached-home-content">Cached siteType1 content</div>';
         set_transient($ttkey, $dummy_cached_html, 300); // 有効期限は5分
 
         // キャッシュが保存されていることを確認
@@ -517,7 +517,7 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
         set_theme_mod('integlight_cache_enable', true);
 
         // ダミーキャッシュを作成
-        $ttkeys = ['home_content_home1', 'post_content_1', 'sidebar-1', 'main_menu'];
+        $ttkeys = ['home_content_siteType1', 'post_content_1', 'sidebar-1', 'main_menu'];
         foreach ($ttkeys as $ttkey) {
             set_transient('integlight_pc_' . $ttkey, 'dummy_cache', 300);
             $this->assertNotFalse(get_transient('integlight_pc_' . $ttkey), "キャッシュ $ttkey がセットされていることを確認");
@@ -550,7 +550,7 @@ class integlight_pf_cache_intTest extends WP_UnitTestCase
         set_theme_mod('integlight_cache_enable', true);
 
         // ダミーキャッシュキー
-        $ttkeys = ['home_content_home1', 'post_content_1', 'sidebar-1', 'main_menu'];
+        $ttkeys = ['home_content_siteType1', 'post_content_1', 'sidebar-1', 'main_menu'];
 
         // フック一覧（upgrader_process_complete は除外済）
         $hooks = [

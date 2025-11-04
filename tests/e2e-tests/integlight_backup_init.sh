@@ -8,7 +8,7 @@ UPLOADS_SRC=/home/xsaurora/auroralab-design.com/public_html/t2.auroralab-design.
 
 # MySQL 接続情報
 set -a
-source ./utils/.env
+source ./utils/.env_init
 set +a
 
 

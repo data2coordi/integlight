@@ -77,6 +77,13 @@ export class Customizer_slider_img {
       .nth(image_selBtnNo)
       .click();
 
+    const mediaLibraryTab = this.page.getByRole("tab", {
+      name: "メディアライブラリ",
+    });
+    if (await mediaLibraryTab.isVisible()) {
+      await mediaLibraryTab.click();
+    }
+
     // モーダルが表示されるのを待つ
     const mediaModal = this.page.locator(".attachments-browser");
     await mediaModal.waitFor({ state: "visible", timeout: 15000 });
@@ -88,7 +95,12 @@ export class Customizer_slider_img {
 
     // 検索結果の最初の画像をクリック
     const targetImage = this.page
-      .locator(`.attachments-browser img[src*="${imagePartialName}"]`)
+      .locator(
+        `.attachments-browser img[src*="${imagePartialName.replace(
+          ".webp",
+          ""
+        )}"]`
+      )
       .first();
     await targetImage.waitFor({ state: "visible", timeout: 15000 });
     await targetImage.click({ force: true });
@@ -203,6 +215,14 @@ export class Customizer_headerImage_img {
   }
   async setHeaderImage(imageName) {
     await this.page.getByRole("button", { name: "画像を追加" }).nth(0).click();
+
+    const mediaLibraryTab = this.page.getByRole("tab", {
+      name: "メディアライブラリ",
+    });
+    if (await mediaLibraryTab.isVisible()) {
+      await mediaLibraryTab.click();
+    }
+
     const mediaModal = this.page.locator(".attachments-browser");
     await mediaModal.waitFor({ state: "visible", timeout: 15000 });
 
@@ -211,8 +231,11 @@ export class Customizer_headerImage_img {
     await searchInput.press("Enter");
 
     const targetImage = this.page
-      .locator(`.attachments-browser img[src*="${imageName}"]`)
+      .locator(
+        `.attachments-browser img[src*="${imageName.replace(".webp", "")}"]`
+      )
       .first();
+
     await targetImage.waitFor({ state: "visible", timeout: 15000 });
     await targetImage.click({ force: true });
 

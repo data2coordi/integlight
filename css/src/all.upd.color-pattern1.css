@@ -112,44 +112,44 @@ a:focus-visible,
   background-image: linear-gradient(to bottom, #555 0 8px, #eee 8px 11px);
 }
 
-/************ home2ボタン **************/
-/************ home2ボタン **************/
-/************ home2ボタン **************/
-/************ home2ボタン **************/
-/************ home2ボタンs **************/
-/* .home2 button#load-more, .home2 button#load-more, .home2 button.load-more-cat, .home2 button.load-more-cat, .home2 .integlight_pt button#load-more,.home2 .integlight_pt button#load-more {
+/************ siteType2ボタン **************/
+/************ siteType2ボタン **************/
+/************ siteType2ボタン **************/
+/************ siteType2ボタン **************/
+/************ siteType2ボタンs **************/
+/* .siteType2 button#load-more, .siteType2 button#load-more, .siteType2 button.load-more-cat, .siteType2 button.load-more-cat, .siteType2 .integlight_pt button#load-more,.siteType2 .integlight_pt button#load-more {
   color:#fa9301;                 
   background:#fff;
   border:1px solid #fa9301;
 } */
 
-.home2 #load-more:focus-visible,
-.home2 #load-more:hover,
-.home2 .load-more-cat:focus-visible,
-.home2 .load-more-cat:hover,
-.home2 .integlight_pt button#load-more:focus-visible,
-.home2 .integlight_pt button#load-more:hover {
+.siteType2 #load-more:focus-visible,
+.siteType2 #load-more:hover,
+.siteType2 .load-more-cat:focus-visible,
+.siteType2 .load-more-cat:hover,
+.siteType2 .integlight_pt button#load-more:focus-visible,
+.siteType2 .integlight_pt button#load-more:hover {
   background: #555;
   border: 1px solid #555;
   color: #fff;
 }
 
-/************ home2ボタンe **************/
-/************ home2ボタン **************/
-/************ home2ボタン **************/
+/************ siteType2ボタンe **************/
+/************ siteType2ボタン **************/
+/************ siteType2ボタン **************/
 
-/************ home2カテゴリタグs **************/
-/************ home2カテゴリタグs **************/
-/************ home2カテゴリタグs **************/
-/************ home2カテゴリタグs **************/
-/************ home2カテゴリタグs **************/
+/************ siteType2カテゴリタグs **************/
+/************ siteType2カテゴリタグs **************/
+/************ siteType2カテゴリタグs **************/
+/************ siteType2カテゴリタグs **************/
+/************ siteType2カテゴリタグs **************/
 
-.home2 .post-category p {
+.siteType2 .post-category p {
   background: #555;
 }
-/************ home2カテゴリタグe **************/
-/************ home2カテゴリタグe **************/
-/************ home2カテゴリタグe **************/
+/************ siteType2カテゴリタグe **************/
+/************ siteType2カテゴリタグe **************/
+/************ siteType2カテゴリタグe **************/
 
 /**************フォントオーサムのホバーした時の色を変えているs***************/
 /**************フォントオーサムのホバーした時の色を変えているs***************/

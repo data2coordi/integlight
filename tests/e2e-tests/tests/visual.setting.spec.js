@@ -4,15 +4,15 @@ import { Customizer_manager } from "../utils/customizer";
 
 // ======= テスト展開 =======
 test.describe("ビジュアルテスト", () => {
-  test("カスタマイザー設定", async ({ browser }, testInfo) => {
+  test("カスタマイザー設定", async ({ page }, testInfo) => {
     console.log(`Running test in project: ${testInfo.project.name}`);
 
-    let keyValue = testInfo.project.use.keyValue;
-    console.log(`@@@@@keyValue@@@@@: ${JSON.stringify(keyValue)}`);
+    const testData = testInfo.project.use.testData;
+    console.log(`@@@@@testData@@@@@: ${JSON.stringify(testData)}`);
 
-    const page = await browser.newPage();
+    //const page = await browser.newPage();
     const cm_manager = new Customizer_manager(page);
-    await cm_manager.apply(keyValue);
+    await cm_manager.apply(testData);
 
     await page.close();
   });

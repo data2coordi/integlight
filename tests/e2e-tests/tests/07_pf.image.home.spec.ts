@@ -5,7 +5,7 @@ import { Customizer_manager } from "../utils/customizer";
 // テスト設定を統合し、階層的な構造にする
 const TEST_SCENARIOS = {
   ヘッダーなし: {
-    spHome1: {
+    spSiteType1: {
       viewport: { width: 375, height: 800 },
       userAgent:
         "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1",
@@ -15,14 +15,14 @@ const TEST_SCENARIOS = {
       bodyCt: 1,
       bodySelector: ".post-grid .grid-item .post-thumbnail img",
     },
-    pcHome1: {
+    pcSiteType1: {
       siteType: "エレガント",
       headerType: "なし",
       headCt: 0,
       bodyCt: 3,
       bodySelector: ".post-grid .grid-item .post-thumbnail img",
     },
-    spHome2: {
+    spSiteType2: {
       viewport: { width: 375, height: 800 },
       userAgent:
         "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1",
@@ -32,7 +32,7 @@ const TEST_SCENARIOS = {
       bodyCt: 2,
       bodySelector: ".post-grid .grid-item .post-thumbnail img",
     },
-    pcHome2: {
+    pcSiteType2: {
       siteType: "ポップ",
       headerType: "なし",
       headCt: 0,
@@ -41,7 +41,7 @@ const TEST_SCENARIOS = {
     },
   },
   ヘッダーあり: {
-    spHome1: {
+    spSiteType1: {
       viewport: { width: 375, height: 800 },
       userAgent:
         "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1",
@@ -52,7 +52,7 @@ const TEST_SCENARIOS = {
       headSelector: ".slider img",
       bodySelector: ".post-grid .grid-item .post-thumbnail img",
     },
-    pcHome1: {
+    pcSiteType1: {
       siteType: "エレガント",
       headerType: "スライダー",
       headCt: 1,
@@ -60,7 +60,7 @@ const TEST_SCENARIOS = {
       headSelector: ".slider img",
       bodySelector: ".post-grid .grid-item .post-thumbnail img",
     },
-    spHome2: {
+    spSiteType2: {
       viewport: { width: 375, height: 800 },
       userAgent:
         "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1",
@@ -71,7 +71,7 @@ const TEST_SCENARIOS = {
       headSelector: ".slider img",
       bodySelector: ".post-grid .grid-item .post-thumbnail img",
     },
-    pcHome2: {
+    pcSiteType2: {
       siteType: "ポップ",
       headerType: "スライダー",
       headCt: 3,

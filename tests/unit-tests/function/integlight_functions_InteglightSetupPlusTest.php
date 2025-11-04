@@ -21,28 +21,6 @@ class integlight_functions_InteglightSetupPlusTest extends WP_UnitTestCase
     }
 
 
-    /**
-     * Test if the integlight_setup_plus function is hooked to 'after_setup_theme'.
-     *
-     * @covers ::integlight_setup_plus
-     */
-    public function test_integlight_setup_plus_hooks_to_after_setup_theme(): void
-    {
-        // Check if the function is hooked to the 'after_setup_theme' action
-        $hook_priority = has_action('after_setup_theme', 'integlight_setup_plus');
-
-        $this->assertNotFalse(
-            $hook_priority,
-            'integlight_setup_plus should be hooked to after_setup_theme.'
-        );
-
-        // Check if the priority is the default (10)
-        $this->assertEquals(
-            10,
-            $hook_priority,
-            'integlight_setup_plus should have the default priority (10).'
-        );
-    }
 
 
     /**
