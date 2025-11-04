@@ -135,7 +135,7 @@ class template_FunctionsTest extends WP_UnitTestCase
     {
         $theme_dir = get_template_directory();
         $this->assertFileExists($theme_dir . '/inc/functions-customHeader.php', 'File inc/functions-customHeader.php should exist.');
-        $this->assertFileExists($theme_dir . '/inc/integlight-functions.php', 'File inc/integlight-functions.php should exist.');
+        $this->assertFileExists($theme_dir . '/inc/functions.php', 'File inc/integlight-functions.php should exist.');
         $this->assertFileExists($theme_dir . '/inc/integlight-customizer-base.php', 'File inc/integlight-customizer-base.php should exist.');
     }
 }

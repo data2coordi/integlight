@@ -53,7 +53,7 @@ class integlight_customizer_slider_applyHeaderTextStyleTest extends WP_UnitTestC
     public function tearDown(): void
     {
         // コンストラクタで追加されたアクションフックを削除
-        remove_action('wp_head', [$this->instance, 'integlight_slider_applyTextStyles']);
+        remove_action('wp_head', [$this->instance, 'ApplyTextStyles']);
 
         // テスト後に theme_mod をクリア
         foreach ($this->theme_mods_keys as $key) {
@@ -71,12 +71,12 @@ class integlight_customizer_slider_applyHeaderTextStyleTest extends WP_UnitTestC
     public function constructor_should_add_wp_head_action(): void
     {
         // setUp でインスタンスが作成され、コンストラクタが実行されている前提
-        $hook_priority = has_action('wp_head', [$this->instance, 'integlight_slider_applyTextStyles']);
+        $hook_priority = has_action('wp_head', [$this->instance, 'ApplyTextStyles']);
 
         $this->assertNotFalse(
             $hook_priority,
             // アサーションメッセージ
-            'Constructor should add the integlight_slider_applyTextStyles method to the wp_head action.'
+            'Constructor should add the ApplyTextStyles method to the wp_head action.'
         );
         // デフォルトの優先度 (10) であることを確認 (もし異なる場合は修正)
         $this->assertEquals(10, $hook_priority, 'The hook priority should be the default (10).');
@@ -84,17 +84,17 @@ class integlight_customizer_slider_applyHeaderTextStyleTest extends WP_UnitTestC
 
     /**
      * @test
-     * @covers ::integlight_slider_applyTextStyles
+     * @covers ::ApplyTextStyles
      * デフォルト値の場合に正しいデフォルトCSSが出力されることをテスト
      */
     // メソッド名を変更して意図を明確にする
-    public function integlight_slider_applyTextStyles_should_output_correct_default_css(): void
+    public function ApplyTextStyles_should_output_correct_default_css(): void
     {
         // Arrange: theme_mod がクリアされている状態 (setUp で実行済み)
 
         // Act: アクションを実行して出力をキャプチャ
         ob_start();
-        $this->instance->integlight_slider_applyTextStyles();
+        $this->instance->ApplyTextStyles();
         $output = ob_get_clean();
 
         // Assert: 出力に style タグとデフォルトのCSSルールが含まれているか確認
@@ -118,10 +118,10 @@ class integlight_customizer_slider_applyHeaderTextStyleTest extends WP_UnitTestC
 
     /**
      * @test
-     * @covers ::integlight_slider_applyTextStyles
+     * @covers ::ApplyTextStyles
      * カスタム値が設定された場合に正しいCSSが出力されるかテスト (PC)
      */
-    public function integlight_slider_applyTextStyles_should_output_correct_css_with_custom_values_pc(): void
+    public function ApplyTextStyles_should_output_correct_css_with_custom_values_pc(): void
     {
         // テスト用の値を設定
         set_theme_mod('integlight_slider_text_color', '#ff0000');
@@ -131,7 +131,7 @@ class integlight_customizer_slider_applyHeaderTextStyleTest extends WP_UnitTestC
 
         // アクションを実行して出力をキャプチャ
         ob_start();
-        $this->instance->integlight_slider_applyTextStyles();
+        $this->instance->ApplyTextStyles();
         $output = ob_get_clean();
 
         // 出力に必要なCSSルールが含まれているか確認
@@ -150,10 +150,10 @@ class integlight_customizer_slider_applyHeaderTextStyleTest extends WP_UnitTestC
 
     /**
      * @test
-     * @covers ::integlight_slider_applyTextStyles
+     * @covers ::ApplyTextStyles
      * カスタム値が設定された場合に正しいCSSが出力されるかテスト (Mobile)
      */
-    public function integlight_slider_applyTextStyles_should_output_correct_css_with_custom_values_mobile(): void
+    public function ApplyTextStyles_should_output_correct_css_with_custom_values_mobile(): void
     {
         // テスト用の値を設定 (PC設定も一部残す)
         set_theme_mod('integlight_slider_text_color', '#00ff00'); // PCとは違う色
@@ -163,7 +163,7 @@ class integlight_customizer_slider_applyHeaderTextStyleTest extends WP_UnitTestC
 
         // アクションを実行して出力をキャプチャ
         ob_start();
-        $this->instance->integlight_slider_applyTextStyles();
+        $this->instance->ApplyTextStyles();
         $output = ob_get_clean();
 
         // PC用のスタイルが含まれていることを確認 (デフォルト値とカスタム値が混在)
@@ -180,15 +180,15 @@ class integlight_customizer_slider_applyHeaderTextStyleTest extends WP_UnitTestC
 
     /**
      * @test
-     * @covers ::integlight_slider_applyTextStyles
+     * @covers ::ApplyTextStyles
      * フォント設定が yu_gothic の場合に正しいCSSが出力されるかテスト
      */
-    public function integlight_slider_applyTextStyles_should_output_correct_css_for_yu_gothic(): void
+    public function ApplyTextStyles_should_output_correct_css_for_yu_gothic(): void
     {
         set_theme_mod('integlight_slider_text_font', 'yu_gothic');
 
         ob_start();
-        $this->instance->integlight_slider_applyTextStyles();
+        $this->instance->ApplyTextStyles();
         $output = ob_get_clean();
 
         // Yu Gothic の font-family を確認 (integlight-customizer-slider.php の switch 文に基づく)
