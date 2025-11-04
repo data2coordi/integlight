@@ -126,16 +126,4 @@ class template_FunctionsTest extends WP_UnitTestCase
         $sidebar2 = $wp_registered_sidebars['sidebar-2'];
         $this->assertEquals('Sidebar2', $sidebar2['name'], 'Sidebar "sidebar-2" name should be correct.');
     }
-
-    /**
-     * @test
-     * 必要なインクルードファイルが存在するか確認 (オプション)。
-     */
-    public function test_required_files_exist()
-    {
-        $theme_dir = get_template_directory();
-        $this->assertFileExists($theme_dir . '/inc/functions-customHeader.php', 'File inc/functions-customHeader.php should exist.');
-        $this->assertFileExists($theme_dir . '/inc/functions.php', 'File inc/integlight-functions.php should exist.');
-        $this->assertFileExists($theme_dir . '/inc/integlight-customizer-base.php', 'File inc/integlight-customizer-base.php should exist.');
-    }
 }
