@@ -25,11 +25,11 @@ class Integlight_customizer_sidebar
 		// サイドバー位置設定の追加
 		$wp_customize->add_setting('integlight_sidebar' . $no . '_position', array(
 			'default' => $defPosition,
-			'sanitize_callback' => array($this, 'sanitize_sidebar_position'),
+			'sanitize_callback' => ['Integlight_customizer_choiceCtlBase', 'sanitize_choices'],
 		));
 
 		// サイドバー位置オプションの追加
-		$wp_customize->add_control('integlight_sidebar' . $no . '_position_control', array(
+		$wp_customize->add_control('integlight_sidebar' . $no . '_position', array(
 			'label' => __('Sidebar', 'integlight') . $no . ' ' . __('Position', 'integlight'),
 			'section' => 'integlight_sidebar_section',
 			'settings' => 'integlight_sidebar' . $no . '_position',
@@ -60,13 +60,6 @@ class Integlight_customizer_sidebar
 		$this->helper_setting($wp_customize, '1', 'right');
 		$this->helper_setting($wp_customize, '2', 'none');
 	}
-
-
-	// サイドバー位置の入力を検証する
-	public function sanitize_sidebar_position($input)
-	{
-		return $input;
-	}
 }
 
 new Integlight_customizer_sidebar();
@@ -90,7 +83,7 @@ class integlight_customizer_themeColor extends Integlight_customizer_choiceCtlBa
 		$wp_customize->add_setting('integlight_base_color_setting', array(
 			'type'              => 'theme_mod',
 			'default'           => 'pattern8',
-			'sanitize_callback' => [$this, 'sanitize_choices'],
+			'sanitize_callback' => ['Integlight_customizer_choiceCtlBase', 'sanitize_choices'],
 		));
 
 		// Control
@@ -141,7 +134,7 @@ class integlight_customizer_homeType extends Integlight_customizer_choiceCtlBase
 		$wp_customize->add_setting('integlight_hometype_setting', array(
 			'type'              => 'theme_mod',
 			'default'           => 'siteType1',
-			'sanitize_callback' => [$this, 'sanitize_choices'],
+			'sanitize_callback' => ['Integlight_customizer_choiceCtlBase', 'sanitize_choices'],
 		));
 
 		// Control
@@ -163,7 +156,6 @@ class integlight_customizer_homeType extends Integlight_customizer_choiceCtlBase
 
 // インスタンスを作成して初期化
 new integlight_customizer_homeType();
-
 
 
 

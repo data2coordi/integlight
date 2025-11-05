@@ -7,13 +7,20 @@
  */
 abstract class Integlight_customizer_choiceCtlBase
 {
-	public function sanitize_choices($input, $setting)
+	public static function sanitize_choices($input, $setting)
 	{
-		global $wp_customize;
-		$control = $wp_customize->get_control($setting->id);
-		if (array_key_exists($input, $control->choices)) {
+		// $setting オブジェクトからカスタマイザーマネージャーを取得
+		$manager = $setting->manager;
+
+		// マネージャー経由でコントロールを取得
+		$control = $manager->get_control($setting->id);
+
+		// コントロールが存在し、その選択肢の中に $input が存在するかチェック
+		if ($control && array_key_exists($input, $control->choices)) {
 			return $input;
 		}
+
+		// 条件に合わなければデフォルト値を返す
 		return $setting->default;
 	}
 }
@@ -177,14 +184,20 @@ class Integlight_getThemeMod
 	 */
 	protected static function getDefaultValue($setting_name)
 	{
-		global $wp_customize;
+		// WP_Customize_Manager インスタンスを取得
+		$customize_manager = $GLOBALS['wp_customize'] ?? null;
 
-		if (isset($wp_customize) && $wp_customize->get_setting($setting_name)) {
-			return $wp_customize->get_setting($setting_name)->default;
+		// カスタマイザー設定オブジェクトを取得
+		$setting = $customize_manager ? $customize_manager->get_setting($setting_name) : null;
+
+		// 設定オブジェクトからデフォルト値を取得
+		if ($setting) {
+			return $setting->default;
 		}
 
-		// カスタマイザー外で呼ばれた場合は default を取得できないため空文字
-		return '';
+		// フォールバック: スターターコンテンツなどからデフォルト値を取得（より堅牢な方法）
+		$starter_content = integlight_get_starter_content();
+		return $starter_content['theme_mods'][$setting_name] ?? '';
 	}
 }
 
