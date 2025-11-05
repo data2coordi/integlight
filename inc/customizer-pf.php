@@ -27,7 +27,7 @@ class Integlight_customize_performance
 
         // キャッシュ有効/無効の設定
         $wp_customize->add_setting('integlight_cache_enable', [
-            'default'           => true,
+            'default'           => Integlight_Defaults::get_all()['integlight_cache_enable'] ?? true,
             'sanitize_callback' => 'wp_validate_boolean',
         ]);
 

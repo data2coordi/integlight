@@ -24,7 +24,7 @@ class Integlight_customizer_sidebar
 
 		// サイドバー位置設定の追加
 		$wp_customize->add_setting('integlight_sidebar' . $no . '_position', array(
-			'default' => $defPosition,
+			'default' => Integlight_Defaults::get_all()['integlight_sidebar' . $no . '_position'] ?? $defPosition,
 			'sanitize_callback' => ['Integlight_customizer_choiceCtlBase', 'sanitize_choices'],
 		));
 
@@ -82,7 +82,7 @@ class integlight_customizer_themeColor extends Integlight_customizer_choiceCtlBa
 		// Setting
 		$wp_customize->add_setting('integlight_base_color_setting', array(
 			'type'              => 'theme_mod',
-			'default'           => 'pattern8',
+			'default'           => Integlight_Defaults::get_all()['integlight_base_color_setting'] ?? 'pattern8',
 			'sanitize_callback' => ['Integlight_customizer_choiceCtlBase', 'sanitize_choices'],
 		));
 
@@ -133,7 +133,7 @@ class integlight_customizer_homeType extends Integlight_customizer_choiceCtlBase
 		// Setting
 		$wp_customize->add_setting('integlight_hometype_setting', array(
 			'type'              => 'theme_mod',
-			'default'           => 'siteType1',
+			'default'           => Integlight_Defaults::get_all()['integlight_hometype_setting'] ?? 'siteType1',
 			'sanitize_callback' => ['Integlight_customizer_choiceCtlBase', 'sanitize_choices'],
 		));
 
@@ -180,7 +180,7 @@ class Integlight_customizer_footer
 		));
 		// コピーライト設定
 		$wp_customize->add_setting('integlight_footer_copy_right', array(
-			'default'           => '',
+			'default'           => Integlight_Defaults::get_all()['integlight_footer_copy_right'] ?? '',
 			'sanitize_callback' => 'sanitize_text_field',
 		));
 
@@ -192,7 +192,7 @@ class Integlight_customizer_footer
 
 		// クレジット表示チェックボックス
 		$wp_customize->add_setting('integlight_footer_show_credit', array(
-			'default'           => true,
+			'default'           => Integlight_Defaults::get_all()['integlight_footer_show_credit'] ?? true,
 			'sanitize_callback' => array($this, 'sanitize_checkbox'),
 		));
 

@@ -150,7 +150,7 @@ class integlight_customizer_selHeader_typeSelecter
 
         // 選択ボックスを追加
         $wp_customize->add_setting('integlight_display_choice', array(
-            'default' => 'none',
+            'default' => Integlight_Defaults::get_all()['integlight_display_choice'] ?? 'none',
             'sanitize_callback' => 'sanitize_text_field',
         ));
 
