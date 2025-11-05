@@ -242,7 +242,7 @@ class Integlight_getAttr_byImageCount
     public static function getCurrentPattern(): ?array
     {
         $env = wp_is_mobile() ? 'SP' : 'PC';
-        $homeType = Integlight_getThemeMod::getThemeMod('integlight_hometype_setting', 'siteType1');
+        $homeType = Integlight_getThemeMod::getThemeMod('integlight_hometype_setting');
         $display_choice = Integlight_getThemeMod::getThemeMod('integlight_display_choice');
         $header = ($display_choice === 'none') ? 'none' : 'exist';
 

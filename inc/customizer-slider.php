@@ -23,7 +23,7 @@ class integlight_customizer_slider_creSection
 			'priority' => 29,
 			'panel' => Integlight_customizer_selHeader_settingValues::getHeaderPanelId(),
 			'active_callback' => function () {
-				return Integlight_getThemeMod::getThemeMod('integlight_display_choice', 'none') === 'slider';
+				return Integlight_getThemeMod::getThemeMod('integlight_display_choice') === 'slider';
 			},
 		));
 	}

@@ -37,7 +37,7 @@ class Integlight_customizer_selHeader_settingValues
 function integlight_display_headerContents()
 {
 
-    $choice = Integlight_getThemeMod::getThemeMod('integlight_display_choice', 'none');
+    $choice = Integlight_getThemeMod::getThemeMod('integlight_display_choice');
     $slider = Integlight_customizer_selHeader_settingValues::getSlider();
     $image  = Integlight_customizer_selHeader_settingValues::getImage();
 
@@ -78,7 +78,7 @@ class integlight_customizer_headerImage_updSection
             $wp_customize->get_section('header_image')->priority = 30; // 上に配置される
             $wp_customize->get_section('header_image')->panel = $this->pPanelId; // 上に配置される
             $wp_customize->get_section('header_image')->active_callback = function () {
-                return Integlight_getThemeMod::getThemeMod('integlight_display_choice', 'slider') === 'image';
+                return Integlight_getThemeMod::getThemeMod('integlight_display_choice') === 'image';
             };
         }
     }

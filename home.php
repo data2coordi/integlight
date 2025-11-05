@@ -4,7 +4,7 @@
 if (is_front_page() != false) {
     integlight_display_headerContents();
 }
-$home_type = Integlight_getThemeMod::getThemeMod('integlight_hometype_setting', 'siteType1');
+$home_type = Integlight_getThemeMod::getThemeMod('integlight_hometype_setting');
 ?>
 
 <main id="primary" class=<?php echo $home_type; ?>>

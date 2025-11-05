@@ -5,8 +5,8 @@ class Integlight_customizer_headerImage_displayContent
 	public static function getTexts(): array
 	{
 		return [
-			nl2br(wp_kses_post(Integlight_getThemeMod::getThemeMod('integlight_header_image_text_1', ''))),
-			nl2br(wp_kses_post(Integlight_getThemeMod::getThemeMod('integlight_header_image_text_2', ''))),
+			nl2br(wp_kses_post(Integlight_getThemeMod::getThemeMod('integlight_header_image_text_1'))),
+			nl2br(wp_kses_post(Integlight_getThemeMod::getThemeMod('integlight_header_image_text_2'))),
 		];
 	}
 }
@@ -32,14 +32,14 @@ class integlight_customizer_headerImage_textStyle
 	{
 
 		// カスタマイザーから値を取得。未設定の場合はデフォルト値を使用
-		$color = Integlight_getThemeMod::getThemeMod('integlight_header_image_text_color', '#ffffff'); // デフォルトは白
+		$color = Integlight_getThemeMod::getThemeMod('integlight_header_image_text_color'); // デフォルトは白
 		$left  = Integlight_getThemeMod::getThemeMod('integlight_header_image_text_left', 1);      // デフォルト 30px
 		$top   = Integlight_getThemeMod::getThemeMod('integlight_header_image_text_top', 1);       // デフォルト 300px
 		$left_mobile  = Integlight_getThemeMod::getThemeMod('integlight_header_image_text_left_mobile', 1);      // デフォルト 30px
 		$top_mobile   = Integlight_getThemeMod::getThemeMod('integlight_header_image_text_top_mobile', 1);       // デフォルト 300px
 		// フォント選択の取得（デフォルトは 'yu_gothic'）
 
-		$font = Integlight_getThemeMod::getThemeMod('integlight_header_image_text_font', 'yu_gothic');
+		$font = Integlight_getThemeMod::getThemeMod('integlight_header_image_text_font');
 		switch ($font) {
 			case 'yu_mincho':
 				// 游明朝の場合の font-family
@@ -86,7 +86,7 @@ class integlight_customizer_headerImage_textStyle
 /*カスタマイザーで設定したスライダー機能をフロントでオープンしたときにロード*/
 add_action('wp', function () {
 	if (is_front_page()) {
-		if (Integlight_customizer_selHeader_settingValues::getImage() === Integlight_getThemeMod::getThemeMod('integlight_display_choice', 'none')) {
+		if (Integlight_customizer_selHeader_settingValues::getImage() === Integlight_getThemeMod::getThemeMod('integlight_display_choice')) {
 			Integlight_outerAssets_css_forCall::regHeaderImageCss();
 			new integlight_customizer_headerImage_textStyle();
 		}
