@@ -17,9 +17,9 @@ if (is_page()) {
 
 
 if (is_active_sidebar('sidebar-1')) {
-	if (get_theme_mod('integlight_sidebar1_position', 'right') !== 'none') {
+	if (Integlight_getThemeMod::getThemeMod('integlight_sidebar1_position', 'right') !== 'none') {
 ?>
-		<aside id="secondary" class="widget-area <?php echo esc_attr("ly_site_content_widgetArea_" . get_theme_mod('integlight_sidebar1_position', 'right')); ?>">
+		<aside id="secondary" class="widget-area <?php echo esc_attr("ly_site_content_widgetArea_" . Integlight_getThemeMod::getThemeMod('integlight_sidebar1_position', 'right')); ?>">
 
 
 			<?php
@@ -37,9 +37,9 @@ if (is_active_sidebar('sidebar-1')) {
 
 <?php
 if (is_active_sidebar('sidebar-2')) {
-	if (get_theme_mod('integlight_sidebar2_position', 'none') !== 'none') {
+	if (Integlight_getThemeMod::getThemeMod('integlight_sidebar2_position', 'none') !== 'none') {
 ?>
-		<aside id="third" class="widget-area <?php echo esc_attr("ly_site_content_widgetArea_" . get_theme_mod('integlight_sidebar2_position', 'none'));  ?>">
+		<aside id="third" class="widget-area <?php echo esc_attr("ly_site_content_widgetArea_" . Integlight_getThemeMod::getThemeMod('integlight_sidebar2_position', 'none'));  ?>">
 
 
 			<?php

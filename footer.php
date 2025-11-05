@@ -37,11 +37,10 @@
 	?>
 
 	<div class="site-info">
-
-		<?php echo esc_html(get_theme_mod('integlight_footer_copy_right', '')); ?>
+		<?php echo esc_html(Integlight_getThemeMod::getThemeMod('integlight_footer_copy_right')); ?>
 		<br>
 
-		<?php if (get_theme_mod('integlight_footer_show_credit', true)) :  ?>
+		<?php if (Integlight_getThemeMod::getThemeMod('integlight_footer_show_credit')) :  ?>
 
 			<?php
 			echo wp_kses_post(

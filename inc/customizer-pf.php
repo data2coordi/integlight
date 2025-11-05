@@ -47,7 +47,7 @@ class Integlight_customize_performance
      */
     public static function is_cache_enabled()
     {
-        return get_theme_mod('integlight_cache_enable', true);
+        return Integlight_getThemeMod::getThemeMod('integlight_cache_enable', true);
     }
 }
 

@@ -150,3 +150,45 @@ abstract class Integlight_customizer_settingHelper
 }
 
 // ヘッダースライダー、ヘッダー画像の設定で使うヘルパー e /////////////// 
+
+//get_theme_mod のデフォルト値をカスタマイザー登録時の default 値から取得するクラス s/////////////////////
+class Integlight_getThemeMod
+{
+
+	/**
+	 * カスタマイザー設定値を取得
+	 * カスタマイザー登録時の default 値を自動参照
+	 *
+	 * @param string $setting_name 設定名
+	 * @return mixed 設定値（未設定時は default 値）
+	 */
+	public static function getThemeMod($setting_name)
+	{
+		$default = self::getDefaultValue($setting_name);
+		return get_theme_mod($setting_name, $default);
+	}
+
+	/**
+	 * カスタマイザー登録時の default 値を取得
+	 * ※ $wp_customize 経由で取得できない場合は空文字を返す
+	 *
+	 * @param string $setting_name 設定名
+	 * @return mixed デフォルト値
+	 */
+	protected static function getDefaultValue($setting_name)
+	{
+		global $wp_customize;
+
+		if (isset($wp_customize) && $wp_customize->get_setting($setting_name)) {
+			return $wp_customize->get_setting($setting_name)->default;
+		}
+
+		// カスタマイザー外で呼ばれた場合は default を取得できないため空文字
+		return '';
+	}
+}
+
+//使用例：
+//$value = Integlight_getThemeMod::getThemeMod( 'integlight_header_image_text_1' );
+
+//get_theme_mod のデフォルト値をカスタマイザー登録時の default 値から取得するクラス e/////////////////////

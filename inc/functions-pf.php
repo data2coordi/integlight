@@ -242,8 +242,8 @@ class Integlight_getAttr_byImageCount
     public static function getCurrentPattern(): ?array
     {
         $env = wp_is_mobile() ? 'SP' : 'PC';
-        $homeType = get_theme_mod('integlight_hometype_setting', 'siteType1');
-        $display_choice = get_theme_mod('integlight_display_choice');
+        $homeType = Integlight_getThemeMod::getThemeMod('integlight_hometype_setting', 'siteType1');
+        $display_choice = Integlight_getThemeMod::getThemeMod('integlight_display_choice');
         $header = ($display_choice === 'none') ? 'none' : 'exist';
 
         foreach (self::$patterns as $pattern) {
@@ -474,7 +474,7 @@ abstract class Integlight_Cache_Base
     {
         // カスタマイザ設定 'integlight_cache_enable' を想定
         // デフォルトは true（有効）
-        return get_theme_mod('integlight_cache_enable', true);
+        return Integlight_getThemeMod::getThemeMod('integlight_cache_enable', true);
     }
 
     /**
