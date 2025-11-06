@@ -761,7 +761,7 @@ msgstr "チェックを外すとテーマのサーバー側キャッシュが無
 
 #: inc/customizer.php:XXX
 msgid "Select the type of media to display on the homepage (top page).<br>The settings button for the selected type will appear on the previous screen.<br><br><b>Recommended setting:</b><br>Slider is recommended."
-msgstr "ホーム（トップ）ページに表示するメディアのタイプを選択します。<br>ここで選択したタイプの設定ボタン(「2.スライダー設定」または「2.静止画像設定」が１つ前のカスタマイザ画面(ヘッダー設定)に表示されます。<br><br><b>＜お勧めの設定＞</b><br>スライダーがお勧めです"
+msgstr "ホーム（トップ）ページに表示するメディアのタイプを選択します。<br>ここで選択したタイプの設定ボタン(「2.スライダー設定」または「2.静止画像設定」)が１つ前のカスタマイザ画面(ヘッダー設定)に表示されます。<br><br><b>＜お勧めの設定＞</b><br>スライダーがお勧めです"
 
 #: inc/customizer.php:XXX
 msgid "<br>In 1 above, select the media type to display in the header section of the homepage (top page).<br><b>◆ Slider type</b>:<br>Images slide with animation<br><b>◆ Static image type</b>:<br>Normal static image<br><br>According to the type selected in 1 above, the 'Slider' or 'Static Image' settings button will appear in 2 below. Click the button to configure."
