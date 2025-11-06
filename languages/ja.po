@@ -142,7 +142,7 @@ msgstr "静止画像"
 
 #: inc/integlight-customizer.php:190
 msgid "Effect"
-msgstr "エフェクト"
+msgstr "アニメーションタイプ"
 
 #: inc/integlight-customizer.php:194
 msgid "Fade"
@@ -533,7 +533,7 @@ msgid "The things you casually talk about every day, as well as the knowledge an
 msgstr "あなたが日々何気なく話していることや、仕事や趣味で得た知識・経験は、誰かにとって価値ある情報です。ブログに記録することで、それは時間とともに蓄積され、あなたの「デジタル資産」となります。発信を続けることで、多くの人に届く価値を生み出してみませんか？"
 
 msgid "Copyright Settings"
-msgstr "Copy Rightの設定"
+msgstr "Copy Right表示の設定"
 
 msgid "Please enter the Copyright information."
 msgstr "Copy Rightを入力してください。"
@@ -640,12 +640,10 @@ msgid ""
 "<br>Create two menus. Place frequently used items in the Header menu and less used items in the Footer menu."
 msgstr ""
 "メニュー関連の設定です。"
-"<br>管理画面の「外観」→「メニュー」からも設定可能です。"
-"<br><br>1. まず、下の「新しいメニューを作成」からメニューを作成してください。"
-"<br><br>2. 次に、作成したメニューを「メニューの位置」から割り当ててください。"
-"<br>（ヘッダー、フッターの2種類から選択できます。）"
-"<br><br><b>＜お勧めの設定＞</b>"
-"<br>メニューは2種類作成し、使用頻度の高いものはヘッダーに、使用頻度の低いものはフッターに配置してください。"
+"<br>※このページでの設定は複雑なので、管理画面の「外観」→「メニュー」から設定することをお勧めします。"
+"<br><br>1. まず、下の「メニューを新規作成」からメニューを作成してください。"
+"<br><br>2. 次に、下記「メニューの位置」セクションの「すべての位置を表示」ボタンで作成したメニューをヘッダーまたはフッターに配置してください。"
+
 
 msgid "Media settings (slider or static image) for the header area of the homepage (top page)."
 msgstr "ホームページ（トップページ）のヘッダー部分に表示するメディア（スライダーまたは静止画像）の設定です。"
@@ -658,7 +656,7 @@ msgid ""
 "Create widgets in Sidebar 1 and set its position to the right."
 msgstr ""
 "投稿ページに表示するサイドバーに関連する設定です。<br>"
-"※管理画面の「外観」→「ウィジェット」から設定することもできます。<br><br>"
+"※このページでの設定は複雑なので、管理画面の「外観」→「ウィジェット」から設定することをお勧めします。<br><br>"
 "サイドバー１、サイドバー２の２つのサイドバーを配置することができます。<br><br>"
 "投稿ページで本パネルをオープンすると対象のサイドバーの設定ボタンが表示されます。<br><br>"
 "<b>＜お勧めの設定＞</b><br>"
@@ -763,11 +761,11 @@ msgstr "チェックを外すとテーマのサーバー側キャッシュが無
 
 #: inc/customizer.php:XXX
 msgid "Select the type of media to display on the homepage (top page).<br>The settings button for the selected type will appear on the previous screen.<br><br><b>Recommended setting:</b><br>Slider is recommended."
-msgstr "ホーム（トップ）ページに表示するメディアのタイプを選択します。<br>ここで選択したタイプの設定ボタンが１つ前の画面に表示されます。<br><br><b>＜お勧めの設定＞</b><br>スライダーがお勧めです"
+msgstr "ホーム（トップ）ページに表示するメディアのタイプを選択します。<br>ここで選択したタイプの設定ボタン(「2.スライダー設定」または「2.静止画像設定」が１つ前のカスタマイザ画面(ヘッダー設定)に表示されます。<br><br><b>＜お勧めの設定＞</b><br>スライダーがお勧めです"
 
 #: inc/customizer.php:XXX
 msgid "<br>In 1 above, select the media type to display in the header section of the homepage (top page).<br><b>◆ Slider type</b>:<br>Images slide with animation<br><b>◆ Static image type</b>:<br>Normal static image<br><br>According to the type selected in 1 above, the 'Slider' or 'Static Image' settings button will appear in 2 below. Click the button to configure."
-msgstr "<br>上記の1.でホームページ（トップページ）のヘッダー部分に表示するメディアタイプを選択してください。<br><b>◆スライダータイプ</b>：<br>画像がスライドするアニメーション<br><b>◆静止画像タイプ</b>：<br>通常の静止画像<br><br>上記1.で選択したタイプに応じて下記の2.に「スライダー」または「静止画像」の設定ボタンが表示されます。ボタンをクリックして設定してください。<br><br>"
+msgstr "<br>上記の1.でホームページ（トップページ）のヘッダー部分に表示するタイプを選択してください。<br><b>◆スライダータイプ</b>：<br>画像がスライドするアニメーション<br><b>◆静止画像タイプ</b>：<br>通常の静止画像<br><br>上記1.で選択したタイプに応じて下記の2.に「スライダー」または「静止画像」の設定ボタンが表示されます。ボタンをクリックして設定してください。<br><br>"
 
 msgid "Sidebar Settings"
 msgstr "サイドバー設定"
