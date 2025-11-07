@@ -10,7 +10,7 @@
 
 if (!defined('_INTEGLIGHT_S_VERSION')) {
 	// Replace the version number of the theme on each release.
-	define('_INTEGLIGHT_S_VERSION', '1.1.24');
+	define('_INTEGLIGHT_S_VERSION', '1.1.25');
 }
 
 /**
