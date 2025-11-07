@@ -27,7 +27,7 @@ class Integlight_customize_performance
 
         // キャッシュ有効/無効の設定
         $wp_customize->add_setting('integlight_cache_enable', [
-            'default'           => true,
+            'default'           => Integlight_Defaults::get_all()['integlight_cache_enable'] ?? true,
             'sanitize_callback' => 'wp_validate_boolean',
         ]);
 
@@ -47,7 +47,7 @@ class Integlight_customize_performance
      */
     public static function is_cache_enabled()
     {
-        return get_theme_mod('integlight_cache_enable', true);
+        return Integlight_getThemeMod::getThemeMod('integlight_cache_enable', true);
     }
 }
 

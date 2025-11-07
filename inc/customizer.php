@@ -11,65 +11,58 @@
 
 
 // side bar position _s ////////////////////////////////////////////////////////////////////////////////
-class Integlight_customizer_sidebar
-{
+// class Integlight_customizer_sidebar
+// {
 
-	public function __construct()
-	{
-		add_action('customize_register', array($this, 'customize_register_sidebar'));
-	}
+// 	public function __construct()
+// 	{
+// 		add_action('customize_register', array($this, 'customize_register_sidebar'));
+// 	}
 
-	private function helper_setting($wp_customize, $no, $defPosition)
-	{
+// 	private function helper_setting($wp_customize, $no, $defPosition)
+// 	{
 
-		// サイドバー位置設定の追加
-		$wp_customize->add_setting('integlight_sidebar' . $no . '_position', array(
-			'default' => $defPosition,
-			'sanitize_callback' => array($this, 'sanitize_sidebar_position'),
-		));
+// 		// サイドバー位置設定の追加
+// 		$wp_customize->add_setting('integlight_sidebar' . $no . '_position', array(
+// 			'default' => Integlight_Defaults::get_all()['integlight_sidebar' . $no . '_position'] ?? $defPosition,
+// 			'sanitize_callback' => ['Integlight_customizer_choiceCtlBase', 'sanitize_choices'],
+// 		));
 
-		// サイドバー位置オプションの追加
-		$wp_customize->add_control('integlight_sidebar' . $no . '_position_control', array(
-			'label' => __('Sidebar', 'integlight') . $no . ' ' . __('Position', 'integlight'),
-			'section' => 'integlight_sidebar_section',
-			'settings' => 'integlight_sidebar' . $no . '_position',
-			'type' => 'radio',
-			'choices' => array(
-				'right' => __('Right', 'integlight'),
-				'left' => __('Left', 'integlight'),
-				'bottom' => __('Bottom', 'integlight'),
-				'none' => __('None', 'integlight'),
-			),
-		));
-	}
+// 		// サイドバー位置オプションの追加
+// 		$wp_customize->add_control('integlight_sidebar' . $no . '_position', array(
+// 			'label' => __('Sidebar', 'integlight') . $no . ' ' . __('Position', 'integlight'),
+// 			'section' => 'integlight_sidebar_section',
+// 			'settings' => 'integlight_sidebar' . $no . '_position',
+// 			'type' => 'radio',
+// 			'choices' => array(
+// 				'right' => __('Right', 'integlight'),
+// 				'left' => __('Left', 'integlight'),
+// 				'bottom' => __('Bottom', 'integlight'),
+// 				'none' => __('None', 'integlight'),
+// 			),
+// 		));
+// 	}
 
-	public function customize_register_sidebar($wp_customize)
-	{
-
-
-
-		// サイドバー位置セクションの追加
-		$wp_customize->add_section('integlight_sidebar_section', array(
-			'title' => __('Sidebar Position Settings', 'integlight'),
-			'priority' => 30,
-			'panel' => 'integlight_sidebar_panel',
-			'description' => __("Set the position of the sidebar configured in the previous screen or via 'Appearance → Widgets' in the admin dashboard.", 'integlight'),
-
-		));
-
-		$this->helper_setting($wp_customize, '1', 'right');
-		$this->helper_setting($wp_customize, '2', 'none');
-	}
+// 	public function customize_register_sidebar($wp_customize)
+// 	{
 
 
-	// サイドバー位置の入力を検証する
-	public function sanitize_sidebar_position($input)
-	{
-		return $input;
-	}
-}
 
-new Integlight_customizer_sidebar();
+// 		// サイドバー位置セクションの追加
+// 		$wp_customize->add_section('integlight_sidebar_section', array(
+// 			'title' => __('Sidebar Position Settings', 'integlight'),
+// 			'priority' => 30,
+// 			'panel' => 'integlight_sidebar_panel',
+// 			'description' => __("Set the position of the sidebar configured in the previous screen or via 'Appearance → Widgets' in the admin dashboard.", 'integlight'),
+
+// 		));
+
+// 		$this->helper_setting($wp_customize, '1', 'right');
+// 		$this->helper_setting($wp_customize, '2', 'none');
+// 	}
+// }
+
+//new Integlight_customizer_sidebar();
 
 
 // side bar position _e ////////////////////////////////////////////////////////////////////////////////
@@ -89,8 +82,8 @@ class integlight_customizer_themeColor extends Integlight_customizer_choiceCtlBa
 		// Setting
 		$wp_customize->add_setting('integlight_base_color_setting', array(
 			'type'              => 'theme_mod',
-			'default'           => 'pattern8',
-			'sanitize_callback' => [$this, 'sanitize_choices'],
+			'default'           => Integlight_Defaults::get_all()['integlight_base_color_setting'] ?? 'pattern8',
+			'sanitize_callback' => ['Integlight_customizer_choiceCtlBase', 'sanitize_choices'],
 		));
 
 		// Control
@@ -140,8 +133,8 @@ class integlight_customizer_homeType extends Integlight_customizer_choiceCtlBase
 		// Setting
 		$wp_customize->add_setting('integlight_hometype_setting', array(
 			'type'              => 'theme_mod',
-			'default'           => 'siteType1',
-			'sanitize_callback' => [$this, 'sanitize_choices'],
+			'default'           => Integlight_Defaults::get_all()['integlight_hometype_setting'] ?? 'siteType1',
+			'sanitize_callback' => ['Integlight_customizer_choiceCtlBase', 'sanitize_choices'],
 		));
 
 		// Control
@@ -154,7 +147,7 @@ class integlight_customizer_homeType extends Integlight_customizer_choiceCtlBase
 			'choices'     => array(
 				'siteType1' => __('Elegant', 'integlight'),
 				'siteType2' => __('Pop', 'integlight'),
-				'siteType3' => __('Simple', 'integlight'),
+				//'siteType3' => __('Simple', 'integlight'),
 				//'siteType4' => __('home4', 'integlight'),
 			),
 		));
@@ -163,7 +156,6 @@ class integlight_customizer_homeType extends Integlight_customizer_choiceCtlBase
 
 // インスタンスを作成して初期化
 new integlight_customizer_homeType();
-
 
 
 
@@ -188,7 +180,7 @@ class Integlight_customizer_footer
 		));
 		// コピーライト設定
 		$wp_customize->add_setting('integlight_footer_copy_right', array(
-			'default'           => '',
+			'default'           => Integlight_Defaults::get_all()['integlight_footer_copy_right'] ?? '',
 			'sanitize_callback' => 'sanitize_text_field',
 		));
 
@@ -200,7 +192,7 @@ class Integlight_customizer_footer
 
 		// クレジット表示チェックボックス
 		$wp_customize->add_setting('integlight_footer_show_credit', array(
-			'default'           => true,
+			'default'           => Integlight_Defaults::get_all()['integlight_footer_show_credit'] ?? true,
 			'sanitize_callback' => array($this, 'sanitize_checkbox'),
 		));
 

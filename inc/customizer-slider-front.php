@@ -21,14 +21,14 @@ class integlight_customizer_slider_headerTextStyle
 	public function ApplyTextStyles()
 	{
 		// カスタマイザーから値を取得。未設定の場合はデフォルト値を使用
-		$color = get_theme_mod('integlight_slider_text_color', '#ffffff'); // デフォルトは白
-		$left  = get_theme_mod('integlight_slider_text_left', 30);      // デフォルト 30px
-		$top   = get_theme_mod('integlight_slider_text_top', 300);       // デフォルト 300px
-		$left_mobile  = get_theme_mod('integlight_slider_text_left_mobile', 20);      // デフォルト 30px
-		$top_mobile   = get_theme_mod('integlight_slider_text_top_mobile', 200);       // デフォルト 300px
+		$color = Integlight_getThemeMod::getThemeMod('integlight_slider_text_color'); // デフォルトは白
+		$left  = Integlight_getThemeMod::getThemeMod('integlight_slider_text_left', 30);      // デフォルト 30px
+		$top   = Integlight_getThemeMod::getThemeMod('integlight_slider_text_top', 300);       // デフォルト 300px
+		$left_mobile  = Integlight_getThemeMod::getThemeMod('integlight_slider_text_left_mobile', 20);      // デフォルト 30px
+		$top_mobile   = Integlight_getThemeMod::getThemeMod('integlight_slider_text_top_mobile', 200);       // デフォルト 300px
 		// フォント選択の取得（デフォルトは 'yu_gothic'）
 
-		$font = get_theme_mod('integlight_slider_text_font', 'yu_gothic');
+		$font = Integlight_getThemeMod::getThemeMod('integlight_slider_text_font');
 		switch ($font) {
 			case 'yu_mincho':
 				// 游明朝の場合の font-family
@@ -85,9 +85,9 @@ class Integlight_customizer_slider_display_sliderContent
 		$images = [];
 
 		// slide 1
-		$id1 = $is_mobile ? get_theme_mod('integlight_slider_image_mobile_1') : null;
+		$id1 = $is_mobile ? Integlight_getThemeMod::getThemeMod('integlight_slider_image_mobile_1') : null;
 		if (empty($id1)) {
-			$id1 = get_theme_mod('integlight_slider_image_1');
+			$id1 = Integlight_getThemeMod::getThemeMod('integlight_slider_image_1');
 		}
 		if (!empty($id1)) {
 			$attr = Integlight_getAttr_byImageCount::getHeaderImageAttr(0);
@@ -95,9 +95,9 @@ class Integlight_customizer_slider_display_sliderContent
 		}
 
 		// slide 2
-		$id2 = $is_mobile ? get_theme_mod('integlight_slider_image_mobile_2') : null;
+		$id2 = $is_mobile ? Integlight_getThemeMod::getThemeMod('integlight_slider_image_mobile_2') : null;
 		if (empty($id2)) {
-			$id2 = get_theme_mod('integlight_slider_image_2');
+			$id2 = Integlight_getThemeMod::getThemeMod('integlight_slider_image_2');
 		}
 		if (!empty($id2)) {
 			$attr = Integlight_getAttr_byImageCount::getHeaderImageAttr(1);
@@ -105,9 +105,9 @@ class Integlight_customizer_slider_display_sliderContent
 		}
 
 		// slide 3
-		$id3 = $is_mobile ? get_theme_mod('integlight_slider_image_mobile_3') : null;
+		$id3 = $is_mobile ? Integlight_getThemeMod::getThemeMod('integlight_slider_image_mobile_3') : null;
 		if (empty($id3)) {
-			$id3 = get_theme_mod('integlight_slider_image_3');
+			$id3 = Integlight_getThemeMod::getThemeMod('integlight_slider_image_3');
 		}
 		if (!empty($id3)) {
 			$attr = Integlight_getAttr_byImageCount::getHeaderImageAttr(2);
@@ -125,8 +125,8 @@ class Integlight_customizer_slider_display_sliderContent
 	public static function getTexts(): array
 	{
 		return [
-			nl2br(wp_kses_post(get_theme_mod('integlight_slider_text_1', ''))),
-			nl2br(wp_kses_post(get_theme_mod('integlight_slider_text_2', ''))),
+			nl2br(wp_kses_post(Integlight_getThemeMod::getThemeMod('integlight_slider_text_1'))),
+			nl2br(wp_kses_post(Integlight_getThemeMod::getThemeMod('integlight_slider_text_2'))),
 		];
 	}
 }
@@ -157,9 +157,9 @@ class integlight_customizer_slider_outerAssets
 
 		// カスタマイザーの設定値をJavaScriptに渡す
 		wp_localize_script(Integlight_outerAssets_js_forCall::getSliderScriptsHandleName(), 'integlight_sliderSettings', array(
-			'changeDuration' => get_theme_mod('integlight_slider_change_duration', 3),
-			'effect' => get_theme_mod('integlight_slider_effect', Integlight_customizer_slider_settings::getEffectNameFade()),
-			'homeType' => get_theme_mod('integlight_hometype_setting', Integlight_customizer_slider_settings::getHomeType1Name()),
+			'changeDuration' => Integlight_getThemeMod::getThemeMod('integlight_slider_change_duration', 3),
+			'effect' => Integlight_getThemeMod::getThemeMod('integlight_slider_effect', Integlight_customizer_slider_settings::getEffectNameFade()),
+			'homeType' => Integlight_getThemeMod::getThemeMod('integlight_hometype_setting', Integlight_customizer_slider_settings::getHomeType1Name()),
 			'fadeName' => Integlight_customizer_slider_settings::getEffectNameFade(),
 			'slideName' => Integlight_customizer_slider_settings::getEffectNameSlide(),
 			'siteType1Name' => Integlight_customizer_slider_settings::getHomeType1Name(),
@@ -179,14 +179,14 @@ class integlight_customizer_slider_outerAssets
 /*カスタマイザーで設定したスライダー機能をフロントでオープンしたときにロード*/
 add_action('wp', function () {
 	if (is_front_page()) {
-		if (Integlight_customizer_selHeader_settingValues::getSlider() === get_theme_mod('integlight_display_choice', 'none')) {
+		if (Integlight_customizer_selHeader_settingValues::getSlider() === Integlight_getThemeMod::getThemeMod('integlight_display_choice')) {
 			if (
-				get_theme_mod('integlight_slider_image_mobile_1') ||
-				get_theme_mod('integlight_slider_image_mobile_2') ||
-				get_theme_mod('integlight_slider_image_mobile_3') ||
-				get_theme_mod('integlight_slider_image_1') ||
-				get_theme_mod('integlight_slider_image_2') ||
-				get_theme_mod('integlight_slider_image_3')
+				Integlight_getThemeMod::getThemeMod('integlight_slider_image_mobile_1') ||
+				Integlight_getThemeMod::getThemeMod('integlight_slider_image_mobile_2') ||
+				Integlight_getThemeMod::getThemeMod('integlight_slider_image_mobile_3') ||
+				Integlight_getThemeMod::getThemeMod('integlight_slider_image_1') ||
+				Integlight_getThemeMod::getThemeMod('integlight_slider_image_2') ||
+				Integlight_getThemeMod::getThemeMod('integlight_slider_image_3')
 			) {
 				// いずれかがセットされているときの処理
 				new integlight_customizer_slider_outerAssets();

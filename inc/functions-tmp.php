@@ -1,6 +1,6 @@
 <?php
 add_action('after_setup_theme', function () {
-    $old = get_theme_mod('integlight_hometype_setting');
+    $old = Integlight_getThemeMod::getThemeMod('integlight_hometype_setting');
 
     // 旧データを持つユーザーのみ対象
     if ($old === 'home1' || $old === 'home2') {

@@ -103,20 +103,9 @@ msgstr "メイン"
 
 
 
-#: functions.php:131
-msgid "Sidebar1"
-msgstr "サイドバー1"
 
-#: functions.php:133
-#: functions.php:146
-msgid "Add widgets here."
-msgstr "ここにウィジェットを追加"
 
-#: functions.php:144
-msgid "Sidebar2"
-msgstr "サイドバー2"
 
-#: header.php:73
 msgid "Skip to content"
 msgstr "コンテンツへスキップ"
 
@@ -142,7 +131,7 @@ msgstr "静止画像"
 
 #: inc/integlight-customizer.php:190
 msgid "Effect"
-msgstr "エフェクト"
+msgstr "アニメーションタイプ"
 
 #: inc/integlight-customizer.php:194
 msgid "Fade"
@@ -533,7 +522,7 @@ msgid "The things you casually talk about every day, as well as the knowledge an
 msgstr "あなたが日々何気なく話していることや、仕事や趣味で得た知識・経験は、誰かにとって価値ある情報です。ブログに記録することで、それは時間とともに蓄積され、あなたの「デジタル資産」となります。発信を続けることで、多くの人に届く価値を生み出してみませんか？"
 
 msgid "Copyright Settings"
-msgstr "Copy Rightの設定"
+msgstr "Copy Right表示の設定"
 
 msgid "Please enter the Copyright information."
 msgstr "Copy Rightを入力してください。"
@@ -640,29 +629,23 @@ msgid ""
 "<br>Create two menus. Place frequently used items in the Header menu and less used items in the Footer menu."
 msgstr ""
 "メニュー関連の設定です。"
-"<br>管理画面の「外観」→「メニュー」からも設定可能です。"
-"<br><br>1. まず、下の「新しいメニューを作成」からメニューを作成してください。"
-"<br><br>2. 次に、作成したメニューを「メニューの位置」から割り当ててください。"
-"<br>（ヘッダー、フッターの2種類から選択できます。）"
-"<br><br><b>＜お勧めの設定＞</b>"
-"<br>メニューは2種類作成し、使用頻度の高いものはヘッダーに、使用頻度の低いものはフッターに配置してください。"
+"<br><span style=\"color: red; font-weight: bold;\">※このページでの設定は複雑なので、管理画面の「外観」→「メニュー」から設定することをお勧めします。</span>"
+"<br><br>1. まず、下の「メニューを新規作成」からメニューを作成してください。"
+"<br><br>2. 次に、下記「メニューの位置」セクションの「すべての位置を表示」ボタンで作成したメニューをヘッダーまたはフッターに配置してください。"
+
 
 msgid "Media settings (slider or static image) for the header area of the homepage (top page)."
 msgstr "ホームページ（トップページ）のヘッダー部分に表示するメディア（スライダーまたは静止画像）の設定です。"
 
-msgid ""
-"Sidebar settings for posts page. You can configure from \"Appearance → Widgets\".<br><br>"
-"You can place two sidebars: Sidebar 1 and Sidebar 2.<br><br>"
-"When opening this panel in posts page, the setting buttons for the target sidebars will be displayed.<br><br>"
-"<b>Recommended setting:</b><br>"
-"Create widgets in Sidebar 1 and set its position to the right."
+msgid "Sidebar settings for posts page. You can configure from \"Appearance → Widgets\".<br><br>You can place two sidebars: Sidebar-Right and Sidebar-Left.<br><br>When opening this panel in posts page, the setting buttons for the target sidebars will be displayed.<br><br><b>Recommended setting:</b><br>Create widgets in Sidebar-Right."
 msgstr ""
 "投稿ページに表示するサイドバーに関連する設定です。<br>"
-"※管理画面の「外観」→「ウィジェット」から設定することもできます。<br><br>"
-"サイドバー１、サイドバー２の２つのサイドバーを配置することができます。<br><br>"
+"<br><span style=\"color: red; font-weight: bold;\">※このページでの設定は複雑なので、管理画面の「外観」→「ウィジェット」から設定することをお勧めします。</span><br><br>"
+"※サイドバーは投稿ページとカテゴリ一覧で表示されます。<br><br>"
+"右側サイドバー、左側サイドバーの２つのサイドバーにウィジェットを置くことができます。<br><br>"
 "投稿ページで本パネルをオープンすると対象のサイドバーの設定ボタンが表示されます。<br><br>"
 "<b>＜お勧めの設定＞</b><br>"
-"サイドバー１にウィジェットを作成して、サイドバー１の位置を右に設定"
+"右サイドバーにウィジェットを作成する"
 
 #: inc/customizer.php:XXX
 msgid "Settings related to the footer area at the bottom of the screen.<br><br>* To set up the footer menu, please use the Menu settings in the Customizer."
@@ -763,11 +746,11 @@ msgstr "チェックを外すとテーマのサーバー側キャッシュが無
 
 #: inc/customizer.php:XXX
 msgid "Select the type of media to display on the homepage (top page).<br>The settings button for the selected type will appear on the previous screen.<br><br><b>Recommended setting:</b><br>Slider is recommended."
-msgstr "ホーム（トップ）ページに表示するメディアのタイプを選択します。<br>ここで選択したタイプの設定ボタンが１つ前の画面に表示されます。<br><br><b>＜お勧めの設定＞</b><br>スライダーがお勧めです"
+msgstr "ホーム（トップ）ページに表示するメディアのタイプを選択します。<br>ここで選択したタイプの設定ボタン(「2.スライダー設定」または「2.静止画像設定」)が１つ前のカスタマイザ画面(ヘッダー設定)に表示されます。<br><br><b>＜お勧めの設定＞</b><br>スライダーがお勧めです"
 
 #: inc/customizer.php:XXX
 msgid "<br>In 1 above, select the media type to display in the header section of the homepage (top page).<br><b>◆ Slider type</b>:<br>Images slide with animation<br><b>◆ Static image type</b>:<br>Normal static image<br><br>According to the type selected in 1 above, the 'Slider' or 'Static Image' settings button will appear in 2 below. Click the button to configure."
-msgstr "<br>上記の1.でホームページ（トップページ）のヘッダー部分に表示するメディアタイプを選択してください。<br><b>◆スライダータイプ</b>：<br>画像がスライドするアニメーション<br><b>◆静止画像タイプ</b>：<br>通常の静止画像<br><br>上記1.で選択したタイプに応じて下記の2.に「スライダー」または「静止画像」の設定ボタンが表示されます。ボタンをクリックして設定してください。<br><br>"
+msgstr "<br>上記の1.でホームページ（トップページ）のヘッダー部分に表示するタイプを選択してください。<br><b>◆スライダータイプ</b>：<br>画像がスライドするアニメーション<br><b>◆静止画像タイプ</b>：<br>通常の静止画像<br><br>上記1.で選択したタイプに応じて下記の2.に「スライダー」または「静止画像」の設定ボタンが表示されます。ボタンをクリックして設定してください。<br><br>"
 
 msgid "Sidebar Settings"
 msgstr "サイドバー設定"
@@ -787,3 +770,63 @@ msgstr ""
 "（最新の投稿）を選ぶとブログのように新しい記事が順に表示されます。"
 "（固定ページ）を選ぶと、決まった内容を表示する静的なホームページになります。"
 "静的ホームページにしたい場合は、あらかじめ「ホーム」用と「投稿一覧」用の2つの固定ページを作成してください。"
+
+
+
+
+#: functions.php:5
+msgid "Right Sidebar (Displayed on the right side of posts and category pages)"
+msgstr "右サイドバー（投稿ページとカテゴリー一覧で表示される。画面右側に表示。※モバイルは画面下)"
+
+#: functions.php:22
+msgid "Left Sidebar (Displayed on the left side of posts and category pages)"
+msgstr "左サイドバー（投稿ページとカテゴリー一覧で表示される。画面左側に表示。※モバイルは画面下)"
+
+#: functions.php:10
+msgid "Widgets added here. For detailed instructions, please see the %s."
+msgstr "ここにウィジェットを追加してください。詳しい手順については%sをご覧ください。"
+
+
+
+
+#: functions.php:29
+msgid "setup manual"
+msgstr "設定マニュアル"
+
+
+
+#: admin-page.php:5
+msgid "Welcome to Integlight"
+msgstr "Integlightへようこそ"
+
+#: admin-page.php:6
+msgid "Integlight guide"
+msgstr "Integlight ガイド"
+
+#: admin-page.php:17
+msgid "For information on how to use and configure themes, please refer to the following manual."
+msgstr "テーマの使用方法と設定方法については、以下のマニュアルをご参照ください。"
+
+#: admin-page.php:21
+msgid "See official manual"
+msgstr "公式マニュアルを見る"
+
+#: admin-page.php:42
+msgid "Integlight Menu Setup Guide"
+msgstr "Integlight メニュー設定ガイド"
+
+#: admin-page.php:43
+msgid "For detailed instructions on how to set up your menu and recommended configurations, please see the official manual below."
+msgstr "メニューの設定方法や推奨構成の詳細な手順については、以下の公式マニュアルをご覧ください。"
+
+#: admin-page.php:48
+msgid "Open Manual"
+msgstr "マニュアルを開く"
+
+#: admin-page.php:71
+msgid "Integlight Widget Setup Guide"
+msgstr "Integlight ウィジェット設定ガイド"
+
+#: admin-page.php:72
+msgid "For detailed instructions on how to add and configure widgets for the Integlight theme, please see the official manual below."
+msgstr "Integlightテーマ用のウィジェットの追加および設定方法の詳細については、以下の公式マニュアルをご覧ください。"

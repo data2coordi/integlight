@@ -10,7 +10,7 @@
 
 if (!defined('_INTEGLIGHT_S_VERSION')) {
 	// Replace the version number of the theme on each release.
-	define('_INTEGLIGHT_S_VERSION', '1.1.23');
+	define('_INTEGLIGHT_S_VERSION', '1.1.24');
 }
 
 /**
@@ -125,13 +125,20 @@ add_action('after_setup_theme', 'integlight_content_width', 0);
  *
  * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
  */
+
 function integlight_widgets_init()
 {
 	register_sidebar(
 		array(
-			'name'          => esc_html__('Sidebar1', 'integlight'),
+			'name'          => esc_html__('Right Sidebar (Displayed on the right side of posts and category pages)', 'integlight'),
 			'id'            => 'sidebar-1',
-			'description'   => esc_html__('Add widgets here.', 'integlight'),
+			'description'   => wp_kses_post(
+				sprintf(
+					/* translators: %s: URL to the widget setup manual. */
+					__('Widgets added here. For detailed instructions, please see the %s.', 'integlight'),
+					'<a href="https://integlight.auroralab-design.com/sidebar-widget-setup/" target="_blank" rel="noopener noreferrer">' . esc_html__('setup manual', 'integlight') . '</a>'
+				)
+			),
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</section>',
 			'before_title'  => '<h2 class="widget-title">',
@@ -139,12 +146,17 @@ function integlight_widgets_init()
 		)
 	);
 
-
 	register_sidebar(
 		array(
-			'name'          => esc_html__('Sidebar2', 'integlight'),
+			'name'          => esc_html__('Left Sidebar (Displayed on the left side of posts and category pages)', 'integlight'),
 			'id'            => 'sidebar-2',
-			'description'   => esc_html__('Add widgets here.', 'integlight'),
+			'description'   => wp_kses_post(
+				sprintf(
+					/* translators: %s: URL to the widget setup manual. */
+					__('Widgets added here. For detailed instructions, please see the %s.', 'integlight'),
+					'<a href="https://integlight.auroralab-design.com/sidebar-widget-setup/" target="_blank" rel="noopener noreferrer">' . esc_html__('setup manual', 'integlight') . '</a>'
+				)
+			),
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</section>',
 			'before_title'  => '<h2 class="widget-title">',
@@ -153,6 +165,5 @@ function integlight_widgets_init()
 	);
 }
 add_action('widgets_init', 'integlight_widgets_init');
-
 
 require get_template_directory() . '/inc/functions-phpload.php';

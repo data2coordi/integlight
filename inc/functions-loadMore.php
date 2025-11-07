@@ -23,7 +23,7 @@ class Integlight_loadMore
         if (
             is_home() &&
             in_array(
-                get_theme_mod('integlight_hometype_setting', 'siteType1'),
+                Integlight_getThemeMod::getThemeMod('integlight_hometype_setting'),
                 ['siteType2', 'siteType3'],
                 true
             )
@@ -38,7 +38,7 @@ class Integlight_loadMore
         if (
             is_home() &&
             in_array(
-                get_theme_mod('integlight_hometype_setting', 'siteType1'),
+                Integlight_getThemeMod::getThemeMod('integlight_hometype_setting'),
                 ['siteType2', 'siteType3'],
                 true
             )

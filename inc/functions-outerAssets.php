@@ -185,7 +185,7 @@ class Integlight_outerAssets_themeColorLoader
 
     public function enqueue_custom_css()
     {
-        $base_pattern = get_theme_mod('integlight_base_color_setting', 'pattern8');
+        $base_pattern = Integlight_getThemeMod::getThemeMod('integlight_base_color_setting');
 
 
 
@@ -210,12 +210,12 @@ class Integlight_outerAssets_homeTypeLoader
 
     public function enqueue_hometype_css()
     {
-        $home_type = get_theme_mod('integlight_hometype_setting', 'siteType1');
+        $home_type = Integlight_getThemeMod::getThemeMod('integlight_hometype_setting');
 
         $tmp_deps = ['integlight-integlight-menu', 'integlight-custom-color-pattern'];
         // slider かつフロントまたは home の場合に追記
         if (
-            'slider' === get_theme_mod('integlight_display_choice', 'none') &&
+            'slider' === Integlight_getThemeMod::getThemeMod('integlight_display_choice') &&
             (is_front_page())
         ) {
             $tmp_deps[] = 'integlight-slide';
