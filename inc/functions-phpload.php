@@ -47,6 +47,7 @@ require get_template_directory() . '/inc/customizer-slider.php';
 require get_template_directory() . '/inc/customizer-headerImage-front.php';
 require get_template_directory() . '/inc/customizer-headerImage.php';
 require get_template_directory() . '/inc/customizer-pf.php';
+require get_template_directory() . '/inc/admin.php';
 
 
 /***************************************** */

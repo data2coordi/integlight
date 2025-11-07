@@ -186,7 +186,7 @@ class Integlight_customizer_interfaceManager
 		);
 		$header_desc = __('Media settings (slider or static image) for the header area of the homepage (top page).', 'integlight');
 		$sidebar_desc = __(
-			'Sidebar settings for posts page. You can configure from "Appearance → Widgets".<br><br>You can place two sidebars: Sidebar 1 and Sidebar 2.<br><br>When opening this panel in posts page, the setting buttons for the target sidebars will be displayed.<br><br><b>Recommended setting:</b><br>Create widgets in Sidebar 1 and set its position to the right.',
+			'Sidebar settings for posts page. You can configure from "Appearance → Widgets".<br><br>You can place two sidebars: Sidebar-Right and Sidebar-Left.<br><br>When opening this panel in posts page, the setting buttons for the target sidebars will be displayed.<br><br><b>Recommended setting:</b><br>Create widgets in Sidebar-Right.',
 			'integlight'
 		);
 		$footer_desc = __(

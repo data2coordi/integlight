@@ -103,20 +103,9 @@ msgstr "メイン"
 
 
 
-#: functions.php:131
-msgid "Sidebar1"
-msgstr "サイドバー1"
 
-#: functions.php:133
-#: functions.php:146
-msgid "Add widgets here."
-msgstr "ここにウィジェットを追加"
 
-#: functions.php:144
-msgid "Sidebar2"
-msgstr "サイドバー2"
 
-#: header.php:73
 msgid "Skip to content"
 msgstr "コンテンツへスキップ"
 
@@ -640,7 +629,7 @@ msgid ""
 "<br>Create two menus. Place frequently used items in the Header menu and less used items in the Footer menu."
 msgstr ""
 "メニュー関連の設定です。"
-"<br>※このページでの設定は複雑なので、管理画面の「外観」→「メニュー」から設定することをお勧めします。"
+"<br><span style=\"color: red; font-weight: bold;\">※このページでの設定は複雑なので、管理画面の「外観」→「メニュー」から設定することをお勧めします。</span>"
 "<br><br>1. まず、下の「メニューを新規作成」からメニューを作成してください。"
 "<br><br>2. 次に、下記「メニューの位置」セクションの「すべての位置を表示」ボタンで作成したメニューをヘッダーまたはフッターに配置してください。"
 
@@ -648,20 +637,15 @@ msgstr ""
 msgid "Media settings (slider or static image) for the header area of the homepage (top page)."
 msgstr "ホームページ（トップページ）のヘッダー部分に表示するメディア（スライダーまたは静止画像）の設定です。"
 
-msgid ""
-"Sidebar settings for posts page. You can configure from \"Appearance → Widgets\".<br><br>"
-"You can place two sidebars: Sidebar 1 and Sidebar 2.<br><br>"
-"When opening this panel in posts page, the setting buttons for the target sidebars will be displayed.<br><br>"
-"<b>Recommended setting:</b><br>"
-"Create widgets in Sidebar 1 and set its position to the right."
+msgid "Sidebar settings for posts page. You can configure from \"Appearance → Widgets\".<br><br>You can place two sidebars: Sidebar-Right and Sidebar-Left.<br><br>When opening this panel in posts page, the setting buttons for the target sidebars will be displayed.<br><br><b>Recommended setting:</b><br>Create widgets in Sidebar-Right."
 msgstr ""
 "投稿ページに表示するサイドバーに関連する設定です。<br>"
+"<br><span style=\"color: red; font-weight: bold;\">※このページでの設定は複雑なので、管理画面の「外観」→「ウィジェット」から設定することをお勧めします。</span><br><br>"
 "※サイドバーは投稿ページとカテゴリ一覧で表示されます。<br><br>"
-"※このページでの設定は複雑なので、管理画面の「外観」→「ウィジェット」から設定することをお勧めします。<br><br>"
-"サイドバー１、サイドバー２の２つのサイドバーを配置することができます。<br><br>"
+"右側サイドバー、左側サイドバーの２つのサイドバーにウィジェットを置くことができます。<br><br>"
 "投稿ページで本パネルをオープンすると対象のサイドバーの設定ボタンが表示されます。<br><br>"
 "<b>＜お勧めの設定＞</b><br>"
-"サイドバー１にウィジェットを作成して、サイドバー１の位置を右に設定"
+"右サイドバーにウィジェットを作成する"
 
 #: inc/customizer.php:XXX
 msgid "Settings related to the footer area at the bottom of the screen.<br><br>* To set up the footer menu, please use the Menu settings in the Customizer."
@@ -786,3 +770,63 @@ msgstr ""
 "（最新の投稿）を選ぶとブログのように新しい記事が順に表示されます。"
 "（固定ページ）を選ぶと、決まった内容を表示する静的なホームページになります。"
 "静的ホームページにしたい場合は、あらかじめ「ホーム」用と「投稿一覧」用の2つの固定ページを作成してください。"
+
+
+
+
+#: functions.php:5
+msgid "Right Sidebar (Displayed on the right side of posts and category pages)"
+msgstr "右サイドバー（投稿ページとカテゴリー一覧で表示される。画面右側に表示。※モバイルは画面下)"
+
+#: functions.php:22
+msgid "Left Sidebar (Displayed on the left side of posts and category pages)"
+msgstr "左サイドバー（投稿ページとカテゴリー一覧で表示される。画面左側に表示。※モバイルは画面下)"
+
+#: functions.php:10
+msgid "Widgets added here. For detailed instructions, please see the %s."
+msgstr "ここにウィジェットを追加してください。詳しい手順については%sをご覧ください。"
+
+
+
+
+#: functions.php:29
+msgid "setup manual"
+msgstr "設定マニュアル"
+
+
+
+#: admin-page.php:5
+msgid "Welcome to Integlight"
+msgstr "Integlightへようこそ"
+
+#: admin-page.php:6
+msgid "Integlight guide"
+msgstr "Integlight ガイド"
+
+#: admin-page.php:17
+msgid "For information on how to use and configure themes, please refer to the following manual."
+msgstr "テーマの使用方法と設定方法については、以下のマニュアルをご参照ください。"
+
+#: admin-page.php:21
+msgid "See official manual"
+msgstr "公式マニュアルを見る"
+
+#: admin-page.php:42
+msgid "Integlight Menu Setup Guide"
+msgstr "Integlight メニュー設定ガイド"
+
+#: admin-page.php:43
+msgid "For detailed instructions on how to set up your menu and recommended configurations, please see the official manual below."
+msgstr "メニューの設定方法や推奨構成の詳細な手順については、以下の公式マニュアルをご覧ください。"
+
+#: admin-page.php:48
+msgid "Open Manual"
+msgstr "マニュアルを開く"
+
+#: admin-page.php:71
+msgid "Integlight Widget Setup Guide"
+msgstr "Integlight ウィジェット設定ガイド"
+
+#: admin-page.php:72
+msgid "For detailed instructions on how to add and configure widgets for the Integlight theme, please see the official manual below."
+msgstr "Integlightテーマ用のウィジェットの追加および設定方法の詳細については、以下の公式マニュアルをご覧ください。"
