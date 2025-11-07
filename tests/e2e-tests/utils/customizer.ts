@@ -35,7 +35,7 @@ export class Customizer_slider {
   }
   async selSliderEffect(effect = "フェード", interval = "5") {
     const effectSelect = this.page.getByRole("combobox", {
-      name: "エフェクト",
+      name: "アニメーションタイプ",
     });
     await effectSelect.selectOption({ label: effect });
     const intervalInput = this.page.getByLabel("変更時間間隔（秒）");
