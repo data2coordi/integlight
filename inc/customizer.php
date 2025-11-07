@@ -11,58 +11,58 @@
 
 
 // side bar position _s ////////////////////////////////////////////////////////////////////////////////
-class Integlight_customizer_sidebar
-{
+// class Integlight_customizer_sidebar
+// {
 
-	public function __construct()
-	{
-		add_action('customize_register', array($this, 'customize_register_sidebar'));
-	}
+// 	public function __construct()
+// 	{
+// 		add_action('customize_register', array($this, 'customize_register_sidebar'));
+// 	}
 
-	private function helper_setting($wp_customize, $no, $defPosition)
-	{
+// 	private function helper_setting($wp_customize, $no, $defPosition)
+// 	{
 
-		// サイドバー位置設定の追加
-		$wp_customize->add_setting('integlight_sidebar' . $no . '_position', array(
-			'default' => Integlight_Defaults::get_all()['integlight_sidebar' . $no . '_position'] ?? $defPosition,
-			'sanitize_callback' => ['Integlight_customizer_choiceCtlBase', 'sanitize_choices'],
-		));
+// 		// サイドバー位置設定の追加
+// 		$wp_customize->add_setting('integlight_sidebar' . $no . '_position', array(
+// 			'default' => Integlight_Defaults::get_all()['integlight_sidebar' . $no . '_position'] ?? $defPosition,
+// 			'sanitize_callback' => ['Integlight_customizer_choiceCtlBase', 'sanitize_choices'],
+// 		));
 
-		// サイドバー位置オプションの追加
-		$wp_customize->add_control('integlight_sidebar' . $no . '_position', array(
-			'label' => __('Sidebar', 'integlight') . $no . ' ' . __('Position', 'integlight'),
-			'section' => 'integlight_sidebar_section',
-			'settings' => 'integlight_sidebar' . $no . '_position',
-			'type' => 'radio',
-			'choices' => array(
-				'right' => __('Right', 'integlight'),
-				'left' => __('Left', 'integlight'),
-				'bottom' => __('Bottom', 'integlight'),
-				'none' => __('None', 'integlight'),
-			),
-		));
-	}
+// 		// サイドバー位置オプションの追加
+// 		$wp_customize->add_control('integlight_sidebar' . $no . '_position', array(
+// 			'label' => __('Sidebar', 'integlight') . $no . ' ' . __('Position', 'integlight'),
+// 			'section' => 'integlight_sidebar_section',
+// 			'settings' => 'integlight_sidebar' . $no . '_position',
+// 			'type' => 'radio',
+// 			'choices' => array(
+// 				'right' => __('Right', 'integlight'),
+// 				'left' => __('Left', 'integlight'),
+// 				'bottom' => __('Bottom', 'integlight'),
+// 				'none' => __('None', 'integlight'),
+// 			),
+// 		));
+// 	}
 
-	public function customize_register_sidebar($wp_customize)
-	{
+// 	public function customize_register_sidebar($wp_customize)
+// 	{
 
 
 
-		// サイドバー位置セクションの追加
-		$wp_customize->add_section('integlight_sidebar_section', array(
-			'title' => __('Sidebar Position Settings', 'integlight'),
-			'priority' => 30,
-			'panel' => 'integlight_sidebar_panel',
-			'description' => __("Set the position of the sidebar configured in the previous screen or via 'Appearance → Widgets' in the admin dashboard.", 'integlight'),
+// 		// サイドバー位置セクションの追加
+// 		$wp_customize->add_section('integlight_sidebar_section', array(
+// 			'title' => __('Sidebar Position Settings', 'integlight'),
+// 			'priority' => 30,
+// 			'panel' => 'integlight_sidebar_panel',
+// 			'description' => __("Set the position of the sidebar configured in the previous screen or via 'Appearance → Widgets' in the admin dashboard.", 'integlight'),
 
-		));
+// 		));
 
-		$this->helper_setting($wp_customize, '1', 'right');
-		$this->helper_setting($wp_customize, '2', 'none');
-	}
-}
+// 		$this->helper_setting($wp_customize, '1', 'right');
+// 		$this->helper_setting($wp_customize, '2', 'none');
+// 	}
+// }
 
-new Integlight_customizer_sidebar();
+//new Integlight_customizer_sidebar();
 
 
 // side bar position _e ////////////////////////////////////////////////////////////////////////////////

@@ -13,44 +13,26 @@
 if (is_page()) {
 	return;
 }
-
-
-
-if (is_active_sidebar('sidebar-1')) {
-	if (Integlight_getThemeMod::getThemeMod('integlight_sidebar1_position') !== 'none') {
-?>
-		<aside id="secondary" class="widget-area <?php echo esc_attr("ly_site_content_widgetArea_" . Integlight_getThemeMod::getThemeMod('integlight_sidebar1_position')); ?>">
-
-
-			<?php
-
-			//サイドバー出力
-			$cache_sidebar = new Integlight_Cache_Sidebar();
-			$cache_sidebar->displaySidebar('sidebar-1', 'sidebar-1', 300);
-
-			?>
-		</aside><!-- #secondary -->
-<?php
-	}
-}
 ?>
 
-<?php
-if (is_active_sidebar('sidebar-2')) {
-	if (Integlight_getThemeMod::getThemeMod('integlight_sidebar2_position') !== 'none') {
-?>
-		<aside id="third" class="widget-area <?php echo esc_attr("ly_site_content_widgetArea_" . Integlight_getThemeMod::getThemeMod('integlight_sidebar2_position'));  ?>">
+
+<?php if (is_active_sidebar('sidebar-1')) : ?>
+	<aside id="secondary" class="widget-area ly_site_content_widgetArea_right">
+		<?php
+		//サイドバー出力
+		$cache_sidebar = new Integlight_Cache_Sidebar();
+		$cache_sidebar->displaySidebar('sidebar-1', 'sidebar-1', 300);
+		?>
+	</aside><!-- #secondary -->
+<?php endif; ?>
 
 
-			<?php
-			//サイドバー出力
-			$cache_sidebar = new Integlight_Cache_Sidebar();
-			$cache_sidebar->displaySidebar('sidebar-2', 'sidebar-2', 300);
-
-			?>
-
-		</aside><!-- #secondary -->
-<?php
-	}
-}
-?>
+<?php if (is_active_sidebar('sidebar-2')) : ?>
+	<aside id="secondary" class="widget-area ly_site_content_widgetArea_left">
+		<?php
+		//サイドバー出力
+		$cache_sidebar = new Integlight_Cache_Sidebar();
+		$cache_sidebar->displaySidebar('sidebar-2', 'sidebar-2', 300);
+		?>
+	</aside><!-- #secondary -->
+<?php endif; ?>
