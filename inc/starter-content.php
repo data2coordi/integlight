@@ -11,6 +11,10 @@ function integlight_get_starter_content()
                 'post_title' => 'Sample Slider pc image02',
                 'file'       => 'assets/sample_slider_pc_02.webp',
             ),
+            'image-slider-3' => array(
+                'post_title' => 'Sample Slider pc image03',
+                'file'       => 'assets/sample_slider_pc_03.webp',
+            ),
             'image-slider-sp-1' => array(
                 'post_title' => 'Sample Slider sp image01',
                 'file'       => 'assets/sample_slider_sp_01.webp',
@@ -18,6 +22,10 @@ function integlight_get_starter_content()
             'image-slider-sp-2' => array(
                 'post_title' => 'Sample Slider sp image02',
                 'file'       => 'assets/sample_slider_sp_02.webp',
+            ),
+            'image-slider-sp-3' => array(
+                'post_title' => 'Sample Slider sp image03',
+                'file'       => 'assets/sample_slider_sp_03.webp',
             ),
             'sample-logo' => array(
                 'post_title' => 'Sample Logo TEST',
@@ -37,8 +45,10 @@ function integlight_get_starter_content()
             'integlight_slider_text_color' => '#ffffff',
             'integlight_slider_image_1' => '{{image-slider-1}}',
             'integlight_slider_image_2' => '{{image-slider-2}}',
+            'integlight_slider_image_3' => '{{image-slider-3}}',
             'integlight_slider_image_mobile_1' => '{{image-slider-sp-1}}',
             'integlight_slider_image_mobile_2' => '{{image-slider-sp-2}}',
+            'integlight_slider_image_mobile_3' => '{{image-slider-sp-3}}',
         ),
 
         'options' => array(
