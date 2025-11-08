@@ -45,8 +45,10 @@ function integlight_get_starter_content()
             'integlight_slider_text_color' => '#ffffff',
             'integlight_slider_image_1' => '{{image-slider-1}}',
             'integlight_slider_image_2' => '{{image-slider-2}}',
+            'integlight_slider_image_3' => '{{image-slider-3}}',
             'integlight_slider_image_mobile_1' => '{{image-slider-sp-1}}',
             'integlight_slider_image_mobile_2' => '{{image-slider-sp-2}}',
+            'integlight_slider_image_mobile_3' => '{{image-slider-sp-3}}',
         ),
 
         'options' => array(
