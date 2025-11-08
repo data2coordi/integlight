@@ -2,7 +2,7 @@
 
 
 clear
-#./integlight_backup.sh restore
+./integlight_backup_init.sh restore
 
 
 # ===== ユーザー設定 =====

@@ -1,6 +1,6 @@
 Integlight
 Contributors: data2coordi
-Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready, accessibility-ready, responsive-layout, block-patterns, block-styles, editor-style, wide-blocks
+Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready, accessibility-ready, responsive-layout, editor-style, wide-blocks, block-patterns, block-styles, japanese, blog, simple, fast
 Requires at least: 5.6
 Tested up to: 6.5
 Requires PHP: 7.4
