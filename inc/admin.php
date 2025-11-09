@@ -1,4 +1,7 @@
 <?php
+
+
+// 外観 → テーマエディター画面にマニュアルリンクを表示 s
 function integlight_add_admin_page()
 {
     add_theme_page(
@@ -28,6 +31,7 @@ function integlight_render_welcome_page()
     <?php
 }
 
+// 外観 → テーマエディター画面にマニュアルリンクを表示 e
 
 
 
@@ -35,7 +39,7 @@ function integlight_render_welcome_page()
 
 
 /**
- * 外観 → メニュー画面にマニュアルリンクを表示
+ * 外観 → メニュー画面にマニュアルリンクを表示 s
  */
 function integlight_add_menu_screen_manual_notice()
 {
@@ -63,7 +67,7 @@ function integlight_add_menu_screen_manual_notice()
 add_action('admin_notices', 'integlight_add_menu_screen_manual_notice');
 
 /**
- * Display a manual link on the Appearance → Widgets screen.
+ * Display a manual link on the Appearance → Widgets screen.   s
  */
 function integlight_add_widgets_screen_manual_notice()
 {
@@ -104,3 +108,7 @@ function integlight_add_widgets_screen_manual_notice()
     }
 }
 add_action('admin_notices', 'integlight_add_widgets_screen_manual_notice');
+
+/**
+ * Display a manual link on the Appearance → Widgets screen.   e
+ */
