@@ -12,19 +12,10 @@ const authFile = "playwright/.auth/user.json";
  * @returns {import('@playwright/test').PlaywrightTestConfig}
  */
 
-const pages = [
-  { name: "home top", url: "/" },
-  {
-    name: "front top",
-    url: "/fire%e3%81%a7%e8%87%aa%e7%94%b1%e3%81%a8%e6%88%90%e9%95%b7%e3%82%92%e6%8e%b4%e3%82%80%ef%bc%81/",
-  },
-  { name: "カテゴリ一覧", url: "/category/fire-blog/" },
-  { name: "固定ページ", url: "/profile/" },
-];
-
 export function createVisualConfig({
   baseURL,
   testConfigs,
+  pages,
   snapshotDir,
   projectPrefix = "",
 }) {
@@ -39,6 +30,7 @@ export function createVisualConfig({
         storageState: authFile,
         // 'keyValue'よりも意図が明確な'testData'に変更
         testData: conf,
+        pages,
       },
     },
     {
