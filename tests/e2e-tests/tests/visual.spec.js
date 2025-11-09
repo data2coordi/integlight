@@ -43,6 +43,11 @@ const devices = [
 
 // ======= テスト展開 =======
 test.describe.parallel("ビジュアルテスト", () => {
+  const { pages } = test.info().project.use;
+  // --- デバッグ出力 ---
+  console.log("✅ Loaded pages from config:");
+  console.table(pages.map((p, i) => ({ No: i + 1, name: p.name, url: p.url })));
+
   for (const device of devices) {
     test.describe(`${device.name}`, () => {
       test.use(device.use);
