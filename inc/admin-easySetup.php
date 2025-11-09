@@ -5,7 +5,7 @@
  */
 
 
-class Integlight_Full_Debug
+class Integlight_initSetup
 {
 
     private $images = array(
@@ -29,8 +29,8 @@ class Integlight_Full_Debug
     public function add_admin_page()
     {
         add_theme_page(
-            'Integlight Full Debug Setup',
-            'Integlight Full Debug',
+            'Integlight Sample Content Easy Setup',
+            'Integlight Sample Content Easy Setup',
             'edit_theme_options',
             'integlight-full-debug-setup',
             array($this, 'render_admin_page')
@@ -47,7 +47,7 @@ class Integlight_Full_Debug
         }
 
         echo '<form method="post">';
-        echo '<p><input type="submit" class="button button-primary" name="integlight_full_debug_setup" value="フルサンプルをセットアップ"></p>';
+        echo '<p><input type="submit" class="button button-primary" name="integlight_full_debug_setup" value="サンプルをセットアップ"></p>';
         echo '</form>';
     }
 
@@ -87,15 +87,15 @@ class Integlight_Full_Debug
         set_theme_mod('integlight_slider_text_color', '#ffffff');
 
         // サイトタイトル
-        update_option('blogname', 'Integlight Sample Site');
+        //update_option('blogname', 'Integlight Sample Site');
 
 
-        $sample_content = new Integlight_Sample_Content();
+        $sample_content = new Integlight_Sample_Conten();
         $sample_content->create_blog_menu_with_posts();
 
 
 
-        echo '<div class="updated"><p>フルデバッグサンプル（ロゴ＋スライダー画像＋設定）を登録しました。</p></div>';
+        echo '<div class="updated"><p>サンプル（ロゴ＋スライダー＋メニュー＋投稿）を登録しました。</p></div>';
     }
 
     /**
@@ -137,7 +137,7 @@ class Integlight_Full_Debug
 }
 
 // インスタンス化してフックを登録
-new Integlight_Full_Debug();
+new Integlight_initSetup();
 
 /**
  * Integlight Sample Content Class
@@ -147,67 +147,113 @@ new Integlight_Full_Debug();
  */
 
 
-class Integlight_Sample_Content
+class Integlight_Sample_Conten
 {
-
     public function create_blog_menu_with_posts()
     {
-
-        // サンプル投稿作成
-        $sample_posts = array(
-            array('post_title' => 'サンプル投稿1', 'post_content' => 'これはサンプル投稿1です。'),
-            array('post_title' => 'サンプル投稿2', 'post_content' => 'これはサンプル投稿2です。'),
-        );
-
-        $post_ids = array();
-        foreach ($sample_posts as $post) {
-            $post_ids[] = wp_insert_post(array(
-                'post_title'    => $post['post_title'],
-                'post_content'  => $post['post_content'],
-                'post_status'   => 'publish',
-                'post_type'     => 'post',
-            ));
-        }
-
-        // カテゴリ作成（存在する場合は取得）
+        // 1. カテゴリ作成
         $category = get_term_by('slug', 'blog', 'category');
-        if (! $category) {
-            $category_id = wp_create_category('ブログ'); // slug は自動で blog になる
+        if (!$category) {
+            $new_term = wp_insert_term('ブログ', 'category', ['slug' => 'blog']);
+            if (is_wp_error($new_term)) {
+                error_log('カテゴリ作成に失敗: ' . $new_term->get_error_message());
+                return;
+            }
+            $category_id = $new_term['term_id'];
         } else {
             $category_id = $category->term_id;
         }
 
-        // 作成した投稿をカテゴリに割り当て
-        foreach ($post_ids as $pid) {
-            wp_set_post_categories($pid, array($category_id), true);
-        }
+        // 2. サンプル投稿作成（存在チェック）
+        $sample_posts = [
+            ['post_title' => 'サンプル投稿1', 'post_content' => 'これはサンプル投稿1です。'],
+            ['post_title' => 'サンプル投稿2', 'post_content' => 'これはサンプル投稿2です。'],
+        ];
 
-        // メニュー作成
-        $menu_name = 'Header Menu';
-        $menu_id   = wp_create_nav_menu($menu_name);
+        $post_ids = [];
+        foreach ($sample_posts as $post) {
+            $existing = get_page_by_title($post['post_title'], OBJECT, 'post');
+            if ($existing) {
+                $post_ids[] = $existing->ID;
+                wp_set_post_categories($existing->ID, [$category_id], true);
+                continue;
+            }
 
-        if (is_wp_error($menu_id)) {
-            $menu_obj = wp_get_nav_menu_object($menu_name);
-            if ($menu_obj) {
-                $menu_id = $menu_obj->term_id;
-            } else {
-                error_log('メニュー作成に失敗しました: ' . $menu_id->get_error_message());
-                return;
+            $pid = wp_insert_post([
+                'post_title'   => $post['post_title'],
+                'post_content' => $post['post_content'],
+                'post_status'  => 'publish',
+                'post_type'    => 'post',
+            ]);
+            if ($pid) {
+                $post_ids[] = $pid;
+                wp_set_post_categories($pid, [$category_id], true);
             }
         }
 
-        // 親メニュー: カテゴリ「ブログ」
-        $parent_item_id = wp_update_nav_menu_item($menu_id, 0, array(
-            'menu-item-title' => 'ブログ',
-            'menu-item-object' => 'category',
-            'menu-item-object-id' => $category_id,
-            'menu-item-type' => 'taxonomy',
-            'menu-item-status' => 'publish',
-        ));
+        // 3. プロフィール固定ページ作成（存在チェック済み）
+        $profile_page = get_page_by_path('profile');
+        if (!$profile_page) {
+            $profile_id = wp_insert_post([
+                'post_title'   => 'プロフィール',
+                'post_name'    => 'profile',
+                'post_content' => 'これはプロフィールページのサンプルです。',
+                'post_status'  => 'publish',
+                'post_type'    => 'page',
+            ]);
+        } else {
+            $profile_id = $profile_page->ID;
+        }
 
+        // 4. メニュー作成・取得
+        $menu_name = 'Header Menu';
+        $menu_obj  = wp_get_nav_menu_object($menu_name);
+        if (!$menu_obj) {
+            $menu_id = wp_create_nav_menu($menu_name);
+            if (is_wp_error($menu_id)) {
+                error_log('メニュー作成失敗: ' . $menu_id->get_error_message());
+                return;
+            }
+        } else {
+            $menu_id = $menu_obj->term_id;
+        }
 
-        // header に割り当て
-        $locations = get_theme_mod('nav_menu_locations', array());
+        // 5. メニュー項目の二重追加防止
+        $menu_items = wp_get_nav_menu_items($menu_id) ?: [];
+
+        $exists_category = false;
+        $exists_profile  = false;
+        foreach ($menu_items as $item) {
+            if ($item->object_id == $category_id && $item->object == 'category') {
+                $exists_category = true;
+            }
+            if ($item->object_id == $profile_id && $item->object == 'page') {
+                $exists_profile = true;
+            }
+        }
+
+        if (!$exists_category) {
+            wp_update_nav_menu_item($menu_id, 0, [
+                'menu-item-title'     => 'ブログ',
+                'menu-item-object'    => 'category',
+                'menu-item-object-id' => $category_id,
+                'menu-item-type'      => 'taxonomy',
+                'menu-item-status'    => 'publish',
+            ]);
+        }
+
+        if (!$exists_profile) {
+            wp_update_nav_menu_item($menu_id, 0, [
+                'menu-item-title'     => 'プロフィール',
+                'menu-item-object'    => 'page',
+                'menu-item-object-id' => $profile_id,
+                'menu-item-type'      => 'post_type',
+                'menu-item-status'    => 'publish',
+            ]);
+        }
+
+        // 6. ヘッダーメニューに割り当て
+        $locations = get_theme_mod('nav_menu_locations', []);
         $locations['header'] = $menu_id;
         set_theme_mod('nav_menu_locations', $locations);
     }
