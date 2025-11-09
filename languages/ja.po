@@ -859,7 +859,7 @@ msgid "Sample Category \"Blog\" + Posts + Page"
 msgstr "「ブログ」カテゴリ + サンプル投稿 + サンプル固定ページ"
 
 msgid "Add \"Blog\" category and page to Header Menu"
-msgstr "ヘッダーメニューに「ブログ」カテゴリおよびページを追加"
+msgstr "ヘッダーメニューに「ブログ」カテゴリおよび固定ページを追加"
 
 msgid "Benefits of automatic setup:"
 msgstr "自動セットアップのメリット："

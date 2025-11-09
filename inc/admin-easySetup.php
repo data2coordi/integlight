@@ -112,7 +112,7 @@ class Integlight_initSetup
 
         // Slider Other theme mods
         set_theme_mod('integlight_display_choice', 'slider');
-        set_theme_mod('integlight_slider_effect', 'fade');
+        set_theme_mod('integlight_slider_effect', 'slide');
         set_theme_mod('integlight_slider_change_duration', 3);
         set_theme_mod('integlight_slider_text_1', __('Turn Your Experience and Knowledge into Digital Assets with Integlight', 'integlight'));
         set_theme_mod('integlight_slider_text_2', __('The things you casually talk about every day, as well as the knowledge and experience you gain from work or hobbies, can be valuable information for someone. By documenting them in a blog, they accumulate over time and become your digital asset. Keep sharing, and you may create value that reaches many people.', 'integlight'));
