@@ -1,9 +1,9 @@
+
 <?php
 
 /**
  * Integlight Full Debug Starter (Class Version)
  */
-
 
 class Integlight_initSetup
 {
@@ -24,13 +24,13 @@ class Integlight_initSetup
     }
 
     /**
-     * 管理画面メニューに追加
+     * Add to admin menu
      */
     public function add_admin_page()
     {
         add_theme_page(
-            'Integlight Sample Content Easy Setup',
-            'Integlight Sample Content Easy Setup',
+            __('Integlight Sample Content Easy Setup', 'integlight'),
+            __('Integlight Sample Content Easy Setup', 'integlight'),
             'edit_theme_options',
             'integlight-full-debug-setup',
             array($this, 'render_admin_page')
@@ -38,7 +38,7 @@ class Integlight_initSetup
     }
 
     /**
-     * 管理画面ページの出力
+     * Admin page output
      */
     public function render_admin_page()
     {
@@ -46,44 +46,43 @@ class Integlight_initSetup
             $this->run_setup();
         }
 
-        echo '<form method="post" onsubmit="return confirm(\'この操作によりロゴやメニューなど既存の設定が上書きされます。本当に実行しますか？\');">';
+        echo '<form method="post" onsubmit="return confirm(\'' . esc_js(__('This operation will overwrite existing settings such as the logo and menus. Are you sure you want to proceed?', 'integlight')) . '\');">';
 
-        // 注意文（強調表示）
+        // Notice Box
         echo '<div style="border:2px solid #d9534f; background-color:#f2dede; color:#a94442; padding:10px; margin-bottom:15px;">';
-        echo '<strong>注意：</strong>この操作によりロゴやメニューなど既存の設定が上書きされます。';
+        echo '<strong>' . esc_html__('Notice:', 'integlight') . '</strong> ';
+        echo esc_html__('This operation will overwrite existing settings such as the logo and menus.', 'integlight');
         echo '</div>';
 
-        // 説明文
+        // Description block
         echo '<div style="border:1px solid #ccc; background-color:#f9f9f9; padding:10px; margin-bottom:15px;">';
-        echo '<p>このボタンをクリックすると、初心者でも簡単にサイトを確認できるよう、サンプルコンテンツを自動でセットアップします。</p>';
+        echo '<p>' . esc_html__('Clicking this button will automatically set up sample content so that even beginners can easily review the site.', 'integlight') . '</p>';
 
-        // セットアップ内容
-        echo '<p><strong>セットアップされる内容：</strong></p>';
+        echo '<p><strong>' . esc_html__('Contents to be set up:', 'integlight') . '</strong></p>';
         echo '<ul>';
-        echo '<li>ロゴ</li>';
-        echo '<li>スライダー</li>';
-        echo '<li>サンプルのカテゴリ「ブログ」＋投稿＋固定ページ</li>';
-        echo '<li>ヘッダーメニューにカテゴリ「ブログ」と固定ページを追加</li>';
+        echo '<li>' . esc_html__('Logo', 'integlight') . '</li>';
+        echo '<li>' . esc_html__('Slider', 'integlight') . '</li>';
+        echo '<li>' . esc_html__('Sample Category "Blog" + Posts + Page', 'integlight') . '</li>';
+        echo '<li>' . esc_html__('Add "Blog" category and page to Header Menu', 'integlight') . '</li>';
         echo '</ul>';
 
-        // 自動セットアップのメリット
-        echo '<p><strong>自動セットアップのメリット：</strong></p>';
+        echo '<p><strong>' . esc_html__('Benefits of automatic setup:', 'integlight') . '</strong></p>';
         echo '<ul>';
-        echo '<li>テーマの完成形をすぐ確認できる</li>';
-        echo '<li>初心者でも迷わず操作できる</li>';
-        echo '<li>必須機能の全体像を体験できる</li>';
-        echo '<li>サンプルコンテンツを編集することでスピーディに本物のコンテンツを作成できる</li>';
+        echo '<li>' . esc_html__('Preview the completed theme immediately', 'integlight') . '</li>';
+        echo '<li>' . esc_html__('Easy for beginners to operate', 'integlight') . '</li>';
+        echo '<li>' . esc_html__('Understand the overall structure of required features', 'integlight') . '</li>';
+        echo '<li>' . esc_html__('Quickly build real content by editing sample data', 'integlight') . '</li>';
         echo '</ul>';
         echo '</div>';
 
-        // セットアップボタン
-        echo '<p><input type="submit" class="button button-primary" name="integlight_full_debug_setup" value="サンプルをセットアップ"></p>';
+        // Button
+        echo '<p><input type="submit" class="button button-primary" name="integlight_full_debug_setup" value="' . esc_attr__('Set Up Sample Content', 'integlight') . '"></p>';
 
         echo '</form>';
     }
 
     /**
-     * セットアップ処理
+     * Setup process
      */
     private function run_setup()
     {
@@ -93,12 +92,12 @@ class Integlight_initSetup
             $ids[$key] = $this->import_media($path, ucfirst(str_replace('-', ' ', $key)));
         }
 
-        // ロゴ
+        // Logo
         if (! empty($ids['sample-logo'])) {
             set_theme_mod('custom_logo', $ids['sample-logo']);
         }
 
-        // スライダー画像（PC/モバイル）
+        // Slider Images
         set_theme_mod('integlight_slider_image_1', $ids['image-slider-1'] ?? '');
         set_theme_mod('integlight_slider_image_2', $ids['image-slider-2'] ?? '');
         set_theme_mod('integlight_slider_image_3', $ids['image-slider-3'] ?? '');
@@ -106,7 +105,7 @@ class Integlight_initSetup
         set_theme_mod('integlight_slider_image_mobile_2', $ids['image-slider-sp-2'] ?? '');
         set_theme_mod('integlight_slider_image_mobile_3', $ids['image-slider-sp-3'] ?? '');
 
-        // その他 theme_mods
+        // Other theme mods
         set_theme_mod('integlight_display_choice', 'slider');
         set_theme_mod('integlight_slider_effect', 'fade');
         set_theme_mod('integlight_slider_change_duration', 3);
@@ -117,20 +116,14 @@ class Integlight_initSetup
         set_theme_mod('integlight_slider_text_left', 200);
         set_theme_mod('integlight_slider_text_color', '#ffffff');
 
-        // サイトタイトル
-        //update_option('blogname', 'Integlight Sample Site');
-
-
         $sample_content = new Integlight_Sample_Content();
         $sample_content->setup();
 
-
-
-        echo '<div class="updated"><p>サンプル（ロゴ＋スライダー＋メニュー＋投稿）を登録しました。</p></div>';
+        echo '<div class="updated"><p>' . esc_html__('Sample content (logo, slider, menu, posts) has been installed.', 'integlight') . '</p></div>';
     }
 
     /**
-     * メディア登録
+     * Media import
      */
     private function import_media($relative_path, $title)
     {
@@ -167,50 +160,31 @@ class Integlight_initSetup
     }
 }
 
-// インスタンス化してフックを登録
 new Integlight_initSetup();
+
 
 /**
  * Integlight Sample Content Class
- * - 「ブログ」親メニュー + サンプル投稿2つを作成
- * - header メニュー位置に割り当て
- * - WP_Error チェック済み
  */
-
-
 class Integlight_Sample_Content
 {
     public function setup()
     {
-        // カテゴリ作成
-        $category_id = $this->create_category('ブログ', 'blog');
-
-        // サンプル投稿作成
+        $category_id = $this->create_category(__('Blog', 'integlight'), 'blog');
         $this->create_sample_posts($category_id);
-
-        // プロフィール固定ページ作成
         $profile_id = $this->create_profile_page();
-
-        // メニュー作成・取得
-        $menu_id = $this->get_or_create_menu('Header Menu');
-
-        // メニュー項目追加
+        $menu_id = $this->get_or_create_menu(__('Header Menu', 'integlight'));
         $this->add_menu_items($menu_id, $category_id, $profile_id);
-
-        // ヘッダーメニューに割り当て
         $this->assign_menu_location($menu_id, 'header');
     }
 
-    // -----------------------
-    // カテゴリ作成
-    // -----------------------
     private function create_category($name, $slug)
     {
         $category = get_term_by('slug', $slug, 'category');
         if (!$category) {
             $new_term = wp_insert_term($name, 'category', ['slug' => $slug]);
             if (is_wp_error($new_term)) {
-                error_log('カテゴリ作成に失敗: ' . $new_term->get_error_message());
+                error_log('Failed to create category: ' . $new_term->get_error_message());
                 return null;
             }
             return $new_term['term_id'];
@@ -218,14 +192,11 @@ class Integlight_Sample_Content
         return $category->term_id;
     }
 
-    // -----------------------
-    // サンプル投稿作成
-    // -----------------------
     private function create_sample_posts($category_id)
     {
         $sample_posts = [
-            ['post_title' => 'サンプル投稿1', 'post_content' => 'これはサンプル投稿1です。'],
-            ['post_title' => 'サンプル投稿2', 'post_content' => 'これはサンプル投稿2です。'],
+            ['post_title' => __('Sample Post 1', 'integlight'), 'post_content' => __('This is Sample Post 1.', 'integlight')],
+            ['post_title' => __('Sample Post 2', 'integlight'), 'post_content' => __('This is Sample Post 2.', 'integlight')],
         ];
 
         foreach ($sample_posts as $post) {
@@ -254,9 +225,6 @@ class Integlight_Sample_Content
         }
     }
 
-    // -----------------------
-    // プロフィールページ作成
-    // -----------------------
     private function create_profile_page()
     {
         $query = new WP_Query([
@@ -272,17 +240,14 @@ class Integlight_Sample_Content
         }
 
         return wp_insert_post([
-            'post_title'   => 'プロフィール',
+            'post_title'   => __('Profile', 'integlight'),
             'post_name'    => 'profile',
-            'post_content' => 'これはプロフィールページのサンプルです。',
+            'post_content' => __('This is a sample profile page.', 'integlight'),
             'post_status'  => 'publish',
             'post_type'    => 'page',
         ]);
     }
 
-    // -----------------------
-    // メニュー作成・取得
-    // -----------------------
     private function get_or_create_menu($menu_name)
     {
         $menu_obj = wp_get_nav_menu_object($menu_name);
@@ -292,15 +257,12 @@ class Integlight_Sample_Content
 
         $menu_id = wp_create_nav_menu($menu_name);
         if (is_wp_error($menu_id)) {
-            error_log('メニュー作成失敗: ' . $menu_id->get_error_message());
+            error_log('Failed to create menu: ' . $menu_id->get_error_message());
             return null;
         }
         return $menu_id;
     }
 
-    // -----------------------
-    // メニュー項目追加
-    // -----------------------
     private function add_menu_items($menu_id, $category_id, $profile_id)
     {
         if (!$menu_id) return;
@@ -316,7 +278,7 @@ class Integlight_Sample_Content
 
         if (!$exists_category) {
             wp_update_nav_menu_item($menu_id, 0, [
-                'menu-item-title'     => 'ブログ',
+                'menu-item-title'     => __('Blog', 'integlight'),
                 'menu-item-object'    => 'category',
                 'menu-item-object-id' => $category_id,
                 'menu-item-type'      => 'taxonomy',
@@ -326,7 +288,7 @@ class Integlight_Sample_Content
 
         if (!$exists_profile) {
             wp_update_nav_menu_item($menu_id, 0, [
-                'menu-item-title'     => 'プロフィール',
+                'menu-item-title'     => __('Profile', 'integlight'),
                 'menu-item-object'    => 'page',
                 'menu-item-object-id' => $profile_id,
                 'menu-item-type'      => 'post_type',
@@ -335,9 +297,6 @@ class Integlight_Sample_Content
         }
     }
 
-    // -----------------------
-    // メニューをテーマの場所に割り当て
-    // -----------------------
     private function assign_menu_location($menu_id, $location)
     {
         if (!$menu_id) return;

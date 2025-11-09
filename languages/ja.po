@@ -830,3 +830,80 @@ msgstr "Integlight ウィジェット設定ガイド"
 #: admin-page.php:72
 msgid "For detailed instructions on how to add and configure widgets for the Integlight theme, please see the official manual below."
 msgstr "Integlightテーマ用のウィジェットの追加および設定方法の詳細については、以下の公式マニュアルをご覧ください。"
+
+
+
+msgid "Integlight Sample Content Easy Setup"
+msgstr "Integlight サンプルコンテンツ簡単セットアップ"
+
+msgid "This operation will overwrite existing settings such as the logo and menus. Are you sure you want to proceed?"
+msgstr "この操作により、ロゴやメニューなど既存の設定が上書きされます。本当に実行しますか？"
+
+msgid "Notice:"
+msgstr "注意："
+
+msgid "This operation will overwrite existing settings such as the logo and menus."
+msgstr "この操作により、ロゴやメニューなど既存の設定が上書きされます。"
+
+msgid "Clicking this button will automatically set up sample content so that even beginners can easily review the site."
+msgstr "このボタンをクリックすると、初心者でもサイト全体を把握しやすいように、サンプルコンテンツが自動で設定されます。"
+
+msgid "Contents to be set up:"
+msgstr "設定される内容："
+
+msgid "Logo"
+msgstr "ロゴ"
+
+
+msgid "Sample Category \"Blog\" + Posts + Page"
+msgstr "「ブログ」カテゴリ + サンプル投稿 + サンプル固定ページ"
+
+msgid "Add \"Blog\" category and page to Header Menu"
+msgstr "ヘッダーメニューに「ブログ」カテゴリおよびページを追加"
+
+msgid "Benefits of automatic setup:"
+msgstr "自動セットアップのメリット："
+
+msgid "Preview the completed theme immediately"
+msgstr "完成形に近いテーマをすぐに確認できる"
+
+msgid "Easy for beginners to operate"
+msgstr "初心者でも操作が簡単"
+
+msgid "Understand the overall structure of required features"
+msgstr "必要な機能の全体構造が把握できる"
+
+msgid "Quickly build real content by editing sample data"
+msgstr "サンプルを編集することで実サイトに素早く移行できる"
+
+msgid "Set Up Sample Content"
+msgstr "サンプルコンテンツをセットアップ"
+
+
+
+msgid "Sample content (logo, slider, menu, posts) has been installed."
+msgstr "サンプルコンテンツ（ロゴ、スライダー、メニュー、投稿）がインストールされました。"
+
+msgid "Blog"
+msgstr "ブログ"
+
+msgid "Sample Post 1"
+msgstr "サンプル投稿 1"
+
+msgid "This is Sample Post 1."
+msgstr "これはサンプル投稿 1 です。"
+
+msgid "Sample Post 2"
+msgstr "サンプル投稿 2"
+
+msgid "This is Sample Post 2."
+msgstr "これはサンプル投稿 2 です。"
+
+msgid "Profile"
+msgstr "プロフィール"
+
+msgid "This is a sample profile page."
+msgstr "これはサンプルのプロフィールページです。"
+
+msgid "Header Menu"
+msgstr "ヘッダーメニュー"
