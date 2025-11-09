@@ -48,6 +48,8 @@ require get_template_directory() . '/inc/customizer-headerImage-front.php';
 require get_template_directory() . '/inc/customizer-headerImage.php';
 require get_template_directory() . '/inc/customizer-pf.php';
 require get_template_directory() . '/inc/admin.php';
+require get_template_directory() . '/inc/admin-easySetup.php';
+
 
 
 /***************************************** */
