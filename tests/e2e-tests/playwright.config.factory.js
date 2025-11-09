@@ -21,7 +21,7 @@ export function createVisualConfig({
 }) {
   const visualProjects = testConfigs.flatMap((conf) => [
     {
-      name: `${projectPrefix}setting_${conf.testid}`,
+      name: `setting_${projectPrefix}${conf.testid}`,
       testDir: "./tests",
       testMatch: [/visual\.setting\.spec\.js/],
       dependencies: ["setup"],
@@ -34,13 +34,13 @@ export function createVisualConfig({
       },
     },
     {
-      name: `${projectPrefix}visual_${conf.testid}`,
+      name: `visual_${projectPrefix}${conf.testid}`,
       testDir: "./tests",
-      outputDir: `test-results/${projectPrefix}visual_${conf.testid}`,
+      outputDir: `test-results/visual_${projectPrefix}${conf.testid}`,
       // snapshotDirが指定されている場合のみ設定に追加
       ...(snapshotDir && { snapshotDir }),
       testMatch: [/visual\.spec\.js/],
-      dependencies: [`${projectPrefix}setting_${conf.testid}`],
+      dependencies: [`setting_${projectPrefix}${conf.testid}`],
       use: {
         ...devices["Desktop Chrome"],
         storageState: authFile,
