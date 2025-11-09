@@ -1,6 +1,18 @@
 #!/bin/bash
 set -euo pipefail
 
+
+# git 設定
+initThemeDir=/home/xsaurora/auroralab-design.com/public_html/t2.auroralab-design.com/wp-content/themes/integlight
+cd $initThemeDir
+git checkout dev
+git pull origin dev
+cd -
+
+
+
+
+
 # バックアップ格納ディレクトリ
 BACKUP_DIR=./e2e_backups_init
 # WordPressのuploadsディレクトリのパス
@@ -17,6 +29,9 @@ set +a
 # 環境によっては異なる場合があります。
 UPLOADS_OWNER="xsaurora" 
 UPLOADS_GROUP="members" 
+
+
+
 
 # バックアップディレクトリを作成
 mkdir -p "$BACKUP_DIR/uploads"
