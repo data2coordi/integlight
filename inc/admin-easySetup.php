@@ -95,7 +95,12 @@ class Integlight_initSetup
         // Logo
         if (! empty($ids['sample-logo'])) {
             set_theme_mod('custom_logo', $ids['sample-logo']);
+            //タイトルの表示はオフにする。
+            set_theme_mod('header_textcolor', 'blank');
         }
+
+
+        set_theme_mod('integlight_hometype_setting', 'siteType2');
 
         // Slider Images
         set_theme_mod('integlight_slider_image_1', $ids['image-slider-1'] ?? '');
@@ -105,15 +110,15 @@ class Integlight_initSetup
         set_theme_mod('integlight_slider_image_mobile_2', $ids['image-slider-sp-2'] ?? '');
         set_theme_mod('integlight_slider_image_mobile_3', $ids['image-slider-sp-3'] ?? '');
 
-        // Other theme mods
+        // Slider Other theme mods
         set_theme_mod('integlight_display_choice', 'slider');
         set_theme_mod('integlight_slider_effect', 'fade');
         set_theme_mod('integlight_slider_change_duration', 3);
         set_theme_mod('integlight_slider_text_1', __('Turn Your Experience and Knowledge into Digital Assets with Integlight', 'integlight'));
         set_theme_mod('integlight_slider_text_2', __('The things you casually talk about every day, as well as the knowledge and experience you gain from work or hobbies, can be valuable information for someone. By documenting them in a blog, they accumulate over time and become your digital asset. Keep sharing, and you may create value that reaches many people.', 'integlight'));
         set_theme_mod('integlight_slider_text_font', 'yu_gothic');
-        set_theme_mod('integlight_slider_text_top', 100);
-        set_theme_mod('integlight_slider_text_left', 200);
+        set_theme_mod('integlight_slider_text_top', 1);
+        set_theme_mod('integlight_slider_text_left', 10);
         set_theme_mod('integlight_slider_text_color', '#ffffff');
 
         $sample_content = new Integlight_Sample_Content();
