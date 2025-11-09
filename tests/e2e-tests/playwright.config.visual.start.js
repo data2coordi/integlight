@@ -4,7 +4,7 @@ const BASE_URL = "https://t2.auroralab-design.com";
 
 const visualTestCnf = [
   {
-    testid: "start_a",
+    testid: "testa",
   },
 ];
 

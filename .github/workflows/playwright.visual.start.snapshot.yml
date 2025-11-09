@@ -30,7 +30,7 @@ jobs:
 
       - name: Run Playwright visual init snapshot update
         if: always()
-        run: npx playwright test --project=start_visual  --config=playwright.config.visual.start.js  --update-snapshots
+        run: npx playwright test --project=start_visual_testa  --config=playwright.config.visual.start.js  --update-snapshots
         working-directory: tests/e2e-tests
 
       - name: Upload test artifacts
