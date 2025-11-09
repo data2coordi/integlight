@@ -46,9 +46,12 @@ const visualTestCnf = [
   },
 ];
 
+const pages = [{ name: "home top", url: "/" }];
+
 export default createVisualConfig({
   baseURL: BASE_URL,
   testConfigs: visualTestCnf,
+  pages: pages,
   snapshotDir: "./tests/visual.init/", // 期待値（比較元）画像
   projectPrefix: "init_", // プロジェクト名を区別するためのプレフィックス
 });
