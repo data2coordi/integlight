@@ -43,17 +43,19 @@ const devices = [
 
 // ======= テスト展開 =======
 test.describe.parallel("ビジュアルテスト", () => {
-  const { pages } = test.info().project.use;
-  // --- デバッグ出力 ---
-  console.log("✅ Loaded pages from config:");
-  console.table(pages.map((p, i) => ({ No: i + 1, name: p.name, url: p.url })));
-
   for (const device of devices) {
     test.describe(`${device.name}`, () => {
       test.use(device.use);
 
-      for (const { name, url, options } of pages) {
-        test(`： ${name}`, async ({ page }) => {
+      test(`： `, async ({ page }) => {
+        const { pages } = test.info().project.use;
+        // --- デバッグ出力 ---
+        console.log("✅ Loaded pages from config:");
+        console.table(
+          pages.map((p, i) => ({ No: i + 1, name: p.name, url: p.url }))
+        );
+
+        for (const { name, url } of pages) {
           await page.goto(url, { waitUntil: "networkidle" });
 
           const options = {
@@ -65,9 +67,9 @@ test.describe.parallel("ビジュアルテスト", () => {
             timeout: 100000,
             ...options,
           });
-        });
-        //break;
-      }
+          //break;
+        }
+      });
     });
     //break;
   }
