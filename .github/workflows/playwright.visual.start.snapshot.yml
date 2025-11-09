@@ -28,7 +28,7 @@ jobs:
       #   run: mkdir -p playwright/.auth
       #   working-directory: tests/e2e-tests
 
-      - name: Run Playwright visual init snapshot update
+      - name: Run Playwright visual start snapshot update
         if: always()
         run: npx playwright test --project=start_visual_testa  --config=playwright.config.visual.start.js  --update-snapshots
         working-directory: tests/e2e-tests
