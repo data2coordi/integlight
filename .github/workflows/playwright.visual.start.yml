@@ -1,21 +1,21 @@
-name: Playwright Visual Start Test
-#vstest
+name: Playwright Compare Visual Init Test
+#vtest
 on:
   push:
   pull_request:
   workflow_dispatch:
 
-env:
-  WP_ADMIN_USER: ${{ secrets.WP_ADMIN_USER }}
-  WP_ADMIN_PASSWORD: ${{ secrets.WP_ADMIN_PASSWORD }}
-
 jobs:
   visual-start-test:
-    if: contains(github.event.head_commit.message, 'vstarttest')
+    if: contains(github.event.head_commit.message, 'vitest')
     runs-on: ubuntu-latest
     container:
       # 公式のPlaywrightイメージを使用x
       image: mcr.microsoft.com/playwright:v1.51.1-jammy
+
+    env:
+      WP_ADMIN_USER: ${{ secrets.WP_ADMIN_USER }}
+      WP_ADMIN_PASSWORD: ${{ secrets.WP_ADMIN_PASSWORD }}
 
     steps:
       - name: Checkout repository
@@ -28,25 +28,41 @@ jobs:
       #   run: mkdir -p playwright/.auth
       #   working-directory: tests/e2e-tests
 
-      - name: Run Playwright visual start  update
+      # # 4. 認証セットアップ
+      # - name: Run Playwright auth setup
+      #   run: npx playwright test --project=setup --config=playwright.config.js
+      #   working-directory: tests/e2e-tests
+
+      # 5. Visual Init テスト (全プロジェクト)
+      - name: Run Playwright visual start update
         if: always()
         run: npx playwright test --project=visual_start_testa  --config=playwright.config.visual.start.js
         working-directory: tests/e2e-tests
 
+      # 6. テスト結果保存
       - name: Upload test artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-artifacts
-          path: tests/e2e-tests/test-results/
+          path: |
+            tests/e2e-tests/test-results/
 
-      - name: Commit updated
+      # debug a
+      # - name: Debug Git Environment (Full)
+      #   if: always()
+      #   run: |
+      #     git config --global --add safe.directory $GITHUB_WORKSPACE
+      #   working-directory: ${{ github.workspace }}
+
+      # 7. テスト結果コミット
+      - name: Commit updated test result
         if: always()
         run: |
           git config --global --add safe.directory $GITHUB_WORKSPACE
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add tests/e2e-tests/tests/visual.start/
+          git add tests/e2e-tests/test-results/
           git commit -m "Update test result $(date '+%Y-%m-%d %H:%M:%S')" --allow-empty
           git push
         env:
