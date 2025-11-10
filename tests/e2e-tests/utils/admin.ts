@@ -10,6 +10,27 @@ export class admin_easySetup {
   }
 
   async easySetup(setting: string) {
-    console.log("簡単セットアップのテスト道入");
+    console.log("簡単セットアップのテスト開始:", setting);
+
+    // 1. 対象ページに移動
+    await this.page.goto(
+      "/wp-admin/themes.php?page=integlight-full-debug-setup"
+    );
+
+    // 2. 「サンプルコンテンツをセットアップ」ボタンを押下
+    const setupButton = this.page.locator(
+      "text=サンプルコンテンツをセットアップ"
+    );
+    await expect(setupButton).toBeVisible();
+
+    // ダイアログ確認のため、beforeイベントで待機
+    this.page.once("dialog", async (dialog) => {
+      console.log("ダイアログメッセージ:", dialog.message());
+      await dialog.accept(); // OKを押す
+    });
+
+    await setupButton.click();
+
+    console.log("ボタン押下とダイアログ承認完了");
   }
 }
