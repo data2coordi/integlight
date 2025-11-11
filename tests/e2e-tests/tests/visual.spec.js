@@ -31,6 +31,7 @@ test.describe.parallel("ビジュアルテスト", () => {
 
       test("", async ({ page }) => {
         const { pages } = test.info().project.use;
+        const projectName = test.info().project.name;
         // --- デバッグ出力 ---
         console.log("✅ Loaded pages from config:");
         console.table(
@@ -47,11 +48,14 @@ test.describe.parallel("ビジュアルテスト", () => {
             maxDiffPixelRatio: 0.03, // 人間の目でわからないレベル
             threshold: 0.03,
           };
-          await expect(page).toHaveScreenshot({
-            fullPage: true,
-            timeout: 100000,
-            ...options,
-          });
+          await expect(page).toHaveScreenshot(
+            `${projectName}-${device.name}-${name}.png`,
+            {
+              fullPage: true,
+              timeout: 100000,
+              ...options,
+            }
+          );
           //break;
         }
       });
