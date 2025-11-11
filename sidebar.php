@@ -9,11 +9,6 @@
  */
 ?>
 
-<?php
-if (is_page()) {
-	return;
-}
-?>
 
 
 <?php if (is_active_sidebar('sidebar-1')) : ?>
