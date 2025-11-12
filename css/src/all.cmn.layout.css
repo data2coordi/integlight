@@ -15,7 +15,7 @@
 .ly_site_header {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding-left: var(--ly-widthPadding);
   padding-right: var(--ly-widthPadding);
@@ -27,7 +27,7 @@
   /*全幅子要素等の拡張対策*/
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: var(--ly-betweenPadding);
   margin-top: var(--ly-topMerge);
   padding-left: var(--ly-widthPadding);

@@ -40,8 +40,9 @@ body {
 /* -------------------- siteType2ページ特有の調整 -------------------- */
 /* siteType2のコンテンツ幅が小さくなるのを解除 */
 #primary.siteType2 {
-  max-width: none;
   width: 100%;
+  max-width: clamp(960px, 80vw, 1080px); /* ← 可変式 */
+  margin: 0 auto;
 }
 
 /* 同じ条件で、body の“塗りつぶし色”だけ透明化（画像はそのまま前面） */
