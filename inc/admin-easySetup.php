@@ -21,6 +21,7 @@ class Integlight_initSetup
     public function __construct()
     {
         add_action('admin_menu', array($this, 'add_admin_page'));
+        add_action('admin_head', array($this, 'add_icon_for_menuButton'));
     }
 
     /**
@@ -36,6 +37,33 @@ class Integlight_initSetup
             array($this, 'render_admin_page')
         );
     }
+
+
+    public function add_icon_for_menuButton(){
+    ?>
+    <style>
+        /* スラッグに基づくセレクタ指定 */
+        #adminmenu a[href="themes.php?page=integlight-sample-easy-setup"]::before {
+            content: "";
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background-image: url('<?php echo esc_url( get_template_directory_uri() . '/assets/easySetup.webp' ); ?>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+    </style>
+    <?php
+    }
+
+
+
+
+
+
+
 
     /**
      * Admin page output
