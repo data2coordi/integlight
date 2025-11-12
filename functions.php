@@ -163,6 +163,24 @@ function integlight_widgets_init()
 			'after_title'   => '</h2>',
 		)
 	);
+
+	register_sidebar(
+		array(
+			'name'          => esc_html__('Home Sidebar (Displayed on the right side of home)', 'integlight'),
+			'id'            => 'sidebar-3',
+			'description'   => wp_kses_post(
+				sprintf(
+					/* translators: %s: URL to the widget setup manual. */
+					__('Widgets added here. For detailed instructions, please see the %s.', 'integlight'),
+					'<a href="https://integlight.auroralab-design.com/sidebar-widget-setup/" target="_blank" rel="noopener noreferrer">' . esc_html__('setup manual', 'integlight') . '</a>'
+				)
+			),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		)
+	);
 }
 add_action('widgets_init', 'integlight_widgets_init');
 
