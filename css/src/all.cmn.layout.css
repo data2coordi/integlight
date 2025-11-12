@@ -88,6 +88,8 @@
   order: 3;
   /* サイドバーを次に表示 */
   width: 300px;
+  z-index: 1;
+  /* ウィジェットがグラデの下に潜り込むのを防ぐ */
 }
 
 .ly_site_content_widgetArea_bottom {
