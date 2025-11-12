@@ -32,7 +32,7 @@ class Integlight_initSetup
             __('Integlight Sample Content Easy Setup', 'integlight'),
             __('Integlight Sample Content Easy Setup', 'integlight'),
             'edit_theme_options',
-            'integlight-full-debug-setup',
+            'integlight-sample-easy-setup',
             array($this, 'render_admin_page')
         );
     }
@@ -48,11 +48,6 @@ class Integlight_initSetup
 
         echo '<form method="post" onsubmit="return confirm(\'' . esc_js(__('This operation will overwrite existing settings such as the logo and menus. Are you sure you want to proceed?', 'integlight')) . '\');">';
 
-        // Notice Box
-        echo '<div style="border:2px solid #d9534f; background-color:#f2dede; color:#a94442; padding:10px; margin-bottom:15px;">';
-        echo '<strong>' . esc_html__('Notice:', 'integlight') . '</strong> ';
-        echo esc_html__('This operation will overwrite existing settings such as the logo and menus.', 'integlight');
-        echo '</div>';
 
         // Description block
         echo '<div style="border:1px solid #ccc; background-color:#f9f9f9; padding:10px; margin-bottom:15px;">';
@@ -73,6 +68,12 @@ class Integlight_initSetup
         echo '<li>' . esc_html__('Understand the overall structure of required features', 'integlight') . '</li>';
         echo '<li>' . esc_html__('Quickly build real content by editing sample data', 'integlight') . '</li>';
         echo '</ul>';
+        echo '</div>';
+
+        // Notice Box
+        echo '<div style="border:2px solid #d9534f; background-color:#f2dede; color:#a94442; padding:10px; margin-bottom:15px;">';
+        echo '<strong>' . esc_html__('Notice:', 'integlight') . '</strong> ';
+        echo esc_html__('This operation will overwrite existing settings such as the logo and menus.', 'integlight');
         echo '</div>';
 
         // Button
