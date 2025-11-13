@@ -12,7 +12,7 @@ git commit -m "feat: [タスク名] 〇〇機能の完全な実装"
 
 git push origin jmaster
 
-#exit
+exit
 
 
 # ----- ブランチ統合後のクリーンアップ作業 -----
