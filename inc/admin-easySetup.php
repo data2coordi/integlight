@@ -1,4 +1,3 @@
-
 <?php
 
 /**
@@ -39,23 +38,24 @@ class Integlight_initSetup
     }
 
 
-    public function add_icon_for_menuButton(){
-    ?>
-    <style>
-        /* スラッグに基づくセレクタ指定 */
-        #adminmenu a[href="themes.php?page=integlight-sample-easy-setup"]::before {
-            content: "";
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            background-image: url('<?php echo esc_url( get_template_directory_uri() . '/assets/easySetup.webp' ); ?>');
-            background-size: contain;
-            background-repeat: no-repeat;
-            margin-right: 6px;
-            vertical-align: middle;
-        }
-    </style>
-    <?php
+    public function add_icon_for_menuButton()
+    {
+?>
+        <style>
+            /* スラッグに基づくセレクタ指定 */
+            #adminmenu a[href="themes.php?page=integlight-sample-easy-setup"]::before {
+                content: "";
+                display: inline-block;
+                width: 16px;
+                height: 16px;
+                background-image: url('<?php echo esc_url(get_template_directory_uri() . '/assets/easySetup.webp'); ?>');
+                background-size: contain;
+                background-repeat: no-repeat;
+                margin-right: 6px;
+                vertical-align: middle;
+            }
+        </style>
+<?php
     }
 
 
@@ -70,7 +70,7 @@ class Integlight_initSetup
      */
     public function render_admin_page()
     {
-        if (isset($_POST['integlight_full_debug_setup'])) {
+        if (isset($_POST['integlight_start_setup_button']) && check_admin_referer('integlight_start_setup_button_action', 'integlight_start_setup_button_nonce')) {
             $this->run_setup();
         }
 
@@ -105,7 +105,7 @@ class Integlight_initSetup
         echo '</div>';
 
         // Button
-        echo '<p><input type="submit" class="button button-primary" name="integlight_full_debug_setup" value="' . esc_attr__('Set Up Sample Content', 'integlight') . '"></p>';
+        echo '<p><input type="submit" class="button button-primary" name="integlight_start_setup_button" value="' . esc_attr__('Set Up Sample Content', 'integlight') . '"></p>';
 
         echo '</form>';
     }
