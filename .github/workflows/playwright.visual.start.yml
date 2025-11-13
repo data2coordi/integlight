@@ -1,4 +1,4 @@
-name: Playwright Compare Visual Init Test
+name: Playwright Compare Visual Start Test
 #vtest
 on:
   push:
