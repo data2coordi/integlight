@@ -245,6 +245,8 @@ main.siteType1.ly_site_content_main {
 
   /* スマホでカードとチップが縮むのを防ぐ */
   main.siteType1.ly_site_content_main {
-    max-width: none;
+    min-width: 0;
+    max-width: 100%;
+    width: 100%; /*親の幅よりも大きくなってハミ出すのを防ぐ*/
   }
 }
