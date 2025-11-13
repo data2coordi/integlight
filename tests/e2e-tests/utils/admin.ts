@@ -14,7 +14,7 @@ export class admin_easySetup {
 
     // 1. 対象ページに移動
     await this.page.goto(
-      "/wp-admin/themes.php?page=integlight-full-debug-setup"
+      "/wp-admin/themes.php?page=integlight-sample-easy-setup"
     );
 
     // 2. 「サンプルコンテンツをセットアップ」ボタンを押下
