@@ -12,7 +12,7 @@ git pull origin master
 
 git merge --squash dev
 
-git commit -m "feat: [タスク名] 〇〇機能の完全な実装"
+git commit -m "douki v1.1."
 
 git push origin master
 
