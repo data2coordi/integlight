@@ -7,8 +7,7 @@ const TEST_SCENARIOS = {
   ヘッダーなし: {
     siteType: "エレガント",
     headerType: "なし",
-    selector:
-      "body > .site > div.ly_site_content > main.site-main article.post-card:first-child",
+    selector: "#primary > div.post-grid > div:nth-child(1)",
   },
   スライダー: {
     siteType: "エレガント",
