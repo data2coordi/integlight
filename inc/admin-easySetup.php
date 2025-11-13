@@ -70,7 +70,7 @@ class Integlight_initSetup
      */
     public function render_admin_page()
     {
-        if (isset($_POST['integlight_start_setup_button']) && check_admin_referer('integlight_start_setup_button_action', 'integlight_start_setup_button_nonce')) {
+        if (isset($_POST['integlight_easySetup_button'])) {
             $this->run_setup();
         }
 
@@ -105,7 +105,7 @@ class Integlight_initSetup
         echo '</div>';
 
         // Button
-        echo '<p><input type="submit" class="button button-primary" name="integlight_start_setup_button" value="' . esc_attr__('Set Up Sample Content', 'integlight') . '"></p>';
+        echo '<p><input type="submit" class="button button-primary" name="integlight_easySetup_button" value="' . esc_attr__('Set Up Sample Content', 'integlight') . '"></p>';
 
         echo '</form>';
     }
