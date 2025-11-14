@@ -221,32 +221,49 @@ main.siteType1.ly_site_content_main {
   }
 }
 
-/* ===== スマホ：1列（目安 600px以下） ===== */
+/* ===== スマホ：1列（目安 768px以下） ===== */
 @media (max-width: 600px) {
+  /* 投稿カードエリアを1列にする（スマホ幅で横並び禁止） */
   .siteType1 .post-grid {
-    grid-template-columns: 1fr; /* 1列 */
-    width: 100%; /* 端まで使う */
+    grid-template-columns: 1fr; /* カードを縦1列に */
+    width: 100%; /* 画面幅いっぱい使う */
   }
 }
 
+/* ===== スマホ：レイアウト調整（768px以下） ===== */
 @media screen and (max-width: 768px) {
+  /* ================================
+     カテゴリーの丸いチップ一覧
+     ================================ */
+
   .siteType1 .category-list {
-    padding: 0;
-    justify-content: center;
-    gap: 0.5rem;
-    /* スマホで隙間を狭める */
+    display: flex; /* 横並び or 折り返しレイアウトに変更 */
+    flex-wrap: wrap; /* 画面幅が足りないときは折り返す */
+    justify-content: center; /* 画面中央にそろえる（左に寄らないように） */
+    max-width: none; /* PC用の最大幅制限を解除 */
+  }
+
+  .siteType1 .category-item {
+    flex: 0 0 auto; /* ← 最重要！
+                             flexboxによる自動の“縮み”を禁止し、
+                             コンテンツのサイズを保持する */
   }
 
   .siteType1 .category-link {
-    width: 100px;
-    height: 100px;
-    font-size: 0.75rem;
+    width: 100px; /* スマホでのチップの直径 */
+    height: 100px; /* 幅と高さを揃えて円形を維持 */
+    font-size: 0.75rem; /* 文字が大きすぎて潰れないよう調整 */
   }
 
-  /* スマホでカードとチップが縮むのを防ぐ */
+  /* ================================
+     メインコンテンツの縮小バグ対策（最重要）
+     スマホで「0.25px」になる謎の縮小を完全に防止
+     ================================ */
+
   main.siteType1.ly_site_content_main {
-    min-width: 0;
-    max-width: 100%;
-    width: 100%; /*親の幅よりも大きくなってハミ出すのを防ぐ*/
+    width: 100%; /* 親の幅に完全フィット */
+    max-width: 100%; /* PC用 max-width を上書きして無効化 */
+    min-width: 100%; /* スマホ時の flex 縮みバグ防止（消すとカードが 0.25px まで縮む） */
+    flex: 0 0 100%; /* flexアイテムとして幅100%を強制 */
   }
 }
