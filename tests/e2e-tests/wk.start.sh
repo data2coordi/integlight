@@ -5,6 +5,16 @@ clear
 ./integlight_backup_init.sh restore
 
 
+
+# git 設定 t2 devブランチを最新化
+initThemeDir=/home/xsaurora/auroralab-design.com/public_html/t2.auroralab-design.com/wp-content/themes/integlight
+cd $initThemeDir
+git checkout dev
+git pull origin dev
+cd -
+
+
+
 # ===== ユーザー設定 =====
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 WAIT_SEC=6     # リトライ間隔（秒）
