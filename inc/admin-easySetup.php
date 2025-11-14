@@ -1,4 +1,3 @@
-
 <?php
 
 /**
@@ -21,6 +20,7 @@ class Integlight_initSetup
     public function __construct()
     {
         add_action('admin_menu', array($this, 'add_admin_page'));
+        add_action('admin_head', array($this, 'add_icon_for_menuButton'));
     }
 
     /**
@@ -32,27 +32,50 @@ class Integlight_initSetup
             __('Integlight Sample Content Easy Setup', 'integlight'),
             __('Integlight Sample Content Easy Setup', 'integlight'),
             'edit_theme_options',
-            'integlight-full-debug-setup',
+            'integlight-sample-easy-setup',
             array($this, 'render_admin_page')
         );
     }
+
+
+    public function add_icon_for_menuButton()
+    {
+?>
+        <style>
+            /* スラッグに基づくセレクタ指定 */
+            #adminmenu a[href="themes.php?page=integlight-sample-easy-setup"]::before {
+                content: "";
+                display: inline-block;
+                width: 16px;
+                height: 16px;
+                background-image: url('<?php echo esc_url(get_template_directory_uri() . '/assets/easySetup.webp'); ?>');
+                background-size: contain;
+                background-repeat: no-repeat;
+                margin-right: 6px;
+                vertical-align: middle;
+            }
+        </style>
+<?php
+    }
+
+
+
+
+
+
+
 
     /**
      * Admin page output
      */
     public function render_admin_page()
     {
-        if (isset($_POST['integlight_full_debug_setup'])) {
+        if (isset($_POST['integlight_easySetup_button'])) {
             $this->run_setup();
         }
 
         echo '<form method="post" onsubmit="return confirm(\'' . esc_js(__('This operation will overwrite existing settings such as the logo and menus. Are you sure you want to proceed?', 'integlight')) . '\');">';
 
-        // Notice Box
-        echo '<div style="border:2px solid #d9534f; background-color:#f2dede; color:#a94442; padding:10px; margin-bottom:15px;">';
-        echo '<strong>' . esc_html__('Notice:', 'integlight') . '</strong> ';
-        echo esc_html__('This operation will overwrite existing settings such as the logo and menus.', 'integlight');
-        echo '</div>';
 
         // Description block
         echo '<div style="border:1px solid #ccc; background-color:#f9f9f9; padding:10px; margin-bottom:15px;">';
@@ -75,10 +98,21 @@ class Integlight_initSetup
         echo '</ul>';
         echo '</div>';
 
+        // Notice Box
+        echo '<div style="border:2px solid #d9534f; background-color:#f2dede; color:#a94442; padding:10px; margin-bottom:15px;">';
+        echo '<strong>' . esc_html__('Notice:', 'integlight') . '</strong> ';
+        echo esc_html__('This operation will overwrite existing settings such as the logo and menus.', 'integlight');
+        echo '</div>';
+
         // Button
-        echo '<p><input type="submit" class="button button-primary" name="integlight_full_debug_setup" value="' . esc_attr__('Set Up Sample Content', 'integlight') . '"></p>';
+        echo '<p><input type="submit" class="button button-primary" name="integlight_easySetup_button" value="' . esc_attr__('Set Up Sample Content', 'integlight') . '"></p>';
 
         echo '</form>';
+
+        echo '<div style="text-align:center; margin-bottom:20px;">';
+        echo '<h2 style="margin-bottom:10px;">' . esc_html__('Image After Setup', 'integlight') . '</h2>';
+        echo '<img src="' . esc_url(get_template_directory_uri() . '/assets/easySetupImage.webp') . '" alt="' . esc_attr__('Sample Setup Image', 'integlight') . '" style="max-width:100%; height:auto; border:1px solid #ccc; padding:5px;">';
+        echo '</div>';
     }
 
     /**

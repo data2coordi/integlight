@@ -41,12 +41,21 @@ class Integlight_outerAssets_css_preDetermine
         //'wp-block-library'
     ];
 
+    private static function is_any_sidebar_active()
+    {
+        return is_active_sidebar('sidebar-1')
+            || is_active_sidebar('sidebar-2')
+            || is_active_sidebar('sidebar-3');
+    }
+
 
     public static function init()
     {
         // --- 1. 共通スタイルの定義 ---
         // is_singular() は is_single(), is_page(), is_attachment() を含む
-        if (is_singular() || is_front_page() || is_archive() || is_search() || is_404()) {
+        if (
+            is_singular() || is_front_page() || is_archive() || is_search() || is_404() || self::is_any_sidebar_active()
+        ) {
             self::$styles['integlight-module'] = ['path' => '/css/build/all.parts.module-forTheme.css', 'deps' => ['wp-block-library']];
             self::$styles['integlight-module_forBlocks'] =  ['path' => '/css/build/all.parts.module-forBlockItem.css', 'deps' => ['wp-block-library']];
         }

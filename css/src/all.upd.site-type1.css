@@ -36,7 +36,7 @@ body .siteType1 {
     minmax(360px, 1fr)
   ); /* ★幅が細くなりにくい */
   gap: clamp(12px, 2vw, 24px);
-  padding: clamp(12px, 2vw, 24px);
+  /* padding: clamp(12px, 2vw, 24px); */
   width: min(100%, 1200px); /* 1200pxで止めて中央寄せ */
   margin: 0 auto;
 }
@@ -184,13 +184,25 @@ body .siteType1 {
   transition: all 0.3s ease;
 }
 
-/* ===== デスクトップ：常に3列 ===== */
+/* === siteType1.css === */
+/* 上記のlayoutをベースに、Type1用に上書き */
+main.siteType1.ly_site_content_main {
+  flex: 1;
+  order: 2;
+  max-width: calc(100% - 300px); /* ← サイドバー幅を引いた分だけ広げる */
+  margin-right: 0;
+}
+
+/* ===== 記事カードエリア：3列×360px ===== */
 .siteType1 .post-grid {
-  grid-template-columns: repeat(3, 1fr); /* ★ 3列固定 */
-  width: min(100%, 1080px); /* ★ 1200px→1080pxにしてカードを小ぶりに */
-  margin: 0 auto; /* 中央寄せ（念のため明示） */
-  /* gap / padding は前のまま clamp でOK。必要ならここで上書きも可 */
-  /* gap: 20px; padding: 20px; など */
+  display: grid;
+  grid-template-columns: repeat(3, 320px);
+  justify-content: center;
+  gap: clamp(16px, 2vw, 24px);
+  width: 100%;
+  max-width: 1180px; /* ← 枠を少し広めに */
+  margin: 0 auto;
+  /* padding: clamp(12px, 2vw, 24px); */
 }
 
 /************************************************************
@@ -209,25 +221,48 @@ body .siteType1 {
   }
 }
 
-/* ===== スマホ：1列（目安 600px以下） ===== */
-@media (max-width: 600px) {
+/* ===== スマホ：1列（目安 768px以下） ===== */
+@media (max-width: 768px) {
+  /* 投稿カードエリアを1列にする（スマホ幅で横並び禁止） */
   .siteType1 .post-grid {
-    grid-template-columns: 1fr; /* 1列 */
-    width: 100%; /* 端まで使う */
+    grid-template-columns: 1fr; /* カードを縦1列に */
+    width: 100%; /* 画面幅いっぱい使う */
   }
 }
 
+/* ===== スマホ：レイアウト調整（768px以下） ===== */
 @media screen and (max-width: 768px) {
+  /* ================================
+     カテゴリーの丸いチップ一覧
+     ================================ */
+
   .siteType1 .category-list {
-    padding: 0;
-    justify-content: center;
-    gap: 0.5rem;
-    /* スマホで隙間を狭める */
+    display: flex; /* 横並び or 折り返しレイアウトに変更 */
+    flex-wrap: wrap; /* 画面幅が足りないときは折り返す */
+    justify-content: center; /* 画面中央にそろえる（左に寄らないように） */
+    max-width: none; /* PC用の最大幅制限を解除 */
+  }
+
+  .siteType1 .category-item {
+    flex: 0 0 auto; /* ← 最重要！
+                             flexboxによる自動の“縮み”を禁止し、
+                             コンテンツのサイズを保持する */
   }
 
   .siteType1 .category-link {
-    width: 100px;
-    height: 100px;
-    font-size: 0.75rem;
+    width: 100px; /* スマホでのチップの直径 */
+    height: 100px; /* 幅と高さを揃えて円形を維持 */
+    font-size: 0.75rem; /* 文字が大きすぎて潰れないよう調整 */
+  }
+
+  /* ================================
+     メインコンテンツの縮小バグ対策（最重要）
+     スマホで「0.25px」になる謎の縮小を完全に防止
+     ================================ */
+
+  main.siteType1.ly_site_content_main {
+    width: 100%; /* 親の幅に完全フィット */
+    max-width: 100%; /* PC用 max-width を上書きして無効化 */
+    flex: 0 0 100%; /* flexアイテムとして幅100%を強制 */
   }
 }

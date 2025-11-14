@@ -14,32 +14,48 @@ function integlight_add_admin_page()
 }
 add_action('admin_menu', 'integlight_add_admin_page');
 
-function integlight_render_welcome_page()
+function integlight_add_icon_for_menuButton()
 {
-?>
-    <div class="wrap">
-        <h1><?php esc_html_e('Welcome to Integlight', 'integlight'); ?></h1>
-        <p><?php esc_html_e('For information on how to use and configure themes, please refer to the following manual.', 'integlight'); ?></p>
-        <p>
-            <a href="https://integlight.auroralab-design.com/category/how-to-use-integlight/"
-                target="_blank"
-                class="button button-primary">
-                <?php esc_html_e('See official manual', 'integlight'); ?>
-            </a>
-        </p>
-    </div>
-    <?php
+    echo '<style>' . "\n";
+    echo '    /* スラッグに基づくセレクタ指定 */' . "\n";
+    echo '    #adminmenu a[href="themes.php?page=integlight-welcome"]::before {' . "\n";
+    echo '        content: "";' . "\n";
+    echo '        display: inline-block;' . "\n";
+    echo '        width: 16px;' . "\n";
+    echo '        height: 16px;' . "\n";
+    echo '        background-image: url("' . esc_url(get_template_directory_uri() . '/assets/easySetup.webp') . '");' . "\n";
+    echo '        background-size: contain;' . "\n";
+    echo '        background-repeat: no-repeat;' . "\n";
+    echo '        margin-right: 6px;' . "\n";
+    echo '        vertical-align: middle;' . "\n";
+    echo '    }' . "\n";
+    echo '</style>' . "\n";
 }
 
-// 外観 → テーマエディター画面にマニュアルリンクを表示 e
-
+add_action('admin_head', 'integlight_add_icon_for_menuButton');
 
 
 
 
 
 /**
- * 外観 → メニュー画面にマニュアルリンクを表示 s
+ * Integlight 専用ウェルカムページ
+ */
+function integlight_render_welcome_page()
+{
+    echo '<div class="wrap">' . "\n";
+    echo '    <h1>' . esc_html__('Welcome to Integlight', 'integlight') . '</h1>' . "\n";
+    echo '    <p>' . esc_html__('For information on how to use and configure themes, please refer to the following manual.', 'integlight') . '</p>' . "\n";
+    echo '    <p>' . "\n";
+    echo '        <a href="https://integlight.auroralab-design.com/category/how-to-use-integlight/" target="_blank" class="button button-primary">' . "\n";
+    echo '            ' . esc_html__('See official manual', 'integlight') . "\n";
+    echo '        </a>' . "\n";
+    echo '    </p>' . "\n";
+    echo '</div>' . "\n";
+}
+
+/**
+ * 外観 → メニュー画面にマニュアルリンクを表示
  */
 function integlight_add_menu_screen_manual_notice()
 {
@@ -47,21 +63,17 @@ function integlight_add_menu_screen_manual_notice()
 
     // Run only on the "Appearance > Menus" screen.
     if ($screen && 'nav-menus' === $screen->base) {
-    ?>
-        <div class="notice notice-info is-dismissible integlight-manual-notice">
-            <p>
-                <strong><?php esc_html_e('Integlight Menu Setup Guide', 'integlight'); ?></strong><br>
-                <?php esc_html_e('For detailed instructions on how to set up your menu and recommended configurations, please see the official manual below.', 'integlight'); ?>
-            </p>
-            <p>
-                <a href="https://integlight.auroralab-design.com/category/how-to-use-integlight/menu-settings/"
-                    target="_blank"
-                    class="button button-primary">
-                    <?php esc_html_e('Open Manual', 'integlight'); ?>
-                </a>
-            </p>
-        </div>
-    <?php
+        echo '<div class="notice notice-info is-dismissible integlight-manual-notice">' . "\n";
+        echo '    <p>' . "\n";
+        echo '        <strong>' . esc_html__('Integlight Menu Setup Guide', 'integlight') . '</strong><br>' . "\n";
+        echo '        ' . esc_html__('For detailed instructions on how to set up your menu and recommended configurations, please see the official manual below.', 'integlight') . "\n";
+        echo '    </p>' . "\n";
+        echo '    <p>' . "\n";
+        echo '        <a href="https://integlight.auroralab-design.com/category/how-to-use-integlight/menu-settings/" target="_blank" class="button button-primary">' . "\n";
+        echo '            ' . esc_html__('Open Manual', 'integlight') . "\n";
+        echo '        </a>' . "\n";
+        echo '    </p>' . "\n";
+        echo '</div>' . "\n";
     }
 }
 add_action('admin_notices', 'integlight_add_menu_screen_manual_notice');
@@ -90,21 +102,17 @@ function integlight_add_widgets_screen_manual_notice()
     }
 
     if ($is_widget_screen || $is_widget_customizer) {
-    ?>
-        <div class="notice notice-info is-dismissible integlight-manual-notice">
-            <p>
-                <strong><?php esc_html_e('Integlight Widget Setup Guide', 'integlight'); ?></strong><br>
-                <?php esc_html_e('For detailed instructions on how to add and configure widgets for the Integlight theme, please see the official manual below.', 'integlight'); ?>
-            </p>
-            <p>
-                <a href="https://integlight.auroralab-design.com/widget-setup/"
-                    target="_blank"
-                    class="button button-primary">
-                    <?php esc_html_e('Open Manual', 'integlight'); ?>
-                </a>
-            </p>
-        </div>
-<?php
+        echo '<div class="notice notice-info is-dismissible integlight-manual-notice">' . "\n";
+        echo '    <p>' . "\n";
+        echo '        <strong>' . esc_html__('Integlight Widget Setup Guide', 'integlight') . '</strong><br>' . "\n";
+        echo '        ' . esc_html__('For detailed instructions on how to add and configure widgets for the Integlight theme, please see the official manual below.', 'integlight') . "\n";
+        echo '    </p>' . "\n";
+        echo '    <p>' . "\n";
+        echo '        <a href="https://integlight.auroralab-design.com/widget-setup/" target="_blank" class="button button-primary">' . "\n";
+        echo '            ' . esc_html__('Open Manual', 'integlight') . "\n";
+        echo '        </a>' . "\n";
+        echo '    </p>' . "\n";
+        echo '</div>' . "\n";
     }
 }
 add_action('admin_notices', 'integlight_add_widgets_screen_manual_notice');

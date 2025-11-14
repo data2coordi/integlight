@@ -15,7 +15,7 @@
 .ly_site_header {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding-left: var(--ly-widthPadding);
   padding-right: var(--ly-widthPadding);
@@ -27,12 +27,16 @@
   /*全幅子要素等の拡張対策*/
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: var(--ly-betweenPadding);
   margin-top: var(--ly-topMerge);
   padding-left: var(--ly-widthPadding);
   padding-right: var(--ly-widthPadding);
 }
+
+/* .ly_site_content:has(.ly_site_content_sidebar) {
+  flex-wrap: nowrap;
+} */
 
 /******メディアとテキスト********/
 .wp-block-media-text > .wp-block-media-text__content {
@@ -70,6 +74,7 @@
   flex: 1;
   order: 2;
   /* メインコンテンツを最初に表示 */
+  min-width: 600px; /* メインコンテンツ最小幅 */
 }
 
 /* top ページ s*/
@@ -81,6 +86,20 @@
   /* max-width: 100vw;*/
 }
 
+/* =======================================
+   ❶ サイドバーの有無でレイアウトを切り替え
+   ======================================= */
+
+/* サイドバー無し → カードを中央寄せ */
+.ly_site_content:not(:has(.ly_site_content_sidebar)) {
+  justify-content: center;
+}
+
+/* サイドバー有り → 左揃え */
+.ly_site_content:has(.ly_site_content_sidebar) {
+  justify-content: flex-start;
+}
+
 /* top ページ e*/
 
 .ly_site_content_widgetArea_right {
@@ -88,6 +107,8 @@
   order: 3;
   /* サイドバーを次に表示 */
   width: 300px;
+  z-index: 1;
+  /* ウィジェットがグラデの下に潜り込むのを防ぐ */
 }
 
 .ly_site_content_widgetArea_bottom {
@@ -303,5 +324,12 @@ label {
   .wp-block-buttons-is-layout-flex {
     --ly-widthPadding: 0; /* 両側ゼロ */
     /* 左だけなら → padding-left: 0 !important; に変更 */
+  }
+
+  .ly_site_content_main {
+    min-width: 0; /* ← 縮むのを防ぐ */
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 100%; /* 安定の固定幅 */
   }
 }

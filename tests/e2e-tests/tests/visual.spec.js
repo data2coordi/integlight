@@ -2,24 +2,6 @@ import { test, expect } from "@playwright/test";
 // ======= 共通関数 =======
 
 // ======= 設定 =======
-const baseUrl = "";
-
-const pages = [
-  { name: "home top", url: `${baseUrl}/` },
-  {
-    name: "front top",
-    url: `${baseUrl}/fire%e3%81%a7%e8%87%aa%e7%94%b1%e3%81%a8%e6%88%90%e9%95%b7%e3%82%92%e6%8e%b4%e3%82%80%ef%bc%81/`,
-  },
-  { name: "カテゴリ一覧", url: `${baseUrl}/category/fire-blog/` },
-  { name: "固定ページ", url: `${baseUrl}/profile/` },
-  { name: "ブログ", url: `${baseUrl}/sidefire-7500man-life-cost/` },
-  { name: "プラグイン1", url: `${baseUrl}/ptest/` },
-  { name: "プラグイン2", url: `${baseUrl}/ptest2/` },
-];
-
-const pagesForImageHeader = [
-  { name: "home top for ImageHeader", url: `${baseUrl}/` },
-];
 
 const devices = [
   {
@@ -47,22 +29,32 @@ test.describe.parallel("ビジュアルテスト", () => {
     test.describe(`${device.name}`, () => {
       test.use(device.use);
 
-      for (const { name, url, options } of pages) {
-        test(`： ${name}`, async ({ page }) => {
-          await page.goto(url, { waitUntil: "networkidle" });
+      test("", async ({ page }) => {
+        const { pages } = test.info().project.use;
+        // --- デバッグ出力 ---
+        console.log("✅ Loaded pages from config:");
+        console.table(
+          pages.map((p, i) => ({ No: i + 1, name: p.name, url: p.url }))
+        );
+
+        for (const { name, url } of pages) {
+          await test.step(`ページ：${name}`, async () => {
+            await page.goto(url);
+            await page.waitForLoadState("networkidle");
+          });
 
           const options = {
             maxDiffPixelRatio: 0.03, // 人間の目でわからないレベル
             threshold: 0.03,
           };
-          await expect(page).toHaveScreenshot({
+          await expect(page).toHaveScreenshot(`${device.name}-${name}.png`, {
             fullPage: true,
             timeout: 100000,
             ...options,
           });
-        });
-        //break;
-      }
+          //break;
+        }
+      });
     });
     //break;
   }

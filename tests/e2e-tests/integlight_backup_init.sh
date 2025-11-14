@@ -1,6 +1,11 @@
 #!/bin/bash
 set -euo pipefail
 
+
+
+
+
+
 # バックアップ格納ディレクトリ
 BACKUP_DIR=./e2e_backups_init
 # WordPressのuploadsディレクトリのパス
@@ -17,6 +22,9 @@ set +a
 # 環境によっては異なる場合があります。
 UPLOADS_OWNER="xsaurora" 
 UPLOADS_GROUP="members" 
+
+
+
 
 # バックアップディレクトリを作成
 mkdir -p "$BACKUP_DIR/uploads"

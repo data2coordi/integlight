@@ -44,9 +44,9 @@ endif
 	</main><!-- #main -->
 
 	<?php
-	if (!is_front_page()) :
-		get_sidebar();
-	endif
+	// if (!is_front_page()) :
+	// 	get_sidebar();
+	// endif
 	?>
 </div> <!-- site-content-->
 <?php get_footer(); ?>

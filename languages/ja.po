@@ -782,6 +782,10 @@ msgstr "右サイドバー（投稿ページとカテゴリー一覧で表示さ
 msgid "Left Sidebar (Displayed on the left side of posts and category pages)"
 msgstr "左サイドバー（投稿ページとカテゴリー一覧で表示される。画面左側に表示。※モバイルは画面下)"
 
+msgid "Home Sidebar (Displayed on the right side of home)"
+msgstr "ホーム用サイドバー（ホーム画面で表示される。画面右側に表示。※モバイルは画面下)"
+
+
 #: functions.php:10
 msgid "Widgets added here. For detailed instructions, please see the %s."
 msgstr "ここにウィジェットを追加してください。詳しい手順については%sをご覧ください。"
@@ -853,6 +857,9 @@ msgstr "設定される内容："
 
 msgid "Logo"
 msgstr "ロゴ"
+
+msgid "Image After Setup"
+msgstr "サンプルコンテンツのセットアップ後イメージ"
 
 
 msgid "Sample Category \"Blog\" + Posts + Page"

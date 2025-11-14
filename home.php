@@ -7,16 +7,21 @@ if (is_front_page() != false) {
 $home_type = Integlight_getThemeMod::getThemeMod('integlight_hometype_setting');
 ?>
 
-<main id="primary" class=<?php echo $home_type; ?>>
+<div class="ly_site_content">
+    <main id="primary" class="<?php echo $home_type; ?> site-main ly_site_content_main">
 
-    <?php
+        <?php
 
-    $cache = new Integlight_Cache_TemplatePart();
-    $key = 'home_content_' . $home_type;
-    $cache->displayTemplatePart($key, 'template-parts/content-home', $home_type);
+        $cache = new Integlight_Cache_TemplatePart();
+        $key = 'home_content_' . $home_type;
+        $cache->displayTemplatePart($key, 'template-parts/content-home', $home_type);
 
-    ?>
+        ?>
 
 
-</main>
+    </main>
+
+    <?php get_sidebar('home'); ?>
+</div>
+
 <?php get_footer(); ?>
