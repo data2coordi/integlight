@@ -22,10 +22,10 @@ class integlight_customizer_slider_headerTextStyle
 	{
 		// カスタマイザーから値を取得。未設定の場合はデフォルト値を使用
 		$color = Integlight_getThemeMod::getThemeMod('integlight_slider_text_color'); // デフォルトは白
-		$left  = Integlight_getThemeMod::getThemeMod('integlight_slider_text_left', 30);      // デフォルト 30px
-		$top   = Integlight_getThemeMod::getThemeMod('integlight_slider_text_top', 300);       // デフォルト 300px
-		$left_mobile  = Integlight_getThemeMod::getThemeMod('integlight_slider_text_left_mobile', 20);      // デフォルト 30px
-		$top_mobile   = Integlight_getThemeMod::getThemeMod('integlight_slider_text_top_mobile', 200);       // デフォルト 300px
+		$left  = Integlight_getThemeMod::getThemeMod('integlight_slider_text_left');      // デフォルト 30px
+		$top   = Integlight_getThemeMod::getThemeMod('integlight_slider_text_top');       // デフォルト 300px
+		$left_mobile  = Integlight_getThemeMod::getThemeMod('integlight_slider_text_left_mobile');      // デフォルト 30px
+		$top_mobile   = Integlight_getThemeMod::getThemeMod('integlight_slider_text_top_mobile');       // デフォルト 300px
 		// フォント選択の取得（デフォルトは 'yu_gothic'）
 
 		$font = Integlight_getThemeMod::getThemeMod('integlight_slider_text_font');

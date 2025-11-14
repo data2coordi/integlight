@@ -39,9 +39,9 @@ class Integlight_Defaults
 			'integlight_slider_text_color' => '#000000',
 			'integlight_slider_text_font' => 'yu_gothic',
 			'integlight_slider_text_top' => '10',
-			'integlight_slider_text_left' => '20',
+			'integlight_slider_text_left' => '10',
 			'integlight_slider_text_top_mobile' => '10',
-			'integlight_slider_text_left_mobile' => '20',
+			'integlight_slider_text_left_mobile' => '10',
 			'integlight_slider_effect' => 'slide',
 			'integlight_slider_change_duration' => '3',
 		];
