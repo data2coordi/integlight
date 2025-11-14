@@ -108,6 +108,11 @@ class Integlight_initSetup
         echo '<p><input type="submit" class="button button-primary" name="integlight_easySetup_button" value="' . esc_attr__('Set Up Sample Content', 'integlight') . '"></p>';
 
         echo '</form>';
+
+        echo '<div style="text-align:center; margin-bottom:20px;">';
+        echo '<h2 style="margin-bottom:10px;">' . esc_html__('Image After Setup', 'integlight') . '</h2>';
+        echo '<img src="' . esc_url(get_template_directory_uri() . '/assets/easySetupImage.webp') . '" alt="' . esc_attr__('Sample Setup Image', 'integlight') . '" style="max-width:100%; height:auto; border:1px solid #ccc; padding:5px;">';
+        echo '</div>';
     }
 
     /**

@@ -858,6 +858,9 @@ msgstr "設定される内容："
 msgid "Logo"
 msgstr "ロゴ"
 
+msgid "Image After Setup"
+msgstr "サンプルコンテンツのセットアップ後イメージ"
+
 
 msgid "Sample Category \"Blog\" + Posts + Page"
 msgstr "「ブログ」カテゴリ + サンプル投稿 + サンプル固定ページ"

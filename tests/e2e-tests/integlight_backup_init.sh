@@ -2,13 +2,6 @@
 set -euo pipefail
 
 
-# git 設定
-initThemeDir=/home/xsaurora/auroralab-design.com/public_html/t2.auroralab-design.com/wp-content/themes/integlight
-cd $initThemeDir
-git checkout dev
-git pull origin dev
-cd -
-
 
 
 
