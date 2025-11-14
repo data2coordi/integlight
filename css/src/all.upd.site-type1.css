@@ -222,7 +222,7 @@ main.siteType1.ly_site_content_main {
 }
 
 /* ===== スマホ：1列（目安 768px以下） ===== */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   /* 投稿カードエリアを1列にする（スマホ幅で横並び禁止） */
   .siteType1 .post-grid {
     grid-template-columns: 1fr; /* カードを縦1列に */
@@ -263,7 +263,6 @@ main.siteType1.ly_site_content_main {
   main.siteType1.ly_site_content_main {
     width: 100%; /* 親の幅に完全フィット */
     max-width: 100%; /* PC用 max-width を上書きして無効化 */
-    min-width: 100%; /* スマホ時の flex 縮みバグ防止（消すとカードが 0.25px まで縮む） */
     flex: 0 0 100%; /* flexアイテムとして幅100%を強制 */
   }
 }

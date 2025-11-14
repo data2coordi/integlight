@@ -34,9 +34,9 @@
   padding-right: var(--ly-widthPadding);
 }
 
-.ly_site_content:has(.ly_site_content_sidebar) {
+/* .ly_site_content:has(.ly_site_content_sidebar) {
   flex-wrap: nowrap;
-}
+} */
 
 /******メディアとテキスト********/
 .wp-block-media-text > .wp-block-media-text__content {
@@ -324,5 +324,12 @@ label {
   .wp-block-buttons-is-layout-flex {
     --ly-widthPadding: 0; /* 両側ゼロ */
     /* 左だけなら → padding-left: 0 !important; に変更 */
+  }
+
+  .ly_site_content_main {
+    min-width: 0; /* ← 縮むのを防ぐ */
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 100%; /* 安定の固定幅 */
   }
 }
