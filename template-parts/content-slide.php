@@ -33,24 +33,24 @@ if (empty(array_filter($slides))) {
 <div class="slider">
 	<div class="slides">
 		<?php if (!empty($slides[0])) : ?>
-			<div class="slide"><?= $slides[0] ?></div>
+			<div class="slide"><?php echo $slides[0]; ?></div>
 		<?php endif; ?>
 
 		<?php if (!empty($slides[1])) : ?>
-			<div class="slide"><?= $slides[1] ?></div>
+			<div class="slide"><?php echo $slides[1]; ?></div>
 		<?php endif; ?>
 
 		<?php if (!empty($slides[2])) : ?>
-			<div class="slide"><?= $slides[2] ?></div>
+			<div class="slide"><?php echo $slides[2]; ?></div>
 		<?php endif; ?>
 	</div>
 
 	<div class="text-overlay">
 		<div class="text-overlay1">
-			<h1><?= $texts[0] ?></h1>
+			<h1><?php echo esc_html($texts[0]); ?></h1>
 		</div>
 		<div class="text-overlay2">
-			<h2><?= $texts[1] ?></h2>
+			<h2><?php echo esc_html($texts[1]); ?></h2>
 		</div>
 	</div>
 </div>

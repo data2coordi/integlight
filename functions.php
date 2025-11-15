@@ -128,60 +128,73 @@ add_action('after_setup_theme', 'integlight_content_width', 0);
 
 function integlight_widgets_init()
 {
-	register_sidebar(
+
+	$manual_url = esc_url('https://integlight.auroralab-design.com/sidebar-widget-setup/');
+	$manual_label = esc_html__('setup manual', 'integlight');
+
+	/**
+	 * Generate sidebar description with proper escaping and kses.
+	 */
+	$description_template = wp_kses(
+		/* translators: %s: URL to the widget setup manual. */
+		__('Widgets added here. For detailed instructions, please see the %s.', 'integlight'),
 		array(
-			'name'          => esc_html__('Right Sidebar (Displayed on the right side of posts and category pages)', 'integlight'),
-			'id'            => 'sidebar-1',
-			'description'   => wp_kses_post(
-				sprintf(
-					/* translators: %s: URL to the widget setup manual. */
-					__('Widgets added here. For detailed instructions, please see the %s.', 'integlight'),
-					'<a href="https://integlight.auroralab-design.com/sidebar-widget-setup/" target="_blank" rel="noopener noreferrer">' . esc_html__('setup manual', 'integlight') . '</a>'
-				)
+			'a' => array(
+				'href'   => array(),
+				'target' => array(),
+				'rel'    => array(),
 			),
-			'before_widget' => '<section id="%1$s" class="widget %2$s">',
-			'after_widget'  => '</section>',
-			'before_title'  => '<h2 class="widget-title">',
-			'after_title'   => '</h2>',
+		)
+	);
+
+	$description = sprintf(
+		$description_template,
+		sprintf(
+			'<a href="%1$s" target="_blank" rel="noopener noreferrer">%2$s</a>',
+			$manual_url,
+			$manual_label
+		)
+	);
+
+	$common_args = array(
+		'before_widget' => '<section id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</section>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2>',
+	);
+
+	register_sidebar(
+		array_merge(
+			$common_args,
+			array(
+				'name'        => esc_html__('Right Sidebar (Displayed on the right side of posts and category pages)', 'integlight'),
+				'id'          => 'sidebar-1',
+				'description' => $description,
+			)
 		)
 	);
 
 	register_sidebar(
-		array(
-			'name'          => esc_html__('Left Sidebar (Displayed on the left side of posts and category pages)', 'integlight'),
-			'id'            => 'sidebar-2',
-			'description'   => wp_kses_post(
-				sprintf(
-					/* translators: %s: URL to the widget setup manual. */
-					__('Widgets added here. For detailed instructions, please see the %s.', 'integlight'),
-					'<a href="https://integlight.auroralab-design.com/sidebar-widget-setup/" target="_blank" rel="noopener noreferrer">' . esc_html__('setup manual', 'integlight') . '</a>'
-				)
-			),
-			'before_widget' => '<section id="%1$s" class="widget %2$s">',
-			'after_widget'  => '</section>',
-			'before_title'  => '<h2 class="widget-title">',
-			'after_title'   => '</h2>',
+		array_merge(
+			$common_args,
+			array(
+				'name'        => esc_html__('Left Sidebar (Displayed on the left side of posts and category pages)', 'integlight'),
+				'id'          => 'sidebar-2',
+				'description' => $description,
+			)
 		)
 	);
 
 	register_sidebar(
-		array(
-			'name'          => esc_html__('Home Sidebar (Displayed on the right side of home)', 'integlight'),
-			'id'            => 'sidebar-3',
-			'description'   => wp_kses_post(
-				sprintf(
-					/* translators: %s: URL to the widget setup manual. */
-					__('Widgets added here. For detailed instructions, please see the %s.', 'integlight'),
-					'<a href="https://integlight.auroralab-design.com/sidebar-widget-setup/" target="_blank" rel="noopener noreferrer">' . esc_html__('setup manual', 'integlight') . '</a>'
-				)
-			),
-			'before_widget' => '<section id="%1$s" class="widget %2$s">',
-			'after_widget'  => '</section>',
-			'before_title'  => '<h2 class="widget-title">',
-			'after_title'   => '</h2>',
+		array_merge(
+			$common_args,
+			array(
+				'name'        => esc_html__('Home Sidebar (Displayed on the right side of home)', 'integlight'),
+				'id'          => 'sidebar-3',
+				'description' => $description,
+			)
 		)
 	);
 }
 add_action('widgets_init', 'integlight_widgets_init');
-
 require get_template_directory() . '/inc/functions-phpload.php';

@@ -12,11 +12,11 @@ git pull origin master
 
 git merge --squash dev
 
-git commit -m "douki v1.1.28"
+git commit -m "douki v1.1.28-test"
 
 git push origin master
 
-exit
+#exit
 
 
 # ----- ブランチ統合後のクリーンアップ作業 -----
