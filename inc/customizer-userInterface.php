@@ -76,12 +76,14 @@ function integlight_customizer_homeDescription($wp_customize)
 {
 	$section = $wp_customize->get_section('static_front_page');
 	if ($section) {
-		$tmp =
-			'You can choose what to display on your homepage. '
-			. 'If you select (Your latest posts), the newest articles will appear in order like a blog. '
-			. 'If you select (A static page), a fixed page will be shown instead. '
-			. 'To use a static homepage, please create two pages in advance: one for Home and one for Posts page.';
-		$section->description = __($tmp, 'integlight');
+		// $tmp =
+		// 	'You can choose what to display on your homepage. '
+		// 	. 'If you select (Your latest posts), the newest articles will appear in order like a blog. '
+		// 	. 'If you select (A static page), a fixed page will be shown instead. '
+		// 	. 'To use a static homepage, please create two pages in advance: one for Home and one for Posts page.';
+		// $section->description = __($tmp, 'integlight');
+
+		$section->description = __('You can choose what to display on your homepage. If you select (Your latest posts), the newest articles will appear in order like a blog. If you select (A static page), a fixed page will be shown instead. To use a static homepage, please create two pages in advance: one for Home and one for Posts page.', 'integlight');
 	}
 }
 add_action('customize_register', 'integlight_customizer_homeDescription', 20);
