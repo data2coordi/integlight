@@ -34,6 +34,7 @@ function integlight_get_starter_content()
         ),
         'theme_mods' => array(
             'custom_logo' => '{{sample-logo}}',
+            'integlight_hometype_setting' => 'siteType2',
             'integlight_display_choice' => 'slider',
             'integlight_slider_effect' => 'fade',
             'integlight_slider_change_duration' => 3,
