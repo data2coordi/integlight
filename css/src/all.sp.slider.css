@@ -39,6 +39,7 @@
   font-weight: 600;
   /* 細くした */
   line-height: 1.3;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
 }
 
 .slider .text-overlay2 h2 {
@@ -47,6 +48,7 @@
   font-weight: 400;
   margin-top: 20px;
   /* スライダーh2上スペース */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 1);
 }
 
 /* スマホレイアウト */

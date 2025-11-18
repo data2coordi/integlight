@@ -12,7 +12,7 @@ git pull origin master
 
 git merge --squash dev
 
-git commit -m "douki v1.1.28-test"
+git commit -m "douki v1.1.29-release"
 
 git push origin master
 

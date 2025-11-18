@@ -68,20 +68,25 @@ li > ul > .cat-item:last-of-type {
 
 /* ウィジェット内の要素の個別調整 (サイドバー) */
 .ly_site_content_widgetArea_right h2,
-.ly_site_content_widgetArea_right h3 {
+.ly_site_content_widgetArea_right h3,
+.ly_site_content_widgetArea_left h2,
+.ly_site_content_widgetArea_left h3 {
   padding-top: 1em;
 }
 
-.ly_site_content_widgetArea_right .is-layout-flex {
+.ly_site_content_widgetArea_right .is-layout-flex,
+.ly_site_content_widgetArea_left .is-layout-flex {
   padding: 0;
 }
 
-.ly_site_content_widgetArea_right li {
+.ly_site_content_widgetArea_right li,
+.ly_site_content_widgetArea_left li {
   font-size: 0.8rem;
   list-style: none;
 }
 
-.ly_site_content_widgetArea_right li a {
+.ly_site_content_widgetArea_right li a,
+.ly_site_content_widgetArea_left li a {
   text-decoration: none;
   font-size: 0.9rem;
 }
