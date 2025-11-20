@@ -202,5 +202,27 @@ if ('requestIdleCallback' in window) {
     await page.goto("/", { waitUntil: "networkidle" });
     const content = await page.locator("head").innerHTML();
     expect(content).toContain("UA-12345678-1");
+
+    // 期待するスクリプト内容
+    const expected2 = `
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-12345678-1');
+`;
+
+    // 1. script を取得
+    const handle2 = await page.locator("#aurora-ga4-js-after");
+
+    // 2. textContent を取得
+    const actual2 = await handle2.textContent();
+
+    // 3. 改行・空白除去
+    function normalize(str: string): string {
+      return str.replace(/\s+/g, "").trim();
+    }
+
+    // 4. 完全一致比較
+    expect(normalize(actual2!)).toBe(normalize(expected2));
   });
 });
