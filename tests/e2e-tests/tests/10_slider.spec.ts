@@ -196,8 +196,8 @@ async function verifyTextDetails(
   await expect(page.locator(".slider.fade-effect")).toBeVisible();
 
   // テキストと位置確認
-  const mainTextLocator = page.locator(".slider .text-overlay h1");
-  const subTextLocator = page.locator(".slider .text-overlay h2");
+  const mainTextLocator = page.locator(".slider .text-overlay h2");
+  const subTextLocator = page.locator(".slider .text-overlay h3");
   await expect(mainTextLocator).toHaveText(mainText);
   await expect(subTextLocator).toHaveText(subText);
 

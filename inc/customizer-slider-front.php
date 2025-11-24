@@ -51,7 +51,7 @@ class integlight_customizer_slider_headerTextStyle
 				color: <?php echo esc_attr($color); ?>;
 			}
 
-			.slider .text-overlay h1 {
+			.slider .text-overlay h2 {
 				font-family: <?php echo esc_attr($font_family); ?>;
 			}
 

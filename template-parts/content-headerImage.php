@@ -29,10 +29,10 @@ $texts  = Integlight_customizer_headerImage_displayContent::getTexts();
 	?>
 	<div class="text-overlay">
 		<div class="text-overlay1">
-			<h1><?php echo wp_kses_post($texts[0]); ?></h1>
+			<h2><?php echo wp_kses_post($texts[0]); ?></h2>
 		</div>
 		<div class="text-overlay2">
-			<h2><?php echo wp_kses_post($texts[1]); ?></h2>
+			<h3><?php echo wp_kses_post($texts[1]); ?></h3>
 		</div>
 	</div>
 </div>

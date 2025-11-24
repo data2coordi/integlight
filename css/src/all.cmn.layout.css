@@ -43,6 +43,10 @@
   padding: 0;
 }
 
+.wp-block-media-text {
+  gap: 1em;
+}
+
 /******2カラムブロック********/
 .ly_site_content_main .wp-block-columns {
   gap: 1em;

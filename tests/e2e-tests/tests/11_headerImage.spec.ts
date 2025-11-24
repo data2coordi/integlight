@@ -65,8 +65,8 @@ async function verifyText_onFront(
   await expect(page.locator(".header-image")).toBeVisible();
 
   // ===== テキスト確認 =====
-  const mainTextLocator = page.locator(".header-image .text-overlay h1");
-  const subTextLocator = page.locator(".header-image .text-overlay h2");
+  const mainTextLocator = page.locator(".header-image .text-overlay h2");
+  const subTextLocator = page.locator(".header-image .text-overlay h3");
 
   await expect(mainTextLocator).toHaveText(mainText);
   await expect(subTextLocator).toHaveText(subText);

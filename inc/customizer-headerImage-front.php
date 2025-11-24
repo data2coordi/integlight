@@ -62,7 +62,7 @@ class integlight_customizer_headerImage_textStyle
 				color: <?php echo esc_attr($color); ?>;
 			}
 
-			.header-image .text-overlay h1 {
+			.header-image .text-overlay h2 {
 				font-family: <?php echo esc_attr($font_family); ?>;
 			}
 

@@ -115,6 +115,69 @@ test.describe("カスタマイザー全パターンまとめテスト", () => {
     // 元テーマに戻す
     await admin.activateTheme("integlight");
   });
+
+  test("E2E: GA 高速化オプション on でスクリプト全体確認", async ({ page }) => {
+    console.log(
+      "[03_customiser.spec.ts] ===== START: カスタマイザー全パターンまとめテスト - E2E: GA 高速化オプション on でスクリプト全体確認認 ====="
+    );
+    // GA入力
+    const utils = new Customizer_utils(page);
+    await utils.openCustomizer();
+    await page.getByRole("button", { name: "Google Analytics 設定" }).click();
+    const gaField = page.getByLabel("Google Analytics 測定ID");
+    await gaField.fill("");
+    await gaField.fill("UA-12345678-1");
+
+    // 高速化オプション OFF にする
+    const gaLabel = page.getByLabel("高速化オプションを有効にする");
+    await gaLabel.check();
+
+    await Customizer_utils.ensureCustomizerRoot(page);
+
+    // 保存してフロント確認
+    await utils.saveCustomizer();
+    await page.goto("/", { waitUntil: "networkidle" });
+
+    const expected = `
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+var gtagLoaded = false;
+
+var loadGtag = function() {
+    if (gtagLoaded) return;
+    gtagLoaded = true;
+
+    var script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=UA-12345678-1';
+    document.head.appendChild(script);
+
+    gtag('js', new Date());
+    gtag('config', 'UA-12345678-1');
+};
+
+if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(loadGtag);
+} else {
+    setTimeout(loadGtag, 4000);
+}
+`;
+
+    // 1. script タグを取得
+    const handle = await page.locator("#aurora-ga4-speedup-js-after");
+
+    // 2. textContent を取得
+    const actual = await handle.textContent();
+
+    // 3. 改行・空白を完全削除する正規化関数
+    function normalize(str: string): string {
+      return str.replace(/\s+/g, "").trim();
+    }
+
+    // 4. 比較
+    expect(normalize(actual!)).toBe(normalize(expected));
+  });
+
   test("E2E: GA 高速化オプション OFF でフロント確認", async ({ page }) => {
     console.log(
       "[03_customiser.spec.ts] ===== START: カスタマイザー全パターンまとめテスト - E2E: GA 高速化オプション OFF でフロント確認 ====="
@@ -139,5 +202,27 @@ test.describe("カスタマイザー全パターンまとめテスト", () => {
     await page.goto("/", { waitUntil: "networkidle" });
     const content = await page.locator("head").innerHTML();
     expect(content).toContain("UA-12345678-1");
+
+    // 期待するスクリプト内容
+    const expected2 = `
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-12345678-1');
+`;
+
+    // 1. script を取得
+    const handle2 = await page.locator("#aurora-ga4-js-after");
+
+    // 2. textContent を取得
+    const actual2 = await handle2.textContent();
+
+    // 3. 改行・空白除去
+    function normalize(str: string): string {
+      return str.replace(/\s+/g, "").trim();
+    }
+
+    // 4. 完全一致比較
+    expect(normalize(actual2!)).toBe(normalize(expected2));
   });
 });

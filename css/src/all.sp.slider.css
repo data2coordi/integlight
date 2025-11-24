@@ -34,7 +34,7 @@
   width: 50vw;
 }
 
-.slider .text-overlay1 h1 {
+.slider .text-overlay1 h2 {
   font-size: clamp(1.6rem, 4vw, 3.2rem);
   font-weight: 600;
   /* 細くした */
@@ -42,7 +42,7 @@
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
 }
 
-.slider .text-overlay2 h2 {
+.slider .text-overlay2 h3 {
   font-size: clamp(1rem, 1.5vw, 1.3rem);
   line-height: 1.7;
   font-weight: 400;
@@ -57,22 +57,22 @@
     width: 80vw;
   }
 
-  .slider .text-overlay1 h1 {
+  .slider .text-overlay1 h2 {
     font-size: 2.5rem;
     font-weight: 600;
   }
 
-  .slider .text-overlay2 h2 {
+  .slider .text-overlay2 h3 {
     font-size: 1rem;
     font-weight: 400;
   }
 }
 
-.slider .text-overlay2 h2 {
+.slider .text-overlay2 h3 {
   border-bottom: none;
 }
 
-.slider .text-overlay2 h2::after {
+.slider .text-overlay2 h3::after {
   display: none;
 }
 
