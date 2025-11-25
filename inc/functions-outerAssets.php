@@ -45,7 +45,8 @@ class Integlight_outerAssets_css_preDetermine
     {
         return is_active_sidebar('sidebar-1')
             || is_active_sidebar('sidebar-2')
-            || is_active_sidebar('sidebar-3');
+            || is_active_sidebar('sidebar-3')
+            || is_active_sidebar('sidebar-4');
     }
 
 

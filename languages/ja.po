@@ -785,6 +785,8 @@ msgstr "左サイドバー（投稿ページとカテゴリー一覧で表示さ
 msgid "Home Sidebar (Displayed on the right side of home)"
 msgstr "ホーム用サイドバー（ホーム画面で表示される。画面右側に表示。※モバイルは画面下)"
 
+msgid "Home Sidebar (Displayed on the top of home)"
+msgstr "ホーム用サイドバー（ホーム画面で表示される。画面上部に表示)"
 
 #: functions.php:10
 msgid "Widgets added here. For detailed instructions, please see the %s."

@@ -195,6 +195,17 @@ function integlight_widgets_init()
 			)
 		)
 	);
+
+	register_sidebar(
+		array_merge(
+			$common_args,
+			array(
+				'name'        => esc_html__('Home Sidebar (Displayed on the top of home)', 'integlight'),
+				'id'          => 'sidebar-4',
+				'description' => $description,
+			)
+		)
+	);
 }
 add_action('widgets_init', 'integlight_widgets_init');
 require get_template_directory() . '/inc/functions-phpload.php';
