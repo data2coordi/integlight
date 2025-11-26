@@ -38,6 +38,34 @@
   flex-wrap: nowrap;
 } */
 
+/* ホーム上部ウィジェットを横長カード化 */
+/* ホーム上部ウィジェットを横長カード化 */
+/* ホーム上部ウィジェットを横長カード化s */
+.home .ly_site_content_widgetArea_top {
+  max-width: 1180px; /* カード3枚と同幅 */
+  margin: 0 auto clamp(24px, 6vw, 64px); /* 中央寄せ＋下余白 */
+  padding: clamp(24px, 4vw, 48px); /* 内側余白 */
+
+  background: #fff; /* カード背景 */
+  border: 1px solid var(--ly-borderColor, #eee); /* 枠線 */
+  border-radius: 12px; /* 角丸 */
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1); /* 影 */
+}
+
+/* タイトル調整 */
+.home .ly_site_content_widgetArea_top h2,
+.home .ly_site_content_widgetArea_top h3 {
+  margin-top: 3em; /* 上余白 */
+  margin-bottom: clamp(16px, 3vw, 32px); /* 下余白 */
+}
+
+/* 本文行間 */
+.home .ly_site_content_widgetArea_top p {
+  line-height: 1.75; /* 読みやすい行間 */
+}
+/* ホーム上部ウィジェットを横長カード化e */
+/* ホーム上部ウィジェットを横長カード化 */
+
 /******メディアとテキスト********/
 .wp-block-media-text > .wp-block-media-text__content {
   padding: 0;

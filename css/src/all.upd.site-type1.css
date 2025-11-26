@@ -27,20 +27,6 @@ body .siteType1 {
   text-overflow: ellipsis;
 }
 
-/* ========== 1) 一覧グリッド：最小幅を上げて“細すぎ”回避 + リキッド ========== */
-/* 360px 以上ないと列を増やさない→広い画面でも最大3列くらいをキープしやすい */
-.siteType1 .post-grid {
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(360px, 1fr)
-  ); /* ★幅が細くなりにくい */
-  gap: clamp(12px, 2vw, 24px);
-  /* padding: clamp(12px, 2vw, 24px); */
-  width: min(100%, 1200px); /* 1200pxで止めて中央寄せ */
-  margin: 0 auto;
-}
-
 /* ========== 2) カード本体：正方形化 ＆ ホバー ========== */
 /* 高さ固定はやめ、幅から自動計算（1:1）。中身は縦フレックスで配分 */
 .siteType1 .grid-item {

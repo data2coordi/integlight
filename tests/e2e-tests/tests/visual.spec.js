@@ -31,6 +31,8 @@ test.describe.parallel("ビジュアルテスト", () => {
 
       test("", async ({ page }) => {
         const { pages } = test.info().project.use;
+        // プロジェクト名を取得
+        const projectName = test.info().project.name;
         // --- デバッグ出力 ---
         console.log("✅ Loaded pages from config:");
         console.table(
@@ -47,12 +49,18 @@ test.describe.parallel("ビジュアルテスト", () => {
             maxDiffPixelRatio: 0.03, // 人間の目でわからないレベル
             threshold: 0.03,
           };
-          await expect(page).toHaveScreenshot(`${device.name}-${name}.png`, {
-            fullPage: true,
-            timeout: 100000,
-            ...options,
-          });
-          //break;
+          // 変更点: expect を expect.soft に変更
+          await expect
+            .soft(page)
+            .toHaveScreenshot(`${device.name}-${name}.png`, {
+              fullPage: true,
+              timeout: 100000,
+              ...options,
+            });
+
+          console.log(
+            `✨ **完了**: [プロジェクト: ${projectName}] [デバイス: ${device.name}] のページ「${name}」`
+          );
         }
       });
     });
