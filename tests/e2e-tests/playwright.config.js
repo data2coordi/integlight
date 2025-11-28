@@ -7,13 +7,13 @@ const authFile = "playwright/.auth/user.json";
 export default defineConfig({
   reporter: [
     ["list"],
-    [
-      "html",
-      {
-        open: "never",
-        outputFolder: "test-results",
-      },
-    ],
+    // [
+    //   "html",
+    //   {
+    //     open: "never",
+    //     outputFolder: "test-results",
+    //   },
+    // ],
   ],
   // 各テストのデフォルトタイムアウト（ms）
   timeout: 60_000,

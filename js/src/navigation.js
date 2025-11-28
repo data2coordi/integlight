@@ -1,208 +1,201 @@
 /*
  * src/js/integlight-menu.js
- * 小規模クラスに分割した設計例（一致動作版）
+ * 改修版：PCホバー対応 ＆ 座標計算廃止（ボタン生成方式）
  */
 
 // =============================
 // 共通ユーティリティ
 // =============================
 class MenuUtils {
-	static closeSiblings(item) {
-		Array.from(item.parentElement.children)
-			.filter(sib => sib !== item)
-			.forEach(sib => sib.classList.remove('active'));
-	}
+  // 兄弟要素のメニューを閉じる
+  static closeSiblings(item) {
+    const parent = item.parentElement;
+    if (!parent) return;
+
+    Array.from(parent.children).forEach((sib) => {
+      if (sib !== item && sib.classList.contains("menu-item-has-children")) {
+        sib.classList.remove("active");
+        const btn = sib.querySelector(".submenu-toggle-btn");
+        if (btn) btn.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
 }
 
 // =============================
 // メニュー開閉制御（デスクトップ／モバイル共通）
 // =============================
 class MenuController {
-	constructor(linkSelector = '.menu-item-has-children > a') {
-		this.menuLinks = document.querySelectorAll(linkSelector);
-		this.menuItems = document.querySelectorAll('.menu-item-has-children');
-	}
+  constructor() {
+    // サブメニューを持つすべてのli要素
+    this.menuItems = document.querySelectorAll(".menu-item-has-children");
+  }
 
-	init() {
-		this.menuLinks.forEach(link => {
-			link.addEventListener('click', this.onClick.bind(this));
-			link.addEventListener('keydown', this.onKeydown.bind(this));
-		});
-		this.menuItems.forEach(item => {
-			item.addEventListener('focusout', this.onFocusOut.bind(this));
-		});
-	}
+  init() {
+    this.menuItems.forEach((item) => {
+      // 1. 開閉用ボタンを動的に生成して配置（座標計算の代わり）
+      this.createToggleButton(item);
 
-	onClick(e) {
-		const link = e.currentTarget;
-		const width = link.offsetWidth;
-		// 右端40pxのみ開閉
-		if (e.offsetX <= width - 40) return;
-		e.preventDefault();
-		e.stopPropagation();
-		const item = link.parentElement;
-		MenuUtils.closeSiblings(item);
-		item.classList.toggle('active');
-	}
+      // 2. フォーカスが外れたら閉じる（PCアクセシビリティ用）
+      item.addEventListener("focusout", this.onFocusOut.bind(this));
 
-	onKeydown(e) {
-		if (e.key !== 'Tab') return;
-		const item = e.currentTarget.parentElement;
-		// すでに開いていれば何もしない
-		if (item.classList.contains('active')) return;
-		MenuUtils.closeSiblings(item);
-		item.classList.add('active');
-	}
+      // 3. エスケープキー対応
+      item.addEventListener("keydown", this.onItemKeydown.bind(this));
+    });
+  }
 
-	onFocusOut(e) {
-		const item = e.currentTarget;
-		setTimeout(() => {
-			if (!item.contains(document.activeElement)) {
-				item.classList.remove('active');
-			}
-		}, 0);
-	}
+  /**
+   * リンクの横（上）に透明なボタンを配置する
+   */
+  createToggleButton(item) {
+    const link = item.querySelector("a");
+    if (!link) return;
+
+    // ボタン要素を作成
+    const btn = document.createElement("button");
+    btn.className = "submenu-toggle-btn";
+    btn.type = "button";
+    btn.setAttribute("aria-label", "サブメニューを開閉");
+    btn.setAttribute("aria-expanded", "false");
+
+    // ボタンクリック時のイベント
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation(); // 親へのバブリング阻止
+      this.toggleMenu(item, btn);
+    });
+
+    // 構造上、aタグの直後に配置する（CSSで右端にabsolute配置）
+    link.after(btn);
+  }
+
+  /**
+   * メニューの開閉切り替え
+   */
+  toggleMenu(item, btn) {
+    const isActive = item.classList.contains("active");
+
+    // 開く場合は、同じ階層の他のメニューを閉じる
+    if (!isActive) {
+      MenuUtils.closeSiblings(item);
+    }
+
+    // クラスのトグル
+    item.classList.toggle("active");
+
+    // ARIA属性の更新
+    const newState = item.classList.contains("active");
+    btn.setAttribute("aria-expanded", String(newState));
+  }
+
+  /**
+   * フォーカスアウト時の処理
+   */
+  onFocusOut(e) {
+    const item = e.currentTarget;
+    // 次のフォーカスが子要素内にあるか確認するため少し待つ
+    setTimeout(() => {
+      if (!item.contains(document.activeElement)) {
+        item.classList.remove("active");
+        const btn = item.querySelector(".submenu-toggle-btn");
+        if (btn) btn.setAttribute("aria-expanded", "false");
+      }
+    }, 0);
+  }
+
+  /**
+   * キーボード操作（Escapeキーで閉じる）
+   */
+  onItemKeydown(e) {
+    if (e.key === "Escape") {
+      const item = e.currentTarget;
+      if (item.classList.contains("active")) {
+        e.stopPropagation();
+        item.classList.remove("active");
+        const btn = item.querySelector(".submenu-toggle-btn");
+        if (btn) {
+          btn.setAttribute("aria-expanded", "false");
+          btn.focus(); // ボタンにフォーカスを戻す
+        }
+      }
+    }
+  }
 }
 
 // =============================
-// グローバルキー（Escape）対応
-// =============================
-class GlobalKeyController {
-	init() {
-		document.addEventListener('keydown', e => {
-			if (e.key !== 'Escape') return;
-			const focused = document.activeElement;
-			const menuItem = focused.closest('.menu-item-has-children.active');
-			if (menuItem) {
-				menuItem.classList.remove('active');
-				focused.blur();
-			}
-		});
-	}
-}
-
-// =============================
-// モバイル用アクセスビリティ
+// モバイルハンバーガーメニュー制御
 // =============================
 class MobileMenuController {
-	constructor({
-		toggleButtonSel = '#menuToggle-button', // toggleLabelSel を toggleButtonSel に変更
-		checkboxSel = '.menuToggle-checkbox',
-		containerSel = '.menuToggle-containerForMenu',
-		breakpoint = 768
-	} = {}) {
-		this.toggleButton = document.querySelector(toggleButtonSel); // toggleLabel を toggleButton に変更
-		this.checkbox = document.querySelector(checkboxSel);
-		this.container = document.querySelector(containerSel);
-		this.bp = breakpoint;
-	}
+  constructor() {
+    // 提供されたHTMLのIDに合わせて設定
+    this.toggleButton = document.getElementById("menuToggle-button");
+    this.checkbox = document.getElementById("menuToggle-checkbox");
+    this.container = document.getElementById("primary-menu-container");
+    this.breakpoint = 768; // スマホ表示の境界線
+  }
 
-	init() {
-		if (!window.matchMedia(`(max-width: ${this.bp}px)`).matches) return;
-		if (!this.toggleButton || !this.checkbox || !this.container) return; // toggleLabel を toggleButton に変更
+  init() {
+    // 要素がなければ終了
+    if (!this.toggleButton || !this.checkbox || !this.container) return;
 
-		// button要素はデフォルトでtabindexが設定されるため、明示的なtabindex="0"は不要
+    // 初期化：アクセシビリティ属性
+    this.updateAttributes(this.checkbox.checked);
 
-		// 初期状態はHTMLで設定済みなので不要
-		// this.toggleButton.setAttribute('aria-expanded', 'false');
-		this.container.setAttribute('aria-hidden', 'true');
-		this.container.querySelectorAll('a').forEach(a => a.setAttribute('tabindex', '-1'));
+    // チェックボックスの変化を監視（CSSで開閉している場合もJSの状態を同期）
+    this.checkbox.addEventListener("change", () => {
+      this.updateAttributes(this.checkbox.checked);
+    });
 
-		this.checkbox.addEventListener('change', () => this.update(this.checkbox.checked));
+    // ボタンクリック時の処理
+    // label要素ではないbuttonタグのため、明示的にcheckboxを操作する必要がある場合に対応
+    this.toggleButton.addEventListener("click", () => {
+      // buttonの中にcheckboxが入っていない構造なので、連動させる
+      this.checkbox.checked = !this.checkbox.checked;
+      // changeイベントを発火させて同期
+      this.checkbox.dispatchEvent(new Event("change"));
+    });
+  }
 
-		// button要素の場合、clickイベントで十分
-		this.toggleButton.addEventListener('click', () => {
-			this.checkbox.checked = !this.checkbox.checked;
-			this.update(this.checkbox.checked);
-		});
-
-		// EnterやSpaceキーはbuttonのデフォルト動作で処理されるため、明示的なkeydownリスナーは不要だが、
-		// checkboxの状態と同期させるために残す場合は以下のようになる。
-		// this.toggleButton.addEventListener('keydown', e => {
-		//     if (e.key === 'Enter' || e.key === ' ') {
-		//         e.preventDefault(); // デフォルト動作をキャンセルしない場合は削除
-		//         this.checkbox.checked = !this.checkbox.checked;
-		//         this.update(this.checkbox.checked);
-		//     }
-		// });
-	}
-
-	update(isOpen) {
-		this.toggleButton.setAttribute('aria-expanded', String(isOpen)); // toggleLabel を toggleButton に変更
-		this.container.setAttribute('aria-hidden', String(!isOpen));
-		this.container.querySelectorAll('a').forEach((a, idx) => {
-			if (isOpen) {
-				a.removeAttribute('tabindex');
-				if (idx === 0) requestAnimationFrame(() => a.focus());
-			} else {
-				a.setAttribute('tabindex', '-1');
-			}
-		});
-	}
+  updateAttributes(isOpen) {
+    this.toggleButton.setAttribute("aria-expanded", String(isOpen));
+    // メニューが開いているときはコンテナをスクリーンリーダーに隠さない
+    this.container.setAttribute("aria-hidden", String(!isOpen));
+  }
 }
 
 // =============================
-// エントリーポイント
+// 初期化
 // =============================
-document.addEventListener('DOMContentLoaded', () => {
-	new MenuController().init();
-	new GlobalKeyController().init();
-	new MobileMenuController().init();
+document.addEventListener("DOMContentLoaded", () => {
+  // 1. メニュー項目ごとの開閉制御
+  new MenuController().init();
+
+  // 2. スマホ用ハンバーガーメニュー制御
+  new MobileMenuController().init();
 });
 
-export {
-	MenuController,
-	GlobalKeyController,
-	MobileMenuController
-};
+export { MenuController, MobileMenuController };
 
-
-
-
-/********************************************************:: */
-/*想定しているHTML構造 s
-/********************************************************:: */
+/* 想定されているメニュー構造 */
 /*
-<nav id="site-navigation" class="main-navigation">
+<ul id="header-menu" class="menu">
+  <li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children">
+    <a href="#">FIRE・資産運用</a>
+    <button class="submenu-toggle-btn" type="button" aria-label="サブメニューを開閉" aria-expanded="false"></button>
 
-  <!-- ハンバーガーメニュー制御用 -->
-  <input type="checkbox" id="menuToggle-checkbox" class="menuToggle-checkbox" />
-  <label for="menuToggle-checkbox" class="menuToggle-label"><span></span></label>
+    <ul class="sub-menu">
+      <li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children">
+        <a href="#">FIRE</a>
+        <button class="submenu-toggle-btn" type="button" aria-label="サブメニューを開閉" aria-expanded="false"></button>
 
-  <!-- メニューラッパー -->
-  <div class="menuToggle-containerForMenu">
-	<ul id="primary-menu" class="menu">
-	  
-	  <!-- トップレベルメニュー1 -->
-	  <li class="menu-item menu-item-has-children">
-		<a href="#">親メニュー1</a>
-		<ul class="sub-menu">
-		  <li class="menu-item"><a href="#">子メニュー1-1</a></li>
-		  <li class="menu-item"><a href="#">子メニュー1-2</a></li>
-		  <li class="menu-item menu-item-has-children">
-			<a href="#">子メニュー1-3</a>
-			<ul class="sub-menu">
-			  <li class="menu-item"><a href="#">孫メニュー1-3-1</a></li>
-			</ul>
-		  </li>
-		</ul>
-	  </li>
+        <ul class="sub-menu">
+          <li class="menu-item menu-item-type-post_type menu-item-object-post">
+            <a href="#">FIREとは？ ー自立と自由を手に入れるFIREの全貌ー</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
 
-	  <!-- トップレベルメニュー2 -->
-	  <li class="menu-item"><a href="#">親メニュー2</a></li>
-
-	  <!-- トップレベルメニュー3 -->
-	  <li class="menu-item menu-item-has-children">
-		<a href="#">親メニュー3</a>
-		<ul class="sub-menu">
-		  <li class="menu-item"><a href="#">子メニュー3-1</a></li>
-		</ul>
-	  </li>
-
-	</ul>
-  </div>
-</nav>
 */
-/********************************************************:: */
-/*想定しているHTML構造 e
-/********************************************************:: */
