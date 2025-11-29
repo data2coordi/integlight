@@ -45,16 +45,12 @@ ul.sub-menu {
 /* 下層メニューのインデント（各階層毎に +30px） */
 ul.menu li ul.sub-menu a {
   /* 最上位のリンクは左右15pxなので：15+30 = 45px */
-  padding-left: 45px;
   font-size: 0.8em;
+  color: #b3b3b3;
 }
 
 ul.menu li ul.sub-menu a:hover {
   color: #555;
-}
-
-ul.menu li ul.sub-menu li ul.sub-menu a {
-  padding-left: 75px;
 }
 
 /*メニュー内でサブサブメニューを持つ項目に ▶ アイコンを追加 */
@@ -199,6 +195,27 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
     > ul.sub-menu {
     display: block;
   }
+
+  /* サブサブメニュー（第二階層以降）は親 li を基準に絶対配置 s */
+  .main-navigation ul.menu li ul.sub-menu li.menu-item-has-children {
+    position: relative;
+  }
+  .main-navigation
+    ul.menu
+    li
+    ul.sub-menu
+    li.menu-item-has-children
+    > ul.sub-menu {
+    position: absolute;
+    top: 0; /* 親項目の上端に揃える */
+    left: 100%; /* 親項目の右端から開始（外側に飛び出す） */
+    width: 200px; /* (例) 幅を固定値で指定（vwではなくpx推奨） */
+    /* width: calc(100vw * 0.15); /* 1階層目に合わせてvwを使うことも可能 */
+    margin-top: 0; /* 既存のmargin-topをリセット */
+
+    /* 展開時は :hover で display: block; になるため、ここには display: none; は不要 */
+  }
+  /* サブサブメニュー（第二階層以降）は親 li を基準に絶対配置 e */
 }
 
 .menuToggle-label {
@@ -310,6 +327,23 @@ ul.menu li ul.sub-menu li ul.sub-menu a {
   ul.menu li {
     border-bottom: 1px solid #444;
   }
+
+  /* SPメニューが開いた時の余白確保 */
+  #primary-menu-container[aria-hidden="false"] {
+    padding-top: 100px; /* ← ×ボタンの高さぶん */
+  }
+
+  /* sub-menu のインデント調整（各階層毎に +30px）_s */
+  ul.menu li ul.sub-menu a {
+    /* 最上位のリンクは左右15pxなので：15+30 = 45px */
+    padding-left: 45px;
+  }
+
+  ul.menu li ul.sub-menu li ul.sub-menu a {
+    padding-left: 75px;
+  }
+
+  /* sub-menu のインデント調整（各階層毎に +30px）_e */
 
   /****************************************/
   /****************************************/

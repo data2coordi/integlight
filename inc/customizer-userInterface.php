@@ -159,22 +159,17 @@ class Integlight_customizer_sectionDescription
 
 class Integlight_customizer_interfaceManager
 {
-	/** @var array */
-	private $panels;
 
 	/** @var array section_id => [ 'panel' => panel_id, 'title' => '任意名' ] */
-	private $map;
 
 	public function __construct()
 	{
-		// $this->panels = $this->default_panels();
-		// $this->map = $this->default_map();
 
-		add_action('customize_register', [$this, 'register_panels'], 15);
-		add_action('customize_register', [$this, 'apply_mapping'], 20);
+		add_action('customize_register', [$this, 'register_integlightPanels'], 15);
+		add_action('customize_register', [$this, 'map_apply_coreToInteglight'], 20);
 	}
 
-	private function default_panels()
+	private function integlight_panels()
 	{
 		$site_desc = __(
 			'This is a site-wide setting.<br><br><b>Recommended settings</b><br>The \'Homepage Settings\' are usually fine as default. If you want to use a fixed page as the home (top) page, configure it here.<br><br>It is recommended to set both \'Site Basic Information\' and \'Site Type Settings\'.',
@@ -244,7 +239,7 @@ class Integlight_customizer_interfaceManager
 		return $panels;
 	}
 
-	private function default_map()
+	private function map_data_coreToInteglight()
 	{
 		return [
 			// コアの section を独自パネルへ移動（ID は変えない）
@@ -260,37 +255,31 @@ class Integlight_customizer_interfaceManager
 		];
 	}
 
-	public function register_panels($wp_customize)
+	public function register_integlightPanels($wp_customize)
 	{
-		if (!isset($this->panels)) {
-			$this->panels = $this->default_panels();
-		}
-		foreach ($this->panels as $id => $args) {
+		foreach ($this->integlight_panels() as $id => $args) {
 			if (! $wp_customize->get_panel($id)) {
 				$wp_customize->add_panel($id, array_merge(['capability' => 'edit_theme_options'], $args));
 			}
 		}
 	}
-	public function apply_mapping($wp_customize)
+	public function map_apply_coreToInteglight($wp_customize)
 	{
-		if (!isset($this->map)) {
-			$this->map = $this->default_map();
-		}
-		foreach ($this->map as $core_id => $target) {
+		foreach ($this->map_data_coreToInteglight() as $core_id => $integlightPanel) {
 			// セクションが存在する場合
-			$section = $wp_customize->get_section($core_id);
-			if ($section) {
-				$section->panel = $target['panel'];
-				$section->title = $target['title'];
+			$coreSection = $wp_customize->get_section($core_id);
+			if ($coreSection) {
+				$coreSection->panel = $integlightPanel['panel'];
+				$coreSection->title = $integlightPanel['title'];
 				continue;
 			}
 
 			// パネル（メニュー）の場合
-			$panel = $wp_customize->get_panel($core_id);
-			if ($panel) {
+			$corePanel = $wp_customize->get_panel($core_id);
+			if ($corePanel) {
 				foreach ($wp_customize->sections() as $s_id => $s_obj) {
 					if (isset($s_obj->panel) && $s_obj->panel === $core_id) {
-						$s_obj->panel = $target['panel'];
+						$s_obj->panel = $integlightPanel['panel'];
 					}
 				}
 				if ($core_id != 'nav_menus') { //'nav_menus'を削除すると全て消えるため。おそらく不具合
