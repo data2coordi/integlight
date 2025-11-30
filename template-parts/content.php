@@ -29,7 +29,12 @@
 		<?php endif; ?>
 	</header><!-- .entry-header -->
 
-	<?php integlight_post_thumbnail(); ?>
+	<?php
+
+	if (!Integlight_customize_performance::is_HideFeaturedImage_enabled()) {
+		integlight_post_thumbnail();
+	}
+	?>
 
 	<div class="entry-content">
 		<?php

@@ -27,6 +27,7 @@ class Integlight_Defaults
 			'integlight_footer_show_credit' => true,
 			// Performance
 			'integlight_cache_enable' => true,
+			'integlight_hideFeaturedImage_enable' => false,
 			// Slider
 			'integlight_slider_image_1' => '',
 			'integlight_slider_image_2' => '',

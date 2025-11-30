@@ -744,6 +744,22 @@ msgstr "高速化のためのキャッシュに関する設定です。"
 msgid "Uncheck to disable the theme's server-side cache. Normally, keeping it enabled is recommended. *This cache does not apply to logged-in users."
 msgstr "チェックを外すとテーマのサーバー側キャッシュが無効になります。通常は有効がお勧めです。※ログインユーザーには本キャッシュは適用されません。"
 
+
+
+msgid "Featured Image Settings"
+msgstr "アイキャッチ画像設定"
+
+msgid "Control the display of the featured image on single post pages."
+msgstr "投稿ページでのアイキャッチ画像の表示を制御します。"
+
+msgid "Hide Featured Image on Single Posts"
+msgstr "投稿ページでアイキャッチ画像を非表示にする"
+
+msgid "When enabled, the featured image is hidden on the single post page but still displayed as a thumbnail on archive pages. This option is used to improve the loading performance of featured images on single posts."
+msgstr "有効にすると、投稿ページではアイキャッチ画像が非表示になりますが、一覧ページではサムネイルとして表示されます。このオプションは投稿ページのFVの表示高速化のために使用します。"
+
+
+
 #: inc/customizer.php:XXX
 msgid "Select the type of media to display on the homepage (top page).<br>The settings button for the selected type will appear on the previous screen.<br><br><b>Recommended setting:</b><br>Slider is recommended."
 msgstr "ホーム（トップ）ページに表示するメディアのタイプを選択します。<br>ここで選択したタイプの設定ボタン(「2.スライダー設定」または「2.静止画像設定」)が１つ前のカスタマイザ画面(ヘッダー設定)に表示されます。<br><br><b>＜お勧めの設定＞</b><br>スライダーがお勧めです"

@@ -10,7 +10,7 @@ clear
 initThemeDir=/home/xsaurora/auroralab-design.com/public_html/t2.auroralab-design.com/wp-content/themes/integlight
 cd $initThemeDir
 git checkout dev
-git pull origin dev
+git reset --hard origin/dev
 cd -
 
 

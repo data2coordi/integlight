@@ -16,7 +16,9 @@ class Integlight_customize_performance
     public function register_settings($wp_customize)
     {
 
-        // 「高速化」セクション追加
+        ////////////////////////////////////////
+        // 「高速化」セクションにキャッシュ機能追加 s
+        ////////////////////////////////////////
         $wp_customize->add_section('integlight_section_performance', [
             'title'       => __('Cache Settings', 'integlight'),
             'priority'    => 200,
@@ -40,6 +42,47 @@ class Integlight_customize_performance
                 'integlight'
             ),
         ]);
+        ////////////////////////////////////////
+        // 「高速化」セクションにキャッシュ機能追加 e
+        ////////////////////////////////////////
+
+
+
+        ////////////////////////////////////////
+        // 「高速化」セクションにキャッチ画像非表示機能追加 s
+        ////////////////////////////////////////
+        $wp_customize->add_section('integlight_section_HideFeaturedImage', [
+            'title'       => __('Featured Image Settings', 'integlight'),
+            'priority'    => 200,
+            'capability'  => 'edit_theme_options',
+            'description' => __('Control the display of the featured image on single post pages.', 'integlight'),
+            'panel'       => 'integlight_perf_panel',
+        ]);
+
+        // Enable/Disable featured image display on single posts
+        $wp_customize->add_setting('integlight_hideFeaturedImage_enable', [
+            'default'           => Integlight_Defaults::get_all()['integlight_hideFeaturedImage_enable'] ?? false,
+            'sanitize_callback' => 'wp_validate_boolean',
+        ]);
+
+        $wp_customize->add_control('integlight_hideFeaturedImage_enable', [
+            'type'        => 'checkbox',
+            'section'     => 'integlight_section_HideFeaturedImage',
+            'label'       => __('Hide Featured Image on Single Posts', 'integlight'),
+            'description' => __(
+                'When enabled, the featured image is hidden on the single post page but still displayed as a thumbnail on archive pages.',
+                'integlight'
+            ),
+        ]);
+        ////////////////////////////////////////
+        // 「高速化」セクションにキャッチ画像非表示機能追加 e
+        ////////////////////////////////////////
+
+
+
+
+
+
     }
 
     /**
@@ -48,6 +91,15 @@ class Integlight_customize_performance
     public static function is_cache_enabled()
     {
         return Integlight_getThemeMod::getThemeMod('integlight_cache_enable', true);
+    }
+
+
+    /**
+     * キャッチ画像非表示が有効か判定
+     */
+    public static function is_HideFeaturedImage_enabled()
+    {
+        return Integlight_getThemeMod::getThemeMod('integlight_hideFeaturedImage_enable', false);
     }
 }
 
