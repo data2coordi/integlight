@@ -120,3 +120,54 @@ add_action('admin_notices', 'integlight_add_widgets_screen_manual_notice');
 /**
  * Display a manual link on the Appearance → Widgets screen.   e
  */
+
+
+/************************************/
+/* プラグインを推奨 s */
+/************************************/
+add_action('tgmpa_register', 'integlight_register_required_plugins');
+
+function integlight_register_required_plugins()
+{
+
+    $plugins = array(
+        array(
+            'name'     => 'Aurora Design Blocks',
+            'slug'     => 'aurora-design-blocks',
+            'required' => false, // 推奨
+        ),
+    );
+
+    $config = array(
+        'id'           => 'integlight',
+        'menu'         => 'integlight-install-plugins',
+        'has_notices'  => true,
+        'dismissable'  => true,
+        'is_automatic' => false,
+        'domain'       => 'tgmpa', // ← ここに書く
+    );
+    tgmpa($plugins, $config);
+}
+
+add_filter('load_textdomain_mofile', 'integlight_force_tgmpa_mofile_path', 10, 2);
+
+function integlight_force_tgmpa_mofile_path($mofile, $domain)
+{
+    // ターゲットが 'tgmpa' テキストドメインである場合にのみ処理を行います。
+    if ('tgmpa' === $domain && 'ja' === get_locale()) {
+        // WordPressの言語ディレクトリやプラグインのパスを探すのをやめさせ、
+        // テーマの languages フォルダにある tgmpa-ja.mo ファイルの絶対パスを強制的に返します。
+        // get_template_directory() はテーマのルートディレクトリを返します。
+        $new_mofile = get_template_directory() . '/languages/tgmpa-' . get_locale() . '.mo';
+
+
+        return $new_mofile;
+    }
+
+    // 他のテキストドメインについてはそのままのパスを返します。
+    return $mofile;
+}
+
+/************************************/
+/* プラグインを推奨 e */
+/************************************/

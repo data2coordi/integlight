@@ -4,5 +4,11 @@ rm -f ../languages/*.mo
 src=../languages/ja.po
 tgt=../languages/ja.mo
 msgfmt ${src} -o ${tgt}
+
+
+src=../languages/tgmpa-ja.po
+tgt=../languages/tgmpa-ja.mo
+msgfmt ${src} -o ${tgt}
+
 exit
 

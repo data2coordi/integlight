@@ -70,7 +70,7 @@ class Integlight_customize_performance
             'section'     => 'integlight_section_HideFeaturedImage',
             'label'       => __('Hide Featured Image on Single Posts', 'integlight'),
             'description' => __(
-                'When enabled, the featured image is hidden on the single post page but still displayed as a thumbnail on archive pages.',
+                'When enabled, the featured image is hidden on the single post page but still displayed as a thumbnail on archive pages. This option is used to improve the loading performance of featured images on single posts.',
                 'integlight'
             ),
         ]);

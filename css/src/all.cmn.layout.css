@@ -42,14 +42,11 @@
 /* ホーム上部ウィジェットを横長カード化 */
 /* ホーム上部ウィジェットを横長カード化s */
 .home .ly_site_content_widgetArea_top {
-  max-width: 1180px; /* カード3枚と同幅 */
   margin: 0 auto clamp(24px, 6vw, 64px); /* 中央寄せ＋下余白 */
   padding: clamp(24px, 4vw, 48px); /* 内側余白 */
-
-  background: #fff; /* カード背景 */
-  border: 1px solid var(--ly-borderColor, #eee); /* 枠線 */
-  border-radius: 12px; /* 角丸 */
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1); /* 影 */
+  width: 100%;
+  background: #f4f4f4; /* カード背景 */
+  border: 1px solid var(--ly-borderColor, #fbfbfb); /* 枠線 */
 }
 
 /* タイトル調整 */
@@ -60,9 +57,20 @@
 }
 
 /* 本文行間 */
-.home .ly_site_content_widgetArea_top p {
+.ly_site_content_widgetArea_top p {
   line-height: 1.75; /* 読みやすい行間 */
 }
+
+.home .wp-block-column[style*="background-color"] > p {
+  margin-top: var(--ly-elementTopMarginSmall);
+  margin-bottom: var(--ly-elementTopMarginSmall);
+}
+
+.home .is-layout-flex {
+  margin-top: calc(var(--ly-elementTopMargin) / 3);
+  margin-bottom: calc(var(--ly-elementTopMargin) / 3);
+}
+
 /* ホーム上部ウィジェットを横長カード化e */
 /* ホーム上部ウィジェットを横長カード化 */
 

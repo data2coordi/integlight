@@ -28,6 +28,8 @@ require get_template_directory() . '/inc/starter-content.php';
 
 require get_template_directory() . '/inc/functions-tmp.php';
 
+require_once get_template_directory() . '/inc/class-tgm-plugin-activation.php';
+
 /***************************************** */
 /**php読み込み e************************ */
 /***************************************** */
