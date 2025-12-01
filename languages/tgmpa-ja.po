@@ -12,6 +12,9 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "This theme recommends the following plugin: %1$s."
+msgstr "このテーマは次のプラグインのインストールを推奨しています: %1$s."
+
 #: class-tgm-plugin-activation.php:334
 msgid "Install Required Plugins"
 msgstr "必須プラグインのインストール"
