@@ -15,6 +15,16 @@ msgstr ""
 msgid "This theme recommends the following plugin: %1$s."
 msgstr "このテーマは次のプラグインのインストールを推奨しています: %1$s."
 
+msgid "Recommended"
+msgstr "推奨"
+
+
+msgid "Activate %2$s"
+msgstr "%2$s 有効化"
+
+msgid "Install %2$s"
+msgstr "%2$s インストール"
+
 #: class-tgm-plugin-activation.php:334
 msgid "Install Required Plugins"
 msgstr "必須プラグインのインストール"

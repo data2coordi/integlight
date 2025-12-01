@@ -6,13 +6,20 @@ clear
 
 #exit
 
+git checkout dev
+
+ver=$(grep -i "^Version:" ../style.css | awk '{print $2}'); \
+sed -i "s/define('_INTEGLIGHT_S_VERSION', '[0-9.]*');/define('_INTEGLIGHT_S_VERSION', '$ver');/" ../functions.php
+
+git add ../functions.php
+git commit -m "v$ver-release prep at dev"
 
 git checkout master
 git pull origin master
 
 git merge --squash dev
 
-git commit -m "douki v1.1.37-release"
+git commit -m "douki v$ver-release"
 
 git push origin master
 
