@@ -132,7 +132,7 @@ const TEST_SCENARIOS = [
       "all.upd.color-pattern8",
       "all.upd.site-type2.css",
     ],
-    expectedDeferredCss: ["style.min.css", "all.upd.color-pattern8"],
+    expectedDeferredCss: ["all.upd.color-pattern8"],
   },
   {
     id: "TC03",

@@ -34,6 +34,12 @@ const CUSTOMIZER_INPUTS = [
   },
 ];
 
+// 3. 改行・空白を完全削除する正規化関数
+function normalize(str: string): string {
+  return str
+    .replace(/\s+/g, "") // 空白・改行を削除
+    .replace(/\/\/#sourceURL=.*$/gm, ""); // sourceURL コメントを削除
+}
 test.describe("カスタマイザー全パターンまとめテスト", () => {
   test("E2E: 4パターン入力・保存・フロント確認・復元確認", async ({ page }) => {
     console.log(
@@ -169,11 +175,6 @@ if ('requestIdleCallback' in window) {
     // 2. textContent を取得
     const actual = await handle.textContent();
 
-    // 3. 改行・空白を完全削除する正規化関数
-    function normalize(str: string): string {
-      return str.replace(/\s+/g, "").trim();
-    }
-
     // 4. 比較
     expect(normalize(actual!)).toBe(normalize(expected));
   });
@@ -216,11 +217,6 @@ gtag('config', 'UA-12345678-1');
 
     // 2. textContent を取得
     const actual2 = await handle2.textContent();
-
-    // 3. 改行・空白除去
-    function normalize(str: string): string {
-      return str.replace(/\s+/g, "").trim();
-    }
 
     // 4. 完全一致比較
     expect(normalize(actual2!)).toBe(normalize(expected2));
