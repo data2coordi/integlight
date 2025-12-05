@@ -376,8 +376,8 @@ a.broken_link {
 /* PCレイアウト */
 @media (min-width: 769px) {
   .bl_card_container {
-    grid-template-columns: 1fr 2fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: auto;
   }
 
   .bl_card_img {
@@ -392,6 +392,7 @@ a.broken_link {
   gap: 1vw;
   padding: var(--ly-elementPadding);
   margin-top: calc(var(--ly-elementTopMargin) / 2);
+  margin-bottom: calc(var(--ly-elementTopMargin) / 2);
   /* 半分にしている */
   background: #f2f2f2;
   color: #444;
@@ -409,9 +410,9 @@ a.broken_link {
 /* 画像下の隙間をなくす */
 .bl_card_container img {
   width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 11; /* ← 好きな比率に固定（例: 16:11） */
+  height: 100%;
   object-fit: cover;
+  aspect-ratio: 5 / 3;
   object-position: center; /* ← 中央を基準に表示 */
   /* 切りたくないなら contain に変更 */
   display: block; /* ← 隙間防止 */
@@ -424,6 +425,7 @@ a.broken_link {
 .bl_card_img {
   display: flex;
   width: 100%;
+  height: 100%;
   object-fit: cover;
   position: relative;
   display: inline-block;
@@ -471,6 +473,7 @@ a.broken_link {
 .bl_card_body {
   display: flex;
   flex-direction: column;
+  flex-grow: 0; /* ←伸びるの止める */
 }
 
 .bl_card_body .bl_card_txt {
