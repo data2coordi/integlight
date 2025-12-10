@@ -158,6 +158,11 @@ function Integlight_excerpt_trim($post_id = null, $length = 150, $more = '…')
 		// 本文から生成
 		$raw     = get_post_field('post_content', $post_id); // フィルタ前の本文
 		$excerpt = wp_strip_all_tags(strip_shortcodes($raw)); // ショートコードとHTMLを除去
+		$excerpt = str_replace(array("\r\n", "\n", "\r"), ' ', $excerpt); // 空白に置換
+		// さらに、連続する複数の空白を1つにまとめる処理を加えると、より確実です。
+		$excerpt = preg_replace('/\s+/', ' ', $excerpt);
+		$excerpt = trim($excerpt); // 前後の余分なスペースを削除
+
 	}
 
 	// 日本語向けに文字幅で切り詰め

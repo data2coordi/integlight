@@ -337,7 +337,8 @@ class Integlight_seoMeta
 				if (!empty($custom_description)) {
 					$meta_description = $custom_description;
 				} else {
-					$meta_description = get_the_excerpt($post->ID);
+					//$meta_description = get_the_excerpt($post->ID);
+					$meta_description = Integlight_excerpt_trim($post->ID, 200);
 				}
 			}
 		} elseif (is_front_page() || is_home()) {

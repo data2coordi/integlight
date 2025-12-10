@@ -452,10 +452,12 @@ section.latest-posts .grid-item h2 {
 .siteType2 .post-grid {
   display: grid;
   gap: 30px;
-  grid-template-columns: repeat(2, 1fr); /* PCは常に2カラム */
+  grid-template-columns: repeat(2, 480px); /* ★ 420pxカード × 2列 */
+  justify-content: center; /* ★ 画面中央に揃える */
   padding: 15px 0;
-  width: min(100%, 1080px); /* ★ 1200px→1080pxにしてカードを小ぶりに */
-  margin: 0 auto; /* 中央寄せ */
+  width: 100%; /* ★ max-widthは不要 */
+  margin: 0 auto; /* ★ 中央に配置 */
+  box-sizing: border-box;
 }
 /* ===== 記事一覧コンテナ（デスクトップ：常に2列）e ===== */
 

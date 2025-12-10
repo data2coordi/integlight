@@ -1,199 +1,199 @@
-/************************************************************/
-/* root **************************************************/
-/************************************************************/
+/************************************************************
+ *  サイト全体の骨格
+ ************************************************************/
 
 .site {
+  min-height: 100vh;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
 }
 
-/************************************************************/
-/* site level @@@ **************************************************/
-/************************************************************/
-.ly_site_header {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: var(--ly-widthPadding);
-  padding-right: var(--ly-widthPadding);
-}
-
-/************* content s *******************::*/
-.ly_site_content {
-  max-width: 100vw;
-  /*全幅子要素等の拡張対策*/
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  gap: var(--ly-betweenPadding);
-  margin-top: var(--ly-topMerge);
-  padding-left: var(--ly-widthPadding);
-  padding-right: var(--ly-widthPadding);
-}
-
-/* .ly_site_content:has(.ly_site_content_sidebar) {
-  flex-wrap: nowrap;
-} */
-
-/* ホーム上部ウィジェットを横長カード化 */
-/* ホーム上部ウィジェットを横長カード化 */
-/* ホーム上部ウィジェットを横長カード化s */
-.home .ly_site_content_widgetArea_top {
-  margin: 0 auto clamp(24px, 6vw, 64px); /* 中央寄せ＋下余白 */
-  padding: clamp(24px, 4vw, 48px); /* 内側余白 */
-  width: 100%;
-  background: #f4f4f4; /* カード背景 */
-  border: 1px solid var(--ly-borderColor, #fbfbfb); /* 枠線 */
-}
-
-/* タイトル調整 */
-.home .ly_site_content_widgetArea_top h2,
-.home .ly_site_content_widgetArea_top h3 {
-  margin-top: 3em; /* 上余白 */
-  margin-bottom: clamp(16px, 3vw, 32px); /* 下余白 */
-}
-
-/* 本文行間 */
-.ly_site_content_widgetArea_top p {
-  line-height: 1.75; /* 読みやすい行間 */
-}
-
-.home .wp-block-column[style*="background-color"] > p {
-  margin-top: var(--ly-elementTopMarginSmall);
-  margin-bottom: var(--ly-elementTopMarginSmall);
-}
-
-.home .is-layout-flex {
-  margin-top: calc(var(--ly-elementTopMargin) / 3);
-  margin-bottom: calc(var(--ly-elementTopMargin) / 3);
-}
-
-/* ホーム上部ウィジェットを横長カード化e */
-/* ホーム上部ウィジェットを横長カード化 */
-
-/******メディアとテキスト********/
-.wp-block-media-text > .wp-block-media-text__content {
-  padding: 0;
-}
-
-.wp-block-media-text {
-  gap: 1em;
-}
-
-/******2カラムブロック********/
-.ly_site_content_main .wp-block-columns {
-  gap: 1em;
-  padding: 0 1em;
-}
-
-/******テキストに背景色をつけてまとめたとき********/
-.wp-block-group.has-background {
-  padding: 1.25em 2.375em;
-}
-
-/****************************************/
-/**********フッターの調整をしている**********/
-.ly_site_content {
-  /* flex-direction: column; */
-  min-height: 100vh; /* ビューポートの高さを最低限確保 */
-  padding-bottom: 80px; /*コンテンツの下にスペース*/
-}
-
-.ly_site_content_widgetArea_left {
-  flex: 0 0 300px;
-  order: 1;
-  /* サイドバーを次に表示 */
-  width: 300px;
-}
-
-.ly_site_content_main {
-  max-width: var(--ly-content-max-width);
-  flex: 1;
-  order: 2;
-  /* メインコンテンツを最初に表示 */
-  min-width: 600px; /* メインコンテンツ最小幅 */
-}
-
-/* top ページ s*/
-.integlight_front_page .ly_site_content {
-  margin: 0px;
-}
-
-.integlight_front_page .ly_site_content_main {
-  /* max-width: 100vw;*/
-}
-
-/* =======================================
-   ❶ サイドバーの有無でレイアウトを切り替え
-   ======================================= */
-
-/* サイドバー無し → カードを中央寄せ */
-.ly_site_content:not(:has(.ly_site_content_sidebar)) {
-  justify-content: center;
-}
-
-/* サイドバー有り → 左揃え */
-.ly_site_content:has(.ly_site_content_sidebar) {
-  justify-content: flex-start;
-}
-
-/* top ページ e*/
-
-.ly_site_content_widgetArea_right {
-  flex: 0 0 300px;
-  order: 3;
-  /* サイドバーを次に表示 */
-  width: 300px;
-  z-index: 1;
-  /* ウィジェットがグラデの下に潜り込むのを防ぐ */
-}
-
-.ly_site_content_widgetArea_bottom {
-  flex: 1 1 100%;
-  order: 4;
-  /* ボトムウィジェットを最後に表示 */
-}
-
-/************* content e *******************::*/
-
+/* ヘッダー・フッターは画面幅いっぱい */
+.ly_site_header,
 .site-footer {
   width: 100%;
-  /* margin-top: var(--ly-topMerge); */
-  padding-left: var(--ly-widthPadding);
-  padding-right: var(--ly-widthPadding);
+  padding-inline: var(--ly-widthPadding);
 }
 
-/* footer下の余白対策*/
-.site-footer a,
-.site-footer span {
-  display: inline-block;
+/************************************************************
+ *  コンテンツ全体（スマホ基準）
+ ************************************************************/
+
+/* スマホではまず縦流しにする */
+.ly_site_content {
+  width: 100%;
+  max-width: 1200px; /* PC時に効く */
+  margin-inline: auto;
+  padding-inline: var(--ly-widthPadding);
+  padding-bottom: 80px;
+  /* margin-top: var(--ly-topMerge); *******************************************************/
+  display: block; /* スマホでは block */
+  min-height: 100vh;
 }
 
-.ly_site_footer a {
-  color: #fff;
+/* メインとサイドバーの領域名だけは付けておく */
+.ly_site_content_main {
+  grid-area: main;
+  min-width: 0;
+  width: 100%;
+}
+.ly_site_content_widgetArea_left {
+  grid-area: left;
+  width: 100%;
+}
+.ly_site_content_widgetArea_right {
+  grid-area: right;
+  width: 100%;
+}
+.ly_site_content_widgetArea_bottom {
+  grid-area: bottom;
+  width: 100%;
+}
+.ly_site_content_widgetArea_top {
+  grid-area: top;
+  width: 100%;
 }
 
-/************************************************************/
-/* entry-level @@@***************************************************/
-/************************************************************/
+/************************************************************
+ *  PCレイアウト（768px以上）
+ *  alignfull / alignwide は使わない前提
+ ************************************************************/
+@media screen and (min-width: 769px) {
+  /* ==== まずレイアウトの基本 ==== */
+  .ly_site_content {
+    display: grid;
+    gap: var(--ly-betweenPadding);
+    grid-template-areas:
+      "top top top"
+      "main main main"
+      "bottom bottom bottom";
+    grid-template-columns: 1fr 800px 1fr; /* 左右1frで中央寄せ */
+  }
 
-/************************************************************/
-/************************************************************/
-/************************************************************/
-/* コンポーネント間の余白 @@@ *******************************/
-/************************************************************/
-/************************************************************/
-/************************************************************/
+  /* --------------------------
+     右サイドバーのみ
+     main(800px) + right(300px)
+     -------------------------- */
+  .ly_site_content:has(.ly_site_content_widgetArea_right):not(
+      :has(.ly_site_content_widgetArea_left)
+    ) {
+    grid-template-areas:
+      "top    top"
+      "main   right"
+      "bottom bottom";
+    grid-template-columns: 800px 300px;
+    justify-content: center;
+  }
 
-/*************************************************************************/
-/* marge s******************************************/
-/*************************************************************************/
+  .home
+    .ly_site_content:has(.ly_site_content_widgetArea_right):not(
+      :has(.ly_site_content_widgetArea_left)
+    ) {
+    grid-template-columns: 1000px 300px;
+  }
 
+  /* --------------------------
+     左サイドバーのみ
+     left(300px) + main(800px)
+     -------------------------- */
+  .ly_site_content:has(.ly_site_content_widgetArea_left):not(
+      :has(.ly_site_content_widgetArea_right)
+    ) {
+    grid-template-areas:
+      "top  top"
+      "left main"
+      "bottom bottom";
+    grid-template-columns: 300px 800px;
+    justify-content: center;
+  }
+
+  /* --------------------------
+     左右サイドバー両方
+     left(300px) + main(800px) + right(300px)
+     -------------------------- */
+  .ly_site_content:has(.ly_site_content_widgetArea_left):has(
+      .ly_site_content_widgetArea_right
+    ) {
+    grid-template-areas:
+      "top top top"
+      "left main right"
+      "bottom bottom bottom";
+    grid-template-columns: 300px 800px 300px;
+    justify-content: center;
+  }
+
+  /*****************************
+   * メインコンテンツは必ず800px
+   *****************************/
+  .ly_site_content_main {
+    max-width: 800px;
+    width: 800px;
+    min-width: 0;
+  }
+
+  .page .ly_site_content_main {
+    margin: 0 auto; /*固定ページ中央寄せ！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！*/
+  }
+
+  /* サイドバーは固定幅でOK */
+  .ly_site_content_widgetArea_left,
+  .ly_site_content_widgetArea_right {
+    width: 300px;
+    align-self: start;
+  }
+
+  /* ホーム上部ウィジェット */
+  .ly_site_content_widgetArea_top {
+    width: 100%;
+    background: #f4f4f4;
+    border: 1px solid var(--ly-borderColor, #fbfbfb);
+    padding: clamp(24px, 4vw, 48px);
+    margin-bottom: clamp(24px, 6vw, 64px);
+  }
+}
+
+/************************************************************
+ *  スマホレイアウト（768px以下）
+ ************************************************************/
+@media screen and (max-width: 768px) {
+  .site {
+    flex-direction: column;
+  }
+
+  /* 全部 “スマホ縦流し順” に統一 */
+  .ly_site_content_main {
+    order: 1;
+  }
+  .ly_site_content_widgetArea_left {
+    order: 2;
+  }
+  .ly_site_content_widgetArea_right {
+    order: 3;
+  }
+  .ly_site_content_widgetArea_bottom {
+    order: 4;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .wp-block-image {
+    text-align: center;
+  }
+
+  .ly_site_content_main .wp-block-columns {
+    padding: 15px;
+  }
+}
+
+/************************************************************
+ *  行間・余白など（Integlight既存の思想を継承）
+ ************************************************************/
 * {
-  margin: 0px;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 h1,
@@ -205,11 +205,7 @@ h6,
 section,
 article {
   margin-top: var(--ly-elementTopMargin);
-}
-
-/* サイドバー内のウィジェット間で空き過ぎを詰める */
-#secondary .widget + .widget {
-  margin-top: 10px;
+  line-height: 1.5;
 }
 
 p,
@@ -226,9 +222,7 @@ button {
 .entry-content textarea,
 .entry-content button {
   margin-bottom: calc(var(--ly-elementBottomMargin) / 2);
-  /* テキストの下にスペースを追加 */
   line-height: 1.8;
-  /* 本文の行間を広くする */
 }
 
 .wp-block-image img {
@@ -239,137 +233,4 @@ body .is-layout-flex {
   margin-top: var(--ly-elementTopMargin);
 }
 
-/*************************************************************************/
-/* padding s******************************************/
-/*************************************************************************/
-/* 文字系要素とフォーム系要素に10pxのpaddingを設定 */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-ul,
-span,
-a,
-input,
-textarea,
-button,
-label {
-  /*
-    padding: 1em;
-    */
-  line-height: 1.5;
-}
-
-/*************************************************************************/
-/* padding e******************************************/
-/*************************************************************************/
-
-@media screen and (max-width: 768px) {
-  .site {
-    flex-direction: column;
-    width: 100vw;
-  }
-
-  .ly_site_content_widgetArea_left {
-    width: 100%;
-    order: 2;
-  }
-
-  .ly_site_content_main {
-    width: 100%;
-    order: 1;
-  }
-
-  .ly_site_content_widgetArea_right {
-    width: 100%;
-    order: 3;
-  }
-
-  .ly_site_content_widgetArea_bottom {
-    width: 100%;
-    order: 4;
-  }
-
-  img {
-    max-width: 100%;
-    height: auto;
-  }
-
-  .wp-block-image {
-    text-align: center;
-    /* スマホの時画像を中央寄せ */
-  }
-
-  body .is-layout-flex {
-    padding-left: var(--ly-widthPadding);
-    padding-right: var(--ly-widthPadding);
-  }
-
-  .ly_site_content {
-    padding: 0 2em;
-    /* スマホで左右にpadding */
-    padding-bottom: 6em;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  section,
-  article {
-    margin-top: calc(var(--ly-elementTopMargin) * 3);
-    line-height: 1.5;
-  }
-
-  /******2カラムブロック********/
-  .ly_site_content_main .wp-block-columns {
-    padding: 15px;
-  }
-
-  /******スマホで行間と改行のスペース********/
-  p,
-  ul,
-  input,
-  textarea,
-  button {
-    margin-top: calc(var(--ly-elementTopMargin) * 2);
-  }
-
-  .entry-content p,
-  .entry-content ul,
-  .entry-content input,
-  .entry-content textarea,
-  .entry-content button {
-    line-height: 2;
-  }
-
-  /* 全幅画像のテキストの左右に空きを作っている */
-  .inner-container.inner-article > .wp-block-heading {
-    width: 90%;
-    margin-inline: auto;
-    margin-top: 30px; /* 見出しだけに上マージン */
-  }
-  .inner-container.inner-article > p {
-    width: 90%;
-    margin-inline: auto; /* pは左右だけ */
-  }
-
-  /* ボタンの左が空いてしまうのを消している */
-  .wp-block-buttons.is-layout-flex,
-  .wp-block-buttons-is-layout-flex {
-    --ly-widthPadding: 0; /* 両側ゼロ */
-    /* 左だけなら → padding-left: 0 !important; に変更 */
-  }
-
-  .ly_site_content_main {
-    min-width: 0; /* ← 縮むのを防ぐ */
-    width: 100%;
-    max-width: 100%;
-    flex: 0 0 100%; /* 安定の固定幅 */
-  }
-}
+/* alignfull・alignwide は一切使わないため削除 */

@@ -1,6 +1,12 @@
 /************************************************************/
 /* 共通スタイル */
 /************************************************************/
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .main-navigation {
   padding: 0.5em;
   position: relative;

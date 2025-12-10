@@ -51,6 +51,7 @@
   /* 垂直方向で中央揃え */
   gap: 10px;
   /* 項目間の間隔 */
+  row-gap: 0;
   list-style: none;
   /* マーカーを非表示 */
   font-size: 0.7rem;
@@ -105,6 +106,11 @@
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   -webkit-mask-size: contain;
+}
+@media screen and (max-width: 768px) {
+  .create_bread {
+    margin-top: 3em;
+  }
 }
 
 /************************************************************/

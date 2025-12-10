@@ -139,6 +139,7 @@ li > ul > .cat-item:last-of-type {
   -webkit-appearance: button; /* 最後に適用された値を維持 */
   appearance: button;
   outline-offset: -2px;
+  width: 100%; /*検索バーを広げてる*/
 }
 
 [type="search"]::-webkit-search-decoration {
@@ -151,6 +152,12 @@ li > ul > .cat-item:last-of-type {
 
 .wp-block-search__button.has-icon {
   width: 42px;
+}
+
+/* 検索バーのフレックス */
+.wp-block-search__inside-wrapper {
+  display: flex;
+  gap: 10px;
 }
 
 /************************************************************/

@@ -1,3 +1,8 @@
+.home .ly_site_content {
+  width: min(100%, 1800px);
+  max-width: none;
+}
+
 /* homeのh2はやや小さめ */
 .blog .grid-item h2 {
   font-size: 1.25rem; /* 見出しとして十分な存在感 */
