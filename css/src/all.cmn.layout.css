@@ -148,7 +148,10 @@
     background: #f4f4f4;
     border: 1px solid var(--ly-borderColor, #fbfbfb);
     padding: clamp(24px, 4vw, 48px);
+    margin-top: clamp(24px, 6vw, 64px);
     margin-bottom: clamp(24px, 6vw, 64px);
+    position: relative;
+    z-index: 10;
   }
 }
 
@@ -185,6 +188,16 @@
 
   .ly_site_content_main .wp-block-columns {
     padding: 15px;
+  }
+
+  /* スマホでhomeはflexにする */
+  .home .ly_site_content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .home .ly_site_content_widgetArea_top {
+    order: -1;
   }
 }
 

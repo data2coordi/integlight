@@ -157,6 +157,8 @@ body .siteType1 {
   border-radius: 50%;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  padding: 1em;
   text-decoration: none;
   font-weight: bold;
   font-size: 1rem;
