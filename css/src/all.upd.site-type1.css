@@ -232,6 +232,8 @@ main.siteType1.ly_site_content_main {
     flex-wrap: wrap; /* 画面幅が足りないときは折り返す */
     justify-content: center; /* 画面中央にそろえる（左に寄らないように） */
     max-width: none; /* PC用の最大幅制限を解除 */
+    padding-top: 4em;
+    padding-bottom: 4em;
   }
 
   .siteType1 .category-item {
