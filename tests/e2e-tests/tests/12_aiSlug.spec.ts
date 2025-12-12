@@ -1,130 +1,107 @@
 import { test, expect, type Page } from "@playwright/test";
+import { Admin } from "../utils/commonClass";
 
-/**
- * 💡 テストデータ定義
- * タイトルは日本語を使用しますが、expectedSlugは使用しません。
- */
 const POST_DATA = {
   title: "これは日本語のテスト投稿のタイトルです。AIスラッグを検証します。",
 };
 
-// 投稿IDを取得するためのヘルパー関数
-function getPostIdFromUrl(url: string): string | null {
-  const match = url.match(/post=(\d+)/);
-  return match ? match[1] : null;
-}
-
-test.describe("Gemini AI スラッグ自動生成機能 E2Eテスト (柔軟な検証)", () => {
-  test("E2E: 新規投稿 - 日本語タイトルからAIスラッグが生成され、形式が正しいこと", async ({
+test.describe("Gemini AI スラッグ自動生成機能 E2Eテスト (URL直接検証)", () => {
+  test("E2E: 新規投稿 - 日本語タイトルからAIスラッグが生成され、パーマリンクで検証", async ({
     page,
   }) => {
     console.log(
-      "[12_aiSlug.spec.ts] ===== START: 日本語タイトルからAIスラッグが生成され、形式が正しいこと ====="
+      "[12_aiSlug.spec.ts] ===== START: 日本語タイトルからAIスラッグが生成され、パーマリンクで検証 (最終版) ====="
     );
 
     // ---------------------------
-    // 2. 新規投稿作成
+    // 1. 新規投稿作成・公開
     // ---------------------------
-    const initialUrl = await page.goto("/wp-admin/post-new.php");
+    await page.goto("/wp-admin/post-new.php");
     const titleField = page.getByLabel("タイトルを追加");
     await titleField.fill(POST_DATA.title);
 
-    // ---------------------------
-    // 3. 投稿の公開とAI処理のトリガー
-    // ---------------------------
-    // 1. 最初の「公開」ボタンをクリックしてパネルを開く
-    //    このボタンはトグル役なので、通常は一意に見つけられます。
+    // 公開処理 (安定版のクリックロジックを使用)
     await page
       .getByRole("button", { name: "公開", exact: true })
       .first()
-      .click(); // first()でトグルボタンを明示的に選択
-
-    // 2. パネル内で出現した実際の「公開」ボタンをクリックして保存を実行する
-    //    公開パネルのスコープ内で「公開」ボタンを探すことで、厳密モード違反を回避します。
+      .click();
     const publishPanel = page.getByRole("region", {
       name: "エディターの投稿パネル",
     });
-
-    // パネル内の公開ボタンをクリック
     await publishPanel
       .getByRole("button", { name: "公開", exact: true })
       .click();
 
+    // 保存完了を待機 (AI処理完了までの時間も含む)
     await page.waitForSelector(".components-snackbar-list", {
       state: "attached",
       timeout: 30000,
     });
 
     // ---------------------------
-    // 4. 強制リロード後にスラッグを検証
+    // 2. 投稿一覧画面へ移動し、パーマリンクを取得
     // ---------------------------
 
-    // AI処理によるDB更新後、画面に反映させるためページをリロード
-    await page.reload({ waitUntil: "domcontentloaded" });
-    // 投稿設定パネルが開いているか確認し、開いていなければクリック
-    const postSettingPanel = page.getByRole("region", { name: "投稿設定" });
+    console.log(
+      "-> 投稿一覧画面へ移動し、生成されたパーマリンクを検証します。"
+    );
+    await page.goto("/wp-admin/edit.php", { waitUntil: "domcontentloaded" });
 
-    // パネルが非表示の場合
-    if (await postSettingPanel.isHidden()) {
-      // 🚨 修正箇所: 厳密モード違反を回避するため .first() を追加
-      // トップバーの「設定」トグルボタンをクリックします。
-      await page.getByRole("button", { name: "設定" }).first().click();
-    }
-
-    // URL/スラッグ表示部分をクリックして編集フィールドを表示
-    // 🚨 修正箇所: name: "URL" ではなく、aria-label の部分一致でボタンを特定
-    // 変更後:
-    const slugButton = page.getByRole("button", {
-      name: "リンクを変更",
-      exact: false,
+    // 投稿一覧のテーブル内で、作成した投稿（タイトルで特定）を見つける
+    const postRow = page.getByRole("row", {
+      name: new RegExp(POST_DATA.title),
     });
 
-    // クリック前に、要素が安定してクリック可能になるまで明示的に待機
-    await slugButton.waitFor({ state: "visible", timeout: 5000 }); // 念のため表示状態を再確認
-    await slugButton.click();
+    // 3. パーマリンク（「表示」リンクの href 属性）を取得
+    //    postRow のスコープ内で '表示' リンクを探す
+    const viewLink = postRow.getByRole("link", { name: "表示" });
 
-    // スラッグ編集フィールドを取得
-    const slugInput = page.getByLabel("スラッグを編集");
+    // リンク先 URL を取得
+    const permalink = await viewLink.getAttribute("href");
 
-    // 1. スラッグが空でないことを確認 (AIが何らかの値を返した)
-    const generatedSlug = await slugInput.inputValue();
-    expect(generatedSlug).not.toBe("");
+    expect(permalink).not.toBeNull();
+    const url = new URL(permalink!);
 
-    // 2. 形式要件の検証: スラッグが半角小文字、数字、ハイフンのみで構成されていること
-    //    これは AI スラッグ処理の `sanitize_title()` が成功したことを示す
-    const slugRegex = /^[a-z0-9\-]+$/;
-    expect(generatedSlug).toMatch(slugRegex);
-    console.log(
-      `✅ 形式検証成功: 生成されたスラッグ (${generatedSlug}) は形式要件を満たしています。`
-    );
+    // URLのパスからスラッグ部分を抽出
+    // 例: /post-type/kore-wa-nihongo-no.../
+    const decodedPath = decodeURIComponent(url.pathname);
+    const pathSegments = decodedPath.split("/").filter((s) => s.length > 0);
+    const generatedSlug = pathSegments.pop(); // 配列の最後の要素がスラッグ
 
-    // 3. 非日本語要件の検証: 元の日本語タイトルから自動生成されるコアスラッグ（例: 'これ-は-日本語-の...'）とは、
-    //    **内容的に異なっている**ことを確認
-    //    **警告:** この検証は、AIが翻訳的なスラッグ（例: 'this-is-a-japanese-test...'）を返すことを期待していますが、
-    //    もしAIがローマ字的なスラッグ（例: 'kore-wa-nihongo-no...'）を返す場合、このチェックは調整が必要です。
-    //    ここでは、"japanese"のような英語の単語が混ざっているかをゆるく確認する方法を例とします。
-    //    **より安全なのは、WordPressのサニタイズ処理が通るかのみをチェックすることです。**
-
-    /* // 例: AI翻訳的なスラッグを期待する場合のゆるいチェック (オプション)
-    expect(generatedSlug).toContain('test');
-    expect(generatedSlug).not.toContain('タイトル'); // 日本語の残骸がないことを確認
-    */
-
-    console.log(
-      `✅ 存在検証成功: スラッグはAIによって更新されました。生成値: ${generatedSlug}`
-    );
-
-    // ---------------------------
-    // 5. クリーンアップ
-    // ---------------------------
-
-    const postId = getPostIdFromUrl(page.url());
-    if (postId) {
-      // await admin.deletePost(postId);
+    if (!generatedSlug) {
+      throw new Error(
+        "URLからスラッグ（パスの最終セグメント）を抽出できませんでした。"
+      );
     }
 
+    // ---------------------------
+    // 4. スラッグの形式要件を検証
+    // ---------------------------
+
+    console.log(`取得されたスラッグ: ${generatedSlug}`);
+
+    // スラッグが半角小文字、数字、ハイフンのみで構成されていることを検証
+    const slugRegex = /^[a-z0-9\-]+$/;
+    expect(generatedSlug).toMatch(slugRegex);
+
+    // (オプション: フロントエンドでの正常アクセス確認)
+    await page.goto(permalink!);
+    // 投稿タイトルがページ内にあることを確認することで、404エラーでないことを保証
+    await expect(
+      page.getByRole("heading", { name: POST_DATA.title, exact: true })
+    ).toBeVisible();
+
     console.log(
-      "[12_aiSlug.spec.ts] ===== END: 日本語タイトルからAIスラッグが生成され、形式が正しいこと ====="
+      `✅ 検証完了: スラッグ (${generatedSlug}) はAI生成後の形式要件を満たし、フロントエンドで正常にアクセス可能です。`
+    );
+
+    // ---------------------------
+    // 5. クリーンアップ (任意)
+    // ---------------------------
+    // 投稿IDを取得し、admin.deletePost(postId) を実行...
+
+    console.log(
+      "[12_aiSlug.spec.ts] ===== END: 日本語タイトルからAIスラッグが生成され、パーマリンクで検証 (最終版) ====="
     );
   });
 });
