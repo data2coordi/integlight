@@ -12,25 +12,39 @@ const POST_DATA = {
  */
 async function fillPostTitle(page: Page, title: string) {
   // iframe が存在する場合
-  const iframeLocator = page.frameLocator('iframe[name="editor-canvas"]');
-  const iframeTitle = iframeLocator.locator('h1[aria-label="タイトルを追加"]');
+  const iframe = page.frameLocator('iframe[name="editor-canvas"]');
 
-  if ((await iframeTitle.count()) > 0) {
-    await iframeTitle.fill(title);
+  try {
+    const iframeH1 = iframe.locator('h1[aria-label="タイトルを追加"]');
+    await iframeH1.waitFor({ state: "visible", timeout: 3000 });
+    // 内部のspanプレースホルダーがあれば削除して入力
+    const span = iframeH1.locator("span[data-rich-text-placeholder]");
+    if ((await span.count()) > 0) {
+      await span.evaluate((el) => el.remove());
+    }
+    await iframeH1.fill(title);
     return;
+  } catch {
+    // iframeなし／未ロード時は無視して次
   }
 
   // iframeなし、Gutenberg標準エディター
-  const directTitle = page.locator('h1[aria-label="タイトルを追加"]');
-  if ((await directTitle.count()) > 0) {
-    await directTitle.fill(title);
+  const directH1 = page.locator('h1[aria-label="タイトルを追加"]');
+  try {
+    await directH1.waitFor({ state: "visible", timeout: 3000 });
+    const span = directH1.locator("span[data-rich-text-placeholder]");
+    if ((await span.count()) > 0) {
+      await span.evaluate((el) => el.remove());
+    }
+    await directH1.fill(title);
     return;
+  } catch {
+    // 無視
   }
 
   // どちらにも存在しない場合はエラー
   throw new Error("投稿タイトル入力欄が見つかりませんでした。");
 }
-
 /**
  * 管理画面でAIスラッグ生成のON/OFFとAIキーの設定
  */
