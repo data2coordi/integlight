@@ -5,18 +5,13 @@ const POST_DATA = {
 };
 
 /**
- * 投稿タイトルを入力 (iframe 内外両対応)
+ * 投稿タイトルを安全に入力する
+ * iframe有無やプレースホルダー有無に対応
+ * @param page Playwright Page
+ * @param title 入力したいタイトル文字列
  */
 async function fillPostTitle(page: Page, title: string) {
-  // 通常 DOM のタイトル
-  const titleLocator = page.locator('h1[aria-label="タイトルを追加"]');
-
-  if ((await titleLocator.count()) > 0) {
-    await titleLocator.fill(title);
-    return;
-  }
-
-  // iframe 内のタイトル
+  // iframe が存在する場合
   const iframeLocator = page.frameLocator('iframe[name="editor-canvas"]');
   const iframeTitle = iframeLocator.locator('h1[aria-label="タイトルを追加"]');
 
@@ -25,7 +20,15 @@ async function fillPostTitle(page: Page, title: string) {
     return;
   }
 
-  throw new Error("タイトル入力欄が見つかりませんでした");
+  // iframeなし、Gutenberg標準エディター
+  const directTitle = page.locator('h1[aria-label="タイトルを追加"]');
+  if ((await directTitle.count()) > 0) {
+    await directTitle.fill(title);
+    return;
+  }
+
+  // どちらにも存在しない場合はエラー
+  throw new Error("投稿タイトル入力欄が見つかりませんでした。");
 }
 
 /**
