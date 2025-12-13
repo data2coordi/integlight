@@ -4,7 +4,31 @@ import { Admin } from "../utils/commonClass";
 const POST_DATA = {
   title: "これは日本語のテスト投稿のタイトルです。AIスラッグを検証します。",
 };
+test.describe("Gemini AI設定管理画面", () => {
+  test("AIスラッグ生成をOFFにする", async ({ page }) => {
+    // 管理画面にログイン済み前提
+    await page.goto(
+      "/wp-admin/admin.php?page=aurora-design-blocks&tab=gemini_ai"
+    );
 
+    // チェックボックスを取得
+    const aiCheckbox = page.locator(
+      'input[name="aurora_gemini_ai_options[ai_slug_enabled]"]'
+    );
+
+    // ONの場合はOFFにする
+    if (await aiCheckbox.isChecked()) {
+      await aiCheckbox.uncheck();
+    }
+
+    // 保存ボタンをクリック
+    await page.click('input[type="submit"][value="変更を保存"]');
+
+    // 成功メッセージが表示されることを確認
+    const successNotice = page.locator(".notice-success");
+    await expect(successNotice).toHaveText(/設定を保存しました/);
+  });
+});
 test.describe("Gemini AI スラッグ自動生成機能 E2Eテスト (URL取得安定版)", () => {
   test("E2E: 新規投稿 → AIスラッグ生成 → URLで検証", async ({ page }) => {
     console.log("[AI Slug Test] ===== START =====");
