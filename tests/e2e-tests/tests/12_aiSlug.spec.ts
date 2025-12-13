@@ -5,7 +5,7 @@ const POST_DATA = {
 };
 
 /**
- * 管理画面でAIスラッグ生成のON/OFFを切り替える
+ * 管理画面でAIスラッグ生成のON/OFFとAIキーの設定
  */
 async function setAiSlugEnabled(page: Page, enabled: boolean) {
   await page.goto(
@@ -15,6 +15,23 @@ async function setAiSlugEnabled(page: Page, enabled: boolean) {
   const aiCheckbox = page.locator(
     'input[name="aurora_gemini_ai_options[ai_slug_enabled]"]'
   );
+
+  const aiKeyInput = page.locator(
+    'input[name="aurora_gemini_ai_options[api_key]"]'
+  );
+
+  // AIキー管理
+  if (!enabled) {
+    // OFF時はキーをクリアし、グローバル変数に保存
+    const currentKey = await aiKeyInput.inputValue();
+    globalThis.GEMINI_AI_KEY = currentKey || "";
+    await aiKeyInput.fill("");
+  } else {
+    // ON時はグローバル変数から復元
+    if (globalThis.GEMINI_AI_KEY) {
+      await aiKeyInput.fill(globalThis.GEMINI_AI_KEY);
+    }
+  }
 
   const isChecked = await aiCheckbox.isChecked();
   if (enabled && !isChecked) {
@@ -52,7 +69,7 @@ async function createAndPublishPost(
     timeout: 30000,
   });
 
-  // 「投稿を表示」ボタンからURL取得
+  // URL取得
   const viewPostLink = await page.waitForSelector(
     ".post-publish-panel__postpublish-buttons a.is-primary",
     { timeout: 15000 }
@@ -65,19 +82,7 @@ async function createAndPublishPost(
 }
 
 /**
- * タイトルからスラッグを生成（WPデフォルトとは少し差異がある場合注意）
- */
-function titleToSlug(title: string): string {
-  return title
-    .normalize("NFKD")
-    .replace(/[^\w\s-]/g, "")
-    .trim()
-    .replace(/\s+/g, "-")
-    .toLowerCase();
-}
-
-/**
- * 共通：URLからスラッグ抽出
+ * URLからスラッグ抽出
  */
 function extractSlugFromUrl(url: string): string {
   const u = new URL(url);
@@ -93,7 +98,7 @@ function extractSlugFromUrl(url: string): string {
 // テスト群
 // -----------------------------
 test.describe("Gemini AI スラッグ自動生成機能OFF E2Eテスト", () => {
-  test("AIスラッグ生成をOFFにする", async ({ page }) => {
+  test("AIスラッグ生成をOFFにしてAIキーをクリア", async ({ page }) => {
     await setAiSlugEnabled(page, false);
   });
 
@@ -116,7 +121,7 @@ test.describe("Gemini AI スラッグ自動生成機能OFF E2Eテスト", () => 
 });
 
 test.describe("Gemini AI スラッグ自動生成機能 E2Eテスト", () => {
-  test("AIスラッグ生成をONにする", async ({ page }) => {
+  test("AIスラッグ生成をONにしてAIキーをセット", async ({ page }) => {
     await setAiSlugEnabled(page, true);
   });
 
