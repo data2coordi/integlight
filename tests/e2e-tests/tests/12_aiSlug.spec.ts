@@ -5,6 +5,30 @@ const POST_DATA = {
 };
 
 /**
+ * 投稿タイトルを入力 (iframe 内外両対応)
+ */
+async function fillPostTitle(page: Page, title: string) {
+  // 通常 DOM のタイトル
+  const titleLocator = page.locator('h1[aria-label="タイトルを追加"]');
+
+  if ((await titleLocator.count()) > 0) {
+    await titleLocator.fill(title);
+    return;
+  }
+
+  // iframe 内のタイトル
+  const iframeLocator = page.frameLocator('iframe[name="editor-canvas"]');
+  const iframeTitle = iframeLocator.locator('h1[aria-label="タイトルを追加"]');
+
+  if ((await iframeTitle.count()) > 0) {
+    await iframeTitle.fill(title);
+    return;
+  }
+
+  throw new Error("タイトル入力欄が見つかりませんでした");
+}
+
+/**
  * 管理画面でAIスラッグ生成のON/OFFとAIキーの設定
  */
 async function setAiSlugEnabled(page: Page, enabled: boolean) {
@@ -20,14 +44,11 @@ async function setAiSlugEnabled(page: Page, enabled: boolean) {
     'input[name="aurora_gemini_ai_options[api_key]"]'
   );
 
-  // AIキー管理
   if (!enabled) {
-    // OFF時はキーをクリアし、グローバル変数に保存
     const currentKey = await aiKeyInput.inputValue();
     globalThis.GEMINI_AI_KEY = currentKey || "";
     await aiKeyInput.fill("");
   } else {
-    // ON時はグローバル変数から復元
     if (globalThis.GEMINI_AI_KEY) {
       await aiKeyInput.fill(globalThis.GEMINI_AI_KEY);
     }
@@ -41,7 +62,6 @@ async function setAiSlugEnabled(page: Page, enabled: boolean) {
   }
 
   await page.click('input[type="submit"][value="変更を保存"]');
-
   const successNotice = page.locator(".notice-success");
   await expect(successNotice).toHaveText(/設定を保存しました/);
 }
@@ -54,7 +74,9 @@ async function createAndPublishPost(
   title: string
 ): Promise<string> {
   await page.goto("/wp-admin/post-new.php");
-  await page.getByLabel("タイトルを追加").fill(title);
+
+  // タイトル入力 (iframe 対応)
+  await fillPostTitle(page, title);
 
   // 公開ボタン2段階クリック
   await page.getByRole("button", { name: "公開", exact: true }).first().click();
