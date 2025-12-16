@@ -180,3 +180,8 @@ msgstr "未インストール"
 #: class-tgm-plugin-activation.php:1872
 msgid "Active"
 msgstr "有効"
+
+msgid "There is an update available for: %1$s."
+msgid_plural "There are updates available for the following plugins: %1$s."
+msgstr[0] "以下の更新が利用可能です: %1$s。"
+msgstr[1] "以下のプラグインの更新が利用可能です: %1$s。"

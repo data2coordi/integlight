@@ -157,7 +157,8 @@ li > ul > .cat-item:last-of-type {
 /* 検索バーのフレックス */
 .wp-block-search__inside-wrapper {
   display: flex;
-  gap: 10px;
+  gap: 1px;
+  height: 75px;
 }
 
 /************************************************************/

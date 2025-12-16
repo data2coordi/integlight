@@ -23,7 +23,7 @@ export default defineConfig({
     // click や fill など1アクションのタイムアウト
     actionTimeout: 10_000,
     // 動画録画設定
-    video: "off",
+    video: "on",
     // ブラウザのベースURL
     baseURL: BASE_URL,
   },

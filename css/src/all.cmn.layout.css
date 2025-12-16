@@ -1,6 +1,10 @@
 /************************************************************
  *  サイト全体の骨格
  ************************************************************/
+body,
+html {
+  overflow-x: clip;
+}
 
 .site {
   min-height: 100vh;
@@ -140,6 +144,8 @@
   .ly_site_content_widgetArea_right {
     width: 300px;
     align-self: start;
+    position: relative;
+    z-index: 11;
   }
 
   /* ホーム上部ウィジェット */

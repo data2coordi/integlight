@@ -312,7 +312,7 @@ html:has(body .siteType2)::before {
 /* テーマの汎用ボタン設定 */
 .integlight_pt button {
   /* width: 350px; */
-  padding: 15px;
+  padding: 18px 28px;
   border: 1px solid #555;
   background: #fff;
   color: #555;
@@ -335,7 +335,7 @@ html:has(body .siteType2)::before {
   color: #555; /* ← これが矢印の色になる */
   background: #fff;
   border: 1px solid #555;
-  padding: 15px 28px;
+  padding: 18px 28px;
   transition:
     background 0.2s ease,
     border-color 0.2s ease,
@@ -367,6 +367,12 @@ html:has(body .siteType2)::before {
     width: 300px;
   }
 }
+
+/* 検索バーのパディングだけ狭くしてる */
+.integlight_pt .wp-block-search__button {
+  padding: 10px;
+}
+
 /*************ボタンe*********/
 
 /*========================================================================================
