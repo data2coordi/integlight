@@ -60,6 +60,7 @@
   /* 不要な余白を削除 */
   margin: 0;
   /* 不要な余白を削除 */
+  margin-top: 2em;
 }
 
 .create_bread a {

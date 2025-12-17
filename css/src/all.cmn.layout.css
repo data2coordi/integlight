@@ -72,6 +72,7 @@ html {
       "main main main"
       "bottom bottom bottom";
     grid-template-columns: 1fr 800px 1fr; /* 左右1frで中央寄せ */
+    row-gap: 10px;
   }
 
   /* --------------------------

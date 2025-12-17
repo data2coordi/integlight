@@ -229,19 +229,23 @@ HTML
         )
       );
 
+      $icon_url = esc_url(get_template_directory_uri() . '/assets/icon.webp');
+
       register_block_pattern(
         'integlight/promo-box',
         array(
-          'title'       => __('Integlight Promo Box', 'integlight'),
-          'categories'  => array('featured'),
-
-          'content'     => <<<HTML
+          'title'      => __('Integlight Promo Box', 'integlight'),
+          'categories' => array('featured'),
+          'content'    => <<<HTML
 <!-- wp:group {"layout":{"type":"constrained"}} -->
 <div class="wp-block-group">
   <!-- wp:group {"style":{"color":{"background":"#d9ffed","text":"#566b65"},"border":{"radius":"10px","color":"#566b65","width":"1px"},"spacing":{"padding":{"top":"0","bottom":"0","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}},"elements":{"link":{"color":{"text":"#566b65"}}}},"layout":{"type":"constrained"}} -->
   <div class="wp-block-group has-border-color has-text-color has-background has-link-color" style="border-color:#566b65;border-width:1px;border-radius:10px;color:#566b65;background-color:#d9ffed;padding-top:0;padding-right:var(--wp--preset--spacing--50);padding-bottom:0;padding-left:var(--wp--preset--spacing--50)">
-    <!-- wp:image {"id":6407,"width":"100px","height":"100px","scale":"cover","sizeSlug":"full","linkDestination":"none","align":"center"} -->
-    <figure class="wp-block-image aligncenter size-full is-resized"><img src="https://integlight.auroralab-design.com/wp-content/uploads/2025/07/cropped-ファビコン.webp" alt="" class="wp-image-6407" style="object-fit:cover;width:100px;height:100px"/></figure>
+    
+    <!-- wp:image {"width":"100px","height":"100px","scale":"cover","sizeSlug":"full","linkDestination":"none","align":"center"} -->
+    <figure class="wp-block-image aligncenter size-full is-resized">
+      <img src="{$icon_url}" alt="" style="object-fit:cover;width:100px;height:100px" />
+    </figure>
     <!-- /wp:image -->
 
     <!-- wp:heading {"textAlign":"center","className":"is-style-no-underline"} -->
@@ -249,7 +253,11 @@ HTML
     <!-- /wp:heading -->
 
     <!-- wp:paragraph {"align":"center"} -->
-    <p class="has-text-align-center">Build a professional website for free.<br>The “Integlight” theme, officially approved by WordPress, combines sleek design with lightning-fast performance.<br>No complex settings. No hassle. Just launch your SEO-ready digital asset today.</p>
+    <p class="has-text-align-center">
+      Build a professional website for free.<br>
+      The “Integlight” theme, officially approved by WordPress, combines sleek design with lightning-fast performance.<br>
+      No complex settings. No hassle. Just launch your SEO-ready digital asset today.
+    </p>
     <!-- /wp:paragraph -->
   </div>
   <!-- /wp:group -->
