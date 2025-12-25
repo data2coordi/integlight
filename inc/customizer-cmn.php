@@ -18,6 +18,8 @@ class Integlight_Defaults
 			'integlight_sidebar2_position' => 'none',
 			// Theme Color
 			'integlight_base_color_setting' => 'pattern8',
+			// Theme Heading
+			'integlight_base_heading_setting' => 'integlight_heading_line',
 			// Site Type
 			'integlight_hometype_setting' => 'siteType1',
 			// Header Select

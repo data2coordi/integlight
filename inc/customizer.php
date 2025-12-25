@@ -122,6 +122,69 @@ class integlight_customizer_themeColor extends Integlight_customizer_choiceCtlBa
 new integlight_customizer_themeColor();
 
 
+// ## 見出しカスタマイズ _s /////////////////////////////////////////////
+class integlight_customizer_heading extends Integlight_customizer_choiceCtlBase
+{
+	public function __construct()
+	{
+		add_action('customize_register', [$this, 'customize_register']);
+	}
+
+	public function customize_register($wp_customize)
+	{
+
+
+
+		// サイドバー位置セクションの追加
+		$wp_customize->add_section('integlight_heading_section', array(
+			'title' => __('Heading Settings', 'integlight'),
+			'priority' => 29,
+			'panel' => 'integlight_design_panel',
+		));
+
+
+
+		// Setting
+		$wp_customize->add_setting('integlight_base_heading_setting', array(
+			'type'              => 'theme_mod',
+			'default'           => Integlight_Defaults::get_all()['integlight_base_heading_setting'] ?? 'integlight_heading_line',
+			'sanitize_callback' => ['Integlight_customizer_choiceCtlBase', 'sanitize_choices'],
+		));
+
+		// Control
+		$wp_customize->add_control('integlight_base_heading_setting', array(
+			'section'     => 'integlight_heading_section', //既存の色セクションに追加
+			'settings'    => 'integlight_base_heading_setting',
+			'label'       => __('Heading design setting', 'integlight'),
+			'description' => __("Please select your preferred heading design style.You can change the heading design for the entire site.", 'integlight'),
+			'type'        => 'radio',
+			'choices'     => array(
+				'integlight_heading_line' => __('Line', 'integlight'),
+				'integlight_heading_accent' => __('Accent', 'integlight'),
+				'integlight_heading_marker' => __('Marker', 'integlight'),
+				'integlight_heading_stripe' => __('Stripe', 'integlight'),
+				'integlight_heading_shadow' => __('Shadow', 'integlight'),
+				'integlight_heading_highlight' => __('Highlight', 'integlight'),
+				'integlight_heading_arrow' => __('Arrow', 'integlight'),
+				'integlight_heading_label' => __('Label', 'integlight'),
+				'integlight_heading_dotted' => __('Dotted', 'integlight'),
+				'integlight_heading_plain' => __('Plain', 'integlight'),
+			),
+			'priority'    => 1, // 優先度を小さくすると上に表示される
+		));
+	}
+}
+// インスタンスを作成して初期化
+new integlight_customizer_heading();
+
+
+
+
+
+
+
+
+
 class integlight_customizer_homeType extends Integlight_customizer_choiceCtlBase
 {
 	public function __construct()

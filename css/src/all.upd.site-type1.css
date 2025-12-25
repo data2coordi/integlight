@@ -259,3 +259,42 @@ main.siteType1.ly_site_content_main {
     flex: 0 0 100%; /* flexアイテムとして幅100%を強制 */
   }
 }
+
+/* =========================================
+  Homeだけ：h2/h3の見出し装飾を全て無効化
+  （背景・枠線・下線・左線・疑似要素・マーカー等）
+========================================= */
+.home h2,
+.home h3 {
+  background: none;
+  background-image: none;
+  color: inherit;
+
+  border: 0;
+  border-left: 0;
+  border-bottom: 0;
+
+  padding: 0;
+  margin: 0 0 1em; /* ここは好みで調整 */
+  border-radius: 0;
+
+  box-shadow: none;
+  text-shadow: none;
+}
+
+/* 疑似要素（● / ••• / ▶ / 下線の色変え 等）を消す */
+.home h2::before,
+.home h2::after,
+.home h3::before,
+.home h3::after {
+  content: none;
+  display: none;
+  border: none;
+}
+
+/* もしinline-block/box-decoration-breakで崩れてたら戻す */
+.home h3 {
+  display: block;
+  box-decoration-break: initial;
+  -webkit-box-decoration-break: initial;
+}

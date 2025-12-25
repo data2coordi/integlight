@@ -192,3 +192,99 @@ html:has(body .siteType2) {
     background: #1e1d1d;
   }
 }
+
+/*********************************************************************/
+/* 見出し */
+/*********************************************************************/
+/* 見出しデザイン エレガント*/
+.integlight_heading_line h2 {
+  border-bottom: 1px solid #0000ff;
+}
+
+.integlight_heading_line h3 {
+  border-bottom: 1px solid #e9e8e8;
+}
+
+/* 左15%だけ色を変える */
+.integlight_heading_line h3::after {
+  background-color: #0000ff;
+}
+
+.integlight_heading_accent h2 {
+  border-left: 3px solid #0000ff;
+}
+
+.integlight_heading_accent h3 {
+  border-left: 1.5px solid #0000ff;
+}
+
+.integlight_heading_marker h2::before {
+  color: #0000ff;
+}
+
+.integlight_heading_marker h3::before {
+  color: #b5b5f7;
+}
+
+/* 見出しデザイン ポップ*/
+.integlight_heading_stripe h2 {
+  background: repeating-linear-gradient(
+    135deg,
+    #0000ff,
+    #0000ff 5px,
+    #0000ff7a 5px,
+    #0000ff7a 10px
+  );
+}
+
+.integlight_heading_stripe h3::after {
+  background: repeating-linear-gradient(
+    135deg,
+    #fff,
+    #fff 5px,
+    #0000ff7a 5px,
+    #0000ff7a 10px
+  );
+}
+
+.integlight_heading_shadow h2 {
+  border: 1px solid #0000ff;
+}
+
+.integlight_heading_shadow h2:after {
+  background: #b6b9c7;
+}
+
+.integlight_heading_shadow h3 {
+  background: linear-gradient(to top, #b6b9c7 0.55em, transparent 0.55em);
+}
+
+.integlight_heading_highlight h2 {
+  border-bottom: 5px dotted #b6b9c7;
+}
+
+.integlight_heading_highlight h3 {
+  border-left: 8px double #0000ff;
+}
+
+/* 見出しデザイン シンプル*/
+.integlight_heading_arrow h2::before {
+  color: #0000ff;
+}
+
+/* 見出しデザイン シンプル*/
+.integlight_heading_arrow h3::before {
+  color: #b6b9c7;
+}
+
+.integlight_heading_dotted h2 {
+  border-bottom: 4px double #0000ff;
+}
+
+.integlight_heading_dotted h3 {
+  background-image: linear-gradient(
+    to right,
+    #b6b9c7 50%,
+    rgba(255, 255, 255, 0) 0%
+  );
+}

@@ -65,9 +65,12 @@ $frontPage = '';
 if (!is_home() && is_front_page()) {
 	$frontPage = 'integlight_front_page';
 }
+
+
+$heading = Integlight_getThemeMod::getThemeMod('integlight_base_heading_setting');
 ?>
 
-<body <?php body_class(array('integlight_pt', $frontPage)); ?>>
+<body <?php body_class(array('integlight_pt', $frontPage, $heading)); ?>>
 	<?php wp_body_open(); ?>
 	<div id="page" class="site">
 		<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e('Skip to content', 'integlight'); ?></a>

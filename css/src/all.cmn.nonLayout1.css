@@ -141,11 +141,11 @@ h1 {
 }
 
 h2 {
-  font-size: 1.75rem;
+  font-size: 1.8rem;
 }
 
 h3 {
-  font-size: 1.45rem;
+  font-size: 1.5rem;
 }
 
 h4 {
@@ -391,6 +391,15 @@ h1.site-title {
   .custom-logo ~ .site-title,
   .custom-logo ~ .site-description {
     margin-top: 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-top: 1.5em;
   }
 
   /* フッター */

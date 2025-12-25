@@ -365,13 +365,45 @@ msgid "Navy"
 msgstr "ネイビー"
 
 
+msgid "Heading Settings"
+msgstr "見出し設定"
+
+msgid "Heading design setting"
+msgstr "見出しデザイン設定"
+
+msgid "Please select your preferred heading design style.You can change the heading design for the entire site."
+msgstr "好みの見出しデザインを選択してください。サイト全体の見出しデザインを変更できます。"
+
+msgid "Line"
+msgstr "ライン"
+
+msgid "Accent"
+msgstr "アクセント"
+
+msgid "Marker"
+msgstr "マーカー"
+
+msgid "Stripe"
+msgstr "ストライプ"
+
+msgid "Shadow"
+msgstr "シャドウ"
+
+msgid "Highlight"
+msgstr "ハイライト"
+
+msgid "Arrow"
+msgstr "アロー"
+
+msgid "Dotted"
+msgstr "ドット"
+
+msgid "Plain"
+msgstr "プレーン"
 
 
-
-
-
-
-
+msgid "Label"
+msgstr "ラベル"
 
 
 

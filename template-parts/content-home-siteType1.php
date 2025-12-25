@@ -31,7 +31,7 @@
     endif;
     ?>
     <?php if (have_posts()) : ?>
-        <div class="post-grid">
+        <div id="siteType1-post-grid" class="post-grid">
             <?php while (have_posts()) : the_post(); ?>
                 <div class="grid-item">
 
@@ -82,9 +82,12 @@
                 'prev_text' => '<i class="fa-regular fa-square-caret-left"></i> ' . esc_html__('prev', 'integlight'),
                 'next_text' => esc_html__('next', 'integlight') . ' <i class="fa-regular fa-square-caret-right"></i>',
                 'type' => 'plain', // 戻り値の指定 (plain/list)
+                'format'    => '?paged=%#%#siteType1-post-grid', // ここでアンカー付与
             )
         );
         ?>
     <?php else : ?>
         <p><?php esc_html_e('No posts found.', 'integlight'); ?></p>
     <?php endif; ?>
+
+    <?php

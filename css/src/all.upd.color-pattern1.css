@@ -160,3 +160,99 @@ a:focus-visible,
 }
 
 /**************フォントオーサムのホバーした時の色を変えているe***************/
+
+/*********************************************************************/
+/* 見出し */
+/*********************************************************************/
+/* 見出しデザイン エレガント*/
+.integlight_heading_line h2 {
+  border-bottom: 1px solid #555;
+}
+
+.integlight_heading_line h3 {
+  border-bottom: 1px solid #e9e8e8;
+}
+
+/* 左15%だけ色を変える */
+.integlight_heading_line h3::after {
+  background-color: #555;
+}
+
+.integlight_heading_accent h2 {
+  border-left: 3px solid #555;
+}
+
+.integlight_heading_accent h3 {
+  border-left: 1.5px solid #555;
+}
+
+.integlight_heading_marker h2::before {
+  color: #555;
+}
+
+.integlight_heading_marker h3::before {
+  color: #9f9f9f;
+}
+
+/* 見出しデザイン ポップ*/
+.integlight_heading_stripe h2 {
+  background: repeating-linear-gradient(
+    135deg,
+    #555,
+    #555 5px,
+    #5555557a 5px,
+    #5555557a 10px
+  );
+}
+
+.integlight_heading_stripe h3::after {
+  background: repeating-linear-gradient(
+    135deg,
+    #fff,
+    #fff 5px,
+    #5555557a 5px,
+    #5555557a 10px
+  );
+}
+
+.integlight_heading_shadow h2 {
+  border: 1px solid #555;
+}
+
+.integlight_heading_shadow h2:after {
+  background: #bebebe;
+}
+
+.integlight_heading_shadow h3 {
+  background: linear-gradient(to top, #bebebe 0.55em, transparent 0.55em);
+}
+
+.integlight_heading_highlight h2 {
+  border-bottom: 5px dotted #bebebe;
+}
+
+.integlight_heading_highlight h3 {
+  border-left: 8px double #555;
+}
+
+/* 見出しデザイン シンプル*/
+.integlight_heading_arrow h2::before {
+  color: #555;
+}
+
+/* 見出しデザイン シンプル*/
+.integlight_heading_arrow h3::before {
+  color: #bebebe;
+}
+
+.integlight_heading_dotted h2 {
+  border-bottom: 4px double #555;
+}
+
+.integlight_heading_dotted h3 {
+  background-image: linear-gradient(
+    to right,
+    #bebebe 50%,
+    rgba(255, 255, 255, 0) 0%
+  );
+}
