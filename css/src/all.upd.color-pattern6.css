@@ -188,3 +188,111 @@ html:has(body .siteType2) {
     background: #0a043b;
   }
 }
+
+/*********************************************************************/
+/* 見出し */
+/*********************************************************************/
+/* 見出しデザイン エレガント*/
+.integlight_heading_line h2 {
+  border-bottom: 1px solid #f936a8;
+}
+
+.integlight_heading_line h3 {
+  border-bottom: 1px solid #ffd5ed;
+}
+
+/* 左15%だけ色を変える */
+.integlight_heading_line h3::after {
+  background-color: #f936a8;
+}
+
+.integlight_heading_accent h2 {
+  border-left: 5px solid #f936a8;
+}
+
+.integlight_heading_accent h3 {
+  border-left: 2px solid #f936a8;
+}
+
+.integlight_heading_marker h2::before {
+  color: #f936a8;
+}
+
+.integlight_heading_marker h3::before {
+  color: #f7a0d3;
+}
+
+/* 見出しデザイン ポップ*/
+.integlight_heading_stripe h2 {
+  background: repeating-linear-gradient(
+    135deg,
+    #f936a8,
+    #f936a8 5px,
+    #f936a87a 5px,
+    #f936a87a 10px
+  );
+}
+
+.integlight_heading_stripe h3::after {
+  background: repeating-linear-gradient(
+    135deg,
+    #fff,
+    #fff 5px,
+    #f936a87a 5px,
+    #f936a87a 10px
+  );
+}
+
+.integlight_heading_shadow h2 {
+  border: 1px solid #f936a8;
+  padding: 3px 10px;
+}
+
+.integlight_heading_shadow h2:after {
+  background: #ffd5ed;
+}
+
+.integlight_heading_shadow h3 {
+  background: linear-gradient(to top, #ffd5ed 0.55em, transparent 0.55em);
+}
+
+.integlight_heading_label h2 {
+  background: #ffd5ed;
+  padding: 3px 10px;
+}
+
+.integlight_heading_label h3 {
+  border-bottom: 1px solid #f936a8;
+  border-left: 5px solid #ffd5ed;
+  padding: 3px 10px;
+}
+
+.integlight_heading_highlight h2 {
+  border-bottom: 5px dotted #ffd5ed;
+}
+
+.integlight_heading_highlight h3 {
+  border-left: 8px double #f936a8;
+}
+
+/* 見出しデザイン シンプル*/
+.integlight_heading_arrow h2::before {
+  color: #f936a8;
+}
+
+/* 見出しデザイン シンプル*/
+.integlight_heading_arrow h3::before {
+  color: #ffd5ed;
+}
+
+.integlight_heading_dotted h2 {
+  border-bottom: 4px double #f936a8;
+}
+
+.integlight_heading_dotted h3 {
+  background-image: linear-gradient(
+    to right,
+    #ffd5ed 50%,
+    rgba(255, 255, 255, 0) 0%
+  );
+}

@@ -204,11 +204,11 @@ html:has(body .siteType2) {
 }
 
 .integlight_heading_accent h2 {
-  border-left: 3px solid #008554;
+  border-left: 5px solid #008554;
 }
 
 .integlight_heading_accent h3 {
-  border-left: 1.5px solid #008554;
+  border-left: 2px solid #008554;
 }
 
 .integlight_heading_marker h2::before {
@@ -242,6 +242,7 @@ html:has(body .siteType2) {
 
 .integlight_heading_shadow h2 {
   border: 1px solid #008554;
+  padding: 3px 10px;
 }
 
 .integlight_heading_shadow h2:after {
@@ -250,6 +251,17 @@ html:has(body .siteType2) {
 
 .integlight_heading_shadow h3 {
   background: linear-gradient(to top, #d2e0d2 0.55em, transparent 0.55em);
+}
+
+.integlight_heading_label h2 {
+  background: #d2e0d2;
+  padding: 3px 10px;
+}
+
+.integlight_heading_label h3 {
+  border-bottom: 1px solid #008554;
+  border-left: 5px solid #d2e0d2;
+  padding: 3px 10px;
 }
 
 .integlight_heading_highlight h2 {

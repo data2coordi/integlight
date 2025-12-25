@@ -135,9 +135,9 @@ ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
 /************ siteType2ボタン **************/
 /************ siteType2ボタンs **************/
 /* .home button#load-more, .home button#load-more, .home button.load-more-cat, .home button.load-more-cat, .home .integlight_pt button#load-more,.home .integlight_pt button#load-more {
-  color:#fa9301;                 
+  color:#ba85a7;                 
   background:#fff;
-  border:1px solid #fa9301;
+  border:1px solid #ba85a7;
 } */
 
 /**************背景のグラデーションの設定s***************/
@@ -184,4 +184,112 @@ html:has(body .siteType2) {
   .menuToggle-containerForMenu {
     background: #ba85a7;
   }
+}
+
+/*********************************************************************/
+/* 見出し */
+/*********************************************************************/
+/* 見出しデザイン エレガント*/
+.integlight_heading_line h2 {
+  border-bottom: 1px solid #ba85a7;
+}
+
+.integlight_heading_line h3 {
+  border-bottom: 1px solid #cbafc1;
+}
+
+/* 左15%だけ色を変える */
+.integlight_heading_line h3::after {
+  background-color: #ba85a7;
+}
+
+.integlight_heading_accent h2 {
+  border-left: 5px solid #ba85a7;
+}
+
+.integlight_heading_accent h3 {
+  border-left: 2px solid #ba85a7;
+}
+
+.integlight_heading_marker h2::before {
+  color: #ba85a7;
+}
+
+.integlight_heading_marker h3::before {
+  color: #c9a5bd;
+}
+
+/* 見出しデザイン ポップ*/
+.integlight_heading_stripe h2 {
+  background: repeating-linear-gradient(
+    135deg,
+    #ba85a7,
+    #ba85a7 5px,
+    #ba85a77a 5px,
+    #ba85a77a 10px
+  );
+}
+
+.integlight_heading_stripe h3::after {
+  background: repeating-linear-gradient(
+    135deg,
+    #fff,
+    #fff 5px,
+    #ba85a77a 5px,
+    #ba85a77a 10px
+  );
+}
+
+.integlight_heading_shadow h2 {
+  border: 1px solid #ba85a7;
+  padding: 3px 10px;
+}
+
+.integlight_heading_shadow h2:after {
+  background: #cbafc1;
+}
+
+.integlight_heading_shadow h3 {
+  background: linear-gradient(to top, #cbafc1 0.55em, transparent 0.55em);
+}
+
+.integlight_heading_label h2 {
+  background: #cbafc1;
+  padding: 3px 10px;
+}
+
+.integlight_heading_label h3 {
+  border-bottom: 1px solid #ba85a7;
+  border-left: 5px solid #cbafc1;
+  padding: 3px 10px;
+}
+
+.integlight_heading_highlight h2 {
+  border-bottom: 5px dotted #cbafc1;
+}
+
+.integlight_heading_highlight h3 {
+  border-left: 8px double #ba85a7;
+}
+
+/* 見出しデザイン シンプル*/
+.integlight_heading_arrow h2::before {
+  color: #ba85a7;
+}
+
+/* 見出しデザイン シンプル*/
+.integlight_heading_arrow h3::before {
+  color: #cbafc1;
+}
+
+.integlight_heading_dotted h2 {
+  border-bottom: 4px double #ba85a7;
+}
+
+.integlight_heading_dotted h3 {
+  background-image: linear-gradient(
+    to right,
+    #cbafc1 50%,
+    rgba(255, 255, 255, 0) 0%
+  );
 }
