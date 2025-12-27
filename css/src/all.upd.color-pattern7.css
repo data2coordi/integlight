@@ -200,7 +200,7 @@ html:has(body .siteType2) {
 }
 
 .integlight_heading_line h3 {
-  border-bottom: 1px solid #949e8d;
+  border-bottom: 1px solid #e9e8e8;
 }
 
 /* 左15%だけ色を変える */
@@ -251,26 +251,26 @@ html:has(body .siteType2) {
 }
 
 .integlight_heading_shadow h2:after {
-  background: #949e8d;
+  background: #b2b8ad;
 }
 
 .integlight_heading_shadow h3 {
-  background: linear-gradient(to top, #949e8d 0.55em, transparent 0.55em);
+  background: linear-gradient(to top, #a5ada0 0.55em, transparent 0.55em);
 }
 
 .integlight_heading_label h2 {
-  background: #949e8d;
+  background: #a5ada0;
   padding: 3px 10px;
 }
 
 .integlight_heading_label h3 {
   border-bottom: 1px solid #5a7a44;
-  border-left: 5px solid #949e8d;
+  border-left: 5px solid #a5ada0;
   padding: 3px 10px;
 }
 
 .integlight_heading_highlight h2 {
-  border-bottom: 5px dotted #949e8d;
+  border-bottom: 5px dotted #a5ada0;
 }
 
 .integlight_heading_highlight h3 {
@@ -284,7 +284,7 @@ html:has(body .siteType2) {
 
 /* 見出しデザイン シンプル*/
 .integlight_heading_arrow h3::before {
-  color: #949e8d;
+  color: #a5ada0;
 }
 
 .integlight_heading_dotted h2 {
@@ -294,7 +294,7 @@ html:has(body .siteType2) {
 .integlight_heading_dotted h3 {
   background-image: linear-gradient(
     to right,
-    #949e8d 50%,
+    #a5ada0 50%,
     rgba(255, 255, 255, 0) 0%
   );
 }
