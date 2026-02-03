@@ -105,3 +105,63 @@ nav.navigation.pagination {
   /* ページネーション */
   /* ページネーション */
 }
+
+
+
+
+
+/* =========================================
+  Homeだけ：h2/h3の見出し装飾を全て無効化
+  （背景・枠線・下線・左線・疑似要素・マーカー等）
+========================================= */
+/* =========================================
+  Sidebar only: heading decorations OFF
+  - 9種類の列挙なし（prefixでまとめる）
+========================================= */
+
+/* ホーム：メイン（#primary）のh2/h3だけ大きい余白 */
+.home h2,
+.home h3 {
+  margin: 80px 0;
+}
+
+/* ホーム：サイドバー（#secondary）は小さめ */
+.home #secondary h2,
+.home #secondary h3 {
+  margin: 40px 0;
+}
+
+/* =========================================
+  Homeだけ：h2/h3の見出し装飾を全て無効化
+  （背景・枠線・下線・左線・疑似要素・マーカー等）
+========================================= */
+.home h2,
+.home h3 {
+  background: none !important;
+  background-image: none;
+  color: inherit;
+
+  border: 0;
+
+  padding: 0;
+  border-radius: 0;
+
+  box-shadow: none;
+  text-shadow: none;
+}
+
+/* 疑似要素（● / ••• / ▶ / 下線の色変え 等）を消す */
+.home h2::before,
+.home h2::after,
+.home h3::before,
+.home h3::after {
+  content: none;
+  display: none;
+}
+
+/* もしinline-block/box-decoration-breakで崩れてたら戻す */
+.home h3 {
+  display: block;
+  box-decoration-break: initial;
+  -webkit-box-decoration-break: initial;
+}

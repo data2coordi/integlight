@@ -20,9 +20,9 @@ const visualTestCnf = [
     },
   },
   {
-    testid: "pop_img",
+    testid: "simple_img",
     customizer: {
-      siteType: "ポップ",
+      siteType: "シンプル",
       headerType: "静止画像",
     },
   },

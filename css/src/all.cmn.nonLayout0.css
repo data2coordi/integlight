@@ -51,6 +51,9 @@ pre {
   line-height: 1.6;
   max-width: 100%;
   overflow: auto;
+
+  padding: 1.5em;
+  box-sizing: border-box;
 }
 
 small {

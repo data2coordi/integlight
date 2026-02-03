@@ -33,7 +33,7 @@ const visualTestCnf = [
     },
   },
   {
-    testid: "pop_img",
+    testid: "simple_img",
     customizer: {
       siteType: "ポップ",
       headerType: "静止画像",

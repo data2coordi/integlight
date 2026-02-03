@@ -112,6 +112,14 @@ body .siteType1 .category-link {
   background-color: #fff;
 }
 
+.footer-menu a {
+  color: #fff;
+}
+
+.ly_site_footer a {
+  color: #fff;
+}
+
 .site-header {
   background-color: #1e1b2a;
   background-image: linear-gradient(to bottom, #008554 0 8px, #ea5404 8px 11px);
@@ -189,13 +197,13 @@ html:has(body .siteType2) {
 /*********************************************************************/
 /* 見出し */
 /*********************************************************************/
-/* 見出しデザイン エレガント*/
+/* 見出しデザイン エレガント（色だけ残す） */
 .integlight_heading_line h2 {
-  border-bottom: 1px solid #008554;
+  border-bottom-color: #008554;
 }
 
 .integlight_heading_line h3 {
-  border-bottom: 1px solid #e9e8e8;
+  border-bottom-color: #e9e8e8;
 }
 
 /* 左15%だけ色を変える */
@@ -204,11 +212,11 @@ html:has(body .siteType2) {
 }
 
 .integlight_heading_accent h2 {
-  border-left: 5px solid #008554;
+  border-left-color: #008554;
 }
 
 .integlight_heading_accent h3 {
-  border-left: 2px solid #008554;
+  border-left-color: #008554;
 }
 
 .integlight_heading_marker h2::before {
@@ -219,7 +227,7 @@ html:has(body .siteType2) {
   color: #7eaf9d;
 }
 
-/* 見出しデザイン ポップ*/
+/* 見出しデザイン ポップ（色だけ残す） */
 .integlight_heading_stripe h2 {
   background: repeating-linear-gradient(
     135deg,
@@ -241,7 +249,7 @@ html:has(body .siteType2) {
 }
 
 .integlight_heading_shadow h2 {
-  border: 1px solid #008554;
+  border-color: #008554;
   padding: 3px 10px;
 }
 
@@ -259,31 +267,30 @@ html:has(body .siteType2) {
 }
 
 .integlight_heading_label h3 {
-  border-bottom: 1px solid #008554;
-  border-left: 5px solid #d2e0d2;
+  border-bottom-color: #008554;
+  border-left-color: #d2e0d2;
   padding: 3px 10px;
 }
 
 .integlight_heading_highlight h2 {
-  border-bottom: 5px dotted #d2e0d2;
+  border-bottom-color: #d2e0d2;
 }
 
 .integlight_heading_highlight h3 {
-  border-left: 8px double #008554;
+  border-left-color: #008554;
 }
 
-/* 見出しデザイン シンプル*/
+/* 見出しデザイン シンプル（色だけ残す） */
 .integlight_heading_arrow h2::before {
   color: #008554;
 }
 
-/* 見出しデザイン シンプル*/
 .integlight_heading_arrow h3::before {
   color: #d2e0d2;
 }
 
 .integlight_heading_dotted h2 {
-  border-bottom: 4px double #008554;
+  border-bottom-color: #008554;
 }
 
 .integlight_heading_dotted h3 {

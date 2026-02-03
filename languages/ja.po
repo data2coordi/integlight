@@ -616,6 +616,8 @@ msgstr "エレガント"
 msgid "Pop"
 msgstr "ポップ"
 
+msgid "Simple"
+msgstr "シンプル"
 
 msgid "Latest News"
 msgstr "新着情報"

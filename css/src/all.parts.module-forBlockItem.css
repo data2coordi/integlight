@@ -325,11 +325,27 @@ li > ul > .cat-item:last-of-type {
 }
 
 /* 検索バーのフレックス */
-.wp-block-search__inside-wrapper {
+/* 検索バー全体（横並び） */
+.wp-block-search__inside-wrapper{
   display: flex;
-  gap: 1px;
-  height: 75px;
+  align-items: stretch; /* 子を高さ方向に伸ばす */
+  gap: 1px;            /* 好み（1pxだと線みたいになる） */
+  height: 50px;         /* ここが基準の高さ */
 }
+
+/* 入力欄：親の高さに合わせる */
+.wp-block-search__inside-wrapper .wp-block-search__input{
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* ボタン：親の高さに合わせる */
+.wp-block-search__inside-wrapper .wp-block-search__button{
+  height: 100%;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
 
 /************************************************************/
 /* リスト***************************************************/

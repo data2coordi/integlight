@@ -189,13 +189,13 @@ html:has(body .siteType2) {
 /*********************************************************************/
 /* 見出し */
 /*********************************************************************/
-/* 見出しデザイン エレガント*/
+/* 見出しデザイン エレガント（色だけ残す） */
 .integlight_heading_line h2 {
-  border-bottom: 1px solid #ba85a7;
+  border-bottom-color: #ba85a7;
 }
 
 .integlight_heading_line h3 {
-  border-bottom: 1px solid #e9e8e8;
+  border-bottom-color: #e9e8e8;
 }
 
 /* 左15%だけ色を変える */
@@ -204,11 +204,11 @@ html:has(body .siteType2) {
 }
 
 .integlight_heading_accent h2 {
-  border-left: 5px solid #ba85a7;
+  border-left-color: #ba85a7;
 }
 
 .integlight_heading_accent h3 {
-  border-left: 2px solid #ba85a7;
+  border-left-color: #ba85a7;
 }
 
 .integlight_heading_marker h2::before {
@@ -219,7 +219,7 @@ html:has(body .siteType2) {
   color: #c9a5bd;
 }
 
-/* 見出しデザイン ポップ*/
+/* 見出しデザイン ポップ（色だけ残す） */
 .integlight_heading_stripe h2 {
   background: repeating-linear-gradient(
     135deg,
@@ -241,7 +241,7 @@ html:has(body .siteType2) {
 }
 
 .integlight_heading_shadow h2 {
-  border: 1px solid #ba85a7;
+  border-color: #ba85a7;
   padding: 3px 10px;
 }
 
@@ -259,31 +259,30 @@ html:has(body .siteType2) {
 }
 
 .integlight_heading_label h3 {
-  border-bottom: 1px solid #ba85a7;
-  border-left: 5px solid #cbafc1;
+  border-bottom-color: #ba85a7;
+  border-left-color: #cbafc1;
   padding: 3px 10px;
 }
 
 .integlight_heading_highlight h2 {
-  border-bottom: 5px dotted #cbafc1;
+  border-bottom-color: #cbafc1;
 }
 
 .integlight_heading_highlight h3 {
-  border-left: 8px double #ba85a7;
+  border-left-color: #ba85a7;
 }
 
-/* 見出しデザイン シンプル*/
+/* 見出しデザイン シンプル（色だけ残す） */
 .integlight_heading_arrow h2::before {
   color: #ba85a7;
 }
 
-/* 見出しデザイン シンプル*/
 .integlight_heading_arrow h3::before {
   color: #cbafc1;
 }
 
 .integlight_heading_dotted h2 {
-  border-bottom: 4px double #ba85a7;
+  border-bottom-color: #ba85a7;
 }
 
 .integlight_heading_dotted h3 {
