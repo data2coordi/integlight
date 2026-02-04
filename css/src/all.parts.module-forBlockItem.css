@@ -373,6 +373,10 @@ li > ul > .cat-item:last-of-type {
   padding: 0;
 }
 
+.wp-block-media-text {
+  gap: 30px;
+}
+
 /*3.5 テーブル */
 
 /* 画像・要素の左右・中央寄せ */
