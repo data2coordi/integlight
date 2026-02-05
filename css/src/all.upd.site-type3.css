@@ -65,14 +65,13 @@ html:has(#primary.siteType3) .header-image {
 }
 
 body:has(#primary.siteType3) img.topImage {
-  width: 90vw;
-  height: 40vh;
-  border-radius: 30px;
+  width: 90vw !important;
+  height: 40vh !important;
+  border-radius : 30px !important;
 
-  object-fit: cover;        /* ← これが必須 */
-  object-position: center;  /* ← “ど真ん中基準” */
-  display: block;           /* 余白事故防止 */
-  
+  object-fit: cover !important;        /* ← これが必須 */
+  object-position: center !important;  /* ← “ど真ん中基準” */
+  display: block !important;           /* 余白事故防止 */
 }
 
 

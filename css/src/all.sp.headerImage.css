@@ -65,11 +65,11 @@
 /* スマホレイアウト */
 @media (max-width: 768px) {
   .header-image .text-overlay {
-    width: 80vw;
+    width: 85vw;
   }
 
   .header-image .text-overlay1 h2 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 600;
   }
 
