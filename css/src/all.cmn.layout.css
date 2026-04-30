@@ -253,4 +253,9 @@ body .is-layout-flex {
   margin-top: var(--ly-elementTopMargin);
 }
 
+/* キャプションに幅を設定 */
+:root :where(.wp-block-image figcaption){
+  width: 800px;
+  }
+  
 /* alignfull・alignwide は一切使わないため削除 */

@@ -1,39 +1,34 @@
-/* .integlight_pt footer {
-  background: #0c62eb;
-} */
-
-/* タブフォーカスのスタイル */
+/************************************************************/
+/* 1. アクセシビリティ (フォーカス時の色：ピンク) */
+/************************************************************/
+/* キーボード操作などで選択された時の枠線 */
 a:focus,
-.wp-block-button__link:focus {
-  outline: 2px solid #c14f7e;
-}
-
-a:focus:not(:focus-visible),
-.wp-block-button__link:focus:not(:focus-visible) {
-  outline: none; /* マウス操作時だけ非表示 */
-}
-
+.wp-block-button__link:focus,
 a:focus-visible,
-.wp-block-button__link:focus-visible {
-  outline: 2px solid #c14f7e;
-}
-
+.wp-block-button__link:focus-visible,
 .easyLink-info-name a:focus-visible,
 .easyLink-info-btn-amazon:focus-visible,
 .easyLink-info-btn-rakuten:focus-visible {
   outline: 2px solid #c14f7e;
 }
 
-.integlight_pt button {
-  background: #0000ff;
+/* マウス操作時は枠線を消してスッキリ */
+a:focus:not(:focus-visible),
+.wp-block-button__link:focus:not(:focus-visible) {
+  outline: none;
 }
 
-.integlight_pt .pagetop {
+/************************************************************/
+/* 2. 基本要素のメインカラー (ブルーベース) */
+/************************************************************/
+.integlight_pt button,
+.integlight_pt .pagetop,
+.integlight_pt p.head,
+.integlight_pt input[type="button"],
+.integlight_pt input[type="reset"],
+.integlight_pt input[type="submit"] {
   background: #0000ff;
-}
-
-.integlight_pt p.head {
-  background: #0000ff;
+  color: #fff; /* 文字を白にして視認性アップ */
 }
 
 .integlight_pt .entry-footer {
@@ -41,45 +36,33 @@ a:focus-visible,
   color: #222;
 }
 
-.integlight_pt button,
-.integlight_pt input[type="button"],
-.integlight_pt input[type="reset"],
-.integlight_pt input[type="submit"] {
-  background: #0000ff;
-  color: #fff;
-}
-
-/************ページトップ*************/
-/************ページトップ*************/
-/************ページトップ*************/
-/************ページトップ*************/
-/************ページトップs*************/
-
-#page-top:hover {
-  background: #c14f7e;
-  border: #c14f7e;
-  color: #fff;
-}
-
+/************************************************************/
+/* 3. ページトップボタン (ピンクアクセント) */
+/************************************************************/
 #page-top {
   border: 1px solid #c14f7e;
   background-color: #fff;
   color: #c14f7e;
 }
 
+#page-top:hover {
+  background: #c14f7e;
+  color: #fff;
+}
+
+/* 矢印アイコンの色をピンクに固定 */
 #page-top::before {
-  background-image: none !important;
-  background-color: #c14f7e !important; /* 通常時の色 */
+  background-color: #c14f7e !important;
 }
 
 #page-top:hover::before {
-  background-image: none !important;
-  background-color: #fff !important; /* ホバー時は白に */
+  background-color: #fff !important;
 }
-/************ページトップe*************/
-/************ページトップ*************/
-/************ページトップ*************/
 
+/************************************************************/
+/* 4. テキスト・リンク・背景色 */
+/************************************************************/
+/* 投稿情報のリンク色 (深みのあるベリーピンク) */
 .posted-on a,
 .byline a,
 .cat-links a,
@@ -88,222 +71,105 @@ a:focus-visible,
   color: #a1305f;
 }
 
-/* 目次の色を変えている */
-/* .post-toc {
-  background-color: #eaeafe;
-} */
-
-.site-footer {
-  background-color: #1e1d1d;
-}
-
-/* フッターメニューの線の色 */
-.footer-menu li::before {
-  background-color: #fff;
-}
-
-.footer-menu li:last-child::after {
-  background-color: #fff;
-}
-
-.footer-menu a {
-  color: #fff;
-}
-
-.ly_site_footer a {
-  color: #fff;
-}
-
-/***********************siteType1の色s*************************/
-/***********************siteType1の色s*************************/
-/***********************siteType1の色s*************************/
-/* siteType1のカテゴリーの丸の色 */
+/* カテゴリーリンクの背景 (淡いパープルブルー) */
 body .blog .category-link,
 body .siteType1 .category-link {
   background: #dcdcfb;
 }
 
+/************************************************************/
+/* 5. ヘッダー・フッター (Header & Footer) */
+/************************************************************/
+/* ヘッダーの背景とブルー・ピンクの2色ライン */
 .site-header {
   background-color: #1e1d1d;
   background-image: linear-gradient(to bottom, #0000ff 0 8px, #c14f7e 8px 11px);
 }
 
+/* サブメニューの背景色 */
 ul.menu > li.menu-item-has-children > ul.sub-menu,
 ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
   background-color: #1e1d1d;
 }
 
-/**************フォントオーサムのホバーした時の色を変えているs***************/
-/**************フォントオーサムのホバーした時の色を変えているs***************/
-/**************フォントオーサムのホバーした時の色を変えているs***************/
+/* メニューホバー時のアイコン色をピンクに */
 .main-navigation li.menu-item-has-children > a:hover::after {
   background-color: #c14f7e;
 }
-/**************アイコンのホバーした時の色を変えているe***************/
 
-/************ siteType2ボタン **************/
-/************ siteType2ボタン **************/
-/************ siteType2ボタン **************/
-/************ siteType2ボタン **************/
-/************ siteType2ボタンs **************/
-/* .siteType2 button#load-more, .siteType2 button#load-more, .siteType2 button.load-more-cat, .siteType2 button.load-more-cat, .siteType2 .integlight_pt button#load-more,.siteType2 .integlight_pt button#load-more {
-  color:#fa9301;                 
-  background:#fff;
-  border:1px solid #fa9301;
-} */
-
-/**************背景のグラデーションの設定s***************/
-/**************背景のグラデーションの設定s***************/
-/**************背景のグラデーションの設定s***************/
-/**************背景のグラデーションの設定s***************/
-/**************背景のグラデーションの設定s***************/
-html:has(body .siteType2) {
-  background: linear-gradient(to right, #f1f1fc 0%, #f8f8fb 60%, #f8f0f2 100%);
+/* フッターの背景と文字色 */
+.site-footer {
+  background-color: #1e1d1d;
 }
 
-/**************背景のグラデーションの設定e***************/
-/**************背景のグラデーションの設定e***************/
-/**************背景のグラデーションの設定e***************/
-
-.siteType2 #load-more:focus-visible,
-.siteType2 #load-more:hover,
-.siteType2 .load-more-cat:focus-visible,
-.siteType2 .load-more-cat:hover,
-.siteType2 .integlight_pt button#load-more:focus-visible,
-.siteType2 .integlight_pt button#load-more:hover {
-  background: #0000ff;
-  border: 1px solid #0000ff;
+.footer-menu a,
+.ly_site_footer a,
+.footer-menu li::before,
+.footer-menu li:last-child::after {
   color: #fff;
+  background-color: #fff; /* 区切り線用 */
 }
-/************ siteType2ボタンe **************/
-/************ siteType2ボタン **************/
-/************ siteType2ボタン **************/
 
-/************ siteType2カテゴリタグs **************/
-/************ siteType2カテゴリタグs **************/
-/************ siteType2カテゴリタグs **************/
-/************ siteType2カテゴリタグs **************/
-/************ siteType2カテゴリタグs **************/
-
-.siteType2 .post-category p {
-  background: #0000ff;
-}
-/************ siteType2カテゴリタグe **************/
-/************ siteType2カテゴリタグe **************/
-/************ siteType2カテゴリタグe **************/
-
-/* ボタングラデーション */
-/* background:linear-gradient(90deg, #0c62eb 20%, #607aec 40%, #6fb1fc 70%); */
-
+/* モバイルメニュー背景 */
 @media screen and (max-width: 768px) {
   .menuToggle-containerForMenu {
     background: #1e1d1d;
   }
 }
 
-/*********************************************************************/
-/* 見出し */
-/*********************************************************************/
-/* 見出しデザイン エレガント（色だけ残す） */
-.integlight_heading_line h2 {
-  border-bottom-color: #0000ff;
+/************************************************************/
+/* 6. 特殊レイアウト (siteType2) の設定 */
+/************************************************************/
+/* 寒色系の透明感あるグラデーション背景 */
+html:has(body .siteType2) {
+  background: linear-gradient(to right, #f1f1fc 0%, #f8f8fb 60%, #f8f0f2 100%);
 }
 
-.integlight_heading_line h3 {
-  border-bottom-color: #e9e8e8;
+/* ボタンとカテゴリータグのブルー設定 */
+.siteType2 #load-more:focus-visible,
+.siteType2 #load-more:hover,
+.siteType2 .load-more-cat:focus-visible,
+.siteType2 .load-more-cat:hover,
+.siteType2 .integlight_pt button#load-more:focus-visible,
+.siteType2 .integlight_pt button#load-more:hover,
+.siteType2 .post-category p {
+  background: #0000ff;
+  border: 1px solid #0000ff;
+  color: #fff;
 }
 
-/* 左15%だけ色を変える */
-.integlight_heading_line h3::after {
-  background-color: #0000ff;
-}
+/************************************************************/
+/* 7. 各種見出し (Headings) の配色：ブルーベース */
+/************************************************************/
+/* ライン・アクセント・マーカーデザイン */
+.integlight_heading_line h2 { border-bottom-color: #0000ff; }
+.integlight_heading_line h3::after { background-color: #0000ff; }
+.integlight_heading_accent h2,
+.integlight_heading_accent h3 { border-left-color: #0000ff; }
+.integlight_heading_marker h2::before { color: #0000ff; }
+.integlight_heading_marker h3::before { color: #b5b5f7; }
 
-.integlight_heading_accent h2 {
-  border-left-color: #0000ff;
-}
-
-.integlight_heading_accent h3 {
-  border-left-color: #0000ff;
-}
-
-.integlight_heading_marker h2::before {
-  color: #0000ff;
-}
-
-.integlight_heading_marker h3::before {
-  color: #b5b5f7;
-}
-
-/* 見出しデザイン ポップ（色だけ残す） */
+/* ストライプデザイン */
 .integlight_heading_stripe h2 {
-  background: repeating-linear-gradient(
-    135deg,
-    #0000ff,
-    #0000ff 5px,
-    #0000ff7a 5px,
-    #0000ff7a 10px
-  );
+  background: repeating-linear-gradient(135deg, #0000ff, #0000ff 5px, #0000ff7a 5px, #0000ff7a 10px);
 }
-
 .integlight_heading_stripe h3::after {
-  background: repeating-linear-gradient(
-    135deg,
-    #fff,
-    #fff 5px,
-    #0000ff7a 5px,
-    #0000ff7a 10px
-  );
+  background: repeating-linear-gradient(135deg, #fff, #fff 5px, #0000ff7a 5px, #0000ff7a 10px);
 }
 
-.integlight_heading_shadow h2 {
-  border-color: #0000ff;
-  padding: 3px 10px;
-}
-
-.integlight_heading_shadow h2:after {
-  background: #dde2fc;
-}
-
-.integlight_heading_shadow h3 {
-  background: linear-gradient(to top, #dde2fc 0.55em, transparent 0.55em);
-}
-
-.integlight_heading_label h2 {
-  background: #dde2fc;
-  padding: 3px 10px;
-}
-
-.integlight_heading_label h3 {
-  border-bottom-color: #0000ff;
-  border-left-color: #dde2fc;
-  padding: 3px 10px;
-}
-
-.integlight_heading_highlight h2 {
-  border-bottom-color: #dde2fc;
-}
-
-.integlight_heading_highlight h3 {
-  border-left-color: #0000ff;
-}
-
-/* 見出しデザイン シンプル（色だけ残す） */
-.integlight_heading_arrow h2::before {
-  color: #0000ff;
-}
-
-.integlight_heading_arrow h3::before {
-  color: #dde2fc;
-}
-
-.integlight_heading_dotted h2 {
-  border-bottom-color: #0000ff;
-}
-
+/* シャドウ・ラベル・ドットデザイン（淡いブルー：#dde2fc を活用） */
+.integlight_heading_shadow h2 { border-color: #0000ff; }
+.integlight_heading_shadow h2:after,
+.integlight_heading_shadow h3,
+.integlight_heading_label h2,
+.integlight_heading_highlight h2,
+.integlight_heading_arrow h3::before,
 .integlight_heading_dotted h3 {
-  background-image: linear-gradient(
-    to right,
-    #dde2fc 50%,
-    rgba(255, 255, 255, 0) 0%
-  );
+  background-color: #dde2fc;
+  background-image: linear-gradient(to right, #dde2fc 50%, rgba(255, 255, 255, 0) 0%);
 }
+
+.integlight_heading_label h3 { border-bottom-color: #0000ff; border-left-color: #dde2fc; }
+.integlight_heading_highlight h3 { border-left-color: #0000ff; }
+.integlight_heading_arrow h2::before { color: #0000ff; }
+.integlight_heading_dotted h2 { border-bottom-color: #0000ff; }

@@ -7,753 +7,695 @@
 }
     */
 
-.post-thumbnail {
-  display: flex;
-  justify-content: center;
-  /* 水平方向の中央揃え */
-  aspect-ratio: 16 / 9; /* 横長比率に固定（好みで4/3や3/2に変更可） */
-  overflow: hidden; /* はみ出した部分を隠す */
-  width: 100%;
-}
-
-.post-thumbnail img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* 枠いっぱいにカットして表示 */
-  object-position: center;
-  display: block;
-}
-
-/************************************************************/
-/* テキスト***************************************************@@@/
-/************************************************************/
-
-.ly_site_content li {
-  line-height: 2;
-  /* リストは行間を広くして視認性アップ */
-  list-style-position: inside;
-  /* リストのドットをテキストと揃えている */
-  padding-left: 1.5em;
-  text-indent: -1.5em;
-  /* リストのインデント2行目を1行目と揃える */
-}
-
-/************************************************************/
-/* パンくずリスト s */
-/************************************************************/
-
-.create_bread {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  /* 一直線に */
-  align-items: center;
-  /* 垂直方向で中央揃え */
-  gap: 10px;
-  /* 項目間の間隔 */
-  row-gap: 0;
-  list-style: none;
-  /* マーカーを非表示 */
-  font-size: 0.7rem;
-  /* 文字サイズを小さく */
-  padding: 0;
-  /* 不要な余白を削除 */
-  margin: 0;
-  /* 不要な余白を削除 */
-  margin-top: 2em;
-}
-
-.create_bread a {
-  font-size: inherit;
-  /* 親要素のフォントサイズに合わせる */
-  text-decoration: none;
-  /* リンクの下線を消す */
-  color: inherit;
-  /* リンクの色を親要素と一致させる */
-}
-
-.create_bread a:hover {
-  text-decoration: underline;
-  /* ホバー時に下線を表示 */
-  /*color: blue;  ホバー時に色を変える（任意） */
-}
-
-.create_bread a:first-of-type {
-  padding-left: 5px;
-}
-
-/* パンくずアイコン */
-.icon-home,
-.icon-arrow {
-  width: 0.7em;
-  height: 0.7em;
-  margin-left: 5px;
-  vertical-align: -0.1em;
-  /* 少し上げてる */
-}
-
-/*home,パンくず用矢印*/
-.icon-home,
-.icon-arrow {
-  display: inline-block;
-  width: 1em;
-  /* 好きなサイズに調整 */
-  height: 1em;
-  background-color: currentColor;
-  /* アイコンの色を文字色と連動 */
-  mask-repeat: no-repeat;
-  mask-position: center;
-  mask-size: contain;
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  -webkit-mask-size: contain;
-}
-@media screen and (max-width: 768px) {
-  .create_bread {
-    margin-top: 3em;
-  }
-}
-
-/************************************************************/
-/* Comments ***************************************************/
-/************************************************************/
-.comment-content a {
-  word-wrap: break-word;
-}
-
-.comments-area .bypostauthor {
-  display: block;
-  border-left: 4px solid #494949;
-  /* 左側にグレーのラインをつける */
-  background-color: #f9f9f9;
-  /* 背景を薄いグレーに */
-  padding: 15px;
-  /* 余白 */
-}
-
-.comments-area .comment-body {
-  margin-top: 20px;
-}
-
-.comments-area #comment,
-.comments-area #submit {
-  margin-top: 0;
-  /* color: #fff; */
-  /* コメントの文字が白になってた */
-}
-
-.comments-area .form-submit {
-  margin-top: 10px;
-}
-
-/************************************************************/
-/* 検索の時の記事一覧s　次へ前へ  ***************************************************/
-/************************************************************/
-.search .nav-links {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 1rem;
-}
-
-.search .nav-next {
-  text-align: right;
-}
-
-.search a {
-  text-decoration: none;
-}
-
-/* 検索の時の記事一覧e　次へ前へ */
-/* 検索の時の記事一覧　次へ前へ */
-
-/************************************************************/
-/* メタ情報設定***************************************************/
-/************************************************************/
-
-.edit-post-meta-boxes-area #poststuff h2.hndle {
-  font-size: 1.2rem;
-}
-/************************************************************/
-/* 前へ次へナビゲーション***************************************************/
-/************************************************************/
-
-/*****前へ次へ画像s********/
-.nav-previous,
-.nav-next {
-  width: 300px;
-  height: 180px;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-/* aタグの中のテキストには、背景色がつけられないからspanで囲んでいる */
-.nav-previous .nav-label,
-.nav-next .nav-label {
-  color: #000;
-  background: #999;
-  padding: 3px 10px;
-  text-decoration: none;
-  width: 300px;
-  display: inline-block;
-  font-size: 14px;
-}
-
-/* ページネーションリンク全体 */
-/* .post-navigation a.nav-previous,
-.post-navigation a.nav-next {
-  display: block;
-  position: relative;
-  text-decoration: none;
-  color: #fff;
-  margin-bottom: 1em;
-} */
-
-/* 画像ラッパー */
-.nav-image-wrapper {
-  position: relative;
-  overflow: hidden;
-}
-
-/* サムネイル画像 */
-.nav-image-wrapper img {
-  display: block;
-  width: 100%;
-  height: 180px;
-  /* デフォルトPCサイズ */
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-/* ホバーで少し拡大する演出 */
-.post-navigation a:hover .nav-image-wrapper img {
-  transform: scale(1.05);
-}
-
-/* 文字ラベル */
-.nav-label {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  padding: 10px;
-  box-sizing: border-box;
-  align-items: center;
-  justify-content: space-between;
-}
-
-/* アイコンサイズ調整 */
-.nav-label svg {
-  fill: #fff;
-}
-
-/* .nav-previous .nav-label:hover,
-.nav-next .nav-label:hover {
-  color: #999;
-  background: #000;
-} */
-
-.nav-previous:hover,
-.nav-next:hover {
-  opacity: 0.8;
-}
-
-nav.post-navigation {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 3em;
-}
-
-.nav-title {
-}
-
-.nav-previous i,
-.nav-next i {
-}
-
-/*****前へ次へ画像e********/
-
-/* リンクに出てくる打ち消し線を消す */
-.broken_link,
-a.broken_link {
-  text-decoration: none;
-}
-
-/*************************************************************************/
-/* ページトップボタン */
-/*************************************************************************/
-#page-top {
-  position: fixed;
-  bottom: calc(20px + env(safe-area-inset-bottom));
-  right: 20px;
-  width: 50px;
-  height: 50px;
-  background: #fff;
-  border: 1px solid #333;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 9999;
-  transition: opacity 0.3s ease;
-}
-
-#page-top::before {
-  content: "";
-  width: 15px;
-  height: 15px;
-  background: none !important;
-  background-image: none !important;
-  background-color: #111;
-  -webkit-mask: url("/wp-content/themes/integlight/assets/rightarrow.svg")
-    no-repeat center / contain;
-  mask: url("/wp-content/themes/integlight/assets/rightarrow.svg") no-repeat
-    center / contain;
-  transform: rotate(-90deg);
-  display: block;
-}
-
-#page-top:hover::before {
-  color: #fff;
-}
-
-#page-top:hover {
-  background: #333;
-  color: #fff;
-}
-
-/************************************************************/
-/* カテゴリーページネーション ***************************************************/
-/************************************************************/
-
-/* 次へ */
-.category .nav-links {
-  width: 600px;
-  display: block;
-  margin: auto;
-  margin-top: 2rem;
-  text-align: center;
-}
-
-/* 次への数字の囲みをコメントアウト */
-.category .page-numbers {
-  border: 1px solid #555;
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
-  /* 中央揃え */
-  text-align: center;
-  border-radius: 50%;
-  display: inline-block;
-  margin: 0.3em;
-  text-decoration: none;
-}
-
-.category .next.page-numbers,
-.category .prev.page-numbers {
-  display: none;
-}
-
-.category .page-numbers:hover,
-.category .next.page-numbers:hover,
-.category .prev.page-numbers:hover {
-  background: #f5f4f4;
-}
-
-@media screen and (max-width: 768px) {
-  /* ページネーション */
-  /* ページネーション */
-  /* ページネーション */
-  .category .nav-links {
-    width: 90vw;
-  }
-
-  .category .page-numbers {
-    width: 45px;
-    height: 45px;
-    line-height: 45px;
-    margin-left: 0;
-  }
-}
-
-/************************************************************/
-/* カード ***************************************************/
-/************************************************************/
-
-/* PCレイアウト */
-@media (min-width: 769px) {
-  .bl_card_container {
-    grid-template-columns: 1fr 3fr;
-    grid-template-rows: auto;
-  }
-
-  .bl_card_img {
-    grid-row: span 2;
-    /* 画像を2行分占める */
-  }
-}
-
-/* カード全体のデザインs*/
-.bl_card_container {
-  display: grid;
-  gap: 1vw;
-  padding: var(--ly-elementPadding);
-  margin-top: calc(var(--ly-elementTopMargin) / 2);
-  margin-bottom: calc(var(--ly-elementTopMargin) / 2);
-  /* 半分にしている */
-  background: #f2f2f2;
-  color: #444;
-}
-
-.bl_card_container a {
-  color: #444;
-  text-decoration: none;
-}
-
-.bl_card_container a:hover {
-  text-decoration: none;
-}
-
-/* 画像下の隙間をなくす */
-.bl_card_container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  aspect-ratio: 5 / 3;
-  object-position: center; /* ← 中央を基準に表示 */
-  /* 切りたくないなら contain に変更 */
-  display: block; /* ← 隙間防止 */
-}
-
-/* カード全体e*/
-
-/* 画像側 s */
-
-.bl_card_img {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: relative;
-  display: inline-block;
-}
-
-.bl_card_img img:hover {
-  transform: scale(1.1, 1.1);
-  transition: 1s all;
-}
-
-/* category-labelを画像の左上に重ねる */
-.bl_card_img .category-label {
-  position: absolute;
-  background-color: #444;
-  /* 半透明の背景色 */
-  color: white;
-  /* 白い文字 */
-  padding: 0.1rem 0.3rem;
-  /* 文字周りのスペース */
-  font-size: 0.6em;
-}
-
-/* 画像側 e */
-
-/* ヘッダー側 s */
-
-.bl_card_head {
-  display: flex;
-  flex-direction: column;
-}
-
-.bl_card_head .bl_card_ttl {
-  margin-top: 0;
-
-  text-decoration: none;
-}
-
-.bl_card_head .entry-date {
-  font-size: 0.8rem;
-}
-
-/* ヘッダー側 e */
-
-/* テキストbody側 s */
-.bl_card_body {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 0; /* ←伸びるの止める */
-}
-
-.bl_card_body .bl_card_txt {
-  width: fit-content;
-  font-size: 0.8rem;
-  margin-top: 0;
-  /* カードの中のマージンを取っている */
-}
-
-@media screen and (max-width: 768px) {
-  .bl_card_container {
-    gap: 1vw 3vw;
-  }
-
-  /* カードの横のギャップ大きく */
-}
-
-/***********************************************/
-/*先頭のカテゴリ一覧!!!!! s*/
-/***********************************************/
-/* home.cssに存在するため削除候補s*/
-/*
-.blog .category-list {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin: 4rem auto;
-  padding: 0 2rem;
-  max-width: 900px;
-}
-
-.blog .category-item {
-  flex: 1;
-  max-width: 300px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.blog .category-link {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 150px;
-  height: 150px;
-  background-color: #f0f0f0;
-  color: #000;
-  text-align: center;
-  border-radius: 50%;
-  font-weight: bold;
-  font-size: 0.9rem;
-  margin: 0 8px 8px 0;
-  padding: 10px;
-  text-decoration: none;
-  box-shadow:
-    inset 2px 2px 6px rgba(255, 255, 255, 0.6),
-    inset -2px -2px 6px rgba(0, 0, 0, 0.05),
-    0 2px 6px rgba(0, 0, 0, 0.08);
-}
-
-.blog .category-link:hover {
-  opacity: 0.7;
-  transition: all 0.3s ease;
-}
-
-@media screen and (max-width: 768px) {
-  .blog .category-list {
-    padding: 0;
-    justify-content: center;
-    gap: 0.5rem;
-  }
-
-  .blog .category-link {
-    width: 100px;
-    height: 100px;
-    font-size: 0.75rem;
-  }
-}
-*/
-/* home.cssに存在するため削除候補e*/
-
-/*************************************/
-/* entry-header + 投稿情報 +entry-footer s*/
-/*************************************/
-.entry-header,
-.entry-footer {
-  /*文字情報のためremでサイズをフレキシブル対応*/
-  margin-top: 0.7rem;
-  margin-bottom: 0.7rem;
-}
-
-/* 投稿日時用 */
-.posted-on,
-.byline,
-.cat-links,
-.edit-link,
-.tags-links {
-  font-size: 0.7rem;
-  /* 小さめの文字サイズ */
-  color: #666;
-}
-
-.posted-on a,
-.byline a,
-.cat-links a,
-.edit-link a,
-.tags-links a {
-  font-size: 0.7rem;
-  /* 親要素のフォントサイズに合わせる */
-  text-decoration: none;
-  /* リンクの下線を消す */
-  color: blue;
-  /* リンクの色を親要素と一致させる */
-}
-
-.tags-links {
-  margin-left: 2em;
-  /* タグの前に少しスペース */
-}
-
-/************************************************************/
-/* タグ  ***************************************************/
-/************************************************************/
-
-/* tag s */
-/* .wp-block-tag-cloud {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 5px;
-}
-
-.wp-block-tag-cloud .tag-cloud-link {
-  background: #c4c4c4;
-}
-
-section.widget_block {
-  margin-top: 0;
-} */
-
-/* 
-   タグクラウドを“統一デザインのバッジ”に揃える
-   対象：標準ウィジェット(.tagcloud) とブロック(.wp-block-tag-cloud)
-*/
-
-/* 行の並び・余白を統一：横並びで折り返し、均一な間隔 */
-.tagcloud,
-.wp-block-tag-cloud {
-  display: flex;
-  /* 横並び */
-  flex-wrap: wrap;
-  /* はみ出したら次の行へ */
-  gap: 10px 12px;
-  /* 行間/列間の隙間 */
-  margin: 0;
-  /* 余白リセット（テーマ差吸収） */
-  padding: 0;
-}
-
-/* バッジ本体：サイズ固定＆見た目統一 */
-.tagcloud a,
-.wp-block-tag-cloud a {
-  /* ← まず“人気度でサイズが変わる”のを止める */
-  font-size: 0.9rem !important;
-  /* 全部同じ文字サイズに固定 */
-  line-height: 1;
-  /* バッジ内の高さをきっちり */
-
-  /* バッジの外観（丸み・背景・枠） */
-  display: inline-flex;
-  /* 中央揃えしやすい */
-  align-items: center;
-  padding: 8px 12px;
-  /* 内側の余白 */
-  border-radius: 9999px;
-  /* ピル型 */
-  background: #f5f6f7;
-  border: 1px solid #e1e3e6;
-  color: #333;
-  text-decoration: none;
-  /* 下線オフ */
-
-  /* 細かな気持ちよさ */
-  white-space: nowrap;
-  /* 1タグは折り返さない */
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease;
-}
-
-/* ホバー／フォーカス（アクセント色は好みで） */
-.tagcloud a:hover,
-.tagcloud a:focus,
-.wp-block-tag-cloud a:hover,
-.wp-block-tag-cloud a:focus {
-  background: #555;
-  border-color: #555;
-  color: #fff;
-  outline: none;
-}
-
-/************************************************************/
-/* フォントオーサム ***************************************************/
-/*!!!!! 削除候補*/
-/************************************************************/
-
-/* fa s  all.mini.cssのfont awsomeのCSSのカスタマイズ*/
-/*
-.fa-chevron-right:before {
-  content: "\f054";
-}
-
-.fa-solid,
-.fas {
-  font-weight: 900;
-}
-
-.fa-calendar-alt:before,
-.fa-calendar-days:before {
-  content: " ";
-}
-
-.fa-arrow-alt-circle-left:before,
-.fa-circle-left:before,
-.fa-arrow-alt-circle-right:before,
-.fa-circle-right:before {
-  color: #8c8c8c;
-}
-
-.fa-magnifying-glass:before,
-.fa-search:before {
-  border: 1px solid #222;
-  border-left: none;
-}
-
-*/
-/* fa e*/
-
-/* 詩のパディング */
-/*!!!!! 削除候補*/
-/*
-pre.wp-block-verse {
-  padding: 1.5em 1.5em;
-}
-*/
-
-/* スマホレイアウト ***************************************************************************/
-/* スマホレイアウト ***************************************************************************/
-/* スマホレイアウト ***************************************************************************/
-/* スマホレイアウト ***************************************************************************/
-
-@media (max-width: 768px) {
-  /* カードレイアウト */
-  .bl_card_container {
-    padding: 1em;
-    margin-bottom: 1em;
-  }
-
-  .bl_card_body {
-    grid-column: span 2;
-    /* 本文を2列分占める */
-  }
-
-  .bl_card_container img {
-    height: 126px;
-  }
-
-  nav.post-navigation {
-    flex-direction: column;
-    gap: 1em;
-    align-items: center;
-    /* 前の記事次の記事を縦に表示 */
-  }
-}
+    .post-thumbnail {
+      display: flex;
+      justify-content: center;
+      /* 水平方向の中央揃え */
+      aspect-ratio: 16 / 9; /* 横長比率に固定（好みで4/3や3/2に変更可） */
+      overflow: hidden; /* はみ出した部分を隠す */
+      width: 100%;
+    }
+    
+    .post-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* 枠いっぱいにカットして表示 */
+      object-position: center;
+      display: block;
+    }
+    
+    /************************************************************/
+    /* テキスト***************************************************@@@/
+    /************************************************************/
+    
+    .ly_site_content li {
+      line-height: 2;
+      /* リストは行間を広くして視認性アップ */
+      list-style-position: inside;
+      /* リストのドットをテキストと揃えている */
+      padding-left: 1.5em;
+      text-indent: -1.5em;
+      /* リストのインデント2行目を1行目と揃える */
+    }
+    
+    /************************************************************/
+    /* パンくずリスト s */
+    /************************************************************/
+    
+    .create_bread {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      /* 一直線に */
+      align-items: center;
+      /* 垂直方向で中央揃え */
+      gap: 10px;
+      /* 項目間の間隔 */
+      row-gap: 0;
+      list-style: none;
+      /* マーカーを非表示 */
+      font-size: 0.7rem;
+      /* 文字サイズを小さく */
+      padding: 0;
+      /* 不要な余白を削除 */
+      margin: 0;
+      /* 不要な余白を削除 */
+      margin-top: 2em;
+    }
+    
+    .create_bread a {
+      font-size: inherit;
+      /* 親要素のフォントサイズに合わせる */
+      text-decoration: none;
+      /* リンクの下線を消す */
+      color: inherit;
+      /* リンクの色を親要素と一致させる */
+    }
+    
+    .create_bread a:hover {
+      text-decoration: underline;
+      /* ホバー時に下線を表示 */
+      /*color: blue;  ホバー時に色を変える（任意） */
+    }
+    
+    .create_bread a:first-of-type {
+      padding-left: 5px;
+    }
+    
+    /* パンくずアイコン */
+    .icon-home,
+    .icon-arrow {
+      width: 0.7em;
+      height: 0.7em;
+      margin-left: 5px;
+      vertical-align: -0.1em;
+      /* 少し上げてる */
+    }
+    
+    /*home,パンくず用矢印*/
+    .icon-home,
+    .icon-arrow {
+      display: inline-block;
+      width: 1em;
+      /* 好きなサイズに調整 */
+      height: 1em;
+      background-color: currentColor;
+      /* アイコンの色を文字色と連動 */
+      mask-repeat: no-repeat;
+      mask-position: center;
+      mask-size: contain;
+      -webkit-mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+      -webkit-mask-size: contain;
+    }
+    @media screen and (max-width: 768px) {
+      .create_bread {
+        margin-top: 3em;
+      }
+    }
+    
+    /************************************************************/
+    /* Comments ***************************************************/
+    /************************************************************/
+    .comment-content a {
+      word-wrap: break-word;
+    }
+    
+    .comments-area .bypostauthor {
+      display: block;
+      border-left: 4px solid #494949;
+      /* 左側にグレーのラインをつける */
+      background-color: #f9f9f9;
+      /* 背景を薄いグレーに */
+      padding: 15px;
+      /* 余白 */
+    }
+    
+    .comments-area .comment-body {
+      margin-top: 20px;
+    }
+    
+    .comments-area #comment,
+    .comments-area #submit {
+      margin-top: 0;
+      /* color: #fff; */
+      /* コメントの文字が白になってた */
+    }
+    
+    .comments-area .form-submit {
+      margin-top: 10px;
+    }
+    
+    /************************************************************/
+    /* 検索の時の記事一覧s　次へ前へ  ***************************************************/
+    /************************************************************/
+    .search .nav-links {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1rem;
+    }
+    
+    .search .nav-next {
+      text-align: right;
+    }
+    
+    .search a {
+      text-decoration: none;
+    }
+    
+    /* 検索の時の記事一覧e　次へ前へ */
+    /* 検索の時の記事一覧　次へ前へ */
+    
+    /************************************************************/
+    /* メタ情報設定***************************************************/
+    /************************************************************/
+    
+    .edit-post-meta-boxes-area #poststuff h2.hndle {
+      font-size: 1.2rem;
+    }
+    /************************************************************/
+    /* 前へ次へナビゲーション***************************************************/
+    /************************************************************/
+    
+    /*****前へ次へ画像s********/
+    .nav-previous,
+    .nav-next {
+      width: 300px;
+      height: 180px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    
+    /* aタグの中のテキストには、背景色がつけられないからspanで囲んでいる */
+    .nav-previous .nav-label,
+    .nav-next .nav-label {
+      color: #000;
+      background: #999;
+      padding: 3px 10px;
+      text-decoration: none;
+      width: 300px;
+      display: inline-block;
+      font-size: 14px;
+    }
+    
+    /* ページネーションリンク全体 */
+    /* .post-navigation a.nav-previous,
+    .post-navigation a.nav-next {
+      display: block;
+      position: relative;
+      text-decoration: none;
+      color: #fff;
+      margin-bottom: 1em;
+    } */
+    
+    /* 画像ラッパー */
+    .nav-image-wrapper {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* サムネイル画像 */
+    .nav-image-wrapper img {
+      display: block;
+      width: 100%;
+      height: 180px;
+      /* デフォルトPCサイズ */
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    
+    /* ホバーで少し拡大する演出 */
+    .post-navigation a:hover .nav-image-wrapper img {
+      transform: scale(1.05);
+    }
+    
+    /* 文字ラベル */
+    .nav-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      padding: 10px;
+      box-sizing: border-box;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    /* アイコンサイズ調整 */
+    .nav-label svg {
+      fill: #fff;
+    }
+    
+    /* .nav-previous .nav-label:hover,
+    .nav-next .nav-label:hover {
+      color: #999;
+      background: #000;
+    } */
+    
+    .nav-previous:hover,
+    .nav-next:hover {
+      opacity: 0.8;
+    }
+    
+    nav.post-navigation {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 3em;
+    }
+    
+    .nav-title {
+    }
+    
+    .nav-previous i,
+    .nav-next i {
+    }
+    
+    /*****前へ次へ画像e********/
+    
+    /* リンクに出てくる打ち消し線を消す */
+    .broken_link,
+    a.broken_link {
+      text-decoration: none;
+    }
+    
+    /*************************************************************************/
+    /* ページトップボタン */
+    /*************************************************************************/
+    #page-top {
+      position: fixed;
+      bottom: calc(20px + env(safe-area-inset-bottom));
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      background: #fff;
+      border: 1px solid #333;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 9999;
+      transition: opacity 0.3s ease;
+    }
+    
+    #page-top::before {
+      content: "";
+      width: 15px;
+      height: 15px;
+      background: none !important;
+      background-image: none !important;
+      background-color: #111;
+      -webkit-mask: url("/wp-content/themes/integlight/assets/rightarrow.svg")
+        no-repeat center / contain;
+      mask: url("/wp-content/themes/integlight/assets/rightarrow.svg") no-repeat
+        center / contain;
+      transform: rotate(-90deg);
+      display: block;
+    }
+    
+    #page-top:hover::before {
+      color: #fff;
+    }
+    
+    #page-top:hover {
+      background: #333;
+      color: #fff;
+    }
+    
+    /************************************************************/
+    /* カテゴリーページネーション ***************************************************/
+    /************************************************************/
+    
+    /* 次へ */
+    .category .nav-links {
+      width: 600px;
+      display: block;
+      margin: auto;
+      margin-top: 2rem;
+      text-align: center;
+    }
+    
+    /* 次への数字の囲みをコメントアウト */
+    .category .page-numbers {
+      border: 1px solid #555;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      /* 中央揃え */
+      text-align: center;
+      border-radius: 50%;
+      display: inline-block;
+      margin: 0.3em;
+      text-decoration: none;
+    }
+    
+    .category .next.page-numbers,
+    .category .prev.page-numbers {
+      display: none;
+    }
+    
+    .category .page-numbers:hover,
+    .category .next.page-numbers:hover,
+    .category .prev.page-numbers:hover {
+      background: #f5f4f4;
+    }
+    
+    @media screen and (max-width: 768px) {
+      /* ページネーション */
+      /* ページネーション */
+      /* ページネーション */
+      .category .nav-links {
+        width: 90vw;
+      }
+    
+      .category .page-numbers {
+        width: 45px;
+        height: 45px;
+        line-height: 45px;
+        margin-left: 0;
+      }
+    }
+    
+    /************************************************************/
+    /* カード ***************************************************/
+    /************************************************************/
+    
+    /* PCレイアウト */
+    @media (min-width: 769px) {
+      .bl_card_container {
+        grid-template-columns: 1fr 3fr;
+        grid-template-rows: auto;
+      }
+    
+      .bl_card_img {
+        grid-row: span 2;
+        /* 画像を2行分占める */
+      }
+    }
+    
+    /* カード全体のデザインs*/
+    .bl_card_container {
+      display: grid;
+      gap: 1vw;
+      padding: var(--ly-elementPadding);
+      margin-top: calc(var(--ly-elementTopMargin) / 2);
+      margin-bottom: calc(var(--ly-elementTopMargin) / 2);
+      /* 半分にしている */
+      background: #f2f2f2;
+      color: #444;
+    }
+    
+    .bl_card_container a {
+      color: #444;
+      text-decoration: none;
+    }
+    
+    .bl_card_container a:hover {
+      text-decoration: none;
+    }
+    
+    /* 画像下の隙間をなくす */
+    .bl_card_container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      aspect-ratio: 5 / 3;
+      object-position: center; /* ← 中央を基準に表示 */
+      /* 切りたくないなら contain に変更 */
+      display: block; /* ← 隙間防止 */
+    }
+    
+    /* カード全体e*/
+    
+    /* 画像側 s */
+    
+    .bl_card_img {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .bl_card_img img:hover {
+      transform: scale(1.1, 1.1);
+      transition: 1s all;
+    }
+    
+    /* category-labelを画像の左上に重ねる */
+    .bl_card_img .category-label {
+      position: absolute;
+      background-color: #444;
+      /* 半透明の背景色 */
+      color: white;
+      /* 白い文字 */
+      padding: 0.1rem 0.3rem;
+      /* 文字周りのスペース */
+      font-size: 0.6em;
+    }
+    
+    /* 画像側 e */
+    
+    /* ヘッダー側 s */
+    
+    .bl_card_head {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .bl_card_head .bl_card_ttl {
+      margin-top: 0;
+    
+      text-decoration: none;
+    }
+    
+    .bl_card_head .entry-date {
+      font-size: 0.8rem;
+    }
+    
+    /* ヘッダー側 e */
+    
+    /* テキストbody側 s */
+    .bl_card_body {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 0; /* ←伸びるの止める */
+    }
+    
+    .bl_card_body .bl_card_txt {
+      width: fit-content;
+      font-size: 0.8rem;
+      margin-top: 0;
+      /* カードの中のマージンを取っている */
+    }
+    
+    @media screen and (max-width: 768px) {
+      .bl_card_container {
+        gap: 1vw 3vw;
+      }
+    
+      /* カードの横のギャップ大きく */
+    }
+    
+    /***********************************************/
+    /*先頭のカテゴリ一覧!!!!! s*/
+    /***********************************************/
+    /* home.cssに存在するため削除候補s*/
+    /*
+    .blog .category-list {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 4rem auto;
+      padding: 0 2rem;
+      max-width: 900px;
+    }
+    
+    .blog .category-item {
+      flex: 1;
+      max-width: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .blog .category-link {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 150px;
+      height: 150px;
+      background-color: #f0f0f0;
+      color: #000;
+      text-align: center;
+      border-radius: 50%;
+      font-weight: bold;
+      font-size: 0.9rem;
+      margin: 0 8px 8px 0;
+      padding: 10px;
+      text-decoration: none;
+      box-shadow:
+        inset 2px 2px 6px rgba(255, 255, 255, 0.6),
+        inset -2px -2px 6px rgba(0, 0, 0, 0.05),
+        0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+    
+    .blog .category-link:hover {
+      opacity: 0.7;
+      transition: all 0.3s ease;
+    }
+    
+    @media screen and (max-width: 768px) {
+      .blog .category-list {
+        padding: 0;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+    
+      .blog .category-link {
+        width: 100px;
+        height: 100px;
+        font-size: 0.75rem;
+      }
+    }
+    */
+    /* home.cssに存在するため削除候補e*/
+    
+    /*************************************/
+    /* entry-header + 投稿情報 +entry-footer s*/
+    /*************************************/
+    .entry-header,
+    .entry-footer {
+      /*文字情報のためremでサイズをフレキシブル対応*/
+      margin-top: 0.7rem;
+      margin-bottom: 0.7rem;
+    }
+    
+    /* 投稿日時用 */
+    .posted-on,
+    .byline,
+    .cat-links,
+    .edit-link,
+    .tags-links {
+      font-size: 0.7rem;
+      /* 小さめの文字サイズ */
+      color: #666;
+    }
+    
+    .posted-on a,
+    .byline a,
+    .cat-links a,
+    .edit-link a,
+    .tags-links a {
+      font-size: 0.7rem;
+      /* 親要素のフォントサイズに合わせる */
+      text-decoration: none;
+      /* リンクの下線を消す */
+      color: blue;
+      /* リンクの色を親要素と一致させる */
+    }
+    
+    .tags-links {
+      margin-left: 2em;
+      /* タグの前に少しスペース */
+    }
+    
+    
+    /* 行の並び・余白を統一：横並びで折り返し、均一な間隔 */
+    .tagcloud,
+    .wp-block-tag-cloud {
+      display: flex;
+      /* 横並び */
+      flex-wrap: wrap;
+      /* はみ出したら次の行へ */
+      gap: 10px 12px;
+      /* 行間/列間の隙間 */
+      margin: 0;
+      /* 余白リセット（テーマ差吸収） */
+      padding: 0;
+    }
+    
+    /* バッジ本体：サイズ固定＆見た目統一 */
+    .tagcloud a,
+    .wp-block-tag-cloud a {
+      /* ← まず“人気度でサイズが変わる”のを止める */
+      font-size: 0.9rem !important;
+      /* 全部同じ文字サイズに固定 */
+      line-height: 1;
+      /* バッジ内の高さをきっちり */
+    
+      /* バッジの外観（丸み・背景・枠） */
+      display: inline-flex;
+      /* 中央揃えしやすい */
+      align-items: center;
+      padding: 8px 12px;
+      /* 内側の余白 */
+      border-radius: 9999px;
+      /* ピル型 */
+      background: #f5f6f7;
+      border: 1px solid #e1e3e6;
+      color: #333;
+      text-decoration: none;
+      /* 下線オフ */
+    
+      /* 細かな気持ちよさ */
+      white-space: nowrap;
+      /* 1タグは折り返さない */
+      transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+    }
+    
+    /* ホバー／フォーカス（アクセント色は好みで） */
+    .tagcloud a:hover,
+    .tagcloud a:focus,
+    .wp-block-tag-cloud a:hover,
+    .wp-block-tag-cloud a:focus {
+      background: #555;
+      border-color: #555;
+      color: #fff;
+      outline: none;
+    }
+    
+    
+    
+    .fa-magnifying-glass:before,
+    .fa-search:before {
+      border: 1px solid #222;
+      border-left: none;
+    }
+    
+  
+    
+    /* スマホレイアウト ***************************************************************************/
+    /* スマホレイアウト ***************************************************************************/
+    /* スマホレイアウト ***************************************************************************/
+    /* スマホレイアウト ***************************************************************************/
+    
+    @media (max-width: 768px) {
+      /* カードレイアウト */
+      .bl_card_container {
+        padding: 1em;
+        margin-bottom: 1em;
+      }
+    
+      .bl_card_body {
+        grid-column: span 2;
+        /* 本文を2列分占める */
+      }
+    
+      .bl_card_container img {
+        height: 126px;
+      }
+    
+      nav.post-navigation {
+        flex-direction: column;
+        gap: 1em;
+        align-items: center;
+        /* 前の記事次の記事を縦に表示 */
+      }
+    }
+    
