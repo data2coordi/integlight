@@ -7,7 +7,7 @@ clear
 
 
 # git 設定 t2 devブランチを最新化
-initThemeDir=/home/xsaurora/aurora-labo.tech/public_html/t2.aurora-labo.tech/wp-content/themes/integlight
+initThemeDir=/home/xsaurora/aurora-labo.tech/public_html/dev2.aurora-labo.tech/wp-content/themes/integlight
 cd $initThemeDir
 git checkout dev
 git reset --hard origin/dev
