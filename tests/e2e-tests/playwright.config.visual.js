@@ -1,6 +1,6 @@
 import { createVisualConfig } from "./playwright.config.factory.js";
 
-const BASE_URL = "https://wpdev.auroralab-design.com";
+const BASE_URL = "https://dev.aurora-labo.tech";
 
 const visualTestCnf = [
   {

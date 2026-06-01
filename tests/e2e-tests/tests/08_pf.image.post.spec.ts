@@ -8,12 +8,12 @@ type ScenarioConfig = {
 
 const SCENARIOS: ScenarioConfig[] = [
   {
-    url: "https://wpdev.auroralab-design.com/portfolio-all-seasons-improved/",
+    url: "https://dev.aurora-labo.tech/portfolio-all-seasons-improved/",
     priorityCount: 1,
     thumbnailImage: true,
   },
   {
-    url: "https://wpdev.auroralab-design.com/%e7%94%bb%e5%83%8f%e3%83%86%e3%82%b9%e3%83%88/",
+    url: "https://dev.aurora-labo.tech/%e7%94%bb%e5%83%8f%e3%83%86%e3%82%b9%e3%83%88/",
     priorityCount: 3,
     thumbnailImage: false,
   },
@@ -44,7 +44,7 @@ async function hasEasyLinkParent(img: Locator): Promise<boolean> {
 async function verifyImageAttributes(
   page: Page,
   priorityCount: number,
-  thumbnailImage: boolean
+  thumbnailImage: boolean,
 ) {
   const allImages = page.locator(".site-main article img");
   const images: any[] = [];
@@ -73,27 +73,27 @@ async function verifyImageAttributes(
       if (i < priorityCount) {
         if (loading !== "eager") {
           throw new Error(
-            `[${i + 1}枚目] loading expected="eager", actual="${loading}"`
+            `[${i + 1}枚目] loading expected="eager", actual="${loading}"`,
           );
         }
         if (fetchpriority !== "high") {
           throw new Error(
             `[${
               i + 1
-            }枚目] fetchpriority expected="high", actual="${fetchpriority}"`
+            }枚目] fetchpriority expected="high", actual="${fetchpriority}"`,
           );
         }
       } else {
         if (loading !== "lazy") {
           throw new Error(
-            `[${i + 1}枚目] loading expected="lazy", actual="${loading}"`
+            `[${i + 1}枚目] loading expected="lazy", actual="${loading}"`,
           );
         }
         if (fetchpriority !== "low") {
           throw new Error(
             `[${
               i + 1
-            }枚目] fetchpriority expected="low", actual="${fetchpriority}"`
+            }枚目] fetchpriority expected="low", actual="${fetchpriority}"`,
           );
         }
       }
@@ -101,27 +101,27 @@ async function verifyImageAttributes(
       if (i < priorityCount) {
         if (loading !== null) {
           throw new Error(
-            `[${i + 1}枚目] loading expected="null", actual="${loading}"`
+            `[${i + 1}枚目] loading expected="null", actual="${loading}"`,
           );
         }
         if (fetchpriority !== null) {
           throw new Error(
             `[${
               i + 1
-            }枚目] fetchpriority expected="null", actual="${fetchpriority}"`
+            }枚目] fetchpriority expected="null", actual="${fetchpriority}"`,
           );
         }
       } else {
         if (loading !== "lazy") {
           throw new Error(
-            `[${i + 1}枚目] loading expected="lazy", actual="${loading}"`
+            `[${i + 1}枚目] loading expected="lazy", actual="${loading}"`,
           );
         }
         if (fetchpriority !== null) {
           throw new Error(
             `[${
               i + 1
-            }枚目] fetchpriority expected="null", actual="${fetchpriority}"`
+            }枚目] fetchpriority expected="null", actual="${fetchpriority}"`,
           );
         }
       }
@@ -135,7 +135,7 @@ async function runTestForDevice(page: Page, scenario: ScenarioConfig) {
   await verifyImageAttributes(
     page,
     scenario.priorityCount,
-    scenario.thumbnailImage
+    scenario.thumbnailImage,
   );
 }
 
@@ -145,7 +145,7 @@ for (const [deviceLabel, deviceConfig] of Object.entries(DEVICES)) {
     for (const scenario of SCENARIOS) {
       test(`${scenario.url} 画像属性チェック`, async ({ browser }) => {
         console.log(
-          `[08_pf.image.post.spec.ts] ===== START: ${deviceLabel}環境 - ${scenario.url} 画像属性チェック =====`
+          `[08_pf.image.post.spec.ts] ===== START: ${deviceLabel}環境 - ${scenario.url} 画像属性チェック =====`,
         );
         const context = await browser.newContext({
           viewport: deviceConfig.viewport,

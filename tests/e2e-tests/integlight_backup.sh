@@ -4,7 +4,7 @@ set -euo pipefail
 # バックアップ格納ディレクトリ
 BACKUP_DIR=./e2e_backups
 # WordPressのuploadsディレクトリのパス
-UPLOADS_SRC=/home/xsaurora/auroralab-design.com/public_html/wpdev.auroralab-design.com/wp-content/uploads
+UPLOADS_SRC=/home/xsaurora/aurora-labo.tech/public_html/dev.aurora-labo.tech/wp-content/uploads
 
 # MySQL 接続情報
 set -a

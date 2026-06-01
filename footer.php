@@ -58,7 +58,7 @@
 					/* translators: 1: Theme name, 2: Theme author. */
 					__('Theme: %1$s by %2$s.', 'integlight'),
 					esc_html_x('Integlight', 'Theme name', 'integlight'),
-					'<a href="' . esc_url("https://auroralab-design.com/") . '">' . esc_html__('Yurika Toshida at Aurora Lab', 'integlight') . '</a>'
+					'<a href="' . esc_url("https://aurora-labo.tech/") . '">' . esc_html__('Yurika Toshida at Aurora Lab', 'integlight') . '</a>'
 				)
 			);
 			?>

@@ -47,7 +47,7 @@ function integlight_render_welcome_page()
     echo '    <h1>' . esc_html__('Welcome to Integlight', 'integlight') . '</h1>' . "\n";
     echo '    <p>' . esc_html__('For information on how to use and configure themes, please refer to the following manual.', 'integlight') . '</p>' . "\n";
     echo '    <p>' . "\n";
-    echo '        <a href="https://integlight.auroralab-design.com/category/how-to-use-integlight/" target="_blank" class="button button-primary">' . "\n";
+    echo '        <a href="https://integlight.aurora-labo.tech/category/how-to-use-integlight/" target="_blank" class="button button-primary">' . "\n";
     echo '            ' . esc_html__('See official manual', 'integlight') . "\n";
     echo '        </a>' . "\n";
     echo '    </p>' . "\n";
@@ -69,7 +69,7 @@ function integlight_add_menu_screen_manual_notice()
         echo '        ' . esc_html__('For detailed instructions on how to set up your menu and recommended configurations, please see the official manual below.', 'integlight') . "\n";
         echo '    </p>' . "\n";
         echo '    <p>' . "\n";
-        echo '        <a href="https://integlight.auroralab-design.com/category/how-to-use-integlight/menu-settings/" target="_blank" class="button button-primary">' . "\n";
+        echo '        <a href="https://integlight.aurora-labo.tech/category/how-to-use-integlight/menu-settings/" target="_blank" class="button button-primary">' . "\n";
         echo '            ' . esc_html__('Open Manual', 'integlight') . "\n";
         echo '        </a>' . "\n";
         echo '    </p>' . "\n";
@@ -108,7 +108,7 @@ function integlight_add_widgets_screen_manual_notice()
         echo '        ' . esc_html__('For detailed instructions on how to add and configure widgets for the Integlight theme, please see the official manual below.', 'integlight') . "\n";
         echo '    </p>' . "\n";
         echo '    <p>' . "\n";
-        echo '        <a href="https://integlight.auroralab-design.com/widget-setup/" target="_blank" class="button button-primary">' . "\n";
+        echo '        <a href="https://integlight.aurora-labo.tech/widget-setup/" target="_blank" class="button button-primary">' . "\n";
         echo '            ' . esc_html__('Open Manual', 'integlight') . "\n";
         echo '        </a>' . "\n";
         echo '    </p>' . "\n";

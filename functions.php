@@ -129,7 +129,7 @@ add_action('after_setup_theme', 'integlight_content_width', 0);
 function integlight_widgets_init()
 {
 
-	$manual_url = esc_url('https://integlight.auroralab-design.com/sidebar-widget-setup/');
+	$manual_url = esc_url('https://integlight.aurora-labo.tech/sidebar-widget-setup/');
 	$manual_label = esc_html__('setup manual', 'integlight');
 
 	/**
