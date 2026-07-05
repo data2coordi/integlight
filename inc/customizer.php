@@ -92,7 +92,7 @@ class integlight_customizer_themeColor extends Integlight_customizer_choiceCtlBa
 		// Setting
 		$wp_customize->add_setting('integlight_base_color_setting', array(
 			'type'              => 'theme_mod',
-			'default'           => Integlight_Defaults::get_all()['integlight_base_color_setting'] ?? 'pattern8',
+			'default'           => Integlight_Defaults::get_all()['integlight_base_color_setting'] ?? 'pattern1',
 			'sanitize_callback' => ['Integlight_customizer_choiceCtlBase', 'sanitize_choices'],
 		));
 
