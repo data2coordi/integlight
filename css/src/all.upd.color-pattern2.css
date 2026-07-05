@@ -103,11 +103,13 @@ ul.menu li ul.sub-menu li.menu-item-has-children > ul.sub-menu {
 }
 
 .footer-menu a,
-.ly_site_footer a,
-.footer-menu li::before,
-.footer-menu li:last-child::after {
+.ly_site_footer a {
   color: #fff;
-  background-color: #fff; /* 区切り線用 */
+  
+ }
+
+ .footer-menu li:before, .footer-menu li:last-child:after {
+  background-color: #fff;
 }
 
 /* モバイルメニュー背景 */
