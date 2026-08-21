@@ -127,38 +127,36 @@ class MenuController {
 // =============================
 class MobileMenuController {
   constructor() {
-    // 提供されたHTMLのIDに合わせて設定
     this.toggleButton = document.getElementById("menuToggle-button");
     this.checkbox = document.getElementById("menuToggle-checkbox");
     this.container = document.getElementById("primary-menu-container");
-    this.breakpoint = 768; // スマホ表示の境界線
+    this.breakpoint = 768;
   }
 
   init() {
-    // 要素がなければ終了
     if (!this.toggleButton || !this.checkbox || !this.container) return;
 
-    // 初期化：アクセシビリティ属性
+    // 初期状態の同期
     this.updateAttributes(this.checkbox.checked);
 
-    // チェックボックスの変化を監視（CSSで開閉している場合もJSの状態を同期）
+    // チェックボックスの状態が変わったら、属性（aria-expandedなど）を更新するだけにする
     this.checkbox.addEventListener("change", () => {
       this.updateAttributes(this.checkbox.checked);
     });
 
-    // ボタンクリック時の処理
-    // label要素ではないbuttonタグのため、明示的にcheckboxを操作する必要がある場合に対応
-    this.toggleButton.addEventListener("click", () => {
-      // buttonの中にcheckboxが入っていない構造なので、連動させる
+    // ボタンがクリックされたときの処理
+    this.toggleButton.addEventListener("click", (e) => {
+      // もしクリックされたのがチェックボックス自体なら、何もしない（ブラウザに任せる）
+      if (e.target === this.checkbox) return;
+
+      // チェックボックスを手動で反転させて、changeイベントを横から起こす
       this.checkbox.checked = !this.checkbox.checked;
-      // changeイベントを発火させて同期
       this.checkbox.dispatchEvent(new Event("change"));
     });
   }
 
   updateAttributes(isOpen) {
     this.toggleButton.setAttribute("aria-expanded", String(isOpen));
-    // メニューが開いているときはコンテナをスクリーンリーダーに隠さない
     this.container.setAttribute("aria-hidden", String(!isOpen));
   }
 }
