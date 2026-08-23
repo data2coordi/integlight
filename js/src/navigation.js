@@ -222,21 +222,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const barColor = computedStyle.getPropertyValue('--reading-bar-color').trim() || '#1a1a1a';
 
   // 4. レイアウト・構造・カラーのすべてのスタイルをJSから注入
+  // スタイル注入部分の記述を以下のように微調整
   const style = document.createElement('style');
   style.textContent = `
-    .reading-progress-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 4px;
-      background-color: ${barColor};
-      width: 0%;
-      z-index: 9999;
-      transition: width 0.1s ease-out;
-      pointer-events: none;
-    }
-  `;
-  document.head.appendChild(style);
+  .reading-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 5px; /* スマホで見づらければ 5px や 6px にしてもOK */
+    background-color: var(--reading-bar-color, #1d4b69);
+    width: 0%;
+    z-index: 99999; /* 他の固定ヘッダーより前面に出すために数値を高く設定 */
+    transition: width 0.1s ease-out;
+    pointer-events: none;
+  }
+`;
+document.head.appendChild(style);
 
   // 5. スクロール処理
   let ticking = false;
