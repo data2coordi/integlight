@@ -27,7 +27,7 @@ a:focus:not(:focus-visible),
 .integlight_pt input[type="button"],
 .integlight_pt input[type="reset"],
 .integlight_pt input[type="submit"] {
-  background: #0000ff;
+  background: #3813f4;
   color: #fff; /* 文字を白にして視認性アップ */
 }
 
@@ -83,7 +83,7 @@ body .siteType1 .category-link {
 /* ヘッダーの背景とブルー・ピンクの2色ライン */
 .site-header {
   background-color: #1e1d1d;
-  background-image: linear-gradient(to bottom, #0000ff 0 8px, #c14f7e 8px 11px);
+  background-image: linear-gradient(to bottom, #3813f4 0 8px, #c14f7e 8px 11px);
 }
 
 /* サブメニューの背景色 */
@@ -135,8 +135,8 @@ html:has(body .siteType2) {
 .siteType2 .integlight_pt button#load-more:focus-visible,
 .siteType2 .integlight_pt button#load-more:hover,
 .siteType2 .post-category p {
-  background: #0000ff;
-  border: 1px solid #0000ff;
+  background: #3813f4;
+  border: 1px solid #3813f4;
   color: #fff;
 }
 
@@ -144,23 +144,23 @@ html:has(body .siteType2) {
 /* 7. 各種見出し (Headings) の配色：ブルーベース */
 /************************************************************/
 /* ライン・アクセント・マーカーデザイン */
-.integlight_heading_line h2 { border-bottom-color: #0000ff; }
-.integlight_heading_line h3::after { background-color: #0000ff; }
+.integlight_heading_line h2 { border-bottom-color: #3813f4; }
+.integlight_heading_line h3::after { background-color: #3813f4; }
 .integlight_heading_accent h2,
-.integlight_heading_accent h3 { border-left-color: #0000ff; }
-.integlight_heading_marker h2::before { color: #0000ff; }
+.integlight_heading_accent h3 { border-left-color: #3813f4; }
+.integlight_heading_marker h2::before { color: #3813f4; }
 .integlight_heading_marker h3::before { color: #b5b5f7; }
 
 /* ストライプデザイン */
 .integlight_heading_stripe h2 {
-  background: repeating-linear-gradient(135deg, #0000ff, #0000ff 5px, #0000ff7a 5px, #0000ff7a 10px);
+  background: repeating-linear-gradient(135deg, #3813f4, #3813f4 5px, #3813f47a 5px, #3813f47a 10px);
 }
 .integlight_heading_stripe h3::after {
-  background: repeating-linear-gradient(135deg, #fff, #fff 5px, #0000ff7a 5px, #0000ff7a 10px);
+  background: repeating-linear-gradient(135deg, #fff, #fff 5px, #3813f47a 5px, #3813f47a 10px);
 }
 
 /* シャドウ・ラベル・ドットデザイン（淡いブルー：#dde2fc を活用） */
-.integlight_heading_shadow h2 { border-color: #0000ff; }
+.integlight_heading_shadow h2 { border-color: #3813f4; }
 .integlight_heading_shadow h2:after,
 .integlight_heading_shadow h3,
 .integlight_heading_label h2,
@@ -171,7 +171,16 @@ html:has(body .siteType2) {
   background-image: linear-gradient(to right, #dde2fc 50%, rgba(255, 255, 255, 0) 0%);
 }
 
-.integlight_heading_label h3 { border-bottom-color: #0000ff; border-left-color: #dde2fc; }
-.integlight_heading_highlight h3 { border-left-color: #0000ff; }
-.integlight_heading_arrow h2::before { color: #0000ff; }
-.integlight_heading_dotted h2 { border-bottom-color: #0000ff; }
+.integlight_heading_label h3 { border-bottom-color: #3813f4; border-left-color: #dde2fc; }
+.integlight_heading_highlight h3 { border-left-color: #3813f4; }
+.integlight_heading_arrow h2::before { color: #3813f4; }
+.integlight_heading_dotted h2 { border-bottom-color: #3813f4; }
+
+
+/**************プログレスバーs***************/
+/**************プログレスバーs***************/
+/**************プログレスバーs***************/
+/* 例: red.css */
+:root {
+  --reading-bar-color: #3813f4; /* そのテーマの色をセットするだけ */
+ }

@@ -195,3 +195,67 @@ export { MenuController, MobileMenuController };
 </ul>
 
 */
+
+
+
+
+//プログレスバーの追加
+//プログレスバーの追加
+//プログレスバーの追加
+
+document.addEventListener('DOMContentLoaded', () => {
+  // 1. 投稿ページ限定チェック
+  if (!document.body.classList.contains('single') && !document.body.classList.contains('single-post')) {
+    return;
+  }
+
+  // 2. バー要素の用意
+  let progressBar = document.querySelector('.reading-progress-bar');
+  if (!progressBar) {
+    progressBar = document.createElement('div');
+    progressBar.className = 'reading-progress-bar';
+    document.body.prepend(progressBar);
+  }
+
+  // 3. CSSで定義された色を取得（未定義の場合はデフォルトの黒）
+  const computedStyle = getComputedStyle(document.documentElement);
+  const barColor = computedStyle.getPropertyValue('--reading-bar-color').trim() || '#1a1a1a';
+
+  // 4. レイアウト・構造・カラーのすべてのスタイルをJSから注入
+  const style = document.createElement('style');
+  style.textContent = `
+    .reading-progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background-color: ${barColor};
+      width: 0%;
+      z-index: 9999;
+      transition: width 0.1s ease-out;
+      pointer-events: none;
+    }
+  `;
+  document.head.appendChild(style);
+
+  // 5. スクロール処理
+  let ticking = false;
+  const updateProgress = () => {
+    const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (totalHeight > 0) {
+      const currentScroll = window.scrollY || document.documentElement.scrollTop;
+      const progress = Math.min(100, Math.max(0, (currentScroll / totalHeight) * 100));
+      progressBar.style.width = `${progress}%`;
+    }
+    ticking = false;
+  };
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateProgress);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  updateProgress();
+});
