@@ -130,7 +130,6 @@ class MobileMenuController {
     this.toggleButton = document.getElementById("menuToggle-button");
     this.checkbox = document.getElementById("menuToggle-checkbox");
     this.container = document.getElementById("primary-menu-container");
-    this.breakpoint = 768;
   }
 
   init() {
@@ -139,18 +138,17 @@ class MobileMenuController {
     // 初期状態の同期
     this.updateAttributes(this.checkbox.checked);
 
-    // チェックボックスの状態が変わったら、属性（aria-expandedなど）を更新するだけにする
+    // チェックボックスの状態が変わったら（CSSでの開閉に連動して）ARIA属性だけを更新する
     this.checkbox.addEventListener("change", () => {
       this.updateAttributes(this.checkbox.checked);
     });
 
-    // ボタンがクリックされたときの処理
+    // ボタンが押されたらチェックボックスのON/OFFを切り替える
     this.toggleButton.addEventListener("click", (e) => {
-      // もしクリックされたのがチェックボックス自体なら、何もしない（ブラウザに任せる）
-      if (e.target === this.checkbox) return;
-
-      // チェックボックスを手動で反転させて、changeイベントを横から起こす
+      e.preventDefault(); // 不要なデフォルト動作を防止
       this.checkbox.checked = !this.checkbox.checked;
+      
+      // 状態変更のイベントを飛ばして aria 属性を更新させる
       this.checkbox.dispatchEvent(new Event("change"));
     });
   }
